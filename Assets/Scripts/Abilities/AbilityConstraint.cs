@@ -237,3 +237,26 @@ public class RangeConstraint : AbilityConstraint {
 
 }
 
+public class DashingConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.Dashing;
+
+
+
+
+    public DashingConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+     
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        if(target.Movement == null) 
+            return false;
+
+        bool result = target.Movement.IsDashing;
+
+        return inverse == false ? result : !result;
+    }
+
+}
+

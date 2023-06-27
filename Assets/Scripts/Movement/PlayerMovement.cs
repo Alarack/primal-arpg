@@ -5,9 +5,15 @@ using UnityEngine;
 public class PlayerMovement : EntityMovement
 {
 
+    private TrailRenderer dashTrail;
 
     private Vector2 direction;
 
+
+    protected override void Awake() {
+        base.Awake();
+        dashTrail = GetComponentInChildren<TrailRenderer>();
+    }
 
     private void Update()
     {
@@ -39,6 +45,8 @@ public class PlayerMovement : EntityMovement
             return;
 
         CanMove = false;
+        IsDashing = true;
+        dashTrail.emitting = true;
         Vector2 dashForce = MyBody.velocity.normalized * Owner.Stats[StatName.DashSpeed];
         MyBody.AddForce(dashForce, ForceMode2D.Impulse);
 
@@ -50,6 +58,8 @@ public class PlayerMovement : EntityMovement
         yield return waiter;
         MyBody.velocity = Vector2.zero;
         CanMove = true;
+        IsDashing = false;
+        dashTrail.emitting = false;
     }
 
     private void RotateTowardMouse()

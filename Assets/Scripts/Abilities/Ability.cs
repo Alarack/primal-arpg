@@ -7,6 +7,7 @@ using TriggerInstance = AbilityTrigger.TriggerInstance;
 
 public class Ability {
 
+    public List<AbilityTag> Tags { get; protected set; } = new List<AbilityTag>();
     public Entity Source { get; protected set; }
     public AbilityData Data { get; protected set; }
     public bool IsActive { get; protected set; }
@@ -36,7 +37,7 @@ public class Ability {
     public Ability(AbilityData data, Entity source) {
         this.Data = data;
         this.Source = source;
-
+        this.Tags = new List<AbilityTag>(data.tags);
         //SetupActivationTriggers();
         //SetupEndTriggers();
         //SetupTriggerCounters();
@@ -198,7 +199,7 @@ public class Ability {
             return;
 
         recoveryStats.AdjustStatRangeCurrentValue(StatName.AbilityCharge, chargesToRecover, StatModType.Flat, this);
-        Debug.Log(Data.abilityName + " recovered a charge");
+        //Debug.Log(Data.abilityName + " recovered a charge");
     }
 
     public void SpendCharge(int chargesToSpend = 1) {
@@ -206,7 +207,7 @@ public class Ability {
             return;
 
         recoveryStats.AdjustStatRangeCurrentValue(StatName.AbilityCharge, -chargesToSpend, StatModType.Flat, this);
-        Debug.Log(Data.abilityName + " spent a charge");
+        //Debug.Log(Data.abilityName + " spent a charge");
     }
 
     public void AddMaxCharge(StatModifier mod) {

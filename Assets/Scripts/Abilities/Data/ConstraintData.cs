@@ -23,7 +23,8 @@ public enum ConstraintType {
     IsInState,
     StateEntered,
     StatedExited,
-    HasTarget
+    HasTarget,
+    Dashing
 }
 
 public enum GainedOrLost {

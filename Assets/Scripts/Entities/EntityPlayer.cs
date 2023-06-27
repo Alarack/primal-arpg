@@ -6,9 +6,8 @@ using UnityEngine;
 public class EntityPlayer : Entity
 {
 
-    public EffectDefinition fireballTest;
-    public AbilityDefinition fireballAbilityTest;
-
+    //public EffectDefinition fireballTest;
+    public AbilityDefinition debugAbilityTest;
 
     private List<Effect> testEffects = new List<Effect>();
     private List<Ability> testAbilities = new List<Ability>();
@@ -20,7 +19,7 @@ public class EntityPlayer : Entity
         //Effect fireball = AbilityFactory.CreateEffect(fireballTest.effectData, this);
         //testEffects.Add(fireball);
 
-        Ability fireballAbility = AbilityFactory.CreateAbility(fireballAbilityTest.AbilityData, this);
+        Ability fireballAbility = AbilityFactory.CreateAbility(debugAbilityTest.AbilityData, this);
         fireballAbility.Equip();
         testAbilities.Add(fireballAbility);
     }

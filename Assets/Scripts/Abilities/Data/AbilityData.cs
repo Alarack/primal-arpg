@@ -8,7 +8,8 @@ public enum AbilityTag {
     None,
     Fire,
     Poison,
-    Healing
+    Healing,
+    Melee
 }
 
 

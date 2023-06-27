@@ -48,6 +48,7 @@ public static class AbilityFactory {
             ConstraintType.PrimaryType => new PrimaryTypeConstraint(data, source, parentAbility),
             ConstraintType.IsInState => new IsInStateConstraint(data, source, parentAbility),
             ConstraintType.HasTarget => new HasTargetConstraint(data, source, parentAbility),
+            ConstraintType.Dashing => new DashingConstraint(data, source, parentAbility),
             _ => null,
         };
 

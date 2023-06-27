@@ -37,9 +37,12 @@ public class EffectZone : Entity {
 
             if(effectDurationModifier != 0) {
                 Stats.AddModifier(StatName.EffectLifetime, effectDurationModifier, StatModType.PercentAdd, parentEffect.Source);
-
-                Debug.Log("Modifying a persistant effect's lifetime: " + effectDurationModifier + " :: " + Stats[StatName.EffectLifetime]);
             }
+        }
+
+        if(info.parentEffectToOrigin == true) {
+            transform.SetParent(parentEffect.Source.transform, true);
+            transform.localPosition = Vector3.zero;
         }
 
         ConfigureCollision();
@@ -110,8 +113,6 @@ public class EffectZone : Entity {
     protected virtual IEnumerator CleanupAfterLifetime() {
         WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.EffectLifetime]);
 
-        Debug.Log("Cleaning up: " + gameObject.name + " after " + Stats[StatName.EffectLifetime] + " seconds");
-
         yield return waiter;
         CleanUp();
     }
@@ -142,7 +143,18 @@ public class EffectZone : Entity {
 
 
     protected virtual void OnTriggerEnter2D(Collider2D other) {
+        Entity otherEntity = other.GetComponent<Entity>();
+        if (otherEntity == null) {
+            //Debug.LogWarning("An effect Zone: " + gameObject.name + " is trying to apply an effect to a non-entity: " + other.gameObject.name);
+            return;
+        }
 
+
+        if (zoneInfo.applyOncePerTarget == true && IsTargetAlreadyAffected(otherEntity) == true) {
+            return;
+        }
+
+        Apply(otherEntity);
 
     }
 
@@ -159,18 +171,7 @@ public class EffectZone : Entity {
 
     protected virtual void OnTriggerStay2D(Collider2D other) {
 
-        Entity otherEntity = other.GetComponent<Entity>();
-        if (otherEntity == null) {
-            //Debug.LogWarning("An effect Zone: " + gameObject.name + " is trying to apply an effect to a non-entity: " + other.gameObject.name);
-            return;
-        }
-
-
-        if(zoneInfo.applyOncePerTarget == true && IsTargetAlreadyAffected(otherEntity) == true) {
-            return;
-        }
-
-        Apply(otherEntity);
+      
 
     }
 

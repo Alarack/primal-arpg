@@ -28,7 +28,8 @@ public enum StatName
     AbilityCharge,
     CooldownReduction,
     GlobalDamageModifier,
-    GlobalEffectDurationModifier
+    GlobalEffectDurationModifier,
+    MeleeDamageModifier
 }
 
 

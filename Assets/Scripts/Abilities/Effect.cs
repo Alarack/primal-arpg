@@ -335,9 +335,9 @@ public class StatAdjustmentEffect : Effect {
                 TrackStatAdjustment(target, activeMod);
             }
 
-            
 
-            float globalDamageMultiplier =  (1 + Source.Stats[StatName.GlobalDamageModifier]);
+
+            float globalDamageMultiplier = GetDamageModifier(activeMod);
 
 
             float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, Data.modData[i].targetStat, Data.modData[i].variantTarget, globalDamageMultiplier);
@@ -350,6 +350,41 @@ public class StatAdjustmentEffect : Effect {
 
 
         return true;
+    }
+
+    private float GetDamageModifier(StatModifier mod) {
+
+        if (mod.TargetStat != StatName.Health)
+            return 1f;
+
+        if(mod.ModType != StatModType.Flat)
+            return 1f;
+
+        if(mod.Value > 0f) //Do helaing mods here
+            return 1f;
+
+        float globalDamageMultiplier = 1 + Source.Stats[StatName.GlobalDamageModifier];
+        
+
+        if(ParentAbility != null) {
+            foreach(AbilityTag tag in ParentAbility.Tags) {
+                float value = tag switch {
+                    AbilityTag.None => 0f,
+                    AbilityTag.Fire => throw new System.NotImplementedException(),
+                    AbilityTag.Poison => throw new System.NotImplementedException(),
+                    AbilityTag.Healing => 0f,
+                    AbilityTag.Melee => Source.Stats[StatName.MeleeDamageModifier],
+                    _ => 0f,
+                };
+
+                globalDamageMultiplier += value;
+            }
+ 
+        }
+
+
+        return globalDamageMultiplier;
+
     }
 
     private void TrackStatAdjustment(Entity target, StatModifier mod) {

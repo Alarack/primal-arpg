@@ -26,8 +26,9 @@ MonoBehaviour:
     spawnLocation: 0
     effectZoneInfo:
       removeEffectOnExit: 0
-      parentEffectToOrigin: 0
+      parentEffectToOrigin: 1
       applyOncePerTarget: 1
+      applyOnInterval: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 5591243758346380215, guid: ca9c94ff75e9802488778534d6dabe07, type: 3}
@@ -35,7 +36,7 @@ MonoBehaviour:
       effectZonePrefab: {fileID: 0}
     modData:
     - targetStat: 0
-      value: -1
+      value: -10
       modifierType: 0
       variantTarget: 1
       modValueSetMethod: 0
@@ -63,7 +64,7 @@ MonoBehaviour:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 58982
+      atime1: 48573
       atime2: 65535
       atime3: 0
       atime4: 0
