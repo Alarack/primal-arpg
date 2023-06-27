@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c60c3a4947d1042bb7fe5955838635, type: 3}
+  m_Name: Test Weapon
+  m_EditorClassIdentifier: 
+  weaponIcon: {fileID: 0}
+  statData:
+  - variant: 0
+    statName: 0
+    value: 0
+    maxValue: 0
+    minValue: 0
+  payload: {fileID: 0}
+  effectData:
+  - effectName: 
+    type: 0
+    targeting: 0
+    numberOfTargets: 0
+    targetConstraints: []
+    payloadPrefab: {fileID: 0}
+    payloadCount: 0
+    shotDelay: 0
+    spawnLocation: 0
+    modData: []
+    statusToAdd: []
+    statusToRemove: 
+    isTeleport: 0
+    invertDestination: 0
+    targetDestination: 0
+    moveForce: 0
+    tokenPrefabs: []
+    tokenSpawnLocation: 0
+    overlapCircleRadius: 0
+    overlapLayerMask:
+      serializedVersion: 2
+      m_Bits: 0
+  keyBinding: 0
+  weaponName: 
+  weaponDescription: 

@@ -1,0 +1,79 @@
+using LL.Events;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EntityPlayer : Entity
+{
+
+    public EffectDefinition fireballTest;
+    public AbilityDefinition fireballAbilityTest;
+
+
+    private List<Effect> testEffects = new List<Effect>();
+    private List<Ability> testAbilities = new List<Ability>();
+
+
+    protected override void Awake() {
+        base.Awake();
+
+        //Effect fireball = AbilityFactory.CreateEffect(fireballTest.effectData, this);
+        //testEffects.Add(fireball);
+
+        Ability fireballAbility = AbilityFactory.CreateAbility(fireballAbilityTest.AbilityData, this);
+        fireballAbility.Equip();
+        testAbilities.Add(fireballAbility);
+    }
+
+
+    private void Update() {
+        if (Input.GetMouseButtonDown(0)) {
+            //testEffects[0].ReceiveStartActivationInstance(null);
+
+            EventData eventData = new EventData();
+            eventData.AddAbility("Ability", testAbilities[0]);
+
+            EventManager.SendEvent(GameEvent.UserActivatedAbility, eventData);
+
+        }
+
+
+        //if(Input.GetKeyDown(KeyCode.C)) {
+        //    StatAdjustmentManager.AdjustCDR(this, 0.5f, this);
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.U)) {
+        //    StatAdjustmentManager.AdjustCDR(this, -0.5f, this);
+        //}
+
+
+    }
+
+
+    #region EVENTS
+    protected override void OnHealthChanged(BaseStat stat, object source, float value) {
+        if (stat.ModifiedValue <= 0f) {
+            Die();
+        }
+
+    }
+    #endregion
+
+
+    protected override void Die() {
+
+        base.Die();
+
+        EntityManager.RemoveEntity(this);
+        SpawnDeathVFX();
+
+        //Show Gameover Screen PanelManager.OpenPanel<GameOverPanel>();
+        //GameOverPanel panel = FindObjectOfType<GameOverPanel>();
+        //panel.Open();
+
+        gameObject.SetActive(false);
+
+        //Destroy(gameObject);
+    }
+
+}

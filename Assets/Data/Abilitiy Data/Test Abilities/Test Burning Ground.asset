@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
+  m_Name: Test Burning Ground
+  m_EditorClassIdentifier: 
+  AbilityData:
+    abilityName: Test Burning Ground
+    abilityDescription: I set the very ground ablaze!
+    toBestow: 0
+    suspend: 0
+    tags: 
+    activationTriggerData:
+    - type: 6
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      allConstraints:
+      - focus: 1
+        constraintData:
+        - type: 7
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          targetTag: 0
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+    endTriggerData: []
+    counterData:
+      useCustomRefreshTrigger: 0
+      customRefreshTriggerData:
+        type: 0
+        riderAbilityName: 
+        riderEffectName: 
+        triggerTimerDuration: 0
+        allConstraints: []
+      limitedNumberOfTriggers: 0
+      maxTriggerCount: 0
+      requireMultipleTriggers: 0
+      minTriggerCount: 0
+    endCounterData:
+      useCustomRefreshTrigger: 0
+      customRefreshTriggerData:
+        type: 0
+        riderAbilityName: 
+        riderEffectName: 
+        triggerTimerDuration: 0
+        allConstraints: []
+      limitedNumberOfTriggers: 0
+      maxTriggerCount: 0
+      requireMultipleTriggers: 0
+      minTriggerCount: 0
+    effectDefinitions:
+    - {fileID: 11400000, guid: 1be433b2ff6b7cf48906bfeb590b0ecd, type: 2}
+    effectData: []
+    startingRecoveryCharges: 1
+    recoveryData:
+    - type: 0
+      recoveryTriggers: []
+      counterData:
+        useCustomRefreshTrigger: 0
+        customRefreshTriggerData:
+          type: 0
+          riderAbilityName: 
+          riderEffectName: 
+          triggerTimerDuration: 0
+          allConstraints: []
+        limitedNumberOfTriggers: 0
+        maxTriggerCount: 0
+        requireMultipleTriggers: 0
+        minTriggerCount: 0
+      cooldown: 0.5

@@ -1,0 +1,243 @@
+using LL.Events;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+namespace LL.FSM {
+
+    public enum ExecutionMode {
+        Enter,
+        Exit,
+        Update,
+        FixedUpdate
+    }
+
+
+
+    public abstract class StateBehaviour {
+
+
+        public StateBehaviourData Data { get; protected set; }
+        public abstract StateBehaviourType Type { get; }
+        public ExecutionMode Mode { get; protected set; }
+
+
+        protected AIBrain brain;
+        protected AISensor sensor;
+
+        public StateBehaviour(StateBehaviourData data, AIBrain brain, AISensor sensor) {
+            this.brain = brain;
+            this.sensor = sensor;
+            this.Mode = data.mode;
+            this.Data = data;
+        }
+
+
+        public virtual void ManagedUpdate() {
+
+        }
+
+        public abstract void Execute();
+
+
+    }
+
+    public class FleeBehaviour : StateBehaviour {
+
+        public override StateBehaviourType Type => StateBehaviourType.Flee;
+
+        private bool hasTarget;
+
+        public FleeBehaviour(StateBehaviourData data, AIBrain brain, AISensor seonsor) : base(data, brain, seonsor) {
+
+        }
+
+        public override void ManagedUpdate() {
+            base.ManagedUpdate();
+
+            hasTarget = brain.GetLatestSensorTarget();
+        }
+
+        public override void Execute() {
+
+            if (hasTarget == false)
+                return;
+
+            float distance = sensor.GetDistanceToTarget();
+
+            if (distance < 0f)
+                return;
+
+            if (distance < Data.fleeDistance)
+                brain.Movement.MoveAwayFromTarget();
+        }
+    }
+
+    public class ChaseBehaviour : StateBehaviour {
+
+        public override StateBehaviourType Type => StateBehaviourType.Chase;
+
+        private bool hasTarget;
+
+        public ChaseBehaviour(StateBehaviourData data, AIBrain brain, AISensor seonsor) : base(data, brain, seonsor) {
+
+        }
+
+        public override void ManagedUpdate() {
+            base.ManagedUpdate();
+
+            hasTarget = brain.GetLatestSensorTarget();
+        }
+
+        public override void Execute() {
+
+            if (hasTarget == false)
+                return;
+
+            float distance = sensor.GetDistanceToTarget();
+
+            if (distance < 0f)
+                return;
+
+            if (distance > Data.chaseDistance)
+                brain.Movement.MoveTowardTarget();
+        }
+    }
+
+    public class RotateTowardTargetBehaviour : StateBehaviour {
+
+        public override StateBehaviourType Type => StateBehaviourType.RotateToward;
+        private bool hasTarget;
+
+        public RotateTowardTargetBehaviour(StateBehaviourData data, AIBrain brain, AISensor sensor) : base(data, brain, sensor) {
+
+        }
+
+        public override void ManagedUpdate() {
+            base.ManagedUpdate();
+
+            hasTarget = brain.GetLatestSensorTarget();
+        }
+
+        public override void Execute() {
+            brain.Movement.RotateTowardTarget();
+        }
+    }
+
+    public class AttackBehaviour : StateBehaviour {
+
+        public override StateBehaviourType Type => StateBehaviourType.Attack;
+
+        public AttackBehaviour(StateBehaviourData data, AIBrain brain, AISensor sensor) : base(data, brain, sensor) {
+
+        }
+
+        public override void Execute() {
+            brain.FireAllWeapons();
+        }
+    }
+
+    public class SpawnObjectBehaviour : StateBehaviour {
+
+        public override StateBehaviourType Type => StateBehaviourType.SpawnObject;
+
+        public SpawnObjectBehaviour(StateBehaviourData data, AIBrain brain, AISensor sensor) : base(data, brain, sensor) {
+
+        }
+
+        public override void Execute() {
+            Vector3 brainPos = brain.transform.position;
+            Vector3 offset = Data.spawnOffset;
+
+            Vector3 newPos = brainPos + offset;
+
+            GameObject.Instantiate(Data.spawn, newPos, Quaternion.identity);
+        }
+    }
+
+    public class WaitBehaviour : StateBehaviour {
+
+        public override StateBehaviourType Type => StateBehaviourType.Wait;
+
+        public Timer waitTimer;
+
+        public WaitBehaviour(StateBehaviourData data, AIBrain brain, AISensor sensor) : base(data, brain, sensor) {
+
+            EventData timerEventData = new EventData();
+            timerEventData.AddEntity("Owner", brain.Owner);
+            waitTimer = new Timer(data.waitTime, OnTimerComplete, true, timerEventData);
+        
+        }
+
+        public override void ManagedUpdate() {
+            base.ManagedUpdate();
+
+            if (waitTimer != null)
+                waitTimer.UpdateClock();
+        }
+
+
+        public override void Execute() {
+
+        }
+
+        private void OnTimerComplete(EventData data) {
+            EventManager.SendEvent(GameEvent.TriggerTimerCompleted, data);
+        }
+    }
+
+    public class WanderBehaviour : StateBehaviour {
+
+        public override StateBehaviourType Type => StateBehaviourType.Wander;
+
+        private Timer wanderTimer;
+        private bool wandering = false;
+        private bool waiting = false;
+
+        private Vector2 wanderPoint;
+
+        public WanderBehaviour(StateBehaviourData data, AIBrain brain, AISensor sensor) : base(data, brain, sensor) {
+            wanderTimer = new Timer(data.wanderIdleTime, ResetWanderTimer, true);
+        }
+
+        public override void ManagedUpdate() {
+            base.ManagedUpdate();
+
+            if (wanderTimer != null && waiting == true)
+                wanderTimer.UpdateClock();
+        }
+
+
+        public override void Execute() {
+            if (wandering == false) {
+                PickDirection();
+            }
+
+            if (waiting == true)
+                return;
+
+            float distance = Vector2.Distance(brain.transform.position, wanderPoint);
+
+            if (distance > 0.1f) {
+                brain.Movement.RotateTowardPoint(wanderPoint);
+                brain.Movement.MoveTowardPoint(wanderPoint);
+            }
+            else {
+                waiting = true;
+            }
+
+        }
+
+        private void PickDirection() {
+            wanderPoint = (Vector2)brain.transform.position + (Random.insideUnitCircle * Data.wanderMaxDistance);
+            wandering = true;
+        }
+
+        private void ResetWanderTimer(EventData timerEventData) {
+            wandering = false;
+            waiting = false;
+        }
+    }
+
+}

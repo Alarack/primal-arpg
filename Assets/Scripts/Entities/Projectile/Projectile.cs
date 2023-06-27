@@ -1,0 +1,174 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+public class Projectile : Entity {
+
+    [Header("Visuals")]
+    public Gradient textColorGradient;
+    public bool ricochet;
+
+
+    [Header("Impact Variables")]
+    public float impactNoise;
+    public Vector2 reboundForceMod = new Vector2(500f, 1500f);
+
+    [Header("On Death Spawns")]
+    public GameObject onDeathEffectPrefab;
+
+    private Collider2D myCollider;
+    private Entity source;
+
+    private List<Effect> onHitEffects = new List<Effect>();
+
+
+    private Weapon parentWeapon;
+    private Effect parentEffect;
+
+    //private EffectZone activeZone;
+
+    private Task killTimer;
+
+    protected override void Awake() {
+        base.Awake();
+
+        myCollider = GetComponent<Collider2D>();
+
+        float speedVariance = UnityEngine.Random.Range(0.5f, 1.5f);
+
+        Stats.AddModifier(StatName.MoveSpeed, speedVariance, StatModType.PercentAdd, this);
+
+        killTimer = new Task(KillAfterLifetime());
+
+    }
+
+    public void Setup(Entity source, Weapon parentWeapon, List<Effect> onHitEffects) {
+        this.source = source;
+        this.onHitEffects = onHitEffects;
+        this.parentWeapon = parentWeapon;
+        SetupCollisionIgnore(source.GetComponent<Collider2D>());
+    }
+
+    public void Setup(Entity source, Effect parentEffect) {
+        this.source = source;
+        this.parentEffect = parentEffect;
+        SetupCollisionIgnore(source.GetComponent<Collider2D>());
+    }
+
+
+    public void IgnoreCollision(Entity target) {
+        SetupCollisionIgnore(target.GetComponent<Collider2D>());
+    }
+
+    private void SetupCollisionIgnore(Collider2D ownerCollider) {
+        Physics2D.IgnoreCollision(ownerCollider, myCollider);
+    }
+
+
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        //if(parentWeapon == null) {
+        //    Debug.LogError("Parent Weapon is null when checking layers on Projectile Collision");
+        //}
+
+        //if (LayerTools.IsLayerInMask(parentWeapon.collisionMask, other.gameObject.layer) == false)
+        //    return;
+
+
+
+        myCollider.enabled = false;
+        Movement.CanMove = false;
+        Movement.MyBody.freezeRotation = false;
+        Movement.MyBody.velocity = Vector2.zero;
+
+        EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
+        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo);
+
+        SpawnDeathVFX();
+
+        if (ricochet == true)
+            Ricochet(other);
+        else
+            CleanUp();
+        //Entity otherEntity = other.gameObject.GetComponent<Entity>();
+        //if(otherEntity != null)
+        //{
+        //    DealDamage(otherEntity);
+        //    ApplyOnHitEffects(otherEntity);
+        //}
+
+    }
+
+
+
+
+    //private void SpawnDeathEffect() {
+    //    if (onDeathEffectPrefab != null) {
+    //        GameObject activeDeathEffect = Instantiate(onDeathEffectPrefab, transform.position, Quaternion.identity);
+    //    }
+
+
+    //    CleanUp();
+
+    //    //SlowingField slowField = activeDeathEffect.GetComponent<SlowingField>();
+
+    //    //if(slowField != null) {
+    //    //    slowField.Setup(Stats[StatName.EffectLifetime], source);
+    //    //}
+
+    //}
+
+    private void DealDamage(Entity target) {
+        //Debug.Log("Doing Damage " + Stats[StatName.BaseDamage]);
+
+        float value = StatAdjustmentManager.DealDamageOrHeal(target, Stats[StatName.BaseDamage], source);
+        FloatingText floatingText = FloatingTextManager.SpawnFloatingText(target.transform.position, value.ToString());
+        floatingText.SetColor(textColorGradient);
+    }
+
+    private void ApplyOnHitEffects(Entity target) {
+        if (onHitEffects == null || onHitEffects.Count == 0) {
+            return;
+        }
+
+        for (int i = 0; i < onHitEffects.Count; i++) {
+            onHitEffects[i].Apply(target);
+        }
+    }
+
+    private void Ricochet(Collider2D other) {
+        Vector2 direction = other.transform.position - transform.position;
+        Vector2 offsetVector = TargetUtilities.CreateRandomDirection(-impactNoise, impactNoise);
+        direction += offsetVector;
+        Vector2 reboundForce = (-direction.normalized) * UnityEngine.Random.Range(reboundForceMod.x, reboundForceMod.y);
+
+
+        float rotationForce = UnityEngine.Random.Range(720f, 1080f);
+        rotationForce *= UnityEngine.Random.Range(0, 2) * 2 - 1;
+
+
+        Movement.MyBody.angularVelocity = rotationForce;
+        Movement.MyBody.AddForce(reboundForce, ForceMode2D.Force);
+
+    }
+
+
+    private IEnumerator KillAfterLifetime() {
+        WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.ProjectileLifetime]);
+        yield return waiter;
+
+        CleanUp();
+    }
+
+
+
+    private void CleanUp() {
+
+        if(killTimer.Running == true)
+            killTimer.Stop();
+
+        Destroy(gameObject);
+    }
+
+}
