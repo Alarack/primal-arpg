@@ -4,14 +4,24 @@ using UnityEngine;
 using System;
 using LL.Events;
 
-public class StatusStatAdjustment : Status
-{
+public class StatusStatAdjustment : Status {
 
 
-    //private List<StatModifier> activeMods = new List<StatModifier>();
+    private List<StatModifier> activeMods = new List<StatModifier>();
 
-    public StatusStatAdjustment(StatusData data, Entity target, Entity source) :base(data, target, source) {
+    public StatusStatAdjustment(StatusData data, Entity target, Entity source) : base(data, target, source) {
+        CreateStatMods();
+    }
 
+    private void CreateStatMods() {
+        activeMods.Clear();
+
+        for (int i = 0; i < Data.statModifiers.Count; i++) {
+            StatModifierData data = Data.statModifiers[i];
+
+            StatModifier mod = new StatModifier(data.value, data.modifierType, data.targetStat, Source);
+            activeMods.Add(mod);
+        }
     }
 
     public override void FirstApply() {
@@ -40,25 +50,24 @@ public class StatusStatAdjustment : Status
         RemoveStatModifiers();
     }
 
-    //private void CreateModifiers() {
-    //    for (int i = 0; i < Data.statModifiers.Count; i++) {
-    //        StatModifierData modData = Data.statModifiers[i];
-
-    //        StatModifier mod = new StatModifier(modData.value, modData.modifierType, Source);
-    //        activeMods.Add(mod);
-    //    }
-    //}
-
     private void ApplyStatModifiers() {
 
-        for (int i = 0; i < Data.statModifiers.Count; i++) {
+        for (int i = 0; i < activeMods.Count; i++) {
+
+            bool nonRange = Data.statModifiers[i].variantTarget != StatModifierData.StatVariantTarget.RangeCurrent;
+            if (nonRange) {
+                Debug.LogWarning("A status belonging to: " + Source.EntityName + " is applying a non-range-curent stat adjustment to: " + Target.EntityName);
+                Debug.LogWarning("This is not supported and will not remove properly.");
+            }
 
 
             float multiplier = Data.multiplyByStackCount == true ? StackCount : 1f;
 
-            float modResult = StatAdjustmentManager.ApplyStatAdjustment(Target, Data.statModifiers[i], Source, multiplier);
+            //float modResult = StatAdjustmentManager.ApplyStatAdjustment(Target, Data.statModifiers[i], Source, multiplier);
 
-            CreateFloatingText(modResult, Data.statModifiers[i].targetStat);
+            float modResult = StatAdjustmentManager.ApplyStatAdjustment(Target, activeMods[i], Data.statModifiers[i].variantTarget, Source, multiplier);
+
+            CreateFloatingText(modResult, activeMods[i].TargetStat);
 
 
         }
@@ -69,7 +78,7 @@ public class StatusStatAdjustment : Status
         if (Target == null)
             return;
 
-        if(stat == StatName.Health) {
+        if (stat == StatName.Health) {
             FloatingTextManager.SpawnFloatingText(Target.transform.position, modValue.ToString());
         }
 
@@ -79,7 +88,11 @@ public class StatusStatAdjustment : Status
     }
 
     private void RemoveStatModifiers() {
-        Target.Stats.RemoveAllModifiersFromSource(this);
+        //Target.Stats.RemoveAllModifiersFromSource(this);
+
+        for (int i = 0; i < activeMods.Count; i++) {
+            StatAdjustmentManager.RemoveStatAdjustment(Target, activeMods[i], Data.statModifiers[i].variantTarget, Source);
+        }
     }
 
 }

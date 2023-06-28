@@ -29,6 +29,51 @@ public static class StatAdjustmentManager {
         return modValue;
     }
 
+
+    public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatModifierData.StatVariantTarget variant, Entity source, float multiplier = 1f) {
+
+
+        Action<StatName, StatModifier> statModAction = variant switch {
+            StatModifierData.StatVariantTarget.Simple => target.Stats.AddModifier,
+            StatModifierData.StatVariantTarget.RangeCurrent => target.Stats.AdjustStatRangeCurrentValue,
+            StatModifierData.StatVariantTarget.RangeMin => target.Stats.AddMinValueModifier,
+            StatModifierData.StatVariantTarget.RangeMax => target.Stats.AddMaxValueModifier,
+            _ => null,
+        };
+
+
+        float modValue = mod.Value * multiplier;
+
+        mod.UpdateModValue(modValue);
+
+        statModAction?.Invoke(mod.TargetStat, mod);
+
+
+        SendStatChangeEvent(mod.TargetStat, target, source, mod.Value);
+
+        return modValue;
+    }
+
+    public static float RemoveStatAdjustment(Entity target, StatModifier mod, StatModifierData.StatVariantTarget variant, Entity source) {
+
+
+        Action<StatName, StatModifier> statModAction = variant switch {
+            StatModifierData.StatVariantTarget.Simple => target.Stats.RemoveModifier,
+            StatModifierData.StatVariantTarget.RangeCurrent => null,
+            StatModifierData.StatVariantTarget.RangeMin => target.Stats.RemoveMinValueModifier,
+            StatModifierData.StatVariantTarget.RangeMax => target.Stats.RemoveMaxValueModifier,
+            _ => null,
+        };
+
+
+        statModAction?.Invoke(mod.TargetStat, mod);
+
+
+        SendStatChangeEvent(mod.TargetStat, target, source, mod.Value);
+
+        return mod.Value;
+    }
+
     public static float ApplyStatAdjustment(Entity target, float value, StatName targetStat, StatModType modType, StatModifierData.StatVariantTarget statVariant, object source, float multiplier = 1f) {
         StatModifier mod = new StatModifier(value, modType, targetStat, source);
         return ApplyStatAdjustment(target, mod, targetStat, statVariant, multiplier);

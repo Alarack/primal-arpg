@@ -29,7 +29,9 @@ public enum StatName
     CooldownReduction,
     GlobalDamageModifier,
     GlobalEffectDurationModifier,
-    MeleeDamageModifier
+    MeleeDamageModifier,
+    OverloadChance,
+    OverloadDamageModifier
 }
 
 
