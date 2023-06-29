@@ -8,6 +8,9 @@ public static class VFXUtility
 
 
     public static void SpawnVFX(GameObject prefab, Vector2 location, Quaternion rotation, float destroyTimer = 0f) {
+        if(prefab == null) 
+            return;
+        
         GameObject activeVFX = GameObject.Instantiate(prefab, location, rotation);
         if(destroyTimer > 0f) {
             GameObject.Destroy(activeVFX, destroyTimer);

@@ -1,9 +1,13 @@
+//#define DEBUG_MODE
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 using UnityEngine.Events;
+
+
 
 public class Bouncer : MonoBehaviour {
 
@@ -52,11 +56,13 @@ public class Bouncer : MonoBehaviour {
     private void Update() {
         UpdatePositon();
         CheckGround();
-
+#if DEBUG_MODE
         if (Input.GetKeyDown(KeyCode.B)) {
             DebugReset();
         }
+#endif
     }
+
 
     private void DebugReset() {
         SetVelocities();
