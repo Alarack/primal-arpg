@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 191b74aeae6f4e0458d841e3c96185e0, type: 3}
+  m_Name: Test State
+  m_EditorClassIdentifier: 
+  defaultState: 1
+  stateName: Test State
+  behaviourData:
+  - {fileID: 11400000, guid: eaed773bccb04c44a80da132a8484ed2, type: 2}

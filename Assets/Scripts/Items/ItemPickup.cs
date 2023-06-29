@@ -48,6 +48,9 @@ public class ItemPickup : MonoBehaviour
 
     protected virtual void Collect() {
 
+        if(item == null) 
+            return;
+
         VFXUtility.SpawnVFX(collectVFX, transform, 2f);
 
         EntityManager.ActivePlayer.Inventory.Add(item);

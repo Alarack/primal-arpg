@@ -50,8 +50,9 @@ public class AISensor : MonoBehaviour
             float distance = GetDistanceToTarget();
 
             if (distance > forgetDistance) {
+                Debug.LogWarning("Too far, forgetting: " + distance + " :: " + forgetDistance);
+
                 OnDetectionLost(LatestTarget);
-                Debug.LogWarning("Too far, forgetting");
             }
         }
     }
@@ -132,7 +133,7 @@ public class AISensor : MonoBehaviour
 
         float spotDistance = Vector2.Distance(target.transform.position, owner.transform.position);
 
-        if(spotDistance > baseForgetDistance) {
+        if(spotDistance > baseForgetDistance && baseForgetDistance > 0f) {
             forgetDistance = spotDistance * 1.2f;
         }
 
