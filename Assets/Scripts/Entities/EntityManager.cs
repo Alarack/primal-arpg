@@ -11,6 +11,8 @@ public class EntityManager : Singleton<EntityManager> {
     public Transform[] spawnPoints;
     public int enemiesPerWave = 3;
 
+    public static EntityPlayer ActivePlayer { get { return GetPlayer(); } }
+
     public static Dictionary<Entity.EntityType, List<Entity>> ActiveEntities { get; private set; } = new Dictionary<Entity.EntityType, List<Entity>>(); 
 
     public static void RegisterEntity(Entity target) {
@@ -35,7 +37,13 @@ public class EntityManager : Singleton<EntityManager> {
         }
     }
 
+    public static EntityPlayer GetPlayer() {
+        if(ActiveEntities.TryGetValue(Entity.EntityType.Projectile, out List<Entity> results) == true) {
+            return results[0] as EntityPlayer;
+        }
 
+        return null;
+    }
     //public void CreatePlayer() {
     //    //Entity newPlayer = Instantiate(playerPrefab, Vector2.zero, Quaternion.identity);
 

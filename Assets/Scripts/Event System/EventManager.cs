@@ -131,7 +131,11 @@ namespace LL.Events {
         WeaponCooldownStarted,
         TriggerTimerCompleted,
         StateEntered,
-        StateExited
+        StateExited,
+        ItemAquired,
+        ItemEquipped,
+        ItemUnequipped,
+        ItemDropped
 
     }
 

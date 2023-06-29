@@ -11,17 +11,17 @@ public class EntityPlayer : Entity
 
     private List<Effect> testEffects = new List<Effect>();
     private List<Ability> testAbilities = new List<Ability>();
-
+    public Inventory Inventory { get; private set; }
 
     protected override void Awake() {
         base.Awake();
-
+        Inventory = GetComponent<Inventory>();
         //Effect fireball = AbilityFactory.CreateEffect(fireballTest.effectData, this);
         //testEffects.Add(fireball);
 
-        Ability fireballAbility = AbilityFactory.CreateAbility(debugAbilityTest.AbilityData, this);
-        fireballAbility.Equip();
-        testAbilities.Add(fireballAbility);
+        Ability debugAbility = AbilityFactory.CreateAbility(debugAbilityTest.AbilityData, this);
+        debugAbility.Equip();
+        testAbilities.Add(debugAbility);
     }
 
 

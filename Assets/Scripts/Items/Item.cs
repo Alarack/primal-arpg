@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Item
 {
-    
+
+    public ItemSlot CurrentSlot { get; protected set; } = ItemSlot.None;
     public ItemData Data {  get; protected set; } 
     public bool Equipped { get; protected set; }
-    public Entity Owner { get; protected set; }
+    public Entity Owner { get; set; }
 
     protected List<Ability> abilities = new List<Ability>();
     protected List<StatModifier> statModifiers = new List<StatModifier>();
@@ -35,8 +36,9 @@ public class Item
     }
 
 
-    public void Equip() {
+    public void Equip(ItemSlot slot) {
         Equipped = true;
+        CurrentSlot = slot;
 
         for (int i = 0;i < abilities.Count;i++) {
             abilities[i].Equip();
@@ -49,6 +51,7 @@ public class Item
 
     public void UnEquip() { 
         Equipped = false;
+        CurrentSlot = ItemSlot.None;
 
         for (int i = 0; i < abilities.Count; i++) {
             abilities[i].TearDown();

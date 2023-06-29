@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using LL.Events;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Inventory : MonoBehaviour {
 
     public Entity Owner { get; private set; }
 
 
-    public List<InventorySlot> slots = new List<InventorySlot>();
 
     private List<Item> ownedItems = new List<Item>();
-    private List<Item> equippedItems = new List<Item>();
+    private Dictionary<ItemSlot, Item> equippedItems = new Dictionary<ItemSlot, Item>();
 
-    private Dictionary<ItemSlot, List<Item>> inventoryDict = new Dictionary<ItemSlot, List<Item>>();
-
-    public ItemWeapon CurrentWeapon { get; private set; }
+    public ItemWeapon CurrentWeapon { get { return GetWeapon(); } }
 
     private void Awake() {
         Owner = GetComponent<Entity>();
@@ -25,143 +24,124 @@ public class Inventory : MonoBehaviour {
         ItemSlot[] slots = System.Enum.GetValues(typeof(ItemSlot)) as ItemSlot[];
 
         for (int i = 0; i < slots.Length; i++) {
-            inventoryDict.Add(slots[i], new List<Item>());
-
+            equippedItems.Add(slots[i], null);
         }
     }
 
     public void Add(Item item) {
         if (ownedItems.AddUnique(item) == false) {
             Debug.LogWarning("An item: " + item.Data.itemName + " was added to " + Owner.EntityName + "'s inventory, but it was already there");
+            return;
         }
+        item.Owner = Owner;
+
+        EventData data = new EventData();
+        data.AddItem("Item", item);
+
+        EventManager.SendEvent(GameEvent.ItemAquired, data);
     }
 
     public void Remove(Item item) {
-        ownedItems.RemoveIfContains(item);
+        if (ownedItems.RemoveIfContains(item) == true) {
+            //TODO: Item dropped / lost event?
+        }
     }
 
-    public void EquipItem2(Item item) {
-        if(inventoryDict.TryGetValue(item.Data.slot, out List<Item> items) == true) {
-            if (item.Data.slot == ItemSlot.Ring) {
-                if (items.Count < 2) {
-                    items.Add(item);
-                    item.Equip();
-                }
-            }
-            else {
 
-            }
+    public void EquipItemToSlot(Item item, ItemSlot slot) {
+        Item existingItem = GetItemInSlot(slot);
+
+        if (existingItem != null) {
+            UnEquipItem(existingItem);
         }
+
+        equippedItems[slot] = item;
+        item.Equip(slot);
     }
 
     public void EquipItem(Item item) {
 
-        InventorySlot slot = GetSlot(item.Data.slot);
+        bool equipSucessful = false;
 
-        if (slot == null) {
-            Debug.LogError("Couldn't find a slot of type: " + item.Data.slot);
-            return;
+        Dictionary<ItemSlot, Item> existingItems = new Dictionary<ItemSlot, Item>();
+        foreach (ItemSlot slot in item.Data.validSlots) {
+            Item existingItem = GetItemInSlot(slot);
+
+            existingItems.Add(slot, existingItem);
+
         }
 
-        if (slot.slottedItem != null) {
-            UnEquipItem(slot.slottedItem);
+        foreach (var entry in existingItems) {
+            if(entry.Value == null) {
+                equippedItems[entry.Key] = item;
+                item.Equip(entry.Key);
+                equipSucessful = true;
+                break;
+            }
         }
 
-        slot.slottedItem = item;
+        if(equipSucessful == false) {
+            ItemSlot firstSlot = item.Data.validSlots[0];
 
-        equippedItems.Add(item);
-        item.Equip();
+            Item replacedItem = existingItems[firstSlot];
+            UnEquipItem(replacedItem);
 
-        if (item is ItemWeapon) {
-            CurrentWeapon = item as ItemWeapon;
+            existingItems[firstSlot] = item;
+            item.Equip(firstSlot);
+            
         }
     }
 
     public void UnEquipItem(Item item) {
 
-        InventorySlot slot = GetSlotByItem(item);
 
-        if (slot == null) {
-            Debug.LogError("Couldn't find an eqipped item: " + item.Data.itemName);
-            return;
+        if(item.CurrentSlot == ItemSlot.None) {
+            Debug.LogError("Tired to unequip an item: " + item.Data.itemName + ", but it had no Current Slot");
         }
 
-        slot.slottedItem = null;
+        equippedItems[item.CurrentSlot] = null;
 
-        if (equippedItems.RemoveIfContains(item) == true) {
-            item.UnEquip();
-        }
-        else {
-            Debug.LogWarning("An item: " + item.Data.itemName + " was told to unequip from " + Owner.EntityName + ", but it wasn't equipped");
-        }
+        item.UnEquip();
+      
     }
 
     private Item GetItemInSlot(ItemSlot slot) {
-        if (inventoryDict.TryGetValue(slot, out List<Item> items) == true) {
-            return items[0];
+        if (equippedItems.TryGetValue(slot, out Item item) == true) {
+            return item;
         }
         return null;
     }
 
+    //private List<Item> GetAllItemsInSlots(List<ItemSlot> slots) {
 
+    //    List<Item> items = new List<Item>();
 
-    private InventorySlot GetSlot(ItemSlot slot) {
+    //    foreach (ItemSlot slot in slots) {
+    //        Item targetItem = GetItemInSlot(slot);
 
-        InventorySlot emptySlot = null;
-        InventorySlot filledSlot = null;
+    //        if (targetItem != null) {
+    //            items.Add(targetItem);
+    //        }
+    //    }
 
-        for (int i = 0; i < slots.Count; i++) {
-            if (slots[i].slotType == slot) {
-                if (slots[i].slottedItem == null) {
-                    emptySlot = slots[i];
-                    break;
-                }
-                else {
-                    filledSlot = slots[i];
-                    break;
-                }
-            }
-        }
-
-        return emptySlot != null ? emptySlot : filledSlot;
-    }
-
-    private InventorySlot GetSlotByItem(Item item) {
-        for (int i = 0; i < slots.Count; i++) {
-            if (slots[i].slottedItem == item)
-                return slots[i];
-        }
-
-        return null;
-    }
-
-
+    //    return items;
+    //}
 
     public float GetDamageRoll() {
-        ItemWeapon weapon = GetWeapon();
-        if (weapon != null) {
-            return weapon.DamageRoll;
+
+        if (CurrentWeapon != null) {
+            return CurrentWeapon.DamageRoll;
         }
 
         return 0f;
     }
 
     public ItemWeapon GetWeapon() {
-        for (int i = 0; i < equippedItems.Count; i++) {
-            if (equippedItems[i] is ItemWeapon) {
-                return equippedItems[i] as ItemWeapon;
-            }
-        }
 
-        return null;
+        ItemWeapon weapon = GetItemInSlot(ItemSlot.Weapon) as ItemWeapon;
+        return weapon;
     }
 
 }
 
-[System.Serializable]
-public class InventorySlot {
-    public ItemSlot slotType;
-    public Item slottedItem;
 
-
-}

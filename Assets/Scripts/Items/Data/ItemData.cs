@@ -8,11 +8,13 @@ public enum ItemSlot {
     Weapon,
     Armor,
     Gloves,
-    Ring,
+    Ring1,
+    Ring2,
     Neck,
     Pants,
     Boots,
-    Trinket,
+    Trinket1,
+    Trinket2,
     Belt,
     Head,
 }
@@ -24,6 +26,7 @@ public class ItemData
     public string itemDescription;
     public float itemValue;
     public ItemSlot slot;
+    public List<ItemSlot> validSlots = new List<ItemSlot>();
     public Sprite itemIcon;
 
     public float minDamage;
