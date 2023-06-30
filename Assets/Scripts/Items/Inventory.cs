@@ -18,14 +18,30 @@ public class Inventory : MonoBehaviour {
 
     private void Awake() {
         Owner = GetComponent<Entity>();
+        SetupDictionary();
     }
 
     private void SetupDictionary() {
         ItemSlot[] slots = System.Enum.GetValues(typeof(ItemSlot)) as ItemSlot[];
 
         for (int i = 0; i < slots.Length; i++) {
+            if (slots[i] == ItemSlot.None)
+                continue;
+            if (slots[i] == ItemSlot.Inventory)
+                continue;
+
             equippedItems.Add(slots[i], null);
         }
+    }
+
+    public List<Item> GetInventoryItems() {
+        List<Item> results = new List<Item>();    
+        for (int i = 0; i < ownedItems.Count; i++) {
+            if (ownedItems[i].Equipped == false)
+                results.Add(ownedItems[i]);
+        }
+
+        return results;
     }
 
     public void Add(Item item) {
@@ -43,7 +59,10 @@ public class Inventory : MonoBehaviour {
 
     public void Remove(Item item) {
         if (ownedItems.RemoveIfContains(item) == true) {
-            //TODO: Item dropped / lost event?
+            EventData data = new EventData();
+            data.AddItem("Item", item);
+
+            EventManager.SendEvent(GameEvent.ItemDropped, data);
         }
     }
 

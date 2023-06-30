@@ -1,3 +1,4 @@
+using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,6 +48,10 @@ public class Item
         for (int i = 0; i < statModifiers.Count; i++) {
             StatAdjustmentManager.ApplyStatAdjustment(Owner, statModifiers[i], Data.statModifierData[i].variantTarget, Owner);
         }
+
+        EventData data = new EventData();
+        data.AddItem("Item", this);
+        EventManager.SendEvent(GameEvent.ItemEquipped, data);
     }
 
     public void UnEquip() { 
@@ -60,6 +65,10 @@ public class Item
         for (int i = 0; i < statModifiers.Count; i++) {
             StatAdjustmentManager.RemoveStatAdjustment(Owner, statModifiers[i], Data.statModifierData[i].variantTarget, Owner);
         }
+
+        EventData data = new EventData();
+        data.AddItem("Item", this);
+        EventManager.SendEvent(GameEvent.ItemUnequipped, data);
     }
 
 
