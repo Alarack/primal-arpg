@@ -5,7 +5,9 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour
 {
 
-    protected Item item;
+    [Header("Sprites")]
+    public SpriteRenderer mainSprite;
+    public SpriteRenderer shadowSprite;
 
     [Header("Mask")]
     public LayerMask layerMask;
@@ -15,10 +17,16 @@ public class ItemPickup : MonoBehaviour
     public GameObject spawnVFX;
 
     protected Rigidbody2D rb;
+    protected ItemPickupTooltip tooltip;
+    protected Bouncer bouncer;
+    public Item Item { get; private set; }
 
+    public bool IsGrounde { get { return bouncer.IsGrounded; } }
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
+        tooltip = GetComponentInChildren<ItemPickupTooltip>();
+        bouncer = GetComponent<Bouncer>();
     }
 
     protected virtual void Start() {
@@ -27,33 +35,40 @@ public class ItemPickup : MonoBehaviour
 
 
     public virtual void Setup(Item item) {
-        this.item = item;
+        this.Item = item;
+        SetupImage();
+        tooltip.Setup(this);
     }
 
     public virtual void Setup(ItemData itemData) {
-        item = new Item(itemData, null);
+        Item = new Item(itemData, null);
+        Setup(Item);
     }
 
+    protected void SetupImage() {
+        mainSprite.sprite = Item.Data.pickupIcon;
+        shadowSprite.sprite = Item.Data.pickupIcon;
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D other) {
         if (LayerTools.IsLayerInMask(layerMask, other.gameObject.layer) == false)
             return;
 
+        if (Item != null && Item.Data.pickupOnCollision == false)
+            return;
 
         Collect();
 
     }
 
+    public virtual void Collect() {
 
-
-    protected virtual void Collect() {
-
-        if(item == null) 
+        if(Item == null) 
             return;
 
         VFXUtility.SpawnVFX(collectVFX, transform, 2f);
 
-        EntityManager.ActivePlayer.Inventory.Add(item);
+        EntityManager.ActivePlayer.Inventory.Add(Item);
         Destroy(gameObject);
     }
 

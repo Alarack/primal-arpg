@@ -28,6 +28,8 @@ public class ItemData
     public ItemSlot slot;
     public List<ItemSlot> validSlots = new List<ItemSlot>();
     public Sprite itemIcon;
+    public Sprite pickupIcon;
+    public bool pickupOnCollision;
 
     public float minDamage;
     public float maxDamage;

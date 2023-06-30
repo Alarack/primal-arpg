@@ -1,0 +1,68 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems;
+
+public class ItemPickupNamePlate : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
+
+    public Image backgroundImage;
+
+    public Color defaultColor;
+    public Color highlightColor;
+
+
+    private ItemPickup parent;
+    private CanvasGroup canvasGroup;
+    private bool fading;
+
+    private void Awake() {
+        canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0f;
+    }
+
+    public void Setup(ItemPickup parent) {
+        this.parent = parent;
+    }
+
+
+    public void Show() {
+        if(fading == false) {
+            new Task(Fade(1f));
+        }
+    }
+
+    public void Hide() {
+        if (fading == false) {
+            new Task(Fade(0f));
+        }
+    }
+
+
+    private IEnumerator Fade(float targetValue) {
+        WaitForEndOfFrame waiter = new WaitForEndOfFrame(); 
+
+        fading = true;
+
+        while(canvasGroup.alpha != targetValue) {
+            float desiredAlpha = Mathf.MoveTowards(canvasGroup.alpha, targetValue, Time.deltaTime * 3f);
+            canvasGroup.alpha = desiredAlpha;
+            yield return waiter;
+        }
+
+        fading = false;
+    }
+
+    public void OnPointerClick(PointerEventData eventData) {
+        parent.Collect();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData) {
+        backgroundImage.color = highlightColor;
+    }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        backgroundImage.color = defaultColor;
+    }
+}

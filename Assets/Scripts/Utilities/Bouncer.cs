@@ -28,7 +28,7 @@ public class Bouncer : MonoBehaviour {
 
     private Rigidbody2D rb;
     private Rigidbody2D[] myBodies;
-    private bool isGrounded;
+    public bool IsGrounded { get; private set; }
     private Vector2 groundVelocity;
     private float verticalVelocity;
     private float lastVerticalVelocity;
@@ -72,7 +72,7 @@ public class Bouncer : MonoBehaviour {
     }
 
     private void SetVelocities() {
-        isGrounded = false;
+        IsGrounded = false;
         groundVelocity = (Random.insideUnitCircle * Random.Range(minXForce, maxXForce)) /*+ new Vector2(Random.Range(minXForce, maxXForce), 0f)*/;
         verticalVelocity = Random.Range(minYForce, maxYForce);
 
@@ -85,7 +85,7 @@ public class Bouncer : MonoBehaviour {
 
     private void UpdatePositon() {
 
-        if (isGrounded == false) {
+        if (IsGrounded == false) {
             verticalVelocity += fakeGravity * Time.deltaTime;
             spriteRenderer.transform.position += new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime;
         }
@@ -106,11 +106,11 @@ public class Bouncer : MonoBehaviour {
     }
 
     private void CheckGround() {
-        if (spriteRenderer.transform.position.y < transform.position.y && isGrounded == false) {
+        if (spriteRenderer.transform.position.y < transform.position.y && IsGrounded == false) {
 
             spriteRenderer.transform.position = transform.position;
 
-            isGrounded = true;
+            IsGrounded = true;
 
             //onGroundHit?.Invoke();
             onGroundHitUnityEvent?.Invoke();
@@ -119,7 +119,7 @@ public class Bouncer : MonoBehaviour {
 
     public void StickToGround() {
         groundVelocity = Vector2.zero;
-        isGrounded = true;
+        IsGrounded = true;
         spriteRenderer.sortingOrder = initalOrder;
 
         myCollider.enabled = true;
@@ -127,7 +127,7 @@ public class Bouncer : MonoBehaviour {
     }
 
     public void BounceAndReduce() {
-        isGrounded = false;
+        IsGrounded = false;
         groundVelocity *= 0.8f;
 
         foreach (var body in myBodies) {

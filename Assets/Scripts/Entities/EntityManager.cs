@@ -38,7 +38,7 @@ public class EntityManager : Singleton<EntityManager> {
     }
 
     public static EntityPlayer GetPlayer() {
-        if(ActiveEntities.TryGetValue(Entity.EntityType.Projectile, out List<Entity> results) == true) {
+        if(ActiveEntities.TryGetValue(Entity.EntityType.Player, out List<Entity> results) == true) {
             return results[0] as EntityPlayer;
         }
 
