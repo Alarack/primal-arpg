@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using LL.Events;
+using TMPro;
 
 public class InventoryPanel : BasePanel {
 
@@ -15,6 +16,9 @@ public class InventoryPanel : BasePanel {
     public InventoryItemEntry inventoryEntryTemplate;
 
     public GameObject dropZone;
+
+    [Header("Testing Debug Things")]
+    public TextMeshProUGUI cdrText;
 
     protected override void Awake() {
         base.Awake();
@@ -29,6 +33,7 @@ public class InventoryPanel : BasePanel {
         base.OnEnable();
         EventManager.RegisterListener(GameEvent.ItemAquired, OnItemAquired);
         EventManager.RegisterListener(GameEvent.ItemUnequipped, OnItemUnequipped);
+        EventManager.RegisterListener(GameEvent.UnitStatAdjusted, OnStatChanged);
     }
     protected override void OnDisable() {
         base.OnDisable();
@@ -38,6 +43,32 @@ public class InventoryPanel : BasePanel {
 
     public override void Open() {
         base.Open();
+
+        SetStatValues();
+    }
+
+    public override void Close() {
+        base.Close();
+
+        TooltipManager.Hide();
+    }
+
+    private void OnStatChanged(EventData data) {
+        Entity target = data.GetEntity("Target");
+        StatName stat = (StatName)data.GetInt("Stat");
+
+        if (target != EntityManager.ActivePlayer)
+            return;
+
+       
+        if(stat == StatName.CooldownReduction) {
+            SetStatValues();
+        }
+
+    }
+
+    private void SetStatValues() {
+        cdrText.text = "Cooldown Reduction: " + TextHelper.FormatStat(StatName.CooldownReduction, EntityManager.ActivePlayer.Stats[StatName.CooldownReduction]);
 
     }
 
@@ -63,6 +94,18 @@ public class InventoryPanel : BasePanel {
         else {
             Debug.LogWarning("Inventory is full");
             //TODO: Drop item;
+        }
+    }
+
+    public void CheckForDupeEquips(InventoryItemEntry entry) {
+        for (int i = 0;i < paperDollEntries.Count;i++) {
+            if (paperDollEntries[i] == entry) {
+                continue;
+            }
+
+            if (paperDollEntries[i].MyItem == entry.MyItem) {
+                paperDollEntries[i].Remove();
+            }
         }
     }
 

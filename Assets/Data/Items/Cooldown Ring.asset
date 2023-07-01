@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Test Dagger
+  m_Name: Cooldown Ring
   m_EditorClassIdentifier: 
   itemData:
-    itemName: Slick Stabber
-    itemDescription: yeah it's my stabber, wanna fight about it?
-    itemValue: 20000
-    validSlots: 01000000
-    itemIcon: {fileID: 21300000, guid: ad707d068f921cf4fa9a434485190873, type: 3}
-    pickupIcon: {fileID: 21300000, guid: ad707d068f921cf4fa9a434485190873, type: 3}
+    itemName: Cool Ring
+    itemDescription: This ring is just the cool
+    itemValue: 150
+    validSlots: 0400000005000000
+    itemIcon: {fileID: 21300000, guid: ef03cd7b5bd0ff1419c537158301697e, type: 3}
+    pickupIcon: {fileID: 21300000, guid: ef03cd7b5bd0ff1419c537158301697e, type: 3}
     pickupOnCollision: 0
-    minDamage: 5
-    maxDamage: 10
+    minDamage: 0
+    maxDamage: 0
     statModifierData:
-    - targetStat: 25
-      value: 0.15
+    - targetStat: 21
+      value: 0.05
       modifierType: 0
       variantTarget: 1
       modValueSetMethod: 0

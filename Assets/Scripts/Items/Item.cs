@@ -1,6 +1,7 @@
 using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class Item
@@ -73,6 +74,25 @@ public class Item
 
         Equipped = false;
         CurrentSlot = ItemSlot.None;
+    }
+
+    public string GetTooltip() {
+        StringBuilder builder = new StringBuilder();
+
+        if(this is ItemWeapon) {
+            ItemWeapon weapon = (ItemWeapon)this;
+            builder.Append("Damage: ").Append(weapon.minDamage).Append(" - ").Append(weapon.maxDamage).AppendLine();
+        }
+
+        for (int i = 0; i < Data.statModifierData.Count; i++) {
+            StatModifierData modData = Data.statModifierData[i]; 
+            
+            builder.Append(modData.targetStat.ToString().SplitCamelCase()).Append(": ").Append(TextHelper.FormatStat(modData.targetStat, modData.value)).AppendLine();
+        }
+
+
+
+        return builder.ToString();
     }
 
 

@@ -12,6 +12,7 @@ public class EntityPlayer : Entity
     private List<Effect> testEffects = new List<Effect>();
     private List<Ability> testAbilities = new List<Ability>();
     public Inventory Inventory { get; private set; }
+    public bool CanAttack { get; set; } = true;
 
     public float CurrentDamageRoll { get { return GetDamgeRoll(); } }
 
@@ -30,6 +31,12 @@ public class EntityPlayer : Entity
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
             //testEffects[0].ReceiveStartActivationInstance(null);
+
+            if (PanelManager.IsPanelOpen<InventoryPanel>() == true)
+                return;
+
+            if (CanAttack == false)
+                return;
 
             EventData eventData = new EventData();
             eventData.AddAbility("Ability", testAbilities[0]);

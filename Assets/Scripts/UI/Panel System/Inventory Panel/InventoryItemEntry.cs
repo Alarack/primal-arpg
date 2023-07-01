@@ -55,6 +55,10 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
             Remove();
         }
 
+        if(MyItem != null && slot != ItemSlot.Inventory) {
+            parentPanel.CheckForDupeEquips(this);
+        }
+
     }
 
     private void OnItemUnequipped(EventData data) {
@@ -189,7 +193,7 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
         }
         else {
             if (draggedItem.Data.validSlots.Contains(slot)) {
-                EntityManager.ActivePlayer.Inventory.EquipItem(draggedItem);
+                EntityManager.ActivePlayer.Inventory.EquipItemToSlot(draggedItem, slot);
             }
         }
 
@@ -207,10 +211,15 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData) {
 
+        if(MyItem != null) {
+            TooltipManager.Show(MyItem.GetTooltip(), MyItem.Data.itemName);
+
+        }
+
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-
+        TooltipManager.Hide();
     }
 
     public void OnPointerClick(PointerEventData eventData) {

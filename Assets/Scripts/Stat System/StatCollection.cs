@@ -303,6 +303,11 @@ public class StatCollection {
         targetStat.RemoveMaxModifier(mod);
     }
 
+
+    public void RemoveCurrentRangeAdjustment(StatName name, StatModifier mod) {
+        AdjustStatRangeCurrentValue(name, -mod.Value, mod.ModType, mod.Source);
+    }
+
     public void AdjustStatRangeCurrentValue(StatName name, float value, StatModType modType, object source) {
         if (Contains(name) == false) {
             Debug.LogError("Stat: " + name + " was not found");

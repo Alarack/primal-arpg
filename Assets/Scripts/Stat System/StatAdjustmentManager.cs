@@ -56,10 +56,9 @@ public static class StatAdjustmentManager {
 
     public static float RemoveStatAdjustment(Entity target, StatModifier mod, StatModifierData.StatVariantTarget variant, Entity source) {
 
-
         Action<StatName, StatModifier> statModAction = variant switch {
             StatModifierData.StatVariantTarget.Simple => target.Stats.RemoveModifier,
-            StatModifierData.StatVariantTarget.RangeCurrent => null,
+            StatModifierData.StatVariantTarget.RangeCurrent => target.Stats.RemoveCurrentRangeAdjustment,
             StatModifierData.StatVariantTarget.RangeMin => target.Stats.RemoveMinValueModifier,
             StatModifierData.StatVariantTarget.RangeMax => target.Stats.RemoveMaxValueModifier,
             _ => null,

@@ -79,9 +79,15 @@ public class Inventory : MonoBehaviour {
 
 
     public void EquipItemToSlot(Item item, ItemSlot slot) {
+        
+        if(item.Equipped == true) {
+            UnEquipItem(item);
+        }
+        
+        
         Item existingItem = GetItemInSlot(slot);
 
-        if (existingItem != null) {
+        if (existingItem != null && existingItem != item) {
             UnEquipItem(existingItem);
         }
 
