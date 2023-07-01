@@ -426,6 +426,7 @@ public class StatAdjustmentEffect : Effect {
 
         if (statModDict.TryGetValue(target, out List<StatModifier> modList)) {
             for (int i = 0; i < modList.Count; i++) {
+                //TODO: use stat adjustment manager here for event purposes
                 target.Stats.RemoveModifier(modList[i].TargetStat, modList[i]);
             }
 

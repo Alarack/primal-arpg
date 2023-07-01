@@ -15,6 +15,12 @@ public static class AbilityUtilities
         }
     }
 
+    public static void SetupAbilities(List<AbilityDefinition> abilityData, List<Ability> abilities, Entity source) {
+        for (int i = 0; i < abilityData.Count; i++) {
+            abilities.Add(AbilityFactory.CreateAbility(abilityData[i].AbilityData, source));
+        }
+    }
+
     //public static void SetupAbilities(List<AbilityData> abilityData, List<Ability> abilities, DieFace source) {
     //    for (int i = 0; i < abilityData.Count; i++) {
     //        abilities.Add(AbilityFactory.CreateAbility(abilityData[i], source));

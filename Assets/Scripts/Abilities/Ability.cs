@@ -286,6 +286,12 @@ public class Ability {
         return Charges > 0;
     }
 
+    public string GetTooltip() {
+
+
+        return Data.abilityDescription;
+    }
+
     //public List<Entity> GetFirstEffectTargets() {
     //    if (effects.Count == 0) {
     //        Debug.LogError("No effects found on: " + Data.abilityName + " while trying to preview effect targets");

@@ -54,12 +54,12 @@ public static class StatAdjustmentManager {
         return modValue;
     }
 
-    public static float RemoveStatAdjustment(Entity target, StatModifier mod, StatModifierData.StatVariantTarget variant, Entity source) {
+    public static float RemoveStatAdjustment(Entity target, StatModifier mod, StatModifierData.StatVariantTarget variant, Entity source, bool removeRangeAdjsument = false) {
 
         Action<StatName, StatModifier> statModAction = variant switch {
             StatModifierData.StatVariantTarget.Simple => target.Stats.RemoveModifier,
             StatModifierData.StatVariantTarget.RangeCurrent => target.Stats.RemoveCurrentRangeAdjustment,
-            StatModifierData.StatVariantTarget.RangeMin => target.Stats.RemoveMinValueModifier,
+            StatModifierData.StatVariantTarget.RangeMin when removeRangeAdjsument == true => target.Stats.RemoveMinValueModifier,
             StatModifierData.StatVariantTarget.RangeMax => target.Stats.RemoveMaxValueModifier,
             _ => null,
         };

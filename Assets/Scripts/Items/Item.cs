@@ -65,7 +65,7 @@ public class Item
         }
 
         for (int i = 0; i < statModifiers.Count; i++) {
-            StatAdjustmentManager.RemoveStatAdjustment(Owner, statModifiers[i], Data.statModifierData[i].variantTarget, Owner);
+            StatAdjustmentManager.RemoveStatAdjustment(Owner, statModifiers[i], Data.statModifierData[i].variantTarget, Owner, true);
         }
 
         EventData data = new EventData();

@@ -37,6 +37,7 @@ public abstract class Entity : MonoBehaviour {
     public GameObject spawnEffectPrefab;
 
     public EntityMovement Movement { get; private set; }
+    public AbilityManager AbilityManager { get; private set; }
 
     public StatCollection Stats { get; private set; }
     public List<AbilityData> baseAbilities = new List<AbilityData>();
@@ -50,11 +51,8 @@ public abstract class Entity : MonoBehaviour {
             Debug.LogError(EntityName + " has 0 starting health. You probably forgot to set the range curren value to the max");
         }
 
-        if(Stats.Contains(StatName.GlobalDamageModifier) == false) {
-
-        }
-
         Movement = GetComponent<EntityMovement>();
+        AbilityManager = GetComponent<AbilityManager>();
     }
 
     protected virtual void Start() {
