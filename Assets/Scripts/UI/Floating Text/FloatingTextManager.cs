@@ -18,7 +18,11 @@ public class FloatingTextManager : Singleton<FloatingTextManager> {
 
         FloatingText newFloatingText = Instantiate(Instance.prefab, location, Quaternion.identity);
         newFloatingText.transform.localScale *= scale;
-        newFloatingText.Setup(value);
+
+        float roundedValue = Mathf.FloorToInt(float.Parse(value));
+
+
+        newFloatingText.Setup(roundedValue.ToString());
 
         return newFloatingText;
     }

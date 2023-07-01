@@ -14,17 +14,21 @@ public class InventoryPanel : BasePanel {
     public Transform inventoryHolder;
     public InventoryItemEntry inventoryEntryTemplate;
 
-
+    public GameObject dropZone;
 
     protected override void Awake() {
         base.Awake();
         CreateEmptySlots();
+        SetupPaperDollSlots();
         PopulateInventory();
+
+        inventoryEntryTemplate.gameObject.SetActive(false);
     }
 
     protected override void OnEnable() {
         base.OnEnable();
         EventManager.RegisterListener(GameEvent.ItemAquired, OnItemAquired);
+        EventManager.RegisterListener(GameEvent.ItemUnequipped, OnItemUnequipped);
     }
     protected override void OnDisable() {
         base.OnDisable();
@@ -44,13 +48,16 @@ public class InventoryPanel : BasePanel {
         }
     }
 
+    private void SetupPaperDollSlots() {
+        for (int i = 0; i < paperDollEntries.Count; i++) {
+            paperDollEntries[i].Setup(null, this);
+        }
+    }
 
-    private void OnItemAquired(EventData data) {
-
-        Item item = data.GetItem("Item");
+    public void AddToFirstEmptySlot(Item item) {
 
         InventoryItemEntry emptySlot = GetEmptyInventorySlot();
-        if (emptySlot == null) {
+        if (emptySlot != null) {
             emptySlot.Add(item);
         }
         else {
@@ -59,9 +66,28 @@ public class InventoryPanel : BasePanel {
         }
     }
 
+    private void OnItemAquired(EventData data) {
+        Item item = data.GetItem("Item");
+        AddToFirstEmptySlot(item);
+    }
+
     private void OnItemEquipped(EventData data) {
 
     }
+
+    private void OnItemUnequipped(EventData data) {
+        Item item = data.GetItem("Item");
+
+        if (item == null)
+            return;
+
+        if (EntityManager.ActivePlayer.Inventory.ItemOwned(item) == true) {
+            
+            if(IsItemInInventory(item) == false)
+                GetEmptyInventorySlot().Add(item);
+        }
+    }
+
 
     private void OnItemDropped(EventData data) {
 
@@ -75,6 +101,15 @@ public class InventoryPanel : BasePanel {
         }
 
         return null;
+    }
+
+    private bool IsItemInInventory(Item item) {
+        for (int i = 0; i < inventoryEntries.Count; i++) {
+            if (inventoryEntries[i].MyItem == item) 
+                return true;
+        }
+
+        return false;
     }
 
     public void HighlightValidSLots() {

@@ -27,6 +27,18 @@ public static class PanelManager
         return panel;
     }
 
+    public static void TogglePanel<T>() where T : BasePanel {
+        var panel = GetPanel<T>();
+
+        if (panel == null) {
+            Debug.LogError("[PANEL MANAGER] Panel not found in panel manager: " + typeof(T).ToString());
+            return;
+        }
+
+        panel.Toggle();
+
+    }
+
     public static BasePanel OpenPanel(string panelID)
     {
         BasePanel panel = GetPanel(panelID);

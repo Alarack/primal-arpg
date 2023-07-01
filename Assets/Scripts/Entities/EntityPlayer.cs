@@ -13,6 +13,8 @@ public class EntityPlayer : Entity
     private List<Ability> testAbilities = new List<Ability>();
     public Inventory Inventory { get; private set; }
 
+    public float CurrentDamageRoll { get { return GetDamgeRoll(); } }
+
     protected override void Awake() {
         base.Awake();
         Inventory = GetComponent<Inventory>();
@@ -36,6 +38,10 @@ public class EntityPlayer : Entity
 
         }
 
+        if (Input.GetKeyDown(KeyCode.I)) {
+            PanelManager.TogglePanel<InventoryPanel>();
+        }
+
 
         //if(Input.GetKeyDown(KeyCode.C)) {
         //    StatAdjustmentManager.AdjustCDR(this, 0.5f, this);
@@ -46,6 +52,10 @@ public class EntityPlayer : Entity
         //}
 
 
+    }
+
+    public float GetDamgeRoll() {
+        return Inventory.GetDamageRoll();
     }
 
 

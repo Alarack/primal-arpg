@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using LL.Events;
+using static UnityEditor.Progress;
 
 public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler, IPointerClickHandler {
 
@@ -21,6 +22,8 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
     private int baseOrder;
     private InventoryPanel parentPanel;
     private Canvas canvas;
+    private Color defaultBgColor;
+
 
     public static InventoryItemEntry DraggedInventoryItem { get; set; }
 
@@ -28,10 +31,13 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
     private void Awake() {
         canvas = GetComponent<Canvas>();
         baseOrder = canvas.sortingOrder;
+        defaultBgColor = bgImage.color;
     }
 
     private void OnEnable() {
         EventManager.RegisterListener(GameEvent.ItemEquipped, OnItemEquipped);
+        EventManager.RegisterListener(GameEvent.ItemDropped, OnItemDropped);
+        EventManager.RegisterListener(GameEvent.ItemUnequipped, OnItemUnequipped);
     }
 
     private void OnDisable() {
@@ -45,8 +51,35 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
             Add(item);
         }
 
-        if (slot == ItemSlot.Inventory) {
+        if (MyItem != null && item == MyItem && slot == ItemSlot.Inventory ) {
             Remove();
+        }
+
+    }
+
+    private void OnItemUnequipped(EventData data) {
+        Item item = data.GetItem("Item");
+
+        if(slot == item.CurrentSlot && MyItem != null && item == MyItem) {
+            Remove();
+        }
+
+        //if(EntityManager.ActivePlayer.Inventory.ItemOwned(item) == true) {
+        //    parentPanel.AddToFirstEmptySlot(item);
+        //}
+    }
+
+    private void OnItemDropped(EventData data) {
+        Item item = data.GetItem("Item");
+
+        Debug.Log("Inventory Entry sees a dropped item: " + item.Data.itemName);
+
+        if (MyItem != null && item == MyItem) {
+            Debug.Log("Item Matches: " + MyItem.Data.itemName);
+
+            Remove();
+
+            ItemSpawner.SpawnItem(item, Vector2.zero);
         }
 
     }
@@ -64,20 +97,22 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
     }
 
     public void Remove() {
+
         MyItem = null;
         SetupDisplay();
     }
 
     public void ShowHighlight() {
-
+        bgImage.color = Color.yellow;
     }
 
     public void HideHighlight() {
-
+        bgImage.color = defaultBgColor;
     }
 
     private void SetupDisplay() {
         if (MyItem != null) {
+            itemImage.gameObject.SetActive(true);
             itemImage.sprite = MyItem.Data.itemIcon;
 
             if (emptyImage != null)
@@ -85,28 +120,76 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
         }
         else if (emptyImage != null) {
             emptyImage.gameObject.SetActive(true);
+            itemImage.gameObject.SetActive(false);
+        }
+        else {
+            itemImage.gameObject.SetActive(false);
         }
 
     }
 
     #region UI CALLBACKS
 
+    public void ResetSortOrder() {
+        canvas.sortingOrder = baseOrder;
+    }
+
     public void OnBeginDrag(PointerEventData eventData) {
         DraggedInventoryItem = this;
+
+        DraggedInventoryItem.canvas.sortingOrder = 100;
+
         parentPanel.HighlightValidSLots();
+        parentPanel.dropZone.SetActive(true);
     }
 
     public void OnDrag(PointerEventData eventData) {
-        DraggedInventoryItem.itemImage.gameObject.transform.localPosition = Input.mousePosition;
+        Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        DraggedInventoryItem.itemImage.gameObject.transform.position = targetPos;
     }
 
     public void OnDrop(PointerEventData eventData) {
+
+        Item draggedItem = DraggedInventoryItem.MyItem;
+        
         if (slot == ItemSlot.Inventory) {
-            DraggedInventoryItem.itemImage.gameObject.transform.localPosition = Vector3.zero;
+            
+            if(draggedItem.Equipped == true) {
+                
+                if(MyItem == null) {
+                    Add(draggedItem);
+                    EntityManager.ActivePlayer.Inventory.UnEquipItem(draggedItem);
+                    
+                }
+                else {
+                    Debug.LogWarning("Dragged an equipped item onto a non-null inventory item");
+                }
+
+            }
+            else {
+
+                if(MyItem == null) {
+                    DraggedInventoryItem.Remove();
+                    Add(draggedItem);
+                }
+                else {
+                    //DraggedInventoryItem.Remove();
+
+                    Item swappingItem = draggedItem;
+
+                    DraggedInventoryItem.Add(MyItem);
+                    Add(swappingItem);
+                }
+
+                
+                //DraggedInventoryItem.itemImage.gameObject.transform.localPosition = Vector3.zero;
+
+            }
+
         }
         else {
-            if (DraggedInventoryItem.MyItem.Data.validSlots.Contains(slot)) {
-                EntityManager.ActivePlayer.Inventory.EquipItem(DraggedInventoryItem.MyItem);
+            if (draggedItem.Data.validSlots.Contains(slot)) {
+                EntityManager.ActivePlayer.Inventory.EquipItem(draggedItem);
             }
         }
 
@@ -115,9 +198,11 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
     }
 
     public void OnEndDrag(PointerEventData eventData) {
+        DraggedInventoryItem.ResetSortOrder();
         DraggedInventoryItem.itemImage.gameObject.transform.localPosition = Vector3.zero;
         DraggedInventoryItem = null;
         parentPanel.HideAllHighlights();
+        parentPanel.dropZone.SetActive(false);
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -129,11 +214,12 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        if (eventData.button == PointerEventData.InputButton.Left) {
+        if (eventData.button == PointerEventData.InputButton.Right) {
             if (MyItem == null)
                 return;
 
             if (MyItem.Equipped == true) {
+                //parentPanel.AddToFirstEmptySlot(MyItem);
                 EntityManager.ActivePlayer.Inventory.UnEquipItem(MyItem);
             }
             else {

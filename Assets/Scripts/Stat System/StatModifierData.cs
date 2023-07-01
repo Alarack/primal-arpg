@@ -18,7 +18,8 @@ public class StatModifierData
         DeriveFromOtherStats,
         DeriveFromNumberOfTargets,
         HardSetValue,
-        HardReset
+        HardReset,
+        DeriveFromWeaponDamage
     }
     public enum DeriveFromWhom {
         Source,
@@ -36,6 +37,7 @@ public class StatModifierData
     public StatVariantTarget variantTarget;
 
     public ModValueSetMethod modValueSetMethod;
+    public float weaponDamagePercent = 1f;
     public DeriveFromWhom deriveTarget;
     public StatName derivedTargetStat;
     public bool invertDerivedValue;

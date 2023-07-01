@@ -41,7 +41,15 @@ public class ItemPickup : MonoBehaviour
     }
 
     public virtual void Setup(ItemData itemData) {
-        Item = new Item(itemData, null);
+
+        if (itemData.validSlots.Contains(ItemSlot.Weapon)) {
+            Item = new ItemWeapon(itemData, null);
+        }
+        else {
+            Item = new Item(itemData, null);
+            
+        }
+
         Setup(Item);
     }
 

@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Test Item
+  m_Name: Test Dagger
   m_EditorClassIdentifier: 
   itemData:
-    itemName: Best Sword
-    itemDescription: Its pretty much the sickest sword you've ever had the privilage
-      to click on
+    itemName: Slick Stabber
+    itemDescription: yeah it's my stabber, wanna fight about it?
     itemValue: 20000
     validSlots: 01000000
-    itemIcon: {fileID: 21300000, guid: d76c12ca97bc6244c954433b257d2fd3, type: 3}
-    pickupIcon: {fileID: 21300000, guid: d76c12ca97bc6244c954433b257d2fd3, type: 3}
+    itemIcon: {fileID: 21300000, guid: ad707d068f921cf4fa9a434485190873, type: 3}
+    pickupIcon: {fileID: 21300000, guid: ad707d068f921cf4fa9a434485190873, type: 3}
     pickupOnCollision: 0
-    minDamage: 10
-    maxDamage: 15
+    minDamage: 5
+    maxDamage: 10
     statModifierData: []
     abilityData: []

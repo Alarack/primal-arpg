@@ -54,9 +54,10 @@ public class Item
         EventManager.SendEvent(GameEvent.ItemEquipped, data);
     }
 
-    public void UnEquip() { 
-        Equipped = false;
-        CurrentSlot = ItemSlot.None;
+    public void UnEquip() {
+
+
+        //Debug.Log("Unequipping: " + Data.itemName);
 
         for (int i = 0; i < abilities.Count; i++) {
             abilities[i].TearDown();
@@ -69,6 +70,9 @@ public class Item
         EventData data = new EventData();
         data.AddItem("Item", this);
         EventManager.SendEvent(GameEvent.ItemUnequipped, data);
+
+        Equipped = false;
+        CurrentSlot = ItemSlot.None;
     }
 
 

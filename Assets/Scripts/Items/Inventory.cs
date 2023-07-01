@@ -43,6 +43,9 @@ public class Inventory : MonoBehaviour {
 
         return results;
     }
+    public bool ItemOwned(Item item) {
+        return ownedItems.Contains(item);
+    }
 
     public void Add(Item item) {
         if (ownedItems.AddUnique(item) == false) {
@@ -63,6 +66,14 @@ public class Inventory : MonoBehaviour {
             data.AddItem("Item", item);
 
             EventManager.SendEvent(GameEvent.ItemDropped, data);
+
+           
+            if(equippedItems.TryGetValue(item.CurrentSlot, out Item equippedItem)) {
+                //if(equippedItem != null)
+                    UnEquipItem(equippedItem); 
+            }
+
+
         }
     }
 
@@ -90,11 +101,13 @@ public class Inventory : MonoBehaviour {
 
         }
 
+
         foreach (var entry in existingItems) {
             if(entry.Value == null) {
                 equippedItems[entry.Key] = item;
                 item.Equip(entry.Key);
                 equipSucessful = true;
+                //Debug.Log("Found an empty slot for : " + item.Data.itemName + " :: " + entry.Key);
                 break;
             }
         }
@@ -105,10 +118,14 @@ public class Inventory : MonoBehaviour {
             Item replacedItem = existingItems[firstSlot];
             UnEquipItem(replacedItem);
 
-            existingItems[firstSlot] = item;
+            equippedItems[firstSlot] = item;
             item.Equip(firstSlot);
-            
+
+            //Debug.Log("Replacing an item : " + replacedItem.Data.itemName + " with " + item.Data.itemName + " in slot: " + firstSlot);
+
         }
+
+        //Debug.Log("Equipped: " + item.Data.itemName);
     }
 
     public void UnEquipItem(Item item) {
@@ -126,8 +143,16 @@ public class Inventory : MonoBehaviour {
 
     private Item GetItemInSlot(ItemSlot slot) {
         if (equippedItems.TryGetValue(slot, out Item item) == true) {
-            return item;
+            
+            if(item != null) {
+                //Debug.Log("Found: " + item.Data.itemName + " in slot: " + slot);
+                return item;
+            }
         }
+
+
+        //Debug.Log("No items in Slot: " + slot);
+
         return null;
     }
 
@@ -151,8 +176,11 @@ public class Inventory : MonoBehaviour {
         if (CurrentWeapon != null) {
             return CurrentWeapon.DamageRoll;
         }
+        else {
+            Debug.Log("Weapon is null");
+        }
 
-        return 0f;
+        return 5f;
     }
 
     public ItemWeapon GetWeapon() {

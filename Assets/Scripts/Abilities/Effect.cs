@@ -323,6 +323,22 @@ public class StatAdjustmentEffect : Effect {
     public StatAdjustmentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
     }
 
+
+    private float SetModValues(Entity target, StatModifier activeMod, StatModifierData modData) {
+
+        float targetValue = modData.modValueSetMethod switch {
+            StatModifierData.ModValueSetMethod.Manual => modData.value,
+            StatModifierData.ModValueSetMethod.DeriveFromOtherStats => throw new System.NotImplementedException(),
+            StatModifierData.ModValueSetMethod.DeriveFromNumberOfTargets => throw new System.NotImplementedException(),
+            StatModifierData.ModValueSetMethod.HardSetValue => throw new System.NotImplementedException(),
+            StatModifierData.ModValueSetMethod.HardReset => throw new System.NotImplementedException(),
+            StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll * modData.weaponDamagePercent,
+            _ => 0f,
+        };
+
+        return modData.invertDerivedValue == false ? targetValue : -targetValue;
+    }
+
     public override bool Apply(Entity target) {
         if (base.Apply(target) == false)
             return false;
@@ -331,13 +347,21 @@ public class StatAdjustmentEffect : Effect {
 
             StatModifier activeMod = new StatModifier(Data.modData[i].value, Data.modData[i].modifierType, Data.modData[i].targetStat, Source);
 
+
+            float baseModValue = SetModValues(target, activeMod, Data.modData[i]);
+
+            activeMod.UpdateModValue(baseModValue);
+
+            float globalDamageMultiplier = GetDamageModifier(activeMod);
+
+
             if (Data.modData[i].variantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
                 TrackStatAdjustment(target, activeMod);
             }
 
+           
 
 
-            float globalDamageMultiplier = GetDamageModifier(activeMod);
 
 
             float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, Data.modData[i].targetStat, Data.modData[i].variantTarget, globalDamageMultiplier);

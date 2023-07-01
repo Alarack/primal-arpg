@@ -17,6 +17,8 @@ public class ItemPickupNamePlate : MonoBehaviour, IPointerEnterHandler, IPointer
     private CanvasGroup canvasGroup;
     private bool fading;
 
+    private Task fadeTask;
+
     private void Awake() {
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0f;
@@ -29,13 +31,13 @@ public class ItemPickupNamePlate : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void Show() {
         if(fading == false) {
-            new Task(Fade(1f));
+            fadeTask = new Task(Fade(1f));
         }
     }
 
     public void Hide() {
         if (fading == false) {
-            new Task(Fade(0f));
+            fadeTask = new Task(Fade(0f));
         }
     }
 
@@ -55,6 +57,7 @@ public class ItemPickupNamePlate : MonoBehaviour, IPointerEnterHandler, IPointer
     }
 
     public void OnPointerClick(PointerEventData eventData) {
+        fadeTask.Stop();
         parent.Collect();
     }
 

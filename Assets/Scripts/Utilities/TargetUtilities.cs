@@ -194,5 +194,10 @@ public static class TargetUtilities
         return mask == (mask | (1 << layer));
     }
 
+    public static Vector3 LerpByDistance(Vector3 A, Vector3 B, float distance) {
+        Vector3 P = distance * Vector3.Normalize(B - A) + A;
+        return P;
+    }
+
 
 }
