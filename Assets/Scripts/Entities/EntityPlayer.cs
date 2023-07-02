@@ -2,12 +2,15 @@ using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
+using System.Text;
 
 public class EntityPlayer : Entity
 {
 
     //public EffectDefinition fireballTest;
-    public AbilityDefinition debugAbilityTest;
+    public AbilityDefinition testAbility;
 
     private List<Effect> testEffects = new List<Effect>();
     private List<Ability> testAbilities = new List<Ability>();
@@ -16,13 +19,15 @@ public class EntityPlayer : Entity
 
     public float CurrentDamageRoll { get { return GetDamgeRoll(); } }
 
+
+    private bool binding;
     protected override void Awake() {
         base.Awake();
         Inventory = GetComponent<Inventory>();
         //Effect fireball = AbilityFactory.CreateEffect(fireballTest.effectData, this);
         //testEffects.Add(fireball);
 
-        Ability debugAbility = AbilityFactory.CreateAbility(debugAbilityTest.AbilityData, this);
+        Ability debugAbility = AbilityFactory.CreateAbility(testAbility.AbilityData, this);
         debugAbility.Equip();
         testAbilities.Add(debugAbility);
     }
@@ -54,6 +59,12 @@ public class EntityPlayer : Entity
         }
 
 
+       if(Input.GetKeyDown(KeyCode.K)) {
+            binding = !binding;
+        }
+
+      
+
         //if(Input.GetKeyDown(KeyCode.C)) {
         //    StatAdjustmentManager.AdjustCDR(this, 0.5f, this);
         //}
@@ -64,6 +75,8 @@ public class EntityPlayer : Entity
 
 
     }
+
+  
 
     public float GetDamgeRoll() {
         return Inventory.GetDamageRoll();

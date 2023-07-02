@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 
 using SkillEntryLocation = SkillEntry.SkillEntryLocation;
+using GameButtonType = InputHelper.GameButtonType;
 
 public static class AbilityUtilities 
 {
@@ -34,19 +35,19 @@ public static class AbilityUtilities
 
     #region UI
 
-    public static void CreateEmptySkillEntries(ref List<SkillEntry> list, int count, SkillEntry prefab, Transform holder, SkillEntryLocation location) {
+    public static void CreateEmptySkillEntries(ref List<SkillEntry> list, int count, SkillEntry prefab, Transform holder, SkillEntryLocation location, List<GameButtonType> defaultBinds) {
         list.PopulateList(count, prefab, holder, true);
 
         for (int i = 0; i < list.Count; i++) {
-            list[i].Setup(null, location, i);
+            list[i].Setup(null, location, defaultBinds[i], i);
         }
     }
 
 
-    public static SkillEntry CreateSkillEntry(Ability ability, SkillEntry prefab, Transform holder, SkillEntryLocation location, int index = -1) {
+    public static SkillEntry CreateSkillEntry(Ability ability, SkillEntry prefab, Transform holder, SkillEntryLocation location, GameButtonType keyBind = GameButtonType.None, int index = -1) {
         SkillEntry entry = GameObject.Instantiate(prefab, holder);
         entry.gameObject.SetActive(true);
-        entry.Setup(ability, location, index);
+        entry.Setup(ability, location, keyBind, index);
 
         return entry;
     }

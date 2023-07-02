@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using GameButtonType = InputHelper.GameButtonType;
+
 public class SkillsPanel : BasePanel
 {
 
     public Transform activeSkillsHolder;
     public Transform knownSkillsHolder;
     public SkillEntry skillEntryTemplate;
+
+    public List<GameButtonType> defaultkeyBinds = new List<GameButtonType>();
 
     private List<SkillEntry> activeSkillEntries = new List<SkillEntry>(); 
     private List<SkillEntry> knownSkillEntries = new List<SkillEntry>();
@@ -48,7 +52,7 @@ public class SkillsPanel : BasePanel
     }
 
     private void CreateEmptySlots() {
-        AbilityUtilities.CreateEmptySkillEntries(ref activeSkillEntries, 6, skillEntryTemplate, activeSkillsHolder, SkillEntry.SkillEntryLocation.ActiveSkill);
+        AbilityUtilities.CreateEmptySkillEntries(ref activeSkillEntries, 6, skillEntryTemplate, activeSkillsHolder, SkillEntry.SkillEntryLocation.ActiveSkill, defaultkeyBinds);
     }
 
     public SkillEntry IsAbilityInActiveList(Ability ability) {

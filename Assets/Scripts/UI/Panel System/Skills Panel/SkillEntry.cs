@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+using GameButtonType = InputHelper.GameButtonType;
+
 public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler,
     IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler {
 
@@ -24,6 +26,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Image buttonPromptImage;
     public TextMeshProUGUI buttonPromptText;
     public SkillEntryLocation location;
+    public GameButtonType keybind;
     //public GameInput.GameButtonType keyBind;
 
     //[Header("Slot Elements")]
@@ -43,8 +46,9 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         canvas = GetComponent<Canvas>();
     }
 
-    public void Setup(Ability ability, SkillEntryLocation location, int index = -1) {
+    public void Setup(Ability ability, SkillEntryLocation location, GameButtonType keyBind = GameButtonType.None, int index = -1) {
         this.Ability = ability;
+        this.keybind = keyBind;
         SetupAbilityIcon(ability);
 
         this.location = location;
