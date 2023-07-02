@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using System.Linq;
 
+using SkillEntryLocation = SkillEntry.SkillEntryLocation;
+
 public static class AbilityUtilities 
 {
 
@@ -29,6 +31,54 @@ public static class AbilityUtilities
 
 
     #endregion
+
+    #region UI
+
+    public static void CreateEmptySkillEntries(ref List<SkillEntry> list, int count, SkillEntry prefab, Transform holder, SkillEntryLocation location) {
+        list.PopulateList(count, prefab, holder, true);
+
+        for (int i = 0; i < list.Count; i++) {
+            list[i].Setup(null, location, i);
+        }
+    }
+
+
+    public static SkillEntry CreateSkillEntry(Ability ability, SkillEntry prefab, Transform holder, SkillEntryLocation location, int index = -1) {
+        SkillEntry entry = GameObject.Instantiate(prefab, holder);
+        entry.gameObject.SetActive(true);
+        entry.Setup(ability, location, index);
+
+        return entry;
+    }
+
+    public static void PopulateSkillEntryList(ref List<SkillEntry> list, SkillEntry prefab, Transform holder, SkillEntryLocation location) {
+
+        list.ClearList();
+
+        List<Ability> abilities = location switch {
+            SkillEntryLocation.ActiveSkill => EntityManager.ActivePlayer.AbilityManager.ActiveAbilities,
+            SkillEntryLocation.KnownSkill => EntityManager.ActivePlayer.AbilityManager.KnownAbilities,
+            SkillEntryLocation.Hotbar => EntityManager.ActivePlayer.AbilityManager.ActiveAbilities,
+            _ => new List<Ability>(),
+        };
+
+        for (int i = 0; i < abilities.Count; i++) {
+            list.Add(CreateSkillEntry(abilities[i], prefab, holder, location));
+        }
+    }
+
+    public static SkillEntry GetSkillEntryByAbility(List<SkillEntry> list, Ability ability) {
+        for (int i = 0; i < list.Count; i++) {
+            if (list[i].Ability == ability)
+                return list[i];
+        }
+
+        return null;
+    }
+
+
+    #endregion
+
 
     #region GETTERS
 

@@ -38,11 +38,10 @@ public abstract class Entity : MonoBehaviour {
 
     public EntityMovement Movement { get; private set; }
     public AbilityManager AbilityManager { get; private set; }
-
     public StatCollection Stats { get; private set; }
-    public List<AbilityData> baseAbilities = new List<AbilityData>();
+    //public List<AbilityData> baseAbilities = new List<AbilityData>();
 
-    protected List<Ability> abilities = new List<Ability>();
+    //protected List<Ability> abilities = new List<Ability>();
 
     protected virtual void Awake() {
         Stats = new StatCollection(this, statDefinitions);
@@ -74,36 +73,20 @@ public abstract class Entity : MonoBehaviour {
 
     #region ABILIITES
 
-    protected virtual void SetupAbilities() {
-        AbilityUtilities.SetupAbilities(baseAbilities, abilities, this);
-    }
+    //protected virtual void SetupAbilities() {
+    //    AbilityUtilities.SetupAbilities(baseAbilities, abilities, this);
+    //}
 
     public Ability GetAbilityByName(string name) {
-        for (int i = 0; i < abilities.Count; i++) {
-            if (abilities[i].Data.abilityName == name)
-                return abilities[i];
-        }
-
-        return null;
+        return AbilityManager.GetAbilityByName(name);
     }
 
     public void ActivateFirstAbility() {
-        if (abilities.Count == 0) {
-            Debug.LogError(EntityName + " has no abiliites and was told to force active an ability");
-            return;
-        }
-
-        abilities[0].ForceActivate();
+        AbilityManager.ActivateFirstAbility();
     }
 
     public void ActivateAbilityByName(string name) {
-        Ability targetAbility = GetAbilityByName(name);
-        if (targetAbility == null) {
-            Debug.LogError("An abiity: " + name + " could not be found on: " + EntityName + " and it was told to activate");
-            return;
-        }
-
-        targetAbility.ForceActivate();
+        AbilityManager.ActivateAbilityByName(name);
     }
 
     #endregion
@@ -141,17 +124,11 @@ public abstract class Entity : MonoBehaviour {
     #region VFX
 
     protected void SpawnDeathVFX() {
-        if (deathEffectPrefab == null)
-            return;
-
-        Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+        VFXUtility.SpawnVFX(deathEffectPrefab, transform.position, Quaternion.identity, 2f);
     }
 
     protected void SpawnEntranceEffect() {
-        if (spawnEffectPrefab == null)
-            return;
-
-        Instantiate(spawnEffectPrefab, transform.position, Quaternion.identity);
+        VFXUtility.SpawnVFX(spawnEffectPrefab, transform.position, Quaternion.identity, 2f);
     }
 
 

@@ -93,7 +93,7 @@ public class AbilityData
 
 
 
-
+    public Sprite abilityIcon;
     public string abilityName;
     public string abilityDescription;
     public bool toBestow;

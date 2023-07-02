@@ -55,6 +55,7 @@ public class AbilityManager : MonoBehaviour
     public void EquipAbility(Ability ability, int index) {
         if (KnownAbilities.Contains(ability)) {
             if (ActiveAbilities.AddUnique(ability) == true) {
+                ability.Equip();
                 onAbilityEquipped?.Invoke(ability, index);
             }
             else
@@ -66,6 +67,7 @@ public class AbilityManager : MonoBehaviour
 
     public void UnequipAbility(Ability ability, int index) {
         if (ActiveAbilities.RemoveIfContains(ability) == true) {
+            ability.Uneqeuip();
             onAbilityUnequipped?.Invoke(ability, index);
         }
         else
@@ -86,6 +88,36 @@ public class AbilityManager : MonoBehaviour
 
     #endregion
 
+    #region GETTING AND ACTIVATION
 
+    public Ability GetAbilityByName(string name) {
+        for (int i = 0; i < KnownAbilities.Count; i++) {
+            if (KnownAbilities[i].Data.abilityName == name)
+                return KnownAbilities[i];
+        }
+
+        return null;
+    }
+
+    public void ActivateFirstAbility() {
+        if (KnownAbilities.Count == 0) {
+            Debug.LogError(Owner.EntityName + " has no abiliites and was told to force active an ability");
+            return;
+        }
+
+        KnownAbilities[0].ForceActivate();
+    }
+
+    public void ActivateAbilityByName(string name) {
+        Ability targetAbility = GetAbilityByName(name);
+        if (targetAbility == null) {
+            Debug.LogError("An abiity: " + name + " could not be found on: " + Owner.EntityName + " and it was told to activate");
+            return;
+        }
+
+        targetAbility.ForceActivate();
+    }
+
+    #endregion
 
 }

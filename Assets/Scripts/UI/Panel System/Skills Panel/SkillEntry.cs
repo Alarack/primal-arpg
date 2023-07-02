@@ -1,3 +1,4 @@
+using LL.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,9 +26,9 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public SkillEntryLocation location;
     //public GameInput.GameButtonType keyBind;
 
-    [Header("Slot Elements")]
-    public GameObject emptySlot;
-    public GameObject filledSlot;
+    //[Header("Slot Elements")]
+    //public GameObject emptySlot;
+    //public GameObject filledSlot;
 
     public Ability Ability { get; protected set; }
     public int Index { get; protected set; }
@@ -41,6 +42,34 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private void Awake() {
         canvas = GetComponent<Canvas>();
     }
+
+    public void Setup(Ability ability, SkillEntryLocation location, int index = -1) {
+        this.Ability = ability;
+        SetupAbilityIcon(ability);
+
+        this.location = location;
+        if ((location == SkillEntryLocation.Hotbar || location == SkillEntryLocation.ActiveSkill) && index > 0)
+            Index = index;
+    }
+
+    private void SetupAbilityIcon(Ability ability) {
+
+        if (ability != null) {
+            this.Ability = ability;
+            icon.gameObject.SetActive(true);
+            icon.sprite = ability.Data.abilityIcon;
+        }
+        else {
+            icon.gameObject.SetActive(false);
+        }
+    }
+
+    public void AssignNewAbility(Ability ability) {
+        this.Ability = ability;
+        SetupAbilityIcon(ability);
+    }
+
+    #region UI CALLBACKS
 
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -65,10 +94,16 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             //Debug.Log("Modifying " + Skill.skillName + " " + embiggen.sizeMod);
             //Skill.AddModifier(embiggen);
         }
+
+        if (location == SkillEntryLocation.Hotbar && eventData.button == PointerEventData.InputButton.Left) {
+            if (Ability == null)
+                return;
+
+            EventData data = new EventData();
+            data.AddAbility("Ability", Ability);
+            EventManager.SendEvent(GameEvent.UserActivatedAbility, data);
+        }
     }
-
-
-
 
     public void OnBeginDrag(PointerEventData eventData) {
         if (CancelDrag() == true)
@@ -101,28 +136,28 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         //Debug.Log("Dropping " + draggedEntry.Skill.skillName + " onto " + Index);
 
-        //SkillsPanel panel = PanelManager.GetPanel<SkillsPanel>();
+        SkillsPanel panel = PanelManager.GetPanel<SkillsPanel>();
 
 
-        //SkillEntry existingSkill = panel.IsSkillInActiveMenu(draggedEntry.Skill);
+        SkillEntry existingSkill = panel.IsAbilityInActiveList(draggedEntry.Ability);
 
-        //if (existingSkill == null) { // Skill is not already on the active bar.
-        //    if (Ability != null) { // Target slot is empty.
-        //        EntityManager.Player.SkillManager.UnequipSkill(Skill, Index);
-        //    }
-        //    EntityManager.Player.SkillManager.EquipSkill(draggedEntry.Skill, Index);
-        //}
-        //else { // Skill is already on the active bar, so it's a movement we're doing.
+        if (existingSkill == null) { // Skill is not already on the active bar.
+            if (Ability != null) { // Target slot is not empty.
+                EntityManager.ActivePlayer.AbilityManager.UnequipAbility(Ability, Index);
+            }
+            EntityManager.ActivePlayer.AbilityManager.EquipAbility(draggedEntry.Ability, Index);
+        }
+        else { // Skill is already on the active bar, so it's a movement we're doing.
 
-        //    if (draggedEntry.location == SkillEntryLocation.KnownSkill) // We're not dragging from all skills because skill is already on the bar.
-        //        return;
+            //if (draggedEntry.location == SkillEntryLocation.KnownSkill) // We're not dragging from all skills because skill is already on the bar.
+            //    return; //Pretty sure this is never true
 
-        //    if (Skill == null) // If the slot is empty, we can just unequip it from its old slot and equip it to the new one.
-        //        EntityManager.Player.SkillManager.MoveSkill(draggedEntry.Skill, draggedEntry.Index, Index);
-        //    else { // If the slot is not empty, we must perform a swap.
-        //        EntityManager.Player.SkillManager.SwapEquippedSkills(Skill, Index, draggedEntry.Skill, draggedEntry.Index);
-        //    }
-        //}
+            if (Ability == null) // If the slot is empty, we can just unequip it from its old slot and equip it to the new one.
+                EntityManager.ActivePlayer.AbilityManager.MoveAbilitySlot(draggedEntry.Ability, draggedEntry.Index, Index);
+            else { // If the slot is not empty, we must perform a swap.
+                EntityManager.ActivePlayer.AbilityManager.SwapEquippedAbilities(Ability, Index, draggedEntry.Ability, draggedEntry.Index);
+            }
+        }
 
         draggedEntry.icon.transform.localPosition = Vector2.zero;
         draggedEntry = null;
@@ -151,5 +186,5 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
 
-
+    #endregion
 }

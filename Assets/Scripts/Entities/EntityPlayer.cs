@@ -49,6 +49,10 @@ public class EntityPlayer : Entity
             PanelManager.TogglePanel<InventoryPanel>();
         }
 
+        if(Input.GetKeyDown(KeyCode.Q)) {
+            PanelManager.TogglePanel<SkillsPanel>();
+        }
+
 
         //if(Input.GetKeyDown(KeyCode.C)) {
         //    StatAdjustmentManager.AdjustCDR(this, 0.5f, this);
