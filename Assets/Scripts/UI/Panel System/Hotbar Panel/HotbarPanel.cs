@@ -77,11 +77,20 @@ public class HotbarPanel : SkillBasePanel
             InputHelper.InitDefaultBinds();
         }
 
+        if(PanelManager.IsPanelOpen<InventoryPanel>() == true) 
+            return;
+        
+        if(PanelManager.IsPanelOpen<SkillsPanel>() == true) 
+            return;
+        
+        if (EntityManager.ActivePlayer.CanAttack == false)
+            return;
+
         Event e = Event.current;
 
         GameButtonType currentButton = InputHelper.GetCustomInput(e);
 
-        if (currentButton != InputHelper.GameButtonType.None)
+        if (currentButton != GameButtonType.None)
             OnSkillBindPressed(currentButton);
 
 

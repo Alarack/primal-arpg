@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5699798145673032678}
   - component: {fileID: 3945940348137806625}
   - component: {fileID: 5357787465864582416}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sword Swipe Zone Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 3398092254090958047}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &3945940348137806625
 CircleCollider2D:
@@ -88,7 +88,6 @@ MonoBehaviour:
   statDefinitions: {fileID: 11400000, guid: 90ef2f6c196f98549a7b395956e83fba, type: 2}
   deathEffectPrefab: {fileID: 0}
   spawnEffectPrefab: {fileID: 0}
-  baseAbilities: []
 --- !u!1001 &8808707831546523221
 PrefabInstance:
   m_ObjectHideFlags: 0

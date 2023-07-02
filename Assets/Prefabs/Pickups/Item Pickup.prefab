@@ -262,7 +262,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 20}
+  m_SizeDelta: {x: 30, y: 6.6262}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1781464869675948521
 Canvas:
@@ -664,7 +664,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -14.065}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3867683637464888378
 CanvasRenderer:
@@ -969,7 +969,7 @@ GameObject:
   - component: {fileID: 1505609600448589057}
   - component: {fileID: 4407366355430088593}
   - component: {fileID: 777966188710461411}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Item Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -992,7 +992,7 @@ Transform:
   - {fileID: 1048241591302943849}
   - {fileID: 7353089442191780921}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1505609600448589057
 CircleCollider2D:

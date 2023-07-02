@@ -154,6 +154,8 @@ public class EffectZone : Entity {
             return;
         }
 
+        //Debug.LogWarning("An effect Zone: " + gameObject.name + " for effect: " + parentEffect.Data.effectName + " is applying to: " + otherEntity.EntityName);
+
         Apply(otherEntity);
 
     }

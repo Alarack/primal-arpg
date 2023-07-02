@@ -46,6 +46,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private void Awake() {
         canvas = GetComponent<Canvas>();
         baseLayer = canvas.sortingOrder;
+        dimmer.fillAmount = 0f;
     }
 
     public void Setup(Ability ability, SkillEntryLocation location, GameButtonType keyBind = GameButtonType.None, int index = -1) {
@@ -126,11 +127,12 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     }
     public void OnEndDrag(PointerEventData eventData) {
+        ResetCanvasLayer();
+
         if (CancelDrag() == true)
             return;
 
         icon.transform.localPosition = Vector2.zero;
-        ResetCanvasLayer();
     }
     public void OnDrop(PointerEventData eventData) {
 
@@ -140,7 +142,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (location != SkillEntryLocation.ActiveSkill)
             return;
 
-        Debug.Log("Dropping " + draggedEntry.Ability.Data.abilityName + " onto " + Index);
+        //Debug.Log("Dropping " + draggedEntry.Ability.Data.abilityName + " onto " + Index);
 
         SkillsPanel panel = PanelManager.GetPanel<SkillsPanel>();
 
@@ -155,8 +157,8 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
         else { // Skill is already on the active bar, so it's a movement we're doing.
 
-            //if (draggedEntry.location == SkillEntryLocation.KnownSkill) // We're not dragging from all skills because skill is already on the bar.
-            //    return; //Pretty sure this is never true
+            if (draggedEntry.location == SkillEntryLocation.KnownSkill) // We're not dragging from all skills because skill is already on the bar.
+                return; //Pretty sure this is never true
 
             if (Ability == null) // If the slot is empty, we can just unequip it from its old slot and equip it to the new one.
                 EntityManager.ActivePlayer.AbilityManager.MoveAbilitySlot(draggedEntry.Ability, draggedEntry.Index, Index);
@@ -181,14 +183,16 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
     private void SetCanvasLayerOnTop() {
-        if (canvas.sortingOrder == 100)
+        if (canvas.overrideSorting == true && canvas.sortingOrder == 100)
             return;
 
+        canvas.overrideSorting = true;
         canvas.sortingOrder = 100;
     }
 
     private void ResetCanvasLayer() {
         canvas.sortingOrder = baseLayer;
+        canvas.overrideSorting = false;
     }
 
 

@@ -314,7 +314,7 @@ public class Ability {
         }
 
         if (IsReady == false) {
-            Debug.Log("An ability: " + Data.abilityName + " tried to trigger, but is not ready.");
+            //Debug.Log("An ability: " + Data.abilityName + " tried to trigger, but is not ready.");
             //Debug.Log(Charges + " charges found");
             return;
         }
@@ -325,7 +325,7 @@ public class Ability {
         }
 
 
-        Debug.Log("An ability: " + Data.abilityName + " is starting. Source: " + Source.gameObject.name);
+        //Debug.Log("An ability: " + Data.abilityName + " is starting. Source: " + Source.gameObject.name);
 
         IsActive = true;
 
