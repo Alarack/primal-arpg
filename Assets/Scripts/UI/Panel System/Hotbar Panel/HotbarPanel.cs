@@ -6,38 +6,43 @@ using UnityEngine.UI;
 
 using GameButtonType = InputHelper.GameButtonType;
 
-public class HotbarPanel : BasePanel
+public class HotbarPanel : SkillBasePanel
 {
-    [Header("Template")]
-    public Transform holder;
-    public SkillEntry skillEntryTemplate;
+    //[Header("Template")]
+    //public Transform holder;
+    //public SkillEntry skillEntryTemplate;
 
-    private List<SkillEntry> activeSkillEntries = new List<SkillEntry>();
+    //private List<SkillEntry> activeSkillEntries = new List<SkillEntry>();
 
-    [Header("Default KeyBinds")]
-    public List<GameButtonType> defaultKeybinds = new List<GameButtonType>();
+    //[Header("Default KeyBinds")]
+    //public List<GameButtonType> defaultKeybinds = new List<GameButtonType>();
 
-    protected override void Start() {
-        base.Start();
+    //protected override void Awake() {
+    //    base.Awake();
+    //    skillEntryTemplate.gameObject.SetActive(false);
+    //}
 
-        CreateEmptySlots();
-    }
+    //protected override void Start() {
+    //    base.Start();
 
-    protected override void OnEnable() {
-        base.OnEnable();
-        EntityManager.ActivePlayer.AbilityManager.onAbilityEquipped += OnAbilityEquipped;
-        EntityManager.ActivePlayer.AbilityManager.onAbilityUnequipped += OnAbilityUnequipped;
-        EntityManager.ActivePlayer.AbilityManager.onAbilitySwapped += OnAbilitySwapped;
-    }
+    //    CreateEmptySlots();
+    //}
 
-    protected override void OnDisable() {
-        base.OnDisable();
-        EntityManager.ActivePlayer.AbilityManager.onAbilityEquipped -= OnAbilityEquipped;
-        EntityManager.ActivePlayer.AbilityManager.onAbilityUnequipped -= OnAbilityUnequipped;
-        EntityManager.ActivePlayer.AbilityManager.onAbilitySwapped -= OnAbilitySwapped;
-    }
+    //protected override void OnEnable() {
+    //    base.OnEnable();
+    //    EntityManager.ActivePlayer.AbilityManager.onAbilityEquipped += OnAbilityEquipped;
+    //    EntityManager.ActivePlayer.AbilityManager.onAbilityUnequipped += OnAbilityUnequipped;
+    //    EntityManager.ActivePlayer.AbilityManager.onAbilitySwapped += OnAbilitySwapped;
+    //}
 
-    private void CreateEmptySlots() {
+    //protected override void OnDisable() {
+    //    base.OnDisable();
+    //    EntityManager.ActivePlayer.AbilityManager.onAbilityEquipped -= OnAbilityEquipped;
+    //    EntityManager.ActivePlayer.AbilityManager.onAbilityUnequipped -= OnAbilityUnequipped;
+    //    EntityManager.ActivePlayer.AbilityManager.onAbilitySwapped -= OnAbilitySwapped;
+    //}
+
+    protected override void CreateEmptySlots() {
         AbilityUtilities.CreateEmptySkillEntries(ref activeSkillEntries, 6, skillEntryTemplate, holder, SkillEntry.SkillEntryLocation.Hotbar, defaultKeybinds);
     }
 
@@ -98,20 +103,20 @@ public class HotbarPanel : BasePanel
     }
 
 
-    private void OnAbilityEquipped(Ability ability, int index) {
-        activeSkillEntries[index].AssignNewAbility(ability);
-    }
+    //private void OnAbilityEquipped(Ability ability, int index) {
+    //    activeSkillEntries[index].AssignNewAbility(ability);
+    //}
 
-    private void OnAbilityUnequipped(Ability ability, int index) {
-        activeSkillEntries[index].AssignNewAbility(null);
-    }
+    //private void OnAbilityUnequipped(Ability ability, int index) {
+    //    activeSkillEntries[index].AssignNewAbility(null);
+    //}
 
-    private void OnAbilitySwapped(Ability first, int firstIndex, Ability second, int secondIndex) {
-        //activeSkillEntries[firstIndex].AssignNewAbility(null);
-        //activeSkillEntries[secondIndex].AssignNewAbility(null);
-        activeSkillEntries[firstIndex].AssignNewAbility(second);
-        activeSkillEntries[secondIndex].AssignNewAbility(first);
-    }
+    //private void OnAbilitySwapped(Ability first, int firstIndex, Ability second, int secondIndex) {
+    //    //activeSkillEntries[firstIndex].AssignNewAbility(null);
+    //    //activeSkillEntries[secondIndex].AssignNewAbility(null);
+    //    activeSkillEntries[firstIndex].AssignNewAbility(second);
+    //    activeSkillEntries[secondIndex].AssignNewAbility(first);
+    //}
     #endregion
 
 }

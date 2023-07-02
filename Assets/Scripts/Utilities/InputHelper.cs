@@ -46,12 +46,6 @@ public static class InputHelper
             }
         }
 
-        foreach (var entry in bindDict) {
-            Debug.Log("Logging: " + entry.Key);
-            Debug.Log("Type: " + entry.Value.type);
-        
-        }
-
         initBinds = true;
     }
 

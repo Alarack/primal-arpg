@@ -41,9 +41,11 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
 
     private Canvas canvas;
+    private int baseLayer;
 
     private void Awake() {
         canvas = GetComponent<Canvas>();
+        baseLayer = canvas.sortingOrder;
     }
 
     public void Setup(Ability ability, SkillEntryLocation location, GameButtonType keyBind = GameButtonType.None, int index = -1) {
@@ -138,7 +140,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (location != SkillEntryLocation.ActiveSkill)
             return;
 
-        //Debug.Log("Dropping " + draggedEntry.Skill.skillName + " onto " + Index);
+        Debug.Log("Dropping " + draggedEntry.Ability.Data.abilityName + " onto " + Index);
 
         SkillsPanel panel = PanelManager.GetPanel<SkillsPanel>();
 
@@ -186,7 +188,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
     private void ResetCanvasLayer() {
-        canvas.sortingOrder = 16;
+        canvas.sortingOrder = baseLayer;
     }
 
 

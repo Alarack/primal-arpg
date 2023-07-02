@@ -651,17 +651,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad86879dd69faa49b2b62f614496f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultState: 0
+  defaultState: 1
   OnOpenEvent:
     m_PersistentCalls:
       m_Calls: []
   OnClosedEvent:
     m_PersistentCalls:
       m_Calls: []
-  activeSkillsHolder: {fileID: 1682100158659105418}
-  knownSkillsHolder: {fileID: 4134809554478077779}
+  holder: {fileID: 1682100158659105418}
   skillEntryTemplate: {fileID: 4108034129064156626}
-  defaultkeyBinds: 050000000600000007000000070000000100000002000000
+  defaultKeybinds: 050000000600000007000000080000000100000002000000
+  knownSkillsHolder: {fileID: 4134809554478077779}
 --- !u!1 &4004078159355883663
 GameObject:
   m_ObjectHideFlags: 0

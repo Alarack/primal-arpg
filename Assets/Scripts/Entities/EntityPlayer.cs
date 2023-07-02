@@ -20,16 +20,16 @@ public class EntityPlayer : Entity
     public float CurrentDamageRoll { get { return GetDamgeRoll(); } }
 
 
-    private bool binding;
     protected override void Awake() {
         base.Awake();
         Inventory = GetComponent<Inventory>();
         //Effect fireball = AbilityFactory.CreateEffect(fireballTest.effectData, this);
         //testEffects.Add(fireball);
 
-        Ability debugAbility = AbilityFactory.CreateAbility(testAbility.AbilityData, this);
-        debugAbility.Equip();
-        testAbilities.Add(debugAbility);
+        //Ability debugAbility = AbilityFactory.CreateAbility(testAbility.AbilityData, this);
+        //debugAbility.Equip();
+        //testAbilities.Add(debugAbility);
+
     }
 
 
@@ -43,10 +43,10 @@ public class EntityPlayer : Entity
             if (CanAttack == false)
                 return;
 
-            EventData eventData = new EventData();
-            eventData.AddAbility("Ability", testAbilities[0]);
+            //EventData eventData = new EventData();
+            //eventData.AddAbility("Ability", testAbilities[0]);
 
-            EventManager.SendEvent(GameEvent.UserActivatedAbility, eventData);
+            //EventManager.SendEvent(GameEvent.UserActivatedAbility, eventData);
 
         }
 
@@ -58,12 +58,6 @@ public class EntityPlayer : Entity
             PanelManager.TogglePanel<SkillsPanel>();
         }
 
-
-       if(Input.GetKeyDown(KeyCode.K)) {
-            binding = !binding;
-        }
-
-      
 
         //if(Input.GetKeyDown(KeyCode.C)) {
         //    StatAdjustmentManager.AdjustCDR(this, 0.5f, this);
