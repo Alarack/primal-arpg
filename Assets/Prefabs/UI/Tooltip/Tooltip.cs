@@ -20,6 +20,7 @@ public class Tooltip : MonoBehaviour
     //public MMF_Player fadeOutFeedback;
 
     private LayoutElement layoutElement;
+    [SerializeField]
     private RectTransform rectTransform;
 
     private GameObject view;
@@ -30,7 +31,7 @@ public class Tooltip : MonoBehaviour
         view = transform.Find("View").gameObject;
         canvas = GetComponent<Canvas>();
 
-        rectTransform = view.GetComponent<RectTransform>();
+        //rectTransform = view.GetComponent<RectTransform>();
         layoutElement = GetComponentInChildren<LayoutElement>(true);
 
 

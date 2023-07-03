@@ -3,23 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatRange : BaseStat
-{
+public class StatRange : BaseStat {
 
     public float Ratio { get { return GetRatio(); } }
 
     public SimpleStat MinValueStat { get; protected set; }
     public SimpleStat MaxValueStat { get; protected set; }
-
+    
     private float currentValue;
 
     public override float ModifiedValue => currentValue;
 
 
-    public StatRange(StatName name, float minValue, float maxValue, float currentValue = 0f) : base (name)
-    {
-        if(minValue > maxValue)
-        {
+    public StatRange(StatName name, float minValue, float maxValue, float currentValue = 0f) : base(name) {
+        if (minValue > maxValue) {
             Debug.LogError("Tried to make a StatRange with a higher min than max. This is not supported");
         }
 
@@ -29,9 +26,7 @@ public class StatRange : BaseStat
         this.currentValue = currentValue;
     }
 
-
-    public void AdjustValueFlat(float adjustment, object source)
-    {
+    public void AdjustValueFlat(float adjustment, object source) {
         if (CheckMinMax(adjustment) == true)
             return;
 
@@ -41,8 +36,7 @@ public class StatRange : BaseStat
         onValueChanged?.Invoke(this, source, adjustment);
     }
 
-    public void AdjustValuePercentage(float adjustment, object source)
-    {
+    public void AdjustValuePercentage(float adjustment, object source) {
 
         float valueCorrection = CheckBoundsPercentage(adjustment);
 
@@ -54,20 +48,17 @@ public class StatRange : BaseStat
         onValueChanged?.Invoke(this, source, adjustment);
     }
 
-    public void AdjustValueByPercentOfMax(float adjustment, object source)
-    {
+    public void AdjustValueByPercentOfMax(float adjustment, object source) {
         float resultingAdjustment = (MaxValueStat.ModifiedValue * (1f + adjustment)) - MaxValueStat.ModifiedValue;
         AdjustValueFlat(resultingAdjustment, source);
     }
 
-    public void AdjustValueByPercentOfCurrent(float adjustment, object source)
-    {
+    public void AdjustValueByPercentOfCurrent(float adjustment, object source) {
         float resultingAdjustment = (currentValue * (1f + adjustment)) - currentValue;
         AdjustValueFlat(resultingAdjustment, source);
     }
 
-    public void Refresh(object source)
-    {
+    public void Refresh(object source) {
         float difference = MaxValueStat.ModifiedValue - currentValue;
         AdjustValueFlat(difference, source);
     }
@@ -75,55 +66,46 @@ public class StatRange : BaseStat
 
     #region MODIFY MIN AND MAX
 
-    public void AddMinModifier(StatModifier mod)
-    {
+    public void AddMinModifier(StatModifier mod) {
         MinValueStat.AddModifier(mod);
         CheckBounds();
     }
 
-    public void AddMinModifier(float value, StatModType modType, object source)
-    {
+    public void AddMinModifier(float value, StatModType modType, object source) {
         MinValueStat.AddModifier(value, modType, source);
         CheckBounds();
     }
-    public void AddMaxModifier(StatModifier mod)
-    {
+    public void AddMaxModifier(StatModifier mod) {
         MaxValueStat.AddModifier(mod);
         CheckBounds();
     }
 
-    public void AddMaxModifier(float value, StatModType modType, object source)
-    {
+    public void AddMaxModifier(float value, StatModType modType, object source) {
         MaxValueStat.AddModifier(value, modType, source);
         CheckBounds();
     }
 
-    public void RemoveMinModifier(StatModifier mod)
-    {
+    public void RemoveMinModifier(StatModifier mod) {
         MinValueStat.RemoveModifier(mod);
         CheckBounds();
     }
 
-    public void RemoveMaxModifier(StatModifier mod)
-    {
+    public void RemoveMaxModifier(StatModifier mod) {
         MaxValueStat.RemoveModifier(mod);
         CheckBounds();
     }
 
-    public void RemoveAllMaxModifiersFromSource(object source)
-    {
+    public void RemoveAllMaxModifiersFromSource(object source) {
         MaxValueStat.RemoveAllModifiersFromSource(source);
         CheckBounds();
     }
 
-    public void RemoveAllMinModifiersFromSource(object source)
-    {
+    public void RemoveAllMinModifiersFromSource(object source) {
         MinValueStat.RemoveAllModifiersFromSource(source);
         CheckBounds();
     }
 
-    public override void RemoveAllModifiersFromSource(object source)
-    {
+    public override void RemoveAllModifiersFromSource(object source) {
         RemoveAllMinModifiersFromSource(source);
         RemoveAllMaxModifiersFromSource(source);
     }
@@ -133,8 +115,7 @@ public class StatRange : BaseStat
 
     #region BOUNDS CHECKS
 
-    private bool CheckMinMax(float adjustment)
-    {
+    private bool CheckMinMax(float adjustment) {
         if (currentValue == MaxValueStat.ModifiedValue && adjustment > 0)
             return true;
 
@@ -144,17 +125,14 @@ public class StatRange : BaseStat
         return false;
     }
 
-    private void CheckBounds()
-    {
-        if (currentValue < MinValueStat.ModifiedValue)
-        {
+    private void CheckBounds() {
+        if (currentValue < MinValueStat.ModifiedValue) {
             currentValue = MinValueStat.ModifiedValue;
             float difference = -currentValue;
             onValueChanged?.Invoke(this, this, difference);
         }
 
-        if (currentValue > MaxValueStat.ModifiedValue)
-        {
+        if (currentValue > MaxValueStat.ModifiedValue) {
             currentValue = MaxValueStat.ModifiedValue;
             float difference = MaxValueStat.ModifiedValue - currentValue;
             onValueChanged?.Invoke(this, this, difference);
@@ -162,37 +140,31 @@ public class StatRange : BaseStat
 
     }
 
-    private float CheckBoundsPercentage(float adjustment)
-    {
-        float resultingValue = currentValue * (adjustment +1f);
+    private float CheckBoundsPercentage(float adjustment) {
+        float resultingValue = currentValue * (adjustment + 1f);
 
-        if (resultingValue < MinValueStat.ModifiedValue)
-        {
+        if (resultingValue < MinValueStat.ModifiedValue) {
             float differenceToMin = Mathf.Abs(MinValueStat.ModifiedValue) + currentValue;
             return -differenceToMin;
         }
 
 
-        if (resultingValue > MaxValueStat.ModifiedValue)
-        {
+        if (resultingValue > MaxValueStat.ModifiedValue) {
             float difference = MaxValueStat.ModifiedValue - currentValue;
             return difference;
         }
 
-        return (currentValue * (adjustment +1f)) - currentValue;
+        return (currentValue * (adjustment + 1f)) - currentValue;
     }
 
-    private float CheckBoundsFlat(float resultingValue, float adjustment)
-    {
+    private float CheckBoundsFlat(float resultingValue, float adjustment) {
 
-        if (resultingValue < MinValueStat.ModifiedValue)
-        {
+        if (resultingValue < MinValueStat.ModifiedValue) {
             float differenceToMin = Mathf.Abs(MinValueStat.ModifiedValue) + currentValue;
             return -differenceToMin;
         }
 
-        if (resultingValue > MaxValueStat.ModifiedValue)
-        {
+        if (resultingValue > MaxValueStat.ModifiedValue) {
             float difference = MaxValueStat.ModifiedValue - currentValue;
             return difference;
         }
@@ -205,10 +177,8 @@ public class StatRange : BaseStat
 
     #region HELPERS
 
-    private float GetRatio()
-    {
-        if(MaxValueStat.ModifiedValue < 0f)
-        {
+    private float GetRatio() {
+        if (MaxValueStat.ModifiedValue < 0f) {
             float maxV = MaxValueStat.ModifiedValue;
             float minV = MinValueStat.ModifiedValue;
             float correctMax = maxV + Mathf.Abs(minV);

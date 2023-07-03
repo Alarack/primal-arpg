@@ -163,7 +163,8 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (CancelDrag() == true)
             return;
 
-        SetCanvasLayerOnTop();
+        //SetCanvasLayerOnTop();
+        UIHelper.SetCanvasLayerOnTop(canvas);
         draggedEntry = this;
     }
     public void OnDrag(PointerEventData eventData) {
@@ -174,7 +175,8 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     }
     public void OnEndDrag(PointerEventData eventData) {
-        ResetCanvasLayer();
+        //ResetCanvasLayer();
+        UIHelper.ResetCanvasLayer(canvas, baseLayer);
 
         if (CancelDrag() == true)
             return;

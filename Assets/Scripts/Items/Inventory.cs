@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using LL.Events;
 using static UnityEngine.EventSystems.EventTrigger;
+using System;
 
 public class Inventory : MonoBehaviour {
 
@@ -187,6 +188,16 @@ public class Inventory : MonoBehaviour {
         }
 
         return 5f;
+    }
+
+    public Tuple<float, float> GetDamageRange() {
+        Tuple<float, float> result = new Tuple<float, float>(5f, 5f);
+        
+        if (CurrentWeapon != null) {
+            result = new Tuple<float, float>(CurrentWeapon.minDamage, CurrentWeapon.maxDamage);
+        }
+
+        return result;
     }
 
     public ItemWeapon GetWeapon() {

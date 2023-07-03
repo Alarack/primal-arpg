@@ -28,6 +28,7 @@ MonoBehaviour:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
       applyOncePerTarget: 1
+      applyOnInterval: 0
       affectSource: 0
       spawnVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       applyVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
@@ -38,7 +39,8 @@ MonoBehaviour:
       value: -1
       modifierType: 0
       variantTarget: 1
-      modValueSetMethod: 0
+      modValueSetMethod: 5
+      weaponDamagePercent: 1.2
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0

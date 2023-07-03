@@ -41,7 +41,6 @@ public class SimpleStat : BaseStat
     public float BaseValue { get; protected set; }
     public override float ModifiedValue { get { return GetModifiedValue(); } }
 
-    protected Dictionary<object, List<StatModifier>> modDictionary;
     protected bool isDirty;
     protected float lastModifiedValue;
 

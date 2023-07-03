@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public static class TextHelper 
 {
@@ -52,6 +53,19 @@ public static class TextHelper
 
         return result;
 
+    }
+
+    public static string ColorizeText(string text, Color color) {
+        string hexColor = ColorUtility.ToHtmlStringRGB(color);
+
+        return $"<color=#{hexColor}>" + text + "</color>";
+    }
+
+
+    public static string RoundTimeToPlaces(float time, int places) {
+        float result = (float)System.Math.Round(time,places);
+
+        return result.ToString();
     }
 
 

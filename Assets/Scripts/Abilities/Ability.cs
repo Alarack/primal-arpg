@@ -2,6 +2,7 @@ using LL.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
@@ -45,7 +46,7 @@ public class Ability {
         //SetupEndTriggers();
         //SetupTriggerCounters();
         SetupEffects();
-        //SetupRecoveries();
+        SetupRecoveries();
     }
 
 
@@ -57,7 +58,7 @@ public class Ability {
         SetupActivationTriggers();
         SetupEndTriggers();
         SetupTriggerCounters();
-        SetupRecoveries();
+        //SetupRecoveries();
 
         IsEquipped = true;
     }
@@ -108,7 +109,7 @@ public class Ability {
             effects.Add(effect);
         }
 
-        for (int i = 0;i < Data.effectDefinitions.Count;i++) {
+        for (int i = 0; i < Data.effectDefinitions.Count; i++) {
             Effect effect = AbilityFactory.CreateEffect(Data.effectDefinitions[i].effectData, Source, this);
             effects.Add(effect);
         }
@@ -121,7 +122,7 @@ public class Ability {
         StatRange charges = new StatRange(StatName.AbilityCharge, 0, Data.startingRecoveryCharges, Data.startingRecoveryCharges);
         recoveryStats.AddStat(charges);
 
-        
+
 
         for (int i = 0; i < Data.recoveryData.Count; i++) {
             AbilityRecovery recovery = AbilityFactory.CreateAbilityRecovery(Data.recoveryData[i], Source, this);
@@ -156,7 +157,7 @@ public class Ability {
         recoveryMethods.Clear();
 
         for (int i = 0; i < recoveryStatListeners.Count; i++) {
-            recoveryStats.RemoveStatListener(StatName.AbilityCharge, recoveryStatListeners[i]); 
+            recoveryStats.RemoveStatListener(StatName.AbilityCharge, recoveryStatListeners[i]);
         }
 
 
@@ -264,6 +265,22 @@ public class Ability {
         return null;
     }
 
+    public float GetDamageEffectRatio() {
+
+        float result = -1f;
+
+        for (int i = 0; i < effects.Count; i++) {
+            if (effects[i] is StatAdjustmentEffect) {
+                StatAdjustmentEffect targetEffect = effects[i] as StatAdjustmentEffect;
+
+                result = targetEffect.GetBaseWeaponPercent();
+                break;
+            }
+        }
+
+        return result;
+    }
+
     public List<Entity> GetMostRecentValidTargetsFromEffect(string effectName) {
         int count = effects.Count;
         for (int i = 0; i < count; i++) {
@@ -306,8 +323,33 @@ public class Ability {
 
     public string GetTooltip() {
 
+        StringBuilder builder = new StringBuilder();
+        builder.Append(Data.abilityDescription).AppendLine();
 
-        return Data.abilityDescription;
+
+        float damagePercent = GetDamageEffectRatio();
+
+        if(damagePercent > 0f) {
+            builder.Append("Damage: " + TextHelper.ColorizeText( (damagePercent * 100).ToString() + "%", Color.green) + " of Weapon Damage").AppendLine();
+        }
+
+
+        float cooldown = GetCooldown();
+        if (cooldown > 0f) {
+            builder.Append("Cooldown: " + TextHelper.RoundTimeToPlaces(cooldown, 2)).Append(" Seconds").AppendLine();
+        }
+
+
+        return builder.ToString();
+    }
+
+    public float GetCooldown() {
+        AbilityRecoveryCooldown cooldown = GetCooldownRecovery();
+        if (cooldown != null) {
+            return cooldown.Cooldown;
+        }
+
+        return -1f;
     }
 
     public bool HasAutoFire() {
@@ -317,7 +359,7 @@ public class Ability {
             if (activationTriggers[i].Type == TriggerType.UserActivated) {
                 manual = true;
                 break;
-            } 
+            }
         }
         return manual == true && Data.autoFire == true;
     }

@@ -10,7 +10,8 @@ public class StatModifierData
         Simple,
         RangeCurrent,
         RangeMin,
-        RangeMax
+        RangeMax,
+        RangeCurrentAdj
     }
 
     public enum ModValueSetMethod {

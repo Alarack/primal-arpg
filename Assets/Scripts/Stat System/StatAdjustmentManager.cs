@@ -19,7 +19,7 @@ public static class StatAdjustmentManager {
         };
 
 
-        float modValue =  modData.value * multiplier;
+        float modValue = modData.value * multiplier;
 
         statModAction?.Invoke(modData.targetStat, modValue, modData.modifierType, source);
 
@@ -58,8 +58,8 @@ public static class StatAdjustmentManager {
 
         Action<StatName, StatModifier> statModAction = variant switch {
             StatModifierData.StatVariantTarget.Simple => target.Stats.RemoveModifier,
-            StatModifierData.StatVariantTarget.RangeCurrent => target.Stats.RemoveCurrentRangeAdjustment,
-            StatModifierData.StatVariantTarget.RangeMin when removeRangeAdjsument == true => target.Stats.RemoveMinValueModifier,
+            StatModifierData.StatVariantTarget.RangeCurrent => null, /*when removeRangeAdjsument == true => target.Stats.RemoveCurrentRangeAdjustment*/
+            StatModifierData.StatVariantTarget.RangeMin => target.Stats.RemoveMinValueModifier,
             StatModifierData.StatVariantTarget.RangeMax => target.Stats.RemoveMaxValueModifier,
             _ => null,
         };
@@ -102,7 +102,7 @@ public static class StatAdjustmentManager {
 
         statModAction?.Invoke(targetStat, mod);
 
-        if(mod.Source as Entity == null) {
+        if (mod.Source as Entity == null) {
             Debug.LogError("We're assuming all mod sources are Entities, but one is being sent in that isnt an entity");
         }
 

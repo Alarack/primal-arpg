@@ -304,6 +304,10 @@ public class StatCollection {
     }
 
 
+    public void AddStatRangeCurrentModifier(StatName name, StatModifier mod) {
+
+    }
+
     public void RemoveCurrentRangeAdjustment(StatName name, StatModifier mod) {
         AdjustStatRangeCurrentValue(name, -mod.Value, mod.ModType, mod.Source);
     }

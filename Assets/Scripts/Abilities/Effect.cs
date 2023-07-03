@@ -324,6 +324,15 @@ public class StatAdjustmentEffect : Effect {
     }
 
 
+    public float GetBaseWeaponPercent() {
+        for (int i = 0; i < Data.modData.Count; i++) {
+            if (Data.modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage) {
+                return Data.modData[i].weaponDamagePercent;
+            }
+        }
+        return -1f;
+    }
+
     private float SetModValues(Entity target, StatModifier activeMod, StatModifierData modData) {
 
         float targetValue = modData.modValueSetMethod switch {

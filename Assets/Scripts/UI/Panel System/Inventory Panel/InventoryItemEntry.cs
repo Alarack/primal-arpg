@@ -31,6 +31,7 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
     private void Awake() {
         canvas = GetComponent<Canvas>();
         baseOrder = canvas.sortingOrder;
+        canvas.overrideSorting = false;
         defaultBgColor = bgImage.color;
     }
 
@@ -135,13 +136,16 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
     #region UI CALLBACKS
 
     public void ResetSortOrder() {
-        canvas.sortingOrder = baseOrder;
+        //canvas.sortingOrder = baseOrder;
+        UIHelper.ResetCanvasLayer(canvas, baseOrder);
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
         DraggedInventoryItem = this;
 
-        DraggedInventoryItem.canvas.sortingOrder = 100;
+        //DraggedInventoryItem.canvas.sortingOrder = 100;
+
+        UIHelper.SetCanvasLayerOnTop(canvas);
 
         parentPanel.HighlightValidSLots();
         parentPanel.dropZone.SetActive(true);

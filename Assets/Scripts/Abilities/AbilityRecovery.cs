@@ -90,6 +90,7 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
     private Timer cooldownTimer;
 
     public float Ratio { get { return cooldownTimer.Ratio; } }
+    public float Cooldown { get { return cooldownStats[StatName.Cooldown]; } }
 
     private StatCollection cooldownStats;
 
@@ -133,6 +134,9 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
     }
 
     public void Recover() {
+        if(ParentAbility.IsEquipped == false) 
+            return;   
+
         if (ParentAbility.Charges < ParentAbility.MaxCharges) {
             cooldownTimer.UpdateClock();
             //Debug.Log("Updating a cooldown");
