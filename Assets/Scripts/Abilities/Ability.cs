@@ -1,4 +1,5 @@
 using LL.Events;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,6 +35,7 @@ public class Ability {
     protected List<AbilityRecovery> recoveryMethods = new List<AbilityRecovery>();
 
     protected StatCollection recoveryStats;
+    protected List<Action<BaseStat, object, float>> recoveryStatListeners = new List<Action<BaseStat, object, float>>();
 
     public Ability(AbilityData data, Entity source) {
         this.Data = data;
@@ -153,6 +155,11 @@ public class Ability {
         }
         recoveryMethods.Clear();
 
+        for (int i = 0; i < recoveryStatListeners.Count; i++) {
+            recoveryStats.RemoveStatListener(StatName.AbilityCharge, recoveryStatListeners[i]); 
+        }
+
+
         //Tear down counters
         if (activationCounter != null)
             activationCounter.TearDown();
@@ -227,7 +234,15 @@ public class Ability {
         recoveryStats.RemoveMaxValueModifier(StatName.AbilityCharge, mod);
     }
 
+    public void AddChargesChangedListener(Action<BaseStat, object, float> callback) {
+        recoveryStats.AddStatListener(StatName.AbilityCharge, callback);
+        recoveryStatListeners.Add(callback);
+    }
 
+    public void RemoveChargesChangedListener(Action<BaseStat, object, float> callback) {
+        recoveryStats.RemoveStatListener(StatName.AbilityCharge, callback);
+        recoveryStatListeners.Remove(callback);
+    }
 
     #endregion
 
@@ -272,7 +287,7 @@ public class Ability {
         return null;
     }
 
-    protected float GetCooldownRatio() {
+    public float GetCooldownRatio() {
         AbilityRecoveryCooldown cooldown = GetCooldownRecovery();
         if (cooldown != null) {
             return cooldown.Ratio;

@@ -18,6 +18,7 @@ MonoBehaviour:
     abilityDescription: I set the very ground ablaze!
     toBestow: 0
     suspend: 0
+    autoFire: 0
     tags: 
     activationTriggerData:
     - type: 6
@@ -101,4 +102,4 @@ MonoBehaviour:
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         minTriggerCount: 0
-      cooldown: 0.5
+      cooldown: 4

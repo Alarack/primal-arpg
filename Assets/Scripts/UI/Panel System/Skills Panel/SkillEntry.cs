@@ -25,6 +25,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Image dimmer;
     public Image buttonPromptImage;
     public TextMeshProUGUI buttonPromptText;
+    public TextMeshProUGUI chargesText;
     public SkillEntryLocation location;
     public GameButtonType keybind;
     //public GameInput.GameButtonType keyBind;
@@ -49,6 +50,18 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         dimmer.fillAmount = 0f;
     }
 
+    private void OnDisable() {
+        if (Ability == null || location != SkillEntryLocation.Hotbar || Ability.MaxCharges < 2)
+            return;
+
+        Ability.RemoveChargesChangedListener(OnAbilityChargesChanges);
+
+    }
+
+    private void Update() {
+        ShowCooldownDimmer();
+    }
+
     public void Setup(Ability ability, SkillEntryLocation location, GameButtonType keyBind = GameButtonType.None, int index = -1) {
         this.Ability = ability;
         this.keybind = keyBind;
@@ -57,6 +70,26 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         this.location = location;
         if ((location == SkillEntryLocation.Hotbar || location == SkillEntryLocation.ActiveSkill) && index > 0)
             Index = index;
+
+        SetupCharges();
+    }
+
+    private void SetupCharges() {
+        if(Ability == null || location != SkillEntryLocation.Hotbar || Ability.MaxCharges < 2) {
+            chargesText.gameObject.SetActive(false);
+            //Debug.Log("NO Charges");
+            return;
+        }
+
+        chargesText.gameObject.SetActive(true);
+        chargesText.text = Ability.MaxCharges.ToString();
+
+        Ability.AddChargesChangedListener(OnAbilityChargesChanges);
+            
+    }
+
+    private void OnAbilityChargesChanges(BaseStat stat, object source, float value) {
+        chargesText.text = Ability.Charges.ToString();
     }
 
     private void SetupAbilityIcon(Ability ability) {
@@ -74,6 +107,20 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void AssignNewAbility(Ability ability) {
         this.Ability = ability;
         SetupAbilityIcon(ability);
+        SetupCharges();
+    }
+
+    private void ShowCooldownDimmer() {
+        if (Ability == null)
+            return;
+
+        if (location != SkillEntryLocation.Hotbar)
+            return;
+
+        dimmer.fillAmount = Mathf.Abs(Ability.GetCooldownRatio() - 1);
+
+        if (Ability.IsReady == true && dimmer.fillAmount != 0)
+            dimmer.fillAmount = 0;
     }
 
     #region UI CALLBACKS
