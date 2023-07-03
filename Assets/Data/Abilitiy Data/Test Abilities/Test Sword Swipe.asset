@@ -18,6 +18,7 @@ MonoBehaviour:
     abilityDescription: Sweet Sword moves!
     toBestow: 0
     suspend: 0
+    autoFire: 1
     tags: 04000000
     activationTriggerData:
     - type: 6
@@ -101,4 +102,4 @@ MonoBehaviour:
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         minTriggerCount: 0
-      cooldown: 0.2
+      cooldown: 0.33

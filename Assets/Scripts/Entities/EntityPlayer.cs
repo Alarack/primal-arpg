@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using System.Text;
+using UnityEngine.InputSystem;
 
 public class EntityPlayer : Entity
 {

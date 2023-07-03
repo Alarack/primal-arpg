@@ -7,6 +7,7 @@ public class PanelDataManager : Singleton<PanelDataManager>
     public PanelMapData panelMapData;
     public Transform canvasRoot;
 
+    public static List<string> blockingPanels = new List<string>();
 
 
     private void Start() {
@@ -15,6 +16,8 @@ public class PanelDataManager : Singleton<PanelDataManager>
                 PanelManager.OpenPanel(panelMapData.panelPrefabs[i].panelID);
             }
         }
+
+        blockingPanels = panelMapData.GetBlockingPanels();
     }
 
 }

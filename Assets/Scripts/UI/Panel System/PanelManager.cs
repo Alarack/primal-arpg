@@ -162,7 +162,7 @@ public static class PanelManager
     {
         if (currentPanels.TryGetValue(panelID, out BasePanel targetPanel))
         {
-            Debug.Log(targetPanel.GetType().ToString() + " found ");
+            //Debug.Log(targetPanel.GetType().ToString() + " found ");
             return targetPanel;
         }
 
@@ -202,6 +202,19 @@ public static class PanelManager
 
         return null;
        
+    }
+
+    public static bool IsBlockingPanelOpen() {
+        List<string> blockingIds = PanelDataManager.blockingPanels;
+
+        for (int i = 0; i < blockingIds.Count; i++) {
+            BasePanel panel = GetPanel(blockingIds[i]);
+            if(panel.IsOpen == true)
+                return true;
+        }
+
+        return false;
+
     }
 
     public static void ResetPanelManager()

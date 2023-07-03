@@ -11,6 +11,7 @@ public class Ability {
     public Entity Source { get; protected set; }
     public AbilityData Data { get; protected set; }
     public bool IsActive { get; protected set; }
+    public bool AutoFire { get; protected set; }
 
     public bool IsEquipped { get; protected set; }
 
@@ -72,6 +73,8 @@ public class Ability {
             trigger.ActivationCallback = ReceiveStartActivationInstance;
             activationTriggers.Add(trigger);
         }
+
+        AutoFire = HasAutoFire();
     }
 
     protected void SetupEndTriggers() {
@@ -290,6 +293,18 @@ public class Ability {
 
 
         return Data.abilityDescription;
+    }
+
+    public bool HasAutoFire() {
+        bool manual = false;
+
+        for (int i = 0; i < activationTriggers.Count; i++) {
+            if (activationTriggers[i].Type == TriggerType.UserActivated) {
+                manual = true;
+                break;
+            } 
+        }
+        return manual == true && Data.autoFire == true;
     }
 
     //public List<Entity> GetFirstEffectTargets() {

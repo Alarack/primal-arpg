@@ -136,6 +136,9 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnDrop(PointerEventData eventData) {
 
+        if(draggedEntry == null) 
+            return;
+
         if (draggedEntry.Ability == null)
             return;
 

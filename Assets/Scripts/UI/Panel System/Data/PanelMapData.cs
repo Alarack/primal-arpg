@@ -43,6 +43,18 @@ public class PanelMapData : ScriptableObject
         return null;
     }
 
+    public List<string> GetBlockingPanels() {
+
+        List<string> ids = new List<string>();
+
+        for (int i = 0; i < panelPrefabs.Count; i++) {
+            if (panelPrefabs[i].preventAttacks == true)
+                ids.Add(panelPrefabs[i].panelID); 
+        }
+
+        return ids;
+    }
+
 
     [Serializable]
     public class PanelMapEntry
@@ -61,6 +73,7 @@ public class PanelMapData : ScriptableObject
 
         public BasePanel panelPrefab;
         public bool autoOpen;
+        public bool preventAttacks;
     }
 }
 

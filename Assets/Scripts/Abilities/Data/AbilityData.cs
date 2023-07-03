@@ -98,6 +98,7 @@ public class AbilityData
     public string abilityDescription;
     public bool toBestow;
     public bool suspend;
+    public bool autoFire;
 
     public List<AbilityTag> tags = new List<AbilityTag>();
 

@@ -50,15 +50,15 @@ public class SkillBasePanel : BasePanel
 
     #region EVENTS
 
-    protected void OnAbilityEquipped(Ability ability, int index) {
+    protected virtual void OnAbilityEquipped(Ability ability, int index) {
         activeSkillEntries[index].AssignNewAbility(ability);
     }
 
-    protected void OnAbilityUnequipped(Ability ability, int index) {
+    protected virtual void OnAbilityUnequipped(Ability ability, int index) {
         activeSkillEntries[index].AssignNewAbility(null);
     }
 
-    protected void OnAbilitySwapped(Ability first, int firstIndex, Ability second, int secondIndex) {
+    protected virtual void OnAbilitySwapped(Ability first, int firstIndex, Ability second, int secondIndex) {
         //activeSkillEntries[firstIndex].AssignNewAbility(null);
         //activeSkillEntries[secondIndex].AssignNewAbility(null);
         activeSkillEntries[firstIndex].AssignNewAbility(second);
