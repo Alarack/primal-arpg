@@ -19,7 +19,7 @@ public class StatusStatAdjustment : Status {
         for (int i = 0; i < Data.statModifiers.Count; i++) {
             StatModifierData data = Data.statModifiers[i];
 
-            StatModifier mod = new StatModifier(data.value, data.modifierType, data.targetStat, Source);
+            StatModifier mod = new StatModifier(data.value, data.modifierType, data.targetStat, Source, data.variantTarget);
             activeMods.Add(mod);
         }
     }
@@ -54,7 +54,7 @@ public class StatusStatAdjustment : Status {
 
         for (int i = 0; i < activeMods.Count; i++) {
 
-            bool nonRange = Data.statModifiers[i].variantTarget != StatModifierData.StatVariantTarget.RangeCurrent;
+            bool nonRange = activeMods[i].VariantTarget != StatModifierData.StatVariantTarget.RangeCurrent;
             if (nonRange) {
                 Debug.LogWarning("A status belonging to: " + Source.EntityName + " is applying a non-range-curent stat adjustment to: " + Target.EntityName);
                 Debug.LogWarning("This is not supported and will not remove properly.");
@@ -65,7 +65,7 @@ public class StatusStatAdjustment : Status {
 
             //float modResult = StatAdjustmentManager.ApplyStatAdjustment(Target, Data.statModifiers[i], Source, multiplier);
 
-            float modResult = StatAdjustmentManager.ApplyStatAdjustment(Target, activeMods[i], Data.statModifiers[i].variantTarget, Source, multiplier);
+            float modResult = StatAdjustmentManager.ApplyStatAdjustment(Target, activeMods[i], activeMods[i].VariantTarget, Source, multiplier);
 
             CreateFloatingText(modResult, activeMods[i].TargetStat);
 
@@ -91,7 +91,7 @@ public class StatusStatAdjustment : Status {
         //Target.Stats.RemoveAllModifiersFromSource(this);
 
         for (int i = 0; i < activeMods.Count; i++) {
-            StatAdjustmentManager.RemoveStatAdjustment(Target, activeMods[i], Data.statModifiers[i].variantTarget, Source);
+            StatAdjustmentManager.RemoveStatAdjustment(Target, activeMods[i], activeMods[i].VariantTarget, Source);
         }
     }
 

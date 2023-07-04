@@ -31,11 +31,20 @@ public class StatModifierData
         SourceCharacter
     }
 
+    public enum StatModDesignation {
+        None,
+        PrimaryDamage,
+        SecondaryDamage,
+
+    }
+
 
     public StatName targetStat;
     public float value;
     public StatModType modifierType;
     public StatVariantTarget variantTarget;
+
+    //public StatModDesignation modDesignation;
 
     public ModValueSetMethod modValueSetMethod;
     public float weaponDamagePercent = 1f;
@@ -46,9 +55,19 @@ public class StatModifierData
     public string otherTargetAbility;
     public string otherTagetEffect;
 
+    public StatCollection Stats { get; private set; }
+
 
     public StatModifierData() {
+       
+    }
 
+    public void SetupStats() {
+        Stats = new StatCollection(this);
+        SimpleStat modValueStat = new SimpleStat(StatName.StatModifierValue, value);
+        SimpleStat weaponCoeeficientStat = new SimpleStat(StatName.AbilityWeaponCoefficicent, weaponDamagePercent);
+        Stats.AddStat(modValueStat);
+        Stats.AddStat(weaponCoeeficientStat);
     }
 
     public StatModifierData(StatModifierData copy) {
@@ -65,3 +84,17 @@ public class StatModifierData
 
     }
 }
+
+
+//[System.Serializable]
+//public class StatAdjustmnetInfo {
+//    public StatModifierData data;
+//    public StatModifier mod;
+
+//    public StatModifierData.StatModDesignation Designation { get { return data.modDesignation; } }
+
+//    public StatAdjustmnetInfo(StatModifierData data, StatModifier mod) {
+//        this.data = data;
+//        this.mod = mod;
+//    }
+//}

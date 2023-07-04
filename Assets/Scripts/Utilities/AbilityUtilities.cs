@@ -6,9 +6,10 @@ using System.Linq;
 
 using SkillEntryLocation = SkillEntry.SkillEntryLocation;
 using GameButtonType = InputHelper.GameButtonType;
+using static UnityEngine.EventSystems.EventTrigger;
+using static UnityEngine.GraphicsBuffer;
 
-public static class AbilityUtilities 
-{
+public static class AbilityUtilities {
 
     #region SETUP
 
@@ -100,23 +101,32 @@ public static class AbilityUtilities
         return ability.GetEffectByName(name);
     }
 
-    public static Tuple<Ability, Effect> GetAbilityAndEffectByName(string abilityName, string EffectName, Entity source) {
+    public static Tuple<Ability, Effect> GetAbilityAndEffectByName(string abilityName, string effectName, Entity source) {
         Ability targetAbility = GetAbilityByName(abilityName, source);
-        Effect targetEffect = GetEffectByName(EffectName, targetAbility);
+        Effect targetEffect = GetEffectByName(effectName, targetAbility);
 
+        Tuple<Ability, Effect> target = new Tuple<Ability, Effect>(targetAbility, targetEffect);
 
-        return new Tuple<Ability, Effect>(targetAbility, targetEffect);
+        if (target.Item1 == null) {
+            Debug.LogError("Could not find: " + abilityName + " on " + source.EntityName);
+        }
+
+        if (target.Item2 == null) {
+            Debug.LogError("Could not find: " + effectName + " on " + target.Item1.Data.abilityName);
+        }
+
+        return target;
     }
 
     public static List<Entity> GetTargetsFromOtherAbility(string abilityName, string effectName, Entity source) {
         var abilityEffect = GetAbilityAndEffectByName(abilityName, effectName, source);
 
-        if(abilityEffect.Item1 == null) {
+        if (abilityEffect.Item1 == null) {
             Debug.LogError("An ability: " + abilityEffect + " could not be found on: " + source.EntityName);
             return null;
         }
 
-        if(abilityEffect.Item2 == null) {
+        if (abilityEffect.Item2 == null) {
             Debug.LogError("An Effect: " + effectName + " could not be found on: " + abilityName + " on the entity: " + source.EntityName);
             return null;
         }

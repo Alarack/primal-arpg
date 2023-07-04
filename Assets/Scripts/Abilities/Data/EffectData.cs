@@ -21,7 +21,7 @@ public enum EffectTarget {
     LogicSelected,
     PayloadDelivered,
     OtherEffectTarget,
-    OtherMostRecentTarget
+    OtherMostRecentTarget,
 }
 
 public enum DeliverySpawnLocation { 
@@ -62,6 +62,8 @@ public class EffectData
     //Stat Adjustment
     public List<StatModifierData> modData = new List<StatModifierData>();
     public Gradient floatingTextColor;
+    public bool applyToEffect;
+    public StatModifierData.StatModDesignation effectDesignation;
 
     //Add Status
     public List<StatusData> statusToAdd = new List<StatusData>();

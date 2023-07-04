@@ -1,10 +1,11 @@
 using LL.Events;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 using static AbilityTrigger;
-using static UnityEngine.GraphicsBuffer;
+using Random = UnityEngine.Random;
 
 
 public abstract class Effect {
@@ -319,15 +320,63 @@ public class StatAdjustmentEffect : Effect {
     public override EffectType Type => EffectType.StatAdjustment;
 
     private Dictionary<Entity, List<StatModifier>> statModDict = new Dictionary<Entity, List<StatModifier>>();
+    
+
+    private List<StatModifierData> modData = new List<StatModifierData>();
 
     public StatAdjustmentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        modData = new List<StatModifierData>(data.modData);
+        
+        for (int i = 0; i < modData.Count; i++) {
+            modData[i].SetupStats();
+        }
+    
     }
 
+    public void AddStatAdjustmentModifier(StatModifier mod) {
+        //List<StatModifierData> targetData = GetModDataByDesignation(designation);
+
+        for (int i = 0; i < modData.Count; i++) {
+            modData[i].Stats.AddModifier(mod.TargetStat, mod);
+            Debug.LogWarning("Applying: " + mod.TargetStat + " Modifier: " + mod.Value + " to " + Data.effectName);
+        }
+    }
+
+    public void RemoveStatAdjustmentModifier(StatModifier mod) {
+        //List<StatModifierData> targetData = GetModDataByDesignation(designation);
+
+        for (int i = 0; i < modData.Count; i++) {
+            modData[i].Stats.RemoveModifier(mod.TargetStat, mod);
+        }
+    }
+
+    //private List<StatModifierData> GetModDataByDesignation(StatModifierData.StatModDesignation designation) {
+    //    List<StatModifierData> results = new List<StatModifierData>();
+
+    //    for (int i = 0; i < modData.Count; i++) {
+    //        if (modData[i].modDesignation == designation)
+    //            results.Add(modData[i]);
+    //    }
+
+    //    return results;
+    
+    //}
+
+    public float GetModifierValue(StatName name) {
+        //List<StatModifierData> targetData = GetModDataByDesignation(designation);
+
+        for (int i = 0; i < modData.Count; i++) {
+            if (modData[i].targetStat == name)
+                return modData[i].Stats[name];
+        }
+
+        return 0f;
+    }
 
     public float GetBaseWeaponPercent() {
-        for (int i = 0; i < Data.modData.Count; i++) {
-            if (Data.modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage) {
-                return Data.modData[i].weaponDamagePercent;
+        for (int i = 0; i <modData.Count; i++) {
+            if (modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage) {
+                return modData[i].Stats[StatName.AbilityWeaponCoefficicent];
             }
         }
         return -1f;
@@ -336,53 +385,117 @@ public class StatAdjustmentEffect : Effect {
     private float SetModValues(Entity target, StatModifier activeMod, StatModifierData modData) {
 
         float targetValue = modData.modValueSetMethod switch {
-            StatModifierData.ModValueSetMethod.Manual => modData.value,
+            StatModifierData.ModValueSetMethod.Manual => modData.Stats[StatName.StatModifierValue],
             StatModifierData.ModValueSetMethod.DeriveFromOtherStats => throw new System.NotImplementedException(),
             StatModifierData.ModValueSetMethod.DeriveFromNumberOfTargets => throw new System.NotImplementedException(),
             StatModifierData.ModValueSetMethod.HardSetValue => throw new System.NotImplementedException(),
             StatModifierData.ModValueSetMethod.HardReset => throw new System.NotImplementedException(),
-            StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll * modData.weaponDamagePercent,
+            StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll * modData.Stats[StatName.AbilityWeaponCoefficicent],
             _ => 0f,
         };
 
         return modData.invertDerivedValue == false ? targetValue : -targetValue;
     }
 
+
+    private void ApplyToEntity(Entity target, StatModifier activeMod) {
+        
+
+            //StatModifier activeMod = new StatModifier(modData[i].value, modData[i].modifierType, modData[i].targetStat, Source);
+            //float baseModValue = SetModValues(target, activeMod, modData[i]);
+            //activeMod.UpdateModValue(baseModValue);
+
+            float globalDamageMultiplier = GetDamageModifier(activeMod);
+            float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, globalDamageMultiplier);
+
+            if (activeMod.TargetStat == StatName.Health) {
+                FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString());
+                text.SetColor(Data.floatingTextColor);
+            }
+        
+    }
+
+    private void RemoveFromEntity(Entity target, StatModifier activeMod) {
+        StatAdjustmentManager.RemoveStatAdjustment(target, activeMod, activeMod.VariantTarget, Source);
+    }
+
+    private void ApplyToEffect(Entity entity, string abilityName, string effectName, StatModifier mod, StatModifierData.StatModDesignation designation) {
+        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, entity);
+
+        Effect targetEffect = target.Item2;
+
+        if(targetEffect is StatAdjustmentEffect) {
+            StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
+
+            if(adjustment.Data.effectDesignation == Data.effectDesignation)
+                adjustment.AddStatAdjustmentModifier(mod);
+        }
+    }
+
+    private void RemoveFromEffect(Entity entity, string abilityName, string effectName, StatModifier mod, StatModifierData.StatModDesignation designation) {
+
+        //StatAdjustmentEffect adj = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, entity).Item2 as StatAdjustmentEffect;
+        //adj.RemoveStatAdjustmentModifier(mod, designation);
+
+        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, entity);
+
+        Effect targetEffect = target.Item2;
+
+        if (targetEffect is StatAdjustmentEffect) {
+            StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
+
+            if (adjustment.Data.effectDesignation == Data.effectDesignation)
+                adjustment.RemoveStatAdjustmentModifier(mod);
+        }
+    }
+
+
     public override bool Apply(Entity target) {
         if (base.Apply(target) == false)
             return false;
 
-        for (int i = 0; i < Data.modData.Count; i++) {
 
-            StatModifier activeMod = new StatModifier(Data.modData[i].value, Data.modData[i].modifierType, Data.modData[i].targetStat, Source);
+        for (int i = 0; i < modData.Count; i++) {
 
+            //StatModifier activeMod = new StatModifier(modData[i].value, modData[i].modifierType, modData[i].targetStat, Source);
+            //float baseModValue = SetModValues(target, activeMod, modData[i]);
+            //activeMod.UpdateModValue(baseModValue);
+            StatModifier activeMod = PrepareStatMod(modData[i], target);
 
-            float baseModValue = SetModValues(target, activeMod, Data.modData[i]);
-
-            activeMod.UpdateModValue(baseModValue);
-
-            float globalDamageMultiplier = GetDamageModifier(activeMod);
-
-
-            if (Data.modData[i].variantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
+            if (activeMod.VariantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
                 TrackStatAdjustment(target, activeMod);
             }
 
-           
-
-
-
-
-            float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, Data.modData[i].targetStat, Data.modData[i].variantTarget, globalDamageMultiplier);
-
-            if (Data.modData[i].targetStat == StatName.Health) {
-                FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString());
-                text.SetColor(Data.floatingTextColor);
+            if (Data.applyToEffect == true) {
+                ApplyToEffect(target, Data.otherAbilityName, Data.otherEffectName, activeMod, Data.effectDesignation);
+                return true;
             }
+
+            ApplyToEntity(target, activeMod);
+
+            //if (modData[i].variantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
+            //    TrackStatAdjustment(target, activeMod);
+            //}
+
+            //float globalDamageMultiplier = GetDamageModifier(activeMod);
+            //float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, modData[i].targetStat, modData[i].variantTarget, globalDamageMultiplier);
+
+            //if (modData[i].targetStat == StatName.Health) {
+            //    FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString());
+            //    text.SetColor(Data.floatingTextColor);
+            //}
         }
 
 
         return true;
+    }
+
+    private StatModifier PrepareStatMod(StatModifierData modData, Entity target) {
+        StatModifier activeMod = new StatModifier(modData.value, modData.modifierType, modData.targetStat, Source, modData.variantTarget);
+        float baseModValue = SetModValues(target, activeMod, modData);
+        activeMod.UpdateModValue(baseModValue);
+
+        return activeMod;
     }
 
     private float GetDamageModifier(StatModifier mod) {
@@ -393,7 +506,7 @@ public class StatAdjustmentEffect : Effect {
         if(mod.ModType != StatModType.Flat)
             return 1f;
 
-        if(mod.Value > 0f) //Do helaing mods here
+        if(mod.Value > 0f) //Do healing mods here
             return 1f;
 
         float globalDamageMultiplier = 1 + Source.Stats[StatName.GlobalDamageModifier];
@@ -435,8 +548,13 @@ public class StatAdjustmentEffect : Effect {
 
         if (statModDict.TryGetValue(target, out List<StatModifier> modList)) {
             for (int i = 0; i < modList.Count; i++) {
-                //TODO: use stat adjustment manager here for event purposes
-                target.Stats.RemoveModifier(modList[i].TargetStat, modList[i]);
+
+                if (Data.applyToEffect == true) {
+                    RemoveFromEffect(target, Data.otherAbilityName, Data.otherEffectName, modList[i], Data.effectDesignation);
+                }
+                else {
+                    RemoveFromEntity(target, modList[i]);
+                }
             }
 
             statModDict.Remove(target);

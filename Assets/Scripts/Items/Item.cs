@@ -32,7 +32,7 @@ public class Item
         statModifiers.Clear();
 
         for (int i = 0; i < Data.statModifierData.Count; i++) {
-            StatModifier mod = new StatModifier(Data.statModifierData[i].value, Data.statModifierData[i].modifierType, Data.statModifierData[i].targetStat, this);
+            StatModifier mod = new StatModifier(Data.statModifierData[i].value, Data.statModifierData[i].modifierType, Data.statModifierData[i].targetStat, this, Data.statModifierData[i].variantTarget);
             statModifiers.Add(mod);
         }
     }
@@ -47,7 +47,7 @@ public class Item
         }
 
         for (int i = 0; i < statModifiers.Count; i++) {
-            StatAdjustmentManager.ApplyStatAdjustment(Owner, statModifiers[i], Data.statModifierData[i].variantTarget, Owner);
+            StatAdjustmentManager.ApplyStatAdjustment(Owner, statModifiers[i], statModifiers[i].VariantTarget, Owner);
         }
 
         EventData data = new EventData();
@@ -65,7 +65,7 @@ public class Item
         }
 
         for (int i = 0; i < statModifiers.Count; i++) {
-            StatAdjustmentManager.RemoveStatAdjustment(Owner, statModifiers[i], Data.statModifierData[i].variantTarget, Owner, true);
+            StatAdjustmentManager.RemoveStatAdjustment(Owner, statModifiers[i], statModifiers[i].VariantTarget, Owner, true);
         }
 
         EventData data = new EventData();

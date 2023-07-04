@@ -74,17 +74,17 @@ public static class StatAdjustmentManager {
     }
 
     public static float ApplyStatAdjustment(Entity target, float value, StatName targetStat, StatModType modType, StatModifierData.StatVariantTarget statVariant, object source, float multiplier = 1f) {
-        StatModifier mod = new StatModifier(value, modType, targetStat, source);
+        StatModifier mod = new StatModifier(value, modType, targetStat, source, statVariant);
         return ApplyStatAdjustment(target, mod, targetStat, statVariant, multiplier);
     }
 
     public static float DealDamageOrHeal(Entity target, float value, object source, float multiplier = 1f) {
-        StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.Health, source);
+        StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.Health, source, StatModifierData.StatVariantTarget.RangeCurrent);
         return ApplyStatAdjustment(target, mod, StatName.Health, StatModifierData.StatVariantTarget.RangeCurrent, multiplier);
     }
 
     public static float AdjustCDR(Entity target, float value, object source, float multiplier = 1f) {
-        StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.CooldownReduction, source);
+        StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.CooldownReduction, source, StatModifierData.StatVariantTarget.Simple);
         return ApplyStatAdjustment(target, mod, StatName.CooldownReduction, StatModifierData.StatVariantTarget.RangeCurrent, multiplier);
     }
 

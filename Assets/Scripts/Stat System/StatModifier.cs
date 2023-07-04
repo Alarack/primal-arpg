@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using StatVariantTarget = StatModifierData.StatVariantTarget;
+
 
 public enum StatModType
 {
@@ -19,12 +21,15 @@ public class StatModifier
     public object Source { get; private set; }
     public StatName TargetStat { get; private set; }
 
-    public StatModifier(float value, StatModType modType, StatName targetStat, object source)
+    public StatVariantTarget VariantTarget { get; private set; }
+
+    public StatModifier(float value, StatModType modType, StatName targetStat, object source, StatVariantTarget variantTarget)
     {
         Value = value;
         ModType = modType;
         Source = source;
         TargetStat = targetStat;
+        VariantTarget = variantTarget;
     }
 
     public void UpdateModValue(float updatedValue)

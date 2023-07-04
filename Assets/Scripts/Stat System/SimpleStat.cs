@@ -31,7 +31,9 @@ public enum StatName
     GlobalEffectDurationModifier,
     MeleeDamageModifier,
     OverloadChance,
-    OverloadDamageModifier
+    OverloadDamageModifier,
+    StatModifierValue,
+    AbilityWeaponCoefficicent
 }
 
 
@@ -113,7 +115,7 @@ public class SimpleStat : BaseStat
     public virtual void AddModifier(float value, StatModType modType, object source)
     {
         //TODO: Force sources to not be null
-        StatModifier newMod = new StatModifier(value, modType, Name, source);
+        StatModifier newMod = new StatModifier(value, modType, Name, source, StatModifierData.StatVariantTarget.Simple);
         AddModifier(newMod);
     }
 

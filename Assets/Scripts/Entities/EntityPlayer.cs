@@ -10,16 +10,17 @@ using UnityEngine.InputSystem;
 public class EntityPlayer : Entity
 {
 
-    //public EffectDefinition fireballTest;
-    public AbilityDefinition testAbility;
 
-    private List<Effect> testEffects = new List<Effect>();
-    private List<Ability> testAbilities = new List<Ability>();
+
+    public EffectDefinition runeTestEffect;
+
+
     public Inventory Inventory { get; private set; }
     public bool CanAttack { get; set; } = true;
 
     public float CurrentDamageRoll { get { return GetDamgeRoll(); } }
 
+    private Effect testRuneActiveEffect;
 
     protected override void Awake() {
         base.Awake();
@@ -68,6 +69,20 @@ public class EntityPlayer : Entity
         //    StatAdjustmentManager.AdjustCDR(this, -0.5f, this);
         //}
 
+        if(Input.GetKeyDown(KeyCode.M)) {
+            if(testRuneActiveEffect == null) {
+                testRuneActiveEffect = AbilityFactory.CreateEffect(runeTestEffect.effectData, this);
+            }
+            testRuneActiveEffect.ReceiveStartActivationInstance(null);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.E)) {
+
+          
+            testRuneActiveEffect.RecieveEndActivationInstance(null);
+
+        }
 
     }
 
