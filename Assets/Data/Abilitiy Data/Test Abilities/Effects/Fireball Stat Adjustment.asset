@@ -22,7 +22,7 @@ MonoBehaviour:
     targetConstraints: []
     payloadPrefab: {fileID: 5014085312362430806, guid: d3a5660a1575a0e419d046ed8b2428e2, type: 3}
     payloadCount: 1
-    shotDelay: 0.2
+    shotDelay: 0
     spawnLocation: 0
     effectZoneInfo:
       removeEffectOnExit: 0
@@ -77,6 +77,7 @@ MonoBehaviour:
       m_NumColorKeys: 3
       m_NumAlphaKeys: 3
     applyToEffect: 0
+    applyToOtherStatAdjustment: 0
     effectDesignation: 1
     statusToAdd: []
     statusToRemove: 

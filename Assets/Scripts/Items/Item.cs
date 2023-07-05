@@ -30,6 +30,7 @@ public class Item
     }
 
     protected void SetupAbilities() {
+        abilities.Clear();
         AbilityUtilities.SetupAbilities(Data.abilityDefinitions, abilities, Owner);
     }
 
@@ -44,6 +45,10 @@ public class Item
 
 
     public void Equip(ItemSlot slot) {
+
+
+        //Debug.Log("Equipping: " + Data.itemName);
+
         Equipped = true;
         CurrentSlot = slot;
 
@@ -69,7 +74,7 @@ public class Item
         //Debug.Log("Unequipping: " + Data.itemName);
 
         for (int i = 0; i < abilities.Count; i++) {
-            abilities[i].TearDown();
+            abilities[i].Uneqeuip();
         }
 
         for (int i = 0; i < activeMods.Count; i++) {

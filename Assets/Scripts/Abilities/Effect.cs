@@ -436,12 +436,21 @@ public class StatAdjustmentEffect : Effect {
 
         Effect targetEffect = target.Item2;
 
-        if(targetEffect is StatAdjustmentEffect) {
-            StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
+        if(Data.applyToOtherStatAdjustment == true) {
+            if (targetEffect is StatAdjustmentEffect) {
+                StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
 
-            if(adjustment.Data.effectDesignation == Data.effectDesignation)
-                adjustment.AddStatAdjustmentModifier(mod);
+                if (adjustment.Data.effectDesignation == Data.effectDesignation)
+                    adjustment.AddStatAdjustmentModifier(mod);
+            }
         }
+        else {
+            //Debug.Log("adding an effect: " + Data.effectName);
+            StatAdjustmentManager.AddEffectModifier(targetEffect, mod);
+        }
+
+
+        
     }
 
     private void RemoveFromEffect(Entity entity, string abilityName, string effectName, StatModifier mod, StatModifierData.StatModDesignation designation, AbilityCategory category) {
@@ -453,11 +462,17 @@ public class StatAdjustmentEffect : Effect {
 
         Effect targetEffect = target.Item2;
 
-        if (targetEffect is StatAdjustmentEffect) {
-            StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
+        if (Data.applyToOtherStatAdjustment == true) {
+            if (targetEffect is StatAdjustmentEffect) {
+                StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
 
-            if (adjustment.Data.effectDesignation == Data.effectDesignation)
-                adjustment.RemoveStatAdjustmentModifier(mod);
+                if (adjustment.Data.effectDesignation == Data.effectDesignation)
+                    adjustment.RemoveStatAdjustmentModifier(mod);
+            }
+        }
+        else {
+            //Debug.Log("removeing an effect: " + Data.effectName);
+            StatAdjustmentManager.RemoveEffectModifier(targetEffect, mod);
         }
     }
 

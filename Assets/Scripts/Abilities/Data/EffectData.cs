@@ -63,6 +63,7 @@ public class EffectData
     public List<StatModifierData> modData = new List<StatModifierData>();
     public Gradient floatingTextColor;
     public bool applyToEffect;
+    public bool applyToOtherStatAdjustment;
     public StatModifierData.StatModDesignation effectDesignation;
 
     //Add Status

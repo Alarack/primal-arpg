@@ -55,6 +55,15 @@ public class Ability {
     #region SETUP AND TEAR DOWN
 
     public void Equip() {
+
+        //Debug.Log("Equipping: " + Data.abilityName);
+
+        if (IsEquipped == true) {
+            Debug.LogError("Tried to equip " + Data.abilityName + " but it was alread equipped");
+            return;
+        }
+
+
         SetupActivationTriggers();
         SetupEndTriggers();
         SetupTriggerCounters();
@@ -69,14 +78,25 @@ public class Ability {
     }
 
     public void Uneqeuip() {
-        UnregisterAbility();
-        TearDown();
-        IsEquipped = false;
+
+        //Debug.Log("Unequipping: " + Data.abilityName);
+
+
+        if (IsEquipped == false) {
+            Debug.LogError("Tried to unequip " + Data.abilityName + " but it wasn't equipped");
+            return;
+        }
 
         EventData data = new EventData();
         data.AddAbility("Ability", this);
 
         EventManager.SendEvent(GameEvent.AbilityUnequipped, data);
+
+        UnregisterAbility();
+        TearDown();
+        IsEquipped = false;
+
+
     }
 
     private void RegisterAbility() {
@@ -175,7 +195,6 @@ public class Ability {
     }
 
     public void TearDown() {
-
         //End all current Effects
         ForceEndTrigger(null);
 

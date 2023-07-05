@@ -226,6 +226,8 @@ public class EffectTargeter {
     private IEnumerator DeliveryPayloadOnDelay(Vector2 location) {
         WaitForSeconds waiter = new WaitForSeconds(parentEffect.Data.shotDelay);
 
+        //Debug.Log(parentEffect.Stats[StatName.ShotCount] + " projectiles on " + parentEffect.ParentAbility.Data.abilityName);
+
         for (int i = 0; i < parentEffect.Stats[StatName.ShotCount]; i++) {
 
             //Instantiate payload;
