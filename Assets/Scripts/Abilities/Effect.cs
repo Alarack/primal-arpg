@@ -38,7 +38,9 @@ public abstract class Effect {
     protected void SetupStats() {
         Stats = new StatCollection(this);
         SimpleStat effectShotCount = new SimpleStat(StatName.ShotCount, Data.payloadCount);
+        SimpleStat pierceCount = new SimpleStat(StatName.ProjectilePierceCount, Data.projectilePierceCount);
         Stats.AddStat(effectShotCount);
+        Stats.AddStat(pierceCount);
     }
 
     protected void SetupTargetConstraints() {
@@ -145,6 +147,12 @@ public abstract class Effect {
 
     public void CreateVFX(Entity currentTarget) {
 
+    }
+
+    public virtual string GetTooltip() {
+
+
+        return Data.effectDescription;
     }
 
 
@@ -589,6 +597,18 @@ public class StatAdjustmentEffect : Effect {
         else {
             Debug.LogError("[Stat Adjustment EFFECT] A target: " + target.gameObject.name + " is not tracked.");
         }
+
+    }
+
+
+    public override string GetTooltip() {
+        //return base.GetTooltip();
+
+        string formated = TextHelper.FormatStat(modData[0].targetStat, modData[0].Stats[StatName.StatModifierValue]);
+
+        string replacement = Data.effectDescription.Replace("{}", formated);
+
+        return replacement;
 
     }
 

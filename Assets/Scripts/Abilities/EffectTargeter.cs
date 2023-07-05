@@ -237,6 +237,9 @@ public class EffectTargeter {
             if(projectile != null) {
                 projectile.Setup(parentEffect.Source, parentEffect);
 
+                if(parentEffect.Stats.Contains(StatName.ProjectilePierceCount) == true)
+                    projectile.Stats.AddModifier(StatName.ProjectilePierceCount, parentEffect.Stats[StatName.ProjectilePierceCount], StatModType.Flat, parentEffect.Source);
+
                 float sourceInaccuracy = (1f - parentEffect.Source.Stats[StatName.Accuracy]) * 360f;
                 float projectileInaccuracy = (1f - projectile.Stats[StatName.Accuracy]) * 360f;
                 float totalInaccuracy = (projectileInaccuracy + sourceInaccuracy) / 2f;

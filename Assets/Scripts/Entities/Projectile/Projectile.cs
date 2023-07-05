@@ -75,6 +75,12 @@ public class Projectile : Entity {
         //if (LayerTools.IsLayerInMask(parentWeapon.collisionMask, other.gameObject.layer) == false)
         //    return;
 
+        EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
+        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo);
+
+        if (HandleProjectilePierce() == true) {
+            return;
+        }
 
 
         myCollider.enabled = false;
@@ -82,8 +88,7 @@ public class Projectile : Entity {
         Movement.MyBody.freezeRotation = false;
         Movement.MyBody.velocity = Vector2.zero;
 
-        EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
-        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo);
+
 
         SpawnDeathVFX();
 
@@ -101,23 +106,17 @@ public class Projectile : Entity {
     }
 
 
+    private bool HandleProjectilePierce() {
+
+        if (Stats[StatName.ProjectilePierceCount] == 0)
+            return false;
 
 
-    //private void SpawnDeathEffect() {
-    //    if (onDeathEffectPrefab != null) {
-    //        GameObject activeDeathEffect = Instantiate(onDeathEffectPrefab, transform.position, Quaternion.identity);
-    //    }
+        Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
+        return true;
+    }
 
 
-    //    CleanUp();
-
-    //    //SlowingField slowField = activeDeathEffect.GetComponent<SlowingField>();
-
-    //    //if(slowField != null) {
-    //    //    slowField.Setup(Stats[StatName.EffectLifetime], source);
-    //    //}
-
-    //}
 
     private void DealDamage(Entity target) {
         //Debug.Log("Doing Damage " + Stats[StatName.BaseDamage]);
@@ -165,7 +164,7 @@ public class Projectile : Entity {
 
     private void CleanUp() {
 
-        if(killTimer.Running == true)
+        if (killTimer.Running == true)
             killTimer.Stop();
 
         Destroy(gameObject);

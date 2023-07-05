@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Fireball Rune Projectile Count
+  m_Name: Fireball Rune Damage Adjustment
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Fireball Rune Projectile Adj
+    effectName: Fireball Rune Damage Adj
+    effectDescription: Reduce Weapon Damage by {}
     type: 1
     targeting: 1
     numberOfTargets: -1
@@ -35,8 +36,8 @@ MonoBehaviour:
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     modData:
-    - targetStat: 14
-      value: 1
+    - targetStat: 28
+      value: -0.2
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -77,7 +78,7 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     applyToEffect: 1
-    applyToOtherStatAdjustment: 0
+    applyToOtherStatAdjustment: 1
     effectDesignation: 1
     statusToAdd: []
     statusToRemove: 

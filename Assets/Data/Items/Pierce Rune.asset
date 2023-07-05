@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Test Rune
+  m_Name: Pierce Rune
   m_EditorClassIdentifier: 
   itemData:
     Type: 2
-    itemName: Twin Flame Rune
-    itemDescription: Fireball now shoots two projectiles but causes {}% less damage.
+    itemName: Pierce Rune
+    itemDescription: Fireball now Pireces once
     itemValue: 20000
     validSlots: 0400000005000000
     itemIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
@@ -25,5 +25,5 @@ MonoBehaviour:
     maxDamage: 0
     statModifierData: []
     abilityDefinitions:
-    - {fileID: 11400000, guid: 6c0b2024fb290fc4ba82d1581e327de4, type: 2}
+    - {fileID: 11400000, guid: c8f7c11b126dfbb488f5fa7d6c809891, type: 2}
     abilityData: []

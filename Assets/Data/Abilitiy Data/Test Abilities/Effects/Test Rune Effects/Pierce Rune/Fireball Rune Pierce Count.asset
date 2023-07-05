@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Fireball Rune Damage Adjustment
+  m_Name: Fireball Rune Pierce Count
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Fireball Rune Damage Adj
+    effectName: Fireball Rune Pierce Adj
+    effectDescription: Increase Projectile Pierce by {}
     type: 1
     targeting: 1
     numberOfTargets: -1
@@ -22,6 +23,7 @@ MonoBehaviour:
     targetConstraints: []
     payloadPrefab: {fileID: 0}
     payloadCount: 1
+    projectilePierceCount: 0
     shotDelay: 0.2
     spawnLocation: 0
     effectZoneInfo:
@@ -35,8 +37,8 @@ MonoBehaviour:
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     modData:
-    - targetStat: 28
-      value: -0.2
+    - targetStat: 29
+      value: 1
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -77,7 +79,7 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     applyToEffect: 1
-    applyToOtherStatAdjustment: 1
+    applyToOtherStatAdjustment: 0
     effectDesignation: 1
     statusToAdd: []
     statusToRemove: 

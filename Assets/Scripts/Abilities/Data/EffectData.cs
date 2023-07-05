@@ -42,6 +42,7 @@ public enum MovementDestination {
 public class EffectData 
 {
     public string effectName;
+    public string effectDescription;
     public EffectType type;
     public EffectTarget targeting;
 
@@ -55,6 +56,7 @@ public class EffectData
     //Payload Delivery
     public Entity payloadPrefab;
     public int payloadCount = 1;
+    public int projectilePierceCount = 0;
     public float shotDelay = 0.2f;
     public DeliverySpawnLocation spawnLocation;
     public EffectZoneInfo effectZoneInfo;

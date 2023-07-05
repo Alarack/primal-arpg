@@ -385,7 +385,12 @@ public class Ability {
     public string GetTooltip() {
 
         StringBuilder builder = new StringBuilder();
+        
+        
+        
         builder.Append(Data.abilityDescription).AppendLine();
+
+
 
 
         float damagePercent = GetDamageEffectRatio();
@@ -398,6 +403,29 @@ public class Ability {
         float cooldown = GetCooldown();
         if (cooldown > 0f) {
             builder.Append("Cooldown: " + TextHelper.RoundTimeToPlaces(cooldown, 2)).Append(" Seconds").AppendLine();
+        }
+
+        //if (Data.category == AbilityCategory.Rune) {
+
+        //    for (int i = 0; i < effects.Count; i++) {
+        //        builder.Append(effects[i].GetTooltip());   
+        //    }
+
+        //}
+
+        List<Ability> runes = Source.AbilityManager.GetRuneAbilities(Data.abilityName);
+
+        if(runes.Count > 0) {
+            builder.AppendLine();
+        }
+
+        for (int i = 0; i < runes.Count; i++) {
+            Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
+            builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName).AppendLine();
+            //builder.Append(runes[i].GetTooltip());
+            for (int j = 0; j < runes[i].effects.Count; j++) {
+                builder.Append(runes[i].effects[j].GetTooltip()).AppendLine();
+            }
         }
 
 

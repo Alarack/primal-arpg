@@ -13,6 +13,7 @@ public static class TextHelper
 
         //StringBuilder builder = new StringBuilder();
         string bonusColor = ColorUtility.ToHtmlStringRGB(Color.green);
+        string penaltyColor = ColorUtility.ToHtmlStringRGB(Color.red);
 
         string result = stat switch {
             StatName.Health => throw new System.NotImplementedException(),
@@ -29,7 +30,7 @@ public static class TextHelper
             StatName.EffectLifetime => throw new System.NotImplementedException(),
             StatName.EffectIntensity_Percent => throw new System.NotImplementedException(),
             StatName.Cooldown => throw new System.NotImplementedException(),
-            StatName.ShotCount => throw new System.NotImplementedException(),
+            StatName.ShotCount => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.FireDelay => throw new System.NotImplementedException(),
             StatName.Accuracy => throw new System.NotImplementedException(),
             StatName.DashSpeed => throw new System.NotImplementedException(),
@@ -45,10 +46,14 @@ public static class TextHelper
             StatName.OverloadChance when value >= 0 => "+" + (value * 100) + "%",
             StatName.OverloadChance when value < 0 => "-" + (value * 100) + "%",
             StatName.OverloadDamageModifier => throw new System.NotImplementedException(),
+            StatName.StatModifierValue => $"<color=#{bonusColor}>" + value + "</color>",
+            StatName.AbilityWeaponCoefficicent when value < 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
+            StatName.AbilityWeaponCoefficicent when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
+            StatName.ProjectilePierceCount when value > 0 => $"<color=#{bonusColor}>" + value + "</color>",
             _ => "",
         };
 
-        string rarityText = $"<color=#{bonusColor}>{result}</color>";
+        //string rarityText = $"<color=#{bonusColor}>{result}</color>";
 
 
         return result;

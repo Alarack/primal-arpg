@@ -134,6 +134,17 @@ public class AbilityManager : MonoBehaviour
         return null;
     }
 
+    public List<Ability> GetRuneAbilities(string abilityName) {
+        List<Ability> results = new List<Ability>();    
+        
+        for (int i = 0; i < RuneAbilities.Count; i++) {
+            if (RuneAbilities[i].Data.runeAbilityTarget == abilityName)
+                results.Add(RuneAbilities[i]);
+        }
+
+        return results;
+    }
+
     public void ActivateFirstAbility() {
         if (KnownAbilities.Count == 0) {
             Debug.LogError(Owner.EntityName + " has no abiliites and was told to force active an ability");

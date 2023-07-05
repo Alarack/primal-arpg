@@ -107,6 +107,7 @@ public class AbilityData
     public bool toBestow;
     public bool suspend;
     public bool autoFire;
+    public string runeAbilityTarget;
 
     public List<AbilityTag> tags = new List<AbilityTag>();
 
