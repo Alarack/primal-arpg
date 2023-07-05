@@ -12,6 +12,14 @@ public enum AbilityTag {
     Melee
 }
 
+public enum AbilityCategory {
+    ActiveSkill,
+    KnownSkill,
+    Item,
+    Rune,
+    Any
+}
+
 
 [Serializable]
 public class AbilityData 
@@ -92,7 +100,7 @@ public class AbilityData
     #endregion
 
 
-
+    public AbilityCategory category;
     public Sprite abilityIcon;
     public string abilityName;
     public string abilityDescription;

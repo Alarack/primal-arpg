@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Fireball Rune Damage
+  m_Name: Fireball Rune Damage Adjustment
   m_EditorClassIdentifier: 
   effectData:
     effectName: Fireball Rune
@@ -36,7 +36,7 @@ MonoBehaviour:
       effectZonePrefab: {fileID: 0}
     modData:
     - targetStat: 28
-      value: 0.2
+      value: -0.2
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0

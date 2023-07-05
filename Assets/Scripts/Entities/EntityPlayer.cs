@@ -52,7 +52,7 @@ public class EntityPlayer : Entity
 
         }
 
-        if (Input.GetKeyDown(KeyCode.I)) {
+        if (Input.GetKeyDown(KeyCode.C)) {
             PanelManager.TogglePanel<InventoryPanel>();
         }
 
@@ -69,20 +69,16 @@ public class EntityPlayer : Entity
         //    StatAdjustmentManager.AdjustCDR(this, -0.5f, this);
         //}
 
-        if(Input.GetKeyDown(KeyCode.M)) {
-            if(testRuneActiveEffect == null) {
-                testRuneActiveEffect = AbilityFactory.CreateEffect(runeTestEffect.effectData, this);
-            }
-            testRuneActiveEffect.ReceiveStartActivationInstance(null);
+        //if(Input.GetKeyDown(KeyCode.M)) {
+        //    if(testRuneActiveEffect == null) {
+        //        testRuneActiveEffect = AbilityFactory.CreateEffect(runeTestEffect.effectData, this);
+        //    }
+        //    testRuneActiveEffect.ReceiveStartActivationInstance(null);
+        //}
 
-        }
-
-        if (Input.GetKeyDown(KeyCode.E)) {
-
-          
-            testRuneActiveEffect.RecieveEndActivationInstance(null);
-
-        }
+        //if (Input.GetKeyDown(KeyCode.E)) {
+        //    testRuneActiveEffect.RecieveEndActivationInstance(null);
+        //}
 
     }
 

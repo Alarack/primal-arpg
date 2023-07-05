@@ -35,6 +35,7 @@ public class StatModifierData
         None,
         PrimaryDamage,
         SecondaryDamage,
+        ShotCount
 
     }
 
@@ -65,10 +66,17 @@ public class StatModifierData
     public void SetupStats() {
         Stats = new StatCollection(this);
         SimpleStat modValueStat = new SimpleStat(StatName.StatModifierValue, value);
-        SimpleStat weaponCoeeficientStat = new SimpleStat(StatName.AbilityWeaponCoefficicent, weaponDamagePercent);
         Stats.AddStat(modValueStat);
+     
+    }
+
+    public void SetupEffectStats() {
+        SetupStats();
+        SimpleStat weaponCoeeficientStat = new SimpleStat(StatName.AbilityWeaponCoefficicent, weaponDamagePercent);
         Stats.AddStat(weaponCoeeficientStat);
     }
+
+
 
     public StatModifierData(StatModifierData copy) {
         this.targetStat = copy.targetStat;

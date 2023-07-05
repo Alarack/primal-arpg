@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Test Item
+  m_Name: Test Rune
   m_EditorClassIdentifier: 
   itemData:
-    Type: 1
-    itemName: Best Sword
-    itemDescription: Its pretty much the sickest sword you've ever had the privilage
-      to click on
+    Type: 2
+    itemName: Twin Flame Rune
+    itemDescription: Fireball now shoots two projectiles but causes {}% less damage.
     itemValue: 20000
-    validSlots: 01000000
-    itemIcon: {fileID: 21300000, guid: d76c12ca97bc6244c954433b257d2fd3, type: 3}
-    pickupIcon: {fileID: 21300000, guid: d76c12ca97bc6244c954433b257d2fd3, type: 3}
+    validSlots: 0400000005000000
+    itemIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
+    pickupIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
     pickupOnCollision: 0
-    minDamage: 10
-    maxDamage: 15
+    minDamage: 0
+    maxDamage: 0
     statModifierData: []
-    abilityDefinitions: []
+    abilityDefinitions:
+    - {fileID: 11400000, guid: 6c0b2024fb290fc4ba82d1581e327de4, type: 2}
     abilityData: []

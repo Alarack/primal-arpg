@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.Playables;
 
 public class AbilityManager : MonoBehaviour
 {
 
     public List<AbilityDefinition> preloadedAbilities = new List<AbilityDefinition>();
 
-    public List<Ability> ActiveAbilities { get; private set; } = new List<Ability>();
-    public List<Ability> KnownAbilities { get; private set; } = new List<Ability>();
 
+    public List<Ability> this[AbilityCategory category] { get { return GetAbilitiesByCategory(category); } }
+
+    public List<Ability> ActiveAbilities { get { return this[AbilityCategory.ActiveSkill]; } }
+    public List<Ability> KnownAbilities { get { return this[AbilityCategory.KnownSkill]; } }
+    public List<Ability> RuneAbilities { get { return this[AbilityCategory.Rune]; } }
+
+    public Dictionary<AbilityCategory, List<Ability>> Abilities { get; private set; } = new Dictionary<AbilityCategory, List<Ability>>();
 
     public Action<Ability, int> onAbilityEquipped;
     public Action<Ability, int> onAbilityUnequipped;
@@ -24,9 +30,24 @@ public class AbilityManager : MonoBehaviour
 
     private void Awake() {
         Owner = GetComponent<Entity>();
+        SetupAbilityDict();
         SetupPreloadedAbilities();
     }
 
+    private void SetupAbilityDict() {
+
+        AbilityCategory[] categories = Enum.GetValues(typeof(AbilityCategory)) as AbilityCategory[];
+        foreach (AbilityCategory category in categories) {
+            Abilities.Add(category, new List<Ability>());
+        }
+    }
+
+    public List<Ability> GetAbilitiesByCategory(AbilityCategory category) {
+        if (Abilities.TryGetValue(category, out List<Ability> results) == true)
+            return results;
+
+        return null;
+    }
 
     //private void Setup(Entity owner) {
     //    Owner = owner;
@@ -41,6 +62,7 @@ public class AbilityManager : MonoBehaviour
     #region LEARNING AND EQUIPPING
 
     public void LearnAbility(Ability ability) {
+
         if(KnownAbilities.AddUnique(ability) == true) {
             onAbilityLearned?.Invoke(ability);
         }
@@ -90,10 +112,23 @@ public class AbilityManager : MonoBehaviour
 
     #region GETTING AND ACTIVATION
 
-    public Ability GetAbilityByName(string name) {
-        for (int i = 0; i < KnownAbilities.Count; i++) {
-            if (KnownAbilities[i].Data.abilityName == name)
-                return KnownAbilities[i];
+    public Ability GetAbilityByName(string name, AbilityCategory category) {
+        
+        if(category == AbilityCategory.Any) {
+            foreach (var entry in Abilities) {
+                List<Ability> abilities = entry.Value;
+                for (int i = 0; i < abilities.Count; i++) {
+                    if (abilities[i].Data.abilityName == name) {
+                        return abilities[i];
+                    }
+                }
+            }
+        }
+
+
+        for (int i = 0; i < this[category].Count; i++) {
+            if (this[category][i].Data.abilityName == name)
+                return this[category][i];
         }
 
         return null;
@@ -108,8 +143,8 @@ public class AbilityManager : MonoBehaviour
         KnownAbilities[0].ForceActivate();
     }
 
-    public void ActivateAbilityByName(string name) {
-        Ability targetAbility = GetAbilityByName(name);
+    public void ActivateAbilityByName(string name, AbilityCategory category) {
+        Ability targetAbility = GetAbilityByName(name, category);
         if (targetAbility == null) {
             Debug.LogError("An abiity: " + name + " could not be found on: " + Owner.EntityName + " and it was told to activate");
             return;

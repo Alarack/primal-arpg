@@ -20,9 +20,19 @@ public enum ItemSlot {
     Inventory
 }
 
+public enum ItemType { 
+    None,
+    Equipment,
+    Rune,
+    Currency
+
+}
+
+
 [System.Serializable]
 public class ItemData 
 {
+    public ItemType Type; 
     public string itemName;
     public string itemDescription;
     public float itemValue;
@@ -35,6 +45,7 @@ public class ItemData
     public float maxDamage;
 
     public List<StatModifierData> statModifierData = new List<StatModifierData>();
+    public List<AbilityDefinition> abilityDefinitions = new List<AbilityDefinition>();
     public List<AbilityData> abilityData = new List<AbilityData>();
 
 

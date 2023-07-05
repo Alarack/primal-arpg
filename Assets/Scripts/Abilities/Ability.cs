@@ -59,13 +59,54 @@ public class Ability {
         SetupEndTriggers();
         SetupTriggerCounters();
         //SetupRecoveries();
-
+        RegisterAbility();
         IsEquipped = true;
+
+        EventData data = new EventData();
+        data.AddAbility("Ability", this);
+
+        EventManager.SendEvent(GameEvent.AbilityEquipped, data);
     }
 
     public void Uneqeuip() {
+        UnregisterAbility();
         TearDown();
         IsEquipped = false;
+
+        EventData data = new EventData();
+        data.AddAbility("Ability", this);
+
+        EventManager.SendEvent(GameEvent.AbilityUnequipped, data);
+    }
+
+    private void RegisterAbility() {
+        List<Ability> list = Data.category switch {
+            //AbilityCategory.ActiveSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.KnownSkill],
+            //AbilityCategory.KnownSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.KnownSkill],
+            AbilityCategory.Item => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Item],
+            AbilityCategory.Rune => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Rune],
+            _ => null,
+        };
+
+        if(list != null) {
+            list.Add(this);
+
+        }
+
+    }
+
+    private void UnregisterAbility() {
+        List<Ability> list = Data.category switch {
+            //AbilityCategory.ActiveSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.KnownSkill],
+            //AbilityCategory.KnownSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.KnownSkill],
+            AbilityCategory.Item => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Item],
+            AbilityCategory.Rune => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Rune],
+            _ => null,
+        };
+
+        if(list != null) {
+            list.Remove(this);
+        }
     }
 
 
@@ -248,6 +289,7 @@ public class Ability {
     #endregion
 
     #region EVENTS
+
 
 
 

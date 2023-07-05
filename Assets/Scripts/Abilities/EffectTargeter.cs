@@ -58,9 +58,9 @@ public class EffectTargeter {
         return results;
     }
 
-    public Entity GetLastTargetFromOtherEffect(string abilityName, string effectName) {
+    public Entity GetLastTargetFromOtherEffect(string abilityName, string effectName, AbilityCategory category) {
 
-        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, parentEffect.Source);
+        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, parentEffect.Source, category);
 
         if (target.Item1 == null) {
             Debug.LogWarning("Could not find: " + abilityName + " on " + parentEffect.ParentAbility.Source.EntityName);
@@ -226,7 +226,7 @@ public class EffectTargeter {
     private IEnumerator DeliveryPayloadOnDelay(Vector2 location) {
         WaitForSeconds waiter = new WaitForSeconds(parentEffect.Data.shotDelay);
 
-        for (int i = 0; i < parentEffect.Data.payloadCount; i++) {
+        for (int i = 0; i < parentEffect.Stats[StatName.ShotCount]; i++) {
 
             //Instantiate payload;
             Entity delivery = GameObject.Instantiate(parentEffect.Data.payloadPrefab, location, parentEffect.Source.transform.rotation);

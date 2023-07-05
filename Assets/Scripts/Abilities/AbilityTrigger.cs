@@ -201,6 +201,72 @@ public class UserActivatedTrigger : AbilityTrigger {
     }
 }
 
+public class AbilityEquippedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.AbilityEquipped;
+    public override GameEvent TargetEvent => GameEvent.AbilityEquipped;
+    public override Action<EventData> EventReceiver => OnAbilityEquipped;
+
+    public AbilityEquippedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnAbilityEquipped(EventData data) {
+
+        if (ParentAbility == null) {
+            Debug.LogError("an Ability Equipped trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
+            return;
+        }
+
+        Ability triggeringAbility = data.GetAbility("Ability");
+
+        if (triggeringAbility != ParentAbility) {
+            return;
+        }
+
+
+        TriggeringEntity = SourceEntity;
+        CauseOfTrigger = SourceEntity;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
+public class AbilityUnequippedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.AbilityUnequipped;
+    public override GameEvent TargetEvent => GameEvent.AbilityUnequipped;
+    public override Action<EventData> EventReceiver => OnAbilityUnequipped;
+
+    public AbilityUnequippedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnAbilityUnequipped(EventData data) {
+
+        if (ParentAbility == null) {
+            Debug.LogError("an Ability Unequipped trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
+            return;
+        }
+
+        Ability triggeringAbility = data.GetAbility("Ability");
+
+        if (triggeringAbility != ParentAbility) {
+            return;
+        }
+
+
+        TriggeringEntity = SourceEntity;
+        CauseOfTrigger = SourceEntity;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
 public class UnitDiedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.UnitDied;

@@ -42,7 +42,9 @@ public class ItemPickupNamePlate : MonoBehaviour, IPointerEnterHandler, IPointer
     }
 
     public void Hide() {
-        if (fading == false) {
+        
+        if(fadeTask != null) {
+            fadeTask.Stop();
             fadeTask = new Task(Fade(0f));
         }
 
@@ -53,10 +55,13 @@ public class ItemPickupNamePlate : MonoBehaviour, IPointerEnterHandler, IPointer
     private IEnumerator Fade(float targetValue) {
         WaitForEndOfFrame waiter = new WaitForEndOfFrame(); 
 
+        if(canvasGroup == null)
+            yield break;
+
         fading = true;
 
         while(canvasGroup.alpha != targetValue) {
-            float desiredAlpha = Mathf.MoveTowards(canvasGroup.alpha, targetValue, Time.deltaTime * 3f);
+            float desiredAlpha = Mathf.MoveTowards(canvasGroup.alpha, targetValue, Time.deltaTime * 4f);
             canvasGroup.alpha = desiredAlpha;
             yield return waiter;
         }

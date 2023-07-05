@@ -21,7 +21,9 @@ public enum TriggerType {
     WeaponCooldownFinished,
     WeaponCooldownStarted,
     StateEntered,
-    StateExited
+    StateExited,
+    AbilityEquipped,
+    AbilityUnequipped
 }
 
 

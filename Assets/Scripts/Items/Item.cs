@@ -13,27 +13,32 @@ public class Item
     public Entity Owner { get; set; }
 
     protected List<Ability> abilities = new List<Ability>();
-    protected List<StatModifier> statModifiers = new List<StatModifier>();
-
+    protected List<StatModifier> activeMods = new List<StatModifier>();
+    protected List<StatModifierData> modData = new List<StatModifierData>();
 
     public Item(ItemData data, Entity owner) {
         this.Data = data;
         this.Owner = owner;
 
-        SetupStatModifiers();
-        SetupAbilities();
+        modData = new List<StatModifierData>(data.statModifierData);
+
+        for (int i = 0; i < modData.Count; i++) {
+            modData[i].SetupStats();
+        }
+        //SetupStatModifiers();
+        //SetupAbilities();
     }
 
     protected void SetupAbilities() {
-        AbilityUtilities.SetupAbilities(Data.abilityData, abilities, Owner);
+        AbilityUtilities.SetupAbilities(Data.abilityDefinitions, abilities, Owner);
     }
 
     protected void SetupStatModifiers() {
-        statModifiers.Clear();
+        activeMods.Clear();
 
-        for (int i = 0; i < Data.statModifierData.Count; i++) {
-            StatModifier mod = new StatModifier(Data.statModifierData[i].value, Data.statModifierData[i].modifierType, Data.statModifierData[i].targetStat, this, Data.statModifierData[i].variantTarget);
-            statModifiers.Add(mod);
+        for (int i = 0; i < modData.Count; i++) {
+            StatModifier mod = new StatModifier(modData[i].value, modData[i].modifierType, modData[i].targetStat, this, modData[i].variantTarget);
+            activeMods.Add(mod);
         }
     }
 
@@ -42,12 +47,15 @@ public class Item
         Equipped = true;
         CurrentSlot = slot;
 
+        SetupStatModifiers();
+        SetupAbilities();
+
         for (int i = 0;i < abilities.Count;i++) {
             abilities[i].Equip();
         }
 
-        for (int i = 0; i < statModifiers.Count; i++) {
-            StatAdjustmentManager.ApplyStatAdjustment(Owner, statModifiers[i], statModifiers[i].VariantTarget, Owner);
+        for (int i = 0; i < activeMods.Count; i++) {
+            StatAdjustmentManager.ApplyStatAdjustment(Owner, activeMods[i], activeMods[i].VariantTarget, Owner);
         }
 
         EventData data = new EventData();
@@ -64,8 +72,8 @@ public class Item
             abilities[i].TearDown();
         }
 
-        for (int i = 0; i < statModifiers.Count; i++) {
-            StatAdjustmentManager.RemoveStatAdjustment(Owner, statModifiers[i], statModifiers[i].VariantTarget, Owner, true);
+        for (int i = 0; i < activeMods.Count; i++) {
+            StatAdjustmentManager.RemoveStatAdjustment(Owner, activeMods[i], activeMods[i].VariantTarget, Owner, true);
         }
 
         EventData data = new EventData();

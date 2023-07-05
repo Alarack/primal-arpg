@@ -23,13 +23,22 @@ public abstract class Effect {
     protected List<AbilityConstraint> targetConstraints = new List<AbilityConstraint>();
     protected EffectTargeter targeter;
 
+    public StatCollection Stats { get; protected set; }
+
     public Effect(EffectData data, Entity source, Ability parentAbility = null) {
         this.Data = data;
         this.ParentAbility = parentAbility;
         this.Targeting = data.targeting;
         this.Source = source;
+        SetupStats();
         SetupTargetConstraints();
         targeter = new EffectTargeter(this);
+    }
+
+    protected void SetupStats() {
+        Stats = new StatCollection(this);
+        SimpleStat effectShotCount = new SimpleStat(StatName.ShotCount, Data.payloadCount);
+        Stats.AddStat(effectShotCount);
     }
 
     protected void SetupTargetConstraints() {
@@ -328,7 +337,7 @@ public class StatAdjustmentEffect : Effect {
         modData = new List<StatModifierData>(data.modData);
         
         for (int i = 0; i < modData.Count; i++) {
-            modData[i].SetupStats();
+            modData[i].SetupEffectStats();
         }
     
     }
@@ -337,8 +346,10 @@ public class StatAdjustmentEffect : Effect {
         //List<StatModifierData> targetData = GetModDataByDesignation(designation);
 
         for (int i = 0; i < modData.Count; i++) {
-            modData[i].Stats.AddModifier(mod.TargetStat, mod);
-            Debug.LogWarning("Applying: " + mod.TargetStat + " Modifier: " + mod.Value + " to " + Data.effectName);
+            //modData[i].Stats.AddModifier(mod.TargetStat, mod);
+
+            StatAdjustmentManager.ApplyDataModifier(modData[i], mod);
+            //Debug.LogWarning("Applying: " + mod.TargetStat + " Modifier: " + mod.Value + " to " + Data.effectName);
         }
     }
 
@@ -346,7 +357,8 @@ public class StatAdjustmentEffect : Effect {
         //List<StatModifierData> targetData = GetModDataByDesignation(designation);
 
         for (int i = 0; i < modData.Count; i++) {
-            modData[i].Stats.RemoveModifier(mod.TargetStat, mod);
+            StatAdjustmentManager.RemoveDataModifiyer(modData[i], mod);
+            //modData[i].Stats.RemoveModifier(mod.TargetStat, mod);
         }
     }
 
@@ -419,8 +431,8 @@ public class StatAdjustmentEffect : Effect {
         StatAdjustmentManager.RemoveStatAdjustment(target, activeMod, activeMod.VariantTarget, Source);
     }
 
-    private void ApplyToEffect(Entity entity, string abilityName, string effectName, StatModifier mod, StatModifierData.StatModDesignation designation) {
-        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, entity);
+    private void ApplyToEffect(Entity entity, string abilityName, string effectName, StatModifier mod, StatModifierData.StatModDesignation designation, AbilityCategory categpry) {
+        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, entity, categpry);
 
         Effect targetEffect = target.Item2;
 
@@ -432,12 +444,12 @@ public class StatAdjustmentEffect : Effect {
         }
     }
 
-    private void RemoveFromEffect(Entity entity, string abilityName, string effectName, StatModifier mod, StatModifierData.StatModDesignation designation) {
+    private void RemoveFromEffect(Entity entity, string abilityName, string effectName, StatModifier mod, StatModifierData.StatModDesignation designation, AbilityCategory category) {
 
         //StatAdjustmentEffect adj = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, entity).Item2 as StatAdjustmentEffect;
         //adj.RemoveStatAdjustmentModifier(mod, designation);
 
-        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, entity);
+        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, entity, category);
 
         Effect targetEffect = target.Item2;
 
@@ -467,7 +479,7 @@ public class StatAdjustmentEffect : Effect {
             }
 
             if (Data.applyToEffect == true) {
-                ApplyToEffect(target, Data.otherAbilityName, Data.otherEffectName, activeMod, Data.effectDesignation);
+                ApplyToEffect(target, Data.otherAbilityName, Data.otherEffectName, activeMod, Data.effectDesignation, AbilityCategory.Any);
                 return true;
             }
 
@@ -550,7 +562,7 @@ public class StatAdjustmentEffect : Effect {
             for (int i = 0; i < modList.Count; i++) {
 
                 if (Data.applyToEffect == true) {
-                    RemoveFromEffect(target, Data.otherAbilityName, Data.otherEffectName, modList[i], Data.effectDesignation);
+                    RemoveFromEffect(target, Data.otherAbilityName, Data.otherEffectName, modList[i], Data.effectDesignation, AbilityCategory.Any);
                 }
                 else {
                     RemoveFromEntity(target, modList[i]);

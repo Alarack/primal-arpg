@@ -7,6 +7,23 @@ using LL.Events;
 public static class StatAdjustmentManager {
 
 
+    public static void ApplyDataModifier(StatModifierData data, StatModifier mod) {
+        data.Stats.AddModifier(mod.TargetStat, mod);
+    }
+
+    public static void RemoveDataModifiyer(StatModifierData data, StatModifier mod) {
+        data.Stats.RemoveModifier(mod.TargetStat, mod);
+    }
+
+    public static void AddEffectModifier(Effect effect, StatModifier mod) {
+        effect.Stats.AddModifier(mod.TargetStat, mod);
+    }
+
+    public static void RemoveEffectModifier(Effect effect, StatModifier mod) {
+        effect.Stats.RemoveModifier(mod.TargetStat, mod);
+    }
+
+
     public static float ApplyStatAdjustment(Entity target, StatModifierData modData, Entity source, float multiplier = 1f) {
 
 

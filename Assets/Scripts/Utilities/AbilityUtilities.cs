@@ -93,16 +93,16 @@ public static class AbilityUtilities {
         return null;
     }
 
-    public static Ability GetAbilityByName(string name, Entity source) {
-        return source.GetAbilityByName(name);
+    public static Ability GetAbilityByName(string name, Entity source, AbilityCategory category) {
+        return source.GetAbilityByName(name, category);
     }
 
     public static Effect GetEffectByName(string name, Ability ability) {
         return ability.GetEffectByName(name);
     }
 
-    public static Tuple<Ability, Effect> GetAbilityAndEffectByName(string abilityName, string effectName, Entity source) {
-        Ability targetAbility = GetAbilityByName(abilityName, source);
+    public static Tuple<Ability, Effect> GetAbilityAndEffectByName(string abilityName, string effectName, Entity source, AbilityCategory category) {
+        Ability targetAbility = GetAbilityByName(abilityName, source, category);
         Effect targetEffect = GetEffectByName(effectName, targetAbility);
 
         Tuple<Ability, Effect> target = new Tuple<Ability, Effect>(targetAbility, targetEffect);
@@ -118,8 +118,8 @@ public static class AbilityUtilities {
         return target;
     }
 
-    public static List<Entity> GetTargetsFromOtherAbility(string abilityName, string effectName, Entity source) {
-        var abilityEffect = GetAbilityAndEffectByName(abilityName, effectName, source);
+    public static List<Entity> GetTargetsFromOtherAbility(string abilityName, string effectName, Entity source, AbilityCategory category) {
+        var abilityEffect = GetAbilityAndEffectByName(abilityName, effectName, source, category);
 
         if (abilityEffect.Item1 == null) {
             Debug.LogError("An ability: " + abilityEffect + " could not be found on: " + source.EntityName);

@@ -77,16 +77,16 @@ public abstract class Entity : MonoBehaviour {
     //    AbilityUtilities.SetupAbilities(baseAbilities, abilities, this);
     //}
 
-    public Ability GetAbilityByName(string name) {
-        return AbilityManager.GetAbilityByName(name);
+    public Ability GetAbilityByName(string name, AbilityCategory category) {
+        return AbilityManager.GetAbilityByName(name, category);
     }
 
     public void ActivateFirstAbility() {
         AbilityManager.ActivateFirstAbility();
     }
 
-    public void ActivateAbilityByName(string name) {
-        AbilityManager.ActivateAbilityByName(name);
+    public void ActivateAbilityByName(string name, AbilityCategory category) {
+        AbilityManager.ActivateAbilityByName(name, category);
     }
 
     #endregion

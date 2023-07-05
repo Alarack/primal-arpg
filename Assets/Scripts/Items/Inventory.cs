@@ -183,9 +183,9 @@ public class Inventory : MonoBehaviour {
         if (CurrentWeapon != null) {
             return CurrentWeapon.DamageRoll;
         }
-        else {
-            Debug.Log("Weapon is null");
-        }
+        //else {
+        //    Debug.Log("Weapon is null");
+        //}
 
         return 5f;
     }
