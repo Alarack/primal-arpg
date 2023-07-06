@@ -16,7 +16,8 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public enum SkillEntryLocation {
         ActiveSkill,
         KnownSkill,
-        Hotbar
+        Hotbar,
+        RunePanel
     }
 
 
@@ -140,6 +141,10 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerClick(PointerEventData eventData) {
 
+        if (location == SkillEntryLocation.RunePanel)
+            return;
+
+
         if (eventData.button == PointerEventData.InputButton.Right) {
 
             //PanelManager.OpenPanel<SkillEditPanel>(this);
@@ -228,7 +233,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (Ability == null)
             return true;
 
-        if (location == SkillEntryLocation.Hotbar)
+        if (location == SkillEntryLocation.Hotbar || location == SkillEntryLocation.RunePanel)
             return true;
 
         return false;

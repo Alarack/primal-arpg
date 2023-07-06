@@ -8,6 +8,7 @@ using SkillEntryLocation = SkillEntry.SkillEntryLocation;
 using GameButtonType = InputHelper.GameButtonType;
 using static UnityEngine.EventSystems.EventTrigger;
 using static UnityEngine.GraphicsBuffer;
+using System.Text;
 
 public static class AbilityUtilities {
 
@@ -77,7 +78,6 @@ public static class AbilityUtilities {
 
         return null;
     }
-
 
     #endregion
 

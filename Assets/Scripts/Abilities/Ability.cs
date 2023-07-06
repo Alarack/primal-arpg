@@ -22,7 +22,7 @@ public class Ability {
     public bool HasRecovery { get { return recoveryMethods.Count > 0; } }
     public int Charges { get { return Mathf.FloorToInt(recoveryStats[StatName.AbilityCharge]); } }
     public int MaxCharges { get { return Mathf.FloorToInt(recoveryStats.GetStatRangeMaxValue(StatName.AbilityCharge)); } }
-
+    public int RuneSlots { get; protected set; } = 2;
 
 
     protected List<AbilityTrigger> activationTriggers = new List<AbilityTrigger>();
@@ -413,14 +413,43 @@ public class Ability {
 
         //}
 
-        List<Ability> runes = Source.AbilityManager.GetRuneAbilities(Data.abilityName);
 
-        if(runes.Count > 0) {
+        builder.Append(GetRunesTooltip());
+
+        //List<Ability> runes = GetRunes();
+
+        //if(runes.Count > 0) {
+        //    builder.AppendLine();
+        //}
+
+        //for (int i = 0; i < runes.Count; i++) {
+        //    //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
+        //    builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName).AppendLine();
+        //    //builder.Append(runes[i].GetTooltip());
+        //    for (int j = 0; j < runes[i].effects.Count; j++) {
+        //        builder.Append(runes[i].effects[j].GetTooltip()).AppendLine();
+        //    }
+        //}
+
+
+        return builder.ToString();
+    }
+
+    public List<Ability> GetRunes() {
+        return Source.AbilityManager.GetRuneAbilities(Data.abilityName);
+    }
+
+    public string GetRunesTooltip() {
+        StringBuilder builder = new StringBuilder();
+
+        List<Ability> runes = GetRunes();
+
+        if (runes.Count > 0) {
             builder.AppendLine();
         }
 
         for (int i = 0; i < runes.Count; i++) {
-            Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
+            //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
             builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName).AppendLine();
             //builder.Append(runes[i].GetTooltip());
             for (int j = 0; j < runes[i].effects.Count; j++) {
@@ -428,6 +457,24 @@ public class Ability {
             }
         }
 
+        return builder.ToString();
+    }
+
+    public static string GetRunesTooltip(List<Ability> runes) {
+        StringBuilder builder = new StringBuilder();
+
+        if (runes.Count > 0) {
+            builder.AppendLine();
+        }
+
+        for (int i = 0; i < runes.Count; i++) {
+            //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
+            builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName).AppendLine();
+            //builder.Append(runes[i].GetTooltip());
+            for (int j = 0; j < runes[i].effects.Count; j++) {
+                builder.Append(runes[i].effects[j].GetTooltip()).AppendLine();
+            }
+        }
 
         return builder.ToString();
     }

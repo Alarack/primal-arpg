@@ -15,6 +15,8 @@ public class Inventory : MonoBehaviour {
     private List<Item> ownedItems = new List<Item>();
     private Dictionary<ItemSlot, Item> equippedItems = new Dictionary<ItemSlot, Item>();
 
+    private List<Item> equippedRunes = new List<Item>();
+
     public ItemWeapon CurrentWeapon { get { return GetWeapon(); } }
 
     private void Awake() {
@@ -36,14 +38,29 @@ public class Inventory : MonoBehaviour {
     }
 
     public List<Item> GetInventoryItems() {
-        List<Item> results = new List<Item>();    
+
+        return GetItems(ItemType.Equipment);
+        
+        
+        //List<Item> results = new List<Item>();    
+        //for (int i = 0; i < ownedItems.Count; i++) {
+        //    if (ownedItems[i].Equipped == false && ownedItems[i].Data.Type == ItemType.Equipment)
+        //        results.Add(ownedItems[i]);
+        //}
+
+        //return results;
+    }
+
+    public List<Item> GetItems(ItemType type) {
+        List<Item> results = new List<Item>();
         for (int i = 0; i < ownedItems.Count; i++) {
-            if (ownedItems[i].Equipped == false)
+            if (ownedItems[i].Equipped == false && ownedItems[i].Data.Type == type)
                 results.Add(ownedItems[i]);
         }
 
         return results;
     }
+
     public bool ItemOwned(Item item) {
         return ownedItems.Contains(item);
     }
@@ -73,11 +90,34 @@ public class Inventory : MonoBehaviour {
                 //if(equippedItem != null)
                     UnEquipItem(equippedItem); 
             }
+            
+            if(equippedRunes.RemoveIfContains(item) == true) {
+                item.UnEquip();
+            }
 
 
         }
     }
 
+    public void EquipRune(Item item) {
+        if(equippedRunes.AddUnique(item) == true) {
+            item.Equip(ItemSlot.RuneSlot);
+        }
+        else {
+            Debug.LogError("Tried to equip a rune: " + item.Data.itemName + " but it was already equipped");
+
+        }
+    }
+
+    public void UnEquipRune(Item item) {
+        if(equippedRunes.RemoveIfContains(item) == true) {
+            item.UnEquip();
+        }
+        else {
+            Debug.LogError("Tried to Unequip a rune: " + item.Data.itemName + " but it wasn't equipped");
+
+        }
+    }
 
     public void EquipItemToSlot(Item item, ItemSlot slot) {
         

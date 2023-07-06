@@ -1,4 +1,5 @@
 using LL.Events;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -27,6 +28,27 @@ public class Item
         }
         //SetupStatModifiers();
         //SetupAbilities();
+
+        EventManager.RegisterListener(GameEvent.ItemAquired, OnItemAquired);
+        EventManager.RegisterListener(GameEvent.ItemDropped, OnItemDropped);
+    }
+
+    private void OnItemAquired(EventData data) {
+        Item item = data.GetItem("Item");
+        if (item != this) {
+            return;
+        }
+
+        SetupAbilities();
+    }
+
+    private void OnItemDropped(EventData data) {
+        Item item = data.GetItem("Item");
+        if (item != this) {
+            return;
+        }
+
+        EventManager.RemoveMyListeners(this);
     }
 
     protected void SetupAbilities() {
@@ -104,7 +126,15 @@ public class Item
         }
 
 
+        if(Data.Type == ItemType.Rune || Data.Type == ItemType.Equipment) {
 
+            if(abilities.Count > 0) {
+                builder.Append(Ability.GetRunesTooltip(abilities));
+            }
+            else {
+                Debug.LogError("A Rune: " + Data.itemName + " has no abilities");
+            }
+        }
         return builder.ToString();
     }
 

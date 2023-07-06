@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Split Shot Rune
   m_EditorClassIdentifier: 
   itemData:
-    Type: 2
+    Type: 1
     itemName: Twin Flame Rune
     itemDescription: Fireball now shoots two projectiles but causes {}% less damage.
     itemValue: 20000
+    runeAbilityTarget: Test Fireball
     validSlots: 0400000005000000
     itemIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
     pickupIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}

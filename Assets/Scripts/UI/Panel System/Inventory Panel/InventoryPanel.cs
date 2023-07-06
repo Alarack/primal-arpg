@@ -111,7 +111,9 @@ public class InventoryPanel : BasePanel {
 
     private void OnItemAquired(EventData data) {
         Item item = data.GetItem("Item");
-        AddToFirstEmptySlot(item);
+
+        if(item.Data.Type == ItemType.Equipment)
+            AddToFirstEmptySlot(item);
     }
 
     private void OnItemEquipped(EventData data) {

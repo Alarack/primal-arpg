@@ -17,7 +17,8 @@ public enum ItemSlot {
     Trinket2,
     Belt,
     Head,
-    Inventory
+    Inventory,
+    RuneSlot,
 }
 
 public enum ItemType { 
@@ -36,6 +37,7 @@ public class ItemData
     public string itemName;
     public string itemDescription;
     public float itemValue;
+    public string runeAbilityTarget;
     public List<ItemSlot> validSlots = new List<ItemSlot>();
     public Sprite itemIcon;
     public Sprite pickupIcon;
