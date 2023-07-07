@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunesPanel : BasePanel
-{
+public class RunesPanel : BasePanel {
 
     [Header("Template")]
     public SkillRuneEntry inventoryEntryTemplate;
@@ -24,12 +23,14 @@ public class RunesPanel : BasePanel
     protected override void Awake() {
         base.Awake();
         inventoryEntryTemplate.gameObject.SetActive(false);
-        CreateEmptySlots();
+        //CreateEmptySlots();
     }
 
 
     public override void Open() {
         base.Open();
+
+
     }
 
     public void Setup(Ability ability) {
@@ -44,15 +45,20 @@ public class RunesPanel : BasePanel
         inventoryEntries.PopulateList(16, inventoryEntryTemplate, inventoryHolder, true);
         for (int i = 0; i < inventoryEntries.Count; i++) {
             inventoryEntries[i].Setup(null, this, ItemSlot.Inventory);
+            //Debug.Log("Creating a rune inventory Slot");
         }
     }
 
     private void PopulateInventory() {
-        inventoryEntries.ClearList();
+        CreateEmptySlots();
+
+        //Debug.Log("Current Runes: " + currentSkillRunes.Count);
 
         for (int i = 0; i < currentSkillRunes.Count; i++) {
-            if (currentSkillRunes[i].Equipped == false)
-                CreateSkillRuneSlot(currentSkillRunes[i], inventoryHolder, inventoryEntries, ItemSlot.Inventory);
+            if (currentSkillRunes[i].Equipped == false) {
+                inventoryEntries[i].Setup(currentSkillRunes[i], this, ItemSlot.Inventory);
+            }
+            //CreateSkillRuneSlot(currentSkillRunes[i], inventoryHolder, inventoryEntries, ItemSlot.Inventory);
         }
     }
 
@@ -65,21 +71,34 @@ public class RunesPanel : BasePanel
         skillRuneEntries.ClearList();
         currentSkillRunes.Clear();
 
-        List<Item> allRunes = ((EntityPlayer)CurrentAbility.Source).Inventory.GetItems(ItemType.Rune);
+        List<Item> allRunes = ((EntityPlayer)CurrentAbility.Source).Inventory.GetItems(ItemType.Rune, false);
+
+        //Debug.Log(allRunes.Count + " runes found");
 
         foreach (Item item in allRunes) {
+
+            //Debug.Log("Rune Target: " + item.Data.runeAbilityTarget + ". Current Abilit: " + CurrentAbility.Data.abilityName);
+
             if (item.Data.runeAbilityTarget == CurrentAbility.Data.abilityName) {
+
+                if (item.Equipped == true) {
+                    //Debug.Log("Creating Rune Slot for: " + item.Data.itemName);
+                    CreateSkillRuneSlot(item, runeSlotHolder, skillRuneEntries, ItemSlot.RuneSlot);
+                }
+                //else {
+                //    Debug.Log("Rune is not equipped: " + item.Data.itemName);
+                //}
+
                 currentSkillRunes.Add(item);
-                CreateSkillRuneSlot(item, runeSlotHolder, skillRuneEntries, ItemSlot.RuneSlot);
             }
         }
 
-        if(skillRuneEntries.Count < CurrentAbility.RuneSlots) { 
-           int difference = CurrentAbility.RuneSlots - skillRuneEntries.Count;
+        if (skillRuneEntries.Count < CurrentAbility.RuneSlots) {
+            int difference = CurrentAbility.RuneSlots - skillRuneEntries.Count;
             for (int i = 0; i < difference; i++) {
                 CreateSkillRuneSlot(null, runeSlotHolder, skillRuneEntries, ItemSlot.RuneSlot);
             }
-        
+
         }
 
     }
@@ -87,7 +106,7 @@ public class RunesPanel : BasePanel
 
     private void CreateSkillRuneSlot(Item item, Transform holder, List<SkillRuneEntry> list, ItemSlot slot) {
         SkillRuneEntry entry = Instantiate(inventoryEntryTemplate, holder);
-        entry.enabled = true;
+        entry.gameObject.SetActive(true);
         entry.Setup(item, this, slot);
         list.Add(entry);
     }

@@ -52,13 +52,7 @@ public class EntityPlayer : Entity
 
         }
 
-        if (Input.GetKeyDown(KeyCode.C)) {
-            PanelManager.TogglePanel<InventoryPanel>();
-        }
-
-        if(Input.GetKeyDown(KeyCode.Q)) {
-            PanelManager.TogglePanel<SkillsPanel>();
-        }
+       
 
 
         //if(Input.GetKeyDown(KeyCode.C)) {

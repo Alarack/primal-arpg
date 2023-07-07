@@ -59,11 +59,11 @@ public class InventoryBaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
     protected virtual void OnItemEquipped(EventData data) {
         Item item = data.GetItem("Item");
 
-        if (item.CurrentSlot == slot) {
-            Add(item);
-        }
+        //if (item.CurrentSlot == slot) {
+        //    Add(item);
+        //}
 
-        if (MyItem != null && item == MyItem && (slot == ItemSlot.Inventory || slot == ItemSlot.RuneSlot)) {
+        if (MyItem != null && item == MyItem && (slot == ItemSlot.Inventory)) {
             Remove();
         }
 

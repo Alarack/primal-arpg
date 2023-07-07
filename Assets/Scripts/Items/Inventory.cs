@@ -51,10 +51,15 @@ public class Inventory : MonoBehaviour {
         //return results;
     }
 
-    public List<Item> GetItems(ItemType type) {
+    public List<Item> GetItems(ItemType type, bool unequippedOnly = true) {
         List<Item> results = new List<Item>();
         for (int i = 0; i < ownedItems.Count; i++) {
-            if (ownedItems[i].Equipped == false && ownedItems[i].Data.Type == type)
+
+            if(unequippedOnly == true && ownedItems[i].Equipped == true) {
+                continue;
+            }
+            
+            if (ownedItems[i].Data.Type == type)
                 results.Add(ownedItems[i]);
         }
 

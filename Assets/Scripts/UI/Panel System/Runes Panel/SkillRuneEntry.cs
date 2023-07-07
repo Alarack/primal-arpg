@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -61,7 +62,39 @@ public class SkillRuneEntry : InventoryBaseEntry
         }
         else {
             if (draggedItem.Data.validSlots.Contains(slot)) {
+
+                InventoryBaseEntry replacement = null;
+                Item replacedItem = null;
+
+                if (draggedItem.Equipped == true) {
+                    return;
+                    //EntityManager.ActivePlayer.Inventory.UnEquipRune(draggedItem);
+                }
+
+
+                if (MyItem != null) {
+                    //EntityManager.ActivePlayer.Inventory.EquipRune(draggedItem);
+                    //Add(draggedItem);
+
+                    replacement = DraggedInventoryItem;
+                    replacedItem = MyItem;
+
+                    EntityManager.ActivePlayer.Inventory.UnEquipRune(MyItem);
+                    Remove();
+                    TooltipManager.Hide();
+                    //DraggedInventoryItem.Add(MyItem);
+
+                }
+
+                
                 EntityManager.ActivePlayer.Inventory.EquipRune(draggedItem);
+                Add(draggedItem);
+
+
+                if (replacement != null) {
+                    replacement.Add(replacedItem);
+                }
+
             }
         }
 

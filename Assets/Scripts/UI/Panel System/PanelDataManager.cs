@@ -20,4 +20,16 @@ public class PanelDataManager : Singleton<PanelDataManager>
         blockingPanels = panelMapData.GetBlockingPanels();
     }
 
+    private void Update() {
+
+        if (Input.GetKeyDown(KeyCode.C)) {
+            PanelManager.TogglePanel<InventoryPanel>();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            PanelManager.TogglePanel<SkillsPanel>();
+        }
+
+    }
+
 }

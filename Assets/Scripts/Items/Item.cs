@@ -126,7 +126,7 @@ public class Item
         }
 
 
-        if(Data.Type == ItemType.Rune || Data.Type == ItemType.Equipment) {
+        if(Data.Type == ItemType.Rune) {
 
             if(abilities.Count > 0) {
                 builder.Append(Ability.GetRunesTooltip(abilities));
