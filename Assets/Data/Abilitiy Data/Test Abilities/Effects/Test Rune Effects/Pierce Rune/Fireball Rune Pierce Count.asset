@@ -17,6 +17,7 @@ MonoBehaviour:
     effectDescription: Increase Projectile Pierce by {}
     type: 1
     targeting: 1
+    subTarget: 2
     numberOfTargets: -1
     otherAbilityName: Test Fireball
     otherEffectName: Fireball Damage
@@ -78,8 +79,6 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    applyToEffect: 1
-    applyToOtherStatAdjustment: 0
     effectDesignation: 1
     statusToAdd: []
     statusToRemove: 

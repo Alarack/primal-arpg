@@ -417,14 +417,8 @@ public class StatAdjustmentEffect : Effect {
         return modData.invertDerivedValue == false ? targetValue : -targetValue;
     }
 
-
     private void ApplyToEntity(Entity target, StatModifier activeMod) {
         
-
-            //StatModifier activeMod = new StatModifier(modData[i].value, modData[i].modifierType, modData[i].targetStat, Source);
-            //float baseModValue = SetModValues(target, activeMod, modData[i]);
-            //activeMod.UpdateModValue(baseModValue);
-
             float globalDamageMultiplier = GetDamageModifier(activeMod);
             float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, globalDamageMultiplier);
 
@@ -432,58 +426,96 @@ public class StatAdjustmentEffect : Effect {
                 FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString());
                 text.SetColor(Data.floatingTextColor);
             }
-        
     }
 
     private void RemoveFromEntity(Entity target, StatModifier activeMod) {
         StatAdjustmentManager.RemoveStatAdjustment(target, activeMod, activeMod.VariantTarget, Source);
     }
 
-    private void ApplyToEffect(Entity entity, string abilityName, string effectName, StatModifier mod, StatModifierData.StatModDesignation designation, AbilityCategory categpry) {
-        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, entity, categpry);
+    private void ApplyToAbility(Entity entity, string abilityName, StatModifier mod) {
+        Ability target = AbilityUtilities.GetAbilityByName(abilityName, entity, AbilityCategory.KnownSkill);
 
-        Effect targetEffect = target.Item2;
-
-        if(Data.applyToOtherStatAdjustment == true) {
-            if (targetEffect is StatAdjustmentEffect) {
-                StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
-
-                if (adjustment.Data.effectDesignation == Data.effectDesignation)
-                    adjustment.AddStatAdjustmentModifier(mod);
-            }
+        if (target != null) {
+            Debug.Log("Applying an Ability stat adjustment: " + mod.TargetStat);
+            target.Stats.AddModifier(mod.TargetStat, mod);
         }
-        else {
-            //Debug.Log("adding an effect: " + Data.effectName);
-            StatAdjustmentManager.AddEffectModifier(targetEffect, mod);
-        }
-
-
-        
     }
 
-    private void RemoveFromEffect(Entity entity, string abilityName, string effectName, StatModifier mod, StatModifierData.StatModDesignation designation, AbilityCategory category) {
+    private void RemoveFromAbility(Entity entity, string abilityName, StatModifier mod) {
+        Ability target = AbilityUtilities.GetAbilityByName(abilityName, entity, AbilityCategory.KnownSkill);
+
+        if (target != null) {
+            target.Stats.RemoveModifier(mod.TargetStat, mod);
+        }
+    }
+
+    private void ApplyToEffect(Entity entity, string abilityName, string effectName, StatModifier mod, AbilityCategory category) {
+
+        Effect targetEffect = AbilityUtilities.GetEffectByName(abilityName, effectName, entity, category);
+        StatAdjustmentManager.AddEffectModifier(targetEffect, mod);
+
+
+        //if(Data.applyToOtherStatAdjustment == true) {
+        //    if (targetEffect is StatAdjustmentEffect) {
+        //        StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
+
+        //        if (adjustment.Data.effectDesignation == Data.effectDesignation)
+        //            adjustment.AddStatAdjustmentModifier(mod);
+        //    }
+        //}
+        //else {
+        //    //Debug.Log("adding an effect: " + Data.effectName);
+        //    StatAdjustmentManager.AddEffectModifier(targetEffect, mod);
+        //}
+
+    }
+
+    private void RemoveFromEffect(Entity entity, string abilityName, string effectName, StatModifier mod, AbilityCategory category) {
 
         //StatAdjustmentEffect adj = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, entity).Item2 as StatAdjustmentEffect;
         //adj.RemoveStatAdjustmentModifier(mod, designation);
 
-        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, entity, category);
+        Effect targetEffect = AbilityUtilities.GetEffectByName(abilityName, effectName, entity, category);
+        StatAdjustmentManager.RemoveEffectModifier(targetEffect, mod);
 
-        Effect targetEffect = target.Item2;
 
-        if (Data.applyToOtherStatAdjustment == true) {
-            if (targetEffect is StatAdjustmentEffect) {
-                StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
+        //if (Data.applyToOtherStatAdjustment == true) {
+        //    if (targetEffect is StatAdjustmentEffect) {
+        //        StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
 
-                if (adjustment.Data.effectDesignation == Data.effectDesignation)
-                    adjustment.RemoveStatAdjustmentModifier(mod);
-            }
-        }
-        else {
-            //Debug.Log("removeing an effect: " + Data.effectName);
-            StatAdjustmentManager.RemoveEffectModifier(targetEffect, mod);
+        //        if (adjustment.Data.effectDesignation == Data.effectDesignation)
+        //            adjustment.RemoveStatAdjustmentModifier(mod);
+        //    }
+        //}
+        //else {
+        //    //Debug.Log("removeing an effect: " + Data.effectName);
+        //    StatAdjustmentManager.RemoveEffectModifier(targetEffect, mod);
+        //}
+    }
+
+
+    private void ApplyToStatModifier(Entity entity, string abilityName, string effectName, StatModifier mod, StatModifierData.StatModDesignation designation, AbilityCategory category) {
+
+        Effect targetEffect = AbilityUtilities.GetEffectByName(abilityName, effectName, entity, category);
+
+        if (targetEffect is StatAdjustmentEffect) {
+            StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
+
+            if (adjustment.Data.effectDesignation == designation)
+                adjustment.AddStatAdjustmentModifier(mod);
         }
     }
 
+    private void RemoveFromStatModifier(Entity entity, string abilityName, string effectName, StatModifier mod, StatModifierData.StatModDesignation designation, AbilityCategory category) {
+        Effect targetEffect = AbilityUtilities.GetEffectByName(abilityName, effectName, entity, category);
+
+        if (targetEffect is StatAdjustmentEffect) {
+            StatAdjustmentEffect adjustment = targetEffect as StatAdjustmentEffect;
+
+            if (adjustment.Data.effectDesignation == designation)
+                adjustment.RemoveStatAdjustmentModifier(mod);
+        }
+    }
 
     public override bool Apply(Entity target) {
         if (base.Apply(target) == false)
@@ -501,24 +533,32 @@ public class StatAdjustmentEffect : Effect {
                 TrackStatAdjustment(target, activeMod);
             }
 
-            if (Data.applyToEffect == true) {
-                ApplyToEffect(target, Data.otherAbilityName, Data.otherEffectName, activeMod, Data.effectDesignation, AbilityCategory.Any);
-                return true;
+
+            switch (Data.subTarget) {
+                case EffectSubTarget.Entity:
+                case EffectSubTarget.None:
+                    ApplyToEntity(target, activeMod);
+                    break;
+                case EffectSubTarget.Effect:
+                    ApplyToEffect(target, Data.otherAbilityName, Data.otherEffectName, activeMod, AbilityCategory.Any);
+
+                    break;
+                case EffectSubTarget.StatModifier:
+                    ApplyToStatModifier(target, Data.otherAbilityName, Data.otherEffectName, activeMod, Data.effectDesignation, AbilityCategory.Any);
+                    break;
+                case EffectSubTarget.Ability:
+                    ApplyToAbility(target, Data.otherAbilityName, activeMod);
+                    break;
             }
 
-            ApplyToEntity(target, activeMod);
 
-            //if (modData[i].variantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
-            //    TrackStatAdjustment(target, activeMod);
+            //if (Data.applyToEffect == true) {
+            //    ApplyToEffect(target, Data.otherAbilityName, Data.otherEffectName, activeMod, Data.effectDesignation, AbilityCategory.Any);
+            //    return true;
             //}
 
-            //float globalDamageMultiplier = GetDamageModifier(activeMod);
-            //float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, modData[i].targetStat, modData[i].variantTarget, globalDamageMultiplier);
+            //ApplyToEntity(target, activeMod);
 
-            //if (modData[i].targetStat == StatName.Health) {
-            //    FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString());
-            //    text.SetColor(Data.floatingTextColor);
-            //}
         }
 
 
@@ -584,12 +624,33 @@ public class StatAdjustmentEffect : Effect {
         if (statModDict.TryGetValue(target, out List<StatModifier> modList)) {
             for (int i = 0; i < modList.Count; i++) {
 
-                if (Data.applyToEffect == true) {
-                    RemoveFromEffect(target, Data.otherAbilityName, Data.otherEffectName, modList[i], Data.effectDesignation, AbilityCategory.Any);
+
+                switch (Data.subTarget) {
+                    case EffectSubTarget.None:
+                    case EffectSubTarget.Entity:
+                        RemoveFromEntity(target, modList[i]);
+                        break;
+                    case EffectSubTarget.Effect:
+                        RemoveFromEffect(target, Data.otherAbilityName, Data.otherEffectName, modList[i], AbilityCategory.Any);
+                        break;
+                    case EffectSubTarget.StatModifier:
+                        RemoveFromStatModifier(target, Data.otherAbilityName, Data.otherEffectName, modList[i], Data.effectDesignation, AbilityCategory.Any);
+                        break;
+                    case EffectSubTarget.Ability:
+                        RemoveFromAbility(target, Data.otherAbilityName, modList[i]);
+                        break;
+                    default:
+                        break;
                 }
-                else {
-                    RemoveFromEntity(target, modList[i]);
-                }
+
+
+
+                //if (Data.applyToEffect == true) {
+                //    RemoveFromEffect(target, Data.otherAbilityName, Data.otherEffectName, modList[i], Data.effectDesignation, AbilityCategory.Any);
+                //}
+                //else {
+                //    RemoveFromEntity(target, modList[i]);
+                //}
             }
 
             statModDict.Remove(target);

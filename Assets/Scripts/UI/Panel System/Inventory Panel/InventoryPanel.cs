@@ -128,7 +128,7 @@ public class InventoryPanel : BasePanel {
 
         if (EntityManager.ActivePlayer.Inventory.ItemOwned(item) == true) {
             
-            if(IsItemInInventory(item) == false)
+            if(IsItemInInventory(item) == false && item.Data.Type == ItemType.Equipment)
                 GetEmptyInventorySlot().Add(item);
         }
     }

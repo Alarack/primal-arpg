@@ -90,16 +90,21 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
     private Timer cooldownTimer;
 
     public float Ratio { get { return cooldownTimer.Ratio; } }
-    public float Cooldown { get { return cooldownStats[StatName.Cooldown]; } }
+    //public float Cooldown { get { return Stats[StatName.Cooldown]; } }
 
-    private StatCollection cooldownStats;
+    //public StatCollection Stats { get; private set; } 
 
     public AbilityRecoveryCooldown(RecoveryData data, Entity Source, Ability parentAbility) : base(data, Source, parentAbility) {
-        cooldownStats = new StatCollection(this);
-        cooldownStats.AddStat(new SimpleStat(StatName.Cooldown, data.cooldown));
-        cooldownStats.AddStatListener(StatName.Cooldown, OnCooldownChanged);
-        
-        cooldownTimer = new Timer(cooldownStats[StatName.Cooldown], OnCooldownComplete, true);
+        //Stats = new StatCollection(this);
+        //Stats.AddStat(new SimpleStat(StatName.Cooldown, data.cooldown));
+        //Stats.AddStatListener(StatName.Cooldown, OnCooldownChanged);
+
+
+        parentAbility.Stats.AddStat(new SimpleStat(StatName.Cooldown, data.cooldown));
+        parentAbility.Stats.AddStatListener(StatName.Cooldown, OnCooldownChanged);
+
+
+        cooldownTimer = new Timer(parentAbility.Stats[StatName.Cooldown], OnCooldownComplete, true);
         TimerManager.AddTimerAction(Recover);
     }
 
@@ -118,15 +123,24 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
         if (stat != StatName.CooldownReduction || target != Source)
             return;
 
-        
-
         float cooldownReduction = Source.Stats[StatName.CooldownReduction];
 
-        float targetCooldown = Data.cooldown *  (1 - cooldownReduction);
+        ParentAbility.Stats.RemoveAllModifiersFromSource(this);
 
-        //Debug.Log("Cooldown Reduction changed. CDR: " + cooldownReduction + ". My Cooldown: " + targetCooldown);
 
-        cooldownStats.SetStatValue(StatName.Cooldown, targetCooldown, source);
+        float cdrPercent =  cooldownReduction;
+
+        if (cdrPercent <= 0)
+            return;
+
+        StatModifier cdrMod = new StatModifier(-cdrPercent, StatModType.PercentAdd, StatName.Cooldown, this, StatModifierData.StatVariantTarget.Simple);
+
+
+        ParentAbility.Stats.AddModifier(StatName.Cooldown, cdrMod);
+        //Debug.Log("Cooldown Reduction changed. CDR: " + -cdrPercent + ". My Cooldown: " + cooldownStats[StatName.Cooldown]);
+        //Debug.Log("Modifier Value: " + -cdrPercent);
+
+
     }
 
     private void OnCooldownComplete(EventData data) {
@@ -147,19 +161,20 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
         base.TearDown();
         
         TimerManager.RemoveTimerAction(Recover);
+        ParentAbility.Stats.RemoveStatListener(StatName.Cooldown, OnCooldownChanged);
     }
 
-    public void AddCooldownModifier(StatModifier mod) {
-        cooldownStats.AddModifier(StatName.Cooldown, mod);
-    }
+    //public void AddCooldownModifier(StatModifier mod) {
+    //    Stats.AddModifier(StatName.Cooldown, mod);
+    //}
 
-    public void RemoveCooldownModifier(StatModifier mod) {
-        cooldownStats.RemoveModifier(StatName.Cooldown, mod);
-    }
+    //public void RemoveCooldownModifier(StatModifier mod) {
+    //    Stats.RemoveModifier(StatName.Cooldown, mod);
+    //}
 
     private void OnCooldownChanged(BaseStat stat, object source, float value) {
 
-        cooldownTimer.SetDuration(cooldownStats[StatName.Cooldown]);
+        cooldownTimer.SetDuration(ParentAbility.Stats[StatName.Cooldown]);
 
         //Debug.Log("A cooldown changed: " + ParentAbility.Data.abilityName + ". Cooldown Timer Duration: " + cooldownTimer.Duration);
         //Debug.Log("Stat Value: " + cooldownStats[StatName.Cooldown]);

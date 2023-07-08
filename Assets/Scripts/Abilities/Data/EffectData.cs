@@ -24,6 +24,14 @@ public enum EffectTarget {
     OtherMostRecentTarget,
 }
 
+public enum EffectSubTarget {
+    None,
+    Entity,
+    Effect,
+    StatModifier,
+    Ability
+}
+
 public enum DeliverySpawnLocation { 
     Source,
     Trigger,
@@ -45,6 +53,7 @@ public class EffectData
     public string effectDescription;
     public EffectType type;
     public EffectTarget targeting;
+    public EffectSubTarget subTarget;
 
     public int numberOfTargets = -1;
     public string otherAbilityName;
@@ -64,8 +73,8 @@ public class EffectData
     //Stat Adjustment
     public List<StatModifierData> modData = new List<StatModifierData>();
     public Gradient floatingTextColor;
-    public bool applyToEffect;
-    public bool applyToOtherStatAdjustment;
+    //public bool applyToEffect;
+    //public bool applyToOtherStatAdjustment;
     public StatModifierData.StatModDesignation effectDesignation;
 
     //Add Status

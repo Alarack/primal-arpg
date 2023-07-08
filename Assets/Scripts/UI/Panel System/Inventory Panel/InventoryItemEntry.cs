@@ -6,46 +6,25 @@ using UnityEngine.EventSystems;
 using LL.Events;
 
 
-public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler, IPointerClickHandler {
+public class InventoryItemEntry : InventoryBaseEntry {
 
 
-
-    public Image itemImage;
-    public Image bgImage;
-    public Image emptyImage;
-
-    public ItemSlot slot = ItemSlot.Inventory;
-
-    public Item MyItem { get; private set; }
-
-
-    private int baseOrder;
     private InventoryPanel parentPanel;
-    private Canvas canvas;
     private Color defaultBgColor;
 
-
-    public static InventoryItemEntry DraggedInventoryItem { get; set; }
-
-
-    private void Awake() {
-        canvas = GetComponent<Canvas>();
-        baseOrder = canvas.sortingOrder;
-        canvas.overrideSorting = false;
+    protected override void Awake() {
+        base.Awake();
         defaultBgColor = bgImage.color;
     }
 
-    private void OnEnable() {
-        EventManager.RegisterListener(GameEvent.ItemEquipped, OnItemEquipped);
+    protected override void OnEnable() {
+        base.OnEnable();
+        //EventManager.RegisterListener(GameEvent.ItemEquipped, OnItemEquipped);
         EventManager.RegisterListener(GameEvent.ItemDropped, OnItemDropped);
-        EventManager.RegisterListener(GameEvent.ItemUnequipped, OnItemUnequipped);
+        //EventManager.RegisterListener(GameEvent.ItemUnequipped, OnItemUnequipped);
     }
 
-    private void OnDisable() {
-        EventManager.RemoveMyListeners(this);
-    }
-
-    private void OnItemEquipped(EventData data) {
+    protected override void OnItemEquipped(EventData data) {
         Item item = data.GetItem("Item");
 
         if (item.CurrentSlot == slot) {
@@ -59,10 +38,9 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
         if(MyItem != null && slot != ItemSlot.Inventory) {
             parentPanel.CheckForDupeEquips(this);
         }
-
     }
 
-    private void OnItemUnequipped(EventData data) {
+    protected override void OnItemUnequipped(EventData data) {
         Item item = data.GetItem("Item");
 
         if(slot == item.CurrentSlot && MyItem != null && item == MyItem) {
@@ -86,24 +64,12 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
 
             ItemSpawner.SpawnItem(item, Vector2.zero);
         }
-
     }
 
     public void Setup(Item item, InventoryPanel parentPanel) {
         this.parentPanel = parentPanel;
         this.MyItem = item;
 
-        SetupDisplay();
-    }
-
-    public void Add(Item item) {
-        MyItem = item;
-        SetupDisplay();
-    }
-
-    public void Remove() {
-
-        MyItem = null;
         SetupDisplay();
     }
 
@@ -115,32 +81,9 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
         bgImage.color = defaultBgColor;
     }
 
-    private void SetupDisplay() {
-        if (MyItem != null) {
-            itemImage.gameObject.SetActive(true);
-            itemImage.sprite = MyItem.Data.itemIcon;
-
-            if (emptyImage != null)
-                emptyImage.gameObject.SetActive(false);
-        }
-        else if (emptyImage != null) {
-            emptyImage.gameObject.SetActive(true);
-            itemImage.gameObject.SetActive(false);
-        }
-        else {
-            itemImage.gameObject.SetActive(false);
-        }
-
-    }
-
     #region UI CALLBACKS
 
-    public void ResetSortOrder() {
-        //canvas.sortingOrder = baseOrder;
-        UIHelper.ResetCanvasLayer(canvas, baseOrder);
-    }
-
-    public void OnBeginDrag(PointerEventData eventData) {
+    public override void OnBeginDrag(PointerEventData eventData) {
         DraggedInventoryItem = this;
 
         //DraggedInventoryItem.canvas.sortingOrder = 100;
@@ -151,12 +94,7 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
         parentPanel.dropZone.SetActive(true);
     }
 
-    public void OnDrag(PointerEventData eventData) {
-        Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        DraggedInventoryItem.itemImage.gameObject.transform.position = targetPos;
-    }
-
-    public void OnDrop(PointerEventData eventData) {
+    public override void OnDrop(PointerEventData eventData) {
 
         Item draggedItem = DraggedInventoryItem.MyItem;
         
@@ -189,9 +127,7 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
                     Add(swappingItem);
                 }
 
-                
                 //DraggedInventoryItem.itemImage.gameObject.transform.localPosition = Vector3.zero;
-
             }
 
         }
@@ -200,33 +136,15 @@ public class InventoryItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
                 EntityManager.ActivePlayer.Inventory.EquipItemToSlot(draggedItem, slot);
             }
         }
-
-
-
     }
 
-    public void OnEndDrag(PointerEventData eventData) {
-        DraggedInventoryItem.ResetSortOrder();
-        DraggedInventoryItem.itemImage.gameObject.transform.localPosition = Vector3.zero;
-        DraggedInventoryItem = null;
+    public override void OnEndDrag(PointerEventData eventData) {
+        base.OnEndDrag(eventData);
         parentPanel.HideAllHighlights();
         parentPanel.dropZone.SetActive(false);
     }
 
-    public void OnPointerEnter(PointerEventData eventData) {
-
-        if(MyItem != null) {
-            TooltipManager.Show(MyItem.GetTooltip(), MyItem.Data.itemName);
-
-        }
-
-    }
-
-    public void OnPointerExit(PointerEventData eventData) {
-        TooltipManager.Hide();
-    }
-
-    public void OnPointerClick(PointerEventData eventData) {
+    public override void OnPointerClick(PointerEventData eventData) {
         if (eventData.button == PointerEventData.InputButton.Right) {
             if (MyItem == null)
                 return;

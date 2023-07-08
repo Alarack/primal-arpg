@@ -17,12 +17,14 @@ MonoBehaviour:
     effectDescription: Reduce Weapon Damage by {}
     type: 1
     targeting: 1
+    subTarget: 3
     numberOfTargets: -1
     otherAbilityName: Test Fireball
     otherEffectName: Fireball Damage
     targetConstraints: []
     payloadPrefab: {fileID: 0}
     payloadCount: 1
+    projectilePierceCount: 0
     shotDelay: 0.2
     spawnLocation: 0
     effectZoneInfo:
@@ -77,8 +79,6 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    applyToEffect: 1
-    applyToOtherStatAdjustment: 1
     effectDesignation: 1
     statusToAdd: []
     statusToRemove: 

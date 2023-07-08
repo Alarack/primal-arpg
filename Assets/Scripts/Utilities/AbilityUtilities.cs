@@ -101,6 +101,12 @@ public static class AbilityUtilities {
         return ability.GetEffectByName(name);
     }
 
+    public static Effect GetEffectByName(string abilityName, string effectName, Entity source, AbilityCategory category) {
+        Tuple<Ability, Effect> tuple = GetAbilityAndEffectByName(abilityName, effectName, source, category);
+
+        return tuple.Item2;
+    }
+
     public static Tuple<Ability, Effect> GetAbilityAndEffectByName(string abilityName, string effectName, Entity source, AbilityCategory category) {
         Ability targetAbility = GetAbilityByName(abilityName, source, category);
         Effect targetEffect = GetEffectByName(effectName, targetAbility);

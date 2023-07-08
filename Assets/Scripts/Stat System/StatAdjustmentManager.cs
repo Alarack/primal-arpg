@@ -23,6 +23,14 @@ public static class StatAdjustmentManager {
         effect.Stats.RemoveModifier(mod.TargetStat, mod);
     }
 
+    public static void AddAbilityModifier(Ability ability, StatModifier mod) {
+        ability.Stats.AddModifier(mod.TargetStat, mod);
+    }
+
+    public static void RemoveAbilityModifier(Ability ability, StatModifier mod) {
+        ability.Stats.RemoveModifier(mod.TargetStat, mod);
+    }
+
 
     public static float ApplyStatAdjustment(Entity target, StatModifierData modData, Entity source, float multiplier = 1f) {
 

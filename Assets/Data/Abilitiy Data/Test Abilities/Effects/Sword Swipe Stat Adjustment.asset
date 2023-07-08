@@ -13,15 +13,18 @@ MonoBehaviour:
   m_Name: Sword Swipe Stat Adjustment
   m_EditorClassIdentifier: 
   effectData:
-    effectName: 
+    effectName: Sword Swipe Damage
+    effectDescription: 
     type: 1
     targeting: 5
+    subTarget: 0
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
     targetConstraints: []
     payloadPrefab: {fileID: 5357787465864582416, guid: 28a977b1833efca4faee8bfc52f5ca04, type: 3}
     payloadCount: 1
+    projectilePierceCount: 0
     shotDelay: 0.2
     spawnLocation: 0
     effectZoneInfo:
@@ -76,6 +79,7 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 3
       m_NumAlphaKeys: 3
+    effectDesignation: 1
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0

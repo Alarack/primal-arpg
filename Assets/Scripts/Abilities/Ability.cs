@@ -20,8 +20,8 @@ public class Ability {
     //Recovery Stuff
     public bool IsReady { get { return CheckReady(); } }
     public bool HasRecovery { get { return recoveryMethods.Count > 0; } }
-    public int Charges { get { return Mathf.FloorToInt(recoveryStats[StatName.AbilityCharge]); } }
-    public int MaxCharges { get { return Mathf.FloorToInt(recoveryStats.GetStatRangeMaxValue(StatName.AbilityCharge)); } }
+    public int Charges { get { return Mathf.FloorToInt(Stats[StatName.AbilityCharge]); } }
+    public int MaxCharges { get { return Mathf.FloorToInt(Stats.GetStatRangeMaxValue(StatName.AbilityCharge)); } }
     public int RuneSlots { get; protected set; } = 2;
 
 
@@ -35,8 +35,10 @@ public class Ability {
     protected List<Effect> effects = new List<Effect>();
     protected List<AbilityRecovery> recoveryMethods = new List<AbilityRecovery>();
 
-    protected StatCollection recoveryStats;
+    //protected StatCollection recoveryStats;
     protected List<Action<BaseStat, object, float>> recoveryStatListeners = new List<Action<BaseStat, object, float>>();
+
+    public StatCollection Stats { get; protected set; }
 
     public Ability(AbilityData data, Entity source) {
         this.Data = data;
@@ -45,24 +47,29 @@ public class Ability {
         //SetupActivationTriggers();
         //SetupEndTriggers();
         //SetupTriggerCounters();
-        SetupEffects();
+        SetupStats();
         SetupRecoveries();
+        SetupEffects();
+
     }
-
-
-
 
     #region SETUP AND TEAR DOWN
 
+
+    private void SetupStats() {
+        Stats = new StatCollection(this);
+
+        StatRange charges = new StatRange(StatName.AbilityCharge, 0, Data.startingRecoveryCharges, Data.startingRecoveryCharges);
+        Stats.AddStat(charges);
+
+    }
+
     public void Equip() {
-
         //Debug.Log("Equipping: " + Data.abilityName);
-
         if (IsEquipped == true) {
             Debug.LogError("Tried to equip " + Data.abilityName + " but it was alread equipped");
             return;
         }
-
 
         SetupActivationTriggers();
         SetupEndTriggers();
@@ -78,10 +85,7 @@ public class Ability {
     }
 
     public void Uneqeuip() {
-
         //Debug.Log("Unequipping: " + Data.abilityName);
-
-
         if (IsEquipped == false) {
             Debug.LogError("Tried to unequip " + Data.abilityName + " but it wasn't equipped");
             return;
@@ -95,8 +99,6 @@ public class Ability {
         UnregisterAbility();
         TearDown();
         IsEquipped = false;
-
-
     }
 
     private void RegisterAbility() {
@@ -108,7 +110,7 @@ public class Ability {
             _ => null,
         };
 
-        if(list != null) {
+        if (list != null) {
             list.Add(this);
 
         }
@@ -124,11 +126,10 @@ public class Ability {
             _ => null,
         };
 
-        if(list != null) {
+        if (list != null) {
             list.Remove(this);
         }
     }
-
 
     protected void SetupActivationTriggers() {
         foreach (TriggerData triggerData in Data.activationTriggerData) {
@@ -179,11 +180,9 @@ public class Ability {
     protected void SetupRecoveries() {
 
         //Stats for Charges
-        recoveryStats = new StatCollection(this);
-        StatRange charges = new StatRange(StatName.AbilityCharge, 0, Data.startingRecoveryCharges, Data.startingRecoveryCharges);
-        recoveryStats.AddStat(charges);
-
-
+        //recoveryStats = new StatCollection(this);
+        //StatRange charges = new StatRange(StatName.AbilityCharge, 0, Data.startingRecoveryCharges, Data.startingRecoveryCharges);
+        //recoveryStats.AddStat(charges);
 
         for (int i = 0; i < Data.recoveryData.Count; i++) {
             AbilityRecovery recovery = AbilityFactory.CreateAbilityRecovery(Data.recoveryData[i], Source, this);
@@ -191,7 +190,6 @@ public class Ability {
 
             //Debug.Log("Creating a recovery method for: " + Data.abilityName + " " + recovery.Type); 
         }
-
     }
 
     public void TearDown() {
@@ -211,14 +209,14 @@ public class Ability {
         endTriggers.Clear();
 
         //Tear down recoveries
-        for (int i = 0; i < recoveryMethods.Count; i++) {
-            recoveryMethods[i].TearDown();
-        }
-        recoveryMethods.Clear();
+        //for (int i = 0; i < recoveryMethods.Count; i++) {
+        //    recoveryMethods[i].TearDown();
+        //}
+        //recoveryMethods.Clear();
 
-        for (int i = 0; i < recoveryStatListeners.Count; i++) {
-            recoveryStats.RemoveStatListener(StatName.AbilityCharge, recoveryStatListeners[i]);
-        }
+        //for (int i = 0; i < recoveryStatListeners.Count; i++) {
+        //    recoveryStats.RemoveStatListener(StatName.AbilityCharge, recoveryStatListeners[i]);
+        //}
 
 
         //Tear down counters
@@ -269,7 +267,13 @@ public class Ability {
         if (HasRecovery == false)
             return;
 
-        recoveryStats.AdjustStatRangeCurrentValue(StatName.AbilityCharge, chargesToRecover, StatModType.Flat, this);
+        //if (IsEquipped == false)
+        //    return;
+
+        Stats.AdjustStatRangeCurrentValue(StatName.AbilityCharge, chargesToRecover, StatModType.Flat, this);
+
+
+        //recoveryStats.AdjustStatRangeCurrentValue(StatName.AbilityCharge, chargesToRecover, StatModType.Flat, this);
         //Debug.Log(Data.abilityName + " recovered a charge");
     }
 
@@ -277,7 +281,8 @@ public class Ability {
         if (HasRecovery == false)
             return;
 
-        recoveryStats.AdjustStatRangeCurrentValue(StatName.AbilityCharge, -chargesToSpend, StatModType.Flat, this);
+        Stats.AdjustStatRangeCurrentValue(StatName.AbilityCharge, -chargesToSpend, StatModType.Flat, this);
+        //recoveryStats.AdjustStatRangeCurrentValue(StatName.AbilityCharge, -chargesToSpend, StatModType.Flat, this);
         //Debug.Log(Data.abilityName + " spent a charge");
     }
 
@@ -285,24 +290,28 @@ public class Ability {
         if (HasRecovery == false)
             return;
 
-        recoveryStats.AddMaxValueModifier(StatName.AbilityCharge, mod);
+        Stats.AddMaxValueModifier(StatName.AbilityCharge, mod);
     }
 
     public void RemoveMaxCharge(StatModifier mod) {
         if (HasRecovery == false)
             return;
 
-        recoveryStats.RemoveMaxValueModifier(StatName.AbilityCharge, mod);
+        Stats.RemoveMaxValueModifier(StatName.AbilityCharge, mod);
     }
 
     public void AddChargesChangedListener(Action<BaseStat, object, float> callback) {
-        recoveryStats.AddStatListener(StatName.AbilityCharge, callback);
+        Stats.AddStatListener(StatName.AbilityCharge, callback);
         recoveryStatListeners.Add(callback);
     }
 
     public void RemoveChargesChangedListener(Action<BaseStat, object, float> callback) {
-        recoveryStats.RemoveStatListener(StatName.AbilityCharge, callback);
+        Stats.RemoveStatListener(StatName.AbilityCharge, callback);
         recoveryStatListeners.Remove(callback);
+    }
+
+    public void AddCooldownModifier(StatModifier mod) {
+
     }
 
     #endregion
@@ -334,8 +343,10 @@ public class Ability {
             if (effects[i] is StatAdjustmentEffect) {
                 StatAdjustmentEffect targetEffect = effects[i] as StatAdjustmentEffect;
 
-                result = targetEffect.GetBaseWeaponPercent();
-                break;
+                if (targetEffect.Data.effectDesignation == StatModifierData.StatModDesignation.PrimaryDamage) {
+                    result = targetEffect.GetBaseWeaponPercent();
+                    break;
+                }
             }
         }
 
@@ -385,9 +396,9 @@ public class Ability {
     public string GetTooltip() {
 
         StringBuilder builder = new StringBuilder();
-        
-        
-        
+
+
+
         builder.Append(Data.abilityDescription).AppendLine();
 
 
@@ -395,8 +406,8 @@ public class Ability {
 
         float damagePercent = GetDamageEffectRatio();
 
-        if(damagePercent > 0f) {
-            builder.Append("Damage: " + TextHelper.ColorizeText( (damagePercent * 100).ToString() + "%", Color.green) + " of Weapon Damage").AppendLine();
+        if (damagePercent > 0f) {
+            builder.Append("Damage: " + TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green) + " of Weapon Damage").AppendLine();
         }
 
 
@@ -480,10 +491,16 @@ public class Ability {
     }
 
     public float GetCooldown() {
-        AbilityRecoveryCooldown cooldown = GetCooldownRecovery();
-        if (cooldown != null) {
-            return cooldown.Cooldown;
+
+
+        if (Stats.Contains(StatName.Cooldown) == true) {
+            return Stats[StatName.Cooldown];
         }
+
+        //AbilityRecoveryCooldown cooldown = GetCooldownRecovery();
+        //if (cooldown != null) {
+        //    return cooldown.Cooldown;
+        //}
 
         return -1f;
     }
