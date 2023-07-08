@@ -24,7 +24,10 @@ public enum ConstraintType {
     StateEntered,
     StatedExited,
     HasTarget,
-    Dashing
+    Dashing,
+    AbilityTag,
+    AbilityName,
+    EffectName
 }
 
 public enum GainedOrLost {
@@ -113,6 +116,13 @@ public class ConstraintData
 
     //State Exited
     public string stateExited;
+
+    //Ability & Effect Constraints
+    public AbilityTag targetAbilityTag;
+    public string targetAbiltyName;
+    public string targetEffectName;
+
+
 
 
     public ConstraintData() {

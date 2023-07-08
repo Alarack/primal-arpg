@@ -260,3 +260,27 @@ public class DashingConstraint : AbilityConstraint {
 
 }
 
+
+public class AbilityTagConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.AbilityTag;
+
+
+    private AbilityTag targetTag;
+
+    public AbilityTagConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        this.targetTag = data.targetTag;
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        return false;
+
+
+        //bool result = target.subtypes.Contains(targetSubtype);
+
+        //return inverse == false ? result : !result;
+    }
+
+}
+

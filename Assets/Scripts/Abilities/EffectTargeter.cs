@@ -58,6 +58,15 @@ public class EffectTargeter {
         return results;
     }
 
+    public List<Effect> GatherValidEffectTargets() {
+        List<Effect> results = new List<Effect>();
+
+
+
+
+        return results;
+    }
+
     public Entity GetLastTargetFromOtherEffect(string abilityName, string effectName, AbilityCategory category) {
 
         Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, parentEffect.Source, category);
@@ -135,6 +144,14 @@ public class EffectTargeter {
 
             results.Add(currentTarget);
         }
+
+        return results;
+    }
+
+    public List<Effect> GetLogicEffectTargets() {
+        List<Effect> results = new List<Effect>();
+
+
 
         return results;
     }

@@ -7,7 +7,7 @@ using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
 
-public class Ability {
+public class Ability : IAbilityTargetable {
 
     public List<AbilityTag> Tags { get; protected set; } = new List<AbilityTag>();
     public Entity Source { get; protected set; }

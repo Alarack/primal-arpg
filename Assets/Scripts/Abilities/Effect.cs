@@ -8,7 +8,7 @@ using static AbilityTrigger;
 using Random = UnityEngine.Random;
 
 
-public abstract class Effect {
+public abstract class Effect : IAbilityTargetable {
 
     public abstract EffectType Type { get; }
     public EffectTarget Targeting { get; protected set; }
