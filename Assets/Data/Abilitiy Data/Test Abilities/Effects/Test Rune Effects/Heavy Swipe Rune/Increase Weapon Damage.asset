@@ -16,12 +16,46 @@ MonoBehaviour:
     effectName: Heavy Swipe Rune Damage Adj
     effectDescription: Increase Weapon Damage by {}
     type: 1
-    targeting: 1
+    targeting: 9
     subTarget: 3
     numberOfTargets: -1
     otherAbilityName: Test Sword Swipe
     otherEffectName: Sword Swipe Damage
-    targetConstraints: []
+    targetConstraints:
+    - type: 19
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      targetTag: 0
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: Test Sword Swipe
+      targetEffectName: Sword Swipe Damage
+      effectDesigantion: 1
     payloadPrefab: {fileID: 0}
     payloadCount: 1
     projectilePierceCount: 0

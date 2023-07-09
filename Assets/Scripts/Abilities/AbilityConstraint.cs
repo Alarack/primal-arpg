@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Playables;
 using UnityEngine;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
 
@@ -336,6 +337,13 @@ public class EffectNameConstraint : AbilityConstraint {
     public override bool Evaluate(Effect effect) {
         bool result = effect.Data.effectName == data.targetEffectName;
 
+
+
+
+        //Debug.Log("Testing: " + data.targetEffectName + " against: " + effect.Data.effectName);
+        //Debug.Log("Result of a name check on: " + effect.Data.effectName + " : " + result + ". Parent Ability: " + effect.ParentAbility.Data.abilityName);
+
+
         return inverse == false ? result : !result;
     }
 
@@ -355,6 +363,8 @@ public class AbilityNameConstraint : AbilityConstraint {
 
     public override bool Evaluate(Ability ability) {
         bool result = ability.Data.abilityName == data.targetAbiltyName;
+
+        //Debug.Log("Result of a name check on: " + ability.Data.abilityName + " : " + result);
 
         return inverse == false ? result : !result;
     }

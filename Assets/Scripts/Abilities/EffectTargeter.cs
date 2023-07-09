@@ -92,8 +92,20 @@ public class EffectTargeter {
         List<Effect> results = new List<Effect>();
         List<Effect> allSourceEffects = parentEffect.Source.AbilityManager.GetAllEffects();
 
+        //Debug.Log("Found: " + allSourceEffects.Count + " effects");
+
         foreach (Effect effect in allSourceEffects) {
-            if(parentEffect.EvaluateEffectTargetConstraints(effect) == true) {
+
+            //Debug.Log(effect.Data.effectName + " on " + effect.ParentAbility.Data.abilityName);
+
+            if (effect == parentEffect) {
+                Debug.LogWarning(effect.Data.effectName + " is trying to affect itself");
+                continue;
+
+            }
+
+            if (parentEffect.EvaluateEffectTargetConstraints(effect) == true) {
+                //Debug.Log("Approved: " + effect.Data.effectName);
                 results.Add(effect);
             }
         }
