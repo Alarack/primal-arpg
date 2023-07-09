@@ -13207,7 +13207,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8892af32b5331dc43975f8c77641d1a4, type: 2}
   - {fileID: 11400000, guid: 70028fce5f42abc4da812989392651aa, type: 2}
   - {fileID: 11400000, guid: 7d888087fe5659c45ae46a5ba0cdbd54, type: 2}
-  - {fileID: 11400000, guid: 70028fce5f42abc4da812989392651aa, type: 2}
+  - {fileID: 11400000, guid: 491c52192d824e8418b897335f62dcb3, type: 2}
   - {fileID: 11400000, guid: 8879919c1be56d84381846e35a7db5d0, type: 2}
   pickupPrefab: {fileID: 777966188710461411, guid: 8809ef3536d1e574e9eccf68d35e5f08, type: 3}
 --- !u!1 &2056078744
@@ -14121,6 +14121,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
+      propertyPath: preloadedAbilities.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
+      propertyPath: preloadedAbilities.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: d507288fded2a9949a43dec64879b9fd, type: 2}
     - target: {fileID: 8986088774927210644, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
       propertyPath: m_PointLightOuterRadius
       value: 64.57

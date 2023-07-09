@@ -278,22 +278,19 @@ public class AbilityTagConstraint : AbilityConstraint {
     private AbilityTag targetTag;
 
     public AbilityTagConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
-        this.targetTag = data.targetTag;
+        this.targetTag = data.targetAbilityTag;
     }
 
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
 
         return false;
 
-
-        //bool result = target.subtypes.Contains(targetSubtype);
-
-        //return inverse == false ? result : !result;
     }
 
     public override bool Evaluate(Ability ability) {
         bool result = ability.Tags.Contains(targetTag);
 
+        //Debug.LogWarning("Testing: " + ability.Data.abilityName + " for " + targetTag + ". Result: " + result);
         return inverse == false ? result : !result;
     }
 

@@ -99,7 +99,7 @@ public class EffectTargeter {
             //Debug.Log(effect.Data.effectName + " on " + effect.ParentAbility.Data.abilityName);
 
             if (effect == parentEffect) {
-                Debug.LogWarning(effect.Data.effectName + " is trying to affect itself");
+                //Debug.LogWarning(effect.Data.effectName + " is trying to affect itself");
                 continue;
 
             }

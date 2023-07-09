@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Fireball Rune Projectile Count
+  m_Name: Boost Fire Rune slots
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Fireball Rune Projectile Adj
-    effectDescription: Increase Projectiles by {}
+    effectName: Boost Fire Rune Slots
+    effectDescription: Fire Skills have {} Rune Slots
     type: 1
-    targeting: 9
-    subTarget: 2
+    targeting: 8
+    subTarget: 4
     numberOfTargets: -1
-    otherAbilityName: Test Fireball
-    otherEffectName: Fireball Damage
+    otherAbilityName: 
+    otherEffectName: 
     targetConstraints:
-    - type: 19
+    - type: 17
       inverse: 0
       statChangeTarget: 0
       changeDirection: 0
@@ -52,9 +52,9 @@ MonoBehaviour:
       targetStateData: {fileID: 0}
       stateEntered: 
       stateExited: 
-      targetAbilityTag: 0
+      targetAbilityTag: 1
       targetAbiltyName: 
-      targetEffectName: Fireball Damage
+      targetEffectName: 
       effectDesigantion: 0
     payloadPrefab: {fileID: 0}
     payloadCount: 1
@@ -72,7 +72,7 @@ MonoBehaviour:
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     modData:
-    - targetStat: 14
+    - targetStat: 30
       value: 1
       modifierType: 0
       variantTarget: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    effectDesignation: 3
+    effectDesignation: 0
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0

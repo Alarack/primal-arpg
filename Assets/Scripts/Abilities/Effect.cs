@@ -196,7 +196,17 @@ public abstract class Effect {
             Remove(EntityTargets[i]);
         }
 
+        for (int i = 0; i < AbilityTargets.Count; i++) {
+            RemoveFromAbility(AbilityTargets[i]);
+        }
+
+        for (int i = 0; i < EffectTargets.Count; i++) {
+            RemoveFromEffect(EffectTargets[i]);
+        }
+
         EntityTargets.Clear();
+        AbilityTargets.Clear();
+        EffectTargets.Clear();
     }
 
     public void SendEffectAppliedEvent() {
@@ -684,7 +694,7 @@ public class StatAdjustmentEffect : Effect {
             //float baseModValue = SetModValues(target, activeMod, modData[i]);
             //activeMod.UpdateModValue(baseModValue);
 
-            Debug.LogWarning("preparing a mod fomm data: " + modData[i].value);
+            //Debug.LogWarning("preparing a mod fomm data: " + modData[i].value);
 
             StatModifier activeMod = PrepareStatMod(modData[i], target);
 

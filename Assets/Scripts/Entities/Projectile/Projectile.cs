@@ -75,8 +75,10 @@ public class Projectile : Entity {
         //if (LayerTools.IsLayerInMask(parentWeapon.collisionMask, other.gameObject.layer) == false)
         //    return;
 
-        EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
-        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo);
+        //EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
+        //activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo);
+
+        DeployZoneEffect();
 
         if (HandleProjectilePierce() == true) {
             return;
@@ -95,13 +97,19 @@ public class Projectile : Entity {
         if (ricochet == true)
             Ricochet(other);
         else
-            CleanUp();
+            CleanUp(false);
         //Entity otherEntity = other.gameObject.GetComponent<Entity>();
         //if(otherEntity != null)
         //{
         //    DealDamage(otherEntity);
         //    ApplyOnHitEffects(otherEntity);
         //}
+
+    }
+
+    private void DeployZoneEffect() {
+        EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
+        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo);
 
     }
 
@@ -157,15 +165,21 @@ public class Projectile : Entity {
         WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.ProjectileLifetime]);
         yield return waiter;
 
-        CleanUp();
+        CleanUp(true);
     }
 
 
 
-    private void CleanUp() {
+    private void CleanUp(bool deployZone) {
 
         if (killTimer.Running == true)
             killTimer.Stop();
+
+        if(deployZone == true) {
+            DeployZoneEffect();
+            SpawnDeathVFX();
+        }
+
 
         Destroy(gameObject);
     }

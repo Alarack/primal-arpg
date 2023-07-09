@@ -47,6 +47,12 @@ public class Ability  {
         //SetupActivationTriggers();
         //SetupEndTriggers();
         //SetupTriggerCounters();
+
+
+        //for (int i = 0; i < Tags.Count; i++) {
+        //    Debug.Log(data.abilityName + " has a " + Tags[i] + " tag");
+        //}
+
         SetupStats();
         SetupRecoveries();
         SetupEffects();
@@ -247,7 +253,7 @@ public class Ability  {
 
     public bool TrySpendCharge(int chargesToSpend = 1) {
         if (HasRecovery == false) {
-            Debug.Log(Data.abilityName + " has no recovery");
+            //Debug.Log(Data.abilityName + " has no recovery");
             return true;
         }
 

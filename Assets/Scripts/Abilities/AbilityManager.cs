@@ -116,9 +116,10 @@ public class AbilityManager : MonoBehaviour
         List<Ability> results = new List<Ability>();
 
         foreach (var entry in Abilities) {
-            results.AddRange(entry.Value);
+            for (int i = 0; i < entry.Value.Count; i++) {
+                results.AddUnique(entry.Value[i]);
+            }
         }
-
         return results;
     }
 
@@ -127,7 +128,14 @@ public class AbilityManager : MonoBehaviour
         List<Effect> results = new List<Effect>();  
 
         foreach(var entry in allAbiliites) {
-            results.AddRange(entry.GetAllEffects());
+
+            List<Effect> effects = entry.GetAllEffects();
+
+            for (int i = 0; i < effects.Count; i++) {
+                results.AddUnique(effects[i]);
+            }
+
+            //results.AddRange(entry.GetAllEffects());
         }
 
         return results;
