@@ -27,7 +27,8 @@ public enum ConstraintType {
     Dashing,
     AbilityTag,
     AbilityName,
-    EffectName
+    EffectName,
+    EffectDesignation
 }
 
 public enum GainedOrLost {
@@ -121,6 +122,7 @@ public class ConstraintData
     public AbilityTag targetAbilityTag;
     public string targetAbiltyName;
     public string targetEffectName;
+    public StatModifierData.StatModDesignation effectDesigantion;
 
 
 

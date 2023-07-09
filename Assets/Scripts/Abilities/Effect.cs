@@ -5,17 +5,20 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 using static AbilityTrigger;
+using static UnityEngine.GraphicsBuffer;
 using Random = UnityEngine.Random;
 
 
-public abstract class Effect : IAbilityTargetable {
+public abstract class Effect  {
 
     public abstract EffectType Type { get; }
     public EffectTarget Targeting { get; protected set; }
     public Ability ParentAbility { get; protected set; }
     public EffectData Data { get; protected set; }
     public Entity Source { get; protected set; }
-    public List<Entity> Targets { get; protected set; } = new List<Entity>();
+    public List<Entity> EntityTargets { get; protected set; } = new List<Entity>();
+    public List<Effect> EffectTargets { get; protected set; } = new List<Effect>();
+    public List<Ability> AbilityTargets { get; protected set; } = new List<Ability>();
     public List<Entity> ValidTargets { get { return targeter.GatherValidTargets(); } }
     public Entity LastTarget { get; protected set; }
 
@@ -66,6 +69,34 @@ public abstract class Effect : IAbilityTargetable {
 
     }
 
+    public bool EvaluateAbilityTargetConstraints(Ability target) {
+        if (target == null) {
+            Debug.LogWarning(Data.effectName + " on " + ParentAbility.Data.abilityName + " tried to evaluate a null ability.");
+            return false;
+        }
+
+        for (int i = 0; i < targetConstraints.Count; i++) {
+            if (targetConstraints[i].Evaluate(target) == false)
+                return false;
+        }
+
+        return true;
+    }
+
+    public bool EvaluateEffectTargetConstraints(Effect target) {
+        if (target == null) {
+            Debug.LogWarning(Data.effectName + " on " + ParentAbility.Data.abilityName + " tried to evaluate a null effect.");
+            return false;
+        }
+
+        for (int i = 0; i < targetConstraints.Count; i++) {
+            if (targetConstraints[i].Evaluate(target) == false)
+                return false;
+        }
+
+        return true;
+    }
+
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
         currentTriggerInstance = activationInstance;
@@ -87,8 +118,8 @@ public abstract class Effect : IAbilityTargetable {
             return false;
 
 
-        if (Targets.Contains(target) == false) {
-            Targets.Add(target);
+        if (EntityTargets.Contains(target) == false) {
+            EntityTargets.Add(target);
         }
         //else {
         //    Debug.LogError(target.EntityName + " was already in the list of targets for an effect: " + Data.effectName + " on the source: " + Source.EntityName);
@@ -99,8 +130,27 @@ public abstract class Effect : IAbilityTargetable {
         return true;
     }
 
+    public virtual bool ApplyToEffect(Effect target) {
+
+        if (EvaluateEffectTargetConstraints(target) == false)
+            return false;
+
+        EffectTargets.AddUnique(target);
+
+        return true;
+    }
+
+    public virtual bool ApplyToAbility(Ability target) {
+        if (EvaluateAbilityTargetConstraints(target) == false)
+            return false;
+
+        AbilityTargets.AddUnique(target);
+
+        return true;
+    }
+
     public virtual void Remove(Entity target) {
-        Targets.RemoveIfContains(target);
+        EntityTargets.RemoveIfContains(target);
     }
 
     protected void BeginDelivery() {
@@ -126,11 +176,11 @@ public abstract class Effect : IAbilityTargetable {
     }
 
     public void RemoveFromAllTargets() {
-        for (int i = 0; i < Targets.Count; i++) {
-            Remove(Targets[i]);
+        for (int i = 0; i < EntityTargets.Count; i++) {
+            Remove(EntityTargets[i]);
         }
 
-        Targets.Clear();
+        EntityTargets.Clear();
     }
 
     public void SendEffectAppliedEvent() {

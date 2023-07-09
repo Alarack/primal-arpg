@@ -22,6 +22,8 @@ public enum EffectTarget {
     PayloadDelivered,
     OtherEffectTarget,
     OtherMostRecentTarget,
+    LogicSelectedAbility,
+    LogicSelectedEffect
 }
 
 public enum EffectSubTarget {

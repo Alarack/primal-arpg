@@ -15,7 +15,9 @@ public class EffectTargeter {
 
 
     private Effect parentEffect;
-    private List<Entity> targets;
+    private List<Entity> entityTargets;
+    private List<Effect> effectTargets;
+    private List<Ability> abilityTargets;
     private int numberOfTargets = -1;
     //private List<Entity> previewTargets;
 
@@ -58,11 +60,58 @@ public class EffectTargeter {
         return results;
     }
 
+    public List<Ability> GatherValidAbilities() {
+        List<Ability> results = new List<Ability>();
+        List<Ability> allSourceAbilities = parentEffect.Source.AbilityManager.GetAllAbilities();
+
+        foreach (Ability ability in allSourceAbilities) {
+
+            if (parentEffect.EvaluateAbilityTargetConstraints(ability) == true)
+                results.Add(ability);
+        }
+
+        int targetsRequsted = numberOfTargets;
+        if (numberOfTargets > results.Count)
+            targetsRequsted = results.Count;
+
+        if (numberOfTargets > 0 && results.Count > 0) {
+            results.Shuffle();
+
+            List<Ability> trunkatedResults = new List<Ability>();
+            for (int i = 0; i < targetsRequsted; i++) {
+                trunkatedResults.Add(results[i]);
+            }
+
+            return trunkatedResults;
+        }
+
+        return results;
+    }
+
     public List<Effect> GatherValidEffectTargets() {
         List<Effect> results = new List<Effect>();
+        List<Effect> allSourceEffects = parentEffect.Source.AbilityManager.GetAllEffects();
 
+        foreach (Effect effect in allSourceEffects) {
+            if(parentEffect.EvaluateEffectTargetConstraints(effect) == true) {
+                results.Add(effect);
+            }
+        }
 
+        int targetsRequsted = numberOfTargets;
+        if (numberOfTargets > results.Count)
+            targetsRequsted = results.Count;
 
+        if (numberOfTargets > 0 && results.Count > 0) {
+            results.Shuffle();
+
+            List<Effect> trunkatedResults = new List<Effect>();
+            for (int i = 0; i < targetsRequsted; i++) {
+                trunkatedResults.Add(results[i]);
+            }
+
+            return trunkatedResults;
+        }
 
         return results;
     }
@@ -83,7 +132,7 @@ public class EffectTargeter {
 
         Effect targetEffect = target.Item2;
 
-        if (targetEffect.Targets.Count > 0)
+        if (targetEffect.EntityTargets.Count > 0)
             return targetEffect.LastTarget;
         else {
             Debug.LogWarning("0 Targets Found on : " + effectName + " on " + parentEffect.ParentAbility.Data.abilityName);
@@ -127,7 +176,7 @@ public class EffectTargeter {
     }
 
     public List<Entity> GetLogicTargets() {
-        List <Entity> validTargets = GatherValidTargets();
+        List<Entity> validTargets = GatherValidTargets();
         List<Entity> results = new List<Entity>();
 
         if (validTargets.Count == 0) {
@@ -148,10 +197,42 @@ public class EffectTargeter {
         return results;
     }
 
+    public List<Ability> GetLogicAbilityTargets() {
+        List<Ability> validEffectTargets = GatherValidAbilities();
+        List<Ability> results = new List<Ability>();
+
+        if (validEffectTargets.Count == 0) {
+            Debug.LogWarning("An ability: "
+                + parentEffect.ParentAbility.Data.abilityName
+                + ":: on the entity: "
+                + parentEffect.Source.EntityName
+                + " triggered an effect and had 0 valid targets");
+        }
+
+        for (int i = 0; i < validEffectTargets.Count; i++) {
+            Ability currentTarget = validEffectTargets[i];
+            results.Add(currentTarget);
+        }
+
+        return results;
+    }
+
     public List<Effect> GetLogicEffectTargets() {
+        List<Effect> validEffectTargets = GatherValidEffectTargets();
         List<Effect> results = new List<Effect>();
 
+        if (validEffectTargets.Count == 0) {
+            Debug.LogWarning("An ability: "
+                + parentEffect.ParentAbility.Data.abilityName
+                + ":: on the entity: "
+                + parentEffect.Source.EntityName
+                + " triggered an effect and had 0 valid targets");
+        }
 
+        for (int i = 0; i < validEffectTargets.Count; i++) {
+            Effect currentTarget = validEffectTargets[i];
+            results.Add(currentTarget);
+        }
 
         return results;
     }
@@ -206,15 +287,39 @@ public class EffectTargeter {
     }
 
     private void ApplyLogicTargeting() {
-        targets = GetLogicTargets();
+        entityTargets = GetLogicTargets();
 
-        for (int i = 0; i < targets.Count; i++) {
-            parentEffect.Apply(targets[i]);
+        for (int i = 0; i < entityTargets.Count; i++) {
+            parentEffect.Apply(entityTargets[i]);
         }
 
-        if (targets.Count > 0)
+        if (entityTargets.Count > 0)
             parentEffect.SendEffectAppliedEvent();
 
+    }
+
+    private void ApplyToSpecificAbility() {
+
+    }
+
+    private void ApplyToLogicTargetedAbilities() {
+        abilityTargets = GetLogicAbilityTargets();
+
+        for (int i = 0; i < abilityTargets.Count; i++) {
+            parentEffect.ApplyToAbility(abilityTargets[i]);
+        }
+    }
+
+    private void ApplyToSpecificEffect() {
+
+    }
+
+    private void ApplyToLogicTargetedEffects() {
+        effectTargets = GetLogicEffectTargets();
+
+        for (int i = 0; i < effectTargets.Count; i++) {
+            parentEffect.ApplyToEffect(effectTargets[i]);
+        }
     }
 
 
@@ -251,10 +356,10 @@ public class EffectTargeter {
             Entity delivery = GameObject.Instantiate(parentEffect.Data.payloadPrefab, location, parentEffect.Source.transform.rotation);
 
             Projectile projectile = delivery as Projectile;
-            if(projectile != null) {
+            if (projectile != null) {
                 projectile.Setup(parentEffect.Source, parentEffect);
 
-                if(parentEffect.Stats.Contains(StatName.ProjectilePierceCount) == true)
+                if (parentEffect.Stats.Contains(StatName.ProjectilePierceCount) == true)
                     projectile.Stats.AddModifier(StatName.ProjectilePierceCount, parentEffect.Stats[StatName.ProjectilePierceCount], StatModType.Flat, parentEffect.Source);
 
                 float sourceInaccuracy = (1f - parentEffect.Source.Stats[StatName.Accuracy]) * 360f;
@@ -267,7 +372,7 @@ public class EffectTargeter {
             }
 
             EffectZone effectZone = delivery as EffectZone;
-            if(effectZone != null) {
+            if (effectZone != null) {
                 effectZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo);
             }
 
@@ -302,6 +407,8 @@ public class EffectTargeter {
             EffectTarget.OtherEffectTarget => throw new NotImplementedException(),
             EffectTarget.OtherMostRecentTarget => throw new NotImplementedException(),
             EffectTarget.PayloadDelivered => ApplyPayloadDelivery,
+            EffectTarget.LogicSelectedEffect => ApplyToLogicTargetedEffects,
+            EffectTarget.LogicSelectedAbility => ApplyToLogicTargetedAbilities,
             _ => null
         };
 

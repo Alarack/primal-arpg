@@ -21,6 +21,14 @@ public abstract class AbilityConstraint {
 
     public abstract bool Evaluate(Entity target, TriggerInstance triggerInstance);
 
+    public virtual  bool Evaluate(Ability ability) {
+        return false;
+    }
+
+    public virtual bool Evaluate(Effect effect) {
+        return false;
+    }
+
 }
 
 
@@ -280,6 +288,75 @@ public class AbilityTagConstraint : AbilityConstraint {
         //bool result = target.subtypes.Contains(targetSubtype);
 
         //return inverse == false ? result : !result;
+    }
+
+    public override bool Evaluate(Ability ability) {
+        bool result = ability.Tags.Contains(targetTag);
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
+public class EffectDesignationConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.EffectDesignation;
+
+
+    private StatModifierData.StatModDesignation designation;
+
+    public EffectDesignationConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        this.designation = data.effectDesigantion;
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        return false;
+    }
+
+    public override bool Evaluate(Effect effect) {
+        bool result = effect.Data.effectDesignation == designation;
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
+public class EffectNameConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.EffectName;
+
+    public EffectNameConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        return false;
+    }
+
+    public override bool Evaluate(Effect effect) {
+        bool result = effect.Data.effectName == data.targetEffectName;
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
+public class AbilityNameConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.AbilityName;
+
+    public AbilityNameConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        return false;
+    }
+
+    public override bool Evaluate(Ability ability) {
+        bool result = ability.Data.abilityName == data.targetAbiltyName;
+
+        return inverse == false ? result : !result;
     }
 
 }

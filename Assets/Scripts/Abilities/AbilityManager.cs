@@ -112,6 +112,27 @@ public class AbilityManager : MonoBehaviour
 
     #region GETTING AND ACTIVATION
 
+    public List<Ability> GetAllAbilities() {
+        List<Ability> results = new List<Ability>();
+
+        foreach (var entry in Abilities) {
+            results.AddRange(entry.Value);
+        }
+
+        return results;
+    }
+
+    public List<Effect> GetAllEffects() {
+        List<Ability> allAbiliites = GetAllAbilities();
+        List<Effect> results = new List<Effect>();  
+
+        foreach(var entry in allAbiliites) {
+            results.AddRange(entry.GetAllEffects());
+        }
+
+        return results;
+    }
+
     public Ability GetAbilityByName(string name, AbilityCategory category) {
         
         if(category == AbilityCategory.Any) {

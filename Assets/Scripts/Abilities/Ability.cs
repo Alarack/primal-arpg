@@ -7,7 +7,7 @@ using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
 
-public class Ability : IAbilityTargetable {
+public class Ability  {
 
     public List<AbilityTag> Tags { get; protected set; } = new List<AbilityTag>();
     public Entity Source { get; protected set; }
@@ -22,7 +22,7 @@ public class Ability : IAbilityTargetable {
     public bool HasRecovery { get { return recoveryMethods.Count > 0; } }
     public int Charges { get { return Mathf.FloorToInt(Stats[StatName.AbilityCharge]); } }
     public int MaxCharges { get { return Mathf.FloorToInt(Stats.GetStatRangeMaxValue(StatName.AbilityCharge)); } }
-    public int RuneSlots { get; protected set; } = 2;
+    public int RuneSlots { get { return Mathf.FloorToInt(Stats[StatName.AbilityRuneSlots]); } } 
 
 
     protected List<AbilityTrigger> activationTriggers = new List<AbilityTrigger>();
@@ -60,7 +60,9 @@ public class Ability : IAbilityTargetable {
         Stats = new StatCollection(this);
 
         StatRange charges = new StatRange(StatName.AbilityCharge, 0, Data.startingRecoveryCharges, Data.startingRecoveryCharges);
+        SimpleStat runeSlots = new SimpleStat(StatName.AbilityRuneSlots, Data.baseRuneSlots);
         Stats.AddStat(charges);
+        Stats.AddStat(runeSlots);
 
     }
 
@@ -333,6 +335,10 @@ public class Ability : IAbilityTargetable {
         }
 
         return null;
+    }
+
+    public List<Effect> GetAllEffects() {
+        return effects;
     }
 
     public float GetDamageEffectRatio() {

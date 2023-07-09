@@ -34,7 +34,8 @@ public enum StatName
     OverloadDamageModifier,
     StatModifierValue,
     AbilityWeaponCoefficicent,
-    ProjectilePierceCount
+    ProjectilePierceCount,
+    AbilityRuneSlots
 }
 
 

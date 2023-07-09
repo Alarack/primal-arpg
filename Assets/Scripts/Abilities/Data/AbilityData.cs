@@ -121,6 +121,7 @@ public class AbilityData
     public List<EffectData> effectData = new List<EffectData>();
 
     public int startingRecoveryCharges = 1;
+    public int baseRuneSlots = 2;
     public List<RecoveryData> recoveryData = new List<RecoveryData>();
 
 

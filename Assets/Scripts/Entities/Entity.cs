@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Entity : MonoBehaviour, IAbilityTargetable {
+public abstract class Entity : MonoBehaviour {
 
     public enum EntityType {
         Player,
