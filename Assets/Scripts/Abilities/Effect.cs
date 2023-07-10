@@ -76,7 +76,7 @@ public abstract class Effect {
         }
 
         for (int i = 0; i < targetConstraints.Count; i++) {
-            if (targetConstraints[i].Evaluate(target) == false) {
+            if (targetConstraints[i].Evaluate(target, currentTriggerInstance as AbilityTriggerInstance) == false) {
                 //Debug.LogWarning(target.Data.abilityName + " failed a constraint test for a constraint of type: " + targetConstraints[i].GetType().ToString());
                 return false;
 
@@ -93,7 +93,7 @@ public abstract class Effect {
         }
 
         for (int i = 0; i < targetConstraints.Count; i++) {
-            if (targetConstraints[i].Evaluate(target) == false) {
+            if (targetConstraints[i].Evaluate(target, currentTriggerInstance) == false) {
                 //Debug.LogWarning(target.Data.effectName + " failed a constraint test for a constraint of type: " + targetConstraints[i].GetType().ToString());
                 return false;
 
@@ -192,15 +192,15 @@ public abstract class Effect {
     }
 
     public void RemoveFromAllTargets() {
-        for (int i = 0; i < EntityTargets.Count; i++) {
+        for (int i = EntityTargets.Count - 1; i >= 0; i--) {
             Remove(EntityTargets[i]);
         }
 
-        for (int i = 0; i < AbilityTargets.Count; i++) {
+        for (int i = AbilityTargets.Count -1; i >=0; i--) {
             RemoveFromAbility(AbilityTargets[i]);
         }
 
-        for (int i = 0; i < EffectTargets.Count; i++) {
+        for (int i = EffectTargets.Count -1; i >=0 ; i--) {
             RemoveFromEffect(EffectTargets[i]);
         }
 
@@ -520,8 +520,8 @@ public class StatAdjustmentEffect : Effect {
             if (activeMod.VariantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
                 TrackAbilityStatAdjustment(target, activeMod);
             }
-
-            target.Stats.AddModifier(activeMod.TargetStat, activeMod);
+            StatAdjustmentManager.AddAbilityModifier(target, activeMod);
+            //target.Stats.AddModifier(activeMod.TargetStat, activeMod);
         }
 
 
@@ -531,9 +531,13 @@ public class StatAdjustmentEffect : Effect {
     public override void RemoveFromAbility(Ability target) {
         base.RemoveFromAbility(target);
 
+        //Debug.LogWarning("Found: " + trackedAbilityMods.Count + " tracked ability mods. Effect: " + Data.effectName);
+
         if (trackedAbilityMods.TryGetValue(target, out List<StatModifier> modList)) {
-            for (int i = 0; i < modList.Count; i++) {
-                target.Stats.RemoveModifier(modList[i].TargetStat, modList[i]);
+            for (int i = modList.Count -1; i >= 0 ; i--) {
+                //Debug.LogWarning("Removing a " + modList[i].TargetStat + " mod from " + target.Data.abilityName);
+                StatAdjustmentManager.RemoveAbilityModifier(target, modList[i]);
+                //target.Stats.RemoveModifier(modList[i].TargetStat, modList[i]);
             }
 
             trackedAbilityMods.Remove(target);
@@ -804,7 +808,7 @@ public class StatAdjustmentEffect : Effect {
         base.Remove(target);
 
         if (trackedEntityMods.TryGetValue(target, out List<StatModifier> modList)) {
-            for (int i = 0; i < modList.Count; i++) {
+            for (int i = modList.Count - 1; i >= 0; i--) {
 
 
                 RemoveFromEntity(target, modList[i]);

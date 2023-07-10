@@ -137,7 +137,10 @@ namespace LL.Events {
         ItemUnequipped,
         ItemDropped,
         AbilityEquipped,
-        AbilityUnequipped
+        AbilityUnequipped,
+        AbilityLearned,
+        AbilityUnlearned,
+        AbilityStatAdjusted
 
     }
 

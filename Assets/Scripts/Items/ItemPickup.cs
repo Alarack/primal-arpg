@@ -21,7 +21,7 @@ public class ItemPickup : MonoBehaviour
     protected Bouncer bouncer;
     public Item Item { get; private set; }
 
-    public bool IsGrounde { get { return bouncer.IsGrounded; } }
+    public bool IsGrounded { get { return bouncer.IsGrounded; } }
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();

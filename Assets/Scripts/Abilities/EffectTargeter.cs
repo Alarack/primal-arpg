@@ -6,6 +6,7 @@ using System;
 
 
 using TriggerInstance = AbilityTrigger.TriggerInstance;
+using AbilityTriggerInstance = AbilityTrigger.AbilityTriggerInstance;
 
 public class EffectTargeter {
 
@@ -176,6 +177,17 @@ public class EffectTargeter {
         return triggeringEntity;
     }
 
+    public Ability GetTriggeringAbility() {
+        AbilityTriggerInstance instance = ActivationInstance as AbilityTriggerInstance;
+
+        if(instance == null) {
+            Debug.LogError("An effect: " + parentEffect.Data.effectName + " is trying to getting a triggering ability, but it's not an ability trigger instance");
+            return null;
+        }
+
+        return instance.triggeringAbility;
+    }
+
     public Entity GetCauseTarget() {
         Entity causeingEntity = ActivationInstance.CauseOfTrigger;
 
@@ -284,9 +296,22 @@ public class EffectTargeter {
 
     private void ApplyToTrigger() {
 
+        if(parentEffect.Data.subTarget == EffectSubTarget.Ability) {
+            ApplyToTriggerAbility();
+            return;
+        }
+
+
         Entity triggeringEntity = GetTriggerTarget();
 
         parentEffect.Apply(triggeringEntity);
+        parentEffect.SendEffectAppliedEvent();
+    }
+
+    private void ApplyToTriggerAbility() {
+        Ability triggeringAbility = GetTriggeringAbility();
+
+        parentEffect.ApplyToAbility(triggeringAbility);
         parentEffect.SendEffectAppliedEvent();
     }
 

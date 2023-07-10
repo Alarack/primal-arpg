@@ -10,24 +10,61 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: Flame Booster Ability
+  m_Name: Flame Booster On Ability Learned
   m_EditorClassIdentifier: 
   AbilityData:
     category: 2
     abilityIcon: {fileID: 21300000, guid: 64087bb75c96aae499e80bd522f73e27, type: 3}
-    abilityName: Flame Bosster
-    abilityDescription: Fire Skills have {} Rune Slots
+    abilityName: Flame Bosster on ability learned
+    abilityDescription: 
     toBestow: 0
     suspend: 0
     autoFire: 0
+    includeEffectsInTooltip: 0
     runeAbilityTarget: 
     tags: 
     activationTriggerData:
-    - type: 17
+    - type: 19
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 1
+        constraintData:
+        - type: 17
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          targetTag: 0
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 1
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
     endTriggerData:
     - type: 18
       riderAbilityName: 
@@ -59,7 +96,7 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 7c602e6c083988647922c1db4d11d0df, type: 2}
+    - {fileID: 11400000, guid: 5fb0ec892be85ab4f84e2562d75930eb, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

@@ -38,6 +38,7 @@ public class SkillRuneEntry : InventoryBaseEntry
                 if (MyItem == null) {
                     Add(draggedItem);
                     EntityManager.ActivePlayer.Inventory.UnEquipRune(draggedItem);
+                    parentPanel.CurrentAbility.equippedRunes.Remove(draggedItem);
 
                 }
                 else {
@@ -80,6 +81,7 @@ public class SkillRuneEntry : InventoryBaseEntry
                     replacedItem = MyItem;
 
                     EntityManager.ActivePlayer.Inventory.UnEquipRune(MyItem);
+                    parentPanel.CurrentAbility.equippedRunes.Remove(MyItem);
                     Remove();
                     TooltipManager.Hide();
                     //DraggedInventoryItem.Add(MyItem);
@@ -89,7 +91,7 @@ public class SkillRuneEntry : InventoryBaseEntry
                 
                 EntityManager.ActivePlayer.Inventory.EquipRune(draggedItem);
                 Add(draggedItem);
-
+                parentPanel.CurrentAbility.equippedRunes.Add(draggedItem);
 
                 if (replacement != null) {
                     replacement.Add(replacedItem);

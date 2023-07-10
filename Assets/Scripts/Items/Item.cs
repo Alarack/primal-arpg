@@ -125,6 +125,13 @@ public class Item
             builder.Append(modData.targetStat.ToString().SplitCamelCase()).Append(": ").Append(TextHelper.FormatStat(modData.targetStat, modData.value)).AppendLine();
         }
 
+        for (int i = 0; i < abilities.Count; i++) {
+
+            string abilityTooltip = abilities[i].GetTooltip();
+            if(string.IsNullOrEmpty(abilityTooltip) == false)
+                builder.Append(abilities[i].GetTooltip()).AppendLine();
+        }
+
 
         if(Data.Type == ItemType.Rune) {
 

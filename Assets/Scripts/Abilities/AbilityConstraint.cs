@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Playables;
 using UnityEngine;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
+using AbilityTriggerInstance = AbilityTrigger.AbilityTriggerInstance;
 
 public abstract class AbilityConstraint {
 
@@ -22,11 +23,11 @@ public abstract class AbilityConstraint {
 
     public abstract bool Evaluate(Entity target, TriggerInstance triggerInstance);
 
-    public virtual  bool Evaluate(Ability ability) {
+    public virtual  bool Evaluate(Ability ability, AbilityTriggerInstance triggerInstance) {
         return false;
     }
 
-    public virtual bool Evaluate(Effect effect) {
+    public virtual bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
         return false;
     }
 
@@ -160,6 +161,14 @@ public class SourceOnlyConstraint : AbilityConstraint {
         return inverse == false ? result : !result;
     }
 
+
+    public override bool Evaluate(Ability ability, AbilityTriggerInstance triggerInstance) {
+
+        bool result = ability == triggerInstance.sourceAbility;
+
+        return inverse == false ? result : !result;
+
+    }
 }
 
 public class OwnerConstraint : AbilityConstraint {
@@ -287,7 +296,7 @@ public class AbilityTagConstraint : AbilityConstraint {
 
     }
 
-    public override bool Evaluate(Ability ability) {
+    public override bool Evaluate(Ability ability, AbilityTriggerInstance triggerInstance) {
         bool result = ability.Tags.Contains(targetTag);
 
         //Debug.LogWarning("Testing: " + ability.Data.abilityName + " for " + targetTag + ". Result: " + result);
@@ -311,7 +320,7 @@ public class EffectDesignationConstraint : AbilityConstraint {
         return false;
     }
 
-    public override bool Evaluate(Effect effect) {
+    public override bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
         bool result = effect.Data.effectDesignation == designation;
 
         return inverse == false ? result : !result;
@@ -331,7 +340,7 @@ public class EffectNameConstraint : AbilityConstraint {
         return false;
     }
 
-    public override bool Evaluate(Effect effect) {
+    public override bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
         bool result = effect.Data.effectName == data.targetEffectName;
 
 
@@ -358,7 +367,7 @@ public class AbilityNameConstraint : AbilityConstraint {
         return false;
     }
 
-    public override bool Evaluate(Ability ability) {
+    public override bool Evaluate(Ability ability, AbilityTriggerInstance triggerInstance) {
         bool result = ability.Data.abilityName == data.targetAbiltyName;
 
         //Debug.Log("Result of a name check on: " + ability.Data.abilityName + " : " + result);

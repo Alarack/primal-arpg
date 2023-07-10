@@ -23,7 +23,9 @@ public enum TriggerType {
     StateEntered,
     StateExited,
     AbilityEquipped,
-    AbilityUnequipped
+    AbilityUnequipped,
+    AbilityLearned,
+    AbilityUnlearned
 }
 
 

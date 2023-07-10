@@ -26,10 +26,8 @@ public class RunesPanel : BasePanel {
         //CreateEmptySlots();
     }
 
-
     public override void Open() {
         base.Open();
-
 
     }
 
@@ -91,6 +89,10 @@ public class RunesPanel : BasePanel {
 
                 currentSkillRunes.Add(item);
             }
+        }
+
+        if(skillRuneEntries.Count > CurrentAbility.RuneSlots) {
+            Debug.LogWarning(CurrentAbility.Data.abilityName + " is Rune Overloaded!");
         }
 
         if (skillRuneEntries.Count < CurrentAbility.RuneSlots) {

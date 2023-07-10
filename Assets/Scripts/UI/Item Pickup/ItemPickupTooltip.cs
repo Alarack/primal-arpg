@@ -31,7 +31,7 @@ public class ItemPickupTooltip : MonoBehaviour, IPointerEnterHandler, IPointerEx
     
     public void OnPointerEnter(PointerEventData eventData) {
 
-        if(ItemPickup.IsGrounde == false) 
+        if(ItemPickup.IsGrounded == false) 
             return;
 
         namePlate.Show();

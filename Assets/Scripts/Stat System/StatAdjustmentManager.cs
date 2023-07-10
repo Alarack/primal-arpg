@@ -25,10 +25,14 @@ public static class StatAdjustmentManager {
 
     public static void AddAbilityModifier(Ability ability, StatModifier mod) {
         ability.Stats.AddModifier(mod.TargetStat, mod);
+
+        SendAbilityStatChangeEvent(mod.TargetStat, ability, mod.Value);
     }
 
     public static void RemoveAbilityModifier(Ability ability, StatModifier mod) {
         ability.Stats.RemoveModifier(mod.TargetStat, mod);
+
+        SendAbilityStatChangeEvent(mod.TargetStat, ability, mod.Value);
     }
 
 
@@ -138,7 +142,14 @@ public static class StatAdjustmentManager {
     }
 
 
+    private static void SendAbilityStatChangeEvent(StatName statName, Ability target, float changeValue) {
+        EventData data = new EventData();
+        data.AddAbility("Ability", target);
+        data.AddInt("Stat", (int)statName);
+        data.AddFloat("Value", changeValue);
 
+        EventManager.SendEvent(GameEvent.AbilityStatAdjusted, data);
+    }
 
     private static void SendStatChangeEvent(StatName targetStat, Entity target, Entity source, float changeValue) {
         EventData eventData = new EventData();

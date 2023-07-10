@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Blazing Star Scroll
+  m_EditorClassIdentifier: 
+  itemData:
+    Type: 4
+    itemName: Blazing Star
+    itemDescription: 
+    itemValue: 0
+    runeAbilityTarget: 
+    validSlots: 
+    itemIcon: {fileID: 21300000, guid: 74a5be9c5f59e2e40ab6a0b7285ef351, type: 3}
+    pickupIcon: {fileID: 21300000, guid: 74a5be9c5f59e2e40ab6a0b7285ef351, type: 3}
+    pickupOnCollision: 0
+    minDamage: 0
+    maxDamage: 0
+    statModifierData: []
+    abilityDefinitions: []
+    learnableAbilities:
+    - {fileID: 11400000, guid: d507288fded2a9949a43dec64879b9fd, type: 2}

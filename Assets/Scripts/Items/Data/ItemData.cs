@@ -25,7 +25,8 @@ public enum ItemType {
     None,
     Equipment,
     Rune,
-    Currency
+    Currency,
+    Skill
 
 }
 
@@ -48,7 +49,8 @@ public class ItemData
 
     public List<StatModifierData> statModifierData = new List<StatModifierData>();
     public List<AbilityDefinition> abilityDefinitions = new List<AbilityDefinition>();
-    public List<AbilityData> abilityData = new List<AbilityData>();
+    public List<AbilityDefinition> learnableAbilities = new List<AbilityDefinition>();
+    //public List<AbilityData> abilityData = new List<AbilityData>();
 
 
 }

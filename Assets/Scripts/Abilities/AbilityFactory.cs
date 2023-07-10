@@ -29,6 +29,7 @@ public static class AbilityFactory {
             TriggerType.UserActivated => new UserActivatedTrigger(data, source, parentAbility),
             TriggerType.AbilityEquipped => new AbilityEquippedTrigger(data, source, parentAbility),
             TriggerType.AbilityUnequipped => new AbilityUnequippedTrigger(data, source, parentAbility),
+            TriggerType.AbilityLearned => new AbilityLearnedTrigger(data, source, parentAbility),
             _ => null,
         };
 

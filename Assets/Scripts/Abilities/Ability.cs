@@ -2,12 +2,13 @@ using LL.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
 
-public class Ability  {
+public class Ability {
 
     public List<AbilityTag> Tags { get; protected set; } = new List<AbilityTag>();
     public Entity Source { get; protected set; }
@@ -22,8 +23,9 @@ public class Ability  {
     public bool HasRecovery { get { return recoveryMethods.Count > 0; } }
     public int Charges { get { return Mathf.FloorToInt(Stats[StatName.AbilityCharge]); } }
     public int MaxCharges { get { return Mathf.FloorToInt(Stats.GetStatRangeMaxValue(StatName.AbilityCharge)); } }
-    public int RuneSlots { get { return Mathf.FloorToInt(Stats[StatName.AbilityRuneSlots]); } } 
+    public int RuneSlots { get { return Mathf.FloorToInt(Stats[StatName.AbilityRuneSlots]); } }
 
+    public List<Item> equippedRunes = new List<Item>();
 
     protected List<AbilityTrigger> activationTriggers = new List<AbilityTrigger>();
     protected List<AbilityTrigger> endTriggers = new List<AbilityTrigger>();
@@ -410,8 +412,8 @@ public class Ability  {
         StringBuilder builder = new StringBuilder();
 
 
-
-        builder.Append(Data.abilityDescription).AppendLine();
+        if(string.IsNullOrEmpty(Data.abilityDescription) == false)
+            builder.Append(Data.abilityDescription).AppendLine();
 
 
 
@@ -428,31 +430,24 @@ public class Ability  {
             builder.Append("Cooldown: " + TextHelper.RoundTimeToPlaces(cooldown, 2)).Append(" Seconds").AppendLine();
         }
 
-        //if (Data.category == AbilityCategory.Rune) {
+        if (Data.includeEffectsInTooltip == true) {
+            foreach (Effect effect in effects) {
 
-        //    for (int i = 0; i < effects.Count; i++) {
-        //        builder.Append(effects[i].GetTooltip());   
-        //    }
+                string effectTooltip = effect.GetTooltip();
 
-        //}
+                if (string.IsNullOrEmpty(effectTooltip) == false) {
 
+                    if(effects.Last() == effect)
+                        builder.Append(effect.GetTooltip());
+                    else
+                        builder.Append(effect.GetTooltip()).AppendLine();
+                }
+            }
+        }
 
         builder.Append(GetRunesTooltip());
 
-        //List<Ability> runes = GetRunes();
 
-        //if(runes.Count > 0) {
-        //    builder.AppendLine();
-        //}
-
-        //for (int i = 0; i < runes.Count; i++) {
-        //    //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
-        //    builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName).AppendLine();
-        //    //builder.Append(runes[i].GetTooltip());
-        //    for (int j = 0; j < runes[i].effects.Count; j++) {
-        //        builder.Append(runes[i].effects[j].GetTooltip()).AppendLine();
-        //    }
-        //}
 
 
         return builder.ToString();

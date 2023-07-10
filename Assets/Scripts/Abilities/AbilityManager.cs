@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.Playables;
+using LL.Events;
 
 public class AbilityManager : MonoBehaviour
 {
@@ -32,6 +33,41 @@ public class AbilityManager : MonoBehaviour
         Owner = GetComponent<Entity>();
         SetupAbilityDict();
         SetupPreloadedAbilities();
+    }
+
+    private void OnEnable() {
+        EventManager.RegisterListener(GameEvent.ItemAquired, OnItemAquired);
+        EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnAbilityStatChanged);
+    }
+
+    private void OnDisable() {
+        EventManager.RemoveMyListeners(this);
+    }
+
+    private void OnItemAquired(EventData data) {
+        Item item = data.GetItem("Item");
+
+        if (item.Data.Type == ItemType.Skill) {
+            for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
+                LearnAbility(item.Data.learnableAbilities[i].AbilityData);
+            }
+        }
+    }
+
+    private void OnAbilityStatChanged(EventData data) {
+        Ability ability = data.GetAbility("Ability");
+        StatName stat = (StatName)data.GetInt("Stat");
+
+        if (stat != StatName.AbilityRuneSlots)
+            return;
+
+        if(KnownAbilities.Contains(ability) == true) {
+
+            if(ability.equippedRunes.Count > ability.RuneSlots) {
+                Debug.Log(ability.Data.abilityName + " is Overloaded!");
+            }
+
+        }
     }
 
     private void SetupAbilityDict() {
@@ -65,7 +101,18 @@ public class AbilityManager : MonoBehaviour
 
         if(KnownAbilities.AddUnique(ability) == true) {
             onAbilityLearned?.Invoke(ability);
+
+
+            EventData data = new EventData();
+            data.AddAbility("Ability", ability);
+            EventManager.SendEvent(GameEvent.AbilityLearned, data);
+
         }
+    }
+
+    public void LearnAbility(AbilityData abilityData) {
+        Ability newAbility = AbilityFactory.CreateAbility(abilityData, Owner);
+        LearnAbility(newAbility);
     }
 
     public void UnlearnAbility(Ability ability) {

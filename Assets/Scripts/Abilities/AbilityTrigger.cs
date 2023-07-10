@@ -16,6 +16,7 @@ public abstract class AbilityTrigger {
     public Entity SourceEntity { get; protected set; }
     public Entity TriggeringEntity { get; protected set; }
     public Entity CauseOfTrigger { get; protected set; }
+    public Ability TriggeringAbility { get; protected set; }
     public TriggerData Data { get; protected set; }
 
 
@@ -88,6 +89,19 @@ public abstract class AbilityTrigger {
         return true;
     }
 
+    protected bool CheckAllAbilityConstraints(AbilityTriggerInstance activationInstance) {
+        foreach (var entry in constraintDict) {
+            Ability focusAbility = GetAbilityConstraintFocus(entry.Key);
+
+            bool checkResult = CheckAbilityFocusConstraints(entry.Key, focusAbility, activationInstance);
+
+            if (checkResult == false)
+                return false;
+        }
+
+        return true;
+    }
+
     /// <summary>
     /// Check if the given Focus (Source, Trigger, Cause) meets ALL its constraint requirements
     /// </summary>
@@ -107,12 +121,24 @@ public abstract class AbilityTrigger {
                 //}
                 return false;
             }
-
         }
 
         return true;
 
     }
+
+
+    protected bool CheckAbilityFocusConstraints(ConstraintFocus focus, Ability target, AbilityTriggerInstance activationInstance) {
+        foreach (AbilityConstraint constraint in constraintDict[focus]) {
+            bool result = constraint.Evaluate(target, activationInstance);
+
+            if (result == false)
+                return false;
+        }
+
+        return true;
+    }
+
 
     /// <summary>
     /// Who are we asking questions about?
@@ -133,10 +159,33 @@ public abstract class AbilityTrigger {
         return null;
     }
 
+    protected Ability GetAbilityConstraintFocus(ConstraintFocus focus) {
+        Ability targetFocus = focus switch {
+            ConstraintFocus.Source => ParentAbility,
+            ConstraintFocus.Trigger => TriggeringAbility,
+            ConstraintFocus.Cause => null,
+            _ => null,
+        };
+
+        return targetFocus;
+    }
+
+
+
     /// <summary>
     /// Check all constraints and anything else that may invalidate an ability activating
     /// </summary>
     protected bool IsTriggerValid(TriggerInstance activationInstance) {
+        
+        if(activationInstance is AbilityTriggerInstance) {
+            if(CheckAllAbilityConstraints(activationInstance as AbilityTriggerInstance) == false) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        
         if (CheckAllConstrains(activationInstance) == false)
             return false;
 
@@ -157,6 +206,13 @@ public abstract class AbilityTrigger {
     public class TriggerInstance {
         public Entity TriggeringEntity { get; private set; }
         public Entity CauseOfTrigger { get; private set; }
+
+        //public Ability TriggeringAbility { get; private set; }
+        //public Ability CausingAbility { get; private set; }
+
+        //public Effect TriggeringEffect { get; private set; }
+        //public Effect CausingEffect { get; private set; }
+
         public TriggerType Type { get; private set; }
 
         public TriggerInstance(Entity trigger, Entity cause, TriggerType type) {
@@ -164,7 +220,21 @@ public abstract class AbilityTrigger {
             this.CauseOfTrigger = cause;
             this.Type = type;
         }
+
+        
     }
+
+    public class AbilityTriggerInstance : TriggerInstance {
+        public Ability triggeringAbility;
+        public Ability sourceAbility;
+
+        public AbilityTriggerInstance(Entity trigger, Entity cause, TriggerType type, Ability triggeringAbility, Ability sourceAbility) : base(trigger, cause, type) {
+            this.triggeringAbility = triggeringAbility;
+            this.sourceAbility = sourceAbility;
+        }
+
+    }
+
 
 }
 
@@ -200,6 +270,39 @@ public class UserActivatedTrigger : AbilityTrigger {
 
     }
 }
+public class AbilityLearnedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.AbilityLearned;
+    public override GameEvent TargetEvent => GameEvent.AbilityLearned;
+    public override Action<EventData> EventReceiver => OnAbilityLearned;
+
+    public AbilityLearnedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnAbilityLearned(EventData data) {
+
+        if (ParentAbility == null) {
+            Debug.LogError("an Ability Equipped trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
+            return;
+        }
+
+        Ability triggeringAbility = data.GetAbility("Ability");
+
+        //if (triggeringAbility != ParentAbility) {
+        //    return;
+        //}
+
+        TriggeringAbility = triggeringAbility;
+        TriggeringEntity = SourceEntity;
+        CauseOfTrigger = SourceEntity;
+
+        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility);
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
 
 public class AbilityEquippedTrigger : AbilityTrigger {
 
@@ -224,11 +327,11 @@ public class AbilityEquippedTrigger : AbilityTrigger {
             return;
         }
 
-
+        TriggeringAbility = triggeringAbility;
         TriggeringEntity = SourceEntity;
         CauseOfTrigger = SourceEntity;
 
-        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility);
         TryActivateTrigger(triggerInstance);
 
     }
@@ -257,11 +360,11 @@ public class AbilityUnequippedTrigger : AbilityTrigger {
             return;
         }
 
-
+        TriggeringAbility = triggeringAbility;
         TriggeringEntity = SourceEntity;
         CauseOfTrigger = SourceEntity;
 
-        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility);
         TryActivateTrigger(triggerInstance);
 
     }
