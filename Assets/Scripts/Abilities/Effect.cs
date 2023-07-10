@@ -155,6 +155,7 @@ public abstract class Effect {
     }
 
     public virtual bool ApplyToAbility(Ability target) {
+
         if (EvaluateAbilityTargetConstraints(target) == false)
             return false;
 

@@ -16,11 +16,12 @@ MonoBehaviour:
     category: 3
     abilityIcon: {fileID: 21300000, guid: c24feb1b063fc634795f6a1aa5240f7b, type: 3}
     abilityName: Twin Flame Rune
-    abilityDescription: Fireball now shoots two projectiles but deals {20}% less
-      Weapon Damage (Additive)..
+    abilityDescription: Fireball now shoots two projectiles but deals less Weapon
+      Damage
     toBestow: 0
     suspend: 0
     autoFire: 0
+    includeEffectsInTooltip: 0
     runeAbilityTarget: Test Fireball
     tags: 
     activationTriggerData:
@@ -64,4 +65,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 39c1b7c95037e3f4cb23adcaf2334b04, type: 2}
     effectData: []
     startingRecoveryCharges: 1
+    baseRuneSlots: 2
     recoveryData: []

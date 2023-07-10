@@ -104,9 +104,17 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    public void EquipRune(Item item) {
+    public void EquipRune(Item item, Ability targetAbility) {
         if(equippedRunes.AddUnique(item) == true) {
             item.Equip(ItemSlot.RuneSlot);
+
+            EventData data = new EventData();
+            data.AddItem("Item", item);
+            data.AddAbility("Ability", targetAbility);
+            data.AddAbility("Cause", item.Abilities[0]);
+
+            EventManager.SendEvent(GameEvent.RuneEquipped, data);
+
         }
         else {
             Debug.LogError("Tried to equip a rune: " + item.Data.itemName + " but it was already equipped");
@@ -114,9 +122,17 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    public void UnEquipRune(Item item) {
+    public void UnEquipRune(Item item, Ability targetAbility) {
         if(equippedRunes.RemoveIfContains(item) == true) {
             item.UnEquip();
+
+            EventData data = new EventData();
+            data.AddItem("Item", item);
+            data.AddAbility("Ability", targetAbility);
+            data.AddAbility("Cause", item.Abilities[0]);
+
+            EventManager.SendEvent(GameEvent.RuneUnequipped, data);
+
         }
         else {
             Debug.LogError("Tried to Unequip a rune: " + item.Data.itemName + " but it wasn't equipped");

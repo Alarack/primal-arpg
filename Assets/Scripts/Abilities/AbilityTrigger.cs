@@ -17,6 +17,7 @@ public abstract class AbilityTrigger {
     public Entity TriggeringEntity { get; protected set; }
     public Entity CauseOfTrigger { get; protected set; }
     public Ability TriggeringAbility { get; protected set; }
+    public Ability CauseOfAbilityTrigger { get; protected set; }
     public TriggerData Data { get; protected set; }
 
 
@@ -163,7 +164,7 @@ public abstract class AbilityTrigger {
         Ability targetFocus = focus switch {
             ConstraintFocus.Source => ParentAbility,
             ConstraintFocus.Trigger => TriggeringAbility,
-            ConstraintFocus.Cause => null,
+            ConstraintFocus.Cause => CauseOfAbilityTrigger,
             _ => null,
         };
 
@@ -226,11 +227,13 @@ public abstract class AbilityTrigger {
 
     public class AbilityTriggerInstance : TriggerInstance {
         public Ability triggeringAbility;
+        public Ability causeOfTriggerAbility;
         public Ability sourceAbility;
 
-        public AbilityTriggerInstance(Entity trigger, Entity cause, TriggerType type, Ability triggeringAbility, Ability sourceAbility) : base(trigger, cause, type) {
+        public AbilityTriggerInstance(Entity trigger, Entity cause, TriggerType type, Ability triggeringAbility, Ability sourceAbility, Ability causeOfTriggerAbility) : base(trigger, cause, type) {
             this.triggeringAbility = triggeringAbility;
             this.sourceAbility = sourceAbility;
+            this.causeOfTriggerAbility = causeOfTriggerAbility;
         }
 
     }
@@ -270,6 +273,84 @@ public class UserActivatedTrigger : AbilityTrigger {
 
     }
 }
+
+public class RuneEquippedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.RuneEquipped;
+    public override GameEvent TargetEvent => GameEvent.RuneEquipped;
+    public override Action<EventData> EventReceiver => OnRuneEquipped;
+
+    public RuneEquippedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnRuneEquipped(EventData data) {
+
+        if (ParentAbility == null) {
+            Debug.LogError("an Ability Equipped trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
+            return;
+        }
+
+        Ability triggeringAbility = data.GetAbility("Ability");
+        Item rune = data.GetItem("Item");
+        //Ability cause = data.GetAbility("Cause");
+
+        //if (triggeringAbility != ParentAbility) {
+        //    return;
+        //}
+
+
+        TriggeringAbility = triggeringAbility;
+        CauseOfAbilityTrigger = rune.Abilities[0];
+        TriggeringEntity = SourceEntity;
+        CauseOfTrigger = SourceEntity;
+
+        //Debug.Log("Rune Equipped Trigger recieved: Trigger " + triggeringAbility.Data.abilityName + ". Casuse: " + CauseOfAbilityTrigger.Data.abilityName);
+
+
+        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, CauseOfAbilityTrigger);
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
+public class RuneUnequippedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.RuneUnequipped;
+    public override GameEvent TargetEvent => GameEvent.RuneUnequipped;
+    public override Action<EventData> EventReceiver => OnRuneUnequipped;
+
+    public RuneUnequippedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnRuneUnequipped(EventData data) {
+
+        if (ParentAbility == null) {
+            Debug.LogError("an Ability Equipped trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
+            return;
+        }
+
+        Ability triggeringAbility = data.GetAbility("Ability");
+        Item rune = data.GetItem("Item");
+        //Ability cause = data.GetAbility("Cause");
+
+        //if (triggeringAbility != ParentAbility) {
+        //    return;
+        //}
+
+        TriggeringAbility = triggeringAbility;
+        CauseOfAbilityTrigger = rune.Abilities[0];
+        TriggeringEntity = SourceEntity;
+        CauseOfTrigger = SourceEntity;
+
+        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, CauseOfAbilityTrigger);
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
+
 public class AbilityLearnedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.AbilityLearned;
@@ -288,16 +369,17 @@ public class AbilityLearnedTrigger : AbilityTrigger {
         }
 
         Ability triggeringAbility = data.GetAbility("Ability");
-
+        //Ability cause = data.GetAbility("Cause");
         //if (triggeringAbility != ParentAbility) {
         //    return;
         //}
 
         TriggeringAbility = triggeringAbility;
+        //CauseOfAbilityTrigger = cause;
         TriggeringEntity = SourceEntity;
         CauseOfTrigger = SourceEntity;
 
-        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility);
+        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, triggeringAbility);
         TryActivateTrigger(triggerInstance);
 
     }
@@ -331,7 +413,7 @@ public class AbilityEquippedTrigger : AbilityTrigger {
         TriggeringEntity = SourceEntity;
         CauseOfTrigger = SourceEntity;
 
-        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility);
+        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, triggeringAbility);
         TryActivateTrigger(triggerInstance);
 
     }
@@ -364,7 +446,7 @@ public class AbilityUnequippedTrigger : AbilityTrigger {
         TriggeringEntity = SourceEntity;
         CauseOfTrigger = SourceEntity;
 
-        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility);
+        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, triggeringAbility);
         TryActivateTrigger(triggerInstance);
 
     }

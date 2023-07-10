@@ -140,7 +140,9 @@ namespace LL.Events {
         AbilityUnequipped,
         AbilityLearned,
         AbilityUnlearned,
-        AbilityStatAdjusted
+        AbilityStatAdjusted,
+        RuneEquipped,
+        RuneUnequipped,
 
     }
 

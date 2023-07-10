@@ -77,9 +77,9 @@ public class RunesPanel : BasePanel {
 
             //Debug.Log("Rune Target: " + item.Data.runeAbilityTarget + ". Current Abilit: " + CurrentAbility.Data.abilityName);
 
-            if (item.Data.runeAbilityTarget == CurrentAbility.Data.abilityName) {
+            if (item.Data.runeAbilityTarget == CurrentAbility.Data.abilityName || item.Data.runeAbilityTarget == "") {
 
-                if (item.Equipped == true) {
+                if (item.Equipped == true && CurrentAbility.equippedRunes.Contains(item)) {
                     //Debug.Log("Creating Rune Slot for: " + item.Data.itemName);
                     CreateSkillRuneSlot(item, runeSlotHolder, skillRuneEntries, ItemSlot.RuneSlot);
                 }

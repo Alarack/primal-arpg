@@ -10,52 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Increase Swipe Cooldown
+  m_Name: Reduce Cooldown
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Increase Swipe Cooldown
-    effectDescription: Increase Cooldown by {}
+    effectName: Reduce Ability Cooldown
+    effectDescription: Reduce Cooldown by {}
     type: 1
-    targeting: 8
+    targeting: 2
     subTarget: 4
     numberOfTargets: -1
-    otherAbilityName: Test Sword Swipe
-    otherEffectName: Sword Swipe Damage
-    targetConstraints:
-    - type: 18
-      inverse: 0
-      statChangeTarget: 0
-      changeDirection: 0
-      minStatChangeRequired: 0
-      statChangeDelta: 0
-      targetTag: 0
-      minRange: 0
-      maxRange: 0
-      rangeToWhat: 0
-      ownerTarget: 0
-      mostStatTarget: 0
-      mostStatEffectName: 
-      mostStatAbilityName: 
-      leastStatTarget: 0
-      leastStatEffectName: 
-      leastStatAbilityName: 
-      minStatTarget: 0
-      minStatValue: 0
-      maxStatTarget: 0
-      maxStatValue: 0
-      targetEntityName: 
-      targetSubtype: 0
-      targetPrimaryType: 0
-      targetActiveAbilityName: 
-      appliedEffectType: 0
-      appliedEffectName: 0
-      targetStateData: {fileID: 0}
-      stateEntered: 
-      stateExited: 
-      targetAbilityTag: 0
-      targetAbiltyName: Test Sword Swipe
-      targetEffectName: 
-      effectDesigantion: 0
+    otherAbilityName: 
+    otherEffectName: 
+    targetConstraints: []
     payloadPrefab: {fileID: 0}
     payloadCount: 1
     projectilePierceCount: 0
@@ -73,7 +39,7 @@ MonoBehaviour:
       effectZonePrefab: {fileID: 0}
     modData:
     - targetStat: 13
-      value: 2
+      value: -0.25
       modifierType: 1
       variantTarget: 0
       modValueSetMethod: 0
@@ -81,8 +47,8 @@ MonoBehaviour:
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
-      otherTargetAbility: Test Sword Swipe
-      otherTagetEffect: Sword Swipe Damage
+      otherTargetAbility: 
+      otherTagetEffect: 
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}

@@ -30,6 +30,8 @@ public static class AbilityFactory {
             TriggerType.AbilityEquipped => new AbilityEquippedTrigger(data, source, parentAbility),
             TriggerType.AbilityUnequipped => new AbilityUnequippedTrigger(data, source, parentAbility),
             TriggerType.AbilityLearned => new AbilityLearnedTrigger(data, source, parentAbility),
+            TriggerType.RuneEquipped => new RuneEquippedTrigger(data, source, parentAbility),
+            TriggerType.RuneUnequipped => new RuneUnequippedTrigger(data, source, parentAbility),
             _ => null,
         };
 

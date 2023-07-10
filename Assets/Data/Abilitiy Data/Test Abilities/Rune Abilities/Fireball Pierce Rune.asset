@@ -16,10 +16,11 @@ MonoBehaviour:
     category: 3
     abilityIcon: {fileID: 21300000, guid: c24feb1b063fc634795f6a1aa5240f7b, type: 3}
     abilityName: Piercing Flames
-    abilityDescription: Fireball now Pirces
+    abilityDescription: Fireball now Pierces
     toBestow: 0
     suspend: 0
     autoFire: 0
+    includeEffectsInTooltip: 0
     runeAbilityTarget: Test Fireball
     tags: 
     activationTriggerData:
@@ -62,4 +63,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 7edcd2c96b1440a4a9b438cf692692c4, type: 2}
     effectData: []
     startingRecoveryCharges: 1
+    baseRuneSlots: 2
     recoveryData: []

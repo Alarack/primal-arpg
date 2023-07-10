@@ -13,7 +13,7 @@ public class Item
     public bool Equipped { get; protected set; }
     public Entity Owner { get; set; }
 
-    protected List<Ability> abilities = new List<Ability>();
+    public List<Ability> Abilities { get; protected set;} = new List<Ability>();
     protected List<StatModifier> activeMods = new List<StatModifier>();
     protected List<StatModifierData> modData = new List<StatModifierData>();
 
@@ -52,8 +52,8 @@ public class Item
     }
 
     protected void SetupAbilities() {
-        abilities.Clear();
-        AbilityUtilities.SetupAbilities(Data.abilityDefinitions, abilities, Owner);
+        Abilities.Clear();
+        AbilityUtilities.SetupAbilities(Data.abilityDefinitions, Abilities, Owner);
     }
 
     protected void SetupStatModifiers() {
@@ -77,8 +77,8 @@ public class Item
         SetupStatModifiers();
         SetupAbilities();
 
-        for (int i = 0;i < abilities.Count;i++) {
-            abilities[i].Equip();
+        for (int i = 0;i < Abilities.Count;i++) {
+            Abilities[i].Equip();
         }
 
         for (int i = 0; i < activeMods.Count; i++) {
@@ -95,8 +95,8 @@ public class Item
 
         //Debug.Log("Unequipping: " + Data.itemName);
 
-        for (int i = 0; i < abilities.Count; i++) {
-            abilities[i].Uneqeuip();
+        for (int i = 0; i < Abilities.Count; i++) {
+            Abilities[i].Uneqeuip();
         }
 
         for (int i = 0; i < activeMods.Count; i++) {
@@ -125,18 +125,18 @@ public class Item
             builder.Append(modData.targetStat.ToString().SplitCamelCase()).Append(": ").Append(TextHelper.FormatStat(modData.targetStat, modData.value)).AppendLine();
         }
 
-        for (int i = 0; i < abilities.Count; i++) {
+        for (int i = 0; i < Abilities.Count; i++) {
 
-            string abilityTooltip = abilities[i].GetTooltip();
+            string abilityTooltip = Abilities[i].GetTooltip();
             if(string.IsNullOrEmpty(abilityTooltip) == false)
-                builder.Append(abilities[i].GetTooltip()).AppendLine();
+                builder.Append(Abilities[i].GetTooltip()).AppendLine();
         }
 
 
         if(Data.Type == ItemType.Rune) {
 
-            if(abilities.Count > 0) {
-                builder.Append(Ability.GetRunesTooltip(abilities));
+            if(Abilities.Count > 0) {
+                builder.Append(Ability.GetRunesTooltip(Abilities));
             }
             else {
                 Debug.LogError("A Rune: " + Data.itemName + " has no abilities");

@@ -454,7 +454,16 @@ public class Ability {
     }
 
     public List<Ability> GetRunes() {
-        return Source.AbilityManager.GetRuneAbilities(Data.abilityName);
+        //return Source.AbilityManager.GetRuneAbilities(Data.abilityName);
+
+        List<Ability> runeAbilities = new List<Ability> ();
+
+        for (int i = 0; i < equippedRunes.Count; i++) {
+            runeAbilities.AddRange(equippedRunes[i].Abilities);
+        }
+
+        return runeAbilities;
+
     }
 
     public string GetRunesTooltip() {

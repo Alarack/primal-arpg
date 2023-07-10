@@ -25,7 +25,9 @@ public enum TriggerType {
     AbilityEquipped,
     AbilityUnequipped,
     AbilityLearned,
-    AbilityUnlearned
+    AbilityUnlearned,
+    RuneEquipped,
+    RuneUnequipped
 }
 
 
