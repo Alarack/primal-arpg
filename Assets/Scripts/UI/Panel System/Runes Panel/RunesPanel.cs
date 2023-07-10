@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RunesPanel : BasePanel {
 
@@ -8,6 +9,9 @@ public class RunesPanel : BasePanel {
     public SkillRuneEntry inventoryEntryTemplate;
     public Transform inventoryHolder;
     public Transform runeSlotHolder;
+
+    [Header("Text Fields")]
+    public TextMeshProUGUI skillNameText;
 
     [Header("Skill Entry Display")]
     public SkillEntry skillEntry;
@@ -34,7 +38,7 @@ public class RunesPanel : BasePanel {
     public void Setup(Ability ability) {
         this.CurrentAbility = ability;
         skillEntry.Setup(ability, SkillEntry.SkillEntryLocation.RunePanel);
-
+        skillNameText.text = CurrentAbility.Data.abilityName;
         SetupRuneSlots();
         PopulateInventory();
     }
