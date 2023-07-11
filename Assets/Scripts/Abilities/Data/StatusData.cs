@@ -17,6 +17,8 @@ public class StatusData
 
     public GameObject VFXPrefab;
 
+    public EffectDefinition statusEffectDef;
+
     //Stat Adjustment
     public List<StatModifierData> statModifiers = new List<StatModifierData>();
     public bool multiplyByStackCount;

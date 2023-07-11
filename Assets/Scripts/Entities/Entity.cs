@@ -39,9 +39,9 @@ public abstract class Entity : MonoBehaviour {
     public EntityMovement Movement { get; private set; }
     public AbilityManager AbilityManager { get; private set; }
     public StatCollection Stats { get; private set; }
-    //public List<AbilityData> baseAbilities = new List<AbilityData>();
 
-    //protected List<Ability> abilities = new List<Ability>();
+    public List<Status> ActiveStatuses { get; private set; } = new List<Status>();
+
 
     protected virtual void Awake() {
         Stats = new StatCollection(this, statDefinitions);
@@ -106,8 +106,17 @@ public abstract class Entity : MonoBehaviour {
         //}
     }
 
+    #endregion
 
+    #region STATUSES
 
+    public void AddStatus(Status status) {
+        ActiveStatuses.Add(status);
+    }
+
+    public void RemoveStatus(Status status) {
+        ActiveStatuses.Remove(status);
+    }
 
 
     #endregion

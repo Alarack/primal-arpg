@@ -4,95 +4,95 @@ using UnityEngine;
 using System;
 using LL.Events;
 
-public class StatusStatAdjustment : Status {
+public class StatusStatAdjustment /*: Status*/ {
 
 
-    private List<StatModifier> activeMods = new List<StatModifier>();
+    //private List<StatModifier> activeMods = new List<StatModifier>();
 
-    public StatusStatAdjustment(StatusData data, Entity target, Entity source) : base(data, target, source) {
-        CreateStatMods();
-    }
+    //public StatusStatAdjustment(StatusData data, Entity target, Entity source, EffectData effectData) : base(data, target, source, effectData) {
+    //    CreateStatMods();
+    //}
 
-    private void CreateStatMods() {
-        activeMods.Clear();
+    //private void CreateStatMods() {
+    //    activeMods.Clear();
 
-        for (int i = 0; i < Data.statModifiers.Count; i++) {
-            StatModifierData data = Data.statModifiers[i];
+    //    for (int i = 0; i < Data.statModifiers.Count; i++) {
+    //        StatModifierData data = Data.statModifiers[i];
 
-            StatModifier mod = new StatModifier(data.value, data.modifierType, data.targetStat, Source, data.variantTarget);
-            activeMods.Add(mod);
-        }
-    }
+    //        StatModifier mod = new StatModifier(data.value, data.modifierType, data.targetStat, Source, data.variantTarget);
+    //        activeMods.Add(mod);
+    //    }
+    //}
 
-    public override void FirstApply() {
-        base.FirstApply();
-    }
+    //public override void FirstApply() {
+    //    base.FirstApply();
+    //}
 
-    public override void Stack() {
-        base.Stack();
+    //public override void Stack() {
+    //    base.Stack();
 
-        if (intervalTimer == null) {
-            ApplyStatModifiers();
-        }
-
-
-    }
-
-    protected override void Tick(EventData timerEventData) {
-        base.Tick(timerEventData);
-
-        ApplyStatModifiers();
-    }
-
-    protected override void CleanUp(EventData timerEventData) {
-        base.CleanUp(timerEventData);
-
-        RemoveStatModifiers();
-    }
-
-    private void ApplyStatModifiers() {
-
-        for (int i = 0; i < activeMods.Count; i++) {
-
-            bool nonRange = activeMods[i].VariantTarget != StatModifierData.StatVariantTarget.RangeCurrent;
-            if (nonRange) {
-                Debug.LogWarning("A status belonging to: " + Source.EntityName + " is applying a non-range-curent stat adjustment to: " + Target.EntityName);
-                Debug.LogWarning("This is not supported and will not remove properly.");
-            }
+    //    if (intervalTimer == null) {
+    //        ApplyStatModifiers();
+    //    }
 
 
-            float multiplier = Data.multiplyByStackCount == true ? StackCount : 1f;
+    //}
 
-            //float modResult = StatAdjustmentManager.ApplyStatAdjustment(Target, Data.statModifiers[i], Source, multiplier);
+    //protected override void Tick(EventData timerEventData) {
+    //    base.Tick(timerEventData);
 
-            float modResult = StatAdjustmentManager.ApplyStatAdjustment(Target, activeMods[i], activeMods[i].VariantTarget, Source, multiplier);
+    //    ApplyStatModifiers();
+    //}
 
-            CreateFloatingText(modResult, activeMods[i].TargetStat);
+    //protected override void CleanUp(EventData timerEventData) {
+    //    base.CleanUp(timerEventData);
+
+    //    RemoveStatModifiers();
+    //}
+
+    //private void ApplyStatModifiers() {
+
+    //    for (int i = 0; i < activeMods.Count; i++) {
+
+    //        bool nonRange = activeMods[i].VariantTarget != StatModifierData.StatVariantTarget.RangeCurrent;
+    //        if (nonRange) {
+    //            Debug.LogWarning("A status belonging to: " + Source.EntityName + " is applying a non-range-curent stat adjustment to: " + Target.EntityName);
+    //            Debug.LogWarning("This is not supported and will not remove properly.");
+    //        }
 
 
-        }
-    }
+    //        float multiplier = Data.multiplyByStackCount == true ? StackCount : 1f;
 
-    private void CreateFloatingText(float modValue, StatName stat) {
+    //        //float modResult = StatAdjustmentManager.ApplyStatAdjustment(Target, Data.statModifiers[i], Source, multiplier);
 
-        if (Target == null)
-            return;
+    //        float modResult = StatAdjustmentManager.ApplyStatAdjustment(Target, activeMods[i], activeMods[i].VariantTarget, Source, multiplier);
 
-        if (stat == StatName.Health) {
-            FloatingTextManager.SpawnFloatingText(Target.transform.position, modValue.ToString());
-        }
+    //        CreateFloatingText(modResult, activeMods[i].TargetStat);
 
-        if (stat == StatName.MoveSpeed) {
-            FloatingTextManager.SpawnFloatingText(Target.transform.position, "Slowed");
-        }
-    }
 
-    private void RemoveStatModifiers() {
-        //Target.Stats.RemoveAllModifiersFromSource(this);
+    //    }
+    //}
 
-        for (int i = 0; i < activeMods.Count; i++) {
-            StatAdjustmentManager.RemoveStatAdjustment(Target, activeMods[i], activeMods[i].VariantTarget, Source);
-        }
-    }
+    //private void CreateFloatingText(float modValue, StatName stat) {
+
+    //    if (Target == null)
+    //        return;
+
+    //    if (stat == StatName.Health) {
+    //        FloatingTextManager.SpawnFloatingText(Target.transform.position, modValue.ToString());
+    //    }
+
+    //    if (stat == StatName.MoveSpeed) {
+    //        FloatingTextManager.SpawnFloatingText(Target.transform.position, "Slowed");
+    //    }
+    //}
+
+    //private void RemoveStatModifiers() {
+    //    //Target.Stats.RemoveAllModifiersFromSource(this);
+
+    //    for (int i = 0; i < activeMods.Count; i++) {
+    //        StatAdjustmentManager.RemoveStatAdjustment(Target, activeMods[i], activeMods[i].VariantTarget, Source);
+    //    }
+    //}
 
 }

@@ -2,9 +2,9 @@ using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class Status 
-{
+public class Status {
     #region ENUMS
 
     public enum StackMethod {
@@ -26,7 +26,7 @@ public class Status
     public StackMethod stackMethod;
 
 
-    public bool IsStackCapped { get { return StackCount == MaxStacks; } }
+    public bool IsStackCapped { get { return MaxStacks > 0 && StackCount == MaxStacks; } }
     public int StackCount { get; protected set; }
     public int MaxStacks { get; protected set; }
     public Entity Target { get; protected set; }
@@ -37,9 +37,12 @@ public class Status
     protected GameObject activeVFX;
 
     public StatusData Data { get; protected set; }
+    public Effect ActiveEffect { get; protected set; }
+    public AddStatusEffect ParentEffect { get; protected set; }
 
-    public Status (StatusData data, Entity target, Entity source) {
+    public Status(StatusData data, Entity target, Entity source, Effect activeEffect, AddStatusEffect ParentEffect) {
         this.Data = data;
+        this.ParentEffect = ParentEffect;
 
         this.statusName = data.statusName;
         this.stackMethod = data.stackMethod;
@@ -50,6 +53,22 @@ public class Status
         this.Source = source;
 
         CreateTimers();
+        //CreateEffect(effectData);
+        ActiveEffect = activeEffect;
+
+        TimerManager.AddTimerAction(ManagedUpdate);
+
+        FirstApply();
+    }
+
+    private void CreateEffect(EffectData effectData) {
+
+        if(effectData.type == EffectType.AddStatus) {
+            Debug.LogError("Status trying to create an infinite loop of statuses. Noping out.");
+            return;
+        }
+
+        ActiveEffect = AbilityFactory.CreateEffect(effectData, Source);
     }
 
     private void CreateTimers() {
@@ -61,10 +80,13 @@ public class Status
     }
 
     protected virtual void Tick(EventData timerEventData) {
-
+        ActiveEffect.Apply(Target);
     }
 
     public virtual void FirstApply() {
+
+        Target.AddStatus(this);
+
         CreateVFX();
         Tick(null);
     }
@@ -79,7 +101,23 @@ public class Status
 
     public virtual void Stack() {
         RefreshDuration();
+
+
+        switch (stackMethod) {
+            case StackMethod.None:
+                return;
+            case StackMethod.LimitedStacks:
+                if (IsStackCapped == true) {
+                    Debug.LogWarning("Max stack reached");
+                    return;
+                }
+                break;
+        }
+
+
+
         StackCount++;
+        ActiveEffect.Stack(this);
     }
 
     public virtual void Remove() {
@@ -87,7 +125,14 @@ public class Status
     }
 
     protected virtual void CleanUp(EventData timerEventData) {
-        StatusManager.RemoveStatus(Target, this);
+        //StatusManager.RemoveStatus(Target, this);
+        TimerManager.RemoveTimerAction(ManagedUpdate);
+        ParentEffect.CleanUp(Target);
+        ActiveEffect.Remove(Target);
+        ActiveEffect = null;
+
+
+        Target.RemoveStatus(this);
 
         if (activeVFX == null)
             return;
@@ -106,12 +151,12 @@ public class Status
 
 
     public virtual void RefreshDuration() {
-        if(durationTimer != null)
+        if (durationTimer != null)
             durationTimer.ResetTimer();
     }
 
     public virtual void ModifyIntervalTime(float mod) {
-        if(intervalTimer != null)
+        if (intervalTimer != null)
             intervalTimer.ModifyDuration(mod);
     }
 

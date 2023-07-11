@@ -427,6 +427,9 @@ public class Ability {
 
         float cooldown = GetCooldown();
         if (cooldown > 0f) {
+
+            //Debug.Log(cooldown + " is the cooldown of: " + Data.abilityName);
+
             builder.Append("Cooldown: " + TextHelper.RoundTimeToPlaces(cooldown, 2)).Append(" Seconds").AppendLine();
         }
 
