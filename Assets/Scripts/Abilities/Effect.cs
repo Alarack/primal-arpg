@@ -408,6 +408,11 @@ public class AddStatusEffect : Effect {
 
                     }
 
+                    if (Data.statusToAdd[0].maxStacks > 0) {
+                        builder.AppendLine();
+                        builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times");
+                    }
+
                     break;
                 case StatModifierData.StatModDesignation.SecondaryDamage:
                     break;
@@ -716,11 +721,9 @@ public class StatAdjustmentEffect : Effect {
 
             if (activeMod.VariantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
                 TrackEffectStatAdjustment(target, activeMod);
-                Debug.Log("Tracking a mod: " + activeMod.TargetStat + " on " + target.Data.effectName);
+                //Debug.Log("Tracking a mod: " + activeMod.TargetStat + " on " + target.Data.effectName);
             }
-            else {
-                Debug.Log("Not tracking a mod: " + activeMod.TargetStat);
-            }
+
 
             if (Data.subTarget == EffectSubTarget.StatModifier) {
                 //Debug.LogWarning("Applying a modifier mod: " + activeMod.Value + " to " + target.Data.effectName);
