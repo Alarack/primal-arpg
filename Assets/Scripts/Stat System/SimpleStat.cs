@@ -35,7 +35,8 @@ public enum StatName
     StatModifierValue,
     AbilityWeaponCoefficicent,
     ProjectilePierceCount,
-    AbilityRuneSlots
+    AbilityRuneSlots,
+    StackCount
 }
 
 

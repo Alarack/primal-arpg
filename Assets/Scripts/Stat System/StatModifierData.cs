@@ -89,6 +89,7 @@ public class StatModifierData
         this.invertDerivedValue = copy.invertDerivedValue;
         this.otherTagetEffect = copy.otherTagetEffect;
         this.otherTargetAbility = copy.otherTargetAbility;
+        this.weaponDamagePercent = copy.weaponDamagePercent;
 
     }
 }

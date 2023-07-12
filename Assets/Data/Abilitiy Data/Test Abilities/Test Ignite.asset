@@ -16,11 +16,11 @@ MonoBehaviour:
     category: 0
     abilityIcon: {fileID: 21300000, guid: 9271550f4be3d9c44a1901ba2c1aa07c, type: 3}
     abilityName: Ignite
-    abilityDescription: Ignite the target for {} damage per second
+    abilityDescription: 
     toBestow: 0
     suspend: 0
     autoFire: 0
-    includeEffectsInTooltip: 0
+    includeEffectsInTooltip: 1
     runeAbilityTarget: 
     tags: 01000000
     activationTriggerData:
@@ -110,4 +110,4 @@ MonoBehaviour:
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         minTriggerCount: 0
-      cooldown: 1
+      cooldown: 0.2

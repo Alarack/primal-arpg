@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 using static AbilityTrigger;
 using Random = UnityEngine.Random;
@@ -177,11 +179,11 @@ public abstract class Effect {
             Remove(EntityTargets[i]);
         }
 
-        for (int i = AbilityTargets.Count -1; i >=0; i--) {
+        for (int i = AbilityTargets.Count - 1; i >= 0; i--) {
             RemoveFromAbility(AbilityTargets[i]);
         }
 
-        for (int i = EffectTargets.Count -1; i >=0 ; i--) {
+        for (int i = EffectTargets.Count - 1; i >= 0; i--) {
             RemoveFromEffect(EffectTargets[i]);
         }
 
@@ -215,7 +217,6 @@ public abstract class Effect {
 
         return Data.effectDescription;
     }
-
 
 }
 
@@ -255,13 +256,35 @@ public class AddStatusEffect : Effect {
 
     private Dictionary<Entity, List<Status>> activeStatusDict = new Dictionary<Entity, List<Status>>();
 
-    public List<Effect> activeStatusEffects = new List<Effect>();
+    //public StatAdjustmentEffect templateEffect;
+
+    public List<StatAdjustmentEffect> activeStatusEffects = new List<StatAdjustmentEffect>();
+
+    //private List<StatModifierData> modData = new List<StatModifierData>();
 
     public AddStatusEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
+        SimpleStat durationStat = new SimpleStat(StatName.EffectLifetime, data.statusToAdd[0].duration);
+        SimpleStat intervalStat = new SimpleStat(StatName.EffectInterval, data.statusToAdd[0].interval);
+        
+        float stackValue = data.statusToAdd[0].maxStacks > 0 ? data.statusToAdd[0].maxStacks : float.MaxValue;
+
+        StatRange stacksStat = new StatRange(StatName.StackCount, 0, stackValue, data.statusToAdd[0].initialStackCount);
+
+        Stats.AddStat(stacksStat);
+        Stats.AddStat(durationStat);
+        Stats.AddStat(intervalStat);
+
+
         for (int i = 0; i < data.statusToAdd.Count; i++) {
             Effect statusEffect = AbilityFactory.CreateEffect(data.statusToAdd[i].statusEffectDef.effectData, source);
-            activeStatusEffects.Add(statusEffect);
+            //modData = new List<StatModifierData>(statusEffect.Data.modData);
+
+            //for (int j = 0; j < modData.Count; j++) {
+            //    modData[j].SetupEffectStats();
+            //}
+
+            activeStatusEffects.Add(statusEffect as StatAdjustmentEffect);
         }
     }
 
@@ -286,10 +309,18 @@ public class AddStatusEffect : Effect {
     }
 
     private void ApplyNewStatus(Entity target) {
-        for (int i = 0; i < Data.statusToAdd.Count; i++) {
-            Status newStatus = new Status(Data.statusToAdd[i], target, Source, activeStatusEffects[i], this);
+
+        for (int i = 0; i < activeStatusEffects.Count; i++) {
+            StatAdjustmentEffect statusEffect = StatAdjustmentEffect.Clone(activeStatusEffects[i]);
+            Status newStatus = new Status(Data.statusToAdd[i], target, Source, statusEffect, this);
             TrackActiveStatus(target, newStatus);
         }
+
+
+        //for (int i = 0; i < Data.statusToAdd.Count; i++) {
+        //    Status newStatus = new Status(Data.statusToAdd[i], target, Source, Data.statusToAdd[i].statusEffectDef.effectData, this);
+        //    TrackActiveStatus(target, newStatus);
+        //}
     }
 
     private void TrackActiveStatus(Entity target, Status status) {
@@ -302,10 +333,12 @@ public class AddStatusEffect : Effect {
         }
     }
 
-    public void CleanUp(Entity target) {
-        if(activeStatusDict.ContainsKey(target)) {
-            activeStatusDict.Remove(target);    
+    public void CleanUp(Entity target, Effect activeEffect) {
+        if (activeStatusDict.ContainsKey(target)) {
+            activeStatusDict.Remove(target);
         }
+
+        //activeStatusEffects.Remove(activeEffect);
     }
 
     public override void Remove(Entity target) {
@@ -327,13 +360,52 @@ public class AddStatusEffect : Effect {
     public override string GetTooltip() {
         //return base.GetTooltip();
 
-        StatModifierData statusModData = Data.statusToAdd[0].statusEffectDef.effectData.modData[0];
+        StringBuilder builder = new StringBuilder();
 
-        string formated = TextHelper.FormatStat(statusModData.targetStat, statusModData.value);
+        for (int i = 0; i < activeStatusEffects.Count; i++) {
+            //StatusData statusData = Data.statusToAdd[i];
+            //EffectData effectData = Data.statusToAdd[i].statusEffectDef.effectData;
 
-        string replacement = Data.effectDescription.Replace("{}", formated);
+            switch (activeStatusEffects[i].Data.effectDesignation) {
+                case StatModifierData.StatModDesignation.None:
+                    break;
+                case StatModifierData.StatModDesignation.PrimaryDamage:
 
-        return replacement;
+                    float damageRatio = activeStatusEffects[i].GetBaseWeaponPercent();
+
+                    //TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green)
+
+
+                    if (damageRatio > 0) {
+                        builder.Append("Damage: " + TextHelper.ColorizeText((damageRatio * 100).ToSafeString() + "%", Color.green)
+                       + " of weapon damage every " + TextHelper.ColorizeText(Stats[StatName.EffectInterval].ToString(), Color.yellow) + " seconds for " 
+                       + TextHelper.ColorizeText(Stats[StatName.EffectLifetime].ToString(), Color.yellow) + " seconds");
+
+                    }
+
+                    break;
+                case StatModifierData.StatModDesignation.SecondaryDamage:
+                    break;
+                case StatModifierData.StatModDesignation.ShotCount:
+                    break;
+                default:
+                    break;
+            }
+
+            //for (int j = 0; j < Data.statusToAdd[i].statusEffectDef.effectData.modData.Count; j++) {
+
+            //}
+        }
+
+        return builder.ToString();  
+
+        //StatModifierData statusModData = Data.statusToAdd[0].statusEffectDef.effectData.modData[0];
+
+        //string formated = TextHelper.FormatStat(statusModData.targetStat, statusModData.value);
+
+        //string replacement = Data.effectDescription.Replace("{}", formated);
+
+        //return replacement;
 
     }
 
@@ -444,6 +516,12 @@ public class StatAdjustmentEffect : Effect {
     private List<StatModifierData> modData = new List<StatModifierData>();
 
     public StatAdjustmentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+        //for (int i = 0; i < data.modData.Count; i++) {
+        //    StatModifierData clonedData = new StatModifierData(data.modData[i]);
+        //    this.modData.Add(clonedData);
+        //}
+        
         modData = new List<StatModifierData>(data.modData);
 
         for (int i = 0; i < modData.Count; i++) {
@@ -452,7 +530,32 @@ public class StatAdjustmentEffect : Effect {
 
     }
 
+    public static StatAdjustmentEffect Clone(StatAdjustmentEffect clone) {
+        StatAdjustmentEffect effect = new StatAdjustmentEffect(clone.Data, clone.Source, clone.ParentAbility);
+
+        effect.modData.Clear();
+
+        Debug.Log(effect.modData == null);
+
+        for (int i = 0; i < clone.modData.Count; i++) {
+            //Debug.Log("Cloning mod data: " + clone.modData[i].targetStat);
+            StatModifierData clonedData = new StatModifierData(clone.modData[i]);
+            clonedData.SetupEffectStats();
+            effect.modData.Add(clonedData);
+        }
+
+
+        //effect.modData = new List<StatModifierData>(clone.modData);
+
+        return effect;
+    }
+
+    private void ResetStacks() {
+
+    }
+
     public override void Stack(Status status) {
+
         for (int i = 0; i < modData.Count; i++) {
 
             modData[i].Stats.RemoveAllModifiersFromSource(status);
@@ -562,7 +665,7 @@ public class StatAdjustmentEffect : Effect {
         base.RemoveFromAbility(target);
 
         if (trackedAbilityMods.TryGetValue(target, out List<StatModifier> modList)) {
-            for (int i = modList.Count -1; i >= 0 ; i--) {
+            for (int i = modList.Count - 1; i >= 0; i--) {
                 //Debug.LogWarning("Removing a " + modList[i].TargetStat + " mod from " + target.Data.abilityName);
                 StatAdjustmentManager.RemoveAbilityModifier(target, modList[i]);
             }
@@ -579,6 +682,17 @@ public class StatAdjustmentEffect : Effect {
         if (base.ApplyToEffect(target) == false)
             return false;
 
+        if (target is AddStatusEffect) {
+            AddStatusEffect statusEffect = target as AddStatusEffect;
+
+            for (int i = 0; i < statusEffect.activeStatusEffects.Count; i++) {
+                ApplyToEffect(statusEffect.activeStatusEffects[i]);
+            }
+
+            return true;
+        }
+
+
         for (int i = 0; i < modData.Count; i++) {
 
             StatModifier activeMod = PrepareStatMod(modData[i], target.Source);
@@ -587,7 +701,7 @@ public class StatAdjustmentEffect : Effect {
                 TrackEffectStatAdjustment(target, activeMod);
             }
 
-            if(Data.subTarget == EffectSubTarget.StatModifier) {
+            if (Data.subTarget == EffectSubTarget.StatModifier) {
                 //Debug.LogWarning("Applying a modifier mod: " + activeMod.Value);
                 StatAdjustmentEffect adj = target as StatAdjustmentEffect;
                 adj.AddStatAdjustmentModifier(activeMod);
@@ -613,7 +727,7 @@ public class StatAdjustmentEffect : Effect {
                 }
                 else {
                     StatAdjustmentManager.RemoveEffectModifier(target, modList[i]);
-                } 
+                }
             }
 
             trackedEffectMods.Remove(target);

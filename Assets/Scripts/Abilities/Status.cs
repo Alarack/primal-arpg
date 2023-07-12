@@ -27,8 +27,8 @@ public class Status {
 
 
     public bool IsStackCapped { get { return MaxStacks > 0 && StackCount == MaxStacks; } }
-    public int StackCount { get; protected set; }
-    public int MaxStacks { get; protected set; }
+    public int StackCount { get; protected set; } 
+    public int MaxStacks { get; protected set; } 
     public Entity Target { get; protected set; }
     public Entity Source { get; protected set; }
 
@@ -46,14 +46,18 @@ public class Status {
 
         this.statusName = data.statusName;
         this.stackMethod = data.stackMethod;
-        this.MaxStacks = data.maxStacks;
-        StackCount = data.initialStackCount;
+
+        this.MaxStacks = (int)ParentEffect.Stats.GetStatRangeMaxValue(StatName.StackCount);
+        this.StackCount = (int)ParentEffect.Stats[StatName.StackCount];
+
+        //this.MaxStacks = (int)ParentEffect.Stats.GetStatRangeMaxValue(StatName.StackCount);
+        //StackCount = (int)ParentEffect.Stats[StatName.StackCount];
 
         this.Target = target;
         this.Source = source;
 
         CreateTimers();
-        //CreateEffect(effectData);
+        //CreateEffect(activeEffect);
         ActiveEffect = activeEffect;
 
         TimerManager.AddTimerAction(ManagedUpdate);
@@ -69,6 +73,7 @@ public class Status {
         }
 
         ActiveEffect = AbilityFactory.CreateEffect(effectData, Source);
+        //ParentEffect.activeStatusEffects.Add(ActiveEffect);
     }
 
     private void CreateTimers() {
@@ -114,8 +119,7 @@ public class Status {
                 break;
         }
 
-
-
+        //ParentEffect.Stats.AdjustStatRangeCurrentValue(StatName.StackCount, 1, StatModType.Flat, Source);
         StackCount++;
         ActiveEffect.Stack(this);
     }
@@ -127,7 +131,7 @@ public class Status {
     protected virtual void CleanUp(EventData timerEventData) {
         //StatusManager.RemoveStatus(Target, this);
         TimerManager.RemoveTimerAction(ManagedUpdate);
-        ParentEffect.CleanUp(Target);
+        ParentEffect.CleanUp(Target, ActiveEffect);
         ActiveEffect.Remove(Target);
         ActiveEffect = null;
 
