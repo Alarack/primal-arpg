@@ -43,7 +43,8 @@ public static class TextHelper
             StatName.CooldownReduction when value > 0 => $"<color=#{bonusColor}>-" +(value * 100) + "% </color>",
             StatName.CooldownReduction when value <= 0 => "+" + (value * 100) + "%",
             StatName.GlobalDamageModifier => throw new System.NotImplementedException(),
-            StatName.GlobalEffectDurationModifier => throw new System.NotImplementedException(),
+            StatName.GlobalEffectDurationModifier when value > 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
+            StatName.GlobalEffectDurationModifier when value < 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.MeleeDamageModifier => throw new System.NotImplementedException(),
             StatName.OverloadChance when value >= 0 => "+" + (value * 100) + "%",
             StatName.OverloadChance when value < 0 => "-" + (value * 100) + "%",
@@ -54,6 +55,8 @@ public static class TextHelper
             StatName.ProjectilePierceCount when value > 0 => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.AbilityRuneSlots when value > 0 => $"<color=#{bonusColor}>" + value + "</color> more",
             StatName.AbilityRuneSlots when value < 0 => $"<color=#{penaltyColor}>" + value + "</color> less",
+            StatName.GlobalEffectIntervalModifier when value < 0 => $"<color=#{bonusColor}>-" + (Mathf.Abs(value) * 100) + "% </color>",
+            StatName.GlobalEffectIntervalModifier when value > 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             _ => "",
         };
 

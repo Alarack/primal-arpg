@@ -78,10 +78,10 @@ public class Status {
 
     private void CreateTimers() {
         if (Data.duration > 0f)
-            durationTimer = new Timer(ParentEffect.Stats[StatName.EffectLifetime], CleanUp, false);
+            durationTimer = new Timer(ParentEffect.GetModifiedEffectDuration(), CleanUp, false);
 
         if (Data.interval > 0f)
-            intervalTimer = new Timer(ParentEffect.Stats[StatName.EffectInterval], Tick, true);
+            intervalTimer = new Timer(ParentEffect.GetModifiedIntervalDuration(), Tick, true);
     }
 
     protected virtual void Tick(EventData timerEventData) {

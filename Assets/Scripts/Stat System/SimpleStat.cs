@@ -36,7 +36,8 @@ public enum StatName
     AbilityWeaponCoefficicent,
     ProjectilePierceCount,
     AbilityRuneSlots,
-    StackCount
+    StackCount,
+    GlobalEffectIntervalModifier
 }
 
 

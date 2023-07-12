@@ -292,6 +292,18 @@ public class AddStatusEffect : Effect {
         }
     }
 
+    public float GetModifiedEffectDuration() {
+        float effectDurationModifier = 1 + Source.Stats[StatName.GlobalEffectDurationModifier];
+
+        return Stats[StatName.EffectLifetime] * effectDurationModifier;
+    }
+
+    public float GetModifiedIntervalDuration() {
+        float effectIntervalModifier = 1 + Source.Stats[StatName.GlobalEffectIntervalModifier];
+
+        return Stats[StatName.EffectInterval] * effectIntervalModifier;
+    }
+
     public override bool Apply(Entity target) {
         if (base.Apply(target) == false)
             return false;
@@ -316,13 +328,13 @@ public class AddStatusEffect : Effect {
 
         for (int i = 0; i < activeStatusEffects.Count; i++) {
 
-            Debug.Log("origonal Damage: " + activeStatusEffects[i].GetBaseWeaponPercent());
+            //Debug.Log("origonal Damage: " + activeStatusEffects[i].GetBaseWeaponPercent());
 
             //StatAdjustmentEffect statusEffect = StatAdjustmentEffect.Clone(activeStatusEffects[i]);
             StatAdjustmentEffect statusEffect = new StatAdjustmentEffect(activeStatusEffects[i].Data, activeStatusEffects[i].Source, activeStatusEffects[i], activeStatusEffects[i].ParentAbility);
-            Debug.Log("after clone Damage: " + activeStatusEffects[i].GetBaseWeaponPercent());
+            //Debug.Log("after clone Damage: " + activeStatusEffects[i].GetBaseWeaponPercent());
 
-            Debug.Log("Making a new status. Damage: " + statusEffect.GetBaseWeaponPercent());
+            //Debug.Log("Making a new status. Damage: " + statusEffect.GetBaseWeaponPercent());
 
 
             Status newStatus = new Status(Data.statusToAdd[i], target, Source, statusEffect, this);
@@ -391,8 +403,8 @@ public class AddStatusEffect : Effect {
 
                     if (damageRatio > 0) {
                         builder.Append("Damage: " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", Color.green)
-                       + " of weapon damage every " + TextHelper.ColorizeText(Stats[StatName.EffectInterval].ToString(), Color.yellow) + " seconds for " 
-                       + TextHelper.ColorizeText(Stats[StatName.EffectLifetime].ToString(), Color.yellow) + " seconds");
+                       + " of weapon damage every " + TextHelper.ColorizeText(GetModifiedIntervalDuration().ToString(), Color.yellow) + " seconds for " 
+                       + TextHelper.ColorizeText(GetModifiedEffectDuration().ToString(), Color.yellow) + " seconds");
 
                     }
 
