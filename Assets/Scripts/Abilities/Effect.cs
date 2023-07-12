@@ -143,8 +143,12 @@ public abstract class Effect {
 
     public virtual bool ApplyToEffect(Effect target) {
 
-        if (EvaluateEffectTargetConstraints(target) == false)
+        if (EvaluateEffectTargetConstraints(target) == false) {
+
+            //Debug.LogWarning(Data.effectName + " failed to pass target constraints");
+            
             return false;
+        }
 
         EffectTargets.AddUnique(target);
 
@@ -283,7 +287,7 @@ public class AddStatusEffect : Effect {
             //for (int j = 0; j < modData.Count; j++) {
             //    modData[j].SetupEffectStats();
             //}
-
+            
             activeStatusEffects.Add(statusEffect as StatAdjustmentEffect);
         }
     }
@@ -311,7 +315,16 @@ public class AddStatusEffect : Effect {
     private void ApplyNewStatus(Entity target) {
 
         for (int i = 0; i < activeStatusEffects.Count; i++) {
-            StatAdjustmentEffect statusEffect = StatAdjustmentEffect.Clone(activeStatusEffects[i]);
+
+            Debug.Log("origonal Damage: " + activeStatusEffects[i].GetBaseWeaponPercent());
+
+            //StatAdjustmentEffect statusEffect = StatAdjustmentEffect.Clone(activeStatusEffects[i]);
+            StatAdjustmentEffect statusEffect = new StatAdjustmentEffect(activeStatusEffects[i].Data, activeStatusEffects[i].Source, activeStatusEffects[i], activeStatusEffects[i].ParentAbility);
+            Debug.Log("after clone Damage: " + activeStatusEffects[i].GetBaseWeaponPercent());
+
+            Debug.Log("Making a new status. Damage: " + statusEffect.GetBaseWeaponPercent());
+
+
             Status newStatus = new Status(Data.statusToAdd[i], target, Source, statusEffect, this);
             TrackActiveStatus(target, newStatus);
         }
@@ -377,7 +390,7 @@ public class AddStatusEffect : Effect {
 
 
                     if (damageRatio > 0) {
-                        builder.Append("Damage: " + TextHelper.ColorizeText((damageRatio * 100).ToSafeString() + "%", Color.green)
+                        builder.Append("Damage: " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", Color.green)
                        + " of weapon damage every " + TextHelper.ColorizeText(Stats[StatName.EffectInterval].ToString(), Color.yellow) + " seconds for " 
                        + TextHelper.ColorizeText(Stats[StatName.EffectLifetime].ToString(), Color.yellow) + " seconds");
 
@@ -517,11 +530,6 @@ public class StatAdjustmentEffect : Effect {
 
     public StatAdjustmentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
-        //for (int i = 0; i < data.modData.Count; i++) {
-        //    StatModifierData clonedData = new StatModifierData(data.modData[i]);
-        //    this.modData.Add(clonedData);
-        //}
-        
         modData = new List<StatModifierData>(data.modData);
 
         for (int i = 0; i < modData.Count; i++) {
@@ -530,22 +538,25 @@ public class StatAdjustmentEffect : Effect {
 
     }
 
+    public StatAdjustmentEffect(EffectData data, Entity source, StatAdjustmentEffect clone, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+        for (int i = 0; i < clone.modData.Count; i++) {
+            modData.Add(new StatModifierData(clone.modData[i]));
+            modData[i].CloneEffectStats(clone.modData[i]);
+        }
+    }
+
     public static StatAdjustmentEffect Clone(StatAdjustmentEffect clone) {
         StatAdjustmentEffect effect = new StatAdjustmentEffect(clone.Data, clone.Source, clone.ParentAbility);
 
         effect.modData.Clear();
-
-        Debug.Log(effect.modData == null);
-
+ 
         for (int i = 0; i < clone.modData.Count; i++) {
-            //Debug.Log("Cloning mod data: " + clone.modData[i].targetStat);
             StatModifierData clonedData = new StatModifierData(clone.modData[i]);
-            clonedData.SetupEffectStats();
+            clonedData.CloneEffectStats(clone.modData[i]);
             effect.modData.Add(clonedData);
         }
 
-
-        //effect.modData = new List<StatModifierData>(clone.modData);
 
         return effect;
     }
@@ -569,7 +580,7 @@ public class StatAdjustmentEffect : Effect {
                 targetStat = StatName.StatModifierValue;
             }
 
-            StatModifier stackMultiplier = new StatModifier(status.StackCount, StatModType.PercentAdd, targetStat, status, modData[i].variantTarget);
+            StatModifier stackMultiplier = new StatModifier(status.StackCount - 1, StatModType.PercentAdd, targetStat, status, modData[i].variantTarget);
             modData[i].Stats.AddModifier(stackMultiplier.TargetStat, stackMultiplier);
         }
     }
@@ -634,7 +645,11 @@ public class StatAdjustmentEffect : Effect {
         float globalDamageMultiplier = GetDamageModifier(activeMod);
         float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, globalDamageMultiplier);
 
+        
+
         if (activeMod.TargetStat == StatName.Health) {
+            //Debug.LogWarning("Damage dealt: " + modValueResult + " : " + Data.effectName);
+
             FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString());
             text.SetColor(Data.floatingTextColor);
         }
@@ -678,20 +693,10 @@ public class StatAdjustmentEffect : Effect {
 
     }
 
-    public override bool ApplyToEffect(Effect target) {
-        if (base.ApplyToEffect(target) == false)
-            return false;
 
-        if (target is AddStatusEffect) {
-            AddStatusEffect statusEffect = target as AddStatusEffect;
+    private void ApplyDirectlyToEffect(Effect target) {
 
-            for (int i = 0; i < statusEffect.activeStatusEffects.Count; i++) {
-                ApplyToEffect(statusEffect.activeStatusEffects[i]);
-            }
-
-            return true;
-        }
-
+        EffectTargets.AddUnique(target);
 
         for (int i = 0; i < modData.Count; i++) {
 
@@ -699,10 +704,14 @@ public class StatAdjustmentEffect : Effect {
 
             if (activeMod.VariantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
                 TrackEffectStatAdjustment(target, activeMod);
+                Debug.Log("Tracking a mod: " + activeMod.TargetStat + " on " + target.Data.effectName);
+            }
+            else {
+                Debug.Log("Not tracking a mod: " + activeMod.TargetStat);
             }
 
             if (Data.subTarget == EffectSubTarget.StatModifier) {
-                //Debug.LogWarning("Applying a modifier mod: " + activeMod.Value);
+                //Debug.LogWarning("Applying a modifier mod: " + activeMod.Value + " to " + target.Data.effectName);
                 StatAdjustmentEffect adj = target as StatAdjustmentEffect;
                 adj.AddStatAdjustmentModifier(activeMod);
             }
@@ -711,6 +720,28 @@ public class StatAdjustmentEffect : Effect {
                 StatAdjustmentManager.AddEffectModifier(target, activeMod);
             }
         }
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+
+        if (target is AddStatusEffect) {
+            AddStatusEffect statusEffect = target as AddStatusEffect;
+            //Debug.Log("Applying a stat adjustment to a status effect: " +Data.effectName);
+            
+            if(Data.subTarget == EffectSubTarget.StatModifier) {
+                //Debug.Log("Applying a stat adjustment to a status effect's damage : " + Data.effectName);
+
+                for (int i = 0; i < statusEffect.activeStatusEffects.Count; i++) {
+                    ApplyDirectlyToEffect(statusEffect.activeStatusEffects[i]);
+                }
+                return true;
+            }
+        }
+
+        ApplyDirectlyToEffect(target);
 
         return true;
     }

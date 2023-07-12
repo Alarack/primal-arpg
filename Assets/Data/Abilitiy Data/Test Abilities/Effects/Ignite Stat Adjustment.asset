@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ignite Stat Adjustment
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Fireball Damage
+    effectName: Ignite Damage
     effectDescription: 
     type: 1
     targeting: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
       modifierType: 0
       variantTarget: 1
       modValueSetMethod: 5
-      weaponDamagePercent: 0.2
+      weaponDamagePercent: 1
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
