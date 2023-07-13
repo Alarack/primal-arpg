@@ -350,7 +350,6 @@ public class RuneUnequippedTrigger : AbilityTrigger {
     }
 }
 
-
 public class AbilityLearnedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.AbilityLearned;
@@ -384,7 +383,6 @@ public class AbilityLearnedTrigger : AbilityTrigger {
 
     }
 }
-
 
 public class AbilityEquippedTrigger : AbilityTrigger {
 
@@ -514,7 +512,6 @@ public class StatChangedTrigger : AbilityTrigger {
 
 }
 
-
 public class UnitForgottenTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.UnitForgotten;
@@ -604,7 +601,6 @@ public class StateEnteredTrigger : AbilityTrigger {
 
 
 }
-
 
 public class WeaponCooldownFinishedTrigger : AbilityTrigger {
 
@@ -735,6 +731,70 @@ public class TimedTrigger : AbilityTrigger {
     }
 
     
+
+
+}
+
+public class RiderTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.Rider;
+
+    public override GameEvent TargetEvent => GameEvent.EffectApplied;
+
+    public override Action<EventData> EventReceiver => OnEffectApplied;
+
+    private List<Entity> ridereffectTargets = new List<Entity>();
+
+    public RiderTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    private void OnEffectApplied(EventData data) {
+
+        Effect targetEffect = data.GetEffect("Effect");
+
+        Ability targetAbility = SourceEntity.GetAbilityByName(Data.riderAbilityName, AbilityCategory.Any);
+
+
+        if (targetEffect == null) {
+            Debug.LogError("The target Effect: " + Data.riderEffectName + " was not found for " + ParentAbility.Data.abilityName + " On " + SourceEntity.EntityName);
+            return;
+        }
+
+        if (targetAbility == null) {
+            Debug.LogError("The target Ability: " + Data.riderAbilityName + " was not found for " + ParentAbility.Data.abilityName + " On " + SourceEntity.EntityName);
+            return;
+        }
+
+        if(targetEffect == targetAbility.GetEffectByName(Data.riderEffectName) == false) {
+            return;
+        }
+
+        if(targetEffect.EntityTargets.Count > 0) {
+            ridereffectTargets = targetEffect.ValidTargets;
+            TriggeringEntity = targetEffect.LastTarget;
+        }
+
+        CauseOfTrigger = targetEffect.Source;
+
+
+        RiderTriggerInstance triggerInstance = new RiderTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, ridereffectTargets);
+
+        TryActivateTrigger(triggerInstance);
+    }
+
+    public class RiderTriggerInstance : TriggerInstance {
+
+        public List<Entity> RiderEffectTargets { get; private set; }
+
+        public RiderTriggerInstance(
+            Entity trigger,
+            Entity cause,
+            TriggerType type,
+            List<Entity> riderEffectTargets) : base(trigger, cause, type) {
+            this.RiderEffectTargets = riderEffectTargets;
+        }
+    }
 
 
 }

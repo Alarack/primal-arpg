@@ -345,6 +345,9 @@ public class EffectTargeter {
         for (int i = 0; i < abilityTargets.Count; i++) {
             parentEffect.ApplyToAbility(abilityTargets[i]);
         }
+
+        if (abilityTargets.Count > 0)
+            parentEffect.SendEffectAppliedEvent();
     }
 
     private void ApplyToSpecificEffect() {
@@ -356,6 +359,18 @@ public class EffectTargeter {
 
         for (int i = 0; i < effectTargets.Count; i++) {
             parentEffect.ApplyToEffect(effectTargets[i]);
+        }
+
+        if (effectTargets.Count > 0)
+            parentEffect.SendEffectAppliedEvent();
+    }
+
+    private void ApplyToRecentTarget() {
+        Entity target = GetLastTargetFromOtherEffect(parentEffect.Data.otherAbilityName, parentEffect.Data.otherEffectName, AbilityCategory.Any);
+
+        if (target != null) {
+            parentEffect.Apply(target);
+            parentEffect.SendEffectAppliedEvent();
         }
     }
 
@@ -442,7 +457,7 @@ public class EffectTargeter {
             //EffectTarget.UserSelected when parentEffect.Source.Owner == EntityData.Owner.Enemy => ApplyLogicTargeting,
             EffectTarget.LogicSelected => ApplyLogicTargeting,
             EffectTarget.OtherEffectTarget => throw new NotImplementedException(),
-            EffectTarget.OtherMostRecentTarget => throw new NotImplementedException(),
+            EffectTarget.OtherMostRecentTarget => ApplyToRecentTarget,
             EffectTarget.PayloadDelivered => ApplyPayloadDelivery,
             EffectTarget.LogicSelectedEffect => ApplyToLogicTargetedEffects,
             EffectTarget.LogicSelectedAbility => ApplyToLogicTargetedAbilities,

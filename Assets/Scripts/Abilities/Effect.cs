@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using static AbilityTrigger;
 using Random = UnityEngine.Random;
 
@@ -250,8 +251,65 @@ public class ForcedMovementEffect : Effect {
 
         return true;
     }
+}
+
+public class AddChildAbilityEffect : Effect {
+
+    public override EffectType Type => EffectType.AddChildAbility;
 
 
+    private Dictionary<Ability, List<Ability>> trackedChildAbilities = new Dictionary<Ability, List<Ability>>();
+
+    public AddChildAbilityEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        throw new NotImplementedException();
+      
+
+
+        //return true;
+    }
+
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+
+        for (int i = 0; i < Data.abilitiesToAdd.Count; i++) {
+            Ability newChild = target.AddChildAbility(Data.abilitiesToAdd[i]);
+            TrackChildAbilties(target, newChild);
+        }
+
+        return true;
+    }
+
+    private void TrackChildAbilties(Ability target, Ability child) {
+        if(trackedChildAbilities.TryGetValue(target, out List<Ability> children) == true) {
+            children.Add(child);
+        }
+        else {
+            trackedChildAbilities.Add(target, new List<Ability> { child });
+        }
+    }
+
+    public override void RemoveFromAbility(Ability target) {
+        base.RemoveFromAbility(target);
+
+        if (trackedChildAbilities.TryGetValue(target, out List<Ability> children) == true) {
+
+            for (int i = 0; i < children.Count; i++) {
+                target.RemoveChildAbility(children[i]);
+            }
+
+            trackedChildAbilities.Remove(target);
+        }
+
+    }
 }
 
 public class AddStatusEffect : Effect {

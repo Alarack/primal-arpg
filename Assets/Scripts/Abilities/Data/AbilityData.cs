@@ -17,7 +17,8 @@ public enum AbilityCategory {
     KnownSkill,
     Item,
     Rune,
-    Any
+    Any,
+    ChildAbility
 }
 
 
@@ -124,7 +125,7 @@ public class AbilityData
     public int startingRecoveryCharges = 1;
     public int baseRuneSlots = 2;
     public List<RecoveryData> recoveryData = new List<RecoveryData>();
-
+    
 
     public AbilityData() {
 

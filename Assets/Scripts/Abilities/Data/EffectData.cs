@@ -10,7 +10,8 @@ public enum EffectType {
     SpawnProjectile,
     AddStatus,
     RemoveStatus,
-    Movement
+    Movement,
+    AddChildAbility
 }
 
 public enum EffectTarget {
@@ -97,6 +98,9 @@ public class EffectData
     public DeliverySpawnLocation tokenSpawnLocation;
     public float overlapCircleRadius;
     public LayerMask overlapLayerMask;
+
+    //Add Child Ability
+    public List<AbilityDefinition> abilitiesToAdd = new List<AbilityDefinition>();
 
 
 

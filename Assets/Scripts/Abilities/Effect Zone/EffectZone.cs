@@ -82,6 +82,8 @@ public class EffectZone : Entity {
 
         parentEffect.Apply(target);
         CreateApplyVFX(target.transform.position);
+
+        parentEffect.SendEffectAppliedEvent();
     }
 
     protected virtual void Remove(Entity target) {

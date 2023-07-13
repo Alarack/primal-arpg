@@ -32,6 +32,7 @@ public static class AbilityFactory {
             TriggerType.AbilityLearned => new AbilityLearnedTrigger(data, source, parentAbility),
             TriggerType.RuneEquipped => new RuneEquippedTrigger(data, source, parentAbility),
             TriggerType.RuneUnequipped => new RuneUnequippedTrigger(data, source, parentAbility),
+            TriggerType.Rider => new RiderTrigger(data, source, parentAbility),
             _ => null,
         };
 
@@ -96,6 +97,7 @@ public static class AbilityFactory {
             EffectType.AddStatus => new AddStatusEffect(data, source, parentAbility),
             //EffectType.RemoveStatus => throw new NotImplementedException(),
             EffectType.Movement => new ForcedMovementEffect(data, source, parentAbility),
+            EffectType.AddChildAbility => new AddChildAbilityEffect(data, source, parentAbility),
             _ => null,
         };
 

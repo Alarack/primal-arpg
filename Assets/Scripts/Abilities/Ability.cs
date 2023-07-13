@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEditor.Playables;
 using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
@@ -37,8 +38,11 @@ public class Ability {
     protected List<Effect> effects = new List<Effect>();
     protected List<AbilityRecovery> recoveryMethods = new List<AbilityRecovery>();
 
-    //protected StatCollection recoveryStats;
     protected List<Action<BaseStat, object, float>> recoveryStatListeners = new List<Action<BaseStat, object, float>>();
+
+    public List<Ability> ChildAbilities { get; protected set; } = new List<Ability>();
+
+    public Ability ParentAbility { get; protected set; }
 
     public StatCollection Stats { get; protected set; }
 
@@ -92,6 +96,10 @@ public class Ability {
         data.AddAbility("Ability", this);
 
         EventManager.SendEvent(GameEvent.AbilityEquipped, data);
+
+        for (int i = 0; i < ChildAbilities.Count; i++) {
+            ChildAbilities[i].Equip();
+        }
     }
 
     public void Uneqeuip() {
@@ -109,6 +117,10 @@ public class Ability {
         UnregisterAbility();
         TearDown();
         IsEquipped = false;
+
+        for (int i = 0; i < ChildAbilities.Count; i++) {
+            ChildAbilities[i].Uneqeuip();
+        }
     }
 
     private void RegisterAbility() {
@@ -117,6 +129,7 @@ public class Ability {
             //AbilityCategory.KnownSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.KnownSkill],
             AbilityCategory.Item => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Item],
             AbilityCategory.Rune => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Rune],
+            AbilityCategory.ChildAbility => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.ChildAbility],
             _ => null,
         };
 
@@ -248,6 +261,34 @@ public class Ability {
 
         IsActive = false;
     }
+
+    #endregion
+
+    #region CHILD ABILITIES
+
+    public void AddChildAbility(Ability ability) {
+        ChildAbilities.Add(ability);
+        ability.ParentAbility = this;
+    }
+
+    public Ability AddChildAbility(AbilityData data) {
+        Ability newChild = AbilityFactory.CreateAbility(data, Source);
+        AddChildAbility(newChild);
+
+        return newChild;
+    }
+
+    public Ability AddChildAbility(AbilityDefinition abilityDef) {
+        return AddChildAbility(abilityDef.AbilityData);
+    }
+
+    public void RemoveChildAbility(Ability ability) {
+        if(ChildAbilities.RemoveIfContains(ability) == true) {
+            ability.Uneqeuip();
+        }
+    }
+
+
 
     #endregion
 
@@ -447,6 +488,15 @@ public class Ability {
                 }
             }
         }
+
+
+        for (int i = 0; i < ChildAbilities.Count; i++) {
+            builder.Append(ChildAbilities[i].GetTooltip());
+
+            if(i != ChildAbilities.Count  -1)
+                builder.AppendLine();
+        }
+
 
         builder.Append(GetRunesTooltip());
 
