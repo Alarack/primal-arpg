@@ -17,10 +17,11 @@ MonoBehaviour:
     itemName: Slick Stabber
     itemDescription: yeah it's my stabber, wanna fight about it?
     itemValue: 20000
+    runeAbilityTarget: 
     validSlots: 01000000
     itemIcon: {fileID: 21300000, guid: ad707d068f921cf4fa9a434485190873, type: 3}
     pickupIcon: {fileID: 21300000, guid: ad707d068f921cf4fa9a434485190873, type: 3}
-    pickupOnCollision: 0
+    pickupOnCollision: 1
     minDamage: 5
     maxDamage: 10
     statModifierData:
@@ -36,4 +37,4 @@ MonoBehaviour:
       otherTargetAbility: 
       otherTagetEffect: 
     abilityDefinitions: []
-    abilityData: []
+    learnableAbilities: []

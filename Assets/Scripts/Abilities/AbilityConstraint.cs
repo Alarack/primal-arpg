@@ -349,10 +349,12 @@ public class EffectNameConstraint : AbilityConstraint {
         bool result = effect.Data.effectName == data.targetEffectName;
 
 
-
-
-        //Debug.Log("Testing: " + data.targetEffectName + " against: " + effect.Data.effectName);
-        //Debug.Log("Result of a name check on: " + effect.Data.effectName + " : " + result + ". Parent Ability: " + effect.ParentAbility.Data.abilityName);
+        //if(result == true) {
+        //    Debug.LogWarning("Testing Effect: " + effect.Data.effectName);
+        //    Debug.LogWarning("Target Effect: " + data.targetEffectName);
+        //    Debug.LogWarning("Parent Ability: " + parentAbility.Data.abilityName);
+        //    Debug.LogWarning("Testing Effect Parent Ability: " + effect.ParentAbility.Data.abilityName);
+        //}
 
 
         return inverse == false ? result : !result;

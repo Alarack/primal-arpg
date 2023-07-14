@@ -39,6 +39,7 @@ public class SkillRuneEntry : InventoryBaseEntry
                     Add(draggedItem);
                     EntityManager.ActivePlayer.Inventory.UnEquipRune(draggedItem, parentPanel.CurrentAbility);
                     parentPanel.CurrentAbility.equippedRunes.Remove(draggedItem);
+                    //Debug.LogWarning("a rune: " + draggedItem.Data.itemName + " was dragged into an empty inventory slot");
 
                 }
                 else {
@@ -47,7 +48,6 @@ public class SkillRuneEntry : InventoryBaseEntry
 
             }
             else {
-
                 if (MyItem == null) {
                     DraggedInventoryItem.Remove();
                     Add(draggedItem);
@@ -77,6 +77,8 @@ public class SkillRuneEntry : InventoryBaseEntry
                     //EntityManager.ActivePlayer.Inventory.EquipRune(draggedItem);
                     //Add(draggedItem);
 
+                 
+
                     replacement = DraggedInventoryItem;
                     replacedItem = MyItem;
 
@@ -85,7 +87,6 @@ public class SkillRuneEntry : InventoryBaseEntry
                     Remove();
                     TooltipManager.Hide();
                     //DraggedInventoryItem.Add(MyItem);
-
                 }
 
                 

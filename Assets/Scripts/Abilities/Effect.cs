@@ -147,9 +147,11 @@ public abstract class Effect {
         if (EvaluateEffectTargetConstraints(target) == false) {
 
             //Debug.LogWarning(Data.effectName + " failed to pass target constraints");
-            
+
             return false;
         }
+
+        //Debug.LogWarning("Applying: " + Data.effectName + " to " + target.Data.effectName);
 
         EffectTargets.AddUnique(target);
 
@@ -283,6 +285,8 @@ public class AddChildAbilityEffect : Effect {
         for (int i = 0; i < Data.abilitiesToAdd.Count; i++) {
             Ability newChild = target.AddChildAbility(Data.abilitiesToAdd[i]);
             TrackChildAbilties(target, newChild);
+
+            Debug.Log("Creating child ability: " + newChild.Data.abilityName);
         }
 
         return true;
@@ -351,6 +355,8 @@ public class AddStatusEffect : Effect {
             //for (int j = 0; j < modData.Count; j++) {
             //    modData[j].SetupEffectStats();
             //}
+
+            Debug.Log(data.effectName + " is creating an effect: " + statusEffect.Data.effectName);
             
             activeStatusEffects.Add(statusEffect as StatAdjustmentEffect);
         }
@@ -611,7 +617,13 @@ public class StatAdjustmentEffect : Effect {
 
     public StatAdjustmentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
-        modData = new List<StatModifierData>(data.modData);
+        modData = new List<StatModifierData>();
+
+        for (int i = 0; i < data.modData.Count; i++) {
+            StatModifierData clonedModdata = new StatModifierData(data.modData[i]);
+            modData.Add(clonedModdata);
+        }
+
 
         for (int i = 0; i < modData.Count; i++) {
             modData[i].SetupEffectStats();
@@ -683,6 +695,7 @@ public class StatAdjustmentEffect : Effect {
         for (int i = 0; i < modData.Count; i++) {
             StatAdjustmentManager.RemoveDataModifiyer(modData[i], mod);
             //modData[i].Stats.RemoveModifier(mod.TargetStat, mod);
+            Debug.LogWarning("Removing: " + mod.TargetStat + " Modifier: " + mod.Value + " to " + Data.effectName);
         }
     }
 

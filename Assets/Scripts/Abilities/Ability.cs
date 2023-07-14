@@ -79,7 +79,7 @@ public class Ability {
     }
 
     public void Equip() {
-        Debug.Log("Equipping: " + Data.abilityName);
+        //Debug.Log("Equipping: " + Data.abilityName);
         if (IsEquipped == true) {
             Debug.LogError("Tried to equip " + Data.abilityName + " but it was alread equipped");
             return;
@@ -105,7 +105,7 @@ public class Ability {
     }
 
     public void Uneqeuip() {
-        Debug.Log("Unequipping: " + Data.abilityName);
+        //Debug.Log("Unequipping: " + Data.abilityName);
         if (IsEquipped == false) {
             Debug.LogError("Tried to unequip " + Data.abilityName + " but it wasn't equipped");
             return;
@@ -135,7 +135,7 @@ public class Ability {
             //AbilityCategory.KnownSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.KnownSkill],
             AbilityCategory.Item => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Item],
             AbilityCategory.Rune => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Rune],
-            AbilityCategory.ChildAbility => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.ChildAbility],
+            //AbilityCategory.ChildAbility => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.ChildAbility],
             _ => null,
         };
 
@@ -152,6 +152,7 @@ public class Ability {
             //AbilityCategory.KnownSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.KnownSkill],
             AbilityCategory.Item => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Item],
             AbilityCategory.Rune => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Rune],
+            //AbilityCategory.ChildAbility => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.ChildAbility],
             _ => null,
         };
 
@@ -203,6 +204,9 @@ public class Ability {
         for (int i = 0; i < Data.effectDefinitions.Count; i++) {
             Effect effect = AbilityFactory.CreateEffect(Data.effectDefinitions[i].effectData, Source, this);
             effects.Add(effect);
+
+            //Debug.LogWarning("An ability: " + Data.abilityName + " is creating an effect: " + effect.Data.effectName);
+
         }
     }
 
@@ -294,7 +298,8 @@ public class Ability {
 
     public void RemoveChildAbility(Ability ability) {
         if(ChildAbilities.RemoveIfContains(ability) == true) {
-            ability.Uneqeuip();
+            if(ability.IsEquipped)
+                ability.Uneqeuip();
         }
     }
 

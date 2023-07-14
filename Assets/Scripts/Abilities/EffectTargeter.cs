@@ -106,7 +106,7 @@ public class EffectTargeter {
             }
 
             if (parentEffect.EvaluateEffectTargetConstraints(effect) == true) {
-                //Debug.Log("Approved: " + effect.Data.effectName);
+               // Debug.Log("Approved: " + effect.Data.effectName + ". parent: " + effect.ParentAbility.Data.abilityName);
                 results.Add(effect);
             }
         }

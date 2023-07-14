@@ -21,7 +21,7 @@ MonoBehaviour:
     validSlots: 0400000005000000
     itemIcon: {fileID: 21300000, guid: ef03cd7b5bd0ff1419c537158301697e, type: 3}
     pickupIcon: {fileID: 21300000, guid: ef03cd7b5bd0ff1419c537158301697e, type: 3}
-    pickupOnCollision: 0
+    pickupOnCollision: 1
     minDamage: 0
     maxDamage: 0
     statModifierData:
@@ -37,4 +37,4 @@ MonoBehaviour:
       otherTargetAbility: 
       otherTagetEffect: 
     abilityDefinitions: []
-    abilityData: []
+    learnableAbilities: []

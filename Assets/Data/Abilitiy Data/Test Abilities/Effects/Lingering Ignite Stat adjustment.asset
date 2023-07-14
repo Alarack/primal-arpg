@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Lingering Rider Effect
+  m_Name: Lingering Ignite Stat adjustment
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Lingering Flame Add Status
+    effectName: Ignite Damage
     effectDescription: 
-    type: 3
-    targeting: 2
+    type: 1
+    targeting: 0
     subTarget: 0
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
     targetConstraints: []
-    payloadPrefab: {fileID: 5014085312362430806, guid: d3a5660a1575a0e419d046ed8b2428e2, type: 3}
+    payloadPrefab: {fileID: 0}
     payloadCount: 1
     projectilePierceCount: 0
-    shotDelay: 0.2
+    shotDelay: 0
     spawnLocation: 0
     effectZoneInfo:
       removeEffectOnExit: 0
@@ -33,11 +33,22 @@ MonoBehaviour:
       applyOncePerTarget: 1
       applyOnInterval: 0
       affectSource: 0
-      spawnVFX: {fileID: 1765137710588814, guid: 6bea1543e5b3fca40a6c415bb1ecabe3, type: 3}
-      applyVFX: {fileID: 1765137710588814, guid: 6bea1543e5b3fca40a6c415bb1ecabe3, type: 3}
+      spawnVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
+      applyVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       deathVFX: {fileID: 0}
-      effectZonePrefab: {fileID: 2109167299929148009, guid: 1cdca75020bb43f489775f87b1cdf428, type: 3}
-    modData: []
+      effectZonePrefab: {fileID: 0}
+    modData:
+    - targetStat: 0
+      value: -1
+      modifierType: 0
+      variantTarget: 1
+      modValueSetMethod: 5
+      weaponDamagePercent: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 1
+      otherTargetAbility: 
+      otherTagetEffect: 
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 0.6077585, b: 0, a: 1}
@@ -69,17 +80,7 @@ MonoBehaviour:
       m_NumColorKeys: 3
       m_NumAlphaKeys: 3
     effectDesignation: 1
-    statusToAdd:
-    - statusName: 1
-      stackMethod: 1
-      maxStacks: 3
-      initialStackCount: 1
-      duration: 5
-      interval: 1
-      VFXPrefab: {fileID: 1193745591585432, guid: 6b08a00df5a864c4b989cab8a8ae173c, type: 3}
-      statusEffectDef: {fileID: 11400000, guid: 5dc49b35d7e5b61438920861197fa0b6, type: 2}
-      statModifiers: []
-      multiplyByStackCount: 0
+    statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
