@@ -82,7 +82,7 @@ public class Item
         }
 
         for (int i = 0; i < activeMods.Count; i++) {
-            StatAdjustmentManager.ApplyStatAdjustment(Owner, activeMods[i], activeMods[i].VariantTarget, Owner);
+            StatAdjustmentManager.ApplyStatAdjustment(Owner, activeMods[i], activeMods[i].VariantTarget, Owner, null);
         }
 
         EventData data = new EventData();
@@ -100,7 +100,7 @@ public class Item
         }
 
         for (int i = 0; i < activeMods.Count; i++) {
-            StatAdjustmentManager.RemoveStatAdjustment(Owner, activeMods[i], activeMods[i].VariantTarget, Owner, true);
+            StatAdjustmentManager.RemoveStatAdjustment(Owner, activeMods[i], activeMods[i].VariantTarget, Owner, null, true);
         }
 
         EventData data = new EventData();

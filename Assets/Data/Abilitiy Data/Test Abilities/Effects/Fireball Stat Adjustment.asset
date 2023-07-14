@@ -14,14 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Fireball Damage
+    effectDescription: 
     type: 1
     targeting: 5
+    subTarget: 0
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
     targetConstraints: []
     payloadPrefab: {fileID: 5014085312362430806, guid: d3a5660a1575a0e419d046ed8b2428e2, type: 3}
     payloadCount: 1
+    projectilePierceCount: 0
     shotDelay: 0
     spawnLocation: 0
     effectZoneInfo:
@@ -43,7 +46,7 @@ MonoBehaviour:
       weaponDamagePercent: 1.2
       deriveTarget: 0
       derivedTargetStat: 0
-      invertDerivedValue: 0
+      invertDerivedValue: 1
       otherTargetAbility: 
       otherTagetEffect: 
     floatingTextColor:
@@ -76,8 +79,6 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 3
       m_NumAlphaKeys: 3
-    applyToEffect: 0
-    applyToOtherStatAdjustment: 0
     effectDesignation: 1
     statusToAdd: []
     statusToRemove: 
@@ -91,3 +92,4 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
+    abilitiesToAdd: []

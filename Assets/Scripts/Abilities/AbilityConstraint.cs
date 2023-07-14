@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Playables;
 using UnityEngine;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
-using AbilityTriggerInstance = AbilityTrigger.AbilityTriggerInstance;
+//using AbilityTriggerInstance = AbilityTrigger.AbilityTriggerInstance;
 
 public abstract class AbilityConstraint {
 
@@ -23,7 +23,7 @@ public abstract class AbilityConstraint {
 
     public abstract bool Evaluate(Entity target, TriggerInstance triggerInstance);
 
-    public virtual  bool Evaluate(Ability ability, AbilityTriggerInstance triggerInstance) {
+    public virtual  bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
         return false;
     }
 
@@ -122,6 +122,9 @@ public class StatChangedConstraint : AbilityConstraint {
             return false;
         }
 
+        //Debug.Log(trigger.changeValue + " is the change value");
+
+
         GainedOrLost statDirection;
 
         if (trigger.changeValue > 0f) {
@@ -131,16 +134,16 @@ public class StatChangedConstraint : AbilityConstraint {
             statDirection = GainedOrLost.Lost;
         }
 
-
-        bool result = false;
-
+        bool result;
         if (changeDirection == statDirection)
             result = true;
         else
             result = false;
 
-        return inverse == false ? result : !result;
+        //Debug.LogWarning("Result for Unit Stat Changed on: " + parentAbility.Data.abilityName + " " + result);
 
+
+        return inverse == false ? result : !result;
     }
 
 }
@@ -162,9 +165,9 @@ public class SourceOnlyConstraint : AbilityConstraint {
     }
 
 
-    public override bool Evaluate(Ability ability, AbilityTriggerInstance triggerInstance) {
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
 
-        bool result = ability == triggerInstance.sourceAbility;
+        bool result = ability == triggerInstance.SourceAbility;
 
         //Debug.Log("Testing: " + ability.Data.abilityName + " against " + triggerInstance.sourceAbility.Data.abilityName + ". Result: " + result);
 
@@ -298,7 +301,7 @@ public class AbilityTagConstraint : AbilityConstraint {
 
     }
 
-    public override bool Evaluate(Ability ability, AbilityTriggerInstance triggerInstance) {
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
         bool result = ability.Tags.Contains(targetTag);
 
         //Debug.LogWarning("Testing: " + ability.Data.abilityName + " for " + targetTag + ". Result: " + result);
@@ -369,7 +372,7 @@ public class AbilityNameConstraint : AbilityConstraint {
         return false;
     }
 
-    public override bool Evaluate(Ability ability, AbilityTriggerInstance triggerInstance) {
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
         bool result = ability.Data.abilityName == data.targetAbiltyName;
 
         //Debug.Log("Result of a name check on: " + ability.Data.abilityName + " : " + result);

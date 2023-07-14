@@ -78,7 +78,7 @@ public abstract class Effect {
         }
 
         for (int i = 0; i < targetConstraints.Count; i++) {
-            if (targetConstraints[i].Evaluate(target, currentTriggerInstance as AbilityTriggerInstance) == false) {
+            if (targetConstraints[i].Evaluate(target, currentTriggerInstance /*as AbilityTriggerInstance*/) == false) {
                 //Debug.LogWarning(target.Data.abilityName + " failed a constraint test for a constraint of type: " + targetConstraints[i].GetType().ToString());
                 return false;
 
@@ -308,6 +308,12 @@ public class AddChildAbilityEffect : Effect {
 
             trackedChildAbilities.Remove(target);
         }
+
+    }
+
+    public override string GetTooltip() {
+        return base.GetTooltip();
+
 
     }
 }
@@ -718,7 +724,7 @@ public class StatAdjustmentEffect : Effect {
     private void ApplyToEntity(Entity target, StatModifier activeMod) {
 
         float globalDamageMultiplier = GetDamageModifier(activeMod);
-        float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, globalDamageMultiplier);
+        float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
 
         
 
@@ -731,7 +737,7 @@ public class StatAdjustmentEffect : Effect {
     }
 
     private void RemoveFromEntity(Entity target, StatModifier activeMod) {
-        StatAdjustmentManager.RemoveStatAdjustment(target, activeMod, activeMod.VariantTarget, Source);
+        StatAdjustmentManager.RemoveStatAdjustment(target, activeMod, activeMod.VariantTarget, Source, ParentAbility);
     }
 
     public override bool ApplyToAbility(Ability target) {
@@ -884,7 +890,7 @@ public class StatAdjustmentEffect : Effect {
             foreach (AbilityTag tag in ParentAbility.Tags) {
                 float value = tag switch {
                     AbilityTag.None => 0f,
-                    AbilityTag.Fire => throw new System.NotImplementedException(),
+                    AbilityTag.Fire => 0f,
                     AbilityTag.Poison => throw new System.NotImplementedException(),
                     AbilityTag.Healing => 0f,
                     AbilityTag.Melee => Source.Stats[StatName.MeleeDamageModifier],

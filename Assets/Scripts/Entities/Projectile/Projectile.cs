@@ -129,7 +129,7 @@ public class Projectile : Entity {
     private void DealDamage(Entity target) {
         //Debug.Log("Doing Damage " + Stats[StatName.BaseDamage]);
 
-        float value = StatAdjustmentManager.DealDamageOrHeal(target, Stats[StatName.BaseDamage], source);
+        float value = StatAdjustmentManager.DealDamageOrHeal(target, Stats[StatName.BaseDamage], source, null);
         FloatingText floatingText = FloatingTextManager.SpawnFloatingText(target.transform.position, value.ToString());
         floatingText.SetColor(textColorGradient);
     }

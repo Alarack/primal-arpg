@@ -36,7 +36,7 @@ public static class StatAdjustmentManager {
     }
 
 
-    public static float ApplyStatAdjustment(Entity target, StatModifierData modData, Entity source, float multiplier = 1f) {
+    public static float ApplyStatAdjustment(Entity target, StatModifierData modData, Entity source, Ability sourceAbility, float multiplier = 1f) {
 
 
         Action<StatName, float, StatModType, object> statModAction = modData.variantTarget switch {
@@ -53,13 +53,13 @@ public static class StatAdjustmentManager {
         statModAction?.Invoke(modData.targetStat, modValue, modData.modifierType, source);
 
 
-        SendStatChangeEvent(modData.targetStat, target, source, modValue);
+        SendStatChangeEvent(modData.targetStat, target, source, sourceAbility, modValue);
 
         return modValue;
     }
 
 
-    public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatModifierData.StatVariantTarget variant, Entity source, float multiplier = 1f) {
+    public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatModifierData.StatVariantTarget variant, Entity source, Ability sourceAbility, float multiplier = 1f) {
 
 
         Action<StatName, StatModifier> statModAction = variant switch {
@@ -78,12 +78,12 @@ public static class StatAdjustmentManager {
         statModAction?.Invoke(mod.TargetStat, mod);
 
 
-        SendStatChangeEvent(mod.TargetStat, target, source, mod.Value);
+        SendStatChangeEvent(mod.TargetStat, target, source, sourceAbility, mod.Value);
 
         return modValue;
     }
 
-    public static float RemoveStatAdjustment(Entity target, StatModifier mod, StatModifierData.StatVariantTarget variant, Entity source, bool removeRangeAdjsument = false) {
+    public static float RemoveStatAdjustment(Entity target, StatModifier mod, StatModifierData.StatVariantTarget variant, Entity source, Ability sourceAbility, bool removeRangeAdjsument = false) {
 
         Action<StatName, StatModifier> statModAction = variant switch {
             StatModifierData.StatVariantTarget.Simple => target.Stats.RemoveModifier,
@@ -97,27 +97,27 @@ public static class StatAdjustmentManager {
         statModAction?.Invoke(mod.TargetStat, mod);
 
 
-        SendStatChangeEvent(mod.TargetStat, target, source, mod.Value);
+        SendStatChangeEvent(mod.TargetStat, target, source, sourceAbility, mod.Value);
 
         return mod.Value;
     }
 
-    public static float ApplyStatAdjustment(Entity target, float value, StatName targetStat, StatModType modType, StatModifierData.StatVariantTarget statVariant, object source, float multiplier = 1f) {
+    public static float ApplyStatAdjustment(Entity target, float value, StatName targetStat, StatModType modType, StatModifierData.StatVariantTarget statVariant, object source, Ability sourceAbility, float multiplier = 1f) {
         StatModifier mod = new StatModifier(value, modType, targetStat, source, statVariant);
-        return ApplyStatAdjustment(target, mod, targetStat, statVariant, multiplier);
+        return ApplyStatAdjustment(target, mod, targetStat, statVariant, sourceAbility, multiplier);
     }
 
-    public static float DealDamageOrHeal(Entity target, float value, object source, float multiplier = 1f) {
+    public static float DealDamageOrHeal(Entity target, float value, object source, Ability sourceAbility, float multiplier = 1f) {
         StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.Health, source, StatModifierData.StatVariantTarget.RangeCurrent);
-        return ApplyStatAdjustment(target, mod, StatName.Health, StatModifierData.StatVariantTarget.RangeCurrent, multiplier);
+        return ApplyStatAdjustment(target, mod, StatName.Health, StatModifierData.StatVariantTarget.RangeCurrent, sourceAbility, multiplier);
     }
 
-    public static float AdjustCDR(Entity target, float value, object source, float multiplier = 1f) {
+    public static float AdjustCDR(Entity target, float value, object source, Ability sourceAbility, float multiplier = 1f) {
         StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.CooldownReduction, source, StatModifierData.StatVariantTarget.Simple);
-        return ApplyStatAdjustment(target, mod, StatName.CooldownReduction, StatModifierData.StatVariantTarget.RangeCurrent, multiplier);
+        return ApplyStatAdjustment(target, mod, StatName.CooldownReduction, StatModifierData.StatVariantTarget.RangeCurrent, sourceAbility, multiplier);
     }
 
-    public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, float multiplier = 1f) {
+    public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, Ability sourceAbility, float multiplier = 1f) {
 
         Action<StatName, StatModifier> statModAction = statVarient switch {
             StatModifierData.StatVariantTarget.Simple => target.Stats.AddModifier,
@@ -135,7 +135,7 @@ public static class StatAdjustmentManager {
             Debug.LogError("We're assuming all mod sources are Entities, but one is being sent in that isnt an entity");
         }
 
-        SendStatChangeEvent(targetStat, target, (Entity)mod.Source, mod.Value);
+        SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value);
 
         return mod.Value;
 
@@ -151,10 +151,11 @@ public static class StatAdjustmentManager {
         EventManager.SendEvent(GameEvent.AbilityStatAdjusted, data);
     }
 
-    private static void SendStatChangeEvent(StatName targetStat, Entity target, Entity source, float changeValue) {
+    private static void SendStatChangeEvent(StatName targetStat, Entity target, Entity source, Ability sourceAbility, float changeValue) {
         EventData eventData = new EventData();
         eventData.AddEntity("Target", target);
         eventData.AddEntity("Source", source);
+        eventData.AddAbility("Ability", sourceAbility);
         eventData.AddFloat("Value", changeValue);
         eventData.AddInt("Stat", (int)targetStat);
 

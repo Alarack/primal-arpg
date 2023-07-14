@@ -90,18 +90,75 @@ public abstract class AbilityTrigger {
         return true;
     }
 
-    protected bool CheckAllAbilityConstraints(AbilityTriggerInstance activationInstance) {
+    protected bool CheckMultiTypeConstraints(TriggerInstance activationInstance) {
+
         foreach (var entry in constraintDict) {
-            Ability focusAbility = GetAbilityConstraintFocus(entry.Key);
+            Tuple<Entity, Ability, Effect> foci = GetConstraintFocus(entry.Key, activationInstance);
 
-            bool checkResult = CheckAbilityFocusConstraints(entry.Key, focusAbility, activationInstance);
-
-            if (checkResult == false)
+            if(foci == null) {
+                Debug.LogError("Could not get constraint focus group from a trigger on : " + SourceEntity.EntityName + " : " + ParentAbility.Data.abilityName);
                 return false;
+            }
+
+
+            switch (entry.Key) {
+                case ConstraintFocus.Source:
+                case ConstraintFocus.Trigger:
+                case ConstraintFocus.Cause:
+
+                    if (foci.Item1 != null) {
+                        bool entityCheck = CheckFocusConstraints(entry.Key, foci.Item1, activationInstance);
+
+                        if (entityCheck == false) {
+                            Debug.Log("an ability: " + ParentAbility.Data.abilityName + " failed an entity constraint");
+                            return false;
+                        }
+                    }
+
+                    break;
+                case ConstraintFocus.AbilitySource:
+                case ConstraintFocus.AbilityTrigger:
+                case ConstraintFocus.AbiityCause:
+
+                    if (foci.Item2 != null) {
+                        bool abilitycheck = CheckAbilityFocusConstraints(entry.Key, foci.Item2, activationInstance);
+
+                        if (abilitycheck == false) {
+                            //Debug.Log("an ability: " + ParentAbility.Data.abilityName + " failed an ability constraint");
+                            return false;
+                        }
+                    }
+
+                    break;
+                default:
+                    if (foci.Item3 != null) {
+                        bool effectCheck = CheckEffectFocusConstraints(entry.Key, foci.Item3, activationInstance);
+
+                        if (effectCheck == false)
+                            return false;
+                    }
+                    break;
+            }
+
         }
 
         return true;
+
     }
+
+
+    //protected bool CheckAllAbilityConstraints(AbilityTriggerInstance activationInstance) {
+    //    foreach (var entry in constraintDict) {
+    //        Ability focusAbility = GetAbilityConstraintFocus(entry.Key);
+
+    //        bool checkResult = CheckAbilityFocusConstraints(entry.Key, focusAbility, activationInstance);
+
+    //        if (checkResult == false)
+    //            return false;
+    //    }
+
+    //    return true;
+    //}
 
     /// <summary>
     /// Check if the given Focus (Source, Trigger, Cause) meets ALL its constraint requirements
@@ -129,7 +186,7 @@ public abstract class AbilityTrigger {
     }
 
 
-    protected bool CheckAbilityFocusConstraints(ConstraintFocus focus, Ability target, AbilityTriggerInstance activationInstance) {
+    protected bool CheckAbilityFocusConstraints(ConstraintFocus focus, Ability target, TriggerInstance activationInstance) {
         foreach (AbilityConstraint constraint in constraintDict[focus]) {
             bool result = constraint.Evaluate(target, activationInstance);
 
@@ -140,6 +197,32 @@ public abstract class AbilityTrigger {
         return true;
     }
 
+    protected bool CheckEffectFocusConstraints(ConstraintFocus focus, Effect target, TriggerInstance activationInstance) {
+        foreach (AbilityConstraint constraint in constraintDict[focus]) {
+            bool result = constraint.Evaluate(target, activationInstance);
+
+            if (result == false)
+                return false;
+        }
+
+        return true;
+    }
+
+
+
+    public Tuple<Entity, Ability, Effect> GetConstraintFocus(ConstraintFocus focus, TriggerInstance instance) {
+        Tuple<Entity, Ability, Effect> result = focus switch {
+            ConstraintFocus.Source => new Tuple<Entity, Ability, Effect>(SourceEntity, instance.SourceAbility, instance.SourceEffect),
+            ConstraintFocus.Trigger => new Tuple<Entity, Ability, Effect>(TriggeringEntity, instance.TriggeringAbility, instance.TriggeringEffect),
+            ConstraintFocus.Cause => new Tuple<Entity, Ability, Effect>(CauseOfTrigger, instance.CausingAbility, instance.CausingEffect),
+            ConstraintFocus.AbilitySource => new Tuple<Entity, Ability, Effect>(SourceEntity, instance.SourceAbility, instance.SourceEffect),
+            ConstraintFocus.AbilityTrigger => new Tuple<Entity, Ability, Effect>(TriggeringEntity, instance.TriggeringAbility, instance.TriggeringEffect),
+            ConstraintFocus.AbiityCause => new Tuple<Entity, Ability, Effect>(CauseOfTrigger, instance.CausingAbility, instance.CausingEffect),
+            _ => null,
+        };
+
+        return result;
+    }
 
     /// <summary>
     /// Who are we asking questions about?
@@ -178,17 +261,22 @@ public abstract class AbilityTrigger {
     /// </summary>
     protected bool IsTriggerValid(TriggerInstance activationInstance) {
         
-        if(activationInstance is AbilityTriggerInstance) {
-            if(CheckAllAbilityConstraints(activationInstance as AbilityTriggerInstance) == false) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
+        //if(activationInstance is AbilityTriggerInstance) {
+        //    if(CheckAllAbilityConstraints(activationInstance as AbilityTriggerInstance) == false) {
+        //        return false;
+        //    }
+        //    else {
+        //        return true;
+        //    }
+        //}
         
-        if (CheckAllConstrains(activationInstance) == false)
+        //if (CheckAllConstrains(activationInstance) == false)
+        //    return false;
+
+
+        if(CheckMultiTypeConstraints(activationInstance) == false) 
             return false;
+
 
         return true;
     }
@@ -208,11 +296,13 @@ public abstract class AbilityTrigger {
         public Entity TriggeringEntity { get; private set; }
         public Entity CauseOfTrigger { get; private set; }
 
-        //public Ability TriggeringAbility { get; private set; }
-        //public Ability CausingAbility { get; private set; }
+        public Ability TriggeringAbility { get; set; }
+        public Ability CausingAbility { get; set; }
+        public Ability SourceAbility { get; set; }
 
-        //public Effect TriggeringEffect { get; private set; }
-        //public Effect CausingEffect { get; private set; }
+        public Effect TriggeringEffect { get; set; }
+        public Effect CausingEffect { get; set; }
+        public Effect SourceEffect { get; set; }
 
         public TriggerType Type { get; private set; }
 
@@ -225,18 +315,18 @@ public abstract class AbilityTrigger {
         
     }
 
-    public class AbilityTriggerInstance : TriggerInstance {
-        public Ability triggeringAbility;
-        public Ability causeOfTriggerAbility;
-        public Ability sourceAbility;
+    //public class AbilityTriggerInstance : TriggerInstance {
+    //    public Ability triggeringAbility;
+    //    public Ability causeOfTriggerAbility;
+    //    public Ability sourceAbility;
 
-        public AbilityTriggerInstance(Entity trigger, Entity cause, TriggerType type, Ability triggeringAbility, Ability sourceAbility, Ability causeOfTriggerAbility) : base(trigger, cause, type) {
-            this.triggeringAbility = triggeringAbility;
-            this.sourceAbility = sourceAbility;
-            this.causeOfTriggerAbility = causeOfTriggerAbility;
-        }
+    //    public AbilityTriggerInstance(Entity trigger, Entity cause, TriggerType type, Ability triggeringAbility, Ability sourceAbility, Ability causeOfTriggerAbility) : base(trigger, cause, type) {
+    //        this.triggeringAbility = triggeringAbility;
+    //        this.sourceAbility = sourceAbility;
+    //        this.causeOfTriggerAbility = causeOfTriggerAbility;
+    //    }
 
-    }
+    //}
 
 
 }
@@ -308,7 +398,13 @@ public class RuneEquippedTrigger : AbilityTrigger {
         //Debug.Log("Rune Equipped Trigger recieved: Trigger " + triggeringAbility.Data.abilityName + ". Casuse: " + CauseOfAbilityTrigger.Data.abilityName);
 
 
-        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, CauseOfAbilityTrigger);
+        //AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, CauseOfAbilityTrigger);
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = TriggeringAbility;
+        triggerInstance.CausingAbility = CauseOfAbilityTrigger;
+        triggerInstance.SourceAbility = ParentAbility;
+        
         TryActivateTrigger(triggerInstance);
 
     }
@@ -344,7 +440,14 @@ public class RuneUnequippedTrigger : AbilityTrigger {
         TriggeringEntity = SourceEntity;
         CauseOfTrigger = SourceEntity;
 
-        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, CauseOfAbilityTrigger);
+        //AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, CauseOfAbilityTrigger);
+
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = TriggeringAbility;
+        triggerInstance.CausingAbility = CauseOfAbilityTrigger;
+        triggerInstance.SourceAbility = ParentAbility;
+
         TryActivateTrigger(triggerInstance);
 
     }
@@ -368,17 +471,20 @@ public class AbilityLearnedTrigger : AbilityTrigger {
         }
 
         Ability triggeringAbility = data.GetAbility("Ability");
-        //Ability cause = data.GetAbility("Cause");
-        //if (triggeringAbility != ParentAbility) {
-        //    return;
-        //}
 
         TriggeringAbility = triggeringAbility;
-        //CauseOfAbilityTrigger = cause;
         TriggeringEntity = SourceEntity;
         CauseOfTrigger = SourceEntity;
 
-        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, triggeringAbility);
+
+
+        //AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, triggeringAbility);
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = TriggeringAbility;
+        triggerInstance.CausingAbility = TriggeringAbility;
+        triggerInstance.SourceAbility = ParentAbility;
+
         TryActivateTrigger(triggerInstance);
 
     }
@@ -403,7 +509,12 @@ public class AbilityEquippedTrigger : AbilityTrigger {
 
         Ability triggeringAbility = data.GetAbility("Ability");
 
+        //Debug.Log(triggeringAbility.Data.abilityName + " is the ability being equipped. " + ParentAbility.Data.abilityName + " is the parent");
+
+
         if (triggeringAbility != ParentAbility) {
+
+            //Debug.LogWarning("Missmatched abilities");
             return;
         }
 
@@ -411,7 +522,13 @@ public class AbilityEquippedTrigger : AbilityTrigger {
         TriggeringEntity = SourceEntity;
         CauseOfTrigger = SourceEntity;
 
-        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, triggeringAbility);
+        //AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, triggeringAbility);
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = TriggeringAbility;
+        triggerInstance.CausingAbility = TriggeringAbility;
+        triggerInstance.SourceAbility = ParentAbility;
+
         TryActivateTrigger(triggerInstance);
 
     }
@@ -436,7 +553,11 @@ public class AbilityUnequippedTrigger : AbilityTrigger {
 
         Ability triggeringAbility = data.GetAbility("Ability");
 
+        //Debug.Log(triggeringAbility.Data.abilityName + " is the ability being UNequipped. " + ParentAbility.Data.abilityName + " is the parent");
+
+
         if (triggeringAbility != ParentAbility) {
+            //Debug.LogWarning("Missmatched abilities");
             return;
         }
 
@@ -444,7 +565,13 @@ public class AbilityUnequippedTrigger : AbilityTrigger {
         TriggeringEntity = SourceEntity;
         CauseOfTrigger = SourceEntity;
 
-        AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, triggeringAbility);
+        //AbilityTriggerInstance triggerInstance = new AbilityTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, triggeringAbility, ParentAbility, triggeringAbility);
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = TriggeringAbility;
+        triggerInstance.CausingAbility = TriggeringAbility;
+        triggerInstance.SourceAbility = ParentAbility;
+
         TryActivateTrigger(triggerInstance);
 
     }
@@ -488,24 +615,32 @@ public class StatChangedTrigger : AbilityTrigger {
         Entity affectedTarget = data.GetEntity("Target");
         Entity causeOfChange = data.GetEntity("Cause");
         float changeValue = data.GetFloat("Value");
+        Ability ability = data.GetAbility("Ability");
 
         TriggeringEntity = affectedTarget;
         CauseOfTrigger = causeOfChange;
+        CauseOfAbilityTrigger = ability;
 
-        Debug.Log(affectedTarget.gameObject.name + " had a stat change: " + targetStat + " :: " + changeValue);
+        //Debug.Log(affectedTarget.gameObject.name + " had a stat change: " + targetStat + " :: " + changeValue);
 
 
-        StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, targetStat, changeValue);
+        StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, targetStat, changeValue, CauseOfAbilityTrigger);
+        triggerInstance.CausingAbility = CauseOfAbilityTrigger;
+        triggerInstance.SourceAbility = ParentAbility;
+        triggerInstance.TriggeringAbility = ParentAbility;
+        
         TryActivateTrigger(triggerInstance);
     }
 
     public class StatChangeTriggerInstance : TriggerInstance {
         public StatName targetStat;
         public float changeValue;
+        public Ability causingAbility;
 
-        public StatChangeTriggerInstance(Entity trigger, Entity cause, TriggerType type, StatName targetStat, float changeValue) : base(trigger, cause, type) {
+        public StatChangeTriggerInstance(Entity trigger, Entity cause, TriggerType type, StatName targetStat, float changeValue, Ability causingAbility) : base(trigger, cause, type) {
             this.targetStat = targetStat;
             this.changeValue = changeValue;
+            this.causingAbility = causingAbility;
         }
 
     }
@@ -756,6 +891,7 @@ public class RiderTrigger : AbilityTrigger {
         Ability targetAbility = SourceEntity.GetAbilityByName(Data.riderAbilityName, AbilityCategory.Any);
 
 
+
         if (targetEffect == null) {
             Debug.LogError("The target Effect: " + Data.riderEffectName + " was not found for " + ParentAbility.Data.abilityName + " On " + SourceEntity.EntityName);
             return;
@@ -767,6 +903,10 @@ public class RiderTrigger : AbilityTrigger {
         }
 
         if(targetEffect == targetAbility.GetEffectByName(Data.riderEffectName) == false) {
+
+            //Debug.LogWarning("The target effect: " + targetEffect.Data.effectName + " does not match the rider effect: " + Data.riderEffectName);
+
+            
             return;
         }
 
@@ -776,6 +916,8 @@ public class RiderTrigger : AbilityTrigger {
         }
 
         CauseOfTrigger = targetEffect.Source;
+
+        //Debug.Log("A rider ability: " + ParentAbility.Data.abilityName + " is trying to trigger");
 
 
         RiderTriggerInstance triggerInstance = new RiderTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, ridereffectTargets);

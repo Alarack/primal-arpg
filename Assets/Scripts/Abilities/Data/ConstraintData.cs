@@ -46,7 +46,10 @@ public enum OwnerConstraintType {
 public enum ConstraintFocus {
     Source,
     Trigger,
-    Cause
+    Cause,
+    AbilitySource,
+    AbilityTrigger,
+    AbiityCause
 }
 
 #endregion

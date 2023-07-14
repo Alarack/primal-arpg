@@ -79,11 +79,13 @@ public class Ability {
     }
 
     public void Equip() {
-        //Debug.Log("Equipping: " + Data.abilityName);
+        Debug.Log("Equipping: " + Data.abilityName);
         if (IsEquipped == true) {
             Debug.LogError("Tried to equip " + Data.abilityName + " but it was alread equipped");
             return;
         }
+
+
 
         SetupActivationTriggers();
         SetupEndTriggers();
@@ -103,11 +105,15 @@ public class Ability {
     }
 
     public void Uneqeuip() {
-        //Debug.Log("Unequipping: " + Data.abilityName);
+        Debug.Log("Unequipping: " + Data.abilityName);
         if (IsEquipped == false) {
             Debug.LogError("Tried to unequip " + Data.abilityName + " but it wasn't equipped");
             return;
         }
+
+        //for (int i = 0; i < equippedRunes.Count; i++) {
+        //    equippedRunes[i].UnEquip();
+        //}
 
         EventData data = new EventData();
         data.AddAbility("Ability", this);
@@ -118,9 +124,9 @@ public class Ability {
         TearDown();
         IsEquipped = false;
 
-        for (int i = 0; i < ChildAbilities.Count; i++) {
-            ChildAbilities[i].Uneqeuip();
-        }
+        //for (int i = 0; i < ChildAbilities.Count; i++) {
+        //    ChildAbilities[i].Uneqeuip();
+        //}
     }
 
     private void RegisterAbility() {
@@ -274,6 +280,10 @@ public class Ability {
     public Ability AddChildAbility(AbilityData data) {
         Ability newChild = AbilityFactory.CreateAbility(data, Source);
         AddChildAbility(newChild);
+
+        if(IsEquipped == true) {
+            newChild.Equip();
+        }
 
         return newChild;
     }

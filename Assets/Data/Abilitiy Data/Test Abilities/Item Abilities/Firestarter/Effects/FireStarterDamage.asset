@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Blazing Star Stat Adj
+  m_Name: FireStarterDamage
   m_EditorClassIdentifier: 
   effectData:
     effectName: 
@@ -22,28 +22,28 @@ MonoBehaviour:
     otherAbilityName: 
     otherEffectName: 
     targetConstraints: []
-    payloadPrefab: {fileID: 5014085312362430806, guid: 7ab9fd21262495a449e3105149a5b9c8, type: 3}
+    payloadPrefab: {fileID: 2109167299929148009, guid: 1cdca75020bb43f489775f87b1cdf428, type: 3}
     payloadCount: 1
     projectilePierceCount: 0
     shotDelay: 0.2
-    spawnLocation: 3
+    spawnLocation: 1
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
-      applyOncePerTarget: 1
+      applyOncePerTarget: 0
       applyOnInterval: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
-      applyVFX: {fileID: 1027116103833860, guid: 6fb67c529e0173c47857b2a860bde40c, type: 3}
+      applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
-      effectZonePrefab: {fileID: 2109167299929148009, guid: be7028d38a74792409bf494d09b5f3e0, type: 3}
+      effectZonePrefab: {fileID: 0}
     modData:
     - targetStat: 0
-      value: -1
+      value: 0
       modifierType: 0
       variantTarget: 1
       modValueSetMethod: 5
-      weaponDamagePercent: 1
+      weaponDamagePercent: 0.2
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 1
@@ -52,8 +52,8 @@ MonoBehaviour:
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 0.6077585, b: 0, a: 1}
-      key1: {r: 1, g: 0.80725145, b: 0, a: 1}
-      key2: {r: 1, g: 1, b: 1, a: 0}
+      key1: {r: 1, g: 0.2105867, b: 0, a: 1}
+      key2: {r: 0.4245283, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -68,8 +68,8 @@ MonoBehaviour:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 48188
-      atime2: 65535
+      atime1: 55705
+      atime2: 65342
       atime3: 0
       atime4: 0
       atime5: 0
