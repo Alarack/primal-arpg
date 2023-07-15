@@ -17,7 +17,8 @@ public class Status {
         None,
         Burning,
         Slowed,
-        Immobilized
+        Immobilized,
+        BladeDash
     }
 
     #endregion

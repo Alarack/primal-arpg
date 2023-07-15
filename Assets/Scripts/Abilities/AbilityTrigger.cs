@@ -364,6 +364,28 @@ public class UserActivatedTrigger : AbilityTrigger {
     }
 }
 
+public class DashStartedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.DashStarted;
+    public override GameEvent TargetEvent => GameEvent.DashStarted;
+    public override Action<EventData> EventReceiver => OnDashStarted;
+
+    public DashStartedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnDashStarted(EventData data) {
+
+        Entity dasher = data.GetEntity("Entity");
+
+        TriggeringEntity = dasher;
+        CauseOfTrigger = dasher;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
 public class RuneEquippedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.RuneEquipped;
@@ -829,16 +851,30 @@ public class TimedTrigger : AbilityTrigger {
 
     public override Action<EventData> EventReceiver => OnTriggerTimerCompleted;
 
+    private Timer myTimer;
+
     public TimedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
-        //SetupTriggerTimer();
-    
+        SetupTriggerTimer();
     }
 
 
     private void SetupTriggerTimer() {
-        TimerManager.AddTimer(this, Data.triggerTimerDuration, true);
+        //TimerManager.AddTimer(this, Data.triggerTimerDuration, true);
+        myTimer = new Timer(Data.triggerTimerDuration, OnTriggerTimerCompleted, true);
+        TimerManager.AddTimerAction(UpdateClock);
     }
 
+
+    private void UpdateClock() {
+        if (ParentAbility.IsEquipped == false)
+            return;
+
+        if (ParentAbility.IsActive == false)
+            return;
+
+        if(myTimer != null)
+            myTimer.UpdateClock();
+    }
 
     private void OnTriggerTimerCompleted(EventData data) {
 

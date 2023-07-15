@@ -463,6 +463,18 @@ public class Ability {
         return Charges > 0;
     }
 
+    public float GetDuration() {
+        for (int i = 0; i < endTriggers.Count; i++) {
+            if (endTriggers[i].Type == TriggerType.Timed) {
+                float duration = endTriggers[i].Data.triggerTimerDuration;
+
+                return duration;
+            }
+        }
+
+        return -1f;
+    }
+
     public string GetTooltip() {
 
         StringBuilder builder = new StringBuilder();
@@ -626,6 +638,10 @@ public class Ability {
             //Debug.Log("An ability: " + Data.abilityName + " tried to trigger, but is not ready.");
             //Debug.Log(Charges + " charges found");
             return;
+        }
+
+        if(IsEquipped == false) {
+            Debug.Log("An ability: " + Data.abilityName + " tried to trigger, but is not equipped.");
         }
 
         if (TrySpendCharge(1) == false) {

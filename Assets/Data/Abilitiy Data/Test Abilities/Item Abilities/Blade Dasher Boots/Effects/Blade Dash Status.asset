@@ -10,52 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Lingering Flame Add Ability
+  m_Name: Blade Dash Status
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Linging Flames Add Child
+    effectName: Blade Dash Status
     effectDescription: 
-    type: 6
-    targeting: 8
-    subTarget: 4
+    type: 3
+    targeting: 2
+    subTarget: 0
     numberOfTargets: -1
-    otherAbilityName: Test Fireball
+    otherAbilityName: 
     otherEffectName: 
-    targetConstraints:
-    - type: 18
-      inverse: 0
-      statChangeTarget: 0
-      changeDirection: 0
-      minStatChangeRequired: 0
-      statChangeDelta: 0
-      targetTag: 0
-      minRange: 0
-      maxRange: 0
-      rangeToWhat: 0
-      ownerTarget: 0
-      mostStatTarget: 0
-      mostStatEffectName: 
-      mostStatAbilityName: 
-      leastStatTarget: 0
-      leastStatEffectName: 
-      leastStatAbilityName: 
-      minStatTarget: 0
-      minStatValue: 0
-      maxStatTarget: 0
-      maxStatValue: 0
-      targetEntityName: 
-      targetSubtype: 0
-      targetPrimaryType: 0
-      targetActiveAbilityName: 
-      appliedEffectType: 0
-      appliedEffectName: 0
-      targetStateData: {fileID: 0}
-      stateEntered: 
-      stateExited: 
-      targetAbilityTag: 0
-      targetAbiltyName: Test Fireball
-      targetEffectName: 
-      effectDesigantion: 0
+    targetConstraints: []
     payloadPrefab: {fileID: 0}
     payloadCount: 1
     projectilePierceCount: 0
@@ -103,7 +69,17 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
-    statusToAdd: []
+    statusToAdd:
+    - statusName: 4
+      stackMethod: 1
+      maxStacks: 1
+      initialStackCount: 1
+      duration: 1
+      interval: 0
+      VFXPrefab: {fileID: 147226, guid: 4d496338295339f4ab150256f9d9f4b7, type: 3}
+      statusEffectDef: {fileID: 11400000, guid: a2ed26635d4ce3a4db0603fc974d4944, type: 2}
+      statModifiers: []
+      multiplyByStackCount: 0
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
@@ -115,5 +91,4 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
-    abilitiesToAdd:
-    - {fileID: 11400000, guid: 3fc134da38f0ad74ab6f172a3d2d04fa, type: 2}
+    abilitiesToAdd: []

@@ -9,6 +9,7 @@ public class EntityMovement : MonoBehaviour
     public Rigidbody2D MyBody { get; protected set; }
     public bool CanMove { get; set; }
     public bool IsDashing { get; protected set; }
+    public bool CanDash { get; set; } = true;
 
     protected virtual void Awake()
     {

@@ -9,7 +9,8 @@ public enum AbilityTag {
     Fire,
     Poison,
     Healing,
-    Melee
+    Melee,
+    Force
 }
 
 public enum AbilityCategory {

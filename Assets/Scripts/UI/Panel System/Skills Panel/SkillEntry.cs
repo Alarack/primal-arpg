@@ -90,6 +90,11 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
     private void OnAbilityChargesChanges(BaseStat stat, object source, float value) {
+        if(Ability == null) {
+            chargesText.gameObject.SetActive(false);
+            return;
+        }
+        
         chargesText.text = Ability.Charges.ToString();
     }
 

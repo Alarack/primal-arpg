@@ -356,7 +356,7 @@ public class AddStatusEffect : Effect {
             //    modData[j].SetupEffectStats();
             //}
 
-            Debug.Log(data.effectName + " is creating an effect: " + statusEffect.Data.effectName);
+            //Debug.Log(data.effectName + " is creating an effect: " + statusEffect.Data.effectName);
             
             activeStatusEffects.Add(statusEffect as StatAdjustmentEffect);
         }
@@ -465,10 +465,12 @@ public class AddStatusEffect : Effect {
                 case StatModifierData.StatModDesignation.None:
                     break;
                 case StatModifierData.StatModDesignation.PrimaryDamage:
-
                     float damageRatio = activeStatusEffects[i].GetBaseWeaponPercent();
 
                     //TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green)
+
+                    string durationText = TextHelper.ColorizeText(GetModifiedEffectDuration().ToString(), Color.yellow) + " seconds";
+                    string intervalText = TextHelper.ColorizeText(GetModifiedIntervalDuration().ToString(), Color.yellow) + " seconds";
 
 
                     if (damageRatio > 0) {
@@ -477,6 +479,12 @@ public class AddStatusEffect : Effect {
                        + TextHelper.ColorizeText(GetModifiedEffectDuration().ToString(), Color.yellow) + " seconds");
 
                     }
+                    else {
+                        builder.Append(activeStatusEffects[i].GetTooltip() + "for " + durationText);
+                    }
+
+                    
+
 
                     if (Data.statusToAdd[0].maxStacks > 0) {
                         builder.AppendLine();
@@ -969,6 +977,21 @@ public class StatAdjustmentEffect : Effect {
         string formated = TextHelper.FormatStat(modData[0].targetStat, modData[0].Stats[StatName.StatModifierValue]);
 
         string replacement = Data.effectDescription.Replace("{}", formated);
+
+
+        if(ParentAbility != null) {
+            float duration = ParentAbility.GetDuration();
+
+            if (duration > 0) {
+
+                string roundedTime = TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(duration, 2), Color.yellow);
+
+                string timeReplacment = replacement.Replace("{X}", roundedTime);
+
+                return timeReplacment;
+            }
+        }
+        
 
         return replacement;
 

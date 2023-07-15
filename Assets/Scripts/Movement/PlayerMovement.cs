@@ -1,3 +1,4 @@
+using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class PlayerMovement : EntityMovement
 
     private PlayerInputActions playerInputActions;
 
+    private Timer dashCooldownTimer;
 
     protected override void Awake() {
         base.Awake();
@@ -19,6 +21,12 @@ public class PlayerMovement : EntityMovement
 
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
+
+    }
+
+    private void Start() {
+        dashCooldownTimer = new Timer(Owner.Stats[StatName.DashCooldown], OnDashCooldownFinished, true);
+
     }
 
     private void OnEnable() {
@@ -35,6 +43,10 @@ public class PlayerMovement : EntityMovement
     private void Update()
     {
         GetInput();
+
+        if(CanDash == false && dashCooldownTimer != null) {
+            dashCooldownTimer.UpdateClock();
+        }
     }
 
     private void OnDash(InputAction.CallbackContext context) {
@@ -64,14 +76,20 @@ public class PlayerMovement : EntityMovement
     }
 
     private void Dash() {
-        if (CanMove == false)
+        if (CanMove == false || CanDash == false)
             return;
 
         CanMove = false;
+        CanDash = false;
         IsDashing = true;
         dashTrail.emitting = true;
         Vector2 dashForce = MyBody.velocity.normalized * Owner.Stats[StatName.DashSpeed];
         MyBody.AddForce(dashForce, ForceMode2D.Impulse);
+
+        EventData data = new EventData();
+        data.AddEntity("Entity", Owner);
+
+        EventManager.SendEvent(GameEvent.DashStarted, data);
 
         StartCoroutine(DashTimer());
     }
@@ -83,6 +101,10 @@ public class PlayerMovement : EntityMovement
         CanMove = true;
         IsDashing = false;
         dashTrail.emitting = false;
+    }
+
+    private void OnDashCooldownFinished(EventData data) {
+        CanDash = true;
     }
 
 

@@ -10,52 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Lingering Flame Add Ability
+  m_Name: Blade Dash Damage Effect
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Linging Flames Add Child
-    effectDescription: 
-    type: 6
-    targeting: 8
-    subTarget: 4
+    effectName: Blade Dash Damage Effect
+    effectDescription: 'Dashing Increases Melee Damage by {} '
+    type: 1
+    targeting: 2
+    subTarget: 0
     numberOfTargets: -1
-    otherAbilityName: Test Fireball
+    otherAbilityName: 
     otherEffectName: 
-    targetConstraints:
-    - type: 18
-      inverse: 0
-      statChangeTarget: 0
-      changeDirection: 0
-      minStatChangeRequired: 0
-      statChangeDelta: 0
-      targetTag: 0
-      minRange: 0
-      maxRange: 0
-      rangeToWhat: 0
-      ownerTarget: 0
-      mostStatTarget: 0
-      mostStatEffectName: 
-      mostStatAbilityName: 
-      leastStatTarget: 0
-      leastStatEffectName: 
-      leastStatAbilityName: 
-      minStatTarget: 0
-      minStatValue: 0
-      maxStatTarget: 0
-      maxStatValue: 0
-      targetEntityName: 
-      targetSubtype: 0
-      targetPrimaryType: 0
-      targetActiveAbilityName: 
-      appliedEffectType: 0
-      appliedEffectName: 0
-      targetStateData: {fileID: 0}
-      stateEntered: 
-      stateExited: 
-      targetAbilityTag: 0
-      targetAbiltyName: Test Fireball
-      targetEffectName: 
-      effectDesigantion: 0
+    targetConstraints: []
     payloadPrefab: {fileID: 0}
     payloadCount: 1
     projectilePierceCount: 0
@@ -71,7 +37,18 @@ MonoBehaviour:
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
-    modData: []
+    modData:
+    - targetStat: 24
+      value: 1
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 0
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -102,7 +79,7 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    effectDesignation: 0
+    effectDesignation: 1
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
@@ -115,5 +92,4 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
-    abilitiesToAdd:
-    - {fileID: 11400000, guid: 3fc134da38f0ad74ab6f172a3d2d04fa, type: 2}
+    abilitiesToAdd: []

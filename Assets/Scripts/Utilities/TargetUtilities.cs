@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UIElements;
 
 public static class TargetUtilities
 {
@@ -120,6 +121,68 @@ public static class TargetUtilities
 
 
     #endregion
+
+
+    public static void RotateToNearestTarget(Collider2D initialTarget, Entity self, float radius, LayerMask mask, bool resetVelocity = true) {
+
+        Entity nearest = FindNearestTarget(initialTarget, self.transform.position, radius, mask);
+
+        if(nearest != null) {
+            self.transform.rotation = GetRotationTowardTarget(nearest.transform, self.transform);
+
+            if(resetVelocity == true) {
+                self.Movement.MyBody.velocity = Vector2.zero;
+            }
+        }
+
+    }
+
+    public static void RotateToRandomNearbyTarget(Collider2D initialTarget, Entity self, float radius, LayerMask mask, bool resetVelocity = true) {
+        Entity randomNearby = GetRandomNearbyEntity(initialTarget, self.transform.position, radius, mask);
+
+        if(randomNearby != null) {
+            self.transform.rotation = GetRotationTowardTarget(randomNearby.transform, self.transform);
+
+            if (resetVelocity == true) {
+                self.Movement.MyBody.velocity = Vector2.zero;
+            }
+        }
+        else {
+            Debug.LogWarning("Nothing nearby in range");
+        }
+    }
+
+    public static Entity FindNearestTarget(Collider2D initialTarget, Vector2 myPosition, float radius, LayerMask mask) {
+        List<Collider2D> nearbyColliders = Physics2D.OverlapCircleAll(myPosition, radius, mask).ToList();
+
+        nearbyColliders.RemoveIfContains(initialTarget);
+
+        Entity closest = null;
+        float closestDistance = float.MaxValue;
+
+        for (int i = 0; i < nearbyColliders.Count; i++) {
+            float distance = Vector2.Distance(myPosition, nearbyColliders[i].transform.position);
+            if(distance < closestDistance) {
+                closestDistance = distance;
+                closest = nearbyColliders[i].GetComponent<Entity>();
+            }
+        }
+
+        return closest;
+    }
+
+    public static Entity GetRandomNearbyEntity(Collider2D initialTarget, Vector2 myPosition, float radius, LayerMask mask) {
+        List<Collider2D> nearbyColliders = Physics2D.OverlapCircleAll(myPosition, radius, mask).ToList();
+
+        nearbyColliders.RemoveIfContains(initialTarget);
+
+        if (nearbyColliders.Count == 0)
+            return null;
+
+        int randomindex = Random.Range(0, nearbyColliders.Count);
+
+        return nearbyColliders[randomindex].GetComponent<Entity>();
+    }
 
     public static Collider2D FindNearestTarget(Collider2D[] targets, Transform myTransform)
     {

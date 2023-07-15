@@ -37,7 +37,11 @@ public enum StatName
     ProjectilePierceCount,
     AbilityRuneSlots,
     StackCount,
-    GlobalEffectIntervalModifier
+    GlobalEffectIntervalModifier,
+    DashCooldown,
+    ProjectileChainCount,
+    ProjectileSplitCount,
+    ProjectileSplitQuantity
 }
 
 
