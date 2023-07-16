@@ -143,7 +143,10 @@ namespace LL.Events {
         AbilityStatAdjusted,
         RuneEquipped,
         RuneUnequipped,
-        DashStarted
+        DashStarted,
+        ProjectilePierced,
+        ProjectileChained,
+        ProjectileSplit
 
     }
 

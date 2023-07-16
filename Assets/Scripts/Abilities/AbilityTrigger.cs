@@ -386,6 +386,38 @@ public class DashStartedTrigger : AbilityTrigger {
     }
 }
 
+public class ProjectilePiercedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.ProjectilePierced;
+    public override GameEvent TargetEvent => GameEvent.ProjectilePierced;
+    public override Action<EventData> EventReceiver => OnProjectilePierced;
+
+    public ProjectilePiercedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnProjectilePierced(EventData data) {
+
+        Entity projectile = data.GetEntity("Projectile");
+        Entity owner = data.GetEntity("Owner");
+        Effect parentEffect = data.GetEffect("Parent Effect");
+        Ability parentAbility = data.GetAbility("Ability");
+
+        //Debug.Log(parentAbility.Data.abilityName + " is the piercing ability");
+
+
+        TriggeringEntity = projectile;
+        CauseOfTrigger = owner;
+        
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.SourceEffect = parentEffect;
+        triggerInstance.TriggeringAbility = parentAbility;
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
+
 public class RuneEquippedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.RuneEquipped;

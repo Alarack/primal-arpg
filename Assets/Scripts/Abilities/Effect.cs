@@ -28,6 +28,8 @@ public abstract class Effect {
     protected List<AbilityConstraint> targetConstraints = new List<AbilityConstraint>();
     protected EffectTargeter targeter;
 
+    protected Projectile activeDelivery;
+
     public StatCollection Stats { get; protected set; }
 
     public Effect(EffectData data, Entity source, Ability parentAbility = null) {
@@ -41,11 +43,11 @@ public abstract class Effect {
     }
 
     protected void SetupStats() {
-        Stats = new StatCollection(this);
+        Stats = new StatCollection(this, Data.payloadStatData);
         SimpleStat effectShotCount = new SimpleStat(StatName.ShotCount, Data.payloadCount);
-        SimpleStat pierceCount = new SimpleStat(StatName.ProjectilePierceCount, Data.projectilePierceCount);
+        SimpleStat shotDelay = new SimpleStat(StatName.FireDelay, Data.shotDelay);
         Stats.AddStat(effectShotCount);
-        Stats.AddStat(pierceCount);
+        Stats.AddStat(shotDelay);
     }
 
     protected void SetupTargetConstraints() {
@@ -117,7 +119,6 @@ public abstract class Effect {
     public void RecieveEndActivationInstance(TriggerInstance endInstance) {
         RemoveFromAllTargets();
     }
-
 
     public virtual bool Apply(Entity target) {
 
@@ -219,10 +220,19 @@ public abstract class Effect {
 
     }
 
+    public void TrackActiveDelivery(Projectile delivery) {
+        activeDelivery = delivery;
+    }
+
+
     public virtual string GetTooltip() {
 
 
         return Data.effectDescription;
+    }
+
+    public bool EffectResolvedCallback() {
+        return true;
     }
 
 }
@@ -623,6 +633,8 @@ public class StatAdjustmentEffect : Effect {
 
     private List<StatModifierData> modData = new List<StatModifierData>();
 
+
+
     public StatAdjustmentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
         modData = new List<StatModifierData>();
@@ -631,7 +643,6 @@ public class StatAdjustmentEffect : Effect {
             StatModifierData clonedModdata = new StatModifierData(data.modData[i]);
             modData.Add(clonedModdata);
         }
-
 
         for (int i = 0; i < modData.Count; i++) {
             modData[i].SetupEffectStats();
@@ -662,10 +673,6 @@ public class StatAdjustmentEffect : Effect {
         return effect;
     }
 
-    private void ResetStacks() {
-
-    }
-
     public override void Stack(Status status) {
 
         for (int i = 0; i < modData.Count; i++) {
@@ -687,29 +694,20 @@ public class StatAdjustmentEffect : Effect {
     }
 
     public void AddStatAdjustmentModifier(StatModifier mod) {
-        //List<StatModifierData> targetData = GetModDataByDesignation(designation);
-
         for (int i = 0; i < modData.Count; i++) {
-            //modData[i].Stats.AddModifier(mod.TargetStat, mod);
-
             StatAdjustmentManager.ApplyDataModifier(modData[i], mod);
             //Debug.LogWarning("Applying: " + mod.TargetStat + " Modifier: " + mod.Value + " to " + Data.effectName);
         }
     }
 
     public void RemoveStatAdjustmentModifier(StatModifier mod) {
-        //List<StatModifierData> targetData = GetModDataByDesignation(designation);
-
         for (int i = 0; i < modData.Count; i++) {
             StatAdjustmentManager.RemoveDataModifiyer(modData[i], mod);
-            //modData[i].Stats.RemoveModifier(mod.TargetStat, mod);
-            Debug.LogWarning("Removing: " + mod.TargetStat + " Modifier: " + mod.Value + " to " + Data.effectName);
+            //Debug.LogWarning("Removing: " + mod.TargetStat + " Modifier: " + mod.Value + " to " + Data.effectName);
         }
     }
 
     public float GetModifierValue(StatName name) {
-        //List<StatModifierData> targetData = GetModDataByDesignation(designation);
-
         for (int i = 0; i < modData.Count; i++) {
             if (modData[i].targetStat == name)
                 return modData[i].Stats[name];
@@ -738,6 +736,22 @@ public class StatAdjustmentEffect : Effect {
             StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll * modData.Stats[StatName.AbilityWeaponCoefficicent],
             _ => 0f,
         };
+
+        if(activeMod.TargetStat == StatName.Health  ) {
+
+            if (activeDelivery != null) {
+                float projectileContrabution = 1f + activeDelivery.Stats[StatName.ProjectileEffectContrabution];
+
+                targetValue *= projectileContrabution;
+
+                Debug.Log("A projectile: " + activeDelivery.gameObject.name + " is contributing " + projectileContrabution);
+            }
+            else {
+                Debug.Log("Active Projectile is null");
+            }
+        }
+        
+
 
         return modData.invertDerivedValue == false ? targetValue : -targetValue;
     }
@@ -881,7 +895,6 @@ public class StatAdjustmentEffect : Effect {
 
             ApplyToEntity(target, activeMod);
         }
-
 
         return true;
     }

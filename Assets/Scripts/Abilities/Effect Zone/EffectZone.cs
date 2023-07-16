@@ -18,11 +18,17 @@ public class EffectZone : Entity {
     protected EffectZoneInfo zoneInfo;
 
     protected Timer persistantZoneTimer;
+    protected Projectile carrier;
 
-    public virtual void Setup(Effect parentEffect, EffectZoneInfo info, Transform parentToThis = null) {
+    public virtual void Setup(Effect parentEffect, EffectZoneInfo info, Transform parentToThis = null, Projectile carrier = null) {
         this.parentEffect = parentEffect;
         this.zoneInfo = info;
+        this.carrier = carrier;
+
         //this.mask = mask;
+
+        Debug.Log("Zone deployed");
+
         SetInfo();
 
         if (parentToThis != null) {
@@ -80,6 +86,9 @@ public class EffectZone : Entity {
     protected virtual void Apply(Entity target) {
         targets.AddUnique(target);
 
+        parentEffect.TrackActiveDelivery(carrier);
+
+        //Debug.Log("Zone effect is applying: " + parentEffect.Data.effectName);
         parentEffect.Apply(target);
         CreateApplyVFX(target.transform.position);
 

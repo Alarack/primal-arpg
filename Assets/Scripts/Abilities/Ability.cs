@@ -63,6 +63,8 @@ public class Ability {
         SetupRecoveries();
         SetupEffects();
 
+        SetupChildAbilities();
+
     }
 
     #region SETUP AND TEAR DOWN
@@ -76,6 +78,12 @@ public class Ability {
         Stats.AddStat(charges);
         Stats.AddStat(runeSlots);
 
+    }
+
+    private void SetupChildAbilities() {
+        for (int i = 0; i < Data.childAbilities.Count; i++) {
+            AddChildAbility(Data.childAbilities[i]);
+        }
     }
 
     public void Equip() {

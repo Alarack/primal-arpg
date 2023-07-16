@@ -41,7 +41,8 @@ public enum StatName
     DashCooldown,
     ProjectileChainCount,
     ProjectileSplitCount,
-    ProjectileSplitQuantity
+    ProjectileSplitQuantity,
+    ProjectileEffectContrabution
 }
 
 

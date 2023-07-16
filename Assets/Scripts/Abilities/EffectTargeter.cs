@@ -400,7 +400,7 @@ public class EffectTargeter {
     }
 
     private IEnumerator DeliveryPayloadOnDelay(Vector2 location) {
-        WaitForSeconds waiter = new WaitForSeconds(parentEffect.Data.shotDelay);
+        WaitForSeconds waiter = new WaitForSeconds(parentEffect.Stats[StatName.FireDelay]);
 
         //Debug.Log(parentEffect.Stats[StatName.ShotCount] + " projectiles on " + parentEffect.ParentAbility.Data.abilityName);
 
@@ -413,8 +413,10 @@ public class EffectTargeter {
             if (projectile != null) {
                 projectile.Setup(parentEffect.Source, parentEffect);
 
-                if (parentEffect.Stats.Contains(StatName.ProjectilePierceCount) == true)
-                    projectile.Stats.AddModifier(StatName.ProjectilePierceCount, parentEffect.Stats[StatName.ProjectilePierceCount], StatModType.Flat, parentEffect.Source);
+                projectile.Stats.AddMissingStats(parentEffect.Stats);
+
+                //if (parentEffect.Stats.Contains(StatName.ProjectilePierceCount) == true)
+                //    projectile.Stats.AddModifier(StatName.ProjectilePierceCount, parentEffect.Stats[StatName.ProjectilePierceCount], StatModType.Flat, parentEffect.Source);
 
                 float sourceInaccuracy = (1f - parentEffect.Source.Stats[StatName.Accuracy]) * 360f;
                 float projectileInaccuracy = (1f - projectile.Stats[StatName.Accuracy]) * 360f;
@@ -429,7 +431,6 @@ public class EffectTargeter {
             if (effectZone != null) {
                 effectZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo);
             }
-
 
             yield return waiter;
         }

@@ -112,6 +112,8 @@ public class AbilityData
     public bool includeEffectsInTooltip;
     public string runeAbilityTarget;
 
+    public List<AbilityDefinition> childAbilities = new List<AbilityDefinition>();
+
     public List<AbilityTag> tags = new List<AbilityTag>();
 
     public List<TriggerData> activationTriggerData = new List<TriggerData>();

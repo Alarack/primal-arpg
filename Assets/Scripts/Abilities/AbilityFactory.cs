@@ -34,6 +34,7 @@ public static class AbilityFactory {
             TriggerType.RuneUnequipped => new RuneUnequippedTrigger(data, source, parentAbility),
             TriggerType.Rider => new RiderTrigger(data, source, parentAbility),
             TriggerType.DashStarted => new DashStartedTrigger(data, source, parentAbility),
+            TriggerType.ProjectilePierced => new ProjectilePiercedTrigger(data, source, parentAbility),
             _ => null,
         };
 

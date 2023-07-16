@@ -102,6 +102,25 @@ public class StatCollection {
 
     }
 
+    public void AddMissingStats(StatCollection stats, List<StatName> exceptions = null) {
+
+        foreach (var item in stats.statDictionary) {
+
+            if(exceptions != null) {
+                if (exceptions.Contains(item.Key))
+                    continue;
+            }
+
+            if(Contains(item.Key) == false) {
+                SimpleStat missingStat = new SimpleStat(item.Key, item.Value.ModifiedValue);
+                AddStat(missingStat);
+            }
+            else {
+                SetStatValue(item.Key, stats[item.Key], stats.Owner);
+            }
+        }
+    }
+
     private void CreateStatFromData(StatData data) {
         if (data.variant == StatData.StatVariant.Simple) {
             SimpleStat newSimpleStat = new SimpleStat(data.statName, data.value);
