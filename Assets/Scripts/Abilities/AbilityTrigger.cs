@@ -400,6 +400,7 @@ public class ProjectilePiercedTrigger : AbilityTrigger {
 
         Entity projectile = data.GetEntity("Projectile");
         Entity owner = data.GetEntity("Owner");
+        Entity cause = data.GetEntity("Cause");
         Effect parentEffect = data.GetEffect("Parent Effect");
         Ability parentAbility = data.GetAbility("Ability");
 
@@ -407,7 +408,7 @@ public class ProjectilePiercedTrigger : AbilityTrigger {
 
 
         TriggeringEntity = projectile;
-        CauseOfTrigger = owner;
+        CauseOfTrigger = cause;
         
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);

@@ -88,41 +88,9 @@ public class Projectile : Entity {
         //    return;
 
         DeployZoneEffect();
-        
 
         ApplyImpact(other);
 
-        //impactTask = new Task(ProcessImpact(other));
-    }
-
-    private IEnumerator ProcessImpact(Collider2D other) {
-
-        string layer = LayerMask.LayerToName(other.gameObject.layer);
-
-        yield return new WaitForSeconds(0.05f);
-
-        if (layer != "Environment") {
-
-            HandleProjectileSplit(other);
-
-            HandleProjectileChain(other);
-
-            HandleProjectilePierce();
-        }
-
-
-        if(Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
-            Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
-            yield break;
-        }
-
-        if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
-            Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
-            yield break;
-        }
-
-
-        StartCleanUp();
     }
 
     private void ApplyImpact(Collider2D other) {
@@ -132,21 +100,18 @@ public class Projectile : Entity {
         if (layer != "Environment") {
 
             HandleProjectileSplit(other);
-
             HandleProjectileChain(other);
+            HandleProjectilePierce(other);
 
-            HandleProjectilePierce();
-        }
+            if (Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
+                Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
+                return;
+            }
 
-
-        if (Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
-            Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
-            return;
-        }
-
-        if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
-            Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
-            return;
+            if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
+                Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
+                return;
+            }
         }
 
         StartCleanUp();
@@ -158,36 +123,32 @@ public class Projectile : Entity {
 
     }
 
-    private IEnumerator DeployZoneOnDelay() {
-        yield return new WaitForEndOfFrame();
-
-        EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
-        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this);
-
-    }
-
-    private bool HandleProjectilePierce() {
+    private bool HandleProjectilePierce(Collider2D recentHit) {
 
         if (Stats.Contains(StatName.ProjectilePierceCount) == false || Stats[StatName.ProjectilePierceCount] < 1f) {
-            //StartCleanUp();
             return false;
         }
 
-        //Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
+        Entity otherEntity = recentHit.GetComponent<Entity>();
+        new Task(SendPierceEvent(otherEntity));
+
+        return true;
+    }
+
+    private IEnumerator SendPierceEvent(Entity cause) {
+        yield return new WaitForSeconds(0.05f);
 
         EventData data = new EventData();
 
         data.AddEntity("Projectile", this);
         data.AddEntity("Owner", source);
+        data.AddEntity("Cause", cause);
         data.AddEffect("Parent Effect", parentEffect);
         data.AddAbility("Ability", parentEffect.ParentAbility);
 
-
-        Debug.Log("Piercing has occured");
+        //Debug.Log("Piercing has occured");
 
         EventManager.SendEvent(GameEvent.ProjectilePierced, data);
-
-        return true;
     }
 
     private bool HandleProjectileSplit(Collider2D recentHit) {

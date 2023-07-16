@@ -744,10 +744,10 @@ public class StatAdjustmentEffect : Effect {
 
                 targetValue *= projectileContrabution;
 
-                Debug.Log("A projectile: " + activeDelivery.gameObject.name + " is contributing " + projectileContrabution);
+                //Debug.Log("A projectile: " + activeDelivery.gameObject.name + " is contributing " + projectileContrabution);
             }
             else {
-                Debug.Log("Active Projectile is null");
+                //Debug.Log("Active Projectile is null");
             }
         }
         
