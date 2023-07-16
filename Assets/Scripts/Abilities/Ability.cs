@@ -144,11 +144,12 @@ public class Ability {
             AbilityCategory.Item => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Item],
             AbilityCategory.Rune => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Rune],
             //AbilityCategory.ChildAbility => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.ChildAbility],
+            AbilityCategory.PassiveSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.PassiveSkill],
             _ => null,
         };
 
         if (list != null) {
-            list.Add(this);
+            list.AddUnique(this);
 
         }
 
@@ -161,11 +162,12 @@ public class Ability {
             AbilityCategory.Item => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Item],
             AbilityCategory.Rune => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Rune],
             //AbilityCategory.ChildAbility => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.ChildAbility],
+            AbilityCategory.PassiveSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.PassiveSkill],
             _ => null,
         };
 
         if (list != null) {
-            list.Remove(this);
+            list.RemoveIfContains(this);
         }
     }
 
@@ -650,6 +652,7 @@ public class Ability {
 
         if(IsEquipped == false) {
             Debug.Log("An ability: " + Data.abilityName + " tried to trigger, but is not equipped.");
+            return;
         }
 
         if (TrySpendCharge(1) == false) {

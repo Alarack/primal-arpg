@@ -14309,9 +14309,17 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
+      propertyPath: preloadedPassives.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
       propertyPath: preloadedAbilities.Array.size
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
+      propertyPath: preloadedPassives.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ae8420da18a08546946c1844b4e63cf, type: 2}
     - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
       propertyPath: preloadedAbilities.Array.data[2]
       value: 
@@ -14324,6 +14332,10 @@ PrefabInstance:
       propertyPath: preloadedAbilities.Array.data[4]
       value: 
       objectReference: {fileID: 11400000, guid: b8373981a8c6e3446b1428ed036a31e1, type: 2}
+    - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
+      propertyPath: preloadedAbilities.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ae8420da18a08546946c1844b4e63cf, type: 2}
     - target: {fileID: 8986088774927210644, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
       propertyPath: m_PointLightOuterRadius
       value: 64.57

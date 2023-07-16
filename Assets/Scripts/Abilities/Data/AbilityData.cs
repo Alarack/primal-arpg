@@ -19,7 +19,8 @@ public enum AbilityCategory {
     Item,
     Rune,
     Any,
-    ChildAbility
+    ChildAbility,
+    PassiveSkill
 }
 
 

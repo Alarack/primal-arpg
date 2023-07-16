@@ -184,10 +184,28 @@ public class Projectile : Entity {
         //Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
         TargetUtilities.RotateToRandomNearbyTarget(recentHit, this, chainRadius, chainMask, true);
 
+        Entity otherEntity = recentHit.GetComponent<Entity>();
+        new Task(SendChainEvent(otherEntity));
+
+
         return true;
     }
 
-    
+    private IEnumerator SendChainEvent(Entity cause) {
+        yield return new WaitForSeconds(0.05f);
+
+        EventData data = new EventData();
+
+        data.AddEntity("Projectile", this);
+        data.AddEntity("Owner", source);
+        data.AddEntity("Cause", cause);
+        data.AddEffect("Parent Effect", parentEffect);
+        data.AddAbility("Ability", parentEffect.ParentAbility);
+
+        //Debug.Log("Piercing has occured");
+
+        EventManager.SendEvent(GameEvent.ProjectileChained, data);
+    }
 
     private void DealDamage(Entity target) {
         //Debug.Log("Doing Damage " + Stats[StatName.BaseDamage]);

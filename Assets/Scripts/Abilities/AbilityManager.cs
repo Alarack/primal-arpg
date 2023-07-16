@@ -10,7 +10,7 @@ public class AbilityManager : MonoBehaviour
 {
 
     public List<AbilityDefinition> preloadedAbilities = new List<AbilityDefinition>();
-
+    public List<AbilityDefinition> preloadedPassives = new List<AbilityDefinition>(); 
 
     public List<Ability> this[AbilityCategory category] { get { return GetAbilitiesByCategory(category); } }
 
@@ -32,6 +32,10 @@ public class AbilityManager : MonoBehaviour
     private void Awake() {
         Owner = GetComponent<Entity>();
         SetupAbilityDict();
+        
+    }
+
+    public void Setup() {
         SetupPreloadedAbilities();
     }
 
@@ -92,27 +96,35 @@ public class AbilityManager : MonoBehaviour
 
     private void SetupPreloadedAbilities() {
         AbilityUtilities.SetupAbilities(preloadedAbilities, KnownAbilities, Owner);
+
+        AbilityUtilities.SetupAbilities(preloadedPassives, Abilities[AbilityCategory.PassiveSkill], Owner, true);
     }
 
 
     #region LEARNING AND EQUIPPING
 
-    public void LearnAbility(Ability ability) {
-
-        if(KnownAbilities.AddUnique(ability) == true) {
-            onAbilityLearned?.Invoke(ability);
+    public void LearnAbility(Ability ability, AbilityCategory category) {
 
 
-            EventData data = new EventData();
-            data.AddAbility("Ability", ability);
-            EventManager.SendEvent(GameEvent.AbilityLearned, data);
+        Abilities[category].AddUnique(ability);
 
-        }
+
+        //if (category == AbilityCategory.ActiveSkill || category == AbilityCategory.KnownSkill) {
+
+        //    if (KnownAbilities.AddUnique(ability) == true) {
+        //        onAbilityLearned?.Invoke(ability);
+        //    }
+
+        //}
+
+        EventData data = new EventData();
+        data.AddAbility("Ability", ability);
+        EventManager.SendEvent(GameEvent.AbilityLearned, data);
     }
 
     public void LearnAbility(AbilityData abilityData) {
         Ability newAbility = AbilityFactory.CreateAbility(abilityData, Owner);
-        LearnAbility(newAbility);
+        LearnAbility(newAbility, abilityData.category);
     }
 
     public void UnlearnAbility(Ability ability) {

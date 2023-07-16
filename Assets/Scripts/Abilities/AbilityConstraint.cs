@@ -190,6 +190,8 @@ public class OwnerConstraint : AbilityConstraint {
 
         bool result = target.ownerType == ownerTarget;
 
+        //Debug.Log(target.EntityName + " is owned by " + ownerTarget + ": " + result);
+
         return inverse == false ? result : !result;
     }
 }
@@ -290,8 +292,10 @@ public class HasStatusConstraint : AbilityConstraint {
 
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
 
-
         bool result = target.HasStatus(data.targetStatus);
+
+        //Debug.Log(target.EntityName + " has " + data.targetStatus + ": " + result);
+
 
         return inverse == false ? result : !result;
     }

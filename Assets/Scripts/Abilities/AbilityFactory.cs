@@ -35,6 +35,7 @@ public static class AbilityFactory {
             TriggerType.Rider => new RiderTrigger(data, source, parentAbility),
             TriggerType.DashStarted => new DashStartedTrigger(data, source, parentAbility),
             TriggerType.ProjectilePierced => new ProjectilePiercedTrigger(data, source, parentAbility),
+            TriggerType.ProjectileChained => new ProjectileChainedTrigger(data, source, parentAbility),
             _ => null,
         };
 

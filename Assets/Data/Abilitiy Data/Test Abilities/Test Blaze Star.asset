@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: Test Blaze Star
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 0
+    category: 1
     abilityIcon: {fileID: 21300000, guid: 74a5be9c5f59e2e40ab6a0b7285ef351, type: 3}
     abilityName: Blazing Star
     abilityDescription: A new star is born!
     toBestow: 0
     suspend: 0
     autoFire: 0
+    includeEffectsInTooltip: 0
     runeAbilityTarget: 
+    childAbilities: []
     tags: 01000000
     activationTriggerData:
     - type: 6
@@ -64,6 +66,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetStatus: 0
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0

@@ -418,6 +418,38 @@ public class ProjectilePiercedTrigger : AbilityTrigger {
     }
 }
 
+public class ProjectileChainedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.ProjectileChained;
+    public override GameEvent TargetEvent => GameEvent.ProjectileChained;
+    public override Action<EventData> EventReceiver => OnProjectileChained;
+
+    public ProjectileChainedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnProjectileChained(EventData data) {
+
+        Entity projectile = data.GetEntity("Projectile");
+        Entity owner = data.GetEntity("Owner");
+        Entity cause = data.GetEntity("Cause");
+        Effect parentEffect = data.GetEffect("Parent Effect");
+        Ability parentAbility = data.GetAbility("Ability");
+
+        //Debug.Log(parentAbility.Data.abilityName + " is the piercing ability");
+
+
+        TriggeringEntity = projectile;
+        CauseOfTrigger = cause;
+
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.SourceEffect = parentEffect;
+        triggerInstance.TriggeringAbility = parentAbility;
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
 
 public class RuneEquippedTrigger : AbilityTrigger {
 

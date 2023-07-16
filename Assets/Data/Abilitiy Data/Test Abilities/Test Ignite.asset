@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Test Ignite
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 0
+    category: 1
     abilityIcon: {fileID: 21300000, guid: 9271550f4be3d9c44a1901ba2c1aa07c, type: 3}
     abilityName: Ignite
     abilityDescription: 
@@ -22,6 +22,7 @@ MonoBehaviour:
     autoFire: 0
     includeEffectsInTooltip: 1
     runeAbilityTarget: 
+    childAbilities: []
     tags: 01000000
     activationTriggerData:
     - type: 6
@@ -65,6 +66,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetStatus: 0
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0

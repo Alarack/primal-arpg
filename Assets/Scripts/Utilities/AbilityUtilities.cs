@@ -20,9 +20,15 @@ public static class AbilityUtilities {
         }
     }
 
-    public static void SetupAbilities(List<AbilityDefinition> abilityData, List<Ability> abilities, Entity source) {
+    public static void SetupAbilities(List<AbilityDefinition> abilityData, List<Ability> abilities, Entity source, bool autoEquip = false) {
         for (int i = 0; i < abilityData.Count; i++) {
-            abilities.Add(AbilityFactory.CreateAbility(abilityData[i].AbilityData, source));
+
+            Ability newAbility = AbilityFactory.CreateAbility(abilityData[i].AbilityData, source);
+            abilities.Add(newAbility);
+
+            if(autoEquip == true) {
+                newAbility.Equip();
+            }
         }
     }
 

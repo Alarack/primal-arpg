@@ -52,12 +52,21 @@ public abstract class Entity : MonoBehaviour {
 
         Movement = GetComponent<EntityMovement>();
         AbilityManager = GetComponent<AbilityManager>();
+
+        //if (entityType != EntityType.Projectile && entityType != EntityType.EffectZone) {
+        //    EntityManager.RegisterEntity(this);
+        //}
+
+        
     }
 
     protected virtual void Start() {
         if (entityType != EntityType.Projectile && entityType != EntityType.EffectZone) {
             EntityManager.RegisterEntity(this);
         }
+
+        if (AbilityManager != null)
+            AbilityManager.Setup();
     }
 
     protected virtual void OnEnable() {
