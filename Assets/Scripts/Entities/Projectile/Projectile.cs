@@ -104,12 +104,12 @@ public class Projectile : Entity {
             HandleProjectilePierce(other);
 
             if (Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
-                Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
+                //Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
                 return;
             }
 
             if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
-                Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
+                //Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
                 return;
             }
         }
@@ -124,7 +124,6 @@ public class Projectile : Entity {
     }
 
     private bool HandleProjectilePierce(Collider2D recentHit) {
-
         if (Stats.Contains(StatName.ProjectilePierceCount) == false || Stats[StatName.ProjectilePierceCount] < 1f) {
             return false;
         }
@@ -138,6 +137,7 @@ public class Projectile : Entity {
     private IEnumerator SendPierceEvent(Entity cause) {
         yield return new WaitForSeconds(0.05f);
 
+        Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
         EventData data = new EventData();
 
         data.AddEntity("Projectile", this);
@@ -177,22 +177,20 @@ public class Projectile : Entity {
 
     private bool HandleProjectileChain(Collider2D recentHit) {
         if (Stats.Contains(StatName.ProjectileChainCount) == false || Stats[StatName.ProjectileChainCount] < 1f) {
-            //StartCleanUp();
             return false;
         }
 
-        //Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
         TargetUtilities.RotateToRandomNearbyTarget(recentHit, this, chainRadius, chainMask, true);
-
         Entity otherEntity = recentHit.GetComponent<Entity>();
         new Task(SendChainEvent(otherEntity));
-
 
         return true;
     }
 
     private IEnumerator SendChainEvent(Entity cause) {
         yield return new WaitForSeconds(0.05f);
+
+        Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
 
         EventData data = new EventData();
 
@@ -202,7 +200,7 @@ public class Projectile : Entity {
         data.AddEffect("Parent Effect", parentEffect);
         data.AddAbility("Ability", parentEffect.ParentAbility);
 
-        //Debug.Log("Piercing has occured");
+        //Debug.Log("Chaining has occured");
 
         EventManager.SendEvent(GameEvent.ProjectileChained, data);
     }
@@ -249,8 +247,6 @@ public class Projectile : Entity {
         CleanUp(true);
     }
 
-
-
     private void StartCleanUp() {
 
         myCollider.enabled = false;
@@ -263,7 +259,7 @@ public class Projectile : Entity {
         //if (ricochet == true)
         //    Ricochet(other);
         //else
-            CleanUp(false);
+        CleanUp(false);
     }
 
     private void CleanUp(bool deployZone) {
@@ -271,7 +267,7 @@ public class Projectile : Entity {
         if (killTimer != null && killTimer.Running == true)
             killTimer.Stop();
 
-        if(impactTask != null && impactTask.Running == true)
+        if (impactTask != null && impactTask.Running == true)
             impactTask.Stop();
 
         if (deployZone == true) {

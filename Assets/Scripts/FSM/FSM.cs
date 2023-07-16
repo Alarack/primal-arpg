@@ -66,7 +66,7 @@ namespace LL.FSM {
             if (CurrentState != null)
                 CurrentState.OnExit();
 
-            Debug.Log("Changing State: " + newState.stateName);
+            //Debug.Log("Changing State: " + newState.stateName);
 
             PreviousState = CurrentState;
             CurrentState = newState;

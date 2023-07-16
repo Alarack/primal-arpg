@@ -110,7 +110,7 @@ public abstract class AbilityTrigger {
                         bool entityCheck = CheckFocusConstraints(entry.Key, foci.Item1, activationInstance);
 
                         if (entityCheck == false) {
-                            Debug.Log("an ability: " + ParentAbility.Data.abilityName + " failed an entity constraint");
+                            //Debug.Log("an ability: " + ParentAbility.Data.abilityName + " failed an entity constraint");
                             return false;
                         }
                     }
