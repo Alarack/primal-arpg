@@ -87,56 +87,12 @@ public class Projectile : Entity {
         //if (LayerTools.IsLayerInMask(parentWeapon.collisionMask, other.gameObject.layer) == false)
         //    return;
 
-
-        string layer = LayerMask.LayerToName(other.gameObject.layer);
-
-
         DeployZoneEffect();
-
-        impactTask = new Task(ProcessImpact(other));
-
-        return;
-
-        ////Debug.Log(layer + " was hit");
-
-        //if(layer != "Environment"){
-
-        //    HandleProjectileSplit(other);
-
-        //    //if (HandleProjectileSplit(other) == true)
-        //    //    return;
-
-        //    if (HandleProjectileChain(other) == true) {
-        //        return;
-        //    }
-
-        //    if (HandleProjectilePierce() == true) {
-        //        return;
-        //    }
-
-        //}
-
-
-        //myCollider.enabled = false;
-        //Movement.CanMove = false;
-        //Movement.MyBody.freezeRotation = false;
-        //Movement.MyBody.velocity = Vector2.zero;
-
-        //SpawnDeathVFX();
-
-        //if (ricochet == true)
-        //    Ricochet(other);
-        //else
-        //    CleanUp(false);
         
-        
-        //Entity otherEntity = other.gameObject.GetComponent<Entity>();
-        //if(otherEntity != null)
-        //{
-        //    DealDamage(otherEntity);
-        //    ApplyOnHitEffects(otherEntity);
-        //}
 
+        ApplyImpact(other);
+
+        //impactTask = new Task(ProcessImpact(other));
     }
 
     private IEnumerator ProcessImpact(Collider2D other) {
@@ -149,32 +105,51 @@ public class Projectile : Entity {
 
             HandleProjectileSplit(other);
 
-            //if (HandleProjectileSplit(other) == true)
-            //    return;
+            HandleProjectileChain(other);
 
-            if (HandleProjectileChain(other) == true) {
-                yield break; ;
-            }
-
-            if (HandleProjectilePierce() == true) {
-                yield break; ;
-            }
-
+            HandleProjectilePierce();
         }
 
 
+        if(Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
+            Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
+            yield break;
+        }
 
-        myCollider.enabled = false;
-        Movement.CanMove = false;
-        Movement.MyBody.freezeRotation = false;
-        Movement.MyBody.velocity = Vector2.zero;
+        if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
+            Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
+            yield break;
+        }
 
-        SpawnDeathVFX();
 
-        if (ricochet == true)
-            Ricochet(other);
-        else
-            CleanUp(false);
+        StartCleanUp();
+    }
+
+    private void ApplyImpact(Collider2D other) {
+
+        string layer = LayerMask.LayerToName(other.gameObject.layer);
+
+        if (layer != "Environment") {
+
+            HandleProjectileSplit(other);
+
+            HandleProjectileChain(other);
+
+            HandleProjectilePierce();
+        }
+
+
+        if (Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
+            Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
+            return;
+        }
+
+        if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
+            Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
+            return;
+        }
+
+        StartCleanUp();
     }
 
     private void DeployZoneEffect() {
@@ -183,16 +158,22 @@ public class Projectile : Entity {
 
     }
 
+    private IEnumerator DeployZoneOnDelay() {
+        yield return new WaitForEndOfFrame();
+
+        EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
+        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this);
+
+    }
 
     private bool HandleProjectilePierce() {
 
         if (Stats.Contains(StatName.ProjectilePierceCount) == false || Stats[StatName.ProjectilePierceCount] < 1f) {
-            StartCleanUp();
+            //StartCleanUp();
             return false;
         }
 
-
-        Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
+        //Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
 
         EventData data = new EventData();
 
@@ -212,10 +193,9 @@ public class Projectile : Entity {
     private bool HandleProjectileSplit(Collider2D recentHit) {
 
         if (Stats.Contains(StatName.ProjectileSplitCount) == false || Stats[StatName.ProjectileSplitCount] < 1f) {
-            StartCleanUp();
+            //StartCleanUp();
             return false;
         }
-
 
         Stats.AddModifier(StatName.ProjectileSplitCount, -1, StatModType.Flat, this);
 
@@ -236,12 +216,11 @@ public class Projectile : Entity {
 
     private bool HandleProjectileChain(Collider2D recentHit) {
         if (Stats.Contains(StatName.ProjectileChainCount) == false || Stats[StatName.ProjectileChainCount] < 1f) {
-            StartCleanUp();
+            //StartCleanUp();
             return false;
         }
 
-
-        Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
+        //Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
         TargetUtilities.RotateToRandomNearbyTarget(recentHit, this, chainRadius, chainMask, true);
 
         return true;
@@ -310,10 +289,10 @@ public class Projectile : Entity {
 
     private void CleanUp(bool deployZone) {
 
-        if (killTimer.Running == true)
+        if (killTimer != null && killTimer.Running == true)
             killTimer.Stop();
 
-        if(impactTask.Running == true)
+        if(impactTask != null && impactTask.Running == true)
             impactTask.Stop();
 
         if (deployZone == true) {
@@ -322,7 +301,7 @@ public class Projectile : Entity {
         }
 
 
-        Destroy(gameObject);
+        Destroy(gameObject, 0.05f);
 
         //new Task(CleanUpNextFrame(deployZone));
     }

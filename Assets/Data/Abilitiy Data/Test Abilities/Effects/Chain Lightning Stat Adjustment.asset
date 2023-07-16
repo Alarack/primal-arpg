@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chain Lightning Stat Adjustment
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Fireball Damage
+    effectName: Chain Lightning Damage
     effectDescription: 
     type: 1
     targeting: 5
@@ -24,8 +24,23 @@ MonoBehaviour:
     targetConstraints: []
     payloadPrefab: {fileID: 3333646925797550982, guid: 9ea225ba0b4bd6a40a2571f8200ebc72, type: 3}
     payloadCount: 1
-    projectilePierceCount: 0
     shotDelay: 0
+    payloadStatData:
+    - variant: 0
+      statName: 37
+      value: 0
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 29
+      value: 0
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 34
+      value: 5
+      maxValue: 0
+      minValue: 0
     spawnLocation: 0
     effectZoneInfo:
       removeEffectOnExit: 0

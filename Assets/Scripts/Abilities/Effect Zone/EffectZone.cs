@@ -88,7 +88,7 @@ public class EffectZone : Entity {
 
         parentEffect.TrackActiveDelivery(carrier);
 
-        //Debug.Log("Zone effect is applying: " + parentEffect.Data.effectName);
+        Debug.Log("Zone effect is applying: " + parentEffect.Data.effectName);
         parentEffect.Apply(target);
         CreateApplyVFX(target.transform.position);
 
