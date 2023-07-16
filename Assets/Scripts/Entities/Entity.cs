@@ -118,6 +118,16 @@ public abstract class Entity : MonoBehaviour {
         ActiveStatuses.Remove(status);
     }
 
+    public bool HasStatus(Status.StatusName status) {
+        for (int i = 0; i < ActiveStatuses.Count; i++) {
+            if (ActiveStatuses[i].statusName == status) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     #endregion
 

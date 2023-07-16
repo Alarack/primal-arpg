@@ -264,9 +264,6 @@ public class DashingConstraint : AbilityConstraint {
 
     public override ConstraintType Type => ConstraintType.Dashing;
 
-
-
-
     public DashingConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
      
     }
@@ -277,6 +274,24 @@ public class DashingConstraint : AbilityConstraint {
             return false;
 
         bool result = target.Movement.IsDashing;
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
+public class HasStatusConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.HasStatus;
+
+    public HasStatusConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+
+        bool result = target.HasStatus(data.targetStatus);
 
         return inverse == false ? result : !result;
     }

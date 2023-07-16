@@ -127,7 +127,8 @@ public class ConstraintData
     public string targetEffectName;
     public StatModifierData.StatModDesignation effectDesigantion;
 
-
+    //Has Status
+    public Status.StatusName targetStatus;
 
 
     public ConstraintData() {
