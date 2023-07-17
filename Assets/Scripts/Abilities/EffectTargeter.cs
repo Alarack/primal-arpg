@@ -328,16 +328,22 @@ public class EffectTargeter {
     private void ApplyLogicTargeting() {
         entityTargets = GetLogicTargets();
 
-        for (int i = 0; i < entityTargets.Count; i++) {
-            parentEffect.Apply(entityTargets[i]);
+
+        if(parentEffect.Data.deliveryPayloadToTarget == false) {
+            for (int i = 0; i < entityTargets.Count; i++) {
+                parentEffect.Apply(entityTargets[i]);
+            }
         }
+        else {
+            for (int i = 0; i < entityTargets.Count; i++) {
+                ApplyPayloadDeliveryToTarget(entityTargets[i]);
+            }
+        }
+
+       
 
         if (entityTargets.Count > 0)
             parentEffect.SendEffectAppliedEvent();
-
-    }
-
-    private void ApplyToSpecificAbility() {
 
     }
 
@@ -350,10 +356,6 @@ public class EffectTargeter {
 
         if (abilityTargets.Count > 0)
             parentEffect.SendEffectAppliedEvent();
-    }
-
-    private void ApplyToSpecificEffect() {
-
     }
 
     private void ApplyToLogicTargetedEffects() {
@@ -377,17 +379,25 @@ public class EffectTargeter {
     }
 
 
-    //public void ApplyToPreviewedTargets() {
-    //    for (int i = 0; i < previewTargets.Count; i++) {
-    //        parentEffect.Apply(previewTargets[i]);
-    //    }
-
-    //    if (previewTargets.Count > 0)
-    //        parentEffect.SendEffectAppliedEvent();
-    //}
+    public void ApplyPayloadDeliveryToTarget(Entity target) {
+        new Task(DeliveryPayloadOnDelay(GetPayloadSpawnLocation(), target));
+    }
 
     public void ApplyPayloadDelivery() {
-        Vector2 targetocation = parentEffect.Data.spawnLocation switch {
+        //Vector2 targetLocation = parentEffect.Data.spawnLocation switch {
+        //    DeliverySpawnLocation.Source => parentEffect.Source.transform.position,
+        //    DeliverySpawnLocation.Trigger => ActivationInstance.TriggeringEntity.transform.position,
+        //    DeliverySpawnLocation.Cause => ActivationInstance.CauseOfTrigger.transform.position,
+        //    DeliverySpawnLocation.MousePointer => Camera.main.ScreenToWorldPoint(Input.mousePosition),
+        //    DeliverySpawnLocation.Target => throw new NotImplementedException(),
+        //    _ => throw new NotImplementedException(),
+        //};
+
+        new Task(DeliveryPayloadOnDelay(GetPayloadSpawnLocation()));
+    }
+
+    public Vector2 GetPayloadSpawnLocation() {
+        Vector2 targetLocation = parentEffect.Data.spawnLocation switch {
             DeliverySpawnLocation.Source => parentEffect.Source.transform.position,
             DeliverySpawnLocation.Trigger => ActivationInstance.TriggeringEntity.transform.position,
             DeliverySpawnLocation.Cause => ActivationInstance.CauseOfTrigger.transform.position,
@@ -396,10 +406,10 @@ public class EffectTargeter {
             _ => throw new NotImplementedException(),
         };
 
-        new Task(DeliveryPayloadOnDelay(targetocation));
+        return targetLocation;
     }
 
-    private IEnumerator DeliveryPayloadOnDelay(Vector2 location) {
+    private IEnumerator DeliveryPayloadOnDelay(Vector2 location, Entity target = null) {
         WaitForSeconds waiter = new WaitForSeconds(parentEffect.Stats[StatName.FireDelay]);
 
         //Debug.Log(parentEffect.Stats[StatName.ShotCount] + " projectiles on " + parentEffect.ParentAbility.Data.abilityName);
@@ -415,12 +425,14 @@ public class EffectTargeter {
 
                 projectile.Stats.AddMissingStats(parentEffect.Stats);
 
-                //if (parentEffect.Stats.Contains(StatName.ProjectilePierceCount) == true)
-                //    projectile.Stats.AddModifier(StatName.ProjectilePierceCount, parentEffect.Stats[StatName.ProjectilePierceCount], StatModType.Flat, parentEffect.Source);
-
                 float sourceInaccuracy = (1f - parentEffect.Source.Stats[StatName.Accuracy]) * 360f;
                 float projectileInaccuracy = (1f - projectile.Stats[StatName.Accuracy]) * 360f;
                 float totalInaccuracy = (projectileInaccuracy + sourceInaccuracy) / 2f;
+
+
+                if(target != null) {
+                    projectile.transform.rotation = TargetUtilities.GetRotationTowardTarget(target.transform, projectile.transform);
+                }
 
                 projectile.transform.eulerAngles += new Vector3(0f, 0f, UnityEngine.Random.Range(-totalInaccuracy, totalInaccuracy));
 

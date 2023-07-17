@@ -46,8 +46,10 @@ public abstract class Effect {
         Stats = new StatCollection(this, Data.payloadStatData);
         SimpleStat effectShotCount = new SimpleStat(StatName.ShotCount, Data.payloadCount);
         SimpleStat shotDelay = new SimpleStat(StatName.FireDelay, Data.shotDelay);
+        SimpleStat maxTargets = new SimpleStat(StatName.EffectMaxTargets, Data.numberOfTargets);
         Stats.AddStat(effectShotCount);
         Stats.AddStat(shotDelay);
+        Stats.AddStat(maxTargets);
     }
 
     protected void SetupTargetConstraints() {

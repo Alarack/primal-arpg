@@ -490,8 +490,20 @@ public class Ability {
         StringBuilder builder = new StringBuilder();
 
 
-        if(string.IsNullOrEmpty(Data.abilityDescription) == false)
-            builder.Append(Data.abilityDescription).AppendLine();
+        if(string.IsNullOrEmpty(Data.abilityDescription) == false) {
+            int targets = GetMaxTargets();
+
+            if(targets > 0) {
+                string replacement = Data.abilityDescription.Replace("{T}", TextHelper.ColorizeText(GetMaxTargets().ToString(), Color.green));
+
+                builder.Append(replacement).AppendLine();
+            }
+            else{
+                builder.Append(Data.abilityDescription).AppendLine();
+            }
+           
+
+        }
 
 
 
@@ -609,6 +621,10 @@ public class Ability {
         //}
 
         return -1f;
+    }
+
+    public int GetMaxTargets() {
+        return (int)effects[0].Stats[StatName.EffectMaxTargets]; ;
     }
 
     public bool HasAutoFire() {

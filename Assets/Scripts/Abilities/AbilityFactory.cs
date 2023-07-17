@@ -60,7 +60,7 @@ public static class AbilityFactory {
             ConstraintType.Dashing => new DashingConstraint(data, source, parentAbility),
             ConstraintType.ParentAbilityTag => throw new NotImplementedException(),
             ConstraintType.Collision => throw new NotImplementedException(),
-            ConstraintType.Range => throw new NotImplementedException(),
+            ConstraintType.Range => new RangeConstraint(data, source, parentAbility),
             ConstraintType.StatMinimum => throw new NotImplementedException(),
             ConstraintType.StatMaximum => throw new NotImplementedException(),
             ConstraintType.EntityName => throw new NotImplementedException(),

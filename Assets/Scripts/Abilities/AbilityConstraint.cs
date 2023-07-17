@@ -251,6 +251,10 @@ public class RangeConstraint : AbilityConstraint {
             case EffectTarget.OtherEffectTarget:
                 Debug.LogWarning("Range Constraint: Other Effect target is not yet setup");
                 break;
+
+            default:
+                throw new System.NotImplementedException();
+            
         }
 
         bool result = range <= data.maxRange && range >= data.minRange;

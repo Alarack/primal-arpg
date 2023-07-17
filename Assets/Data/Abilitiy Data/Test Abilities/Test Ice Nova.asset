@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: Test Fireball Ability
+  m_Name: Test Ice Nova
   m_EditorClassIdentifier: 
   AbilityData:
     category: 1
-    abilityIcon: {fileID: 21300000, guid: 51e4bfd3af39cd74c84f254c5a51b0da, type: 3}
-    abilityName: Test Fireball
-    abilityDescription: This is my test fireball Ability. It's pretty rad
+    abilityIcon: {fileID: 21300000, guid: 05a963607a41d5c4b91bf644f8f62e0b, type: 3}
+    abilityName: Ice Nova
+    abilityDescription: Launch up to {T} Ice Shards at nearby targets.
     toBestow: 0
     suspend: 0
     autoFire: 0
     includeEffectsInTooltip: 0
     runeAbilityTarget: 
     childAbilities: []
-    tags: 01000000
+    tags: 
     activationTriggerData:
     - type: 6
       riderAbilityName: 
@@ -93,9 +93,9 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 12fcd1aa14b28a74b917ee46ac2a0c32, type: 2}
+    - {fileID: 11400000, guid: 3b2e70cf679cb2b4793c6dbfbc5739cc, type: 2}
     effectData: []
-    startingRecoveryCharges: 2
+    startingRecoveryCharges: 1
     baseRuneSlots: 2
     recoveryData:
     - type: 0
@@ -112,4 +112,4 @@ MonoBehaviour:
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         minTriggerCount: 0
-      cooldown: 0.5
+      cooldown: 1

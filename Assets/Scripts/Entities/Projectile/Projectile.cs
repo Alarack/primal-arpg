@@ -47,7 +47,7 @@ public class Projectile : Entity {
 
         myCollider = GetComponent<Collider2D>();
 
-        float speedVariance = UnityEngine.Random.Range(0.5f, 1.5f);
+        float speedVariance = UnityEngine.Random.Range(0.8f, 1.2f);
 
         Stats.AddModifier(StatName.MoveSpeed, speedVariance, StatModType.PercentAdd, this);
 

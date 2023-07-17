@@ -42,7 +42,8 @@ public enum StatName
     ProjectileChainCount,
     ProjectileSplitCount,
     ProjectileSplitQuantity,
-    ProjectileEffectContrabution
+    ProjectileEffectContrabution,
+    EffectMaxTargets
 }
 
 

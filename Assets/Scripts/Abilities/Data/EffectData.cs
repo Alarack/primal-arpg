@@ -24,7 +24,8 @@ public enum EffectTarget {
     OtherEffectTarget,
     OtherMostRecentTarget,
     LogicSelectedAbility,
-    LogicSelectedEffect
+    LogicSelectedEffect,
+    CurrentValidTargets
 }
 
 public enum EffectSubTarget {
@@ -57,6 +58,7 @@ public class EffectData
     public EffectType type;
     public EffectTarget targeting;
     public EffectSubTarget subTarget;
+    public bool deliveryPayloadToTarget;
 
     public int numberOfTargets = -1;
     public string otherAbilityName;
@@ -114,6 +116,7 @@ public class EffectData
         this.effectName = copy.effectName;
         this.type = copy.type;
         this.targeting = copy.targeting;
+        this.deliveryPayloadToTarget = copy.deliveryPayloadToTarget;
         this.numberOfTargets = copy.numberOfTargets;
         this.otherAbilityName = copy.otherAbilityName;
         this.otherEffectName = copy.otherEffectName;
