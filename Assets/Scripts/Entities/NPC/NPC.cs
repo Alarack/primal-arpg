@@ -13,21 +13,13 @@ public class NPC : Entity
         Brain = GetComponent<AIBrain>();
     }
 
-    protected override void OnHealthChanged(BaseStat stat, object source, float value)
-    {
-        if(stat.ModifiedValue <= 0f)
-        {
-            Die();
-        }
-    }
 
-
-    protected override void Die()
+    protected override void Die(Entity source, Ability sourceAbility = null)
     {
         //Play Death animation
         //Drop Loot
         //Award exp
-        base.Die();
+        base.Die(source, sourceAbility);
 
         EntityManager.RemoveEntity(this);
         //EffectManager.RemoveTarget(this);

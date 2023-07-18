@@ -377,7 +377,7 @@ Transform:
   - {fileID: 6456405063262999642}
   - {fileID: 3888037755713207349}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &3813806107146465753
 Rigidbody2D:
@@ -468,7 +468,7 @@ MonoBehaviour:
   ownerType: 1
   subtypes: 
   statDefinitions: {fileID: 11400000, guid: aa78b7e92d501d14883c0e4726301d06, type: 2}
-  deathEffectPrefab: {fileID: 0}
+  deathEffectPrefab: {fileID: 150606, guid: 625165fb93553b14f8ed057807ed752a, type: 3}
   spawnEffectPrefab: {fileID: 0}
 --- !u!114 &2487008959131217113
 MonoBehaviour:

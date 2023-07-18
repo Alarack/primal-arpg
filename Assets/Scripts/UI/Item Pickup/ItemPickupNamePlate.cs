@@ -25,7 +25,7 @@ public class ItemPickupNamePlate : MonoBehaviour, IPointerEnterHandler, IPointer
     }
 
     private void OnDisable() {
-        EntityManager.ActivePlayer.CanAttack = true;
+        //EntityManager.ActivePlayer.CanAttack = true;
     }
 
     public void Setup(ItemPickup parent) {
@@ -38,7 +38,7 @@ public class ItemPickupNamePlate : MonoBehaviour, IPointerEnterHandler, IPointer
             fadeTask = new Task(Fade(1f));
         }
 
-        EntityManager.ActivePlayer.CanAttack = false;
+        //EntityManager.ActivePlayer.CanAttack = false;
     }
 
     public void Hide() {
@@ -48,7 +48,7 @@ public class ItemPickupNamePlate : MonoBehaviour, IPointerEnterHandler, IPointer
             fadeTask = new Task(Fade(0f));
         }
 
-        EntityManager.ActivePlayer.CanAttack = true;
+        //EntityManager.ActivePlayer.CanAttack = true;
     }
 
 

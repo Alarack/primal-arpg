@@ -80,7 +80,7 @@ public class Projectile : Entity {
 
         projectileSize *= globalSizeMod;
 
-        Debug.Log("Projectile Size: " + projectileSize);
+        //Debug.Log("Projectile Size: " + projectileSize);
 
         transform.localScale = new Vector3(projectileSize, projectileSize, projectileSize);
 

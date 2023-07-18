@@ -10,92 +10,38 @@ using UnityEngine.InputSystem;
 public class EntityPlayer : Entity
 {
 
-
-
-    public EffectDefinition runeTestEffect;
-
-
     public Inventory Inventory { get; private set; }
-    public bool CanAttack { get; set; } = true;
+    //public bool CanAttack { get; set; } = true;
 
     public float CurrentDamageRoll { get { return GetDamgeRoll(); } }
 
-    private Effect testRuneActiveEffect;
+
 
     protected override void Awake() {
         base.Awake();
         Inventory = GetComponent<Inventory>();
-        //Effect fireball = AbilityFactory.CreateEffect(fireballTest.effectData, this);
-        //testEffects.Add(fireball);
-
-        //Ability debugAbility = AbilityFactory.CreateAbility(testAbility.AbilityData, this);
-        //debugAbility.Equip();
-        //testAbilities.Add(debugAbility);
-
     }
 
 
     private void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            //testEffects[0].ReceiveStartActivationInstance(null);
 
-            if (PanelManager.IsPanelOpen<InventoryPanel>() == true)
-                return;
-
-            if (CanAttack == false)
-                return;
-
-            //EventData eventData = new EventData();
-            //eventData.AddAbility("Ability", testAbilities[0]);
-
-            //EventManager.SendEvent(GameEvent.UserActivatedAbility, eventData);
-
-        }
-
-       
-
-
-        //if(Input.GetKeyDown(KeyCode.C)) {
-        //    StatAdjustmentManager.AdjustCDR(this, 0.5f, this);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.U)) {
-        //    StatAdjustmentManager.AdjustCDR(this, -0.5f, this);
-        //}
-
-        //if(Input.GetKeyDown(KeyCode.M)) {
-        //    if(testRuneActiveEffect == null) {
-        //        testRuneActiveEffect = AbilityFactory.CreateEffect(runeTestEffect.effectData, this);
-        //    }
-        //    testRuneActiveEffect.ReceiveStartActivationInstance(null);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.E)) {
-        //    testRuneActiveEffect.RecieveEndActivationInstance(null);
-        //}
 
     }
 
-  
-
+ 
     public float GetDamgeRoll() {
         return Inventory.GetDamageRoll();
     }
 
 
     #region EVENTS
-    protected override void OnHealthChanged(BaseStat stat, object source, float value) {
-        if (stat.ModifiedValue <= 0f) {
-            Die();
-        }
 
-    }
     #endregion
 
 
-    protected override void Die() {
+    protected override void Die(Entity source, Ability sourceAbility = null) {
 
-        base.Die();
+        base.Die(source, sourceAbility);
 
         EntityManager.RemoveEntity(this);
         SpawnDeathVFX();

@@ -28,8 +28,8 @@ public class Status {
 
 
     public bool IsStackCapped { get { return MaxStacks > 0 && StackCount == MaxStacks; } }
-    public int StackCount { get; protected set; } 
-    public int MaxStacks { get; protected set; } 
+    public int StackCount { get; protected set; }
+    public int MaxStacks { get; protected set; }
     public Entity Target { get; protected set; }
     public Entity Source { get; protected set; }
 
@@ -57,6 +57,8 @@ public class Status {
         this.Target = target;
         this.Source = source;
 
+        RegisterEvents();
+
         CreateTimers();
         //CreateEffect(activeEffect);
         ActiveEffect = activeEffect;
@@ -66,9 +68,28 @@ public class Status {
         FirstApply();
     }
 
+    private void RegisterEvents() {
+        EventManager.RegisterListener(GameEvent.UnitDied, OnUnitDied);
+    }
+
+    private void OnUnitDied(EventData data) {
+        Entity target = data.GetEntity("Victim");
+
+
+        if (target == Target) {
+            Debug.LogWarning(Target.EntityName + " was killed while affected by a status: " + statusName);
+
+            
+
+        }
+
+    }
+
+
+
     private void CreateEffect(EffectData effectData) {
 
-        if(effectData.type == EffectType.AddStatus) {
+        if (effectData.type == EffectType.AddStatus) {
             Debug.LogError("Status trying to create an infinite loop of statuses. Noping out.");
             return;
         }
@@ -90,6 +111,12 @@ public class Status {
     }
 
     protected virtual void Tick(EventData timerEventData) {
+        if (Target == null) {
+            //Debug.LogWarning("A target with a status is null. Removing status");
+            Remove();
+            return;
+        }
+
         ActiveEffect.Apply(Target);
     }
 
@@ -139,9 +166,10 @@ public class Status {
         ParentEffect.CleanUp(Target, ActiveEffect);
         ActiveEffect.Remove(Target);
         ActiveEffect = null;
+        EventManager.RemoveMyListeners(this);
 
-
-        Target.RemoveStatus(this);
+        if (Target != null)
+            Target.RemoveStatus(this);
 
         if (activeVFX == null)
             return;

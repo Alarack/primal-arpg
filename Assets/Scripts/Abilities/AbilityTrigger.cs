@@ -677,11 +677,13 @@ public class UnitDiedTrigger : AbilityTrigger {
     public void OnUnitDied(EventData data) {
         Entity victim = data.GetEntity("Victim");
         Entity killer = data.GetEntity("Killer");
+        Ability ability = data.GetAbility("Ability Cause");
 
         TriggeringEntity = victim;
         CauseOfTrigger = killer;
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.CausingAbility = ability;
         TryActivateTrigger(triggerInstance);
 
     }

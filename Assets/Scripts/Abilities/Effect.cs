@@ -181,11 +181,6 @@ public abstract class Effect {
         AbilityTargets.RemoveIfContains(target);
     }
 
-    //protected void BeginDelivery() {
-    //    Weapon ownerWeapon = Source.GetComponent<Weapon>();
-    //    //ownerWeapon.payload = Data.payloadPrefab;
-    //}
-
     public void RemoveFromAllTargets() {
         for (int i = EntityTargets.Count - 1; i >= 0; i--) {
             Remove(EntityTargets[i]);
@@ -269,6 +264,33 @@ public class ForcedMovementEffect : Effect {
     }
 }
 
+public class ApplyOtherEffect : Effect {
+
+    public override EffectType Type => EffectType.ApplyOtherEffect;
+
+
+    public ApplyOtherEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        Tuple<Ability, Effect> abilityEffece = AbilityUtilities.GetAbilityAndEffectByName(Data.targetOtherEffectParentAbilityName, Data.targetOtherEffectName, Source, AbilityCategory.Any);
+        
+
+        if(abilityEffece.Item2 != null) {
+            abilityEffece.Item2.Apply(target);
+        }
+        else {
+            Debug.LogError("Couldn't find the right ability on: " + Source.EntityName);
+        }
+
+        return true;
+    }
+}
+
+
 public class AddChildAbilityEffect : Effect {
 
     public override EffectType Type => EffectType.AddChildAbility;
@@ -284,10 +306,7 @@ public class AddChildAbilityEffect : Effect {
             return false;
 
         throw new NotImplementedException();
-      
 
-
-        //return true;
     }
 
 

@@ -101,6 +101,7 @@ public static class AbilityFactory {
             //EffectType.RemoveStatus => throw new NotImplementedException(),
             EffectType.Movement => new ForcedMovementEffect(data, source, parentAbility),
             EffectType.AddChildAbility => new AddChildAbilityEffect(data, source, parentAbility),
+            EffectType.ApplyOtherEffect => new ApplyOtherEffect(data, source, parentAbility),
             _ => null,
         };
 

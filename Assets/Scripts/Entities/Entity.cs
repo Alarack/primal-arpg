@@ -42,6 +42,7 @@ public abstract class Entity : MonoBehaviour {
 
     public List<Status> ActiveStatuses { get; private set; } = new List<Status>();
 
+    public bool IsDead { get; protected set; }
 
     protected virtual void Awake() {
         Stats = new StatCollection(this, statDefinitions);
@@ -75,16 +76,14 @@ public abstract class Entity : MonoBehaviour {
     }
 
     protected virtual void OnDisable() {
-        if (Stats.Contains(StatName.Health) == true) {
-            Stats.RemoveStatListener(StatName.Health, OnHealthChanged);
-        }
+        //if (Stats.Contains(StatName.Health) == true) {
+        //    Stats.RemoveStatListener(StatName.Health, OnHealthChanged);
+        //}
+
+        EventManager.RemoveMyListeners(this);
     }
 
     #region ABILIITES
-
-    //protected virtual void SetupAbilities() {
-    //    AbilityUtilities.SetupAbilities(baseAbilities, abilities, this);
-    //}
 
     public Ability GetAbilityByName(string name, AbilityCategory category) {
         return AbilityManager.GetAbilityByName(name, category);
@@ -103,17 +102,40 @@ public abstract class Entity : MonoBehaviour {
     #region EVENTS
 
     protected virtual void RegisterStatListeners() {
-        if(Stats.Contains(StatName.Health) == true) {
-            Stats.AddStatListener(StatName.Health, OnHealthChanged);
-        }
-    }
-
-
-    protected virtual void OnHealthChanged(BaseStat stat, object source, float value) {
-        //if (stat.ModifiedValue <= 0f) {
-        //    Die();
+        //if(Stats.Contains(StatName.Health) == true) {
+        //    Stats.AddStatListener(StatName.Health, OnHealthChanged);
         //}
+
+        EventManager.RegisterListener(GameEvent.UnitStatAdjusted, OnStatChanged);
     }
+
+
+    protected virtual void OnStatChanged(EventData data) {
+        StatName stat = (StatName)data.GetInt("Stat");
+
+        Entity target = data.GetEntity("Target");
+
+        if (target != this)
+            return;
+
+        if (stat != StatName.Health)
+            return;
+
+        Ability sourceAbility = data.GetAbility("Ability");
+        Entity cause = data.GetEntity("Source");
+
+        if (Stats[StatName.Health] <= 0) {
+            Die(cause, sourceAbility);
+        }
+
+
+    }
+
+    //protected virtual void OnHealthChanged(BaseStat stat, object source, float value) {
+    //    //if (stat.ModifiedValue <= 0f) {
+    //    //    Die();
+    //    //}
+    //}
 
     #endregion
 
@@ -141,9 +163,18 @@ public abstract class Entity : MonoBehaviour {
     #endregion
 
 
-    protected virtual void Die() {
+    protected virtual void Die(Entity source, Ability sourceAbility = null) {
+        if(IsDead == true)
+            return;
+
+        IsDead = true;
+        
         EventData data = new EventData();
-        data.AddEntity("Entity", this);
+        data.AddEntity("Victim", this);
+        data.AddEntity("Killer", source);
+        data.AddAbility("Ability Cause", sourceAbility);
+
+
         EventManager.SendEvent(GameEvent.UnitDied, data);
     }
 

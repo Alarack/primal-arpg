@@ -11,7 +11,8 @@ public enum EffectType {
     AddStatus,
     RemoveStatus,
     Movement,
-    AddChildAbility
+    AddChildAbility,
+    ApplyOtherEffect
 }
 
 public enum EffectTarget {
@@ -106,6 +107,9 @@ public class EffectData
     //Add Child Ability
     public List<AbilityDefinition> abilitiesToAdd = new List<AbilityDefinition>();
 
+    //Apply Other Effect
+    public string targetOtherEffectParentAbilityName;
+    public string targetOtherEffectName;
 
 
     public EffectData() {
