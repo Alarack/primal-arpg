@@ -36,6 +36,7 @@ public static class AbilityFactory {
             TriggerType.DashStarted => new DashStartedTrigger(data, source, parentAbility),
             TriggerType.ProjectilePierced => new ProjectilePiercedTrigger(data, source, parentAbility),
             TriggerType.ProjectileChained => new ProjectileChainedTrigger(data, source, parentAbility),
+            TriggerType.UnitDiedWithStatus => new UnitDiedWithStatusTrigger(data, source, parentAbility),
             _ => null,
         };
 

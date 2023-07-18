@@ -689,6 +689,33 @@ public class UnitDiedTrigger : AbilityTrigger {
     }
 }
 
+public class UnitDiedWithStatusTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.UnitDiedWithStatus;
+    public override GameEvent TargetEvent => GameEvent.UnitDiedWithStatus;
+    public override Action<EventData> EventReceiver => OnUnitDiedWithStatus;
+
+    public UnitDiedWithStatusTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnUnitDiedWithStatus(EventData data) {
+        Entity victim = data.GetEntity("Victim");
+        Entity killer = data.GetEntity("Killer");
+        Ability ability = data.GetAbility("Ability");
+        Effect triggeringEffect = data.GetEffect("Effect");
+
+        TriggeringEntity = victim;
+        CauseOfTrigger = killer;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.CausingAbility = ability;
+        triggerInstance.TriggeringEffect = triggeringEffect;
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
 public class StatChangedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.UnitStatChanged;

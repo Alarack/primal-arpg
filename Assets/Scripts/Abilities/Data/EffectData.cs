@@ -110,6 +110,7 @@ public class EffectData
     //Apply Other Effect
     public string targetOtherEffectParentAbilityName;
     public string targetOtherEffectName;
+    public bool applyTriggeringEffect;
 
 
     public EffectData() {

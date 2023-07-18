@@ -24,7 +24,7 @@ public class NPC : Entity
         EntityManager.RemoveEntity(this);
         //EffectManager.RemoveTarget(this);
         SpawnDeathVFX();
-        Destroy(gameObject);
+        Destroy(gameObject, 0.1f);
     }
 
 

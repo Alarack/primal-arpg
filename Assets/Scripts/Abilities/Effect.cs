@@ -126,6 +126,8 @@ public abstract class Effect {
 
     public virtual bool Apply(Entity target) {
 
+        if(target.IsDead) 
+            return false;
 
         if (EvaluateTargetConstraints(target) == false)
             return false;
@@ -276,9 +278,19 @@ public class ApplyOtherEffect : Effect {
         if (base.Apply(target) == false)
             return false;
 
+        if(Data.applyTriggeringEffect == true) {
+            Effect triggerEffect = currentTriggerInstance.TriggeringEffect;
+
+            if (triggerEffect != null) {
+                triggerEffect.Apply(target);
+            }
+
+            return true;
+        }
+
+  
         Tuple<Ability, Effect> abilityEffece = AbilityUtilities.GetAbilityAndEffectByName(Data.targetOtherEffectParentAbilityName, Data.targetOtherEffectName, Source, AbilityCategory.Any);
         
-
         if(abilityEffece.Item2 != null) {
             abilityEffece.Item2.Apply(target);
         }
@@ -361,11 +373,7 @@ public class AddStatusEffect : Effect {
 
     private Dictionary<Entity, List<Status>> activeStatusDict = new Dictionary<Entity, List<Status>>();
 
-    //public StatAdjustmentEffect templateEffect;
-
     public List<StatAdjustmentEffect> activeStatusEffects = new List<StatAdjustmentEffect>();
-
-    //private List<StatModifierData> modData = new List<StatModifierData>();
 
     public AddStatusEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
@@ -383,14 +391,6 @@ public class AddStatusEffect : Effect {
 
         for (int i = 0; i < data.statusToAdd.Count; i++) {
             Effect statusEffect = AbilityFactory.CreateEffect(data.statusToAdd[i].statusEffectDef.effectData, source);
-            //modData = new List<StatModifierData>(statusEffect.Data.modData);
-
-            //for (int j = 0; j < modData.Count; j++) {
-            //    modData[j].SetupEffectStats();
-            //}
-
-            //Debug.Log(data.effectName + " is creating an effect: " + statusEffect.Data.effectName);
-            
             activeStatusEffects.Add(statusEffect as StatAdjustmentEffect);
         }
     }
@@ -411,7 +411,6 @@ public class AddStatusEffect : Effect {
         if (base.Apply(target) == false)
             return false;
 
-
         if (activeStatusDict.TryGetValue(target, out List<Status> statusList) == true) {
 
             for (int j = 0; j < statusList.Count; j++) {
@@ -428,27 +427,13 @@ public class AddStatusEffect : Effect {
     }
 
     private void ApplyNewStatus(Entity target) {
-
         for (int i = 0; i < activeStatusEffects.Count; i++) {
 
-            //Debug.Log("origonal Damage: " + activeStatusEffects[i].GetBaseWeaponPercent());
-
-            //StatAdjustmentEffect statusEffect = StatAdjustmentEffect.Clone(activeStatusEffects[i]);
             StatAdjustmentEffect statusEffect = new StatAdjustmentEffect(activeStatusEffects[i].Data, activeStatusEffects[i].Source, activeStatusEffects[i], activeStatusEffects[i].ParentAbility);
-            //Debug.Log("after clone Damage: " + activeStatusEffects[i].GetBaseWeaponPercent());
-
-            //Debug.Log("Making a new status. Damage: " + statusEffect.GetBaseWeaponPercent());
-
 
             Status newStatus = new Status(Data.statusToAdd[i], target, Source, statusEffect, this);
             TrackActiveStatus(target, newStatus);
         }
-
-
-        //for (int i = 0; i < Data.statusToAdd.Count; i++) {
-        //    Status newStatus = new Status(Data.statusToAdd[i], target, Source, Data.statusToAdd[i].statusEffectDef.effectData, this);
-        //    TrackActiveStatus(target, newStatus);
-        //}
     }
 
     private void TrackActiveStatus(Entity target, Status status) {
@@ -459,6 +444,18 @@ public class AddStatusEffect : Effect {
             List<Status> newList = new List<Status>() { status };
             activeStatusDict.Add(target, newList);
         }
+    }
+
+    public void OnAffectedTargetDies(Entity target, Entity cause, Status status) {
+
+        EventData eventData = new EventData();
+        eventData.AddEntity("Victim", target);
+        eventData.AddEntity("Killer", cause);
+        eventData.AddAbility("Ability", ParentAbility);
+        eventData.AddEffect("Effect", this);
+
+        EventManager.SendEvent(GameEvent.UnitDiedWithStatus, eventData);
+
     }
 
     public void CleanUp(Entity target, Effect activeEffect) {

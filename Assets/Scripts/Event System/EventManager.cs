@@ -146,7 +146,8 @@ namespace LL.Events {
         DashStarted,
         ProjectilePierced,
         ProjectileChained,
-        ProjectileSplit
+        ProjectileSplit,
+        UnitDiedWithStatus
 
     }
 

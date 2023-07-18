@@ -51,9 +51,6 @@ public class Status {
         this.MaxStacks = (int)ParentEffect.Stats.GetStatRangeMaxValue(StatName.StackCount);
         this.StackCount = (int)ParentEffect.Stats[StatName.StackCount];
 
-        //this.MaxStacks = (int)ParentEffect.Stats.GetStatRangeMaxValue(StatName.StackCount);
-        //StackCount = (int)ParentEffect.Stats[StatName.StackCount];
-
         this.Target = target;
         this.Source = source;
 
@@ -74,28 +71,14 @@ public class Status {
 
     private void OnUnitDied(EventData data) {
         Entity target = data.GetEntity("Victim");
-
+        Entity killer = data.GetEntity("Killer");
 
         if (target == Target) {
-            Debug.LogWarning(Target.EntityName + " was killed while affected by a status: " + statusName);
+            //Debug.LogWarning(Target.EntityName + " was killed while affected by a status: " + statusName);
+            ParentEffect.OnAffectedTargetDies(target, killer, this);
 
-            
-
+            Remove();
         }
-
-    }
-
-
-
-    private void CreateEffect(EffectData effectData) {
-
-        if (effectData.type == EffectType.AddStatus) {
-            Debug.LogError("Status trying to create an infinite loop of statuses. Noping out.");
-            return;
-        }
-
-        ActiveEffect = AbilityFactory.CreateEffect(effectData, Source);
-        //ParentEffect.activeStatusEffects.Add(ActiveEffect);
     }
 
     private void CreateTimers() {

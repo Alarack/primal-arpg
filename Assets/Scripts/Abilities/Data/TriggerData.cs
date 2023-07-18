@@ -31,7 +31,8 @@ public enum TriggerType {
     DashStarted,
     ProjectilePierced,
     ProjectileChained,
-    ProjectileSplit
+    ProjectileSplit,
+    UnitDiedWithStatus
 }
 
 
