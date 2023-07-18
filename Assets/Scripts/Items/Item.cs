@@ -114,6 +114,11 @@ public class Item
     public string GetTooltip() {
         StringBuilder builder = new StringBuilder();
 
+        if(string.IsNullOrEmpty( Data.itemDescription) == false) {
+            builder.Append(Data.itemDescription).AppendLine();
+        } 
+
+
         if(this is ItemWeapon) {
             ItemWeapon weapon = (ItemWeapon)this;
             builder.Append("Damage: ").Append(weapon.minDamage).Append(" - ").Append(weapon.maxDamage).AppendLine();

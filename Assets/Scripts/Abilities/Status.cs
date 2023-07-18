@@ -78,11 +78,15 @@ public class Status {
     }
 
     private void CreateTimers() {
-        if (Data.duration > 0f)
-            durationTimer = new Timer(ParentEffect.GetModifiedEffectDuration(), CleanUp, false);
 
-        if (Data.interval > 0f)
-            intervalTimer = new Timer(ParentEffect.GetModifiedIntervalDuration(), Tick, true);
+        float totalDuration = ParentEffect.GetModifiedEffectDuration();
+        float totalInterval = ParentEffect.GetModifiedIntervalDuration();
+
+        if (totalDuration > 0f)
+            durationTimer = new Timer(totalDuration, CleanUp, false);
+
+        if (totalInterval > 0f)
+            intervalTimer = new Timer(totalInterval, Tick, true);
     }
 
     protected virtual void Tick(EventData timerEventData) {

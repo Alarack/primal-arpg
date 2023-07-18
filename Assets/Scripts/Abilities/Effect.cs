@@ -47,6 +47,7 @@ public abstract class Effect {
         SimpleStat effectShotCount = new SimpleStat(StatName.ShotCount, Data.payloadCount);
         SimpleStat shotDelay = new SimpleStat(StatName.FireDelay, Data.shotDelay);
         SimpleStat maxTargets = new SimpleStat(StatName.EffectMaxTargets, Data.numberOfTargets);
+        //SimpleStat effectRange = new SimpleStat(StatName.EffectRange, Data.)
         Stats.AddStat(effectShotCount);
         Stats.AddStat(shotDelay);
         Stats.AddStat(maxTargets);
@@ -55,6 +56,7 @@ public abstract class Effect {
     protected void SetupTargetConstraints() {
         for (int i = 0; i < Data.targetConstraints.Count; i++) {
             AbilityConstraint constraint = AbilityFactory.CreateAbilityConstraint(Data.targetConstraints[i], Source, ParentAbility);
+            constraint.SetParentEffect(this);
             targetConstraints.Add(constraint);
         }
     }

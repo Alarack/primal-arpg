@@ -43,7 +43,13 @@ public enum StatName
     ProjectileSplitCount,
     ProjectileSplitQuantity,
     ProjectileEffectContrabution,
-    EffectMaxTargets
+    EffectMaxTargets,
+    GlobalEffectSizeModifier,
+    GlobalEffectRangeModifier,
+    EffectSize,
+    EffectRange,
+    GlobalProjectileSizeModifier,
+    ProjectileSize
 }
 
 

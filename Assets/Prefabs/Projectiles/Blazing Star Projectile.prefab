@@ -87,8 +87,15 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   ricochet: 0
   impactNoise: 0
+  chainRadius: 15
   reboundForceMod: {x: 500, y: 1500}
   onDeathEffectPrefab: {fileID: 0}
+  chainMask:
+    serializedVersion: 2
+    m_Bits: 0
+  cloneSelfOnSplit: 0
+  childSplitCount: 0
+  splitPrefab: {fileID: 0}
 --- !u!58 &2428786216548617761
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -225,6 +232,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 436470, guid: 31f9fcfbbcecdd24caf0eb7857420dcd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19857014, guid: 31f9fcfbbcecdd24caf0eb7857420dcd, type: 3}
+      propertyPath: scalingMode
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

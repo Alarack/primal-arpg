@@ -20,16 +20,15 @@ public class EffectZone : Entity {
     protected Timer persistantZoneTimer;
     protected Projectile carrier;
 
+    private float effectSize = 1f;
+
     public virtual void Setup(Effect parentEffect, EffectZoneInfo info, Transform parentToThis = null, Projectile carrier = null) {
         this.parentEffect = parentEffect;
         this.zoneInfo = info;
         this.carrier = carrier;
 
-        //this.mask = mask;
-
-        //Debug.Log("Zone deployed");
-
         SetInfo();
+        SetSize();
 
         if (parentToThis != null) {
             transform.SetParent(parentToThis, false);
@@ -66,6 +65,25 @@ public class EffectZone : Entity {
         spawnEffectPrefab = zoneInfo.spawnVFX;
         deathEffectPrefab = zoneInfo.deathVFX;
 
+    }
+
+    private void SetSize() {
+        if (parentEffect.Stats.Contains(StatName.EffectSize)) {
+            effectSize = parentEffect.Stats[StatName.EffectSize];
+
+            if (effectSize <= 0) {
+                effectSize = 1f;
+            }
+
+         
+        }
+
+        float globalSizeMod = 1f + parentEffect.Source.Stats[StatName.GlobalEffectSizeModifier];
+        effectSize *= globalSizeMod;
+
+        //Debug.Log("effect size: " + effectSize);
+
+        transform.localScale = new Vector3(effectSize, effectSize, effectSize);
     }
 
 
@@ -148,6 +166,9 @@ public class EffectZone : Entity {
 
 
         GameObject activeVFX = Instantiate(applyVFX, loc, Quaternion.identity);
+
+        activeVFX.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
+
         Destroy(activeVFX, 2f);
 
     }

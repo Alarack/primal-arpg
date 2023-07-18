@@ -41,6 +41,7 @@ public class Projectile : Entity {
 
     private Task killTimer;
     private Task impactTask;
+    private float projectileSize;
 
     protected override void Awake() {
         base.Awake();
@@ -66,8 +67,29 @@ public class Projectile : Entity {
         this.source = source;
         this.parentEffect = parentEffect;
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
+        SetupSize();
     }
 
+    private void SetupSize() {
+        projectileSize = parentEffect.Stats[StatName.ProjectileSize];
+
+        if (projectileSize <= 0)
+            projectileSize = 1f;
+
+        float globalSizeMod = 1f + source.Stats[StatName.GlobalProjectileSizeModifier];
+
+        projectileSize *= globalSizeMod;
+
+        Debug.Log("Projectile Size: " + projectileSize);
+
+        transform.localScale = new Vector3(projectileSize, projectileSize, projectileSize);
+
+        ParticleSystem[] subParticles = GetComponentsInChildren<ParticleSystem>();
+
+        for (int i = 0; i < subParticles.Length; i++) {
+            
+        }
+    }
 
     public void IgnoreCollision(Entity target) {
         SetupCollisionIgnore(target.GetComponent<Collider2D>());

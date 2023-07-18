@@ -12,6 +12,7 @@ public abstract class AbilityConstraint {
     protected bool inverse;
     protected ConstraintData data;
     protected Ability parentAbility;
+    protected Effect parentEffect;
     protected Entity source;
 
     public AbilityConstraint(ConstraintData data, Entity source, Ability parentAbility = null) {
@@ -19,6 +20,10 @@ public abstract class AbilityConstraint {
         this.parentAbility = parentAbility;
         this.inverse = data.inverse;
         this.source = source;
+    }
+
+    public void SetParentEffect(Effect parentEffect) {
+        this.parentEffect = parentEffect;
     }
 
     public abstract bool Evaluate(Entity target, TriggerInstance triggerInstance);
@@ -257,7 +262,10 @@ public class RangeConstraint : AbilityConstraint {
             
         }
 
-        bool result = range <= data.maxRange && range >= data.minRange;
+        float maxrange = parentEffect != null ? parentEffect.Stats[StatName.EffectRange] : parentAbility.Stats[StatName.EffectRange];
+
+
+        bool result = range <= maxrange /*data.maxRange*/ && range >= data.minRange;
 
 
 
