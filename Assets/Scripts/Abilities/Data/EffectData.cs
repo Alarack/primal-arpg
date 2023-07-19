@@ -74,16 +74,15 @@ public class EffectData
     //public int projectilePierceCount = 0;
     public float shotDelay = 0.2f;
     public List<StatData> payloadStatData = new List<StatData>();
-    
     public DeliverySpawnLocation spawnLocation;
     public EffectZoneInfo effectZoneInfo;
 
     //Stat Adjustment
     public List<StatModifierData> modData = new List<StatModifierData>();
     public Gradient floatingTextColor;
-    //public bool applyToEffect;
-    //public bool applyToOtherStatAdjustment;
     public StatModifierData.StatModDesignation effectDesignation;
+    public List<StatAdjustmentOption> adjustmentOptions = new List<StatAdjustmentOption>();
+
 
     //Add Status
     public List<StatusData> statusToAdd = new List<StatusData>();
@@ -150,5 +149,44 @@ public class EffectData
     //        target.Add(new KeywordData(clone[i]));
     //    }
     //}
+
+}
+
+[System.Serializable]
+public class StatAdjustmentOption {
+
+    public enum OptionType {
+        StatScaler,
+        WeaponDamageScaler
+    }
+
+    public OptionType type;
+    public StatName statScaler;
+    public StatModifierData.DeriveFromWhom deriveTarget;
+    public float statMultiplier;
+
+    public StatAdjustmentOption() {
+
+    }
+
+    public StatAdjustmentOption(StatAdjustmentOption clone) {
+        this.type = clone.type;
+        this.statScaler = clone.statScaler;
+        this.statMultiplier = clone.statMultiplier;
+        this.deriveTarget = clone.deriveTarget;
+    }
+
+    public float GetAdjustment(StatAdjustmentEffect effect) {
+
+        float result = type switch {
+            OptionType.StatScaler => effect.Stats[statScaler] * statMultiplier,
+            _ => 1f
+        };
+
+        return result;
+
+    }
+
+
 
 }

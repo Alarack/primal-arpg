@@ -20,15 +20,26 @@ public class StatModifierData
         DeriveFromNumberOfTargets,
         HardSetValue,
         HardReset,
-        DeriveFromWeaponDamage
+        DeriveFromWeaponDamage,
+        DerivedFromMultipleSources
     }
     public enum DeriveFromWhom {
         Source,
         Cause,
         Trigger,
-        OtherTarget,
-        CurrentTarget,
-        SourceCharacter
+        CurrentEntityTarget,
+        CurrentEffectTarget,
+        CurrentAbilityTarget,
+        OtherEntityTarget,
+        OtherEffect,
+        OtherAbility,
+        SourceAbility,
+        SourceEffect,
+        TriggerAbility,
+        TriggerEffect,
+        CauseAbility,
+        CauseEffect,
+        WeaponDamage
     }
 
     public enum StatModDesignation {
@@ -49,12 +60,18 @@ public class StatModifierData
 
     public ModValueSetMethod modValueSetMethod;
     public float weaponDamagePercent = 1f;
+    public float deriveStatMultiplier = 1f;
     public DeriveFromWhom deriveTarget;
     public StatName derivedTargetStat;
     public bool invertDerivedValue;
 
     public string otherTargetAbility;
     public string otherTagetEffect;
+   
+    public List<StatAdjustmentOption> deriveOptions = new List<StatAdjustmentOption>();
+
+    //public string deriveEffectName;
+    //public string deriveAbilityName;
 
     public StatCollection Stats { get; private set; }
 
@@ -98,6 +115,13 @@ public class StatModifierData
         this.otherTagetEffect = copy.otherTagetEffect;
         this.otherTargetAbility = copy.otherTargetAbility;
         this.weaponDamagePercent = copy.weaponDamagePercent;
+        CloneStatScalers(copy);
+    }
+
+    private void CloneStatScalers(StatModifierData copy) {
+        for (int i = 0; i < copy.deriveOptions.Count; i++) {
+            this.deriveOptions.Add(new StatAdjustmentOption(copy.deriveOptions[i]));
+        }
 
     }
 }

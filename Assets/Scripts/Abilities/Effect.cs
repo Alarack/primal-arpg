@@ -645,6 +645,10 @@ public class SpawnProjectileEffect : Effect {
 
 public class StatAdjustmentEffect : Effect {
 
+
+   
+
+
     public override EffectType Type => EffectType.StatAdjustment;
 
     private Dictionary<Entity, List<StatModifier>> trackedEntityMods = new Dictionary<Entity, List<StatModifier>>();
@@ -653,7 +657,7 @@ public class StatAdjustmentEffect : Effect {
 
     private List<StatModifierData> modData = new List<StatModifierData>();
 
-
+    public List<StatAdjustmentOption> options = new List<StatAdjustmentOption>();
 
     public StatAdjustmentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
@@ -668,6 +672,10 @@ public class StatAdjustmentEffect : Effect {
             modData[i].SetupEffectStats();
         }
 
+        for (int i = 0; i < data.adjustmentOptions.Count; i++) {
+            options.Add(new StatAdjustmentOption(data.adjustmentOptions[i]));
+        }
+
     }
 
     public StatAdjustmentEffect(EffectData data, Entity source, StatAdjustmentEffect clone, Ability parentAbility = null) : base(data, source, parentAbility) {
@@ -676,6 +684,12 @@ public class StatAdjustmentEffect : Effect {
             modData.Add(new StatModifierData(clone.modData[i]));
             modData[i].CloneEffectStats(clone.modData[i]);
         }
+
+        for (int i = 0; i < data.adjustmentOptions.Count; i++) {
+            options.Add(new StatAdjustmentOption(clone.options[i]));
+        }
+
+
     }
 
     public static StatAdjustmentEffect Clone(StatAdjustmentEffect clone) {
@@ -745,15 +759,101 @@ public class StatAdjustmentEffect : Effect {
         return -1f;
     }
 
-    private float SetModValues(Entity target, StatModifier activeMod, StatModifierData modData) {
+    private float DeriveModValueFromOtherStat(StatModifierData modData, Entity entityTarget, Effect effectTarget, Ability abilityTarget) {
+
+        float result = modData.deriveTarget switch {
+            StatModifierData.DeriveFromWhom.Source => Source.Stats[modData.derivedTargetStat],
+            StatModifierData.DeriveFromWhom.Cause => currentTriggerInstance.CauseOfTrigger.Stats[modData.derivedTargetStat],
+            StatModifierData.DeriveFromWhom.Trigger => currentTriggerInstance.TriggeringEntity.Stats[modData.derivedTargetStat],
+            StatModifierData.DeriveFromWhom.OtherEntityTarget => throw new NotImplementedException(),
+            StatModifierData.DeriveFromWhom.CurrentEntityTarget => entityTarget.Stats[modData.derivedTargetStat],
+            StatModifierData.DeriveFromWhom.CurrentAbilityTarget => abilityTarget.Stats[modData.derivedTargetStat],
+            StatModifierData.DeriveFromWhom.CurrentEffectTarget => GetModifiedStatValue(effectTarget.Stats, modData.derivedTargetStat), /*effectTarget.Stats[modData.derivedTargetStat],*/
+            StatModifierData.DeriveFromWhom.OtherEffect => throw new NotImplementedException(),
+            StatModifierData.DeriveFromWhom.OtherAbility => throw new NotImplementedException(),
+            StatModifierData.DeriveFromWhom.SourceAbility => ParentAbility.Stats[modData.derivedTargetStat],
+            StatModifierData.DeriveFromWhom.SourceEffect => Stats[modData.derivedTargetStat],
+            StatModifierData.DeriveFromWhom.TriggerAbility => currentTriggerInstance.TriggeringAbility.Stats[modData.derivedTargetStat],
+            StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[modData.derivedTargetStat],
+            StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[modData.derivedTargetStat],
+            StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[modData.derivedTargetStat],
+            StatModifierData.DeriveFromWhom.WeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll * modData.Stats[StatName.AbilityWeaponCoefficicent],
+            _ => 0f,
+        };
+
+        result *= modData.deriveStatMultiplier;
+
+        Debug.Log("Mod result: " + result);
+
+        return modData.invertDerivedValue == false ? result : -result;
+    }
+
+    private float GetModifiedStatValue(StatCollection stats, StatName stat) {
+
+        float statValue = stats[stat];
+
+        //Debug.Log(stat + " Value: " + statValue);
+
+        float modifier = stat switch {
+            StatName.EffectSize => Source.Stats[StatName.GlobalEffectSizeModifier],
+            _ => 1f,
+        };
+
+        //Debug.Log("Global Mod: " + modifier);
+
+
+        return statValue *  (1f + modifier);
+
+    }
+
+    private float GetTotalDerivedValue(Entity entityTarget, Effect effectTarget, Ability abilityTarget, StatModifierData modData) {
+        float totalDerivedValue = 0f;
+
+        for (int i = 0; i < modData.deriveOptions.Count; i++) {
+            float result = modData.deriveOptions[i].deriveTarget switch {
+                StatModifierData.DeriveFromWhom.Source => Source.Stats[modData.deriveOptions[i].statScaler],
+                StatModifierData.DeriveFromWhom.Cause => currentTriggerInstance.CauseOfTrigger.Stats[modData.deriveOptions[i].statScaler],
+                StatModifierData.DeriveFromWhom.Trigger => currentTriggerInstance.TriggeringEntity.Stats[modData.deriveOptions[i].statScaler],
+                StatModifierData.DeriveFromWhom.OtherEntityTarget => throw new NotImplementedException(),
+                StatModifierData.DeriveFromWhom.CurrentEntityTarget => entityTarget.Stats[modData.deriveOptions[i].statScaler],
+                StatModifierData.DeriveFromWhom.CurrentAbilityTarget => abilityTarget.Stats[modData.deriveOptions[i].statScaler],
+                StatModifierData.DeriveFromWhom.CurrentEffectTarget => GetModifiedStatValue(effectTarget.Stats, modData.deriveOptions[i].statScaler), /*effectTarget.Stats[modData.derivedTargetStat],*/
+                StatModifierData.DeriveFromWhom.OtherEffect => throw new NotImplementedException(),
+                StatModifierData.DeriveFromWhom.OtherAbility => throw new NotImplementedException(),
+                StatModifierData.DeriveFromWhom.SourceAbility => ParentAbility.Stats[modData.deriveOptions[i].statScaler],
+                StatModifierData.DeriveFromWhom.SourceEffect => GetModifiedStatValue(Stats, modData.deriveOptions[i].statScaler),
+                StatModifierData.DeriveFromWhom.TriggerAbility => currentTriggerInstance.TriggeringAbility.Stats[modData.deriveOptions[i].statScaler],
+                StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[modData.deriveOptions[i].statScaler],
+                StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[modData.deriveOptions[i].statScaler],
+                StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[modData.deriveOptions[i].statScaler],
+                StatModifierData.DeriveFromWhom.WeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll /** modData.Stats[StatName.AbilityWeaponCoefficicent]*/,
+                _ => 0f,
+            };
+
+            //Debug.Log(modData.deriveOptions[i].statScaler + " with a scaler of: " + modData.deriveOptions[i].statMultiplier);
+
+            result *= modData.deriveOptions[i].statMultiplier;
+
+            Debug.Log(result + " is the contrabution from: " + modData.deriveOptions[i].statScaler);
+
+            totalDerivedValue += result;
+
+            Debug.Log(totalDerivedValue + " is the total so far");
+        }
+
+        return totalDerivedValue;
+    }
+
+    private float SetModValues(Entity entityTarget, Effect effectTarget, Ability abilityTarget, StatModifier activeMod, StatModifierData modData) {
 
         float targetValue = modData.modValueSetMethod switch {
             StatModifierData.ModValueSetMethod.Manual => modData.Stats[StatName.StatModifierValue],
-            StatModifierData.ModValueSetMethod.DeriveFromOtherStats => throw new System.NotImplementedException(),
+            StatModifierData.ModValueSetMethod.DeriveFromOtherStats => DeriveModValueFromOtherStat(modData, entityTarget, effectTarget, abilityTarget),
             StatModifierData.ModValueSetMethod.DeriveFromNumberOfTargets => throw new System.NotImplementedException(),
             StatModifierData.ModValueSetMethod.HardSetValue => throw new System.NotImplementedException(),
             StatModifierData.ModValueSetMethod.HardReset => throw new System.NotImplementedException(),
             StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll * modData.Stats[StatName.AbilityWeaponCoefficicent],
+            StatModifierData.ModValueSetMethod.DerivedFromMultipleSources => GetTotalDerivedValue(entityTarget, effectTarget, abilityTarget, modData),
             _ => 0f,
         };
 
@@ -761,17 +861,19 @@ public class StatAdjustmentEffect : Effect {
 
             if (activeDelivery != null) {
                 float projectileContrabution = 1f + activeDelivery.Stats[StatName.ProjectileEffectContrabution];
-
                 targetValue *= projectileContrabution;
-
-                //Debug.Log("A projectile: " + activeDelivery.gameObject.name + " is contributing " + projectileContrabution);
             }
-            else {
-                //Debug.Log("Active Projectile is null");
-            }
+  
         }
-        
 
+
+        //float adjustedValue = options.Count > 0f ? 0f : 1f;
+        
+        //for (int i = 0; i < options.Count; i++) {
+        //    adjustedValue += options[i].GetAdjustment(this);
+        //}
+
+        //targetValue *= adjustedValue;
 
         return modData.invertDerivedValue == false ? targetValue : -targetValue;
     }
@@ -801,7 +903,7 @@ public class StatAdjustmentEffect : Effect {
 
         for (int i = 0; i < modData.Count; i++) {
 
-            StatModifier activeMod = PrepareStatMod(modData[i], target.Source);
+            StatModifier activeMod = PrepareStatMod(modData[i], target.Source, null, target);
 
             if (activeMod.VariantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
                 TrackAbilityStatAdjustment(target, activeMod);
@@ -836,7 +938,7 @@ public class StatAdjustmentEffect : Effect {
 
         for (int i = 0; i < modData.Count; i++) {
 
-            StatModifier activeMod = PrepareStatMod(modData[i], target.Source);
+            StatModifier activeMod = PrepareStatMod(modData[i], target.Source, target, null);
 
             if (activeMod.VariantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
                 TrackEffectStatAdjustment(target, activeMod);
@@ -907,7 +1009,7 @@ public class StatAdjustmentEffect : Effect {
             return false;
 
         for (int i = 0; i < modData.Count; i++) {
-            StatModifier activeMod = PrepareStatMod(modData[i], target);
+            StatModifier activeMod = PrepareStatMod(modData[i], target, null, null);
 
             if (activeMod.VariantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
                 TrackEntityStatAdjustment(target, activeMod);
@@ -919,13 +1021,15 @@ public class StatAdjustmentEffect : Effect {
         return true;
     }
 
-    private StatModifier PrepareStatMod(StatModifierData modData, Entity target) {
+    private StatModifier PrepareStatMod(StatModifierData modData, Entity target, Effect effectTaget, Ability abilityTarget) {
         StatModifier activeMod = new StatModifier(modData.value, modData.modifierType, modData.targetStat, Source, modData.variantTarget);
-        float baseModValue = SetModValues(target, activeMod, modData);
+        float baseModValue = SetModValues(target, effectTaget, abilityTarget, activeMod, modData);
         activeMod.UpdateModValue(baseModValue);
 
         return activeMod;
     }
+
+
 
     private float GetDamageModifier(StatModifier mod) {
 
