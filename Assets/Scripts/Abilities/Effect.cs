@@ -126,7 +126,7 @@ public abstract class Effect {
 
     public virtual bool Apply(Entity target) {
 
-        if(target.IsDead) 
+        if (target.IsDead)
             return false;
 
         if (EvaluateTargetConstraints(target) == false)
@@ -278,7 +278,7 @@ public class ApplyOtherEffect : Effect {
         if (base.Apply(target) == false)
             return false;
 
-        if(Data.applyTriggeringEffect == true) {
+        if (Data.applyTriggeringEffect == true) {
             Effect triggerEffect = currentTriggerInstance.TriggeringEffect;
 
             if (triggerEffect != null) {
@@ -288,10 +288,10 @@ public class ApplyOtherEffect : Effect {
             return true;
         }
 
-  
+
         Tuple<Ability, Effect> abilityEffece = AbilityUtilities.GetAbilityAndEffectByName(Data.targetOtherEffectParentAbilityName, Data.targetOtherEffectName, Source, AbilityCategory.Any);
-        
-        if(abilityEffece.Item2 != null) {
+
+        if (abilityEffece.Item2 != null) {
             abilityEffece.Item2.Apply(target);
         }
         else {
@@ -338,7 +338,7 @@ public class AddChildAbilityEffect : Effect {
     }
 
     private void TrackChildAbilties(Ability target, Ability child) {
-        if(trackedChildAbilities.TryGetValue(target, out List<Ability> children) == true) {
+        if (trackedChildAbilities.TryGetValue(target, out List<Ability> children) == true) {
             children.Add(child);
         }
         else {
@@ -379,7 +379,7 @@ public class AddStatusEffect : Effect {
 
         SimpleStat durationStat = new SimpleStat(StatName.EffectLifetime, data.statusToAdd[0].duration);
         SimpleStat intervalStat = new SimpleStat(StatName.EffectInterval, data.statusToAdd[0].interval);
-        
+
         float stackValue = data.statusToAdd[0].maxStacks > 0 ? data.statusToAdd[0].maxStacks : float.MaxValue;
 
         StatRange stacksStat = new StatRange(StatName.StackCount, 0, stackValue, data.statusToAdd[0].initialStackCount);
@@ -495,8 +495,7 @@ public class AddStatusEffect : Effect {
                 case StatModifierData.StatModDesignation.None:
                     break;
                 case StatModifierData.StatModDesignation.PrimaryDamage:
-                    float damageRatio = activeStatusEffects[i].GetBaseWeaponPercent();
-
+                    float damageRatio = activeStatusEffects[i].GetWeaponScaler();
                     //TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green)
 
                     string durationText = TextHelper.ColorizeText(GetModifiedEffectDuration().ToString(), Color.yellow) + " seconds";
@@ -505,7 +504,7 @@ public class AddStatusEffect : Effect {
 
                     if (damageRatio > 0) {
                         builder.Append("Damage: " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", Color.green)
-                       + " of weapon damage every " + TextHelper.ColorizeText(GetModifiedIntervalDuration().ToString(), Color.yellow) + " seconds for " 
+                       + " of weapon damage every " + TextHelper.ColorizeText(GetModifiedIntervalDuration().ToString(), Color.yellow) + " seconds for "
                        + TextHelper.ColorizeText(GetModifiedEffectDuration().ToString(), Color.yellow) + " seconds");
 
                     }
@@ -513,7 +512,7 @@ public class AddStatusEffect : Effect {
                         builder.Append(activeStatusEffects[i].GetTooltip() + "for " + durationText);
                     }
 
-                    
+
 
 
                     if (Data.statusToAdd[0].maxStacks > 0) {
@@ -535,7 +534,7 @@ public class AddStatusEffect : Effect {
             //}
         }
 
-        return builder.ToString();  
+        return builder.ToString();
 
         //StatModifierData statusModData = Data.statusToAdd[0].statusEffectDef.effectData.modData[0];
 
@@ -646,7 +645,7 @@ public class SpawnProjectileEffect : Effect {
 public class StatAdjustmentEffect : Effect {
 
 
-   
+
 
 
     public override EffectType Type => EffectType.StatAdjustment;
@@ -657,7 +656,9 @@ public class StatAdjustmentEffect : Effect {
 
     private List<StatModifierData> modData = new List<StatModifierData>();
 
-    public List<StatAdjustmentOption> options = new List<StatAdjustmentOption>();
+    private Dictionary<Effect, List<StatScaler>> trackedScalers = new Dictionary<Effect, List<StatScaler>>();
+
+    //public List<StatAdjustmentOption> options = new List<StatAdjustmentOption>();
 
     public StatAdjustmentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
@@ -672,9 +673,9 @@ public class StatAdjustmentEffect : Effect {
             modData[i].SetupEffectStats();
         }
 
-        for (int i = 0; i < data.adjustmentOptions.Count; i++) {
-            options.Add(new StatAdjustmentOption(data.adjustmentOptions[i]));
-        }
+        //for (int i = 0; i < data.adjustmentOptions.Count; i++) {
+        //    options.Add(new StatAdjustmentOption(data.adjustmentOptions[i]));
+        //}
 
     }
 
@@ -685,27 +686,27 @@ public class StatAdjustmentEffect : Effect {
             modData[i].CloneEffectStats(clone.modData[i]);
         }
 
-        for (int i = 0; i < data.adjustmentOptions.Count; i++) {
-            options.Add(new StatAdjustmentOption(clone.options[i]));
-        }
+        //for (int i = 0; i < data.adjustmentOptions.Count; i++) {
+        //    options.Add(new StatAdjustmentOption(clone.options[i]));
+        //}
 
 
     }
 
-    public static StatAdjustmentEffect Clone(StatAdjustmentEffect clone) {
-        StatAdjustmentEffect effect = new StatAdjustmentEffect(clone.Data, clone.Source, clone.ParentAbility);
+    //public static StatAdjustmentEffect Clone(StatAdjustmentEffect clone) {
+    //    StatAdjustmentEffect effect = new StatAdjustmentEffect(clone.Data, clone.Source, clone.ParentAbility);
 
-        effect.modData.Clear();
- 
-        for (int i = 0; i < clone.modData.Count; i++) {
-            StatModifierData clonedData = new StatModifierData(clone.modData[i]);
-            clonedData.CloneEffectStats(clone.modData[i]);
-            effect.modData.Add(clonedData);
-        }
+    //    effect.modData.Clear();
+
+    //    for (int i = 0; i < clone.modData.Count; i++) {
+    //        StatModifierData clonedData = new StatModifierData(clone.modData[i]);
+    //        clonedData.CloneEffectStats(clone.modData[i]);
+    //        effect.modData.Add(clonedData);
+    //    }
 
 
-        return effect;
-    }
+    //    return effect;
+    //}
 
     public override void Stack(Status status) {
 
@@ -741,6 +742,46 @@ public class StatAdjustmentEffect : Effect {
         }
     }
 
+    public void AddScaler(Effect target, StatScaler scaler) {
+        if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
+            list.Add(scaler);
+        }
+        else {
+            trackedScalers.Add(target, new List<StatScaler> { scaler });
+        }
+    }
+
+    public void RemoveScaler(Effect target, StatScaler scaler) {
+        if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
+            list.Remove(scaler);
+
+            if (list.Count == 0)
+                trackedScalers.Remove(target);
+        }
+
+    }
+
+    public void AddScalerMod(StatName targetStat, StatModifier mod) {
+        for (int i = 0; i < modData.Count; i++) {
+            for (int j = 0; j < modData[i].scalers.Count; j++) {
+                if (modData[i].scalers[j].targetStat == targetStat) {
+                    modData[i].scalers[j].AddScalerMod(mod);
+                }
+            }
+        }
+
+    }
+
+    public void RemoveScalerMod(StatName targetStat, StatModifier mod) {
+        for (int i = 0; i < modData.Count; i++) {
+            for (int j = 0; j < modData[i].scalers.Count; j++) {
+                if (modData[i].scalers[j].targetStat == targetStat) {
+                    modData[i].scalers[j].RemoveScalerMod(mod);
+                }
+            }
+        }
+    }
+
     public float GetModifierValue(StatName name) {
         for (int i = 0; i < modData.Count; i++) {
             if (modData[i].targetStat == name)
@@ -757,6 +798,30 @@ public class StatAdjustmentEffect : Effect {
             }
         }
         return -1f;
+    }
+
+    public float GetWeaponScaler() {
+        for (int i = 0; i < modData.Count; i++) {
+            for (int j = 0; j < modData[i].scalers.Count; j++) {
+                if (modData[i].scalers[j].deriveTarget == StatModifierData.DeriveFromWhom.WeaponDamage) {
+                    return modData[i].scalers[j].scalerStat.ModifiedValue;
+                }
+            }
+        }
+
+        return -1f;
+    }
+
+    public Dictionary<StatName, float> GetAllScalerValues() {
+        Dictionary<StatName, float> results = new Dictionary<StatName, float>();
+
+        for (int i = 0; i < modData.Count; i++) {
+            for (int j = 0; j < modData[i].scalers.Count; j++) {
+                results.Add(modData[i].scalers[j].targetStat, modData[i].scalers[j].scalerStat.ModifiedValue);
+            }
+        }
+
+        return results;
     }
 
     private float DeriveModValueFromOtherStat(StatModifierData modData, Entity entityTarget, Effect effectTarget, Ability abilityTarget) {
@@ -802,39 +867,41 @@ public class StatAdjustmentEffect : Effect {
         //Debug.Log("Global Mod: " + modifier);
 
 
-        return statValue *  (1f + modifier);
+        return statValue * (1f + modifier);
 
     }
 
     private float GetTotalDerivedValue(Entity entityTarget, Effect effectTarget, Ability abilityTarget, StatModifierData modData) {
         float totalDerivedValue = 0f;
 
-        for (int i = 0; i < modData.deriveOptions.Count; i++) {
-            float result = modData.deriveOptions[i].deriveTarget switch {
-                StatModifierData.DeriveFromWhom.Source => Source.Stats[modData.deriveOptions[i].statScaler],
-                StatModifierData.DeriveFromWhom.Cause => currentTriggerInstance.CauseOfTrigger.Stats[modData.deriveOptions[i].statScaler],
-                StatModifierData.DeriveFromWhom.Trigger => currentTriggerInstance.TriggeringEntity.Stats[modData.deriveOptions[i].statScaler],
+        for (int i = 0; i < modData.scalers.Count; i++) {
+            float result = modData.scalers[i].deriveTarget switch {
+                StatModifierData.DeriveFromWhom.Source => Source.Stats[modData.scalers[i].targetStat],
+                StatModifierData.DeriveFromWhom.Cause => currentTriggerInstance.CauseOfTrigger.Stats[modData.scalers[i].targetStat],
+                StatModifierData.DeriveFromWhom.Trigger => currentTriggerInstance.TriggeringEntity.Stats[modData.scalers[i].targetStat],
                 StatModifierData.DeriveFromWhom.OtherEntityTarget => throw new NotImplementedException(),
-                StatModifierData.DeriveFromWhom.CurrentEntityTarget => entityTarget.Stats[modData.deriveOptions[i].statScaler],
-                StatModifierData.DeriveFromWhom.CurrentAbilityTarget => abilityTarget.Stats[modData.deriveOptions[i].statScaler],
-                StatModifierData.DeriveFromWhom.CurrentEffectTarget => GetModifiedStatValue(effectTarget.Stats, modData.deriveOptions[i].statScaler), /*effectTarget.Stats[modData.derivedTargetStat],*/
+                StatModifierData.DeriveFromWhom.CurrentEntityTarget => entityTarget.Stats[modData.scalers[i].targetStat],
+                StatModifierData.DeriveFromWhom.CurrentAbilityTarget => abilityTarget.Stats[modData.scalers[i].targetStat],
+                StatModifierData.DeriveFromWhom.CurrentEffectTarget => GetModifiedStatValue(effectTarget.Stats, modData.scalers[i].targetStat), /*effectTarget.Stats[modData.derivedTargetStat],*/
                 StatModifierData.DeriveFromWhom.OtherEffect => throw new NotImplementedException(),
                 StatModifierData.DeriveFromWhom.OtherAbility => throw new NotImplementedException(),
-                StatModifierData.DeriveFromWhom.SourceAbility => ParentAbility.Stats[modData.deriveOptions[i].statScaler],
-                StatModifierData.DeriveFromWhom.SourceEffect => GetModifiedStatValue(Stats, modData.deriveOptions[i].statScaler),
-                StatModifierData.DeriveFromWhom.TriggerAbility => currentTriggerInstance.TriggeringAbility.Stats[modData.deriveOptions[i].statScaler],
-                StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[modData.deriveOptions[i].statScaler],
-                StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[modData.deriveOptions[i].statScaler],
-                StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[modData.deriveOptions[i].statScaler],
+                StatModifierData.DeriveFromWhom.SourceAbility => ParentAbility.Stats[modData.scalers[i].targetStat],
+                StatModifierData.DeriveFromWhom.SourceEffect => GetModifiedStatValue(Stats, modData.scalers[i].targetStat),
+                StatModifierData.DeriveFromWhom.TriggerAbility => currentTriggerInstance.TriggeringAbility.Stats[modData.scalers[i].targetStat],
+                StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[modData.scalers[i].targetStat],
+                StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[modData.scalers[i].targetStat],
+                StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[modData.scalers[i].targetStat],
                 StatModifierData.DeriveFromWhom.WeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll /** modData.Stats[StatName.AbilityWeaponCoefficicent]*/,
                 _ => 0f,
             };
 
             //Debug.Log(modData.deriveOptions[i].statScaler + " with a scaler of: " + modData.deriveOptions[i].statMultiplier);
 
-            result *= modData.deriveOptions[i].statMultiplier;
+            Debug.Log(modData.scalers[i].statScaleBaseValue + " is the scaler for: " + modData.scalers[i].targetStat);
 
-            Debug.Log(result + " is the contrabution from: " + modData.deriveOptions[i].statScaler);
+            result *= modData.scalers[i].statScaleBaseValue;
+
+            Debug.Log(result + " is the total contrabution from: " + modData.scalers[i].targetStat);
 
             totalDerivedValue += result;
 
@@ -857,18 +924,18 @@ public class StatAdjustmentEffect : Effect {
             _ => 0f,
         };
 
-        if(activeMod.TargetStat == StatName.Health  ) {
+        if (activeMod.TargetStat == StatName.Health) {
 
             if (activeDelivery != null) {
                 float projectileContrabution = 1f + activeDelivery.Stats[StatName.ProjectileEffectContrabution];
                 targetValue *= projectileContrabution;
             }
-  
+
         }
 
 
         //float adjustedValue = options.Count > 0f ? 0f : 1f;
-        
+
         //for (int i = 0; i < options.Count; i++) {
         //    adjustedValue += options[i].GetAdjustment(this);
         //}
@@ -883,7 +950,7 @@ public class StatAdjustmentEffect : Effect {
         float globalDamageMultiplier = GetDamageModifier(activeMod);
         float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
 
-        
+
 
         if (activeMod.TargetStat == StatName.Health) {
             //Debug.LogWarning("Damage dealt: " + modValueResult + " : " + Data.effectName);
@@ -946,15 +1013,34 @@ public class StatAdjustmentEffect : Effect {
             }
 
 
-            if (Data.subTarget == EffectSubTarget.StatModifier) {
-                //Debug.LogWarning("Applying a modifier mod: " + activeMod.Value + " to " + target.Data.effectName);
-                StatAdjustmentEffect adj = target as StatAdjustmentEffect;
-                adj.AddStatAdjustmentModifier(activeMod);
+            switch (Data.subTarget) {
+                case EffectSubTarget.Effect:
+                    StatAdjustmentManager.AddEffectModifier(target, activeMod);
+                    break;
+                case EffectSubTarget.StatModifier:
+                    StatAdjustmentEffect adj = target as StatAdjustmentEffect;
+                    adj.AddStatAdjustmentModifier(activeMod);
+                    break;
+                case EffectSubTarget.StatScaler:
+                    StatAdjustmentEffect adj2 = target as StatAdjustmentEffect;
+                    adj2.AddScalerMod(activeMod.TargetStat, activeMod);
+                    break;
             }
-            else {
-                //Debug.LogWarning("Applying an effect mod");
-                StatAdjustmentManager.AddEffectModifier(target, activeMod);
-            }
+
+
+
+            //if (Data.subTarget == EffectSubTarget.StatModifier) {
+            //    //Debug.LogWarning("Applying a modifier mod: " + activeMod.Value + " to " + target.Data.effectName);
+            //    StatAdjustmentEffect adj = target as StatAdjustmentEffect;
+            //    adj.AddStatAdjustmentModifier(activeMod);
+
+
+
+            //}
+            //else {
+            //    //Debug.LogWarning("Applying an effect mod");
+            //    StatAdjustmentManager.AddEffectModifier(target, activeMod);
+            //}
         }
     }
 
@@ -966,8 +1052,8 @@ public class StatAdjustmentEffect : Effect {
         if (target is AddStatusEffect) {
             AddStatusEffect statusEffect = target as AddStatusEffect;
             //Debug.Log("Applying a stat adjustment to a status effect: " +Data.effectName);
-            
-            if(Data.subTarget == EffectSubTarget.StatModifier) {
+
+            if (Data.subTarget == EffectSubTarget.StatModifier || Data.subTarget == EffectSubTarget.StatScaler) {
                 //Debug.Log("Applying a stat adjustment to a status effect's damage : " + Data.effectName);
 
                 for (int i = 0; i < statusEffect.activeStatusEffects.Count; i++) {
@@ -988,13 +1074,28 @@ public class StatAdjustmentEffect : Effect {
         if (trackedEffectMods.TryGetValue(target, out List<StatModifier> modList)) {
             for (int i = 0; i < modList.Count; i++) {
 
-                if (Data.subTarget == EffectSubTarget.StatModifier) {
-                    StatAdjustmentEffect adj = target as StatAdjustmentEffect;
-                    adj.RemoveStatAdjustmentModifier(modList[i]);
+
+                switch (Data.subTarget) {
+                    case EffectSubTarget.Effect:
+                        StatAdjustmentManager.RemoveEffectModifier(target, modList[i]);
+                        break;
+                    case EffectSubTarget.StatModifier:
+                        StatAdjustmentEffect adj = target as StatAdjustmentEffect;
+                        adj.RemoveStatAdjustmentModifier(modList[i]);
+                        break;
+                    case EffectSubTarget.StatScaler:
+                        StatAdjustmentEffect adj2 = target as StatAdjustmentEffect;
+                        adj2.RemoveScalerMod(modList[i].TargetStat, modList[i]);
+                        break;
                 }
-                else {
-                    StatAdjustmentManager.RemoveEffectModifier(target, modList[i]);
-                }
+
+                //if (Data.subTarget == EffectSubTarget.StatModifier) {
+                //    StatAdjustmentEffect adj = target as StatAdjustmentEffect;
+                //    adj.RemoveStatAdjustmentModifier(modList[i]);
+                //}
+                //else {
+                //    StatAdjustmentManager.RemoveEffectModifier(target, modList[i]);
+                //}
             }
 
             trackedEffectMods.Remove(target);
@@ -1116,7 +1217,7 @@ public class StatAdjustmentEffect : Effect {
         string replacement = Data.effectDescription.Replace("{}", formated);
 
 
-        if(ParentAbility != null) {
+        if (ParentAbility != null) {
             float duration = ParentAbility.GetDuration();
 
             if (duration > 0) {
@@ -1128,7 +1229,7 @@ public class StatAdjustmentEffect : Effect {
                 return timeReplacment;
             }
         }
-        
+
 
         return replacement;
 

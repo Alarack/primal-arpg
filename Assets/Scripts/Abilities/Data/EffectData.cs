@@ -34,7 +34,8 @@ public enum EffectSubTarget {
     Entity,
     Effect,
     StatModifier,
-    Ability
+    Ability,
+    StatScaler
 }
 
 public enum DeliverySpawnLocation { 
@@ -81,7 +82,7 @@ public class EffectData
     public List<StatModifierData> modData = new List<StatModifierData>();
     public Gradient floatingTextColor;
     public StatModifierData.StatModDesignation effectDesignation;
-    public List<StatAdjustmentOption> adjustmentOptions = new List<StatAdjustmentOption>();
+    //public List<StatScaler> adjustmentOptions = new List<StatScaler>();
 
 
     //Add Status
@@ -153,39 +154,54 @@ public class EffectData
 }
 
 [System.Serializable]
-public class StatAdjustmentOption {
+public class StatScaler {
 
-    public enum OptionType {
-        StatScaler,
-        WeaponDamageScaler
-    }
+    //public enum OptionType {
+    //    StatScaler,
+    //    WeaponDamageScaler
+    //}
 
-    public OptionType type;
-    public StatName statScaler;
+    //public OptionType type;
+    public StatName targetStat;
     public StatModifierData.DeriveFromWhom deriveTarget;
-    public float statMultiplier;
+    public float statScaleBaseValue;
+    public SimpleStat scalerStat;
 
-    public StatAdjustmentOption() {
-
+    public StatScaler() {
+        
     }
 
-    public StatAdjustmentOption(StatAdjustmentOption clone) {
-        this.type = clone.type;
-        this.statScaler = clone.statScaler;
-        this.statMultiplier = clone.statMultiplier;
+    public void InitStat() {
+        scalerStat = new SimpleStat(StatName.StatScaler, statScaleBaseValue);
+    }
+
+    public StatScaler(StatScaler clone) {
+        //this.type = clone.type;
+        this.targetStat = clone.targetStat;
+        this.statScaleBaseValue = clone.statScaleBaseValue;
         this.deriveTarget = clone.deriveTarget;
+
+        this.scalerStat = new SimpleStat(StatName.StatScaler, clone.statScaleBaseValue);
     }
 
-    public float GetAdjustment(StatAdjustmentEffect effect) {
-
-        float result = type switch {
-            OptionType.StatScaler => effect.Stats[statScaler] * statMultiplier,
-            _ => 1f
-        };
-
-        return result;
-
+    public void AddScalerMod(StatModifier mod) {
+        scalerStat.AddModifier(mod);
     }
+
+    public void RemoveScalerMod(StatModifier mod) {
+        scalerStat.RemoveModifier(mod); 
+    }
+
+    //public float GetAdjustment(StatAdjustmentEffect effect) {
+
+    //    float result = type switch {
+    //        OptionType.StatScaler => effect.Stats[statScaler] * statMultiplier,
+    //        _ => 1f
+    //    };
+
+    //    return result;
+
+    //}
 
 
 

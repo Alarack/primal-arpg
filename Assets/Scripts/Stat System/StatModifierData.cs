@@ -21,7 +21,10 @@ public class StatModifierData
         HardSetValue,
         HardReset,
         DeriveFromWeaponDamage,
-        DerivedFromMultipleSources
+        DerivedFromMultipleSources,
+        AddScaler,
+        RemoveScaler,
+        ModifyScaler
     }
     public enum DeriveFromWhom {
         Source,
@@ -68,7 +71,7 @@ public class StatModifierData
     public string otherTargetAbility;
     public string otherTagetEffect;
    
-    public List<StatAdjustmentOption> deriveOptions = new List<StatAdjustmentOption>();
+    public List<StatScaler> scalers = new List<StatScaler>();
 
     //public string deriveEffectName;
     //public string deriveAbilityName;
@@ -84,7 +87,15 @@ public class StatModifierData
         Stats = new StatCollection(this);
         SimpleStat modValueStat = new SimpleStat(StatName.StatModifierValue, value);
         Stats.AddStat(modValueStat);
+
+        SetupScalers();
      
+    }
+
+    public void SetupScalers() {
+        for (int i = 0; i < scalers.Count; i++) {
+            scalers[i].InitStat();
+        }
     }
 
     public void SetupEffectStats() {
@@ -119,8 +130,8 @@ public class StatModifierData
     }
 
     private void CloneStatScalers(StatModifierData copy) {
-        for (int i = 0; i < copy.deriveOptions.Count; i++) {
-            this.deriveOptions.Add(new StatAdjustmentOption(copy.deriveOptions[i]));
+        for (int i = 0; i < copy.scalers.Count; i++) {
+            this.scalers.Add(new StatScaler(copy.scalers[i]));
         }
 
     }

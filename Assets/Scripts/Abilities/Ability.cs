@@ -433,6 +433,23 @@ public class Ability {
         return result;
     }
 
+    public float GetWeaponDamageScaler() {
+        float result = -1f;
+
+        for (int i = 0; i < effects.Count; i++) {
+            if (effects[i] is StatAdjustmentEffect) {
+                StatAdjustmentEffect targetEffect = effects[i] as StatAdjustmentEffect;
+
+                if (targetEffect.Data.effectDesignation == StatModifierData.StatModDesignation.PrimaryDamage) {
+                    result = targetEffect.GetWeaponScaler();
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
     public List<Entity> GetMostRecentValidTargetsFromEffect(string effectName) {
         int count = effects.Count;
         for (int i = 0; i < count; i++) {
@@ -508,7 +525,7 @@ public class Ability {
 
 
 
-        float damagePercent = GetDamageEffectRatio();
+        float damagePercent = GetWeaponDamageScaler(); //GetDamageEffectRatio();
 
         if (damagePercent > 0f) {
             builder.Append("Damage: " + TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green) + " of Weapon Damage").AppendLine();

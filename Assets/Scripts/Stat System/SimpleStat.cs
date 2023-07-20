@@ -49,7 +49,8 @@ public enum StatName
     EffectSize,
     EffectRange,
     GlobalProjectileSizeModifier,
-    ProjectileSize
+    ProjectileSize,
+    StatScaler
 }
 
 
