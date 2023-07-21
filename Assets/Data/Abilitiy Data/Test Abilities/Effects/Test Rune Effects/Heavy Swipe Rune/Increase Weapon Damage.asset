@@ -17,7 +17,8 @@ MonoBehaviour:
     effectDescription: Increase Weapon Damage by {}
     type: 1
     targeting: 9
-    subTarget: 3
+    subTarget: 5
+    deliveryPayloadToTarget: 0
     numberOfTargets: -1
     otherAbilityName: Test Sword Swipe
     otherEffectName: Sword Swipe Damage
@@ -56,10 +57,11 @@ MonoBehaviour:
       targetAbiltyName: Test Sword Swipe
       targetEffectName: Sword Swipe Damage
       effectDesigantion: 1
+      targetStatus: 0
     payloadPrefab: {fileID: 0}
     payloadCount: 1
-    projectilePierceCount: 0
     shotDelay: 0.2
+    payloadStatData: []
     spawnLocation: 0
     effectZoneInfo:
       removeEffectOnExit: 0
@@ -78,11 +80,13 @@ MonoBehaviour:
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 0
+      deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
       otherTargetAbility: 
       otherTagetEffect: 
+      scalers: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -126,3 +130,8 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
+    abilitiesToAdd: []
+    targetOtherEffectParentAbilityName: 
+    targetOtherEffectName: 
+    applyTriggeringEffect: 0
+    statScalersToAdd: []

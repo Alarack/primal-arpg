@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Linging Flames Add Child
-    effectDescription: 
+    effectDescription: Fireball now causes {} of Weapon Damage every {I} for {D}
     type: 6
     targeting: 8
     subTarget: 4
+    deliveryPayloadToTarget: 0
     numberOfTargets: -1
     otherAbilityName: Test Fireball
     otherEffectName: 
@@ -56,10 +57,11 @@ MonoBehaviour:
       targetAbiltyName: Test Fireball
       targetEffectName: 
       effectDesigantion: 0
+      targetStatus: 0
     payloadPrefab: {fileID: 0}
     payloadCount: 1
-    projectilePierceCount: 0
     shotDelay: 0.2
+    payloadStatData: []
     spawnLocation: 0
     effectZoneInfo:
       removeEffectOnExit: 0
@@ -117,3 +119,7 @@ MonoBehaviour:
       m_Bits: 0
     abilitiesToAdd:
     - {fileID: 11400000, guid: 3fc134da38f0ad74ab6f172a3d2d04fa, type: 2}
+    targetOtherEffectParentAbilityName: 
+    targetOtherEffectName: 
+    applyTriggeringEffect: 0
+    statScalersToAdd: []

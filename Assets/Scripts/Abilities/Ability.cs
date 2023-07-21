@@ -585,12 +585,17 @@ public class Ability {
             builder.Append("Cooldown: " + TextHelper.ColorizeText( TextHelper.RoundTimeToPlaces(cooldown, 2), Color.yellow)).Append(" Seconds").AppendLine();
         }
 
-        for (int i = 0; i < ChildAbilities.Count; i++) {
-            builder.Append(ChildAbilities[i].GetTooltip());
+        //if(ChildAbilities.Count > 0) {
+        //    builder.AppendLine("Attached Abilities: ");
+        //}
 
-            if(i != ChildAbilities.Count  -1)
-                builder.AppendLine();
-        }
+
+        //for (int i = 0; i < ChildAbilities.Count; i++) {
+        //    builder.Append(ChildAbilities[i].GetTooltip());
+
+        //    if(i != ChildAbilities.Count  -1)
+        //        builder.AppendLine();
+        //}
 
 
         builder.Append(GetRunesTooltip());
@@ -625,10 +630,19 @@ public class Ability {
 
         for (int i = 0; i < runes.Count; i++) {
             //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
-            builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName).AppendLine();
+            builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName);
+            
+            if(i != runes.Count - 1) {
+                builder.AppendLine();
+            }
+            
             //builder.Append(runes[i].GetTooltip());
             for (int j = 0; j < runes[i].effects.Count; j++) {
                 builder.Append(runes[i].effects[j].GetTooltip()).AppendLine();
+
+                //if(j != runes[i].effects.Count - 1) {
+                //    builder.AppendLine();
+                //}
             }
         }
 

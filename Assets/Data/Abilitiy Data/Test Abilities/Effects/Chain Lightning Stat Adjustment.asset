@@ -18,6 +18,7 @@ MonoBehaviour:
     type: 1
     targeting: 5
     subTarget: 0
+    deliveryPayloadToTarget: 0
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
@@ -57,13 +58,18 @@ MonoBehaviour:
       value: -1
       modifierType: 0
       variantTarget: 1
-      modValueSetMethod: 5
+      modValueSetMethod: 6
       weaponDamagePercent: 1.2
+      deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 1
       otherTargetAbility: 
       otherTagetEffect: 
+      scalers:
+      - targetStat: 28
+        deriveTarget: 15
+        statScaleBaseValue: 1.2
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 0, g: 1, b: 1, a: 1}
@@ -108,3 +114,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    targetOtherEffectParentAbilityName: 
+    targetOtherEffectName: 
+    applyTriggeringEffect: 0
+    statScalersToAdd: []

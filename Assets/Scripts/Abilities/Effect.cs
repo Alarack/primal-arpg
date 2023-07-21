@@ -399,7 +399,14 @@ public class AddChildAbilityEffect : Effect {
 
     private Dictionary<Ability, List<Ability>> trackedChildAbilities = new Dictionary<Ability, List<Ability>>();
 
+    private List<Ability> activeAbilities = new List<Ability>();
+
     public AddChildAbilityEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        for (int i = 0; i < data.abilitiesToAdd.Count; i++) {
+            Ability template = AbilityFactory.CreateAbility(data.abilitiesToAdd[i].AbilityData, source);
+            activeAbilities.Add(template);
+        }
+        
     }
 
     public override bool Apply(Entity target) {
@@ -415,6 +422,11 @@ public class AddChildAbilityEffect : Effect {
         if (base.ApplyToAbility(target) == false)
             return false;
 
+
+        //for (int i = 0; i < activeAbilities.Count; i++) {
+        //    target.AddChildAbility(activeAbilities[i]);
+        //    TrackChildAbilties(target, activeAbilities[i]);
+        //}
 
         for (int i = 0; i < Data.abilitiesToAdd.Count; i++) {
             Ability newChild = target.AddChildAbility(Data.abilitiesToAdd[i]);
@@ -450,9 +462,18 @@ public class AddChildAbilityEffect : Effect {
     }
 
     public override string GetTooltip() {
-        return base.GetTooltip();
+        //return base.GetTooltip();
 
+        StringBuilder builder = new StringBuilder();
 
+        for (int i = 0; i < activeAbilities.Count; i++) {
+            builder.Append(activeAbilities[i].GetTooltip());
+
+            if (i != activeAbilities.Count - 1)
+                builder.AppendLine();
+        }
+
+        return builder.ToString();
     }
 }
 

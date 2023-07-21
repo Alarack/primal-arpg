@@ -133,8 +133,14 @@ public class Item
         for (int i = 0; i < Abilities.Count; i++) {
 
             string abilityTooltip = Abilities[i].GetTooltip();
-            if(string.IsNullOrEmpty(abilityTooltip) == false)
-                builder.Append(Abilities[i].GetTooltip()).AppendLine();
+            if(string.IsNullOrEmpty(abilityTooltip) == false) {
+                builder.Append(Abilities[i].GetTooltip());
+
+                if ( i != Abilities.Count - 1) {
+                    builder.AppendLine();
+                }
+            }
+                
         }
 
 
