@@ -584,6 +584,19 @@ public class AddStatusEffect : Effect {
                 case StatModifierData.StatModDesignation.None:
                     break;
                 case StatModifierData.StatModDesignation.PrimaryDamage:
+
+                    builder.AppendLine();
+
+                    string scalarTooltip = activeStatusEffects[i].ScalarTooltip();
+
+                    //Debug.Log("Ability Level: " + scalarTooltip);
+
+                    builder.AppendLine("Scales From: ");
+
+                    builder.Append(scalarTooltip).AppendLine();
+
+
+
                     float damageRatio = activeStatusEffects[i].GetWeaponScaler();
                     //TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green)
 
@@ -592,9 +605,9 @@ public class AddStatusEffect : Effect {
 
 
                     if (damageRatio > 0) {
-                        builder.Append("Damage: " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", Color.green)
-                       + " of weapon damage every " + TextHelper.ColorizeText(GetModifiedIntervalDuration().ToString(), Color.yellow) + " seconds for "
-                       + TextHelper.ColorizeText(GetModifiedEffectDuration().ToString(), Color.yellow) + " seconds");
+                        builder.Append("Causes " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", Color.green)
+                       + " of Weapon Damage every " + intervalText + " for "
+                       + durationText);
 
                     }
                     else {
@@ -602,10 +615,8 @@ public class AddStatusEffect : Effect {
                     }
 
 
-
-
                     if (Data.statusToAdd[0].maxStacks > 0) {
-                        builder.AppendLine();
+                        builder.AppendLine().AppendLine();
                         builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times");
                     }
 
@@ -803,15 +814,38 @@ public class StatAdjustmentEffect : Effect {
         for (int i = 0; i < modData.Count; i++) {
 
             modData[i].Stats.RemoveAllModifiersFromSource(status);
+            
 
             StatName targetStat = StatName.Vitality;
-            if (modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage) {
+            if (modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.DerivedFromMultipleSources) {
                 targetStat = StatName.AbilityWeaponCoefficicent;
+
+                modData[i].RemoveAllscalerModsFromSource(targetStat, status);
+
+                StatModifier stackMultiplier1 = new StatModifier(status.StackCount - 1, StatModType.PercentAdd, targetStat, status, modData[i].variantTarget);
+                modData[i].AddScalerMod(targetStat, stackMultiplier1);
+                
+                //AddScalerMod(StatName.AbilityWeaponCoefficicent, stackMultiplier1);
+
+
+                //StatScaler targetScaler = modData[i].GetScalerByStat(StatName.AbilityWeaponCoefficicent);
+                //targetScaler.scalerStat.RemoveAllModifiersFromSource(status);
+
+                //StatModifier stackMultiplier1 = new StatModifier(status.StackCount - 1, StatModType.PercentAdd, targetStat, status, modData[i].variantTarget);
+                //targetScaler.scalerStat.AddModifier(stackMultiplier1);
+
+                return;
+
+
             }
 
             if (modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.Manual) {
                 targetStat = StatName.StatModifierValue;
             }
+
+
+         
+
 
             StatModifier stackMultiplier = new StatModifier(status.StackCount - 1, StatModType.PercentAdd, targetStat, status, modData[i].variantTarget);
             modData[i].Stats.AddModifier(stackMultiplier.TargetStat, stackMultiplier);
@@ -835,15 +869,18 @@ public class StatAdjustmentEffect : Effect {
 
     public void AddScaler(StatScaler scaler) {
         for (int i = 0; i < modData.Count; i++) {
-            for (int j = 0; j < modData[i].scalers.Count; j++) {
-                if (modData[i].scalers[j].targetStat == scaler.targetStat) {
-                    Debug.LogError("Duplicate stat scaler: " + scaler.targetStat + ". this is not supported");
-                    return;
-                }
-            }
 
-            modData[i].scalers.Add(scaler);
-            scaler.InitStat();
+            modData[i].AddScaler(scaler);
+            
+            //for (int j = 0; j < modData[i].scalers.Count; j++) {
+            //    if (modData[i].scalers[j].targetStat == scaler.targetStat) {
+            //        Debug.LogError("Duplicate stat scaler: " + scaler.targetStat + ". this is not supported");
+            //        return;
+            //    }
+            //}
+
+            //modData[i].scalers.Add(scaler);
+            //scaler.InitStat();
 
             Debug.Log("Adding a scaler for: " + scaler.targetStat);
         }
@@ -851,7 +888,9 @@ public class StatAdjustmentEffect : Effect {
 
     public void RemoveScaler(StatScaler scaler) {
         for (int i = 0; i < modData.Count; i++) {
-            modData[i].scalers.RemoveIfContains(scaler);
+            modData[i].RemoveScaler(scaler);
+            
+            //modData[i].scalers.RemoveIfContains(scaler);
         }
     }
 
@@ -882,24 +921,29 @@ public class StatAdjustmentEffect : Effect {
 
     //}
 
+
     public void AddScalerMod(StatName targetStat, StatModifier mod) {
         for (int i = 0; i < modData.Count; i++) {
-            for (int j = 0; j < modData[i].scalers.Count; j++) {
-                if (modData[i].scalers[j].targetStat == targetStat) {
-                    modData[i].scalers[j].AddScalerMod(mod);
-                }
-            }
+            modData[i].AddScalerMod(targetStat, mod);
+            
+            //for (int j = 0; j < modData[i].scalers.Count; j++) {
+            //    if (modData[i].scalers[j].targetStat == targetStat) {
+            //        modData[i].scalers[j].AddScalerMod(mod);
+            //    }
+            //}
         }
 
     }
 
     public void RemoveScalerMod(StatName targetStat, StatModifier mod) {
         for (int i = 0; i < modData.Count; i++) {
-            for (int j = 0; j < modData[i].scalers.Count; j++) {
-                if (modData[i].scalers[j].targetStat == targetStat) {
-                    modData[i].scalers[j].RemoveScalerMod(mod);
-                }
-            }
+            modData[i].RemoveScalerMod(targetStat, mod);
+            
+            //for (int j = 0; j < modData[i].scalers.Count; j++) {
+            //    if (modData[i].scalers[j].targetStat == targetStat) {
+            //        modData[i].scalers[j].RemoveScalerMod(mod);
+            //    }
+            //}
         }
     }
 
@@ -922,24 +966,38 @@ public class StatAdjustmentEffect : Effect {
     }
 
     public float GetWeaponScaler() {
+
+        float result = -1f;
+
         for (int i = 0; i < modData.Count; i++) {
-            for (int j = 0; j < modData[i].scalers.Count; j++) {
-                if (modData[i].scalers[j].deriveTarget == StatModifierData.DeriveFromWhom.WeaponDamage) {
-                    return modData[i].scalers[j].scalerStat.ModifiedValue;
-                }
+            
+            result = modData[i].GetWeaponScaler();
+            
+            if(result > 0) {
+               return result;
             }
+
+
+            //for (int j = 0; j < modData[i].scalers.Count; j++) {
+            //    if (modData[i].scalers[j].deriveTarget == StatModifierData.DeriveFromWhom.WeaponDamage) {
+            //        return modData[i].scalers[j].scalerStat.ModifiedValue;
+            //    }
+            //}
         }
 
-        return -1f;
+        return result;
     }
 
     public Dictionary<StatName, float> GetAllScalerValues() {
         Dictionary<StatName, float> results = new Dictionary<StatName, float>();
 
         for (int i = 0; i < modData.Count; i++) {
-            for (int j = 0; j < modData[i].scalers.Count; j++) {
-                results.Add(modData[i].scalers[j].targetStat, modData[i].scalers[j].scalerStat.ModifiedValue);
-            }
+
+            results.AddRange(modData[i].GetAllScalerValues());
+
+            //for (int j = 0; j < modData[i].scalers.Count; j++) {
+            //    results.Add(modData[i].scalers[j].targetStat, modData[i].scalers[j].scalerStat.ModifiedValue);
+            //}
         }
 
         return results;
@@ -995,39 +1053,67 @@ public class StatAdjustmentEffect : Effect {
     private float GetTotalDerivedValue(Entity entityTarget, Effect effectTarget, Ability abilityTarget, StatModifierData modData) {
         float totalDerivedValue = 0f;
 
-        for (int i = 0; i < modData.scalers.Count; i++) {
-            float result = modData.scalers[i].deriveTarget switch {
-                StatModifierData.DeriveFromWhom.Source => Source.Stats[modData.scalers[i].targetStat],
-                StatModifierData.DeriveFromWhom.Cause => currentTriggerInstance.CauseOfTrigger.Stats[modData.scalers[i].targetStat],
-                StatModifierData.DeriveFromWhom.Trigger => currentTriggerInstance.TriggeringEntity.Stats[modData.scalers[i].targetStat],
+        foreach (var entry in modData.scalersDict) {
+            float result = entry.Value.deriveTarget switch {
+                StatModifierData.DeriveFromWhom.Source => Source.Stats[entry.Value.targetStat],
+                StatModifierData.DeriveFromWhom.Cause => currentTriggerInstance.CauseOfTrigger.Stats[entry.Value.targetStat],
+                StatModifierData.DeriveFromWhom.Trigger => currentTriggerInstance.TriggeringEntity.Stats[entry.Value.targetStat],
                 StatModifierData.DeriveFromWhom.OtherEntityTarget => throw new NotImplementedException(),
-                StatModifierData.DeriveFromWhom.CurrentEntityTarget => entityTarget.Stats[modData.scalers[i].targetStat],
-                StatModifierData.DeriveFromWhom.CurrentAbilityTarget => abilityTarget.Stats[modData.scalers[i].targetStat],
-                StatModifierData.DeriveFromWhom.CurrentEffectTarget => GetModifiedStatValue(effectTarget.Stats, modData.scalers[i].targetStat), /*effectTarget.Stats[modData.derivedTargetStat],*/
+                StatModifierData.DeriveFromWhom.CurrentEntityTarget => entityTarget.Stats[entry.Value.targetStat],
+                StatModifierData.DeriveFromWhom.CurrentAbilityTarget => abilityTarget.Stats[entry.Value.targetStat],
+                StatModifierData.DeriveFromWhom.CurrentEffectTarget => GetModifiedStatValue(effectTarget.Stats, entry.Value.targetStat), /*effectTarget.Stats[modData.derivedTargetStat],*/
                 StatModifierData.DeriveFromWhom.OtherEffect => throw new NotImplementedException(),
                 StatModifierData.DeriveFromWhom.OtherAbility => throw new NotImplementedException(),
-                StatModifierData.DeriveFromWhom.SourceAbility => ParentAbility.Stats[modData.scalers[i].targetStat],
-                StatModifierData.DeriveFromWhom.SourceEffect => GetModifiedStatValue(Stats, modData.scalers[i].targetStat),
-                StatModifierData.DeriveFromWhom.TriggerAbility => currentTriggerInstance.TriggeringAbility.Stats[modData.scalers[i].targetStat],
-                StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[modData.scalers[i].targetStat],
-                StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[modData.scalers[i].targetStat],
-                StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[modData.scalers[i].targetStat],
+                StatModifierData.DeriveFromWhom.SourceAbility => ParentAbility.Stats[entry.Value.targetStat],
+                StatModifierData.DeriveFromWhom.SourceEffect => GetModifiedStatValue(Stats, entry.Value.targetStat),
+                StatModifierData.DeriveFromWhom.TriggerAbility => currentTriggerInstance.TriggeringAbility.Stats[entry.Value.targetStat],
+                StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[entry.Value.targetStat],
+                StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[entry.Value.targetStat],
+                StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[entry.Value.targetStat],
                 StatModifierData.DeriveFromWhom.WeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll /** modData.Stats[StatName.AbilityWeaponCoefficicent]*/,
                 _ => 0f,
             };
-
-            //Debug.Log(modData.deriveOptions[i].statScaler + " with a scaler of: " + modData.deriveOptions[i].statMultiplier);
-
-            //Debug.Log(modData.scalers[i].statScaleBaseValue + " is the scaler for: " + modData.scalers[i].targetStat);
-
-            result *= modData.scalers[i].statScaleBaseValue;
-
-            //Debug.Log(result + " is the total contrabution from: " + modData.scalers[i].targetStat);
-
+            
+            result *= entry.Value.scalerStat.ModifiedValue;
+            
             totalDerivedValue += result;
 
-            //Debug.Log(totalDerivedValue + " is the total so far");
         }
+
+
+        //for (int i = 0; i < modData.scalers.Count; i++) {
+        //    float result = modData.scalers[i].deriveTarget switch {
+        //        StatModifierData.DeriveFromWhom.Source => Source.Stats[modData.scalers[i].targetStat],
+        //        StatModifierData.DeriveFromWhom.Cause => currentTriggerInstance.CauseOfTrigger.Stats[modData.scalers[i].targetStat],
+        //        StatModifierData.DeriveFromWhom.Trigger => currentTriggerInstance.TriggeringEntity.Stats[modData.scalers[i].targetStat],
+        //        StatModifierData.DeriveFromWhom.OtherEntityTarget => throw new NotImplementedException(),
+        //        StatModifierData.DeriveFromWhom.CurrentEntityTarget => entityTarget.Stats[modData.scalers[i].targetStat],
+        //        StatModifierData.DeriveFromWhom.CurrentAbilityTarget => abilityTarget.Stats[modData.scalers[i].targetStat],
+        //        StatModifierData.DeriveFromWhom.CurrentEffectTarget => GetModifiedStatValue(effectTarget.Stats, modData.scalers[i].targetStat), /*effectTarget.Stats[modData.derivedTargetStat],*/
+        //        StatModifierData.DeriveFromWhom.OtherEffect => throw new NotImplementedException(),
+        //        StatModifierData.DeriveFromWhom.OtherAbility => throw new NotImplementedException(),
+        //        StatModifierData.DeriveFromWhom.SourceAbility => ParentAbility.Stats[modData.scalers[i].targetStat],
+        //        StatModifierData.DeriveFromWhom.SourceEffect => GetModifiedStatValue(Stats, modData.scalers[i].targetStat),
+        //        StatModifierData.DeriveFromWhom.TriggerAbility => currentTriggerInstance.TriggeringAbility.Stats[modData.scalers[i].targetStat],
+        //        StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[modData.scalers[i].targetStat],
+        //        StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[modData.scalers[i].targetStat],
+        //        StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[modData.scalers[i].targetStat],
+        //        StatModifierData.DeriveFromWhom.WeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll /** modData.Stats[StatName.AbilityWeaponCoefficicent]*/,
+        //        _ => 0f,
+        //    };
+
+        //    //Debug.Log(modData.deriveOptions[i].statScaler + " with a scaler of: " + modData.deriveOptions[i].statMultiplier);
+
+        //    //Debug.Log(modData.scalers[i].scalerStat.ModifiedValue + " is the scaler for: " + modData.scalers[i].targetStat);
+
+        //    result *= modData.scalers[i].scalerStat.ModifiedValue;
+
+        //    //Debug.Log(result + " is the total contrabution from: " + modData.scalers[i].targetStat);
+
+        //    totalDerivedValue += result;
+
+        //    //Debug.Log(totalDerivedValue + " is the total so far");
+        //}
 
         return totalDerivedValue;
     }
@@ -1345,7 +1431,7 @@ public class StatAdjustmentEffect : Effect {
 
             string formatted = TextHelper.FormatStat(item.Key, item.Value);
 
-            Debug.Log(" Scales From: " + formatted + " of " + item.Key);
+            //Debug.Log(" Scales From: " + formatted + " of " + item.Key);
 
 
             builder.AppendLine(formatted + "of " + TextHelper.PretifyStatName(item.Key));

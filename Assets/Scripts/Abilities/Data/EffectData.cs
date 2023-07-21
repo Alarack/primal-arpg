@@ -196,6 +196,10 @@ public class StatScaler {
         scalerStat.RemoveModifier(mod); 
     }
 
+    public void RemoveAllScalarModsFromSource(object source) {
+        scalerStat.RemoveAllModifiersFromSource(source);
+    }
+
     //public float GetAdjustment(StatAdjustmentEffect effect) {
 
     //    float result = type switch {

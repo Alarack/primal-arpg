@@ -73,6 +73,8 @@ public class StatModifierData
    
     public List<StatScaler> scalers = new List<StatScaler>();
 
+    public Dictionary<StatName, StatScaler> scalersDict = new Dictionary<StatName, StatScaler>();
+
     //public string deriveEffectName;
     //public string deriveAbilityName;
 
@@ -95,6 +97,9 @@ public class StatModifierData
     public void SetupScalers() {
         for (int i = 0; i < scalers.Count; i++) {
             scalers[i].InitStat();
+            
+            if (scalersDict.ContainsKey(scalers[i].targetStat) == false)
+                scalersDict.Add(scalers[i].targetStat, scalers[i]);
         }
     }
 
@@ -113,14 +118,96 @@ public class StatModifierData
     }
 
 
-    public float GetScalerValue(StatName targetStat) {
-        for (int i = 0; i < scalers.Count; i++) {
-            if (scalers[i].targetStat == targetStat)
-                return scalers[i].scalerStat.ModifiedValue;
+    public void AddScaler(StatScaler scaler) {
+        if(scalersDict.ContainsKey(scaler.targetStat) == true) {
+            Debug.LogError("Duplicate stat scaler: " + scaler.targetStat + ". this is not supported");
+            return;
         }
 
-        return 0f;
+        scalersDict.Add(scaler.targetStat, scaler);
+        scaler.InitStat();
     }
+
+    public void RemoveScaler(StatScaler scaler) {
+        if (scalersDict.ContainsKey(scaler.targetStat) == true) {
+            scalersDict.Remove(scaler.targetStat);
+        }
+    }
+
+
+    public void AddScalerMod(StatName targetStat, StatModifier mod) {
+
+        scalersDict[targetStat].AddScalerMod(mod);
+        
+        //for (int i = 0; i < scalers.Count; i++) {
+        //    if (scalers[i].targetStat == targetStat) {
+        //        scalers[i].AddScalerMod(mod);
+        //        break;
+        //    }
+        //}
+    }
+
+    public void RemoveScalerMod(StatName targetStat, StatModifier mod) {
+
+        scalersDict[targetStat].RemoveScalerMod(mod);
+        
+        //for (int i = 0; i < scalers.Count; i++) {
+        //    if (scalers[i].targetStat == targetStat) {
+        //        scalers[i].RemoveScalerMod(mod);
+        //        break;
+        //    }
+        //}
+    }
+
+
+    public void RemoveAllscalerModsFromSource(StatName targetStat, object source) {
+
+        scalersDict[targetStat].RemoveAllScalarModsFromSource(source);
+
+        //for (int i = 0; i < scalers.Count; i++) {
+        //    if (scalers[i].targetStat == targetStat) {
+        //        scalers[i].RemoveAllScalarModsFromSource(source);
+        //        break;
+        //    }
+
+        //}
+    }
+
+    //public float GetScalerValue(StatName targetStat) {
+    //    for (int i = 0; i < scalers.Count; i++) {
+    //        if (scalers[i].targetStat == targetStat)
+    //            return scalers[i].scalerStat.ModifiedValue;
+    //    }
+
+    //    return 0f;
+    //}
+
+    public Dictionary<StatName, float> GetAllScalerValues() {
+        Dictionary<StatName, float> results = new Dictionary<StatName, float>();
+
+        foreach (var entry in scalersDict) {
+            results.Add(entry.Key, entry.Value.scalerStat.ModifiedValue);
+        }
+
+        return results;
+    }
+
+    public float GetWeaponScaler() {
+        if(scalersDict.TryGetValue(StatName.AbilityWeaponCoefficicent, out StatScaler target) == true) {
+            return target.scalerStat.ModifiedValue;
+        }
+
+        return -1f;
+    }
+
+    //public StatScaler GetScalerByStat(StatName targetStat) {
+    //    for (int i = 0; i < scalers.Count; i++) {
+    //        if (scalers[i].targetStat == targetStat)
+    //            return scalers[i];
+    //    }
+
+    //    return null;
+    //}
 
     public StatModifierData(StatModifierData copy) {
         this.targetStat = copy.targetStat;
@@ -140,6 +227,10 @@ public class StatModifierData
     private void CloneStatScalers(StatModifierData copy) {
         for (int i = 0; i < copy.scalers.Count; i++) {
             this.scalers.Add(new StatScaler(copy.scalers[i]));
+        }
+
+        foreach (var entry in copy.scalersDict) {
+            this.scalersDict.Add(entry.Key, new StatScaler(entry.Value));
         }
 
     }

@@ -545,30 +545,24 @@ public class Ability {
             //    builder.AppendLine();
             //    builder.AppendLine("Effect Size: " + TextHelper.ColorizeText( size.ToString(), Color.green));
             //}
-            
-            builder.AppendLine();
+            if(Data.category != AbilityCategory.Rune) {
+                builder.AppendLine();
 
-            string scalarTooltip = (effects[0] as StatAdjustmentEffect).ScalarTooltip();
+                string scalarTooltip = (effects[0] as StatAdjustmentEffect).ScalarTooltip();
 
-            //Debug.Log("Ability Level: " + scalarTooltip);
+                //Debug.Log("Ability Level: " + scalarTooltip);
 
-            builder.AppendLine("Scales From: ");
+                builder.AppendLine("Scales From: ");
 
-            builder.Append(scalarTooltip).AppendLine();
+                builder.Append(scalarTooltip).AppendLine();
+            }
         }
 
         //if (damagePercent > 0f) {
         //    builder.Append("Damage: " + TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green) + " of Weapon Damage").AppendLine();
         //}
 
-
         float cooldown = GetCooldown();
-        if (cooldown > 0f) {
-
-            //Debug.Log(cooldown + " is the cooldown of: " + Data.abilityName);
-
-            builder.Append("Cooldown: " + TextHelper.ColorizeText( TextHelper.RoundTimeToPlaces(cooldown, 2), Color.yellow)).Append(" Seconds").AppendLine();
-        }
 
         if (Data.includeEffectsInTooltip == true) {
             foreach (Effect effect in effects) {
@@ -577,14 +571,19 @@ public class Ability {
 
                 if (string.IsNullOrEmpty(effectTooltip) == false) {
 
-                    if(effects.Last() == effect)
-                        builder.Append(effect.GetTooltip());
-                    else
+                    if (cooldown > 0f )
                         builder.Append(effect.GetTooltip()).AppendLine();
+                    else
+                        builder.Append(effect.GetTooltip());
                 }
             }
         }
 
+
+        
+        if (cooldown > 0f) {
+            builder.Append("Cooldown: " + TextHelper.ColorizeText( TextHelper.RoundTimeToPlaces(cooldown, 2), Color.yellow)).Append(" Seconds").AppendLine();
+        }
 
         for (int i = 0; i < ChildAbilities.Count; i++) {
             builder.Append(ChildAbilities[i].GetTooltip());
