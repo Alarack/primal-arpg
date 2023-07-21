@@ -12,7 +12,8 @@ public enum EffectType {
     RemoveStatus,
     Movement,
     AddChildAbility,
-    ApplyOtherEffect
+    ApplyOtherEffect,
+    AddStatScaler
 }
 
 public enum EffectTarget {
@@ -35,7 +36,7 @@ public enum EffectSubTarget {
     Effect,
     StatModifier,
     Ability,
-    StatScaler
+    StatScalerMod
 }
 
 public enum DeliverySpawnLocation { 
@@ -111,6 +112,9 @@ public class EffectData
     public string targetOtherEffectParentAbilityName;
     public string targetOtherEffectName;
     public bool applyTriggeringEffect;
+
+    //Add Stat Scaler
+    public List<StatScaler> statScalersToAdd = new List<StatScaler>();
 
 
     public EffectData() {

@@ -7,7 +7,9 @@ using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.UIElements;
 using static AbilityTrigger;
+using static UnityEditor.Progress;
 using Random = UnityEngine.Random;
 
 
@@ -264,6 +266,93 @@ public class ForcedMovementEffect : Effect {
 
         return true;
     }
+}
+
+public class AddStatScalerEffect : Effect {
+
+    public override EffectType Type => EffectType.AddStatScaler;
+
+    private Dictionary<Effect, List<StatScaler>> trackedScalers = new Dictionary<Effect, List<StatScaler>>();
+
+    public AddStatScalerEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        Debug.LogError("Stat scallers cannot be added to entity. Change your Effect to Target Effects");
+
+        return false;
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+        StatAdjustmentEffect adj = target as StatAdjustmentEffect;
+
+        if(adj == null) {
+            Debug.LogError("Target: " + target.Type + " cannot accept stat scalers. Make sure you're targeting a Stat Adjustment Effect");
+            return false;
+        }
+
+        for (int i = 0; i < Data.statScalersToAdd.Count; i++) {
+            adj.AddScaler(Data.statScalersToAdd[i]);
+
+            TrackScaler(target, Data.statScalersToAdd[i]);
+        }
+
+        return true;
+    }
+
+    public override void RemoveFromEffect(Effect target) {
+        base.RemoveFromEffect(target);
+
+        StatAdjustmentEffect adj = target as StatAdjustmentEffect;
+
+        if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
+            for (int i = 0; i < list.Count; i++) {
+                adj.RemoveScaler(list[i]);
+            }
+
+            trackedScalers.Remove(target);
+        }
+
+    }
+
+    private void TrackScaler(Effect target, StatScaler scaler) {
+        if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
+            list.Add(scaler);
+        }
+        else {
+            trackedScalers.Add(target, new List<StatScaler> { scaler });
+        }
+    }
+
+    public override string GetTooltip() {
+        //return base.GetTooltip();
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.AppendLine("The Base Skill now Scales from: ");
+
+        for (int i = 0; i < Data.statScalersToAdd.Count; i++) {
+
+            StatScaler scaler = Data.statScalersToAdd[i];
+
+            string formatted = TextHelper.FormatStat(scaler.targetStat, scaler.statScaleBaseValue);
+
+            builder.Append(formatted + "of " + TextHelper.PretifyStatName(scaler.targetStat));
+
+            if (i != Data.statScalersToAdd.Count - 1)
+                builder.AppendLine();
+
+        }
+
+        return builder.ToString();  
+    }
+
 }
 
 public class ApplyOtherEffect : Effect {
@@ -656,7 +745,7 @@ public class StatAdjustmentEffect : Effect {
 
     private List<StatModifierData> modData = new List<StatModifierData>();
 
-    private Dictionary<Effect, List<StatScaler>> trackedScalers = new Dictionary<Effect, List<StatScaler>>();
+    //private Dictionary<Effect, List<StatScaler>> trackedScalers = new Dictionary<Effect, List<StatScaler>>();
 
     //public List<StatAdjustmentOption> options = new List<StatAdjustmentOption>();
 
@@ -672,6 +761,7 @@ public class StatAdjustmentEffect : Effect {
         for (int i = 0; i < modData.Count; i++) {
             modData[i].SetupEffectStats();
         }
+
 
         //for (int i = 0; i < data.adjustmentOptions.Count; i++) {
         //    options.Add(new StatAdjustmentOption(data.adjustmentOptions[i]));
@@ -742,24 +832,55 @@ public class StatAdjustmentEffect : Effect {
         }
     }
 
-    public void AddScaler(Effect target, StatScaler scaler) {
-        if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
-            list.Add(scaler);
-        }
-        else {
-            trackedScalers.Add(target, new List<StatScaler> { scaler });
+
+    public void AddScaler(StatScaler scaler) {
+        for (int i = 0; i < modData.Count; i++) {
+            for (int j = 0; j < modData[i].scalers.Count; j++) {
+                if (modData[i].scalers[j].targetStat == scaler.targetStat) {
+                    Debug.LogError("Duplicate stat scaler: " + scaler.targetStat + ". this is not supported");
+                    return;
+                }
+            }
+
+            modData[i].scalers.Add(scaler);
+            scaler.InitStat();
+
+            Debug.Log("Adding a scaler for: " + scaler.targetStat);
         }
     }
 
-    public void RemoveScaler(Effect target, StatScaler scaler) {
-        if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
-            list.Remove(scaler);
-
-            if (list.Count == 0)
-                trackedScalers.Remove(target);
+    public void RemoveScaler(StatScaler scaler) {
+        for (int i = 0; i < modData.Count; i++) {
+            modData[i].scalers.RemoveIfContains(scaler);
         }
-
     }
+
+    //public void AddScaler(Effect target, StatScaler scaler) {
+    //    if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
+
+    //        for (int i = 0; i < list.Count; i++) {
+    //            if (list[i].targetStat == scaler.targetStat) {
+    //                Debug.LogError("Duplicate stat scaler: " + scaler.targetStat + ". this is not supported");
+    //                return;
+    //            }
+    //        }
+
+    //        list.Add(scaler);
+    //    }
+    //    else {
+    //        trackedScalers.Add(target, new List<StatScaler> { scaler });
+    //    }
+    //}
+
+    //public void RemoveScaler(Effect target, StatScaler scaler) {
+    //    if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
+    //        list.Remove(scaler);
+
+    //        if (list.Count == 0)
+    //            trackedScalers.Remove(target);
+    //    }
+
+    //}
 
     public void AddScalerMod(StatName targetStat, StatModifier mod) {
         for (int i = 0; i < modData.Count; i++) {
@@ -897,15 +1018,15 @@ public class StatAdjustmentEffect : Effect {
 
             //Debug.Log(modData.deriveOptions[i].statScaler + " with a scaler of: " + modData.deriveOptions[i].statMultiplier);
 
-            Debug.Log(modData.scalers[i].statScaleBaseValue + " is the scaler for: " + modData.scalers[i].targetStat);
+            //Debug.Log(modData.scalers[i].statScaleBaseValue + " is the scaler for: " + modData.scalers[i].targetStat);
 
             result *= modData.scalers[i].statScaleBaseValue;
 
-            Debug.Log(result + " is the total contrabution from: " + modData.scalers[i].targetStat);
+            //Debug.Log(result + " is the total contrabution from: " + modData.scalers[i].targetStat);
 
             totalDerivedValue += result;
 
-            Debug.Log(totalDerivedValue + " is the total so far");
+            //Debug.Log(totalDerivedValue + " is the total so far");
         }
 
         return totalDerivedValue;
@@ -1021,7 +1142,7 @@ public class StatAdjustmentEffect : Effect {
                     StatAdjustmentEffect adj = target as StatAdjustmentEffect;
                     adj.AddStatAdjustmentModifier(activeMod);
                     break;
-                case EffectSubTarget.StatScaler:
+                case EffectSubTarget.StatScalerMod:
                     StatAdjustmentEffect adj2 = target as StatAdjustmentEffect;
                     adj2.AddScalerMod(activeMod.TargetStat, activeMod);
                     break;
@@ -1053,7 +1174,7 @@ public class StatAdjustmentEffect : Effect {
             AddStatusEffect statusEffect = target as AddStatusEffect;
             //Debug.Log("Applying a stat adjustment to a status effect: " +Data.effectName);
 
-            if (Data.subTarget == EffectSubTarget.StatModifier || Data.subTarget == EffectSubTarget.StatScaler) {
+            if (Data.subTarget == EffectSubTarget.StatModifier || Data.subTarget == EffectSubTarget.StatScalerMod) {
                 //Debug.Log("Applying a stat adjustment to a status effect's damage : " + Data.effectName);
 
                 for (int i = 0; i < statusEffect.activeStatusEffects.Count; i++) {
@@ -1083,7 +1204,7 @@ public class StatAdjustmentEffect : Effect {
                         StatAdjustmentEffect adj = target as StatAdjustmentEffect;
                         adj.RemoveStatAdjustmentModifier(modList[i]);
                         break;
-                    case EffectSubTarget.StatScaler:
+                    case EffectSubTarget.StatScalerMod:
                         StatAdjustmentEffect adj2 = target as StatAdjustmentEffect;
                         adj2.RemoveScalerMod(modList[i].TargetStat, modList[i]);
                         break;
@@ -1209,8 +1330,52 @@ public class StatAdjustmentEffect : Effect {
     }
 
 
+    public string ScalarTooltip() {
+        Dictionary<StatName, float> scalers = GetAllScalerValues();
+
+
+        if(scalers.Count == 0) {
+            return "No Scalers Found";
+        }
+
+
+        StringBuilder builder = new StringBuilder();
+
+        foreach (var item in scalers) {
+
+            string formatted = TextHelper.FormatStat(item.Key, item.Value);
+
+            Debug.Log(" Scales From: " + formatted + " of " + item.Key);
+
+
+            builder.AppendLine(formatted + "of " + TextHelper.PretifyStatName(item.Key));
+
+            //builder.AppendLine(item.Key.ToString().SplitCamelCase() + ": " + formatted);
+
+
+          
+
+            //Debug.Log("Formatted: " + formatted);
+
+            //builder.AppendLine(formatted);
+        }
+
+        return builder.ToString();
+    }
+
     public override string GetTooltip() {
         //return base.GetTooltip();
+
+
+        //if(Data.effectDesignation == StatModifierData.StatModDesignation.PrimaryDamage) {
+        //    Dictionary<StatName, float> scalers = GetAllScalerValues();
+
+        //    foreach (var item in scalers) {
+        //        Debug.Log(" Scales From: " + item.Key + " at " +  item.Value + "%");
+        //    }
+
+        //}
+
 
         string formated = TextHelper.FormatStat(modData[0].targetStat, modData[0].Stats[StatName.StatModifierValue]);
 

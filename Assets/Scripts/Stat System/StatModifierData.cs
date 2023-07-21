@@ -113,6 +113,14 @@ public class StatModifierData
     }
 
 
+    public float GetScalerValue(StatName targetStat) {
+        for (int i = 0; i < scalers.Count; i++) {
+            if (scalers[i].targetStat == targetStat)
+                return scalers[i].scalerStat.ModifiedValue;
+        }
+
+        return 0f;
+    }
 
     public StatModifierData(StatModifierData copy) {
         this.targetStat = copy.targetStat;

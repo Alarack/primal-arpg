@@ -103,6 +103,7 @@ public static class AbilityFactory {
             EffectType.Movement => new ForcedMovementEffect(data, source, parentAbility),
             EffectType.AddChildAbility => new AddChildAbilityEffect(data, source, parentAbility),
             EffectType.ApplyOtherEffect => new ApplyOtherEffect(data, source, parentAbility),
+            EffectType.AddStatScaler => new AddStatScalerEffect(data, source, parentAbility),
             _ => null,
         };
 

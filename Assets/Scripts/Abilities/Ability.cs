@@ -510,26 +510,56 @@ public class Ability {
         if(string.IsNullOrEmpty(Data.abilityDescription) == false) {
             int targets = GetMaxTargets();
 
-            if(targets > 0) {
-                string replacement = Data.abilityDescription.Replace("{T}", TextHelper.ColorizeText(GetMaxTargets().ToString(), Color.green));
+            string replacement = Data.abilityDescription;
 
-                builder.Append(replacement).AppendLine();
-            }
-            else{
-                builder.Append(Data.abilityDescription).AppendLine();
-            }
-           
+            if (targets > 0) {
+                replacement = Data.abilityDescription.Replace("{T}", TextHelper.ColorizeText(GetMaxTargets().ToString(), Color.green));
 
+                //builder.Append(replacement).AppendLine();
+            }
+            //else{
+            //    builder.Append(Data.abilityDescription).AppendLine();
+            //}
+
+            float size = effects[0].Stats[StatName.EffectSize];
+
+            float globalSizeMod = Source.Stats[StatName.GlobalEffectSizeModifier];
+
+            size *= (1 + globalSizeMod);
+
+            string radiusReplacement = replacement.Replace("{ES}", TextHelper.ColorizeText(size.ToString(), Color.green));
+
+            builder.Append(radiusReplacement).AppendLine();
         }
 
 
+        
 
+        //float damagePercent = GetWeaponDamageScaler(); //GetDamageEffectRatio();
 
-        float damagePercent = GetWeaponDamageScaler(); //GetDamageEffectRatio();
+        if (effects[0] is StatAdjustmentEffect) {
 
-        if (damagePercent > 0f) {
-            builder.Append("Damage: " + TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green) + " of Weapon Damage").AppendLine();
+            //float size = effects[0].Stats[StatName.EffectSize];
+
+            //if(size > 0) {
+            //    builder.AppendLine();
+            //    builder.AppendLine("Effect Size: " + TextHelper.ColorizeText( size.ToString(), Color.green));
+            //}
+            
+            builder.AppendLine();
+
+            string scalarTooltip = (effects[0] as StatAdjustmentEffect).ScalarTooltip();
+
+            //Debug.Log("Ability Level: " + scalarTooltip);
+
+            builder.AppendLine("Scales From: ");
+
+            builder.Append(scalarTooltip).AppendLine();
         }
+
+        //if (damagePercent > 0f) {
+        //    builder.Append("Damage: " + TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green) + " of Weapon Damage").AppendLine();
+        //}
 
 
         float cooldown = GetCooldown();
@@ -537,7 +567,7 @@ public class Ability {
 
             //Debug.Log(cooldown + " is the cooldown of: " + Data.abilityName);
 
-            builder.Append("Cooldown: " + TextHelper.RoundTimeToPlaces(cooldown, 2)).Append(" Seconds").AppendLine();
+            builder.Append("Cooldown: " + TextHelper.ColorizeText( TextHelper.RoundTimeToPlaces(cooldown, 2), Color.yellow)).Append(" Seconds").AppendLine();
         }
 
         if (Data.includeEffectsInTooltip == true) {

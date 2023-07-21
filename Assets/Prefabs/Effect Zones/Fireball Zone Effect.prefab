@@ -68,7 +68,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3.5
+  m_Radius: 1
 --- !u!114 &2109167299929148009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +88,6 @@ MonoBehaviour:
   statDefinitions: {fileID: 11400000, guid: f2a4e559b0ca96f4e861fe29c0a614f6, type: 2}
   deathEffectPrefab: {fileID: 0}
   spawnEffectPrefab: {fileID: 0}
-  baseAbilities: []
 --- !u!1001 &2547542907005481864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111,15 +110,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 416251089823111759, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.7601
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 416251089823111759, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.7601
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 416251089823111759, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.7601
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 416251089823111759, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       propertyPath: m_LocalPosition.x
@@ -175,15 +174,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6301608473481969982, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4.1136
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6301608473481969982, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4.1136
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6301608473481969982, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.1136
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6362734130701160427, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       propertyPath: m_Materials.Array.size
