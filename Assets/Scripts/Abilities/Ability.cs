@@ -415,23 +415,23 @@ public class Ability {
         return effects;
     }
 
-    public float GetDamageEffectRatio() {
+    //public float GetDamageEffectRatio() {
 
-        float result = -1f;
+    //    float result = -1f;
 
-        for (int i = 0; i < effects.Count; i++) {
-            if (effects[i] is StatAdjustmentEffect) {
-                StatAdjustmentEffect targetEffect = effects[i] as StatAdjustmentEffect;
+    //    for (int i = 0; i < effects.Count; i++) {
+    //        if (effects[i] is StatAdjustmentEffect) {
+    //            StatAdjustmentEffect targetEffect = effects[i] as StatAdjustmentEffect;
 
-                if (targetEffect.Data.effectDesignation == StatModifierData.StatModDesignation.PrimaryDamage) {
-                    result = targetEffect.GetBaseWeaponPercent();
-                    break;
-                }
-            }
-        }
+    //            if (targetEffect.Data.effectDesignation == StatModifierData.StatModDesignation.PrimaryDamage) {
+    //                result = targetEffect.GetBaseWeaponPercent();
+    //                break;
+    //            }
+    //        }
+    //    }
 
-        return result;
-    }
+    //    return result;
+    //}
 
     public float GetWeaponDamageScaler() {
         float result = -1f;

@@ -956,14 +956,14 @@ public class StatAdjustmentEffect : Effect {
         return 0f;
     }
 
-    public float GetBaseWeaponPercent() {
-        for (int i = 0; i < modData.Count; i++) {
-            if (modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage) {
-                return modData[i].Stats[StatName.AbilityWeaponCoefficicent];
-            }
-        }
-        return -1f;
-    }
+    //public float GetBaseWeaponPercent() {
+    //    for (int i = 0; i < modData.Count; i++) {
+    //        if (modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage) {
+    //            return modData[i].Stats[StatName.AbilityWeaponCoefficicent];
+    //        }
+    //    }
+    //    return -1f;
+    //}
 
     public float GetWeaponScaler() {
 
