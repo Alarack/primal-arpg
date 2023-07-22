@@ -21,7 +21,9 @@ MonoBehaviour:
     suspend: 0
     autoFire: 0
     includeEffectsInTooltip: 0
+    ignoreTooltip: 1
     runeAbilityTarget: 
+    childAbilities: []
     tags: 
     activationTriggerData:
     - type: 19
@@ -65,6 +67,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetStatus: 0
     endTriggerData:
     - type: 18
       riderAbilityName: 

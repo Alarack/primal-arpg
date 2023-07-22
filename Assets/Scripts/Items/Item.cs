@@ -121,7 +121,7 @@ public class Item
 
         if(this is ItemWeapon) {
             ItemWeapon weapon = (ItemWeapon)this;
-            builder.Append("Damage: ").Append(weapon.minDamage).Append(" - ").Append(weapon.maxDamage).AppendLine();
+            builder.Append("Weapon Damage: ").Append(TextHelper.ColorizeText(weapon.minDamage.ToString(), ColorDataManager.Instance["Steel Gray"])).Append(" - ").Append(TextHelper.ColorizeText( weapon.maxDamage.ToString(), ColorDataManager.Instance["Steel Gray"])).AppendLine();
         }
 
         for (int i = 0; i < Data.statModifierData.Count; i++) {

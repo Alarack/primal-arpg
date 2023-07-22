@@ -24,7 +24,7 @@ public class EffectTargeter {
 
     public EffectTargeter(Effect parentEffect) {
         this.parentEffect = parentEffect;
-        numberOfTargets = parentEffect.Data.numberOfTargets;
+        numberOfTargets = (int)parentEffect.Stats[StatName.EffectMaxTargets];
     }
 
     public void SetTriggerInstance(TriggerInstance activationInstance) {

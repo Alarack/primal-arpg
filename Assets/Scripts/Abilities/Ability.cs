@@ -295,7 +295,7 @@ public class Ability {
         Ability newChild = AbilityFactory.CreateAbility(data, Source);
         AddChildAbility(newChild);
 
-        if(IsEquipped == true) {
+        if (IsEquipped == true) {
             newChild.Equip();
         }
 
@@ -307,8 +307,8 @@ public class Ability {
     }
 
     public void RemoveChildAbility(Ability ability) {
-        if(ChildAbilities.RemoveIfContains(ability) == true) {
-            if(ability.IsEquipped)
+        if (ChildAbilities.RemoveIfContains(ability) == true) {
+            if (ability.IsEquipped)
                 ability.Uneqeuip();
         }
     }
@@ -504,10 +504,34 @@ public class Ability {
 
     public string GetTooltip() {
 
+        if (Data.ignoreTooltip == true) {
+            return "";
+        }
+
+
         StringBuilder builder = new StringBuilder();
 
+        if (Tags.Count > 0) {
 
-        if(string.IsNullOrEmpty(Data.abilityDescription) == false) {
+            builder.Append(TextHelper.ColorizeText("[", Color.gray, 20f));
+
+            for (int i = 0; i < Tags.Count; i++) {
+                builder.Append(TextHelper.ColorizeText(Tags[i].ToString(), Color.gray, 20f));
+
+                if (i != Tags.Count - 1) {
+                    builder.Append(", ");
+                }
+            }
+
+            builder.Append(TextHelper.ColorizeText("]", Color.gray, 20f));
+            builder.AppendLine();
+        }
+
+
+
+
+
+        if (string.IsNullOrEmpty(Data.abilityDescription) == false) {
             int targets = GetMaxTargets();
 
             string replacement = Data.abilityDescription;
@@ -529,38 +553,41 @@ public class Ability {
 
             string radiusReplacement = replacement.Replace("{ES}", TextHelper.ColorizeText(size.ToString(), Color.green));
 
-            builder.Append(radiusReplacement).AppendLine();
+            float lifetime = effects[0].Stats[StatName.ProjectileLifetime];
+
+            string durationReplacment = radiusReplacement.Replace("{D}", TextHelper.ColorizeText(lifetime.ToString(), Color.yellow));
+
+            builder.Append(durationReplacment).AppendLine();
         }
 
 
-        
+
 
         //float damagePercent = GetWeaponDamageScaler(); //GetDamageEffectRatio();
 
         if (effects[0] is StatAdjustmentEffect) {
 
-            //float size = effects[0].Stats[StatName.EffectSize];
+            StatAdjustmentEffect adj = effects[0] as StatAdjustmentEffect;
+            if (Data.category != AbilityCategory.Rune) {
 
-            //if(size > 0) {
-            //    builder.AppendLine();
-            //    builder.AppendLine("Effect Size: " + TextHelper.ColorizeText( size.ToString(), Color.green));
-            //}
-            if(Data.category != AbilityCategory.Rune) {
-                builder.AppendLine();
+                string scalarTooltip = adj.ScalarTooltip();
+                if (scalarTooltip == "No Scalers Found") {
+                    Debug.LogWarning("No scalers on: " + Data.abilityName);
+                }
+                else {
+                    builder.AppendLine();
+                    builder.AppendLine("Scales From: ");
 
-                string scalarTooltip = (effects[0] as StatAdjustmentEffect).ScalarTooltip();
-
-                //Debug.Log("Ability Level: " + scalarTooltip);
-
-                builder.AppendLine("Scales From: ");
-
-                builder.Append(scalarTooltip).AppendLine();
+                    builder.Append(scalarTooltip).AppendLine();
+                }
             }
-        }
 
-        //if (damagePercent > 0f) {
-        //    builder.Append("Damage: " + TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green) + " of Weapon Damage").AppendLine();
-        //}
+            string projectileStats = adj.GetProjectileStatsTooltip();
+            if (string.IsNullOrEmpty(projectileStats) == false) {
+                builder.AppendLine(projectileStats);
+            }
+
+        }
 
         float cooldown = GetCooldown();
 
@@ -571,7 +598,7 @@ public class Ability {
 
                 if (string.IsNullOrEmpty(effectTooltip) == false) {
 
-                    if (cooldown > 0f )
+                    if (cooldown > 0f)
                         builder.Append(effect.GetTooltip()).AppendLine();
                     else
                         builder.Append(effect.GetTooltip());
@@ -580,9 +607,9 @@ public class Ability {
         }
 
 
-        
+
         if (cooldown > 0f) {
-            builder.Append("Cooldown: " + TextHelper.ColorizeText( TextHelper.RoundTimeToPlaces(cooldown, 2), Color.yellow)).Append(" Seconds").AppendLine();
+            builder.Append("Cooldown: " + TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(cooldown, 2), Color.yellow)).Append(" Seconds").AppendLine();
         }
 
         //if(ChildAbilities.Count > 0) {
@@ -600,16 +627,13 @@ public class Ability {
 
         builder.Append(GetRunesTooltip());
 
-
-
-
         return builder.ToString();
     }
 
     public List<Ability> GetRunes() {
         //return Source.AbilityManager.GetRuneAbilities(Data.abilityName);
 
-        List<Ability> runeAbilities = new List<Ability> ();
+        List<Ability> runeAbilities = new List<Ability>();
 
         for (int i = 0; i < equippedRunes.Count; i++) {
             runeAbilities.AddRange(equippedRunes[i].Abilities);
@@ -630,12 +654,12 @@ public class Ability {
 
         for (int i = 0; i < runes.Count; i++) {
             //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
-            builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName);
-            
-            if(i != runes.Count - 1) {
-                builder.AppendLine();
-            }
-            
+            builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).AppendLine(runes[i].Data.abilityName);
+
+            //if(i != runes.Count - 1) {
+            //    builder.AppendLine();
+            //}
+
             //builder.Append(runes[i].GetTooltip());
             for (int j = 0; j < runes[i].effects.Count; j++) {
                 builder.Append(runes[i].effects[j].GetTooltip()).AppendLine();
@@ -726,7 +750,7 @@ public class Ability {
             return;
         }
 
-        if(IsEquipped == false) {
+        if (IsEquipped == false) {
             Debug.Log("An ability: " + Data.abilityName + " tried to trigger, but is not equipped.");
             return;
         }

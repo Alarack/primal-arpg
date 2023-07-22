@@ -16,12 +16,13 @@ MonoBehaviour:
     category: 2
     abilityIcon: {fileID: 21300000, guid: 79491c6e247df634d8d4d6bc0df9f17f, type: 3}
     abilityName: Fire Starter
-    abilityDescription: Dealing Fire Damage causes an explosion
+    abilityDescription: 
     toBestow: 0
     suspend: 0
     autoFire: 0
     includeEffectsInTooltip: 0
     runeAbilityTarget: 
+    childAbilities: []
     tags: 
     activationTriggerData:
     - type: 1
@@ -65,6 +66,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetStatus: 0
         - type: 4
           inverse: 0
           statChangeTarget: 0
@@ -99,6 +101,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetStatus: 0
       - focus: 2
         constraintData:
         - type: 7
@@ -135,6 +138,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetStatus: 0
       - focus: 5
         constraintData:
         - type: 7
@@ -171,6 +175,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetStatus: 0
         - type: 17
           inverse: 0
           statChangeTarget: 0
@@ -205,6 +210,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetStatus: 0
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+
 
 public static class TextHelper 
 {
@@ -64,13 +65,16 @@ public static class TextHelper
             StatName.GlobalProjectileSizeModifier when value < 0 => $"<color=#{penaltyColor}>-" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.EffectSize when value > 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.EffectSize when value < 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
+            StatName.ProjectileChainCount => $"<color=#{bonusColor}>" + value + "</color>",
+            StatName.ProjectilePierceCount => $"<color=#{bonusColor}>" + value + "</color>",
+            StatName.ProjectileSplitCount => $"<color=#{bonusColor}>" + value + "</color>",
             _ => "No Entry For: " + stat,
         };
 
         //string rarityText = $"<color=#{bonusColor}>{result}</color>";
 
 
-        return result;
+        return "<b>" + result + "</b>";
 
     }
 
@@ -128,10 +132,24 @@ public static class TextHelper
         return result;
     }
 
-    public static string ColorizeText(string text, Color color) {
+    public static string ColorizeText(string text, Color color, float size = 0f) {
         string hexColor = ColorUtility.ToHtmlStringRGB(color);
 
-        return $"<color=#{hexColor}>" + text + "</color>";
+        string colorizedText = $"<color=#{hexColor}><b>" + text + "</b></color>";
+
+        if(size <= 0f) {
+            return colorizedText;
+        }
+        else {
+            return SizeText(colorizedText, size);
+        }
+
+        //return $"<color=#{hexColor}><b>" + text + "</b></color>";
+    }
+
+    public static string SizeText(string text, float size) {
+
+        return $"<size=#{size}>" + text + "</size>";
     }
 
 

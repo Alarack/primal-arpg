@@ -26,7 +26,17 @@ MonoBehaviour:
     payloadPrefab: {fileID: 5014085312362430806, guid: 7ab9fd21262495a449e3105149a5b9c8, type: 3}
     payloadCount: 1
     shotDelay: 0.2
-    payloadStatData: []
+    payloadStatData:
+    - variant: 0
+      statName: 10
+      value: 5
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 41
+      value: 2
+      maxValue: 0
+      minValue: 0
     spawnLocation: 3
     effectZoneInfo:
       removeEffectOnExit: 0

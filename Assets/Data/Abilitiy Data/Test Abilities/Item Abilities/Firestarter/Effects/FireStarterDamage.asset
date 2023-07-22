@@ -18,14 +18,15 @@ MonoBehaviour:
     type: 1
     targeting: 5
     subTarget: 0
+    deliveryPayloadToTarget: 0
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
     targetConstraints: []
     payloadPrefab: {fileID: 2109167299929148009, guid: 1cdca75020bb43f489775f87b1cdf428, type: 3}
     payloadCount: 1
-    projectilePierceCount: 0
     shotDelay: 0.2
+    payloadStatData: []
     spawnLocation: 1
     effectZoneInfo:
       removeEffectOnExit: 0
@@ -42,13 +43,18 @@ MonoBehaviour:
       value: 0
       modifierType: 0
       variantTarget: 1
-      modValueSetMethod: 5
+      modValueSetMethod: 6
       weaponDamagePercent: 0.2
+      deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 1
       otherTargetAbility: 
       otherTagetEffect: 
+      scalers:
+      - targetStat: 28
+        deriveTarget: 15
+        statScaleBaseValue: 0.2
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 0.6077585, b: 0, a: 1}
@@ -93,3 +99,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    targetOtherEffectParentAbilityName: 
+    targetOtherEffectName: 
+    applyTriggeringEffect: 0
+    statScalersToAdd: []

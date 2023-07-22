@@ -127,7 +127,7 @@ public class InventoryBaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
     public virtual void OnPointerEnter(PointerEventData eventData) {
 
         if (MyItem != null) {
-            TooltipManager.Show(MyItem.GetTooltip(), MyItem.Data.itemName);
+            TooltipManager.Show(MyItem.GetTooltip(), TextHelper.ColorizeText( MyItem.Data.itemName, ColorDataManager.Instance["Burnt Orange"]));
 
         }
 

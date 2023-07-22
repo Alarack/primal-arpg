@@ -1452,22 +1452,36 @@ public class StatAdjustmentEffect : Effect {
 
             string formatted = TextHelper.FormatStat(item.Key, item.Value);
 
-            //Debug.Log(" Scales From: " + formatted + " of " + item.Key);
-
-
             builder.AppendLine(formatted + "of " + TextHelper.PretifyStatName(item.Key));
 
-            //builder.AppendLine(item.Key.ToString().SplitCamelCase() + ": " + formatted);
-
-
-          
-
-            //Debug.Log("Formatted: " + formatted);
-
-            //builder.AppendLine(formatted);
         }
 
         return builder.ToString();
+    }
+
+    public string GetProjectileStatsTooltip() {
+        StringBuilder builder = new StringBuilder();
+
+        if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
+            string chainCount = TextHelper.FormatStat(StatName.ProjectileChainCount, Stats[StatName.ProjectileChainCount]);
+
+            builder.AppendLine("Chains up to: " + chainCount + " times");
+        }
+
+        if (Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
+            string pierceCount = TextHelper.FormatStat(StatName.ProjectilePierceCount, Stats[StatName.ProjectilePierceCount]);
+
+            builder.AppendLine("Pierces up to: " + pierceCount + " times");
+        }
+
+        if (Stats.Contains(StatName.ProjectileSplitCount) && Stats[StatName.ProjectileSplitCount] > 0) {
+            string splitCount = TextHelper.FormatStat(StatName.ProjectileSplitCount, Stats[StatName.ProjectileSplitCount]);
+
+            builder.AppendLine("Splits up to: " + splitCount + " times");
+        }
+
+
+        return builder.ToString();  
     }
 
     public override string GetTooltip() {
@@ -1483,11 +1497,14 @@ public class StatAdjustmentEffect : Effect {
 
         //}
 
+        StringBuilder builder = new StringBuilder();
+
 
         string formated = TextHelper.FormatStat(modData[0].targetStat, modData[0].Stats[StatName.StatModifierValue]);
 
         string replacement = Data.effectDescription.Replace("{}", formated);
 
+       
 
         if (ParentAbility != null) {
             float duration = ParentAbility.GetDuration();
@@ -1498,12 +1515,15 @@ public class StatAdjustmentEffect : Effect {
 
                 string timeReplacment = replacement.Replace("{X}", roundedTime);
 
+                builder.Append(timeReplacment);
                 return timeReplacment;
             }
         }
 
+        
 
-        return replacement;
+        builder.Append(replacement);
+        return builder.ToString();
 
     }
 

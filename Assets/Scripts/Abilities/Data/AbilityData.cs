@@ -10,7 +10,13 @@ public enum AbilityTag {
     Poison,
     Healing,
     Melee,
-    Force
+    Force,
+    Area,
+    Ranged,
+    Projectile,
+    Physical,
+    Affliction,
+    Water
 }
 
 public enum AbilityCategory {
@@ -111,6 +117,7 @@ public class AbilityData
     public bool suspend;
     public bool autoFire;
     public bool includeEffectsInTooltip;
+    public bool ignoreTooltip;
     public string runeAbilityTarget;
 
     public List<AbilityDefinition> childAbilities = new List<AbilityDefinition>();

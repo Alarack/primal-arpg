@@ -15,7 +15,7 @@ MonoBehaviour:
   itemData:
     Type: 1
     itemName: Fast Tick Ring
-    itemDescription: Reduce the interval time on status effecst by {}
+    itemDescription: 
     itemValue: 150
     runeAbilityTarget: 
     validSlots: 0400000005000000
@@ -31,10 +31,12 @@ MonoBehaviour:
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 0
+      deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
       otherTargetAbility: 
       otherTagetEffect: 
+      scalers: []
     abilityDefinitions: []
     learnableAbilities: []
