@@ -113,6 +113,7 @@ public class AbilityData
     public Sprite abilityIcon;
     public string abilityName;
     public string abilityDescription;
+    public float resourceCost = 0f;
     public bool toBestow;
     public bool suspend;
     public bool autoFire;

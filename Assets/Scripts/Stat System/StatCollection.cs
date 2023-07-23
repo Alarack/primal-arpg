@@ -351,6 +351,17 @@ public class StatCollection {
 
     }
 
+    public void AdjustStatRangeByPercentOfMaxValue(StatName name, float value, object source) {
+        if (Contains(name) == false) {
+            Debug.LogError("Stat: " + name + " was not found");
+            return;
+        }
+
+        StatRange targetStat = GetStat<StatRange>(name);
+
+        targetStat.AdjustValueByPercentOfMax(value, source);
+    }
+
     public void AdjustStatRangeCurrentValue(StatName name, StatModifier mod) {
         AdjustStatRangeCurrentValue(name, mod.Value, mod.ModType, mod.Source);
     }

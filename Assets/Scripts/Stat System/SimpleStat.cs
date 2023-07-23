@@ -50,7 +50,11 @@ public enum StatName
     EffectRange,
     GlobalProjectileSizeModifier,
     ProjectileSize,
-    StatScaler
+    StatScaler,
+    EssenceCost,
+    Essence,
+    EssenceRegenerationRate,
+    EssenceRegenerationValue
 }
 
 

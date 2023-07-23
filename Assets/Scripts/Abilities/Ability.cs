@@ -75,8 +75,14 @@ public class Ability {
 
         StatRange charges = new StatRange(StatName.AbilityCharge, 0, Data.startingRecoveryCharges, Data.startingRecoveryCharges);
         SimpleStat runeSlots = new SimpleStat(StatName.AbilityRuneSlots, Data.baseRuneSlots);
+       
         Stats.AddStat(charges);
         Stats.AddStat(runeSlots);
+
+        if(Data.resourceCost > 0) {
+            SimpleStat essenceCost = new SimpleStat(StatName.EssenceCost, Data.resourceCost);
+            Stats.AddStat(essenceCost);
+        }
 
     }
 
@@ -607,6 +613,10 @@ public class Ability {
         }
 
 
+        if (Stats.Contains(StatName.EssenceCost)) {
+            builder.AppendLine("Cost: " + TextHelper.ColorizeText(Stats[StatName.EssenceCost].ToString(), Color.cyan) + " Essence");
+        }
+
 
         if (cooldown > 0f) {
             builder.Append("Cooldown: " + TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(cooldown, 2), Color.yellow)).Append(" Seconds").AppendLine();
@@ -760,6 +770,13 @@ public class Ability {
             return;
         }
 
+
+        if(Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] > 0f) {
+            if (EntityManager.ActivePlayer.TrySpendEssence(Stats[StatName.EssenceCost]) == false) {
+                Debug.LogWarning("Not enough essence");
+                return;
+            }
+        }
 
         //Debug.Log("An ability: " + Data.abilityName + " is starting. Source: " + Source.gameObject.name);
 

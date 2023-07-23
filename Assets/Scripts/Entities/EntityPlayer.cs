@@ -13,6 +13,8 @@ public class EntityPlayer : Entity
     public Inventory Inventory { get; private set; }
     //public bool CanAttack { get; set; } = true;
 
+    private Timer essenceRegenTimer;
+
     public float CurrentDamageRoll { get { return GetDamgeRoll(); } }
 
 
@@ -22,13 +24,52 @@ public class EntityPlayer : Entity
         Inventory = GetComponent<Inventory>();
     }
 
+    protected override void Start() {
+        base.Start();
+
+        essenceRegenTimer = new Timer(Stats[StatName.EssenceRegenerationRate], RegenEssence, true);
+    }
+
+    protected override void OnEnable() {
+        base.OnEnable();
+
+        Stats.AddStatListener(StatName.EssenceRegenerationRate, OnEssenceRegenChanged);
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+        Stats.RemoveStatListener(StatName.EssenceRegenerationRate, OnEssenceRegenChanged);
+    }
+
 
     private void Update() {
 
+        if(essenceRegenTimer != null) {
+            essenceRegenTimer.UpdateClock();
+        }
 
     }
 
+
+    public bool TrySpendEssence(float value) {
+        float difference = Stats[StatName.Essence] - value;
+
+        if (difference < 0)
+            return false;
+
+        Stats.AdjustStatRangeCurrentValue(StatName.Essence, -value, StatModType.Flat, this);
+        return true;
+    }
+
+    private void OnEssenceRegenChanged(BaseStat stat, object source, float value) {
+        essenceRegenTimer.SetDuration(stat.ModifiedValue);
+    }
  
+    private void RegenEssence(EventData data) {
+        //Debug.Log("Regening: " + Stats[StatName.EssenceRegenerationValue] + "% of max essence. CurrentValue: " + Stats[StatName.Essence]);
+        Stats.AdjustStatRangeByPercentOfMaxValue(StatName.Essence, Stats[StatName.EssenceRegenerationValue], this);
+    }
+
     public float GetDamgeRoll() {
         return Inventory.GetDamageRoll();
     }
