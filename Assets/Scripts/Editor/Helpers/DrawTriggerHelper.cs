@@ -49,7 +49,7 @@ public static class DrawTriggerHelper
 
         EditorGUILayout.BeginHorizontal();
 
-        EditorHelper.DrawBufferBar(new Color(0.7f, 0f, 0f, 0.5f), "Start of Trigger: " + ObjectNames.NicifyVariableName( triggerData.type.ToString()));
+        EditorHelper2.DrawBufferBar(new Color(0.7f, 0f, 0f, 0.5f), "Start of Trigger: " + ObjectNames.NicifyVariableName( triggerData.type.ToString()));
 
 
         if (GUILayout.Button("+ Focus") == true) {
@@ -73,7 +73,7 @@ public static class DrawTriggerHelper
 
             //EditorHelper.DrawBufferBar(Color.gray);
 
-            EditorGUILayout.BeginVertical(EditorHelper.BackgroundStyle.GetBackground(bgColors[i % 2]));
+            EditorGUILayout.BeginVertical(EditorHelper2.BackgroundStyle.GetBackground(bgColors[i % 2]));
 
             DrawConstraintDataFocus(triggerData.allConstraints[i], triggerData);
 
@@ -83,7 +83,7 @@ public static class DrawTriggerHelper
 
         }
 
-        EditorHelper.DrawBufferBar(new Color(0.7f, 0f, 0f, 0.2f), "End of Trigger: " + ObjectNames.NicifyVariableName(triggerData.type.ToString()));
+        EditorHelper2.DrawBufferBar(new Color(0.7f, 0f, 0f, 0.2f), "End of Trigger: " + ObjectNames.NicifyVariableName(triggerData.type.ToString()));
         //EditorHelper.DrawBufferBar(Color.black);
 
         EditorGUILayout.Separator();
@@ -101,7 +101,7 @@ public static class DrawTriggerHelper
 
         EditorGUILayout.BeginHorizontal();
 
-        EditorHelper.DrawBufferBar(new Color(0.0f, 0f, 0.7f, 0.25f), "Trigger Focus: " + constraintFocusData.focus);
+        EditorHelper2.DrawBufferBar(new Color(0.0f, 0f, 0.7f, 0.25f), "Trigger Focus: " + constraintFocusData.focus);
 
 
 
@@ -123,7 +123,7 @@ public static class DrawTriggerHelper
 
             EditorGUI.indentLevel++;
 
-            EditorGUILayout.BeginVertical(EditorHelper.BackgroundStyle.GetBackground(bgColors[i % 2]));
+            EditorGUILayout.BeginVertical(EditorHelper2.BackgroundStyle.GetBackground(bgColors[i % 2]));
             DrawConstraintData(constraintFocusData.constraintData[i], constraintFocusData);
             EditorGUILayout.EndVertical();
 
@@ -131,7 +131,7 @@ public static class DrawTriggerHelper
         }
 
         //EditorHelper.DrawBufferBar(new Color(0.0f, 0f, 0.7f, 0.15f), "End of Focus: " + constraintFocusData.focus);
-        EditorHelper.DrawBufferBar(new Color(0.0f, 0f, 0.7f, 0.25f));
+        EditorHelper2.DrawBufferBar(new Color(0.0f, 0f, 0.7f, 0.25f));
         EditorGUILayout.Separator();
 
         EditorGUI.indentLevel--;
@@ -147,7 +147,7 @@ public static class DrawTriggerHelper
 
         EditorGUILayout.BeginHorizontal();
 
-        EditorHelper.DrawBufferBar(new Color(0.0f, 0.5f, 0.0f, 0.25f), focusData.focus + " Constraint: " + ObjectNames.NicifyVariableName(constraintData.type.ToString()));
+        EditorHelper2.DrawBufferBar(new Color(0.0f, 0.5f, 0.0f, 0.25f), focusData.focus + " Constraint: " + ObjectNames.NicifyVariableName(constraintData.type.ToString()));
 
         if (GUILayout.Button("x Constraint") == true) {
             DeleteConstraint(focusData.constraintData, constraintData);
