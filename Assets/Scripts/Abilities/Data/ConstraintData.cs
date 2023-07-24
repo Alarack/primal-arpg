@@ -28,7 +28,12 @@ public enum ConstraintType {
     AbilityTag,
     AbilityName,
     EffectName,
-    EffectDesignation
+    EffectDesignation,
+    UnitDamaged,
+    MostStat,
+    LeastStat,
+    AbilityActive,
+    EffectApplied
 }
 
 public enum GainedOrLost {
