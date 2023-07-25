@@ -445,6 +445,23 @@ public static class EditorHelper
 
     }
 
+    public static T DrawListOfEnums<T>(List<T> list, int index, string label) where T : struct, System.IFormattable, System.IConvertible {
+        T result = EnumPopup(label, list[index]);
+
+        return result;
+    }
+
     #endregion
 
+    #region OBJECT FIELDS
+
+    public static T ObjectField<T>(string label, T value, params GUILayoutOption[] options) where T : Object {
+        return EditorGUILayout.ObjectField(label, value, typeof(T), false, options) as T;
+    }
+
+    public static T ObjectField<T>(T value, params GUILayoutOption[] options) where T : Object {
+        return EditorGUILayout.ObjectField(value, typeof(T), false, options) as T;
+    }
+
+    #endregion
 }

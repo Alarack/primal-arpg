@@ -72,7 +72,7 @@ public class ConstraintData
     public float statChangeDelta = 0f;
 
     //Parent Ability Tag
-    public AbilityTag targetTag;
+    //public AbilityTag targetTag;
 
     //Range
     public float minRange;

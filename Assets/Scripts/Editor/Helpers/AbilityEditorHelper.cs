@@ -18,22 +18,84 @@ public static class AbilityEditorHelper
         EditorGUILayout.LabelField(placeholderName, EditorHelper2.LoadStyle(abilityHeader));
 
         EditorGUILayout.Separator();
+        entry.abilityIcon = EditorHelper.ObjectField("Sprite", entry.abilityIcon);
+        entry.category = EditorHelper.EnumPopup("Category", entry.category);
+        entry.tags = EditorHelper.DrawList("Tags", "Tag", entry.tags, AbilityTag.None, EditorHelper.DrawListOfEnums);
+        
+        if (entry.category == AbilityCategory.Rune) {
+            entry.runeAbilityTarget = EditorGUILayout.TextField("Ability Target", entry.runeAbilityTarget);
+        }
+
         entry.abilityName = EditorGUILayout.TextField("Ability Name", entry.abilityName);
+        entry.abilityDescription = EditorGUILayout.TextField("Description", entry.abilityDescription);
+        entry.resourceCost = EditorGUILayout.FloatField("Resource Cost", entry.resourceCost);
+        entry.baseRuneSlots = EditorGUILayout.IntField("Rune Slots", entry.baseRuneSlots);
+
+        entry.includeEffectsInTooltip = EditorGUILayout.Toggle("Include Effect Toolip", entry.includeEffectsInTooltip);
+        entry.ignoreTooltip = EditorGUILayout.Toggle("Ignore Tooltip", entry.ignoreTooltip);
+        entry.autoFire = EditorGUILayout.Toggle("Autofire", entry.autoFire);
+
         entry.suspend = EditorGUILayout.Toggle("Suspend?", entry.suspend);
+
+       
+        
         EditorGUILayout.Separator();
 
         EditorGUILayout.BeginVertical(GUI.skin.box);
-        GUILayout.Label("Activation Triggers", EditorStyles.boldLabel);
+        GUILayout.Label("Child Abilities: ", EditorStyles.boldLabel);
 
+        entry.childAbilities = EditorHelper.DrawList(null, entry.childAbilities, null, DrawAbilityDefinitionList);
 
         EditorGUILayout.EndVertical();
 
+
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("Activation Triggers: ", EditorStyles.boldLabel);
+        DrawTriggerCounterData(entry.counterData);
+
+        entry.activationTriggerData = EditorHelper.DrawExtendedList(entry.activationTriggerData, "Trigger", DrawTriggerData);
+
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("Effects: ", EditorStyles.boldLabel);
+
+        entry.effectDefinitions = EditorHelper.DrawList(null, entry.effectDefinitions, null, DrawEffectDefinitionList);
+
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("End Triggers: ", EditorStyles.boldLabel);
+        DrawTriggerCounterData(entry.endCounterData);
+
+        entry.endTriggerData = EditorHelper.DrawExtendedList(entry.endTriggerData, "Trigger", DrawTriggerData);
+
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.Separator();
+
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("Recoveries: ", EditorStyles.boldLabel);
+        entry.startingRecoveryCharges = EditorGUILayout.IntField("Starting Charges", entry.startingRecoveryCharges);
+
+        entry.recoveryData = EditorHelper.DrawExtendedList(entry.recoveryData, "Recovery", DrawRecoveryData);
+        EditorGUILayout.EndVertical();
         return entry;
     }
 
 
 
+    public static EffectDefinition DrawEffectDefinitionList(List<EffectDefinition> list, int index) {
+        EffectDefinition result = EditorHelper.ObjectField(list[index]);
 
+        return result;
+    }
+
+    public static AbilityDefinition DrawAbilityDefinitionList(List<AbilityDefinition> list, int index) {
+        AbilityDefinition result = EditorHelper.ObjectField(list[index]);
+
+        return result;
+    }
 
 
     public static TriggerData DrawTriggerData(TriggerData entry) {
@@ -156,7 +218,6 @@ public static class AbilityEditorHelper
         EditorGUILayout.EndHorizontal();
     }
 
-
     public static void DrawConstraintDataFocus(ConstraintDataFocus entry) {
         EditorGUILayout.LabelField(entry.focus.ToString() + " Constraints", EditorStyles.boldLabel);
         entry.constraintData = EditorHelper.DrawExtendedList(entry.constraintData, entry.focus.ToString() + " Constraint", DrawConstraintData);
@@ -168,14 +229,14 @@ public static class AbilityEditorHelper
 
         switch (entry.type) {
             case ConstraintType.Owner:
-                entry.ownerTarget = EditorHelper.EnumPopup("Owner is", entry.ownerTarget);
+                entry.ownerTarget = EditorHelper.EnumPopup("Owner", entry.ownerTarget);
                 break;
-            //case ConstraintType.PrimaryType:
-            //    entry.primaryType = EditorHelper.EnumPopup("Primary Type", entry.primaryType);
-            //    break;
-            //case ConstraintType.Subtype:
-            //    entry.subTypeTarget = EditorHelper.EnumPopup("Has Subtype", entry.subTypeTarget);
-            //    break;
+            case ConstraintType.PrimaryType:
+                entry.targetPrimaryType = EditorHelper.EnumPopup("Primary Type", entry.targetPrimaryType);
+                break;
+            case ConstraintType.Subtype:
+                entry.targetSubtype = EditorHelper.EnumPopup("Subtype", entry.targetSubtype);
+                break;
             case ConstraintType.StatMinimum:
                 entry.minStatTarget = EditorHelper.EnumPopup("Stat Name", entry.minStatTarget);
                 entry.minStatValue = EditorGUILayout.FloatField("Min Value", entry.minStatValue);
@@ -230,12 +291,26 @@ public static class AbilityEditorHelper
             //    break;
             //case ConstraintType.IsCause:
             //    break;
-            //case ConstraintType.HasEffectNamed:
-            //    break;
             //case ConstraintType.IsDead:
-            //    break;
-            //case ConstraintType.RiderHasCellTargets:
-            //    break;
+            case ConstraintType.EffectName:
+                entry.targetEffectName = EditorGUILayout.TextField("Effect Name", entry.targetEffectName);
+                break;
+
+            case ConstraintType.AbilityName:
+                entry.targetAbiltyName = EditorGUILayout.TextField("Ability Name", entry.targetAbiltyName);
+                break;
+
+            case ConstraintType.EffectDesignation:
+                entry.effectDesigantion = EditorHelper.EnumPopup("Designation", entry.effectDesigantion);
+                break;
+
+            case ConstraintType.HasStatus:
+                entry.targetStatus = EditorHelper.EnumPopup("Status", entry.targetStatus);
+                break;
+
+            case ConstraintType.AbilityTag:
+                entry.targetAbilityTag = EditorHelper.EnumPopup("Tag", entry.targetAbilityTag);
+                break;
             default:
                 break;
         }
@@ -243,6 +318,28 @@ public static class AbilityEditorHelper
 
         entry.inverse = EditorGUILayout.Toggle("Inverse?", entry.inverse);
 
+
+        return entry;
+    }
+
+    public static RecoveryData DrawRecoveryData(RecoveryData entry) {
+
+        entry.type = EditorHelper.EnumPopup("Type", entry.type);
+
+        if(entry.type == RecoveryType.Timed) {
+            entry.cooldown = EditorGUILayout.FloatField("Cooldown", entry.cooldown);
+        }
+        else {
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            GUILayout.Label("Recovery Triggers: ", EditorStyles.boldLabel);
+            DrawTriggerCounterData(entry.counterData);
+
+            entry.recoveryTriggers = EditorHelper.DrawExtendedList(entry.recoveryTriggers, "Trigger", DrawTriggerData);
+
+            EditorGUILayout.EndVertical();
+        }
+
+        
 
         return entry;
     }
