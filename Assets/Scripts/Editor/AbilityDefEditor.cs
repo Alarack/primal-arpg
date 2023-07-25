@@ -14,7 +14,7 @@ public class AbilityDefEditor : Editor
     }
 
     public override void OnInspectorGUI() {
-        base.OnInspectorGUI();
+        //base.OnInspectorGUI();
 
 
         AbilityEditorHelper.DrawAbilityData(def.AbilityData);

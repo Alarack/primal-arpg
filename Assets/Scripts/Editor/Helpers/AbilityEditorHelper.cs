@@ -23,7 +23,7 @@ public static class AbilityEditorHelper
         entry.tags = EditorHelper.DrawList("Tags", "Tag", entry.tags, AbilityTag.None, EditorHelper.DrawListOfEnums);
         
         if (entry.category == AbilityCategory.Rune) {
-            entry.runeAbilityTarget = EditorGUILayout.TextField("Ability Target", entry.runeAbilityTarget);
+            entry.runeAbilityTarget = EditorGUILayout.TextField("Rune Target Ability Name", entry.runeAbilityTarget);
         }
 
         entry.abilityName = EditorGUILayout.TextField("Ability Name", entry.abilityName);
@@ -154,7 +154,7 @@ public static class AbilityEditorHelper
 
     public static void DrawTriggerConstrains(TriggerData data) {
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Entity Triggers")) {
+        if (GUILayout.Button("E Triggers")) {
             if (data.HasConstraintListOfType(ConstraintFocus.Trigger) == false) {
                 ConstraintDataFocus newList = new ConstraintDataFocus(ConstraintFocus.Trigger);
                 data.allConstraints.Add(newList);
@@ -164,7 +164,7 @@ public static class AbilityEditorHelper
             }
         }
 
-        if (GUILayout.Button("Entity Sources")) {
+        if (GUILayout.Button("E Sources")) {
             if (data.HasConstraintListOfType(ConstraintFocus.Source) == false) {
                 ConstraintDataFocus newList = new ConstraintDataFocus(ConstraintFocus.Source);
                 data.allConstraints.Add(newList);
@@ -174,7 +174,7 @@ public static class AbilityEditorHelper
             }
         }
 
-        if (GUILayout.Button("Entity Causes")) {
+        if (GUILayout.Button("E Causes")) {
             if (data.HasConstraintListOfType(ConstraintFocus.Cause) == false) {
                 ConstraintDataFocus newList = new ConstraintDataFocus(ConstraintFocus.Cause);
                 data.allConstraints.Add(newList);
@@ -184,7 +184,7 @@ public static class AbilityEditorHelper
             }
         }
 
-        if (GUILayout.Button("Ability Triggers")) {
+        if (GUILayout.Button("A Triggers")) {
             if (data.HasConstraintListOfType(ConstraintFocus.AbilityTrigger) == false) {
                 ConstraintDataFocus newList = new ConstraintDataFocus(ConstraintFocus.AbilityTrigger);
                 data.allConstraints.Add(newList);
@@ -194,7 +194,7 @@ public static class AbilityEditorHelper
             }
         }
 
-        if (GUILayout.Button("Ability Sources")) {
+        if (GUILayout.Button("A Sources")) {
             if (data.HasConstraintListOfType(ConstraintFocus.AbilitySource) == false) {
                 ConstraintDataFocus newList = new ConstraintDataFocus(ConstraintFocus.AbilitySource);
                 data.allConstraints.Add(newList);
@@ -204,7 +204,7 @@ public static class AbilityEditorHelper
             }
         }
 
-        if (GUILayout.Button("Ability Causes")) {
+        if (GUILayout.Button("A Causes")) {
             if (data.HasConstraintListOfType(ConstraintFocus.AbiityCause) == false) {
                 ConstraintDataFocus newList = new ConstraintDataFocus(ConstraintFocus.AbiityCause);
                 data.allConstraints.Add(newList);
@@ -218,7 +218,7 @@ public static class AbilityEditorHelper
     }
 
     public static void DrawConstraintDataFocus(ConstraintDataFocus entry) {
-        EditorGUILayout.LabelField(entry.focus.ToString() + " Constraints", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField(ObjectNames.NicifyVariableName( entry.focus.ToString()) + " Constraints", EditorStyles.boldLabel);
         entry.constraintData = EditorHelper.DrawExtendedList(entry.constraintData, entry.focus.ToString() + " Constraint", DrawConstraintData);
     }
 
@@ -394,7 +394,7 @@ public static class AbilityEditorHelper
 
         for (int i = 0; i < entry.payloadStatData.Count; i++) {
             if (AreStatsDuplicated(entry.payloadStatData[i], entry.payloadStatData) == true) {
-                EditorGUILayout.LabelField(ObjectNames.NicifyVariableName(entry.payloadStatData[i].statName.ToString()) + " is duplicated in this data set.", errorLabel);
+                EditorGUILayout.LabelField(ObjectNames.NicifyVariableName(entry.payloadStatData[i].statName.ToString()) + " is duplicated in this data set.", EditorHelper2.LoadStyle(errorLabel));
             }
         }
 
@@ -412,18 +412,34 @@ public static class AbilityEditorHelper
 
                 break;
             case EffectType.SpawnProjectile:
+                EditorGUILayout.LabelField("Not Yet Implemented: ", errorLabel);
                 break;
             case EffectType.AddStatus:
+                EditorGUILayout.LabelField("Statuses: ", EditorStyles.boldLabel);
+
+                EditorGUI.indentLevel++;
+                entry.statusToAdd = EditorHelper.DrawExtendedList(entry.statusToAdd, "Status", DrawStatusData);
+                EditorGUI.indentLevel--;
                 break;
             case EffectType.RemoveStatus:
+                EditorGUILayout.LabelField("Not Yet Implemented: ", errorLabel);
                 break;
             case EffectType.Movement:
+                EditorGUILayout.LabelField("Not Yet Implemented: ", errorLabel);
                 break;
             case EffectType.AddChildAbility:
                 EditorGUILayout.LabelField("Abilities to Add: ", EditorStyles.boldLabel);
                 entry.abilitiesToAdd = EditorHelper.DrawList("Child Abilities", entry.abilitiesToAdd, null, DrawAbilityDefinitionList);
                 break;
             case EffectType.ApplyOtherEffect:
+                EditorGUILayout.LabelField("Apply Other Effect: ", EditorStyles.boldLabel);
+                entry.applyTriggeringEffect = EditorGUILayout.Toggle("Apply Triggering Effect", entry.applyTriggeringEffect);
+
+                if(entry.applyTriggeringEffect == false) {
+                    entry.targetOtherEffectName = EditorGUILayout.TextField("Target Effect", entry.targetOtherEffectName);
+                    entry.targetOtherEffectParentAbilityName = EditorGUILayout.TextField("Target Parent Ability", entry.targetOtherEffectParentAbilityName);
+
+                }
                 break;
             case EffectType.AddStatScaler:
                 EditorGUILayout.LabelField("Scalers to Add: ", EditorStyles.boldLabel);
@@ -438,6 +454,10 @@ public static class AbilityEditorHelper
     }
 
     public static StatData DrawStatData(StatData entry) {
+        if(entry == null) 
+            entry = new StatData();
+               
+
         entry.variant = EditorHelper.EnumPopup("Variant", entry.variant);
         entry.statName = EditorHelper.EnumPopup("Stat Name", entry.statName);
         
@@ -551,4 +571,24 @@ public static class AbilityEditorHelper
         return entry;
     }
 
+    public static StatusData DrawStatusData(StatusData entry) {
+
+        entry.statusName = EditorHelper.EnumPopup("Status Name", entry.statusName);
+        entry.stackMethod = EditorHelper.EnumPopup("Stack Method", entry.stackMethod);
+        entry.initialStackCount = EditorGUILayout.IntField("Initial Stacks", entry.initialStackCount);
+
+        if(entry.stackMethod == Status.StackMethod.LimitedStacks) {
+            entry.maxStacks = EditorGUILayout.IntField("Max Stacks", entry.maxStacks);
+        }
+
+        entry.statusEffectDef = EditorHelper.ObjectField("Status Effect", entry.statusEffectDef);
+
+        entry.duration = EditorGUILayout.FloatField("Duration", entry.duration);
+        entry.interval = EditorGUILayout.FloatField("Interval", entry.interval);
+
+        entry.VFXPrefab = EditorHelper.ObjectField("VFX Prefab", entry.VFXPrefab);
+
+
+        return entry;
+    }
 }

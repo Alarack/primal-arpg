@@ -135,7 +135,7 @@ public static class EditorHelper
 
                 list.Insert(index + 1, defaultValue);
 
-                if (_lastRemoveList == (list)) {
+                if (_lastRemoveList == list) {
                     _lastRemoveList = null;
                     _lastRemoveIndex = -1;
                 }
@@ -157,6 +157,16 @@ public static class EditorHelper
                     return true;
                 }
             }
+            else {
+                if (DeleteButton("Delete?", width, height)) {
+                    _lastRemoveList = list;
+                    _lastRemoveIndex = index;
+
+                    GUI.changed = true; // we have "changed" a "field" with this action, so mark GUI as dirty
+
+                    return true;
+                }
+            }
         }
 
         if (move) {
@@ -168,7 +178,7 @@ public static class EditorHelper
                 list[index] = list[index - 1];
                 list[index - 1] = temp;
 
-                if (_lastRemoveList == (list)) {
+                if (_lastRemoveList == list) {
                     _lastRemoveList = null;
                     _lastRemoveIndex = -1;
                 }
@@ -187,7 +197,7 @@ public static class EditorHelper
                 list[index] = list[index + 1];
                 list[index + 1] = temp;
 
-                if (_lastRemoveList == (list)) {
+                if (_lastRemoveList == list) {
                     _lastRemoveList = null;
                     _lastRemoveIndex = -1;
                 }
@@ -352,7 +362,7 @@ public static class EditorHelper
             else
                 GUILayout.Label("Empty");
 
-            DrawListControls(list, -1, defaultValue, true, true, true, 16, 14);
+            DrawListControls(list, -1, defaultValue, true, false, false, 16, 14);
 
             EditorGUILayout.EndHorizontal();
         }
@@ -361,8 +371,7 @@ public static class EditorHelper
     }
 
     public static List<T> DrawExtendedList<T>(List<T> list, string itemCaption,
-        Func<T, T> drawCallback, Action<List<T>, int> addCallback = null, Action<List<T>, int> removeCallback = null,
-        object referenceObject = null) {
+        Func<T, T> drawCallback) {
         return DrawExtendedList(
             null,
             list,
@@ -388,7 +397,7 @@ public static class EditorHelper
 
                 EditorGUILayout.LabelField(itemCaptionCallback(list[i], i));
 
-                if (DrawListControls(list, i, defaultValue, true, true))
+                if (DrawListControls(list, i, defaultValue))
                     break;
 
                 EditorGUILayout.EndHorizontal();
@@ -403,7 +412,7 @@ public static class EditorHelper
 
             EditorGUILayout.LabelField("None");
 
-            DrawListControls(list, -1, defaultValue, true, true, true, 20, 18);
+            DrawListControls(list, -1, defaultValue, true, false, false, 20, 18);
 
             EditorGUILayout.EndHorizontal();
         }

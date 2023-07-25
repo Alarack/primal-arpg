@@ -19,6 +19,8 @@ public class StatData
     public float maxValue;
     public float minValue;
 
+    public StatData() {
 
+    }
 
 }
