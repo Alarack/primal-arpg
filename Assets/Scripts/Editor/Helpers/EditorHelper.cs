@@ -6,6 +6,7 @@ using System;
 
 using Object = UnityEngine.Object;
 using UnityEditorInternal.VersionControl;
+using System.Linq;
 
 public static class EditorHelper 
 {
@@ -418,6 +419,8 @@ public static class EditorHelper
         Type enumType = typeof(T);
 
         string[] names = Enum.GetNames(enumType);
+        string[] titles = names.Select(n => ObjectNames.NicifyVariableName(n)).ToArray();
+
         string selectedName = Enum.GetName(enumType, value);
         int selectedIndex = Array.FindIndex(names, n => n == selectedName);
 
@@ -430,9 +433,9 @@ public static class EditorHelper
             GUI.backgroundColor = new Color(1.0f, 0.6f, 0.6f);
 
         if (label != null)
-            selectedIndex = EditorGUILayout.Popup(label, selectedIndex, names, options);
+            selectedIndex = EditorGUILayout.Popup(label, selectedIndex, titles, options);
         else
-            selectedIndex = EditorGUILayout.Popup(selectedIndex, names, options);
+            selectedIndex = EditorGUILayout.Popup(selectedIndex, titles, options);
 
         if (bad == true) 
             GUI.backgroundColor = Color.white;
