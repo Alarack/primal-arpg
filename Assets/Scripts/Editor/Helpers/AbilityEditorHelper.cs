@@ -97,7 +97,6 @@ public static class AbilityEditorHelper
         return result;
     }
 
-
     public static TriggerData DrawTriggerData(TriggerData entry) {
 
         string placeholderTriggerName = "Start of Trigger: " + ObjectNames.NicifyVariableName(entry.type.ToString()) + " section";
@@ -339,7 +338,215 @@ public static class AbilityEditorHelper
             EditorGUILayout.EndVertical();
         }
 
+        return entry;
+    }
+
+    public static EffectData DrawEffectData(EffectData entry) {
+        EditorGUILayout.Separator();
+        string placeholderName = string.IsNullOrEmpty(entry.effectName) == true ? "New Effect" : entry.effectName;
+        EditorGUILayout.LabelField(placeholderName, EditorHelper2.LoadStyle(effectHeader));
+        entry.type = EditorHelper.EnumPopup("Effect Type", entry.type);
+        entry.effectName = EditorGUILayout.TextField("Effect Name", entry.effectName);
+        entry.effectDescription = EditorGUILayout.TextField("Effect Description", entry.effectDescription);
+        entry.effectDesignation = EditorHelper.EnumPopup("Effect Designation", entry.effectDesignation);
+        entry.floatingTextColor = EditorGUILayout.GradientField("Floating Text Color", entry.floatingTextColor);
+
+        EditorGUILayout.Separator();
+
+        entry.targeting = EditorHelper.EnumPopup("Targeting", entry.targeting);
+        entry.subTarget = EditorHelper.EnumPopup("Sub Target", entry.subTarget);
+
+
+        EditorGUILayout.Separator();
+        EditorGUILayout.LabelField("Target Constarints", EditorHelper2.LoadStyle(triggerHeader));
+        entry.targetConstraints = EditorHelper.DrawExtendedList(entry.targetConstraints, "Constraint", DrawConstraintData);
+
+        EditorGUILayout.Separator();
+
+        if (entry.targeting != EffectTarget.PayloadDelivered) {
+            entry.numberOfTargets = EditorGUILayout.IntField("Number of Targets", entry.numberOfTargets);
+            entry.deliveryPayloadToTarget = EditorGUILayout.Toggle("Use Payload?", entry.deliveryPayloadToTarget);
+            
+        }
+        else {
+            EditorGUILayout.LabelField("Payload: ", EditorStyles.boldLabel);
+            entry.payloadPrefab = EditorHelper.ObjectField("Payload Prefab", entry.payloadPrefab);
+            entry.payloadCount = EditorGUILayout.IntField("Shot Count", entry.payloadCount);
+            entry.shotDelay = EditorGUILayout.FloatField("Shot Delay", entry.shotDelay);
+        }
+
+        entry.spawnLocation = EditorHelper.EnumPopup("Spawn Location", entry.spawnLocation);
+
+        EditorGUILayout.Separator();
+        EditorGUILayout.LabelField("Effect Zone: ", EditorStyles.boldLabel);
         
+        EditorGUI.indentLevel++;
+        entry.effectZoneInfo = DrawEffectZoneInfo(entry.effectZoneInfo);
+        EditorGUI.indentLevel--;
+        
+        EditorGUILayout.Separator();
+
+        EditorGUILayout.Separator();
+        EditorGUILayout.LabelField("Stats: ", EditorStyles.boldLabel);
+        EditorGUI.indentLevel++;
+        entry.payloadStatData = EditorHelper.DrawExtendedList(entry.payloadStatData, "Stat", DrawStatData);
+        EditorGUI.indentLevel--;
+
+        for (int i = 0; i < entry.payloadStatData.Count; i++) {
+            if (AreStatsDuplicated(entry.payloadStatData[i], entry.payloadStatData) == true) {
+                EditorGUILayout.LabelField(ObjectNames.NicifyVariableName(entry.payloadStatData[i].statName.ToString()) + " is duplicated in this data set.", errorLabel);
+            }
+        }
+
+        EditorGUILayout.Separator();
+
+        switch (entry.type) {
+            case EffectType.None:
+                break;
+            case EffectType.StatAdjustment:
+                EditorGUILayout.LabelField("Mod Data: ", EditorStyles.boldLabel);
+                
+                EditorGUI.indentLevel++;
+                entry.modData = EditorHelper.DrawExtendedList(entry.modData, "Mod", DrawStatModifierData);
+                EditorGUI.indentLevel--;
+
+                break;
+            case EffectType.SpawnProjectile:
+                break;
+            case EffectType.AddStatus:
+                break;
+            case EffectType.RemoveStatus:
+                break;
+            case EffectType.Movement:
+                break;
+            case EffectType.AddChildAbility:
+                EditorGUILayout.LabelField("Abilities to Add: ", EditorStyles.boldLabel);
+                entry.abilitiesToAdd = EditorHelper.DrawList("Child Abilities", entry.abilitiesToAdd, null, DrawAbilityDefinitionList);
+                break;
+            case EffectType.ApplyOtherEffect:
+                break;
+            case EffectType.AddStatScaler:
+                EditorGUILayout.LabelField("Scalers to Add: ", EditorStyles.boldLabel);
+                entry.statScalersToAdd = EditorHelper.DrawExtendedList(entry.statScalersToAdd, "Scaler", DrawStatScaler);
+                break;
+            default:
+                break;
+        }
+
+
+        return entry;
+    }
+
+    public static StatData DrawStatData(StatData entry) {
+        entry.variant = EditorHelper.EnumPopup("Variant", entry.variant);
+        entry.statName = EditorHelper.EnumPopup("Stat Name", entry.statName);
+        
+        entry.value = EditorGUILayout.FloatField("Value", entry.value);
+
+        if (entry.variant == StatData.StatVariant.Range) {
+            entry.minValue = EditorGUILayout.FloatField("Min Value: ", entry.minValue);
+            entry.maxValue = EditorGUILayout.FloatField("Max Value: ", entry.maxValue);
+            entry.value = EditorGUILayout.Slider("Starting Value", entry.value, entry.minValue, entry.maxValue);
+
+            if (entry.minValue > entry.maxValue) {
+                EditorGUILayout.LabelField("Min is higher than Max.", errorLabel);
+            }
+
+            if (entry.value > entry.maxValue) {
+                EditorGUILayout.LabelField("Starting value is higher than Max.", errorLabel);
+            }
+        }
+
+        return entry;
+    }
+
+    private static bool AreStatsDuplicated(StatData data, List<StatData> list) {
+        for (int i = 0; i <list.Count; i++) {
+            StatData currentData = list[i];
+
+            if (currentData != data && currentData.statName == data.statName)
+                return true;
+        }
+
+        return false;
+    }
+
+    public static StatModifierData DrawStatModifierData(StatModifierData entry) {
+        EditorGUILayout.LabelField(ObjectNames.NicifyVariableName(entry.targetStat.ToString()) + " Modifier", EditorStyles.boldLabel);
+        entry.targetStat = EditorHelper.EnumPopup("Target Stat", entry.targetStat);
+        entry.variantTarget = EditorHelper.EnumPopup("Variant", entry.variantTarget);
+        entry.modifierType = EditorHelper.EnumPopup("Mod Type", entry.modifierType);
+
+        EditorGUILayout.Separator();
+        entry.modValueSetMethod = EditorHelper.EnumPopup("Set Method", entry.modValueSetMethod);
+
+        switch (entry.modValueSetMethod) {
+            case StatModifierData.ModValueSetMethod.Manual:
+                entry.value = EditorGUILayout.FloatField("Value", entry.value);
+                break;
+            case StatModifierData.ModValueSetMethod.DeriveFromOtherStats:
+                entry.deriveTarget = EditorHelper.EnumPopup("Derive Target", entry.deriveTarget);
+                entry.derivedTargetStat = EditorHelper.EnumPopup("Target Stat", entry.derivedTargetStat);
+                entry.deriveStatMultiplier = EditorGUILayout.FloatField("Multiplier", entry.deriveStatMultiplier);
+                entry.invertDerivedValue = EditorGUILayout.Toggle("Invert?", entry.invertDerivedValue);
+
+                if (entry.deriveTarget == StatModifierData.DeriveFromWhom.OtherEntityTarget) {
+                    entry.otherTargetAbility = EditorGUILayout.TextField("Other Ability Name: ", entry.otherTargetAbility);
+                    entry.otherTagetEffect = EditorGUILayout.TextField("Other Effect Name: ", entry.otherTagetEffect);
+                }
+
+                break;
+            case StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage:
+                entry.weaponDamagePercent = EditorGUILayout.FloatField("Weapon Damage Percent", entry.weaponDamagePercent);
+                break;
+            case StatModifierData.ModValueSetMethod.DerivedFromMultipleSources:
+                //entry.deriveTarget = EditorHelper.EnumPopup("Derive Target", entry.deriveTarget);
+                //entry.derivedTargetStat = EditorHelper.EnumPopup("Target Stat", entry.derivedTargetStat);
+                entry.invertDerivedValue = EditorGUILayout.Toggle("Invert?", entry.invertDerivedValue);
+                
+                EditorGUILayout.Separator();
+                EditorGUILayout.LabelField("Scalers: ", EditorStyles.boldLabel);
+                entry.scalers = EditorHelper.DrawExtendedList(entry.scalers, "Scaler", DrawStatScaler);
+
+                EditorGUILayout.Separator();
+                break;
+
+            case StatModifierData.ModValueSetMethod.DeriveFromNumberOfTargets:
+            case StatModifierData.ModValueSetMethod.HardSetValue:
+            case StatModifierData.ModValueSetMethod.HardReset:
+                EditorGUILayout.LabelField("Not Yet Implemented", EditorHelper2.LoadStyle(errorLabel));
+                break;
+
+        }
+
+        return entry;
+    }
+
+    public static StatScaler DrawStatScaler(StatScaler entry) {
+
+        entry.targetStat = EditorHelper.EnumPopup("Target Stat", entry.targetStat);
+        entry.deriveTarget = EditorHelper.EnumPopup("Derive Target", entry.deriveTarget);
+        entry.statScaleBaseValue = EditorGUILayout.FloatField("Base Scale Value", entry.statScaleBaseValue);
+
+        return entry;
+    }
+
+    public static EffectZoneInfo DrawEffectZoneInfo(EffectZoneInfo entry) {
+        entry.removeEffectOnExit = EditorGUILayout.Toggle("Remove Effect on Exit", entry.removeEffectOnExit);
+        entry.parentEffectToOrigin = EditorGUILayout.Toggle("Parent to Origin", entry.parentEffectToOrigin);
+        entry.applyOncePerTarget = EditorGUILayout.Toggle("Apply Once per Target", entry.applyOncePerTarget);
+        entry.applyOnInterval = EditorGUILayout.Toggle("Apply on Interval", entry.applyOnInterval);
+        entry.affectSource = EditorGUILayout.Toggle("Affect Source?", entry.affectSource);
+
+        EditorGUILayout.Separator();
+
+        entry.spawnVFX = EditorHelper.ObjectField("Spawn VFX", entry.spawnVFX);
+        entry.applyVFX = EditorHelper.ObjectField("Apply VFX", entry.applyVFX);
+        entry.deathVFX = EditorHelper.ObjectField("Death VFX", entry.deathVFX);
+
+        EditorGUILayout.Separator();
+
+        entry.effectZonePrefab = EditorHelper.ObjectField("Effect Zone Prefab", entry.effectZonePrefab);
 
         return entry;
     }
