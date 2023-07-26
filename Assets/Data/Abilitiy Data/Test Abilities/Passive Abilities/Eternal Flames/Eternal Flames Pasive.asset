@@ -16,11 +16,14 @@ MonoBehaviour:
     category: 6
     abilityIcon: {fileID: 21300000, guid: f46335479b6d0dd4a905aece41c79d78, type: 3}
     abilityName: Eternal Flames
-    abilityDescription: Fire Projectiles can Chain infinitely against Burning targets.
+    abilityDescription: Chaining Fire Projectiles can Chain infinitely against Burning
+      targets.
+    resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     includeEffectsInTooltip: 0
+    ignoreTooltip: 0
     runeAbilityTarget: 
     childAbilities: []
     tags: 01000000
@@ -38,7 +41,6 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
-          targetTag: 0
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -75,7 +77,6 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
-          targetTag: 0
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -110,7 +111,6 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
-          targetTag: 0
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -147,7 +147,6 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
-          targetTag: 0
           minRange: 0
           maxRange: 0
           rangeToWhat: 0

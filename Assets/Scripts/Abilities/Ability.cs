@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEditor.Playables;
 using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
@@ -586,14 +587,18 @@ public class Ability {
 
                     builder.Append(scalarTooltip).AppendLine();
                 }
-            }
 
-            string projectileStats = adj.GetProjectileStatsTooltip();
-            if (string.IsNullOrEmpty(projectileStats) == false) {
-                builder.AppendLine(projectileStats);
-            }
+                string projectileStats = effects[0].GetProjectileStatsTooltip();
+                if (string.IsNullOrEmpty(projectileStats) == false) {
+                    builder.AppendLine(projectileStats);
+                }
 
+            }
         }
+
+
+
+
 
         float cooldown = GetCooldown();
 

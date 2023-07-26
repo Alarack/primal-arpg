@@ -37,7 +37,7 @@ public class RunesPanel : BasePanel {
 
     public void Setup(Ability ability) {
         this.CurrentAbility = ability;
-        skillEntry.Setup(ability, SkillEntry.SkillEntryLocation.RunePanel);
+        skillEntry.Setup(ability, SkillEntry.SkillEntryLocation.RunePanel, false);
         skillNameText.text = CurrentAbility.Data.abilityName;
         SetupRuneSlots();
         PopulateInventory();

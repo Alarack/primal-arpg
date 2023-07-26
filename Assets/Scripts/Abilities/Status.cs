@@ -100,6 +100,11 @@ public class Status {
             return;
         }
 
+        if(ActiveEffect == null) {
+            Debug.LogError("An active effect on the stats belonging to: " + ParentEffect.Data.effectName + " is null");
+            return;
+        }
+
         ActiveEffect.Apply(Target);
     }
 

@@ -13935,6 +13935,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 36b47bfe19aa81b4d980597b847b85af, type: 2}
   - {fileID: 11400000, guid: 8879919c1be56d84381846e35a7db5d0, type: 2}
   - {fileID: 11400000, guid: 491c52192d824e8418b897335f62dcb3, type: 2}
+  - {fileID: 11400000, guid: 6fe4228cea425ac4e94631392b6d28ce, type: 2}
+  - {fileID: 11400000, guid: 6fe4228cea425ac4e94631392b6d28ce, type: 2}
   pickupPrefab: {fileID: 777966188710461411, guid: 8809ef3536d1e574e9eccf68d35e5f08, type: 3}
 --- !u!1 &2056078744
 GameObject:
@@ -14686,6 +14688,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5847164516408562323, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 17.950012
+      objectReference: {fileID: 0}
     - target: {fileID: 7523969879677373229, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -14769,6 +14775,14 @@ PrefabInstance:
     - target: {fileID: 7523969879677373229, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635185189275182780, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -90.00003
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443253149225352738, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -58
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14966,7 +14980,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
       propertyPath: preloadedPassives.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
       propertyPath: preloadedAbilities.Array.size

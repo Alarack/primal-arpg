@@ -14,6 +14,7 @@ public class AbilityManager : MonoBehaviour
 
     public List<Ability> this[AbilityCategory category] { get { return GetAbilitiesByCategory(category); } }
 
+    public List<Ability> PassiveAbilities { get { return this[AbilityCategory.PassiveSkill]; } }
     public List<Ability> ActiveAbilities { get { return this[AbilityCategory.ActiveSkill]; } }
     public List<Ability> KnownAbilities { get { return this[AbilityCategory.KnownSkill]; } }
     public List<Ability> RuneAbilities { get { return this[AbilityCategory.Rune]; } }
@@ -97,7 +98,7 @@ public class AbilityManager : MonoBehaviour
     private void SetupPreloadedAbilities() {
         AbilityUtilities.SetupAbilities(preloadedAbilities, KnownAbilities, Owner);
 
-        AbilityUtilities.SetupAbilities(preloadedPassives, Abilities[AbilityCategory.PassiveSkill], Owner, true);
+        AbilityUtilities.SetupAbilities(preloadedPassives, PassiveAbilities, Owner);
     }
 
 

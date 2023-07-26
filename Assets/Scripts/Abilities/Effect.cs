@@ -128,7 +128,7 @@ public abstract class Effect {
 
     public virtual bool Apply(Entity target) {
 
-        if (target.IsDead)
+        if (target == null || target.IsDead)
             return false;
 
         if (EvaluateTargetConstraints(target) == false)
@@ -232,6 +232,31 @@ public abstract class Effect {
 
 
         return Data.effectDescription;
+    }
+
+    public string GetProjectileStatsTooltip() {
+        StringBuilder builder = new StringBuilder();
+
+        if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
+            string chainCount = TextHelper.FormatStat(StatName.ProjectileChainCount, Stats[StatName.ProjectileChainCount]);
+
+            builder.AppendLine("Chains up to: " + chainCount + " times");
+        }
+
+        if (Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
+            string pierceCount = TextHelper.FormatStat(StatName.ProjectilePierceCount, Stats[StatName.ProjectilePierceCount]);
+
+            builder.AppendLine("Pierces up to: " + pierceCount + " times");
+        }
+
+        if (Stats.Contains(StatName.ProjectileSplitCount) && Stats[StatName.ProjectileSplitCount] > 0) {
+            string splitCount = TextHelper.FormatStat(StatName.ProjectileSplitCount, Stats[StatName.ProjectileSplitCount]);
+
+            builder.AppendLine("Splits up to: " + splitCount + " times");
+        }
+
+
+        return builder.ToString();
     }
 
     public bool EffectResolvedCallback() {
@@ -638,8 +663,14 @@ public class AddStatusEffect : Effect {
 
                     if (Data.statusToAdd[0].maxStacks > 0) {
                         builder.AppendLine().AppendLine();
-                        builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times");
+                        builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
                     }
+
+                    string projectileStats = GetProjectileStatsTooltip();
+                    if (string.IsNullOrEmpty(projectileStats) == false) {
+                        builder.AppendLine(projectileStats);
+                    }
+
 
                     break;
                 case StatModifierData.StatModDesignation.SecondaryDamage:
@@ -1459,30 +1490,7 @@ public class StatAdjustmentEffect : Effect {
         return builder.ToString();
     }
 
-    public string GetProjectileStatsTooltip() {
-        StringBuilder builder = new StringBuilder();
-
-        if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
-            string chainCount = TextHelper.FormatStat(StatName.ProjectileChainCount, Stats[StatName.ProjectileChainCount]);
-
-            builder.AppendLine("Chains up to: " + chainCount + " times");
-        }
-
-        if (Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
-            string pierceCount = TextHelper.FormatStat(StatName.ProjectilePierceCount, Stats[StatName.ProjectilePierceCount]);
-
-            builder.AppendLine("Pierces up to: " + pierceCount + " times");
-        }
-
-        if (Stats.Contains(StatName.ProjectileSplitCount) && Stats[StatName.ProjectileSplitCount] > 0) {
-            string splitCount = TextHelper.FormatStat(StatName.ProjectileSplitCount, Stats[StatName.ProjectileSplitCount]);
-
-            builder.AppendLine("Splits up to: " + splitCount + " times");
-        }
-
-
-        return builder.ToString();  
-    }
+   
 
     public override string GetTooltip() {
         //return base.GetTooltip();

@@ -9,6 +9,7 @@ using GameButtonType = InputHelper.GameButtonType;
 using static UnityEngine.EventSystems.EventTrigger;
 using static UnityEngine.GraphicsBuffer;
 using System.Text;
+using static UnityEditor.FilePathAttribute;
 
 public static class AbilityUtilities {
 
@@ -47,7 +48,14 @@ public static class AbilityUtilities {
         list.PopulateList(count, prefab, holder, true);
 
         for (int i = 0; i < list.Count; i++) {
-            list[i].Setup(null, location, defaultBinds[i], i);
+            list[i].Setup(null, location, false, defaultBinds[i], i);
+        }
+    }
+
+    public static void CreateEmptyPassiveSkillEntries(ref List<SkillEntry> list, int count, SkillEntry prefab, Transform holder) {
+        list.PopulateList(count, prefab, holder, true);
+        for (int i = 0; i < list.Count; i++) {
+            list[i].Setup(null, SkillEntryLocation.Passive, true);
         }
     }
 
@@ -55,7 +63,15 @@ public static class AbilityUtilities {
     public static SkillEntry CreateSkillEntry(Ability ability, SkillEntry prefab, Transform holder, SkillEntryLocation location, GameButtonType keyBind = GameButtonType.None, int index = -1) {
         SkillEntry entry = GameObject.Instantiate(prefab, holder);
         entry.gameObject.SetActive(true);
-        entry.Setup(ability, location, keyBind, index);
+        entry.Setup(ability, location, false, keyBind, index);
+
+        return entry;
+    }
+
+    public static SkillEntry CreatePassiveSkillEntry(Ability ability, SkillEntry prefab, Transform holder) {
+        SkillEntry entry = GameObject.Instantiate(prefab, holder);
+        entry.gameObject.SetActive(true);
+        entry.Setup(ability, SkillEntryLocation.Passive, true);
 
         return entry;
     }
@@ -68,12 +84,22 @@ public static class AbilityUtilities {
             SkillEntryLocation.ActiveSkill => EntityManager.ActivePlayer.AbilityManager.ActiveAbilities,
             SkillEntryLocation.KnownSkill => EntityManager.ActivePlayer.AbilityManager.KnownAbilities,
             SkillEntryLocation.Hotbar => EntityManager.ActivePlayer.AbilityManager.ActiveAbilities,
+            SkillEntryLocation.Passive => EntityManager.ActivePlayer.AbilityManager.PassiveAbilities,
             _ => new List<Ability>(),
         };
 
-        for (int i = 0; i < abilities.Count; i++) {
-            list.Add(CreateSkillEntry(abilities[i], prefab, holder, location));
+        if(location != SkillEntryLocation.Passive) {
+            for (int i = 0; i < abilities.Count; i++) {
+                list.Add(CreateSkillEntry(abilities[i], prefab, holder, location));
+            }
         }
+        else {
+            for (int i = 0; i < abilities.Count; i++) {
+                list.Add(CreatePassiveSkillEntry(abilities[i], prefab, holder));
+            }
+        }
+
+        
     }
 
     public static SkillEntry GetSkillEntryByAbility(List<SkillEntry> list, Ability ability) {

@@ -18,14 +18,20 @@ MonoBehaviour:
     type: 3
     targeting: 5
     subTarget: 0
+    deliveryPayloadToTarget: 0
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
     targetConstraints: []
     payloadPrefab: {fileID: 5014085312362430806, guid: d3a5660a1575a0e419d046ed8b2428e2, type: 3}
     payloadCount: 1
-    projectilePierceCount: 0
     shotDelay: 0.2
+    payloadStatData:
+    - variant: 0
+      statName: 34
+      value: 0
+      maxValue: 0
+      minValue: 0
     spawnLocation: 0
     effectZoneInfo:
       removeEffectOnExit: 0
@@ -78,8 +84,6 @@ MonoBehaviour:
       interval: 1
       VFXPrefab: {fileID: 1193745591585432, guid: 6b08a00df5a864c4b989cab8a8ae173c, type: 3}
       statusEffectDef: {fileID: 11400000, guid: 5dc49b35d7e5b61438920861197fa0b6, type: 2}
-      statModifiers: []
-      multiplyByStackCount: 0
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
@@ -91,3 +95,8 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
+    abilitiesToAdd: []
+    targetOtherEffectParentAbilityName: 
+    targetOtherEffectName: 
+    applyTriggeringEffect: 0
+    statScalersToAdd: []

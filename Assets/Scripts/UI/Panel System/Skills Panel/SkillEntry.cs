@@ -17,7 +17,8 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         ActiveSkill,
         KnownSkill,
         Hotbar,
-        RunePanel
+        RunePanel,
+        Passive
     }
 
 
@@ -29,6 +30,14 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public TextMeshProUGUI chargesText;
     public SkillEntryLocation location;
     public GameButtonType keybind;
+
+    [Header("Holders")]
+    public GameObject activeHolder;
+    public GameObject passiveHolder;
+
+    [Header("Passive Variant")]
+    public Image passiveIcon;
+    public Image selecteFrame;
     //public GameInput.GameButtonType keyBind;
 
     //[Header("Slot Elements")]
@@ -40,7 +49,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public static SkillEntry draggedEntry;
 
-
+    public bool IsPassive { get; protected set; }
 
     private Canvas canvas;
     private int baseLayer;
@@ -63,7 +72,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         ShowCooldownDimmer();
     }
 
-    public void Setup(Ability ability, SkillEntryLocation location, GameButtonType keyBind = GameButtonType.None, int index = -1) {
+    public void Setup(Ability ability, SkillEntryLocation location, bool passive, GameButtonType keyBind = GameButtonType.None, int index = -1) {
         this.Ability = ability;
         this.keybind = keyBind;
         SetupAbilityIcon(ability);
@@ -73,10 +82,22 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             Index = index;
 
         SetupCharges();
+
+        IsPassive = passive;
+
+        if(passive == true) {
+            passiveHolder.SetActive(true);
+            activeHolder.SetActive(false);
+        }
+        else {
+            passiveHolder.SetActive(false);
+            activeHolder.SetActive(true);
+        }
+
     }
 
     private void SetupCharges() {
-        if(Ability == null || location != SkillEntryLocation.Hotbar || Ability.MaxCharges < 2) {
+        if (Ability == null || location != SkillEntryLocation.Hotbar || Ability.MaxCharges < 2) {
             chargesText.gameObject.SetActive(false);
             //Debug.Log("NO Charges");
             return;
@@ -86,15 +107,15 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         chargesText.text = Ability.MaxCharges.ToString();
 
         Ability.AddChargesChangedListener(OnAbilityChargesChanges);
-            
+
     }
 
     private void OnAbilityChargesChanges(BaseStat stat, object source, float value) {
-        if(Ability == null) {
+        if (Ability == null) {
             chargesText.gameObject.SetActive(false);
             return;
         }
-        
+
         chargesText.text = Ability.Charges.ToString();
     }
 
@@ -104,9 +125,13 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             this.Ability = ability;
             icon.gameObject.SetActive(true);
             icon.sprite = ability.Data.abilityIcon;
+            passiveIcon.gameObject.SetActive(true);
+            passiveIcon.sprite = ability.Data.abilityIcon;
         }
         else {
             icon.gameObject.SetActive(false);
+            passiveIcon.gameObject.SetActive(false);
+
         }
     }
 
@@ -127,6 +152,14 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         if (Ability.IsReady == true && dimmer.fillAmount != 0)
             dimmer.fillAmount = 0;
+    }
+
+    public void SelectPassive() {
+        selecteFrame.gameObject.SetActive(true);
+    }
+
+    public void DeselectPassive() {
+        selecteFrame.gameObject.SetActive(false);
     }
 
     #region UI CALLBACKS
@@ -152,7 +185,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         if (eventData.button == PointerEventData.InputButton.Right) {
 
-            if(Ability != null)
+            if (Ability != null)
                 PanelManager.OpenPanel<RunesPanel>().Setup(Ability);
 
             //SkillModifier embiggen = SkillModifierFactory.MakeProjectileBigger();
@@ -167,6 +200,19 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             EventData data = new EventData();
             data.AddAbility("Ability", Ability);
             EventManager.SendEvent(GameEvent.UserActivatedAbility, data);
+        }
+
+        if(location == SkillEntryLocation.Passive && eventData.button == PointerEventData.InputButton.Left) {
+            SkillsPanel skillsPanel = PanelManager.GetPanel<SkillsPanel>();
+
+
+            if (Ability == null || Ability.IsEquipped == true) {
+              skillsPanel.OnPassiveSlotClicked(this);
+            }
+
+            if(Ability != null && Ability.IsEquipped == false) {
+                skillsPanel.OnKnownPassiveSelected(this);
+            }
         }
     }
 
@@ -196,7 +242,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnDrop(PointerEventData eventData) {
 
-        if(draggedEntry == null) 
+        if (draggedEntry == null)
             return;
 
         if (draggedEntry.Ability == null)
