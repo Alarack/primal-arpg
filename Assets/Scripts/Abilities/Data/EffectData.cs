@@ -62,6 +62,7 @@ public class EffectData
     public EffectTarget targeting;
     public EffectSubTarget subTarget;
     public bool deliveryPayloadToTarget;
+    public bool canOverload;
 
     public int numberOfTargets = -1;
     public string otherAbilityName;
@@ -82,6 +83,7 @@ public class EffectData
     //Stat Adjustment
     public List<StatModifierData> modData = new List<StatModifierData>();
     public Gradient floatingTextColor;
+    public Gradient overloadFloatingTextColor;
     public StatModifierData.StatModDesignation effectDesignation;
     //public List<StatScaler> adjustmentOptions = new List<StatScaler>();
 

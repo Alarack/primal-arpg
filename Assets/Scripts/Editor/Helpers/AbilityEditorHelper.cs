@@ -28,8 +28,18 @@ public static class AbilityEditorHelper
 
         entry.abilityName = EditorGUILayout.TextField("Ability Name", entry.abilityName);
         entry.abilityDescription = EditorGUILayout.TextField("Description", entry.abilityDescription);
-        entry.resourceCost = EditorGUILayout.FloatField("Resource Cost", entry.resourceCost);
-        entry.baseRuneSlots = EditorGUILayout.IntField("Rune Slots", entry.baseRuneSlots);
+        //entry.resourceCost = EditorGUILayout.FloatField("Resource Cost", entry.resourceCost);
+        //entry.baseRuneSlots = EditorGUILayout.IntField("Rune Slots", entry.baseRuneSlots);
+
+        EditorGUI.indentLevel++;
+        EditorGUILayout.LabelField("Stats", EditorHelper2.LoadStyle(abilityHeader));
+        entry.abilityStatData = EditorHelper.DrawExtendedList(entry.abilityStatData, "Stat", DrawStatData);
+        EditorGUI.indentLevel--;
+
+        if(entry.ContainsStat(StatName.AbilityWindupTime)) {
+            entry.windupVFX = EditorHelper.ObjectField("WindupVFX", entry.windupVFX);
+        }
+
 
         entry.includeEffectsInTooltip = EditorGUILayout.Toggle("Include Effect Toolip", entry.includeEffectsInTooltip);
         entry.ignoreTooltip = EditorGUILayout.Toggle("Ignore Tooltip", entry.ignoreTooltip);
@@ -350,6 +360,12 @@ public static class AbilityEditorHelper
         entry.effectDescription = EditorGUILayout.TextField("Effect Description", entry.effectDescription);
         entry.effectDesignation = EditorHelper.EnumPopup("Effect Designation", entry.effectDesignation);
         entry.floatingTextColor = EditorGUILayout.GradientField("Floating Text Color", entry.floatingTextColor);
+        entry.canOverload = EditorGUILayout.Toggle("Can Overload?", entry.canOverload);
+        
+        if(entry.canOverload == true) {
+            entry.overloadFloatingTextColor = EditorGUILayout.GradientField("Overload Floating Text Color", entry.overloadFloatingTextColor);
+
+        }
 
         EditorGUILayout.Separator();
 

@@ -117,7 +117,7 @@ public static class StatAdjustmentManager {
         return ApplyStatAdjustment(target, mod, StatName.CooldownReduction, StatModifierData.StatVariantTarget.RangeCurrent, sourceAbility, multiplier);
     }
 
-    public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, Ability sourceAbility, float multiplier = 1f) {
+    public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, Ability sourceAbility, float multiplier = 1f, bool overload = false) {
 
         Action<StatName, StatModifier> statModAction = statVarient switch {
             StatModifierData.StatVariantTarget.Simple => target.Stats.AddModifier,

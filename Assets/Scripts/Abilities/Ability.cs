@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEditor.Playables;
 using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+using static UnityEngine.GraphicsBuffer;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
 
 public class Ability {
@@ -41,6 +42,8 @@ public class Ability {
 
     protected List<Action<BaseStat, object, float>> recoveryStatListeners = new List<Action<BaseStat, object, float>>();
 
+    protected Task currentWindup;
+
     public List<Ability> ChildAbilities { get; protected set; } = new List<Ability>();
 
     public Ability ParentAbility { get; protected set; }
@@ -72,18 +75,27 @@ public class Ability {
 
 
     private void SetupStats() {
-        Stats = new StatCollection(this);
+        Stats = new StatCollection(this, Data.abilityStatData);
 
-        StatRange charges = new StatRange(StatName.AbilityCharge, 0, Data.startingRecoveryCharges, Data.startingRecoveryCharges);
-        SimpleStat runeSlots = new SimpleStat(StatName.AbilityRuneSlots, Data.baseRuneSlots);
-       
-        Stats.AddStat(charges);
-        Stats.AddStat(runeSlots);
-
-        if(Data.resourceCost > 0) {
-            SimpleStat essenceCost = new SimpleStat(StatName.EssenceCost, Data.resourceCost);
-            Stats.AddStat(essenceCost);
+        if(Stats.Contains(StatName.AbilityRuneSlots) == false) {
+            SimpleStat runeSlots = new SimpleStat(StatName.AbilityRuneSlots, 2);
+            Stats.AddStat(runeSlots);
         }
+
+        if(Stats.Contains(StatName.AbilityCharge) == false) {
+            StatRange charges = new StatRange(StatName.AbilityCharge, 0, Data.startingRecoveryCharges, Data.startingRecoveryCharges);
+            Stats.AddStat(charges);
+        }
+
+        //if(Stats.Contains(StatName.EssenceCost) == false) {
+
+        //}
+
+
+        //if(Data.resourceCost > 0) {
+        //    SimpleStat essenceCost = new SimpleStat(StatName.EssenceCost, Data.resourceCost);
+        //    Stats.AddStat(essenceCost);
+        //}
 
     }
 
@@ -509,6 +521,15 @@ public class Ability {
         return -1f;
     }
 
+    public float GetAbilityOverloadChance() {
+        float sourceChance = Source.Stats[StatName.OverloadChance];
+        float skillChance = Stats[StatName.OverloadChance];
+
+        float totalChance = sourceChance + skillChance;
+
+        return totalChance;
+    }
+
     public string GetTooltip() {
 
         if (Data.ignoreTooltip == true) {
@@ -534,6 +555,10 @@ public class Ability {
             builder.AppendLine();
         }
 
+
+        if(Stats.Contains(StatName.AbilityWindupTime) == true && Stats[StatName.AbilityWindupTime] > 0f) {
+            builder.AppendLine("Cast Time: " + TextHelper.ColorizeText(Stats[StatName.AbilityWindupTime].ToString(), Color.yellow) + " Seconds");
+        }
 
 
 
@@ -591,6 +616,12 @@ public class Ability {
                 string projectileStats = effects[0].GetProjectileStatsTooltip();
                 if (string.IsNullOrEmpty(projectileStats) == false) {
                     builder.AppendLine(projectileStats);
+                }
+
+                if (effects[0].Data.canOverload == true) {
+                    float overloadChance = GetAbilityOverloadChance();
+
+                    builder.AppendLine("Overload Chance: " + TextHelper.ColorizeText( TextHelper.FormatStat(StatName.OverloadChance, overloadChance), Color.green));
                 }
 
             }
@@ -770,18 +801,35 @@ public class Ability {
             return;
         }
 
+        if(Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
+            
+            if(currentWindup == null) {
+                currentWindup = new Task(StartAbilityWindup(activationInstance));
+                return;
+            }
+            else {
+                Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
+                return;
+            }
+        }
+
         if (TrySpendCharge(1) == false) {
             //Debug.LogWarning("Not enough charges on: " + Data.abilityName);
             return;
         }
 
 
-        if(Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] > 0f) {
-            if (EntityManager.ActivePlayer.TrySpendEssence(Stats[StatName.EssenceCost]) == false) {
-                Debug.LogWarning("Not enough essence");
-                return;
-            }
-        }
+        if (CheckCost() == false)
+            return;
+
+        //if (Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] > 0f) {
+        //    Debug.Log("Cost: " + Stats[StatName.EssenceCost]);
+            
+        //    if (EntityManager.ActivePlayer.TrySpendEssence(Stats[StatName.EssenceCost]) == false) {
+        //        Debug.LogWarning("Not enough essence");
+        //        return;
+        //    }
+        //}
 
         //Debug.Log("An ability: " + Data.abilityName + " is starting. Source: " + Source.gameObject.name);
 
@@ -789,6 +837,52 @@ public class Ability {
 
         new Task(TriggerAllEffects(activationInstance));
 
+    }
+
+    private bool CheckCost() {
+        if (Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] > 0f) {
+            Debug.Log("Cost: " + Stats[StatName.EssenceCost]);
+
+            if (EntityManager.ActivePlayer.TrySpendEssence(Stats[StatName.EssenceCost]) == false) {
+                Debug.LogWarning("Not enough essence");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void ResumeActivation(TriggerInstance activationInstance) {
+
+        if (TrySpendCharge(1) == false) {
+            currentWindup = null;
+            return;
+        }
+
+        if (CheckCost() == false) {
+            currentWindup = null;
+            return;
+        }
+
+
+        IsActive = true;
+
+        new Task(TriggerAllEffects(activationInstance));
+        currentWindup = null;
+    }
+
+    public IEnumerator StartAbilityWindup(TriggerInstance activationInstance) {
+        WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.AbilityWindupTime]);
+
+        Debug.Log("Showing some kind of vfx");
+
+        GameObject activeVFX = GameObject.Instantiate(Data.windupVFX, Source.transform);
+        activeVFX.transform.localPosition = Vector3.zero;
+        GameObject.Destroy(activeVFX, 3f);
+
+        yield return waiter;
+
+        ResumeActivation(activationInstance);
     }
 
 

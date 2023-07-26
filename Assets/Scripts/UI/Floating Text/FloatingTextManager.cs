@@ -9,7 +9,7 @@ public class FloatingTextManager : Singleton<FloatingTextManager> {
 
    
 
-    public static FloatingText SpawnFloatingText(Vector2 location, string value, float scale = 0.75f) {
+    public static FloatingText SpawnFloatingText(Vector2 location, string value, float scale = 0.75f, bool overload = false) {
 
         if(Instance.prefab == null) {
             Debug.LogWarning("No prefab has been assinged to the floating text manager");
@@ -22,7 +22,7 @@ public class FloatingTextManager : Singleton<FloatingTextManager> {
         float roundedValue = Mathf.FloorToInt(float.Parse(value));
 
 
-        newFloatingText.Setup(roundedValue.ToString());
+        newFloatingText.Setup(roundedValue.ToString(), 2f, overload);
 
         return newFloatingText;
     }

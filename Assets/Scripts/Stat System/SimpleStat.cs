@@ -54,7 +54,9 @@ public enum StatName
     EssenceCost,
     Essence,
     EssenceRegenerationRate,
-    EssenceRegenerationValue
+    EssenceRegenerationValue,
+    AbilityWindupTime,
+    OverloadRecieveChance
 }
 
 

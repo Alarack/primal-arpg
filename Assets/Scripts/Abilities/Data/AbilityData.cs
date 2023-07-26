@@ -136,6 +136,10 @@ public class AbilityData
 
     public int startingRecoveryCharges = 1;
     public int baseRuneSlots = 2;
+    public GameObject windupVFX;
+
+    public List<StatData> abilityStatData = new List<StatData>();
+
     public List<RecoveryData> recoveryData = new List<RecoveryData>();
     
 
@@ -167,6 +171,16 @@ public class AbilityData
         for (int i = 0; i < count; i++) {
             target.Add(new TriggerData(clone[i]));
         }
+    }
+
+
+    public bool ContainsStat(StatName stat) {
+        for (int i = 0; i < abilityStatData.Count; i++) {
+            if (abilityStatData[i].statName == stat) 
+                return true;
+        }
+
+        return false;
     }
 
 }

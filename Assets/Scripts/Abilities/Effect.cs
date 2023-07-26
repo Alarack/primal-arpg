@@ -34,6 +34,8 @@ public abstract class Effect {
 
     public StatCollection Stats { get; protected set; }
 
+    protected bool isOverloading;
+
     public Effect(EffectData data, Entity source, Ability parentAbility = null) {
         this.Data = data;
         this.ParentAbility = parentAbility;
@@ -144,7 +146,39 @@ public abstract class Effect {
 
         LastTarget = target;
 
+
+        if(Data.canOverload == true) {
+            if(CheckOverload(target) == true) {
+                Debug.Log(ParentAbility.Data.abilityName + " has overloaded");
+                isOverloading = true;
+                SendOverloadEvent(target);
+            }
+            else {
+                isOverloading = false;
+            }
+        }
+
         return true;
+    }
+
+    private bool CheckOverload(Entity target) {
+        float sourceChance = Source.Stats[StatName.OverloadChance];
+        float targetChance = target.Stats[StatName.OverloadRecieveChance];
+        float skillChance = 0f;
+        if(ParentAbility != null) {
+           skillChance = ParentAbility.Stats[StatName.OverloadChance];
+        }
+       
+
+        float totalChance = sourceChance + targetChance + skillChance;
+
+        float roll = Random.Range(0f, 1f);
+
+        if( roll < totalChance) {
+            return true;
+        }
+
+        return false;
     }
 
     public virtual void Remove(Entity target) {
@@ -213,6 +247,16 @@ public abstract class Effect {
         //Debug.Log(effectName + " has been applied from the card: " + ParentAbility.Source.cardName);
 
         EventManager.SendEvent(GameEvent.EffectApplied, data);
+    }
+
+    public void SendOverloadEvent(Entity target) {
+        EventData data = new EventData();
+        data.AddAbility("Ability", ParentAbility);
+        data.AddEffect("Effect", this);
+        data.AddEntity("Target", target);
+        data.AddEntity("Source", Source);
+
+        EventManager.SendEvent(GameEvent.OverloadTriggered, data);
     }
 
     public void CreateVFX(Entity currentTarget) {
@@ -658,6 +702,12 @@ public class AddStatusEffect : Effect {
                     }
                     else {
                         builder.Append(activeStatusEffects[i].GetTooltip() + "for " + durationText);
+                    }
+
+                    if (activeStatusEffects[i].Data.canOverload == true) {
+                        float overloadChance = ParentAbility.GetAbilityOverloadChance();
+
+                        builder.AppendLine("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), Color.green));
                     }
 
 
@@ -1214,8 +1264,10 @@ public class StatAdjustmentEffect : Effect {
         if (activeMod.TargetStat == StatName.Health) {
             //Debug.LogWarning("Damage dealt: " + modValueResult + " : " + Data.effectName);
 
-            FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString());
-            text.SetColor(Data.floatingTextColor);
+            FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString(), 0.75f, isOverloading);
+
+            Gradient targetGrad = isOverloading == false ? Data.floatingTextColor : Data.overloadFloatingTextColor;
+            text.SetColor(targetGrad);
         }
     }
 
@@ -1418,6 +1470,13 @@ public class StatAdjustmentEffect : Effect {
                 globalDamageMultiplier += value;
             }
         }
+
+        if(isOverloading == true) {
+            float overloadDamageMod = 1f + Source.Stats[StatName.OverloadDamageModifier];
+            globalDamageMultiplier *= overloadDamageMod;
+        }
+
+
         return globalDamageMultiplier;
     }
 

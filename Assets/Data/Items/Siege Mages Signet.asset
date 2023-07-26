@@ -21,7 +21,7 @@ MonoBehaviour:
     validSlots: 0400000005000000
     itemIcon: {fileID: 21300000, guid: a067f0c64576507408c51a4e16331d27, type: 3}
     pickupIcon: {fileID: 21300000, guid: a067f0c64576507408c51a4e16331d27, type: 3}
-    pickupOnCollision: 0
+    pickupOnCollision: 1
     minDamage: 0
     maxDamage: 0
     statModifierData:
@@ -31,21 +31,25 @@ MonoBehaviour:
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 0
+      deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
       otherTargetAbility: 
       otherTagetEffect: 
+      scalers: []
     - targetStat: 43
       value: 2
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 0
+      deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
       otherTargetAbility: 
       otherTagetEffect: 
+      scalers: []
     abilityDefinitions: []
     learnableAbilities: []

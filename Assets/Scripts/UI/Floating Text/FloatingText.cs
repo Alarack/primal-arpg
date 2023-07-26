@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
 
 
 public class FloatingText : MonoBehaviour
@@ -23,14 +24,36 @@ public class FloatingText : MonoBehaviour
     public TextMeshPro textMesh;
 
 
+    private Vector3 initialScale;
+    private Vector3 overloadScale;
 
-    public void Setup(string displayText, float lifetime = 2f) {
+
+    private void Awake() {
+     
+    }
+
+    public void Setup(string displayText, float lifetime = 2f, bool overload = false) {
         valueText.text = displayText;
         textMesh.text = displayText;
+
+
+        initialScale = transform.localScale;
+        overloadScale = initialScale * 2f;
 
         SetParticleMesh();
 
         PopOff();
+
+        if(overload == true) {
+            transform.DOScale(overloadScale, 0.3f)
+                .SetEase(Ease.InBounce)
+                .OnComplete(() => {
+                    transform.DOScale(initialScale, 0.2f)
+                    .SetEase(Ease.OutBounce);
+                });
+
+        }
+
 
         Destroy(gameObject, lifetime);
     }

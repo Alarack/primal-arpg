@@ -147,7 +147,8 @@ namespace LL.Events {
         ProjectilePierced,
         ProjectileChained,
         ProjectileSplit,
-        UnitDiedWithStatus
+        UnitDiedWithStatus,
+        OverloadTriggered
 
     }
 
