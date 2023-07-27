@@ -460,3 +460,21 @@ public class AbilityNameConstraint : AbilityConstraint {
 
 }
 
+public class EntityNameConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.EntityName;
+
+    public EntityNameConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+       bool result = target.EntityName == data.targetEntityName;
+
+        return inverse == false ? result : !result;
+    }
+
+   
+
+}
+

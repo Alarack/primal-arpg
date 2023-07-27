@@ -645,7 +645,7 @@ public class AddStatusEffect : Effect {
         }
         else {
             ApplyNewStatus(target);
-
+            //Debug.Log("applying a status to: " + target.EntityName);
         }
 
         return true;

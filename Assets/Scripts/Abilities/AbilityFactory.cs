@@ -38,6 +38,7 @@ public static class AbilityFactory {
             TriggerType.ProjectileChained => new ProjectileChainedTrigger(data, source, parentAbility),
             TriggerType.UnitDiedWithStatus => new UnitDiedWithStatusTrigger(data, source, parentAbility),
             TriggerType.OverloadTriggered => new OverloadTrigger(data, source, parentAbility),
+            TriggerType.ProjectileCreated => new ProjectileCreatedTrigger(data, source, parentAbility),
             _ => null,
         };
 
@@ -65,7 +66,7 @@ public static class AbilityFactory {
             ConstraintType.Range => new RangeConstraint(data, source, parentAbility),
             ConstraintType.StatMinimum => throw new NotImplementedException(),
             ConstraintType.StatMaximum => throw new NotImplementedException(),
-            ConstraintType.EntityName => throw new NotImplementedException(),
+            ConstraintType.EntityName => new EntityNameConstraint(data, source, parentAbility),
             ConstraintType.HasStatus => new HasStatusConstraint(data, source, parentAbility),
             ConstraintType.StateEntered => throw new NotImplementedException(),
             ConstraintType.StatedExited => throw new NotImplementedException(),

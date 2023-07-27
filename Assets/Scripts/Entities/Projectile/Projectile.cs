@@ -1,4 +1,5 @@
 using LL.Events;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,23 +29,32 @@ public class Projectile : Entity {
     public float childSplitCount;
     public Projectile splitPrefab;
 
+    [Header("Misc")]
+    public float smoothScaleSpeed;
+
     private Collider2D myCollider;
     private Entity source;
 
     private List<Effect> onHitEffects = new List<Effect>();
 
 
-    private Weapon parentWeapon;
+    //private Weapon parentWeapon;
     private Effect parentEffect;
 
     //private EffectZone activeZone;
 
     private Task killTimer;
     private Task impactTask;
+    private Task smoothScale;
     private float projectileSize;
 
     protected override void Awake() {
         base.Awake();
+
+        if(Stats.Contains(StatName.ProjectileSize) == false) {
+            Stats.AddStat(new SimpleStat(StatName.ProjectileSize, 1f));
+        }
+
 
         myCollider = GetComponent<Collider2D>();
 
@@ -56,10 +66,26 @@ public class Projectile : Entity {
 
     }
 
+    protected override void OnEnable() {
+        base.OnEnable();
+
+        Stats.AddStatListener(StatName.ProjectileSize, OnSizeChanged);
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        Stats.RemoveStatListener(StatName.ProjectileSize, OnSizeChanged);
+    }
+
+    private void OnSizeChanged(BaseStat stat, object source, float value) {
+        smoothScale = new Task(SmoothScale());
+    }
+
     public void Setup(Entity source, Weapon parentWeapon, List<Effect> onHitEffects) {
         this.source = source;
         this.onHitEffects = onHitEffects;
-        this.parentWeapon = parentWeapon;
+        //this.parentWeapon = parentWeapon;
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
     }
 
@@ -68,10 +94,27 @@ public class Projectile : Entity {
         this.parentEffect = parentEffect;
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
         SetupSize();
+
+        SendProjectileCreatedEvent();
+    }
+
+    private void SendProjectileCreatedEvent() {
+        EventData data = new EventData();
+        data.AddEffect("Parent Effect", parentEffect);
+        data.AddAbility("Parent Ability", parentEffect.ParentAbility);
+        data.AddEntity("Projectile", this);
+
+        EventManager.SendEvent(GameEvent.ProjectileCreated, data);
     }
 
     private void SetupSize() {
-        projectileSize = parentEffect.Stats[StatName.ProjectileSize];
+        UpdateProjectleSize();
+
+        transform.localScale = new Vector3(projectileSize, projectileSize, projectileSize);
+    }
+
+    private void UpdateProjectleSize() {
+        projectileSize = Stats[StatName.ProjectileSize];
 
         if (projectileSize <= 0)
             projectileSize = 1f;
@@ -79,16 +122,22 @@ public class Projectile : Entity {
         float globalSizeMod = 1f + source.Stats[StatName.GlobalProjectileSizeModifier];
 
         projectileSize *= globalSizeMod;
+    }
 
-        //Debug.Log("Projectile Size: " + projectileSize);
+    private IEnumerator SmoothScale() {
 
-        transform.localScale = new Vector3(projectileSize, projectileSize, projectileSize);
+        UpdateProjectleSize();
 
-        ParticleSystem[] subParticles = GetComponentsInChildren<ParticleSystem>();
+        Debug.Log("Projectile Size " + Stats[StatName.ProjectileSize]);
 
-        for (int i = 0; i < subParticles.Length; i++) {
-            
+        while(transform.localScale.x != projectileSize) {
+            float targetScale = Mathf.MoveTowards(transform.localScale.x, projectileSize, Time.deltaTime * smoothScaleSpeed);
+
+            //Debug.Log("Target scale: " + targetScale);
+            transform.localScale = new Vector3(targetScale, targetScale, targetScale);
+            yield return new WaitForEndOfFrame();
         }
+
     }
 
     public void IgnoreCollision(Entity target) {

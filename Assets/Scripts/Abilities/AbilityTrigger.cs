@@ -694,6 +694,33 @@ public class AbilityUnequippedTrigger : AbilityTrigger {
     }
 }
 
+public class ProjectileCreatedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.ProjectileCreated;
+
+    public override GameEvent TargetEvent => GameEvent.ProjectileCreated;
+
+    public override Action<EventData> EventReceiver => OnProjectileCreated;
+
+    public ProjectileCreatedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    }
+
+    private void OnProjectileCreated(EventData data) {
+
+        Effect causingEffect = data.GetEffect("Parent Effect");
+        Ability causingAbility = data.GetAbility("Parent Ability");
+        Entity triggeringEntity = data.GetEntity("Projectile");
+
+        TriggeringEntity = triggeringEntity;
+
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.CausingEffect = causingEffect;
+        triggerInstance.CausingAbility= causingAbility;
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
 public class UnitDiedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.UnitDied;

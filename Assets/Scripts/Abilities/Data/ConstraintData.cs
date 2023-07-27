@@ -34,7 +34,7 @@ public enum ConstraintType {
     LeastStat,
     AbilityActive,
     EffectApplied,
-    EffectType
+    EffectType,
 }
 
 public enum GainedOrLost {

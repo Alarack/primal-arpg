@@ -33,7 +33,8 @@ public enum TriggerType {
     ProjectileChained,
     ProjectileSplit,
     UnitDiedWithStatus,
-    OverloadTriggered
+    OverloadTriggered,
+    ProjectileCreated
 }
 
 
