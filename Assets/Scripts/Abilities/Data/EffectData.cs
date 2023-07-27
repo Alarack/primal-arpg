@@ -83,8 +83,8 @@ public class EffectData
 
     //Stat Adjustment
     public List<StatModifierData> modData = new List<StatModifierData>();
-    public Gradient floatingTextColor;
-    public Gradient overloadFloatingTextColor;
+    public Gradient floatingTextColor = new Gradient();
+    public Gradient overloadFloatingTextColor = new Gradient();
     public StatModifierData.StatModDesignation effectDesignation;
     //public List<StatScaler> adjustmentOptions = new List<StatScaler>();
 

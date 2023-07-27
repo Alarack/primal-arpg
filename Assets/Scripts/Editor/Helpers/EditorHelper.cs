@@ -133,7 +133,7 @@ public static class EditorHelper
         if (add) {
             if (AddButton("Add new entry", width, height)) {
 
-                list.Insert(index + 1, defaultValue);
+                list.Insert(index + 1, MakeDefaultValue(defaultValue, false));
 
                 if (_lastRemoveList == list) {
                     _lastRemoveList = null;
