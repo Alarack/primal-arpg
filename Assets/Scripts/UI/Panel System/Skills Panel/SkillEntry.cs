@@ -18,7 +18,8 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         KnownSkill,
         Hotbar,
         RunePanel,
-        Passive
+        ActivePassive,
+        KnownPassive
     }
 
 
@@ -202,18 +203,37 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             EventManager.SendEvent(GameEvent.UserActivatedAbility, data);
         }
 
-        if(location == SkillEntryLocation.Passive && eventData.button == PointerEventData.InputButton.Left) {
-            SkillsPanel skillsPanel = PanelManager.GetPanel<SkillsPanel>();
 
+        if(eventData.button == PointerEventData.InputButton.Left) {
 
-            if (Ability == null || Ability.IsEquipped == true) {
-              skillsPanel.OnPassiveSlotClicked(this);
+            if(location == SkillEntryLocation.ActivePassive || location == SkillEntryLocation.KnownPassive) {
+                SkillsPanel skillsPanel = PanelManager.GetPanel<SkillsPanel>();
+
+                if(location == SkillEntryLocation.KnownPassive) {
+                    skillsPanel.OnKnownPassiveSelected(this);
+                }
+
+                if(location == SkillEntryLocation.ActivePassive) {
+                    skillsPanel.OnPassiveSlotClicked(this);
+                }
+
             }
 
-            if(Ability != null && Ability.IsEquipped == false) {
-                skillsPanel.OnKnownPassiveSelected(this);
-            }
+          
         }
+
+        //if (location == SkillEntryLocation.ActivePassive && eventData.button == PointerEventData.InputButton.Left) {
+        //    SkillsPanel skillsPanel = PanelManager.GetPanel<SkillsPanel>();
+
+
+        //    if (Ability == null || Ability.IsEquipped == true) {
+        //      skillsPanel.OnPassiveSlotClicked(this);
+        //    }
+
+        //    if(Ability != null && Ability.IsEquipped == false) {
+        //        skillsPanel.OnKnownPassiveSelected(this);
+        //    }
+        //}
     }
 
     public void OnBeginDrag(PointerEventData eventData) {

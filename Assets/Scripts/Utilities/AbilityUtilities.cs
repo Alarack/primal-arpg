@@ -55,7 +55,7 @@ public static class AbilityUtilities {
     public static void CreateEmptyPassiveSkillEntries(ref List<SkillEntry> list, int count, SkillEntry prefab, Transform holder) {
         list.PopulateList(count, prefab, holder, true);
         for (int i = 0; i < list.Count; i++) {
-            list[i].Setup(null, SkillEntryLocation.Passive, true);
+            list[i].Setup(null, SkillEntryLocation.ActivePassive, true);
         }
     }
 
@@ -68,10 +68,10 @@ public static class AbilityUtilities {
         return entry;
     }
 
-    public static SkillEntry CreatePassiveSkillEntry(Ability ability, SkillEntry prefab, Transform holder) {
+    public static SkillEntry CreatePassiveSkillEntry(Ability ability, SkillEntry prefab, Transform holder, SkillEntryLocation location) {
         SkillEntry entry = GameObject.Instantiate(prefab, holder);
         entry.gameObject.SetActive(true);
-        entry.Setup(ability, SkillEntryLocation.Passive, true);
+        entry.Setup(ability, location, true);
 
         return entry;
     }
@@ -84,23 +84,37 @@ public static class AbilityUtilities {
             SkillEntryLocation.ActiveSkill => EntityManager.ActivePlayer.AbilityManager.ActiveAbilities,
             SkillEntryLocation.KnownSkill => EntityManager.ActivePlayer.AbilityManager.KnownAbilities,
             SkillEntryLocation.Hotbar => EntityManager.ActivePlayer.AbilityManager.ActiveAbilities,
-            SkillEntryLocation.Passive => EntityManager.ActivePlayer.AbilityManager.PassiveAbilities,
+            SkillEntryLocation.KnownPassive => EntityManager.ActivePlayer.AbilityManager.PassiveAbilities,
             _ => new List<Ability>(),
         };
 
-        if(location != SkillEntryLocation.Passive) {
+
+
+        if(location == SkillEntryLocation.KnownPassive || location == SkillEntryLocation.ActivePassive) {
             for (int i = 0; i < abilities.Count; i++) {
-                list.Add(CreateSkillEntry(abilities[i], prefab, holder, location));
+                list.Add(CreatePassiveSkillEntry(abilities[i], prefab, holder, location));
             }
         }
         else {
             for (int i = 0; i < abilities.Count; i++) {
-                list.Add(CreatePassiveSkillEntry(abilities[i], prefab, holder));
+                list.Add(CreateSkillEntry(abilities[i], prefab, holder, location));
             }
         }
 
-        
-    }
+
+            //if (location != SkillEntryLocation.ActivePassive) {
+            //    for (int i = 0; i < abilities.Count; i++) {
+            //        list.Add(CreateSkillEntry(abilities[i], prefab, holder, location));
+            //    }
+            //}
+            //else {
+            //    for (int i = 0; i < abilities.Count; i++) {
+            //        list.Add(CreatePassiveSkillEntry(abilities[i], prefab, holder));
+            //    }
+            //}
+
+
+        }
 
     public static SkillEntry GetSkillEntryByAbility(List<SkillEntry> list, Ability ability) {
         for (int i = 0; i < list.Count; i++) {

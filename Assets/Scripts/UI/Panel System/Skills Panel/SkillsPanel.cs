@@ -4,8 +4,7 @@ using UnityEngine;
 
 using GameButtonType = InputHelper.GameButtonType;
 
-public class SkillsPanel : SkillBasePanel
-{
+public class SkillsPanel : SkillBasePanel {
 
     [Header("Template")]
     public Transform knownSkillsHolder;
@@ -16,15 +15,15 @@ public class SkillsPanel : SkillBasePanel
     public PassiveSkillPanel passiveCollectionPanel;
 
     private List<SkillEntry> knownSkillEntries = new List<SkillEntry>();
-    
+
     private List<SkillEntry> activePassiveSkillEntries = new List<SkillEntry>();
     private List<SkillEntry> knownPassiveSkillEntries = new List<SkillEntry>();
-  
+
     public override void Open() {
         base.Open();
 
         AbilityUtilities.PopulateSkillEntryList(ref knownSkillEntries, skillEntryTemplate, knownSkillsHolder, SkillEntry.SkillEntryLocation.KnownSkill);
-        AbilityUtilities.PopulateSkillEntryList(ref knownPassiveSkillEntries, skillEntryTemplate, knownPassiveSkillsHolder, SkillEntry.SkillEntryLocation.Passive);
+        AbilityUtilities.PopulateSkillEntryList(ref knownPassiveSkillEntries, skillEntryTemplate, knownPassiveSkillsHolder, SkillEntry.SkillEntryLocation.KnownPassive);
     }
 
     public override void Close() {
@@ -34,7 +33,7 @@ public class SkillsPanel : SkillBasePanel
 
     protected override void CreateEmptySlots() {
         AbilityUtilities.CreateEmptySkillEntries(ref activeSkillEntries, 6, skillEntryTemplate, holder, SkillEntry.SkillEntryLocation.ActiveSkill, defaultKeybinds);
-        AbilityUtilities.CreateEmptyPassiveSkillEntries(ref activePassiveSkillEntries, 2, skillEntryTemplate, activePassiveSkillsHolder);
+        AbilityUtilities.CreateEmptyPassiveSkillEntries(ref activePassiveSkillEntries, 4, skillEntryTemplate, activePassiveSkillsHolder);
     }
 
     public SkillEntry IsAbilityInActiveList(Ability ability) {
@@ -42,20 +41,50 @@ public class SkillsPanel : SkillBasePanel
     }
 
     public void OnPassiveSlotClicked(SkillEntry slot) {
-        passiveCollectionPanel.selectedActiveEntry = slot;
+        passiveCollectionPanel.OnSlotClicked(slot);
+        //passiveCollectionPanel.selectedActiveEntry = slot;
         passiveCollectionPanel.Open();
     }
 
     public void OnKnownPassiveSelected(SkillEntry entry) {
+        passiveCollectionPanel.selectedKnownEntry = entry;
+        passiveCollectionPanel.OnKnownEntryClicked(entry);
+
+        SetPassiveHighlights(entry);
+    }
+
+    public void SetPassiveHighlights(SkillEntry entry) {
         for (int i = 0; i < knownPassiveSkillEntries.Count; i++) {
             if (knownPassiveSkillEntries[i] == entry) {
                 knownPassiveSkillEntries[i].SelectPassive();
-                passiveCollectionPanel.selectedKnownEntry = entry;
+                //passiveCollectionPanel.selectedKnownEntry = entry;
             }
             else {
                 knownPassiveSkillEntries[i].DeselectPassive();
             }
         }
+    }
+
+    public void ClearHighlights() {
+        for (int i = 0; i < knownPassiveSkillEntries.Count; i++) {
+            knownPassiveSkillEntries[i].DeselectPassive();
+        }
+    }
+
+    public SkillEntry GetMatchingActiveSlot(SkillEntry activeSlot) {
+       
+        if(activeSlot.Ability == null)
+            return null;    
+        
+        for (int i = 0; i < knownPassiveSkillEntries.Count; i++) {
+            if (knownPassiveSkillEntries[i].Ability == null)
+                continue;
+            
+            if (knownPassiveSkillEntries[i].Ability == activeSlot.Ability)
+                return knownPassiveSkillEntries[i];
+        }
+
+        return null;
     }
 
 }
