@@ -128,11 +128,13 @@ public class Projectile : Entity {
 
         UpdateProjectleSize();
 
-        Debug.Log("Projectile Size " + Stats[StatName.ProjectileSize]);
+        //Debug.Log("Projectile Size " + Stats[StatName.ProjectileSize]);
 
         while(transform.localScale.x != projectileSize) {
-            float targetScale = Mathf.MoveTowards(transform.localScale.x, projectileSize, Time.deltaTime * smoothScaleSpeed);
+            if (transform == null)
+                yield break;
 
+            float targetScale = Mathf.MoveTowards(transform.localScale.x, projectileSize, Time.deltaTime * smoothScaleSpeed);
             //Debug.Log("Target scale: " + targetScale);
             transform.localScale = new Vector3(targetScale, targetScale, targetScale);
             yield return new WaitForEndOfFrame();

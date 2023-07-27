@@ -68,6 +68,8 @@ public static class TextHelper
             StatName.ProjectileChainCount => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.ProjectilePierceCount => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.ProjectileSplitCount => $"<color=#{bonusColor}>" + value + "</color>",
+            StatName.ProjectileSize when value >= 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
+            StatName.ProjectileSize when value < 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             _ => "No Entry For: " + stat,
         };
 
@@ -124,7 +126,7 @@ public static class TextHelper
             StatName.EffectSize => "Effect Size",
             StatName.EffectRange => throw new System.NotImplementedException(),
             StatName.GlobalProjectileSizeModifier => throw new System.NotImplementedException(),
-            StatName.ProjectileSize => throw new System.NotImplementedException(),
+            StatName.ProjectileSize => "Projectile Size",
             StatName.StatScaler => throw new System.NotImplementedException(),
             _ => "Stat not found: " + stat,
         };

@@ -1190,19 +1190,34 @@ public class StatAdjustmentEffect : Effect {
 
         float modifier = stat switch {
             StatName.EffectSize => Source.Stats[StatName.GlobalEffectSizeModifier],
+            StatName.ProjectileSize => Source.Stats[StatName.GlobalProjectileSizeModifier],
             _ => 1f,
         };
 
         //Debug.Log("Global Mod: " + modifier);
 
-
         return statValue * (1f + modifier);
 
     }
 
+    private float GetProjectileStatContrabution(StatName stat, float scalerMultiplier) {
+        
+        if (activeDelivery != null) {
+            float projectileStatValue = activeDelivery.Stats[stat] * scalerMultiplier;
+
+            if(Stats.Contains(stat) == true) {
+                projectileStatValue -= (Stats[stat] * scalerMultiplier); //Hack to prevent double dipping on projectile stats on both effect and projectile
+            }
+
+            return projectileStatValue;
+        }
+
+        return 0f;
+    }
+
     private float GetTotalDerivedValue(Entity entityTarget, Effect effectTarget, Ability abilityTarget, StatModifierData modData) {
         float totalDerivedValue = 0f;
-
+        float projectileStatContrabution = 0f;
         foreach (var entry in modData.scalersDict) {
             float result = entry.Value.deriveTarget switch {
                 StatModifierData.DeriveFromWhom.Source => Source.Stats[entry.Value.targetStat],
@@ -1224,46 +1239,22 @@ public class StatAdjustmentEffect : Effect {
                 _ => 0f,
             };
             
+
+
             result *= entry.Value.scalerStat.ModifiedValue;
-            
+
+            //Debug.Log(entry.Value.scalerStat.ModifiedValue + " is the scaler for: " + entry.Key);
+
+            //Debug.Log(result + " is the value for: " + entry.Value.targetStat);
+
             totalDerivedValue += result;
 
+            projectileStatContrabution += GetProjectileStatContrabution(entry.Value.targetStat, entry.Value.scalerStat.ModifiedValue);
+
+            //Debug.Log("Projectile " + entry.Value.targetStat + " contrabution: " + projectileStatContrabution);
+
+            totalDerivedValue += projectileStatContrabution;
         }
-
-
-        //for (int i = 0; i < modData.scalers.Count; i++) {
-        //    float result = modData.scalers[i].deriveTarget switch {
-        //        StatModifierData.DeriveFromWhom.Source => Source.Stats[modData.scalers[i].targetStat],
-        //        StatModifierData.DeriveFromWhom.Cause => currentTriggerInstance.CauseOfTrigger.Stats[modData.scalers[i].targetStat],
-        //        StatModifierData.DeriveFromWhom.Trigger => currentTriggerInstance.TriggeringEntity.Stats[modData.scalers[i].targetStat],
-        //        StatModifierData.DeriveFromWhom.OtherEntityTarget => throw new NotImplementedException(),
-        //        StatModifierData.DeriveFromWhom.CurrentEntityTarget => entityTarget.Stats[modData.scalers[i].targetStat],
-        //        StatModifierData.DeriveFromWhom.CurrentAbilityTarget => abilityTarget.Stats[modData.scalers[i].targetStat],
-        //        StatModifierData.DeriveFromWhom.CurrentEffectTarget => GetModifiedStatValue(effectTarget.Stats, modData.scalers[i].targetStat), /*effectTarget.Stats[modData.derivedTargetStat],*/
-        //        StatModifierData.DeriveFromWhom.OtherEffect => throw new NotImplementedException(),
-        //        StatModifierData.DeriveFromWhom.OtherAbility => throw new NotImplementedException(),
-        //        StatModifierData.DeriveFromWhom.SourceAbility => ParentAbility.Stats[modData.scalers[i].targetStat],
-        //        StatModifierData.DeriveFromWhom.SourceEffect => GetModifiedStatValue(Stats, modData.scalers[i].targetStat),
-        //        StatModifierData.DeriveFromWhom.TriggerAbility => currentTriggerInstance.TriggeringAbility.Stats[modData.scalers[i].targetStat],
-        //        StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[modData.scalers[i].targetStat],
-        //        StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[modData.scalers[i].targetStat],
-        //        StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[modData.scalers[i].targetStat],
-        //        StatModifierData.DeriveFromWhom.WeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll /** modData.Stats[StatName.AbilityWeaponCoefficicent]*/,
-        //        _ => 0f,
-        //    };
-
-        //    //Debug.Log(modData.deriveOptions[i].statScaler + " with a scaler of: " + modData.deriveOptions[i].statMultiplier);
-
-        //    //Debug.Log(modData.scalers[i].scalerStat.ModifiedValue + " is the scaler for: " + modData.scalers[i].targetStat);
-
-        //    result *= modData.scalers[i].scalerStat.ModifiedValue;
-
-        //    //Debug.Log(result + " is the total contrabution from: " + modData.scalers[i].targetStat);
-
-        //    totalDerivedValue += result;
-
-        //    //Debug.Log(totalDerivedValue + " is the total so far");
-        //}
 
         return totalDerivedValue;
     }
@@ -1288,16 +1279,11 @@ public class StatAdjustmentEffect : Effect {
                 targetValue *= projectileContrabution;
             }
 
+            //Debug.Log("Target value: " + targetValue);
         }
 
 
-        //float adjustedValue = options.Count > 0f ? 0f : 1f;
-
-        //for (int i = 0; i < options.Count; i++) {
-        //    adjustedValue += options[i].GetAdjustment(this);
-        //}
-
-        //targetValue *= adjustedValue;
+       
 
         return modData.invertDerivedValue == false ? targetValue : -targetValue;
     }
