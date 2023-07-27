@@ -179,7 +179,7 @@ public class StatCollection {
 
     public float GetStatCurrentValue(StatName name) {
         if (Contains(name) == false) {
-            Debug.LogWarning("Stat: " + name + " was not found");
+            //Debug.LogWarning("Stat: " + name + " was not found");
             return 0f;
         }
 

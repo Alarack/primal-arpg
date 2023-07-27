@@ -13,7 +13,8 @@ public enum EffectType {
     Movement,
     AddChildAbility,
     ApplyOtherEffect,
-    AddStatScaler
+    AddStatScaler,
+    ForceStatusTick
 }
 
 public enum EffectTarget {

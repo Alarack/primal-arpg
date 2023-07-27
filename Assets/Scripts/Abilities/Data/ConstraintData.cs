@@ -33,7 +33,8 @@ public enum ConstraintType {
     MostStat,
     LeastStat,
     AbilityActive,
-    EffectApplied
+    EffectApplied,
+    EffectType
 }
 
 public enum GainedOrLost {
@@ -131,6 +132,9 @@ public class ConstraintData
     public string targetAbiltyName;
     public string targetEffectName;
     public StatModifierData.StatModDesignation effectDesigantion;
+
+    //Effect Type
+    public EffectType targetEffectType;
 
     //Has Status
     public Status.StatusName targetStatus;

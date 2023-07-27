@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using LL.Events;
 using LL.FSM;
+using static Unity.VisualScripting.Member;
+using static UnityEngine.GraphicsBuffer;
 
 public abstract class AbilityTrigger {
     public abstract TriggerType Type { get; }
@@ -382,6 +384,34 @@ public class DashStartedTrigger : AbilityTrigger {
         CauseOfTrigger = dasher;
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
+public class OverloadTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.OverloadTriggered;
+    public override GameEvent TargetEvent => GameEvent.OverloadTriggered;
+    public override Action<EventData> EventReceiver => OnAbilityOverload;
+
+    public OverloadTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnAbilityOverload(EventData data) {
+
+        Ability triggeringAbility = data.GetAbility("Ability");
+        Effect triggeringEffect = data.GetEffect("Effect");
+        Entity target = data.GetEntity("Target");
+        Entity cause = data.GetEntity("Source");
+
+        TriggeringEntity = target;
+        CauseOfTrigger = cause;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.TriggeringEffect = triggeringEffect;
+        
         TryActivateTrigger(triggerInstance);
     }
 }

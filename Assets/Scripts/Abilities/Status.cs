@@ -93,6 +93,10 @@ public class Status {
             intervalTimer = new Timer(totalInterval, Tick, true);
     }
 
+    public void ForceTick() {
+        Tick(null);
+    }
+
     protected virtual void Tick(EventData timerEventData) {
         if (Target == null) {
             //Debug.LogWarning("A target with a status is null. Removing status");

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,6 +11,7 @@ using UnityEngine.InputSystem.HID;
 using UnityEngine.UIElements;
 using static AbilityTrigger;
 using static UnityEditor.Progress;
+using static UnityEngine.EventSystems.EventTrigger;
 using Random = UnityEngine.Random;
 
 
@@ -149,7 +151,11 @@ public abstract class Effect {
 
         if(Data.canOverload == true) {
             if(CheckOverload(target) == true) {
-                Debug.Log(ParentAbility.Data.abilityName + " has overloaded");
+                
+                //if(ParentAbility!= null) {
+                //    Debug.Log(ParentAbility.Data.abilityName + " has overloaded");
+                //}
+
                 isOverloading = true;
                 SendOverloadEvent(target);
             }
@@ -163,16 +169,14 @@ public abstract class Effect {
 
     private bool CheckOverload(Entity target) {
         float sourceChance = Source.Stats[StatName.OverloadChance];
-        float targetChance = target.Stats[StatName.OverloadRecieveChance];
-        float skillChance = 0f;
-        if(ParentAbility != null) {
-           skillChance = ParentAbility.Stats[StatName.OverloadChance];
-        }
-       
+        float targetChance = target == null ? 0f : target.Stats[StatName.OverloadRecieveChance];
+        float skillChance = ParentAbility == null ? 0f : ParentAbility.Stats[StatName.OverloadChance];
 
         float totalChance = sourceChance + targetChance + skillChance;
 
         float roll = Random.Range(0f, 1f);
+
+        //Debug.Log("Roll: " + roll + " Chance: " + totalChance);
 
         if( roll < totalChance) {
             return true;
@@ -546,6 +550,31 @@ public class AddChildAbilityEffect : Effect {
     }
 }
 
+public class ForceStatusTickEffect : Effect {
+
+    public override EffectType Type =>EffectType.ForceStatusTick;
+
+    public ForceStatusTickEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    
+    }
+
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+        AddStatusEffect addStatusEffect = target as AddStatusEffect;
+
+        if(addStatusEffect == null) {
+            Debug.LogError("an effect: " + Data.effectName + " tried to force a non-status to tick: " + target.Data.effectName); 
+            return false;
+        }
+
+        addStatusEffect.ForceTick();
+        return true;
+    }
+}
+
 public class AddStatusEffect : Effect {
 
     public override EffectType Type => EffectType.AddStatus;
@@ -569,7 +598,7 @@ public class AddStatusEffect : Effect {
 
 
         for (int i = 0; i < data.statusToAdd.Count; i++) {
-            Effect statusEffect = AbilityFactory.CreateEffect(data.statusToAdd[i].statusEffectDef.effectData, source);
+            Effect statusEffect = AbilityFactory.CreateEffect(data.statusToAdd[i].statusEffectDef.effectData, source, ParentAbility);
             activeStatusEffects.Add(statusEffect as StatAdjustmentEffect);
         }
     }
@@ -584,6 +613,23 @@ public class AddStatusEffect : Effect {
         float effectIntervalModifier = 1 + Source.Stats[StatName.GlobalEffectIntervalModifier];
 
         return Stats[StatName.EffectInterval] * effectIntervalModifier;
+    }
+
+    public void ForceTick() {
+
+        for (int i = activeStatusDict.Count -1; i >=0 ; i--) {
+            List<Status> checks = activeStatusDict.ElementAt(i).Value;
+
+            for (int j = checks.Count - 1; j >= 0; j--) {
+                checks[j].ForceTick();
+            }
+        }
+        
+        //foreach (var entry in activeStatusDict) {
+        //    for (int i = entry.Value.Count -1; i >= 0; i--) {
+        //        entry.Value[i].ForceTick();
+        //    }
+        //}
     }
 
     public override bool Apply(Entity target) {
@@ -707,8 +753,10 @@ public class AddStatusEffect : Effect {
                     if (activeStatusEffects[i].Data.canOverload == true) {
                         float overloadChance = ParentAbility.GetAbilityOverloadChance();
 
-                        builder.AppendLine("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), Color.green));
+                        builder.AppendLine();
+                        builder.Append("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), Color.green));
                     }
+   
 
 
                     if (Data.statusToAdd[0].maxStacks > 0) {

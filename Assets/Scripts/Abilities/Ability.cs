@@ -841,10 +841,10 @@ public class Ability {
 
     private bool CheckCost() {
         if (Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] > 0f) {
-            Debug.Log("Cost: " + Stats[StatName.EssenceCost]);
+            //Debug.Log("Cost: " + Stats[StatName.EssenceCost]);
 
             if (EntityManager.ActivePlayer.TrySpendEssence(Stats[StatName.EssenceCost]) == false) {
-                Debug.LogWarning("Not enough essence");
+                //Debug.LogWarning("Not enough essence");
                 return false;
             }
         }
@@ -874,7 +874,7 @@ public class Ability {
     public IEnumerator StartAbilityWindup(TriggerInstance activationInstance) {
         WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.AbilityWindupTime]);
 
-        Debug.Log("Showing some kind of vfx");
+        //Debug.Log("Showing some kind of vfx");
 
         GameObject activeVFX = GameObject.Instantiate(Data.windupVFX, Source.transform);
         activeVFX.transform.localPosition = Vector3.zero;

@@ -176,6 +176,9 @@ public class AbilityData
 
     public bool ContainsStat(StatName stat) {
         for (int i = 0; i < abilityStatData.Count; i++) {
+            if (abilityStatData[i] == null) 
+                continue;
+            
             if (abilityStatData[i].statName == stat) 
                 return true;
         }

@@ -37,6 +37,7 @@ public static class AbilityFactory {
             TriggerType.ProjectilePierced => new ProjectilePiercedTrigger(data, source, parentAbility),
             TriggerType.ProjectileChained => new ProjectileChainedTrigger(data, source, parentAbility),
             TriggerType.UnitDiedWithStatus => new UnitDiedWithStatusTrigger(data, source, parentAbility),
+            TriggerType.OverloadTriggered => new OverloadTrigger(data, source, parentAbility),
             _ => null,
         };
 
@@ -72,6 +73,7 @@ public static class AbilityFactory {
             ConstraintType.AbilityName =>new AbilityNameConstraint(data, source, parentAbility),
             ConstraintType.EffectName => new EffectNameConstraint(data, source, parentAbility),
             ConstraintType.EffectDesignation => new EffectDesignationConstraint(data, source, parentAbility),
+            ConstraintType.EffectType => new EffectTypeConstraint(data, source, parentAbility),
             _ => null,
         };
 
@@ -104,6 +106,7 @@ public static class AbilityFactory {
             EffectType.AddChildAbility => new AddChildAbilityEffect(data, source, parentAbility),
             EffectType.ApplyOtherEffect => new ApplyOtherEffect(data, source, parentAbility),
             EffectType.AddStatScaler => new AddStatScalerEffect(data, source, parentAbility),
+            EffectType.ForceStatusTick => new ForceStatusTickEffect(data, source, parentAbility),
             _ => null,
         };
 

@@ -109,7 +109,9 @@ public static class AbilityEditorHelper
 
     public static TriggerData DrawTriggerData(TriggerData entry) {
 
-        string placeholderTriggerName = "Start of Trigger: " + ObjectNames.NicifyVariableName(entry.type.ToString()) + " section";
+        string nullCheck = entry == null ? "" : entry.type.ToString();
+
+        string placeholderTriggerName = "Start of Trigger: " + ObjectNames.NicifyVariableName(nullCheck + " section");
         EditorGUILayout.LabelField(placeholderTriggerName, EditorHelper2.LoadStyle(triggerHeader));
 
         entry.type = EditorHelper.EnumPopup("Trigger Type", entry.type);
@@ -319,6 +321,10 @@ public static class AbilityEditorHelper
 
             case ConstraintType.AbilityTag:
                 entry.targetAbilityTag = EditorHelper.EnumPopup("Tag", entry.targetAbilityTag);
+                break;
+
+            case ConstraintType.EffectType:
+                entry.targetEffectType = EditorHelper.EnumPopup("Effect Type", entry.targetEffectType);
                 break;
             default:
                 break;

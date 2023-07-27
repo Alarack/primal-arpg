@@ -199,6 +199,18 @@ public class OwnerConstraint : AbilityConstraint {
 
         return inverse == false ? result : !result;
     }
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+        bool result = ability.Source.ownerType == ownerTarget;
+
+        return inverse == false ? result : !result;
+    }
+
+    public override bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
+        bool result = effect.Source.ownerType == ownerTarget; 
+        
+        return inverse == false ? result : !result;
+    }
 }
 
 public class IsInStateConstraint : AbilityConstraint {
@@ -314,6 +326,28 @@ public class HasStatusConstraint : AbilityConstraint {
 
 }
 
+public class EffectTypeConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.EffectType;
+
+    public EffectTypeConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        return false;
+    }
+
+    public override bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
+        bool result = effect.Data.type == data.targetEffectType;
+
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
 
 public class AbilityTagConstraint : AbilityConstraint {
 
@@ -336,6 +370,17 @@ public class AbilityTagConstraint : AbilityConstraint {
         bool result = ability.Tags.Contains(targetTag);
 
         //Debug.LogWarning("Testing: " + ability.Data.abilityName + " for " + targetTag + ". Result: " + result);
+        return inverse == false ? result : !result;
+    }
+
+    public override bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
+
+        
+
+        bool result = effect.ParentAbility == null ? false : effect.ParentAbility.Tags.Contains(targetTag);
+
+        //Debug.Log("Checking an effect for a tag: " + effect.Data.effectName + " Result: " + result);
+
         return inverse == false ? result : !result;
     }
 

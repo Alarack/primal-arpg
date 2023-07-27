@@ -12,6 +12,11 @@ public class PassiveSkillPanel : BasePanel
 
     public void OnEquipClicked() {
         
+        if(selectedKnownEntry == null) {
+            return;
+        }
+
+
         if(selectedActiveEntry.Ability != null) {
             selectedActiveEntry.Ability.Uneqeuip();
         }
