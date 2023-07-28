@@ -1295,7 +1295,7 @@ public class StatAdjustmentEffect : Effect {
         float globalDamageMultiplier = GetDamageModifier(activeMod);
         float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
 
-        Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName);
+        //Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName);
 
 
         if (activeMod.TargetStat == StatName.Health) {
@@ -1360,7 +1360,7 @@ public class StatAdjustmentEffect : Effect {
                 //Debug.Log("Tracking a mod: " + activeMod.TargetStat + " on " + target.Data.effectName);
             }
 
-            Debug.Log("Applying a mod of " + modData[i].targetStat + " to " + target.Data.effectName);
+            //Debug.Log("Applying a mod of " + modData[i].targetStat + " to " + target.Data.effectName);
 
 
             switch (Data.subTarget) {

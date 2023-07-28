@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Playables;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
 //using AbilityTriggerInstance = AbilityTrigger.AbilityTriggerInstance;
 
@@ -468,6 +469,52 @@ public class AbilityNameConstraint : AbilityConstraint {
         bool result = ability.Data.abilityName == data.targetAbiltyName;
 
         //Debug.Log("Result of a name check on: " + ability.Data.abilityName + " : " + result);
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
+public class AbilityActiveConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.AbilityActive;
+
+    public AbilityActiveConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
+
+        Ability targetAbility = target.GetAbilityByName(data.targetAbiltyName, AbilityCategory.Any);
+
+        if(targetAbility == null) {
+            Debug.LogWarning("Could not find an Ability: " + data.targetAbiltyName + " whne checking for an active ability on: " + target.EntityName);
+            return false;
+        }
+
+        bool result = targetAbility.IsActive;
+
+        return inverse == false ? result : !result;
+    }
+
+    public override bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
+        Ability targetAbility = effect.Source.GetAbilityByName(data.targetAbiltyName, AbilityCategory.Any);
+
+        if (targetAbility == null) {
+            Debug.LogWarning("Could not find an Ability: " + data.targetAbiltyName + " whne checking for an active ability on: " + effect.Data.effectName);
+            return false;
+        }
+
+        bool result = targetAbility.IsActive;
+
+        return inverse == false ? result : !result;
+    }
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+        bool result = ability.IsActive;
+
+        //Debug.Log("Result of a active check on: " + ability.Data.abilityName + " : " + result);
 
         return inverse == false ? result : !result;
     }

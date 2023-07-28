@@ -372,6 +372,45 @@ public class UserActivatedTrigger : AbilityTrigger {
     }
 }
 
+public class AbilityResolvedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.AbilityResolved;
+    public override GameEvent TargetEvent => GameEvent.AbilityResolved;
+    public override Action<EventData> EventReceiver => OnAbilityResolved;
+
+    public AbilityResolvedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnAbilityResolved(EventData data) {
+
+        if (ParentAbility == null) {
+            Debug.LogError("An ability resolved trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
+            return;
+        }
+
+        Ability triggeringAbility = data.GetAbility("Ability");
+
+        //if(triggeringAbility != ParentAbility) {
+        //    return;
+        //}
+
+        //if(triggeringAbility.Data.abilityName == "Test Sword Swipe") {
+        //    Debug.Log("Swipe activation recieved");
+        //}
+
+
+        TriggeringEntity = SourceEntity;
+        CauseOfTrigger = SourceEntity;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.SourceAbility = ParentAbility;
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
 public class DashStartedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.DashStarted;
@@ -1017,7 +1056,12 @@ public class TimedTrigger : AbilityTrigger {
 
     private void SetupTriggerTimer() {
         //TimerManager.AddTimer(this, Data.triggerTimerDuration, true);
-        myTimer = new Timer(Data.triggerTimerDuration, OnTriggerTimerCompleted, true);
+
+        EventData data = new EventData();
+        data.AddTrigger("Trigger", this);
+        data.AddEntity("Owner", ParentAbility.Source);
+
+        myTimer = new Timer(Data.triggerTimerDuration, OnTriggerTimerCompleted, true, data);
         TimerManager.AddTimerAction(UpdateClock);
     }
 

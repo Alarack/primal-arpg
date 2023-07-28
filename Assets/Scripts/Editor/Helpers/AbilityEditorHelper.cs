@@ -121,6 +121,10 @@ public static class AbilityEditorHelper
             entry.riderEffectName = EditorGUILayout.TextField("Target Effect", entry.riderEffectName);
         }
 
+        if(entry.type == TriggerType.Timed) {
+            entry.triggerTimerDuration = EditorGUILayout.FloatField("Duration", entry.triggerTimerDuration);
+        }
+
         EditorGUILayout.LabelField("Constraints", EditorStyles.boldLabel);
         DrawTriggerConstrains(entry);
 

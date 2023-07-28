@@ -16,7 +16,7 @@ public enum TriggerType {
     AutoActivated,
     Collision,
     UnitDetected,
-    AbilityActivated,
+    AbilityResolved,
     UnitForgotten,
     WeaponCooldownFinished,
     WeaponCooldownStarted,

@@ -39,6 +39,7 @@ public static class AbilityFactory {
             TriggerType.UnitDiedWithStatus => new UnitDiedWithStatusTrigger(data, source, parentAbility),
             TriggerType.OverloadTriggered => new OverloadTrigger(data, source, parentAbility),
             TriggerType.ProjectileCreated => new ProjectileCreatedTrigger(data, source, parentAbility),
+            TriggerType.AbilityResolved => new AbilityResolvedTrigger(data, source, parentAbility),
             _ => null,
         };
 
@@ -75,6 +76,7 @@ public static class AbilityFactory {
             ConstraintType.EffectName => new EffectNameConstraint(data, source, parentAbility),
             ConstraintType.EffectDesignation => new EffectDesignationConstraint(data, source, parentAbility),
             ConstraintType.EffectType => new EffectTypeConstraint(data, source, parentAbility),
+            ConstraintType.AbilityActive => new AbilityActiveConstraint(data, source, parentAbility),
             _ => null,
         };
 

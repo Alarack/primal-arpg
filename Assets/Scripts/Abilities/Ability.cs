@@ -181,7 +181,7 @@ public class Ability {
             AbilityCategory.Item => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Item],
             AbilityCategory.Rune => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.Rune],
             //AbilityCategory.ChildAbility => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.ChildAbility],
-            AbilityCategory.PassiveSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.PassiveSkill],
+            //AbilityCategory.PassiveSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.PassiveSkill],
             _ => null,
         };
 
@@ -829,8 +829,18 @@ public class Ability {
 
         IsActive = true;
 
+        SendAbilityActivatedEvent(activationInstance);
+
         new Task(TriggerAllEffects(activationInstance));
 
+    }
+
+    protected void SendAbilityActivatedEvent(TriggerInstance triggerInstance) {
+        EventData data = new EventData();
+        data.AddAbility("Ability", this);
+        data.AddEntity("Source", Source);
+
+        EventManager.SendEvent(GameEvent.AbilityResolved, data);
     }
 
     private bool CheckCost() {
