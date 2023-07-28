@@ -19,7 +19,8 @@ public class Status {
         Slowed,
         Immobilized,
         BladeDash,
-        Grow
+        Grow,
+        IronReign
     }
 
     #endregion

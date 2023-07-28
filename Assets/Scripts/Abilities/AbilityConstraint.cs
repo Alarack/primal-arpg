@@ -336,6 +336,9 @@ public class EffectTypeConstraint : AbilityConstraint {
 
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
 
+        Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
+
+
         return false;
     }
 
@@ -361,6 +364,8 @@ public class AbilityTagConstraint : AbilityConstraint {
     }
 
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
 
         return false;
 
@@ -398,6 +403,9 @@ public class EffectDesignationConstraint : AbilityConstraint {
     }
 
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
+
+
         return false;
     }
 
@@ -418,6 +426,9 @@ public class EffectNameConstraint : AbilityConstraint {
     }
 
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
+
+
         return false;
     }
 
@@ -447,6 +458,9 @@ public class AbilityNameConstraint : AbilityConstraint {
     }
 
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
+
+
         return false;
     }
 

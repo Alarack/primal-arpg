@@ -785,10 +785,7 @@ public class Ability {
 
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
-        if (activationCounter != null && activationCounter.Evaluate() == false) {
-            //Debug.LogWarning(Counter.Count + " is not enough triggers for " + abilityName);
-            return;
-        }
+
 
         if (IsReady == false) {
             //Debug.Log("An ability: " + Data.abilityName + " tried to trigger, but is not ready.");
@@ -822,14 +819,11 @@ public class Ability {
         if (CheckCost() == false)
             return;
 
-        //if (Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] > 0f) {
-        //    Debug.Log("Cost: " + Stats[StatName.EssenceCost]);
-            
-        //    if (EntityManager.ActivePlayer.TrySpendEssence(Stats[StatName.EssenceCost]) == false) {
-        //        Debug.LogWarning("Not enough essence");
-        //        return;
-        //    }
-        //}
+
+        if (activationCounter != null && activationCounter.Evaluate() == false) {
+            //Debug.LogWarning(activationCounter.Count + " is not enough triggers for " + Data.abilityName);
+            return;
+        }
 
         //Debug.Log("An ability: " + Data.abilityName + " is starting. Source: " + Source.gameObject.name);
 

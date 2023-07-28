@@ -82,31 +82,34 @@ public class HotbarPanel : SkillBasePanel {
     #region EVENTS
 
     private void OnFirePerformed(InputAction.CallbackContext context) {
-        OnSkillBindPressed(GameButtonType.PrimaryAttack);
+        OnSkillBindPressed(GameButtonType.PrimaryAttack, DoesAbilityAutoFire(GameButtonType.PrimaryAttack));
     }
 
     private void OnSecondaryFirePerformed(InputAction.CallbackContext context) {
-        OnSkillBindPressed(GameButtonType.SecondaryAttack);
+        OnSkillBindPressed(GameButtonType.SecondaryAttack, DoesAbilityAutoFire(GameButtonType.SecondaryAttack));
     }
 
     private void OnSkill1Performed(InputAction.CallbackContext context) {
-        OnSkillBindPressed(GameButtonType.Skill1);
+        OnSkillBindPressed(GameButtonType.Skill1, DoesAbilityAutoFire(GameButtonType.Skill1));
     }
 
     private void OnSkill2Performed(InputAction.CallbackContext context) {
-        OnSkillBindPressed(GameButtonType.Skill2);
+        OnSkillBindPressed(GameButtonType.Skill2, DoesAbilityAutoFire(GameButtonType.Skill2));
     }
 
     private void OnSkill3Performed(InputAction.CallbackContext context) {
-        OnSkillBindPressed(GameButtonType.Skill3);
+        OnSkillBindPressed(GameButtonType.Skill3, DoesAbilityAutoFire(GameButtonType.Skill3));
     }
 
     private void OnSkill4Performed(InputAction.CallbackContext context) {
-        OnSkillBindPressed(GameButtonType.Skill4);
+        OnSkillBindPressed(GameButtonType.Skill4, DoesAbilityAutoFire(GameButtonType.Skill4));
     }
 
 
-    private void OnSkillBindPressed(GameButtonType button) {
+    private void OnSkillBindPressed(GameButtonType button, bool skipManualFire = false) {
+
+        if(skipManualFire == true) 
+            return;
 
         if (PanelManager.IsBlockingPanelOpen() == true)
             return;
@@ -119,6 +122,15 @@ public class HotbarPanel : SkillBasePanel {
 
             EventManager.SendEvent(GameEvent.UserActivatedAbility, eventData);
         }
+    }
+
+    private bool DoesAbilityAutoFire(GameButtonType button) {
+        Ability target = GetAbilityBykeyBind(button);
+
+        if(target == null) 
+            return false;
+
+        return target.Data.autoFire;
     }
 
     private void PopulateAutoFireDict(Ability ability, int index) {

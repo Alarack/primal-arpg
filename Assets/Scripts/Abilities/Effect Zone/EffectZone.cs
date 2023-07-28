@@ -90,7 +90,7 @@ public class EffectZone : Entity {
         //    Debug.Log("Null projectile");
         //}
 
-        Debug.Log("Effect Size: " + effectSize);
+        //Debug.Log("Effect Size: " + effectSize);
 
         float globalSizeMod = 1f + parentEffect.Source.Stats[StatName.GlobalEffectSizeModifier];
         effectSize *= globalSizeMod;

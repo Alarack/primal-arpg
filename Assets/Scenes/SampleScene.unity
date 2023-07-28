@@ -14982,7 +14982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
       propertyPath: preloadedPassives.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
       propertyPath: preloadedAbilities.Array.size
@@ -14996,6 +14996,10 @@ PrefabInstance:
       propertyPath: preloadedPassives.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 4b7a257fbf21cd74d96dc5072b671e62, type: 2}
+    - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
+      propertyPath: preloadedPassives.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: e4251b296a0cb394280b999179063754, type: 2}
     - target: {fileID: 6357791203559811579, guid: dc943f4785f6b85499d523064c51bbd4, type: 3}
       propertyPath: preloadedAbilities.Array.data[2]
       value: 

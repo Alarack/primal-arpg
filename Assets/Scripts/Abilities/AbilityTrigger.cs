@@ -356,6 +356,10 @@ public class UserActivatedTrigger : AbilityTrigger {
         //    return;
         //}
 
+        //if(triggeringAbility.Data.abilityName == "Test Sword Swipe") {
+        //    Debug.Log("Swipe activation recieved");
+        //}
+
 
         TriggeringEntity = SourceEntity;
         CauseOfTrigger = SourceEntity;

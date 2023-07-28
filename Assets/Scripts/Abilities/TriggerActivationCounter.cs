@@ -57,6 +57,8 @@ public class TriggerActivationCounter
     public bool Evaluate() {
         Count++;
 
+        //Debug.Log("Checking a counter: " + Count + " : " + minTriggerCount);
+
         SendActivationCountEvent(requireMultipleTriggers);
 
         if (requireMultipleTriggers == true && Count < minTriggerCount)
