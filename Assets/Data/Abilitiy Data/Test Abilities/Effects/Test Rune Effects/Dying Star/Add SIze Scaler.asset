@@ -10,20 +10,55 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Add Grow Status
+  m_Name: Add SIze Scaler
   m_EditorClassIdentifier: 
   effectData:
     effectName: 
     effectDescription: 
-    type: 3
-    targeting: 2
-    subTarget: 0
+    type: 8
+    targeting: 9
+    subTarget: 5
     deliveryPayloadToTarget: 0
     canOverload: 0
-    numberOfTargets: -1
+    numberOfTargets: 1
     otherAbilityName: 
     otherEffectName: 
-    targetConstraints: []
+    targetConstraints:
+    - type: 19
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 2
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: 
+      targetEffectName: Blazing Star Damage
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
     payloadPrefab: {fileID: 0}
     payloadCount: 1
     shotDelay: 0.2
@@ -39,7 +74,20 @@ MonoBehaviour:
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
-    modData: []
+    modData:
+    - targetStat: 44
+      value: 0.2
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -101,15 +149,7 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
-    statusToAdd:
-    - statusName: 5
-      stackMethod: 0
-      maxStacks: 0
-      initialStackCount: 1
-      duration: 50
-      interval: 0.1
-      VFXPrefab: {fileID: 0}
-      statusEffectDef: {fileID: 11400000, guid: 0d9cf9bd973ea424caad19067ee6b10f, type: 2}
+    statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
@@ -125,4 +165,7 @@ MonoBehaviour:
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
-    statScalersToAdd: []
+    statScalersToAdd:
+    - targetStat: 44
+      deriveTarget: 10
+      statScaleBaseValue: 2

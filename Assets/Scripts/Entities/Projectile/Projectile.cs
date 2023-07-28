@@ -130,7 +130,10 @@ public class Projectile : Entity {
 
         //Debug.Log("Projectile Size " + Stats[StatName.ProjectileSize]);
 
-        while(transform.localScale.x != projectileSize) {
+        if (this == null)
+            yield break;
+
+        while (this != null && transform.localScale.x != projectileSize) {
             if (transform == null)
                 yield break;
 
@@ -342,6 +345,9 @@ public class Projectile : Entity {
 
         if (impactTask != null && impactTask.Running == true)
             impactTask.Stop();
+
+        if(smoothScale != null && smoothScale.Running == true)
+            smoothScale.Stop();
 
         if (deployZone == true) {
             DeployZoneEffect();

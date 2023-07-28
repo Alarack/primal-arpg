@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
+  m_Name: Dying Star Add Growth Child
+  m_EditorClassIdentifier: 
+  AbilityData:
+    category: 3
+    abilityIcon: {fileID: 0}
+    abilityName: Dying Star
+    abilityDescription: Blazing Star Grows over time
+    resourceCost: 0
+    toBestow: 0
+    suspend: 0
+    autoFire: 0
+    includeEffectsInTooltip: 0
+    ignoreTooltip: 0
+    runeAbilityTarget: Blazing Star
+    childAbilities: []
+    tags: 
+    activationTriggerData:
+    - type: 17
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      allConstraints:
+      - focus: 1
+        constraintData: []
+    endTriggerData:
+    - type: 18
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      allConstraints: []
+    counterData:
+      useCustomRefreshTrigger: 0
+      customRefreshTriggerData:
+        type: 0
+        riderAbilityName: 
+        riderEffectName: 
+        triggerTimerDuration: 0
+        allConstraints: []
+      limitedNumberOfTriggers: 0
+      maxTriggerCount: 0
+      requireMultipleTriggers: 0
+      minTriggerCount: 0
+    endCounterData:
+      useCustomRefreshTrigger: 0
+      customRefreshTriggerData:
+        type: 0
+        riderAbilityName: 
+        riderEffectName: 
+        triggerTimerDuration: 0
+        allConstraints: []
+      limitedNumberOfTriggers: 0
+      maxTriggerCount: 0
+      requireMultipleTriggers: 0
+      minTriggerCount: 0
+    effectDefinitions:
+    - {fileID: 11400000, guid: 8e60a9beba0fb5243987d4f71a0bd769, type: 2}
+    - {fileID: 11400000, guid: fe401fa4fec3a044a844bd10e94b108f, type: 2}
+    - {fileID: 11400000, guid: 4359a68687ca59645a7d530f2f60cbd8, type: 2}
+    effectData: []
+    startingRecoveryCharges: 1
+    baseRuneSlots: 2
+    windupVFX: {fileID: 0}
+    abilityStatData: []
+    recoveryData: []

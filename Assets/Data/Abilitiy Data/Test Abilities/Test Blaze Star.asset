@@ -25,8 +25,7 @@ MonoBehaviour:
     includeEffectsInTooltip: 0
     ignoreTooltip: 0
     runeAbilityTarget: 
-    childAbilities:
-    - {fileID: 11400000, guid: e174e9c74e8b3b045858e43fffcc688a, type: 2}
+    childAbilities: []
     tags: 0100000006000000
     activationTriggerData:
     - type: 6
@@ -118,4 +117,4 @@ MonoBehaviour:
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         minTriggerCount: 0
-      cooldown: 0.25
+      cooldown: 1

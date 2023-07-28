@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: Grow Blazing Star
+  m_Name: Dying Star Add Grow
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 5
+    category: 3
     abilityIcon: {fileID: 0}
-    abilityName: Grow Blazing Star
+    abilityName: Dying Star
     abilityDescription: Blazing Star Grows over time
     resourceCost: 0
     toBestow: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
     autoFire: 0
     includeEffectsInTooltip: 0
     ignoreTooltip: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Blazing Star
     childAbilities: []
     tags: 
     activationTriggerData:

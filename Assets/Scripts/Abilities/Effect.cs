@@ -1182,9 +1182,9 @@ public class StatAdjustmentEffect : Effect {
         return modData.invertDerivedValue == false ? result : -result;
     }
 
-    private float GetModifiedStatValue(StatCollection stats, StatName stat) {
+    private float GetModifiedStatValue(StatCollection stats, StatName stat, bool checkProjectile = false) {
 
-        float statValue = stats[stat];
+        float statValue = checkProjectile == true && activeDelivery != null ? activeDelivery.Stats[stat] : stats[stat];
 
         //Debug.Log(stat + " Value: " + statValue);
 
@@ -1217,7 +1217,7 @@ public class StatAdjustmentEffect : Effect {
 
     private float GetTotalDerivedValue(Entity entityTarget, Effect effectTarget, Ability abilityTarget, StatModifierData modData) {
         float totalDerivedValue = 0f;
-        float projectileStatContrabution = 0f;
+        //float projectileStatContrabution = 0f;
         foreach (var entry in modData.scalersDict) {
             float result = entry.Value.deriveTarget switch {
                 StatModifierData.DeriveFromWhom.Source => Source.Stats[entry.Value.targetStat],
@@ -1230,7 +1230,7 @@ public class StatAdjustmentEffect : Effect {
                 StatModifierData.DeriveFromWhom.OtherEffect => throw new NotImplementedException(),
                 StatModifierData.DeriveFromWhom.OtherAbility => throw new NotImplementedException(),
                 StatModifierData.DeriveFromWhom.SourceAbility => ParentAbility.Stats[entry.Value.targetStat],
-                StatModifierData.DeriveFromWhom.SourceEffect => GetModifiedStatValue(Stats, entry.Value.targetStat),
+                StatModifierData.DeriveFromWhom.SourceEffect => GetModifiedStatValue(Stats, entry.Value.targetStat, true),
                 StatModifierData.DeriveFromWhom.TriggerAbility => currentTriggerInstance.TriggeringAbility.Stats[entry.Value.targetStat],
                 StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[entry.Value.targetStat],
                 StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[entry.Value.targetStat],
@@ -1241,19 +1241,21 @@ public class StatAdjustmentEffect : Effect {
             
 
 
+
+
             result *= entry.Value.scalerStat.ModifiedValue;
 
             //Debug.Log(entry.Value.scalerStat.ModifiedValue + " is the scaler for: " + entry.Key);
 
-            //Debug.Log(result + " is the value for: " + entry.Value.targetStat);
+            Debug.Log(result + " is the value for: " + entry.Value.targetStat);
 
             totalDerivedValue += result;
 
-            projectileStatContrabution += GetProjectileStatContrabution(entry.Value.targetStat, entry.Value.scalerStat.ModifiedValue);
+            //projectileStatContrabution += GetProjectileStatContrabution(entry.Value.targetStat, entry.Value.scalerStat.ModifiedValue);
 
             //Debug.Log("Projectile " + entry.Value.targetStat + " contrabution: " + projectileStatContrabution);
 
-            totalDerivedValue += projectileStatContrabution;
+            //totalDerivedValue += projectileStatContrabution;
         }
 
         return totalDerivedValue;
