@@ -352,15 +352,17 @@ public class UserActivatedTrigger : AbilityTrigger {
 
         Ability triggeringAbility = data.GetAbility("Ability");
 
-        if(triggeringAbility != ParentAbility) {
-            return;
-        }
+        //if(triggeringAbility != ParentAbility) {
+        //    return;
+        //}
 
 
         TriggeringEntity = SourceEntity;
         CauseOfTrigger = SourceEntity;
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.SourceAbility = ParentAbility;
         TryActivateTrigger(triggerInstance);
 
     }

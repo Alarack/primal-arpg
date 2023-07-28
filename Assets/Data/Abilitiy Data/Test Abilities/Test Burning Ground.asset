@@ -17,6 +17,7 @@ MonoBehaviour:
     abilityIcon: {fileID: 21300000, guid: accd79ed67691434abbdab981f44b372, type: 3}
     abilityName: Test Burning Ground
     abilityDescription: I set the very ground ablaze!
+    resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
@@ -39,7 +40,6 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
-          targetTag: 0
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -67,6 +67,44 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+      - focus: 4
+        constraintData:
+        - type: 7
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
           targetStatus: 0
     endTriggerData: []
     counterData:
@@ -98,6 +136,8 @@ MonoBehaviour:
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
+    windupVFX: {fileID: 0}
+    abilityStatData: []
     recoveryData:
     - type: 0
       recoveryTriggers: []

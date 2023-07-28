@@ -81,12 +81,16 @@ public class EffectZone : Entity {
         if(carrier != null) {
             float carrierSize = carrier.Stats[StatName.ProjectileSize];
             //Debug.Log("Carrier Size: " + carrierSize);
-            effectSize += carrierSize;
+            
+            if(carrierSize > effectSize) {
+                effectSize = carrierSize;
+            }
         }
-        else {
-            Debug.Log("Null projectile");
-        }
+        //else {
+        //    Debug.Log("Null projectile");
+        //}
 
+        Debug.Log("Effect Size: " + effectSize);
 
         float globalSizeMod = 1f + parentEffect.Source.Stats[StatName.GlobalEffectSizeModifier];
         effectSize *= globalSizeMod;
