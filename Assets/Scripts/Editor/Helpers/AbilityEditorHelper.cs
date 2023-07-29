@@ -115,7 +115,7 @@ public static class AbilityEditorHelper
         EditorGUILayout.LabelField(placeholderTriggerName, EditorHelper2.LoadStyle(triggerHeader));
 
         entry.type = EditorHelper.EnumPopup("Trigger Type", entry.type);
-
+        entry.delay1Frame = EditorGUILayout.Toggle("Delay 1 Frame", entry.delay1Frame);
         if (entry.type == TriggerType.Rider) {
             entry.riderAbilityName = EditorGUILayout.TextField("Target Ability", entry.riderAbilityName);
             entry.riderEffectName = EditorGUILayout.TextField("Target Effect", entry.riderEffectName);

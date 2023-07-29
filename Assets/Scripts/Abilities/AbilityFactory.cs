@@ -40,6 +40,7 @@ public static class AbilityFactory {
             TriggerType.OverloadTriggered => new OverloadTrigger(data, source, parentAbility),
             TriggerType.ProjectileCreated => new ProjectileCreatedTrigger(data, source, parentAbility),
             TriggerType.AbilityResolved => new AbilityResolvedTrigger(data, source, parentAbility),
+            TriggerType.AbilityInitiated => new AbilityInitiatedTrigger(data, source, parentAbility),
             _ => null,
         };
 

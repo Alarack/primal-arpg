@@ -149,7 +149,8 @@ namespace LL.Events {
         ProjectileSplit,
         UnitDiedWithStatus,
         OverloadTriggered,
-        ProjectileCreated
+        ProjectileCreated,
+        AbilityInitiated
 
     }
 

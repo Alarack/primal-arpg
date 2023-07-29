@@ -34,7 +34,8 @@ public enum TriggerType {
     ProjectileSplit,
     UnitDiedWithStatus,
     OverloadTriggered,
-    ProjectileCreated
+    ProjectileCreated,
+    AbilityInitiated
 }
 
 
@@ -48,6 +49,7 @@ public class TriggerData
     public string riderEffectName;
 
     public float triggerTimerDuration;
+    public bool delay1Frame;
 
     public List<ConstraintDataFocus> allConstraints = new List<ConstraintDataFocus>();
 

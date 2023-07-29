@@ -1360,7 +1360,11 @@ public class StatAdjustmentEffect : Effect {
                 //Debug.Log("Tracking a mod: " + activeMod.TargetStat + " on " + target.Data.effectName);
             }
 
-            //Debug.Log("Applying a mod of " + modData[i].targetStat + " to " + target.Data.effectName);
+
+            //if (modData[i].targetStat != StatName.Health) {
+                //Debug.Log("Applying a mod of " + modData[i].targetStat + " to " + target.Data.effectName);
+            //}
+
 
 
             switch (Data.subTarget) {
@@ -1424,6 +1428,7 @@ public class StatAdjustmentEffect : Effect {
         if (trackedEffectMods.TryGetValue(target, out List<StatModifier> modList)) {
             for (int i = 0; i < modList.Count; i++) {
 
+                //Debug.Log("Removing an effect. Stat: " + modList[i].TargetStat);
 
                 switch (Data.subTarget) {
                     case EffectSubTarget.Effect:
@@ -1591,26 +1596,12 @@ public class StatAdjustmentEffect : Effect {
    
 
     public override string GetTooltip() {
-        //return base.GetTooltip();
-
-
-        //if(Data.effectDesignation == StatModifierData.StatModDesignation.PrimaryDamage) {
-        //    Dictionary<StatName, float> scalers = GetAllScalerValues();
-
-        //    foreach (var item in scalers) {
-        //        Debug.Log(" Scales From: " + item.Key + " at " +  item.Value + "%");
-        //    }
-
-        //}
 
         StringBuilder builder = new StringBuilder();
-
 
         string formated = TextHelper.FormatStat(modData[0].targetStat, modData[0].Stats[StatName.StatModifierValue]);
 
         string replacement = Data.effectDescription.Replace("{}", formated);
-
-       
 
         if (ParentAbility != null) {
             float duration = ParentAbility.GetDuration();
@@ -1626,12 +1617,8 @@ public class StatAdjustmentEffect : Effect {
             }
         }
 
-        
-
         builder.Append(replacement);
         return builder.ToString();
-
     }
-
 
 }

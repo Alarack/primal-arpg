@@ -287,8 +287,23 @@ public abstract class AbilityTrigger {
     /// Attempt to Activate an ability after receving an event
     /// </summary>
     protected void TryActivateTrigger(TriggerInstance activationInstance) {
+        if(Data.delay1Frame == true) {
+            new Task(FrameDelay(activationInstance));
+            return;
+        }
+        
         if (IsTriggerValid(activationInstance) == false) {
             return;
+        }
+
+        ActivationCallback?.Invoke(activationInstance);
+    }
+
+    protected IEnumerator FrameDelay(TriggerInstance activationInstance) {
+        yield return new WaitForEndOfFrame();
+
+        if (IsTriggerValid(activationInstance) == false) {
+            yield break;
         }
 
         ActivationCallback?.Invoke(activationInstance);
@@ -398,6 +413,49 @@ public class AbilityResolvedTrigger : AbilityTrigger {
         //if(triggeringAbility.Data.abilityName == "Test Sword Swipe") {
         //    Debug.Log("Swipe activation recieved");
         //}
+
+        //Debug.Log("Recieveing an ability resolve trigger: " + triggeringAbility.Data.abilityName);
+
+
+        TriggeringEntity = SourceEntity;
+        CauseOfTrigger = SourceEntity;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.SourceAbility = ParentAbility;
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
+public class AbilityInitiatedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.AbilityInitiated;
+    public override GameEvent TargetEvent => GameEvent.AbilityInitiated;
+    public override Action<EventData> EventReceiver => OnAbilityInitiated;
+
+    public AbilityInitiatedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnAbilityInitiated(EventData data) {
+
+        if (ParentAbility == null) {
+            Debug.LogError("An ability resolved trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
+            return;
+        }
+
+        Ability triggeringAbility = data.GetAbility("Ability");
+
+        //if(triggeringAbility != ParentAbility) {
+        //    return;
+        //}
+
+        //if(triggeringAbility.Data.abilityName == "Test Sword Swipe") {
+        //    Debug.Log("Swipe activation recieved");
+        //}
+
+        //Debug.Log("Recieveing an ability init trigger: " + triggeringAbility.Data.abilityName);
 
 
         TriggeringEntity = SourceEntity;
@@ -1095,7 +1153,7 @@ public class TimedTrigger : AbilityTrigger {
         CauseOfTrigger = owner;
 
 
-        Debug.LogWarning("Trigger Timer Complete");
+        //Debug.LogWarning("Trigger Timer Complete");
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
 

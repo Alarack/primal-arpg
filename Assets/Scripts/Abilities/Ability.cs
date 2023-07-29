@@ -634,23 +634,36 @@ public class Ability {
         float cooldown = GetCooldown();
 
         if (Data.includeEffectsInTooltip == true) {
+            builder.AppendLine();
+            
             foreach (Effect effect in effects) {
 
                 string effectTooltip = effect.GetTooltip();
 
                 if (string.IsNullOrEmpty(effectTooltip) == false) {
 
-                    if (cooldown > 0f)
-                        builder.Append(effect.GetTooltip()).AppendLine();
-                    else
-                        builder.Append(effect.GetTooltip());
+                    builder.Append(effect.GetTooltip()).AppendLine();
+
+                    //if (cooldown > 0f)
+                    //    builder.Append(effect.GetTooltip()).AppendLine();
+                    //else
+                    //    builder.Append(effect.GetTooltip());
                 }
             }
         }
 
 
         if (Stats.Contains(StatName.EssenceCost)) {
-            builder.AppendLine("Cost: " + TextHelper.ColorizeText(Stats[StatName.EssenceCost].ToString(), Color.cyan) + " Essence");
+
+            if (Stats[StatName.EssenceCost] > 0) {
+                builder.AppendLine("Cost: " + TextHelper.ColorizeText(Stats[StatName.EssenceCost].ToString(), Color.cyan) + " Essence");
+            }
+            else{
+                builder.AppendLine("Generates: " + TextHelper.ColorizeText(Mathf.Abs(Stats[StatName.EssenceCost]).ToString(), Color.cyan) + " Essence");
+
+            }
+
+
         }
 
 
@@ -825,17 +838,18 @@ public class Ability {
             return;
         }
 
-        //Debug.Log("An ability: " + Data.abilityName + " is starting. Source: " + Source.gameObject.name);
-
+        //Debug.Log(TextHelper.ColorizeText( "An ability: " + Data.abilityName + " is starting. Source: " + Source.gameObject.name, Color.green));
         IsActive = true;
+        
+        SendAbilityInitiatedEvent(activationInstance);
 
-        SendAbilityActivatedEvent(activationInstance);
+        TriggerAllEffectsInstantly(activationInstance);
 
-        new Task(TriggerAllEffects(activationInstance));
+        //new Task(TriggerAllEffectsWithDelay(activationInstance));
 
     }
 
-    protected void SendAbilityActivatedEvent(TriggerInstance triggerInstance) {
+    protected void SendAbilityResolvedEvent(TriggerInstance triggerInstance) {
         EventData data = new EventData();
         data.AddAbility("Ability", this);
         data.AddEntity("Source", Source);
@@ -843,8 +857,16 @@ public class Ability {
         EventManager.SendEvent(GameEvent.AbilityResolved, data);
     }
 
+    protected void SendAbilityInitiatedEvent(TriggerInstance triggerInstance) {
+        EventData data = new EventData();
+        data.AddAbility("Ability", this);
+        data.AddEntity("Source", Source);
+
+        EventManager.SendEvent(GameEvent.AbilityInitiated, data);
+    }
+
     private bool CheckCost() {
-        if (Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] > 0f) {
+        if (Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] != 0f) {
             //Debug.Log("Cost: " + Stats[StatName.EssenceCost]);
 
             if (EntityManager.ActivePlayer.TrySpendEssence(Stats[StatName.EssenceCost]) == false) {
@@ -871,7 +893,9 @@ public class Ability {
 
         IsActive = true;
 
-        new Task(TriggerAllEffects(activationInstance));
+        //new Task(TriggerAllEffectsWithDelay(activationInstance));
+        TriggerAllEffectsInstantly(activationInstance);
+        
         currentWindup = null;
     }
 
@@ -889,7 +913,6 @@ public class Ability {
         ResumeActivation(activationInstance);
     }
 
-
     public void RecieveEndActivationInstance(TriggerInstance endInstance) {
 
         if (endCounter != null && endCounter.Evaluate() == false) {
@@ -898,8 +921,19 @@ public class Ability {
         }
 
         IsActive = false;
-        new Task(EndAllEffects(endInstance));
+        //new Task(EndAllEffectsWithDelay(endInstance));
+        EndAllEffectsInstantly(endInstance);
 
+    }
+
+
+    protected void TriggerAllEffectsInstantly(TriggerInstance activationInstance = null) {
+        int count = effects.Count;
+        for (int i = 0; i < count; i++) {
+            effects[i].ReceiveStartActivationInstance(activationInstance);
+        }
+        //Debug.Log(TextHelper.ColorizeText( "An ability: " + Data.abilityName + " has resolved. Source: " + Source.gameObject.name, Color.red));
+        SendAbilityResolvedEvent(activationInstance);
     }
 
     protected IEnumerator TriggerAllEffects(TriggerInstance activationInstance = null) {
@@ -909,6 +943,30 @@ public class Ability {
         for (int i = 0; i < count; i++) {
             yield return waiter;
             effects[i].ReceiveStartActivationInstance(activationInstance);
+        }
+
+        //Debug.Log("An ability: " + Data.abilityName + " has resolved. Source: " + Source.gameObject.name);
+        SendAbilityResolvedEvent(activationInstance);
+    }
+
+    protected IEnumerator TriggerAllEffectsWithDelay(TriggerInstance activationInstance = null) {
+        WaitForEndOfFrame waiter = new WaitForEndOfFrame();
+
+        yield return waiter;
+
+        int count = effects.Count;
+        for (int i = 0; i < count; i++) {
+            effects[i].ReceiveStartActivationInstance(activationInstance);
+        }
+
+        //Debug.Log("An ability: " + Data.abilityName + " has resolved. Source: " + Source.gameObject.name);
+        SendAbilityResolvedEvent(activationInstance);
+    }
+
+    protected void EndAllEffectsInstantly(TriggerInstance activationInstance = null) {
+        int count = effects.Count;
+        for (int i = 0; i < count; i++) {
+            effects[i].RecieveEndActivationInstance(activationInstance);
         }
     }
 
@@ -922,12 +980,24 @@ public class Ability {
         }
     }
 
+    protected IEnumerator EndAllEffectsWithDelay(TriggerInstance activationInstance = null) {
+        WaitForEndOfFrame waiter = new WaitForEndOfFrame();
+        yield return waiter;
+
+        int count = effects.Count;
+        for (int i = 0; i < count; i++) {
+
+            effects[i].RecieveEndActivationInstance(activationInstance);
+        }
+    }
+
     public void ForceActivate() {
         ReceiveStartActivationInstance(null);
     }
 
     public void ForceEndTrigger(TriggerInstance endInstance) {
-        new Task(EndAllEffects(endInstance));
+        //new Task(EndAllEffectsWithDelay(endInstance));
+        EndAllEffectsInstantly(endInstance);
 
         IsActive = false;
     }
