@@ -84,7 +84,7 @@ public class EntityPlayer : Entity
 
         base.Die(source, sourceAbility);
 
-        EntityManager.RemoveEntity(this);
+        //EntityManager.RemoveEntity(this);
         SpawnDeathVFX();
 
         //Show Gameover Screen PanelManager.OpenPanel<GameOverPanel>();

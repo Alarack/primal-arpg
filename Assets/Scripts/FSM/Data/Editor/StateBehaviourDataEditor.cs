@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [CustomEditor(typeof(StateBehaviourData))]
 public class StateBehaviourDataEditor : Editor
@@ -49,8 +50,11 @@ public class StateBehaviourDataEditor : Editor
             case StateBehaviourType.SpawnObject:
                 behaviourData.spawn = (GameObject)EditorGUILayout.ObjectField("Spawn", behaviourData.spawn, typeof(GameObject), false);
                 behaviourData.spawnOffset = EditorGUILayout.Vector2Field("Offset", behaviourData.spawnOffset);
-
                 break;
+            case StateBehaviourType.AbilityContainer:
+                behaviourData.abilities = EditorHelper.DrawList("Abilities", behaviourData.abilities, null, AbilityEditorHelper.DrawAbilityDefinitionList);
+                break;
+                
         }
 
 

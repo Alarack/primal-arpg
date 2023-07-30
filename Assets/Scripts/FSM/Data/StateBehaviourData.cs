@@ -13,7 +13,8 @@ namespace LL.FSM {
         Wander,
         RotateToward,
         Wait,
-        SpawnObject
+        SpawnObject,
+        AbilityContainer
     }
 
 
@@ -40,6 +41,8 @@ namespace LL.FSM {
         public GameObject spawn;
         public Vector2 spawnOffset;
 
+        //Ability Container
+        public List<AbilityDefinition> abilities = new List<AbilityDefinition>();
 
     }
 

@@ -157,6 +157,11 @@ public class Ability {
     }
 
     private void RegisterAbility() {
+
+        if(Source is NPC) {
+            return;
+        }
+
         List<Ability> list = Data.category switch {
             //AbilityCategory.ActiveSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.KnownSkill],
             //AbilityCategory.KnownSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.KnownSkill],
@@ -175,6 +180,10 @@ public class Ability {
     }
 
     private void UnregisterAbility() {
+        if (Source is NPC) {
+            return;
+        }
+
         List<Ability> list = Data.category switch {
             //AbilityCategory.ActiveSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.KnownSkill],
             //AbilityCategory.KnownSkill => EntityManager.ActivePlayer.AbilityManager[AbilityCategory.KnownSkill],

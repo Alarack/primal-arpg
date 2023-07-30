@@ -138,6 +138,31 @@ namespace LL.FSM {
         }
     }
 
+    public class AbilityBehaviour : StateBehaviour {
+
+        public override StateBehaviourType Type => StateBehaviourType.AbilityContainer;
+
+        private bool hasTarget;
+
+        public AbilityBehaviour(StateBehaviourData data, AIBrain brain, AISensor sensor) : base(data, brain, sensor) {
+
+        }
+
+        public override void ManagedUpdate() {
+            base.ManagedUpdate();
+
+            hasTarget = brain.GetLatestSensorTarget();
+        }
+
+        public override void Execute() {
+
+            if (hasTarget == false)
+                return;
+
+            brain.ActivateAllAbilities();
+        }
+    }
+
     public class SpawnObjectBehaviour : StateBehaviour {
 
         public override StateBehaviourType Type => StateBehaviourType.SpawnObject;

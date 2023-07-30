@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using LL.FSM;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [CustomEditor(typeof(AIBrain))]
 public class AIBrainEditor : Editor
@@ -67,8 +68,9 @@ public class AIBrainEditor : Editor
         }
 
 
-
-
+        EditorGUILayout.Separator();
+        GUILayout.Label("Abilities: ", EditorStyles.boldLabel);
+        aiBrain.abilityDefinitions = EditorHelper.DrawList(null, aiBrain.abilityDefinitions, null, AbilityEditorHelper.DrawAbilityDefinitionList);
 
 
 

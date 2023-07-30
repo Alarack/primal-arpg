@@ -23,6 +23,7 @@ namespace LL.FSM {
                 StateBehaviourType.Attack => new AttackBehaviour(data, brain, sensor),
                 StateBehaviourType.Wait => new WaitBehaviour(data, brain, sensor),
                 StateBehaviourType.SpawnObject => new SpawnObjectBehaviour(data, brain, sensor),
+                StateBehaviourType.AbilityContainer => new AbilityBehaviour(data, brain, sensor),
                 _ => null,
             };
 

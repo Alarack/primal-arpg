@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
+  m_Name: Weak Fireball Damage
+  m_EditorClassIdentifier: 
+  effectData:
+    effectName: Weak Fireball Damage
+    effectDescription: 
+    type: 1
+    targeting: 5
+    subTarget: 0
+    deliveryPayloadToTarget: 0
+    canOverload: 1
+    numberOfTargets: -1
+    otherAbilityName: 
+    otherEffectName: 
+    targetConstraints: []
+    payloadPrefab: {fileID: 5014085312362430806, guid: d3a5660a1575a0e419d046ed8b2428e2, type: 3}
+    payloadCount: 1
+    shotDelay: 0
+    payloadStatData:
+    - variant: 0
+      statName: 29
+      value: 0
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 34
+      value: 0
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 44
+      value: 1
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 41
+      value: 1
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 37
+      value: 0
+      maxValue: 0
+      minValue: 0
+    spawnLocation: 0
+    effectZoneInfo:
+      removeEffectOnExit: 0
+      parentEffectToOrigin: 0
+      applyOncePerTarget: 1
+      applyOnInterval: 0
+      affectSource: 0
+      spawnVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
+      applyVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
+      deathVFX: {fileID: 0}
+      effectZonePrefab: {fileID: 2109167299929148009, guid: be7028d38a74792409bf494d09b5f3e0, type: 3}
+    modData:
+    - targetStat: 0
+      value: -1
+      modifierType: 0
+      variantTarget: 1
+      modValueSetMethod: 6
+      weaponDamagePercent: 1.2
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 1
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers:
+      - targetStat: 28
+        deriveTarget: 0
+        statScaleBaseValue: 1
+    floatingTextColor:
+      serializedVersion: 2
+      key0: {r: 1, g: 0.6077585, b: 0, a: 1}
+      key1: {r: 1, g: 0.2105867, b: 0, a: 1}
+      key2: {r: 0.4245283, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 33924
+      ctime2: 65535
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 55705
+      atime2: 65342
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
+    overloadFloatingTextColor:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 0.54377365, b: 0, a: 1}
+      key2: {r: 0.2924528, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 32768
+      ctime2: 61295
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 55705
+      atime2: 65342
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: 0
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
+    effectDesignation: 1
+    statusToAdd: []
+    statusToRemove: 
+    isTeleport: 0
+    invertDestination: 0
+    targetDestination: 0
+    moveForce: 0
+    tokenPrefabs: []
+    tokenSpawnLocation: 0
+    overlapCircleRadius: 0
+    overlapLayerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    abilitiesToAdd: []
+    targetOtherEffectParentAbilityName: 
+    targetOtherEffectName: 
+    applyTriggeringEffect: 0
+    statScalersToAdd: []

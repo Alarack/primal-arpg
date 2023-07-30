@@ -21,9 +21,12 @@ public class AIBrain : MonoBehaviour {
 
     public string CurrentStateName { get { return fsm.CurrentState.stateName; } }
 
+    public List<AbilityDefinition> abilityDefinitions = new List<AbilityDefinition>();
 
     private FSM fsm;
     private List<StateChanger> stateChangers = new List<StateChanger>();
+
+    private List<Ability> abilities = new List<Ability>();
 
     private void Awake() {
         Owner = GetComponent<NPC>();
@@ -41,6 +44,16 @@ public class AIBrain : MonoBehaviour {
 
         fsm = new FSM(Owner, stateData);
         CreateStateChangers();
+
+        CreateAbilities();
+    }
+
+    private void CreateAbilities() {
+        for (int i = 0; i < abilityDefinitions.Count; i++) {
+            Ability ability = AbilityFactory.CreateAbility(abilityDefinitions[i].AbilityData, Owner);
+            ability.Equip();
+            abilities.Add(ability);
+        }
     }
 
     private void CreateStateChangers() {
@@ -68,6 +81,16 @@ public class AIBrain : MonoBehaviour {
 
     public void FireAllWeapons() {
         WeaponManager.FireAllWeapons();
+    }
+
+    public void ActivateAbility(AbilityData ability) {
+
+    }
+
+    public void ActivateAllAbilities() {
+        for (int i = 0; i < abilities.Count; i++) {
+            abilities[i].ForceActivate();
+        }
     }
 
     public bool GetLatestSensorTarget() {
