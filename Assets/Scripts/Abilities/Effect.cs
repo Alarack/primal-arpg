@@ -36,6 +36,10 @@ public abstract class Effect {
 
     public StatCollection Stats { get; protected set; }
 
+    [System.NonSerialized]
+    protected List<Effect> riderEffects = new List<Effect>();
+    protected Effect parentEffect;
+
     protected bool isOverloading;
 
     public Effect(EffectData data, Entity source, Ability parentAbility = null) {
@@ -45,6 +49,7 @@ public abstract class Effect {
         this.Source = source;
         SetupStats();
         SetupTargetConstraints();
+        SetupRiderEffects();
         targeter = new EffectTargeter(this);
     }
 
@@ -64,6 +69,15 @@ public abstract class Effect {
             AbilityConstraint constraint = AbilityFactory.CreateAbilityConstraint(Data.targetConstraints[i], Source, ParentAbility);
             constraint.SetParentEffect(this);
             targetConstraints.Add(constraint);
+        }
+    }
+
+    protected void SetupRiderEffects() {
+        for (int i = 0; i < Data.riderEffects.Count; i++) {
+            Effect rider = AbilityFactory.CreateEffect(Data.riderEffects[i].effectData, Source, ParentAbility);
+            rider.parentEffect = this;
+            riderEffects.Add(rider);
+            //Debug.Log("Creating a rider: " + rider.Data.effectName + " for " + Data.effectName);
         }
     }
 
@@ -125,7 +139,6 @@ public abstract class Effect {
         targeter.Apply();
     }
 
-
     public void RecieveEndActivationInstance(TriggerInstance endInstance) {
         RemoveFromAllTargets();
     }
@@ -152,10 +165,6 @@ public abstract class Effect {
         if(Data.canOverload == true) {
             if(CheckOverload(target) == true) {
                 
-                //if(ParentAbility!= null) {
-                //    Debug.Log(ParentAbility.Data.abilityName + " has overloaded");
-                //}
-
                 isOverloading = true;
                 SendOverloadEvent(target);
             }
@@ -239,6 +248,49 @@ public abstract class Effect {
         EntityTargets.Clear();
         AbilityTargets.Clear();
         EffectTargets.Clear();
+
+
+        //Rider Experiments
+
+        for (int i = 0; i < riderEffects.Count; i++) {
+            riderEffects[i].RemoveFromAllTargets();
+        }
+
+
+    }
+
+    public void UnRegisterRiderEvents() {
+        for (int i = 0; i < riderEffects.Count; i++) {
+            EventManager.RemoveMyListeners(riderEffects[i]);
+        }
+    }
+
+    public void RegisterRiderEvents() {
+        for (int i = 0; i < riderEffects.Count; i++) {
+            
+            riderEffects[i].RegisterEvents();
+        }
+    }
+
+    protected void RegisterEvents() {
+        if(parentEffect != null) {
+            //Debug.Log("Registering a rider event");
+            EventManager.RegisterListener(GameEvent.EffectApplied, OnEffectApplied);
+        }
+    }
+
+    protected virtual void OnEffectApplied(EventData data) {
+        Effect parent = data.GetEffect("Effect");
+
+        //Debug.LogWarning("Recieveing an on effect applied event from: " + parent.Data.effectName);
+
+        if (parent != parentEffect) {
+            return;
+        }
+
+        //Debug.Log("Rider effect is firing: " + Data.effectName + " from " + parentEffect.Data.effectName);
+
+        Apply(parentEffect.LastTarget);
     }
 
     public void SendEffectAppliedEvent() {
@@ -311,6 +363,8 @@ public abstract class Effect {
         return true;
     }
 
+
+
 }
 
 public class ForcedMovementEffect : Effect {
@@ -325,19 +379,47 @@ public class ForcedMovementEffect : Effect {
         if (base.Apply(target) == false)
             return false;
 
+        //Debug.Log("Applying a: " + Data.targetDestination + " effect");
 
+        switch (Data.targetDestination) {
+            case MovementDestination.SourceForward:
+                ApplySourceForward(target);
+                break;
+            case MovementDestination.SourceCurrentVelocity:
+                break;
+            case MovementDestination.MousePosition:
+                break;
+            case MovementDestination.AwayFromSource:
+                ApplyForceAwayFromSource(target);
+                break;
+            default:
+                break;
+
+        }
+
+        return true;
+    }
+
+    private void ApplySourceForward(Entity target) {
+        Vector2 force = target.transform.up.normalized * Data.moveForce;
+
+        Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
+
+        if (targetBody != null) {
+            targetBody.AddForce(force, ForceMode2D.Impulse);
+        }
+    }
+
+    private void ApplyForceAwayFromSource(Entity target) {
         Vector2 direction = target.transform.position - Source.transform.position;
 
         Vector2 resultingForce = direction.normalized * Data.moveForce;
 
         Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
 
-        if (target != null) {
+        if (targetBody != null) {
             targetBody.AddForce(resultingForce, ForceMode2D.Impulse);
         }
-
-
-        return true;
     }
 }
 

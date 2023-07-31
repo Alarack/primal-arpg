@@ -382,6 +382,11 @@ public static class AbilityEditorHelper
         entry.targeting = EditorHelper.EnumPopup("Targeting", entry.targeting);
         entry.subTarget = EditorHelper.EnumPopup("Sub Target", entry.subTarget);
 
+        EditorGUILayout.Separator();
+        EditorGUILayout.LabelField("Rider Effects", EditorHelper2.LoadStyle(effectHeader));
+        entry.riderEffects = EditorHelper.DrawList("Riders", entry.riderEffects, null, DrawEffectDefinitionList);
+
+        EditorGUILayout.Separator();
 
         EditorGUILayout.Separator();
         EditorGUILayout.LabelField("Target Constarints", EditorHelper2.LoadStyle(triggerHeader));
@@ -451,7 +456,10 @@ public static class AbilityEditorHelper
                 EditorGUILayout.LabelField("Not Yet Implemented: ", errorLabel);
                 break;
             case EffectType.Movement:
-                EditorGUILayout.LabelField("Not Yet Implemented: ", errorLabel);
+                //EditorGUILayout.LabelField("Not Yet Implemented: ", errorLabel);
+                entry.targetDestination = EditorHelper.EnumPopup("Move Direction", entry.targetDestination);
+                entry.moveForce = EditorGUILayout.FloatField("Force", entry.moveForce);
+
                 break;
             case EffectType.AddChildAbility:
                 EditorGUILayout.LabelField("Abilities to Add: ", EditorStyles.boldLabel);

@@ -208,6 +208,20 @@ public class Ability {
         }
 
         AutoFire = HasAutoFire();
+
+        SetupEffectRiderEvents();
+    }
+
+    protected void SetupEffectRiderEvents() {
+        for (int i = 0; i < effects.Count; i++) {
+            effects[i].RegisterRiderEvents();
+        }
+    }
+
+    protected void RemoveEffectRiderEvents() {
+        for (int i = 0; i < effects.Count; i++) {
+            effects[i].UnRegisterRiderEvents();
+        }
     }
 
     protected void SetupEndTriggers() {
@@ -296,6 +310,8 @@ public class Ability {
 
         if (endCounter != null)
             endCounter.TearDown();
+
+        RemoveEffectRiderEvents();
     }
 
     public void EndAllGlobalEffects() {

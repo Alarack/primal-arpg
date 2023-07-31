@@ -10,51 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Fireball Stat Adjustment
+  m_Name: Lunge Force
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Fireball Damage
+    effectName: Lunge Force
     effectDescription: 
-    type: 1
-    targeting: 5
+    type: 5
+    targeting: 1
     subTarget: 0
     deliveryPayloadToTarget: 0
-    canOverload: 1
+    canOverload: 0
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
     targetConstraints: []
-    riderEffects:
-    - {fileID: 11400000, guid: c1103eca81b46374fadc5cd796b8728e, type: 2}
+    riderEffects: []
     payloadPrefab: {fileID: 5014085312362430806, guid: d3a5660a1575a0e419d046ed8b2428e2, type: 3}
     payloadCount: 1
     shotDelay: 0
-    payloadStatData:
-    - variant: 0
-      statName: 29
-      value: 0
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 34
-      value: 0
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 44
-      value: 1
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 41
-      value: 3
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 37
-      value: 0
-      maxValue: 0
-      minValue: 0
+    payloadStatData: []
     spawnLocation: 0
     effectZoneInfo:
       removeEffectOnExit: 0
@@ -62,10 +36,10 @@ MonoBehaviour:
       applyOncePerTarget: 1
       applyOnInterval: 0
       affectSource: 0
-      spawnVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
-      applyVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
+      spawnVFX: {fileID: 0}
+      applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
-      effectZonePrefab: {fileID: 2109167299929148009, guid: be7028d38a74792409bf494d09b5f3e0, type: 3}
+      effectZonePrefab: {fileID: 0}
     modData:
     - targetStat: 0
       value: -1
@@ -143,13 +117,13 @@ MonoBehaviour:
       m_ColorSpace: 0
       m_NumColorKeys: 3
       m_NumAlphaKeys: 3
-    effectDesignation: 1
+    effectDesignation: 0
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
     targetDestination: 0
-    moveForce: 0
+    moveForce: 100
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0

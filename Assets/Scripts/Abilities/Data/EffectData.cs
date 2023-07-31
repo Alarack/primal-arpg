@@ -51,7 +51,8 @@ public enum DeliverySpawnLocation {
 public enum MovementDestination {
     SourceForward,
     SourceCurrentVelocity,
-    MousePosition
+    MousePosition,
+    AwayFromSource
 }
 
 [Serializable]
@@ -70,7 +71,7 @@ public class EffectData
     public string otherEffectName;
 
     public List<ConstraintData> targetConstraints = new List<ConstraintData>();
-
+    public List<EffectDefinition> riderEffects = new List<EffectDefinition>();
 
     //Payload Delivery
     public Entity payloadPrefab;
