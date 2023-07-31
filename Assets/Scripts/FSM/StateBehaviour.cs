@@ -43,6 +43,43 @@ namespace LL.FSM {
 
     }
 
+    public class AntiFlockBehaviour : StateBehaviour {
+
+        public override StateBehaviourType Type => StateBehaviourType.Flee;
+
+        private LayerMask mask;
+        private Collider2D[] nearbyEntities;
+
+        public AntiFlockBehaviour(StateBehaviourData data, AIBrain brain, AISensor seonsor) : base(data, brain, seonsor) {
+
+            mask = LayerTools.AddToMask(mask, brain.Owner.gameObject.layer);
+        }
+
+        public override void ManagedUpdate() {
+            base.ManagedUpdate();
+
+            nearbyEntities = Physics2D.OverlapCircleAll(brain.Owner.transform.position, 10f, mask);
+        }
+
+        public override void Execute() {
+
+            if (nearbyEntities == null || nearbyEntities.Length < 1) {
+                Debug.Log("Nothing nearby");
+                return;
+            }
+              
+
+            for (int i = 0; i < nearbyEntities.Length; i++) {
+                float distance = Vector2.Distance(brain.Owner.transform.position, nearbyEntities[i].transform.position);
+
+                if(distance < Data.minFlockDistance) {
+                    brain.Movement.MoveAwayFromPoint(nearbyEntities[i].transform.position, 0.5f);
+                }
+
+            }
+        }
+    }
+
     public class FleeBehaviour : StateBehaviour {
 
         public override StateBehaviourType Type => StateBehaviourType.Flee;

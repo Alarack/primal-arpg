@@ -837,13 +837,16 @@ public class Ability {
         }
 
         if(Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
-            
-            if(currentWindup == null) {
+
+            if (CheckCost() == false)
+                return;
+
+            if (currentWindup == null) {
                 currentWindup = new Task(StartAbilityWindup(activationInstance));
                 return;
             }
             else {
-                Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
+                //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
                 return;
             }
         }
@@ -910,10 +913,10 @@ public class Ability {
             return;
         }
 
-        if (CheckCost() == false) {
-            currentWindup = null;
-            return;
-        }
+        //if (CheckCost() == false) {
+        //    currentWindup = null;
+        //    return;
+        //}
 
 
         IsActive = true;

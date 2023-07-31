@@ -159,7 +159,12 @@ public class EffectTargeter {
         Entity sourceEntity = parentEffect.Source;
 
         if (parentEffect.EvaluateTargetConstraints(sourceEntity) == false) {
-            Debug.LogWarning(parentEffect.Source.EntityName + " is an invalid target for " + parentEffect.ParentAbility.Data.abilityName);
+            if(parentEffect.Source != null)
+                Debug.LogWarning(parentEffect.Source.EntityName + " is an invalid target for " + parentEffect.ParentAbility.Data.abilityName);
+            else {
+                Debug.LogWarning("The source of: " + parentEffect.Data.effectName + " is null, and failed a constraint because it didn't exist");
+            }
+            
             return null;
         }
 
@@ -397,6 +402,12 @@ public class EffectTargeter {
     }
 
     public Vector2 GetPayloadSpawnLocation() {
+
+        if (parentEffect.Source == null) {
+            //Debug.LogWarning("The source of: " + parentEffect.Data.effectName + " has been destroyed while casting");
+            return Vector2.zero;
+        }
+
         Vector2 targetLocation = parentEffect.Data.spawnLocation switch {
             DeliverySpawnLocation.Source => parentEffect.Source.transform.position,
             DeliverySpawnLocation.Trigger => ActivationInstance.TriggeringEntity.transform.position,
@@ -412,6 +423,11 @@ public class EffectTargeter {
     private IEnumerator DeliveryPayloadOnDelay(Vector2 location, Entity target = null) {
         WaitForSeconds waiter = new WaitForSeconds(parentEffect.Stats[StatName.FireDelay]);
 
+        if(parentEffect.Source == null) {
+            //Debug.LogWarning("The source of: " + parentEffect.Data.effectName + " has been destroyed while casting");
+            yield break;
+        }
+
         //Debug.Log(parentEffect.Stats[StatName.ShotCount] + " projectiles on " + parentEffect.ParentAbility.Data.abilityName);
 
         for (int i = 0; i < parentEffect.Stats[StatName.ShotCount]; i++) {
@@ -421,7 +437,7 @@ public class EffectTargeter {
 
             Projectile projectile = delivery as Projectile;
             if (projectile != null) {
-                projectile.Setup(parentEffect.Source, parentEffect);
+                projectile.Setup(parentEffect.Source, parentEffect, parentEffect.Data.projectileHitMask);
 
                 projectile.Stats.AddMissingStats(parentEffect.Stats);
 

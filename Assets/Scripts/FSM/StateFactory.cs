@@ -24,6 +24,7 @@ namespace LL.FSM {
                 StateBehaviourType.Wait => new WaitBehaviour(data, brain, sensor),
                 StateBehaviourType.SpawnObject => new SpawnObjectBehaviour(data, brain, sensor),
                 StateBehaviourType.AbilityContainer => new AbilityBehaviour(data, brain, sensor),
+                StateBehaviourType.AntiFlock => new AntiFlockBehaviour(data, brain, sensor),
                 _ => null,
             };
 

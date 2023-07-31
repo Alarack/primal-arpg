@@ -54,6 +54,9 @@ public class StateBehaviourDataEditor : Editor
             case StateBehaviourType.AbilityContainer:
                 behaviourData.abilities = EditorHelper.DrawList("Abilities", behaviourData.abilities, null, AbilityEditorHelper.DrawAbilityDefinitionList);
                 break;
+            case StateBehaviourType.AntiFlock:
+                behaviourData.minFlockDistance = EditorGUILayout.FloatField("Min Distance", behaviourData.minFlockDistance);
+                break;
                 
         }
 

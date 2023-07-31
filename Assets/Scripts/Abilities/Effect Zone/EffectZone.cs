@@ -2,6 +2,7 @@ using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class EffectZone : Entity {
 
@@ -11,7 +12,7 @@ public class EffectZone : Entity {
     //public GameObject deathVFX;
 
     //[Header("Masking")]
-    //private LayerMask mask;
+    private LayerMask mask;
 
     protected Effect parentEffect;
     protected List<Entity> targets = new List<Entity>();
@@ -22,10 +23,21 @@ public class EffectZone : Entity {
 
     private float effectSize = 1f;
 
+    private Task cleanTask;
+
     public virtual void Setup(Effect parentEffect, EffectZoneInfo info, Transform parentToThis = null, Projectile carrier = null) {
         this.parentEffect = parentEffect;
         this.zoneInfo = info;
         this.carrier = carrier;
+
+        if(parentEffect.Source == null) {
+            Debug.LogWarning("Spawning an effect zone while the source is dead: " + parentEffect.Data.effectName);
+        }
+        else {
+            mask = LayerTools.SetupHitMask(mask, parentEffect.Source.gameObject.layer);
+        }
+
+
 
         SetInfo();
         SetSize();
@@ -51,13 +63,20 @@ public class EffectZone : Entity {
         }
 
         ConfigureCollision();
-        new Task(CleanupAfterLifetime());
+        cleanTask = new Task(CleanupAfterLifetime());
     }
 
     private void Update() {
         if(persistantZoneTimer != null) {
             persistantZoneTimer.UpdateClock();
         }
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        if(cleanTask.Running == true)
+            cleanTask.Stop();
     }
 
     private void SetInfo() {
@@ -103,6 +122,9 @@ public class EffectZone : Entity {
 
     private void ConfigureCollision() {
         if (zoneInfo.affectSource == true)
+            return;
+
+        if (parentEffect.Source == null) 
             return;
 
         Collider2D sourceCollider = parentEffect.Source.GetComponent<Collider2D>();
@@ -162,6 +184,7 @@ public class EffectZone : Entity {
 
     protected virtual void CleanUp() {
         //Die();
+
         SpawnDeathVFX();
         Destroy(gameObject);
     }
@@ -189,6 +212,9 @@ public class EffectZone : Entity {
 
 
     protected virtual void OnTriggerEnter2D(Collider2D other) {
+        if (LayerTools.IsLayerInMask(mask, other.gameObject.layer) == false)
+            return;
+        
         Entity otherEntity = other.GetComponent<Entity>();
         if (otherEntity == null) {
             //Debug.LogWarning("An effect Zone: " + gameObject.name + " is trying to apply an effect to a non-entity: " + other.gameObject.name);

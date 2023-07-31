@@ -80,6 +80,8 @@ public abstract class Entity : MonoBehaviour {
         //    Stats.RemoveStatListener(StatName.Health, OnHealthChanged);
         //}
 
+        //StopAllCoroutines();
+
         EventManager.RemoveMyListeners(this);
     }
 

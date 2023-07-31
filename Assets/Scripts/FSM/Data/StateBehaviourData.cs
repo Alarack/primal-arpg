@@ -14,7 +14,8 @@ namespace LL.FSM {
         RotateToward,
         Wait,
         SpawnObject,
-        AbilityContainer
+        AbilityContainer,
+        AntiFlock
     }
 
 
@@ -40,6 +41,9 @@ namespace LL.FSM {
         //Spawn Object
         public GameObject spawn;
         public Vector2 spawnOffset;
+
+        //AntiFlock
+        public float minFlockDistance;
 
         //Ability Container
         public List<AbilityDefinition> abilities = new List<AbilityDefinition>();

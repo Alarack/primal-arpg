@@ -49,12 +49,12 @@ public class NPCMovement : EntityMovement
         MoveTowardPoint(currentTarget.transform.position);
     }
 
-    public void MoveTowardPoint(Vector2 location) {
-        ApplyMovement(location);
+    public void MoveTowardPoint(Vector2 location, float speedModifier = 1f) {
+        ApplyMovement(location, speedModifier);
     }
 
-    public void MoveAwayFromPoint(Vector2 location) {
-        ApplyMovement(location, -1f);
+    public void MoveAwayFromPoint(Vector2 location, float speedModifier = 1f) {
+        ApplyMovement(location, -1f * speedModifier);
     }
 
 

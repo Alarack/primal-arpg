@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e64f4036e690064cb32abed64c30c22, type: 3}
-  m_Name: Flee Behavior
+  m_Name: Anti Flock
   m_EditorClassIdentifier: 
   mode: 3
-  behavourType: 1
-  chaseDistance: 5
-  fleeDistance: 4
+  behavourType: 9
+  chaseDistance: 0
+  fleeDistance: 0
   wanderIdleTime: 0
   wanderMaxDistance: 0
   waitTime: 0
   spawn: {fileID: 0}
   spawnOffset: {x: 0, y: 0}
-  minFlockDistance: 0
+  minFlockDistance: 2
   abilities: []

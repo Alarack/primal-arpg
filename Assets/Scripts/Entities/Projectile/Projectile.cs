@@ -21,8 +21,9 @@ public class Projectile : Entity {
     [Header("On Death Spawns")]
     public GameObject onDeathEffectPrefab;
 
-    [Header("Chain Mask")]
+    [Header("Layer Masks")]
     public LayerMask chainMask;
+    public LayerMask projectileHitMask;
 
     [Header("Split Options")]
     public bool cloneSelfOnSplit;
@@ -89,13 +90,37 @@ public class Projectile : Entity {
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
     }
 
-    public void Setup(Entity source, Effect parentEffect) {
+    public void Setup(Entity source, Effect parentEffect, LayerMask hitMask) {
         this.source = source;
         this.parentEffect = parentEffect;
+        this.projectileHitMask = hitMask;
+        //SetupHitMask();
+        projectileHitMask = LayerTools.SetupHitMask(projectileHitMask, source.gameObject.layer);
+        projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Environment"));
+
+
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
         SetupSize();
 
         SendProjectileCreatedEvent();
+    }
+
+    private void SetupHitMask() {
+        int sourceLayer = source.gameObject.layer;
+
+        Debug.Log("Layer: " + LayerMask.LayerToName(sourceLayer));
+
+        switch (LayerMask.LayerToName(sourceLayer)) {
+            case "Enemy":
+                projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Player"));
+                //projectileHitMask.AddToMask(LayerMask.NameToLayer("Player"));
+                break;
+
+            case "Player":
+                projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Enemy"));
+                //projectileHitMask.AddToMask(LayerMask.NameToLayer("Enemy"));
+                break;
+        }
     }
 
     private void SendProjectileCreatedEvent() {
@@ -160,8 +185,10 @@ public class Projectile : Entity {
 
 
     private void OnTriggerEnter2D(Collider2D other) {
-        //if (LayerTools.IsLayerInMask(parentWeapon.collisionMask, other.gameObject.layer) == false)
-        //    return;
+        if (LayerTools.IsLayerInMask(projectileHitMask, other.gameObject.layer) == false) {
+            //Debug.LogWarning(LayerMask.LayerToName(other.gameObject.layer) + " is not in the hit mask");
+            return;
+        }
 
         DeployZoneEffect();
 
@@ -240,7 +267,7 @@ public class Projectile : Entity {
 
             if (cloneSelfOnSplit == true) {
                 Projectile child = Instantiate(parentEffect.Data.payloadPrefab, transform.position, transform.rotation) as Projectile;
-                child.Setup(source, parentEffect);
+                child.Setup(source, parentEffect, projectileHitMask);
                 child.SetupChildCollision(recentHit);
                 child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
 

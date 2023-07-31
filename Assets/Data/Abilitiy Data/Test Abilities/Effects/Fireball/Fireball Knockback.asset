@@ -40,6 +40,9 @@ MonoBehaviour:
       applyVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 2109167299929148009, guid: be7028d38a74792409bf494d09b5f3e0, type: 3}
+    projectileHitMask:
+      serializedVersion: 2
+      m_Bits: 0
     modData:
     - targetStat: 0
       value: -1
@@ -123,7 +126,7 @@ MonoBehaviour:
     isTeleport: 0
     invertDestination: 0
     targetDestination: 3
-    moveForce: 125
+    moveForce: 75
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0

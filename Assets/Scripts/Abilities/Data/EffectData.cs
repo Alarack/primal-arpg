@@ -81,6 +81,7 @@ public class EffectData
     public List<StatData> payloadStatData = new List<StatData>();
     public DeliverySpawnLocation spawnLocation;
     public EffectZoneInfo effectZoneInfo;
+    public LayerMask projectileHitMask;
 
     //Stat Adjustment
     public List<StatModifierData> modData = new List<StatModifierData>();
