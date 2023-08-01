@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 3
   behavourType: 2
-  chaseDistance: 5
+  chaseDistance: 3
   fleeDistance: 0
   wanderIdleTime: 0
   wanderMaxDistance: 0
   waitTime: 0
   spawn: {fileID: 0}
   spawnOffset: {x: 0, y: 0}
+  minFlockDistance: 0
+  abilities: []

@@ -13,6 +13,7 @@ public class EntityManager : Singleton<EntityManager> {
     //public int enemiesPerWave = 3;
 
     public List<Wave> waves = new List<Wave>();
+    public bool infiniteMode;
     private int waveIndex;
 
     public static EntityPlayer ActivePlayer { get { return GetPlayer(); } }
@@ -50,8 +51,8 @@ public class EntityManager : Singleton<EntityManager> {
         }
 
         if (ActiveEntities[Entity.EntityType.Enemy].Count == 0) {
-            //Instance.SpawnWave();
-            Debug.LogWarning("No enemies left");
+            SpawnWave();
+            Debug.LogWarning("Spawning Next Wave");
         }
     }
 
@@ -71,7 +72,12 @@ public class EntityManager : Singleton<EntityManager> {
         }
 
         if(Instance.waveIndex >= Instance.waves.Count) {
-            Instance.waveIndex = 0;
+            if(Instance.infiniteMode == true)
+                Instance.waveIndex = 0;
+            else {
+                Debug.LogWarning("Waves Finished");
+                return;
+            }
         }
 
         new Task(Instance.waves[Instance.waveIndex].SpawnWaveOnDelay());
