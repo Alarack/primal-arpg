@@ -146,12 +146,55 @@ public class StatChangedConstraint : AbilityConstraint {
         else
             result = false;
 
-        //Debug.LogWarning("Result for Unit Stat Changed on: " + parentAbility.Data.abilityName + " " + result);
+        //if(parentAbility != null) 
+        //    Debug.LogWarning("Result for Unit Stat Changed on: " + parentAbility.Data.abilityName + " " + result);
+        //else
+        //    Debug.LogWarning("Result for Unit Stat Changed againt: " + target.EntityName + " " + result);
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
+public class StatRatioConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.StatRatio;
+
+    public StatRatioConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        StatRange targetStat = target.Stats.GetStatByName(data.statRatioTarget) as StatRange;
+
+        if(targetStat == null) {
+            Debug.LogError("A stat ratio constraint tried to get a non-stat range stat: " + data.statRatioTarget);
+            return false;
+        }
+
+        
+
+        bool result = targetStat.Ratio <= data.targetRatio;
+
+        //Debug.Log("Stat ratio: " + targetStat.Ratio);
+        //Debug.Log("Check Ratio: " + data.targetRatio);
+        //Debug.Log("Ratio Check: " + target.EntityName + result);
 
 
         return inverse == false ? result : !result;
     }
 
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+
+        bool result = ability == triggerInstance.SourceAbility;
+
+        //Debug.Log("Testing: " + ability.Data.abilityName + " against " + triggerInstance.sourceAbility.Data.abilityName + ". Result: " + result);
+
+        return inverse == false ? result : !result;
+
+    }
 }
 
 

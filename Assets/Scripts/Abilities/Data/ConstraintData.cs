@@ -35,6 +35,7 @@ public enum ConstraintType {
     AbilityActive,
     EffectApplied,
     EffectType,
+    StatRatio
 }
 
 public enum GainedOrLost {
@@ -139,6 +140,9 @@ public class ConstraintData
     //Has Status
     public Status.StatusName targetStatus;
 
+    //Stat Ratio
+    public StatName statRatioTarget;
+    public float targetRatio;
 
     public ConstraintData() {
 

@@ -95,6 +95,14 @@ public static class AbilityEditorHelper
 
 
 
+
+
+    public static T DrawListOfScriptableObjects<T>(List<T> list, int index) where T : ScriptableObject {
+        T result = EditorHelper.ObjectField(list[index]);
+
+        return result;
+    }
+
     public static EffectDefinition DrawEffectDefinitionList(List<EffectDefinition> list, int index) {
         EffectDefinition result = EditorHelper.ObjectField(list[index]);
 
@@ -329,6 +337,11 @@ public static class AbilityEditorHelper
 
             case ConstraintType.EffectType:
                 entry.targetEffectType = EditorHelper.EnumPopup("Effect Type", entry.targetEffectType);
+                break;
+
+            case ConstraintType.StatRatio:
+                entry.statRatioTarget = EditorHelper.EnumPopup("Target Stat", entry.statRatioTarget);
+                entry.targetRatio = EditorGUILayout.FloatField("Ratio", entry.targetRatio);
                 break;
             default:
                 break;

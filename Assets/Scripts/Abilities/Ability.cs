@@ -908,6 +908,13 @@ public class Ability {
 
     private void ResumeActivation(TriggerInstance activationInstance) {
 
+        if(Source == null || Source.IsDead == true) {
+            //Debug.LogWarning("The Source of an Ability: " + Data.abilityName + " is dead or null when resolving a cast time.");
+            currentWindup = null;
+            return;
+        }
+
+
         if (TrySpendCharge(1) == false) {
             currentWindup = null;
             return;

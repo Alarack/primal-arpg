@@ -49,7 +49,25 @@ namespace LL.FSM {
             OnUpdate();
         }
 
+        private void EnterBehavior() {
+            foreach (var item in behaviourDict.Values) {
+                for (int i = 0; i < item.Count; i++) {
+                    item[i].OnEnter();
+                }
+            }
+        }
+
+        private void ExitBehavior() {
+            foreach (var item in behaviourDict.Values) {
+                for (int i = 0; i < item.Count; i++) {
+                    item[i].OnExit();
+                }
+            }
+        }
+
         public void OnEnter() {
+
+            EnterBehavior();
 
             EventData data = new EventData();
             data.AddEntity("Target", ownerBrain.Owner);
@@ -60,6 +78,8 @@ namespace LL.FSM {
         }
 
         public void OnExit() {
+            ExitBehavior();
+
             ExecuteBehaviours(ExecutionMode.Exit);
         }
 
@@ -69,6 +89,14 @@ namespace LL.FSM {
 
         public void OnFixedUpdate() {
             ExecuteBehaviours(ExecutionMode.FixedUpdate);
+        }
+
+        private void EquipStateAbilities() {
+
+        }
+
+        private void UnequipStateAbilities() {
+
         }
 
 

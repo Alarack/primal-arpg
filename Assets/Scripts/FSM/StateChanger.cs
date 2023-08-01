@@ -39,8 +39,11 @@ public class StateChanger {
 
 
         if(changerData.fromStateData != null) {
-            if (brain.CurrentStateName != changerData.fromStateData.stateName)
+            if (brain.CurrentStateName != changerData.fromStateData.stateName) {
+                //Debug.LogWarning("Can't change due to incorrect from state: " + brain.CurrentStateName + " : " + changerData.fromStateData.stateName);
+                
                 return;
+            }
         }
 
 

@@ -38,6 +38,14 @@ namespace LL.FSM {
 
         }
 
+        public virtual void OnEnter() {
+
+        }
+
+        public virtual void OnExit() { 
+        
+        }
+
         public abstract void Execute();
 
 
@@ -181,8 +189,14 @@ namespace LL.FSM {
 
         private bool hasTarget;
 
-        public AbilityBehaviour(StateBehaviourData data, AIBrain brain, AISensor sensor) : base(data, brain, sensor) {
+        //private List<Ability> activeAbilities = new List<Ability>();
 
+        public AbilityBehaviour(StateBehaviourData data, AIBrain brain, AISensor sensor) : base(data, brain, sensor) {
+            AddAbiliites();
+        }
+
+        private void AddAbiliites() {
+            brain.AddAbilitiesFromBehavior(Data.abilities, this);
         }
 
         public override void ManagedUpdate() {
@@ -191,12 +205,20 @@ namespace LL.FSM {
             hasTarget = brain.GetLatestSensorTarget();
         }
 
+        public override void OnEnter() {
+            brain.EquipBehaviourAbilities(this);
+        }
+
+        public override void OnExit() {
+            brain.UnequipBehaviourAbilities(this);
+        }
+
         public override void Execute() {
 
             if (hasTarget == false)
                 return;
 
-            brain.ActivateAllAbilities();
+            brain.ActivateBehaviourAbilities(this);
         }
     }
 

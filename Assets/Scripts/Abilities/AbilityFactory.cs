@@ -78,6 +78,7 @@ public static class AbilityFactory {
             ConstraintType.EffectDesignation => new EffectDesignationConstraint(data, source, parentAbility),
             ConstraintType.EffectType => new EffectTypeConstraint(data, source, parentAbility),
             ConstraintType.AbilityActive => new AbilityActiveConstraint(data, source, parentAbility),
+            ConstraintType.StatRatio => new StatRatioConstraint(data, source, parentAbility),
             _ => null,
         };
 

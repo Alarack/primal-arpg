@@ -49,6 +49,7 @@ public class Projectile : Entity {
     private Task smoothScale;
     private float projectileSize;
 
+    private int parentLayer;
     protected override void Awake() {
         base.Awake();
 
@@ -94,6 +95,8 @@ public class Projectile : Entity {
         this.source = source;
         this.parentEffect = parentEffect;
         this.projectileHitMask = hitMask;
+        this.parentLayer = parentEffect.Source.gameObject.layer;
+
         //SetupHitMask();
         projectileHitMask = LayerTools.SetupHitMask(projectileHitMask, source.gameObject.layer);
         projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Environment"));
@@ -103,24 +106,6 @@ public class Projectile : Entity {
         SetupSize();
 
         SendProjectileCreatedEvent();
-    }
-
-    private void SetupHitMask() {
-        int sourceLayer = source.gameObject.layer;
-
-        Debug.Log("Layer: " + LayerMask.LayerToName(sourceLayer));
-
-        switch (LayerMask.LayerToName(sourceLayer)) {
-            case "Enemy":
-                projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Player"));
-                //projectileHitMask.AddToMask(LayerMask.NameToLayer("Player"));
-                break;
-
-            case "Player":
-                projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Enemy"));
-                //projectileHitMask.AddToMask(LayerMask.NameToLayer("Enemy"));
-                break;
-        }
     }
 
     private void SendProjectileCreatedEvent() {
@@ -222,9 +207,11 @@ public class Projectile : Entity {
 
     private void DeployZoneEffect() {
         EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
-        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this);
-
+        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this, parentLayer);
     }
+
+
+    #region CHAIN, PIERCE, AND SPLIT
 
     private bool HandleProjectilePierce(Collider2D recentHit) {
         if (Stats.Contains(StatName.ProjectilePierceCount) == false || Stats[StatName.ProjectilePierceCount] < 1f) {
@@ -308,40 +295,7 @@ public class Projectile : Entity {
         EventManager.SendEvent(GameEvent.ProjectileChained, data);
     }
 
-    private void DealDamage(Entity target) {
-        //Debug.Log("Doing Damage " + Stats[StatName.BaseDamage]);
-
-        float value = StatAdjustmentManager.DealDamageOrHeal(target, Stats[StatName.BaseDamage], source, null);
-        FloatingText floatingText = FloatingTextManager.SpawnFloatingText(target.transform.position, value.ToString());
-        floatingText.SetColor(textColorGradient);
-    }
-
-    private void ApplyOnHitEffects(Entity target) {
-        if (onHitEffects == null || onHitEffects.Count == 0) {
-            return;
-        }
-
-        for (int i = 0; i < onHitEffects.Count; i++) {
-            onHitEffects[i].Apply(target);
-        }
-    }
-
-    private void Ricochet(Collider2D other) {
-        Vector2 direction = other.transform.position - transform.position;
-        Vector2 offsetVector = TargetUtilities.CreateRandomDirection(-impactNoise, impactNoise);
-        direction += offsetVector;
-        Vector2 reboundForce = (-direction.normalized) * UnityEngine.Random.Range(reboundForceMod.x, reboundForceMod.y);
-
-
-        float rotationForce = UnityEngine.Random.Range(720f, 1080f);
-        rotationForce *= UnityEngine.Random.Range(0, 2) * 2 - 1;
-
-
-        Movement.MyBody.angularVelocity = rotationForce;
-        Movement.MyBody.AddForce(reboundForce, ForceMode2D.Force);
-
-    }
-
+    #endregion
 
     private IEnumerator KillAfterLifetime() {
         WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.ProjectileLifetime]);
@@ -403,5 +357,43 @@ public class Projectile : Entity {
         Destroy(gameObject);
 
     }
+
+    #region DEPRECATED
+
+    private void DealDamage(Entity target) {
+        //Debug.Log("Doing Damage " + Stats[StatName.BaseDamage]);
+
+        float value = StatAdjustmentManager.DealDamageOrHeal(target, Stats[StatName.BaseDamage], source, null);
+        FloatingText floatingText = FloatingTextManager.SpawnFloatingText(target.transform.position, value.ToString());
+        floatingText.SetColor(textColorGradient);
+    }
+
+    private void ApplyOnHitEffects(Entity target) {
+        if (onHitEffects == null || onHitEffects.Count == 0) {
+            return;
+        }
+
+        for (int i = 0; i < onHitEffects.Count; i++) {
+            onHitEffects[i].Apply(target);
+        }
+    }
+
+    private void Ricochet(Collider2D other) {
+        Vector2 direction = other.transform.position - transform.position;
+        Vector2 offsetVector = TargetUtilities.CreateRandomDirection(-impactNoise, impactNoise);
+        direction += offsetVector;
+        Vector2 reboundForce = (-direction.normalized) * UnityEngine.Random.Range(reboundForceMod.x, reboundForceMod.y);
+
+
+        float rotationForce = UnityEngine.Random.Range(720f, 1080f);
+        rotationForce *= UnityEngine.Random.Range(0, 2) * 2 - 1;
+
+
+        Movement.MyBody.angularVelocity = rotationForce;
+        Movement.MyBody.AddForce(reboundForce, ForceMode2D.Force);
+
+    }
+
+    #endregion
 
 }

@@ -35,37 +35,46 @@ public class AIBrainEditor : Editor
 
 
         EditorGUILayout.Separator();
-        EditorGUILayout.LabelField("State Data", EditorStyles.boldLabel);
+        //EditorGUILayout.LabelField("State Data", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("State Data", EditorHelper2.LoadStyle(AbilityEditorHelper.abilityHeader));
         EditorGUILayout.Separator();
 
-        if (GUILayout.Button("Add State") == true) {
-            aiBrain.stateData.Add(null);
-        }
+
+        aiBrain.stateData = EditorHelper.DrawList("States", aiBrain.stateData, null, AbilityEditorHelper.DrawListOfScriptableObjects);
 
 
-        for (int i = 0; i < aiBrain.stateData.Count; i++) {
-            aiBrain.stateData[i] = (StateData)EditorGUILayout.ObjectField("State", aiBrain.stateData[i], typeof(StateData), false);
-        }
+        //if (GUILayout.Button("Add State") == true) {
+        //    aiBrain.stateData.Add(null);
+        //}
 
-        if (aiBrain.stateData.Count > 0) {
-            if (GUILayout.Button("Remove State") == true) {
-                aiBrain.stateData.RemoveAt(aiBrain.stateData.Count - 1);
-            }
-        }
+
+        //for (int i = 0; i < aiBrain.stateData.Count; i++) {
+        //    aiBrain.stateData[i] = (StateData)EditorGUILayout.ObjectField("State", aiBrain.stateData[i], typeof(StateData), false);
+        //}
+
+        //if (aiBrain.stateData.Count > 0) {
+        //    if (GUILayout.Button("Remove State") == true) {
+        //        aiBrain.stateData.RemoveAt(aiBrain.stateData.Count - 1);
+        //    }
+        //}
 
 
         EditorGUILayout.Separator();
         EditorGUILayout.LabelField("State Changers", EditorStyles.boldLabel);
         EditorGUILayout.Separator();
 
-        if (GUILayout.Button("Add State Change") == true) {
-            AddStateChangeButton();
-        }
 
-        for (int i = 0; i < aiBrain.stateChangeData.Count; i++) {
-            DrawStateChangeData(aiBrain.stateChangeData[i]);
-            EditorGUILayout.Separator();
-        }
+        aiBrain.stateChangeData = EditorHelper.DrawExtendedList(aiBrain.stateChangeData, "Changer", DrawStateChangeData);
+
+
+        //if (GUILayout.Button("Add State Change") == true) {
+        //    AddStateChangeButton();
+        //}
+
+        //for (int i = 0; i < aiBrain.stateChangeData.Count; i++) {
+        //    DrawStateChangeData(aiBrain.stateChangeData[i]);
+        //    EditorGUILayout.Separator();
+        //}
 
 
         EditorGUILayout.Separator();
@@ -86,7 +95,7 @@ public class AIBrainEditor : Editor
 
     }
 
-    private void DrawStateChangeData(StateChangerData data) {
+    private StateChangerData DrawStateChangeData(StateChangerData data) {
 
         EditorGUILayout.Separator();
 
@@ -96,31 +105,45 @@ public class AIBrainEditor : Editor
         EditorGUILayout.Separator();
 
 
-        if (GUILayout.Button("Remove Changer") == true) {
-            DeleteStateChangeButton(data);
-        }
+        //if (GUILayout.Button("Remove Changer") == true) {
+        //    DeleteStateChangeButton(data);
+        //}
+
+        data.fromStateData = EditorHelper.ObjectField("From State: ", data.fromStateData);
+        data.toStateData = EditorHelper.ObjectField("To State", data.toStateData);
 
 
-        data.fromStateData = (StateData)EditorGUILayout.ObjectField("From State:", data.fromStateData, typeof(StateData), false);
+        //data.fromStateData = (StateData)EditorGUILayout.ObjectField("From State:", data.fromStateData, typeof(StateData), false);
 
 
         //EditorGUILayout.BeginHorizontal();
 
 
-        data.toStateData = (StateData)EditorGUILayout.ObjectField("To State:", data.toStateData, typeof(StateData), false);
+        //data.toStateData = (StateData)EditorGUILayout.ObjectField("To State:", data.toStateData, typeof(StateData), false);
 
 
         //EditorGUILayout.EndHorizontal();
 
-        if(GUILayout.Button("Add Trigger") == true) {
-            DrawTriggerHelper.AddTriggerButton(data);
-        }
+
+        EditorGUI.indentLevel++;
+        EditorGUILayout.LabelField("Change Trigger", EditorHelper2.LoadStyle(AbilityEditorHelper.triggerHeader));
+        data.triggerData = EditorHelper.DrawExtendedList(data.triggerData, "Trigger", AbilityEditorHelper.DrawTriggerData);
 
 
-        for (int i = 0; i < data.triggerData.Count; i++) {
-            DrawTriggerHelper.DrawTriggerData(data.triggerData[i], data.triggerData);
-        }
+        EditorGUI.indentLevel--;
 
+
+        //if(GUILayout.Button("Add Trigger") == true) {
+        //    DrawTriggerHelper.AddTriggerButton(data);
+        //}
+
+
+        //for (int i = 0; i < data.triggerData.Count; i++) {
+        //    DrawTriggerHelper.DrawTriggerData(data.triggerData[i], data.triggerData);
+        //}
+
+
+        return data;
     }
 
 }

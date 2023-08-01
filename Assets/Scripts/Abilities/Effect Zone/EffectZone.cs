@@ -2,7 +2,6 @@ using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.VisualScripting.Member;
 
 public class EffectZone : Entity {
 
@@ -25,17 +24,20 @@ public class EffectZone : Entity {
 
     private Task cleanTask;
 
-    public virtual void Setup(Effect parentEffect, EffectZoneInfo info, Transform parentToThis = null, Projectile carrier = null) {
+    public virtual void Setup(Effect parentEffect, EffectZoneInfo info, Transform parentToThis = null, Projectile carrier = null, int parentLayer = -1) {
         this.parentEffect = parentEffect;
         this.zoneInfo = info;
         this.carrier = carrier;
 
-        if(parentEffect.Source == null) {
-            Debug.LogWarning("Spawning an effect zone while the source is dead: " + parentEffect.Data.effectName);
-        }
-        else {
-            mask = LayerTools.SetupHitMask(mask, parentEffect.Source.gameObject.layer);
-        }
+        if(parentLayer != -1)
+            mask = LayerTools.SetupHitMask(mask, parentLayer);
+
+        //if (parentEffect.Source == null) {
+        //    Debug.LogWarning("Spawning an effect zone while the source is dead: " + parentEffect.Data.effectName);
+        //}
+        //else {
+           
+        //}
 
 
 
@@ -93,8 +95,6 @@ public class EffectZone : Entity {
             if (effectSize <= 0) {
                 effectSize = 1f;
             }
-
-         
         }
 
         if(carrier != null) {

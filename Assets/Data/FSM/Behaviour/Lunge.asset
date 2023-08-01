@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e64f4036e690064cb32abed64c30c22, type: 3}
-  m_Name: Test Behavior
+  m_Name: Lunge
   m_EditorClassIdentifier: 
-  mode: 3
-  behavourType: 5
+  mode: 2
+  behavourType: 8
   chaseDistance: 0
   fleeDistance: 0
   wanderIdleTime: 0
@@ -21,3 +21,6 @@ MonoBehaviour:
   waitTime: 0
   spawn: {fileID: 0}
   spawnOffset: {x: 0, y: 0}
+  minFlockDistance: 0
+  abilities:
+  - {fileID: 11400000, guid: ed66313dd83fc3e44a38fb4629d87bf3, type: 2}
