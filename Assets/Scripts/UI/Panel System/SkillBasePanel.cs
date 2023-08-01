@@ -30,13 +30,16 @@ public class SkillBasePanel : BasePanel
 
     protected override void OnEnable() {
         base.OnEnable();
+
         EntityManager.ActivePlayer.AbilityManager.onAbilityEquipped += OnAbilityEquipped;
         EntityManager.ActivePlayer.AbilityManager.onAbilityUnequipped += OnAbilityUnequipped;
         EntityManager.ActivePlayer.AbilityManager.onAbilitySwapped += OnAbilitySwapped;
     }
 
+
     protected override void OnDisable() {
         base.OnDisable();
+
         EntityManager.ActivePlayer.AbilityManager.onAbilityEquipped -= OnAbilityEquipped;
         EntityManager.ActivePlayer.AbilityManager.onAbilityUnequipped -= OnAbilityUnequipped;
         EntityManager.ActivePlayer.AbilityManager.onAbilitySwapped -= OnAbilitySwapped;

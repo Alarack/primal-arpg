@@ -217,7 +217,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: c67ce6c47c343334c8e139550b53bee4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -497,7 +497,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 1
-  m_PointLightOuterRadius: 27.44
+  m_PointLightOuterRadius: 64.57
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -832,7 +832,7 @@ Transform:
   - {fileID: 6761180175404688186}
   - {fileID: 910151847095465174}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2648693693639585802
 MonoBehaviour:
@@ -853,7 +853,6 @@ MonoBehaviour:
   statDefinitions: {fileID: 11400000, guid: f46f2c7ebd78c1f4dbc1477c9fd6bfe8, type: 2}
   deathEffectPrefab: {fileID: 0}
   spawnEffectPrefab: {fileID: 0}
-  runeTestEffect: {fileID: 11400000, guid: 4eaecd3695fb9fe449bb6e6216b76272, type: 2}
 --- !u!114 &958971093242999228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -955,7 +954,13 @@ MonoBehaviour:
   preloadedAbilities:
   - {fileID: 11400000, guid: 5f24c7a0e1003df4a8869d2751795544, type: 2}
   - {fileID: 11400000, guid: d1d79dd308b17af4282c6cead89fe9ef, type: 2}
-  - {fileID: 11400000, guid: 54828578158f99244ab6e26758ec5447, type: 2}
+  - {fileID: 11400000, guid: cb08861406ea3cf45993c7398b90dc3f, type: 2}
+  - {fileID: 11400000, guid: 72ca93625b1e887429129ca6a0aa6c5c, type: 2}
+  - {fileID: 11400000, guid: b8373981a8c6e3446b1428ed036a31e1, type: 2}
+  preloadedPassives:
+  - {fileID: 11400000, guid: 1ae8420da18a08546946c1844b4e63cf, type: 2}
+  - {fileID: 11400000, guid: 4b7a257fbf21cd74d96dc5072b671e62, type: 2}
+  - {fileID: 11400000, guid: e4251b296a0cb394280b999179063754, type: 2}
 --- !u!1 &7734377141901768824
 GameObject:
   m_ObjectHideFlags: 0

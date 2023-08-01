@@ -24,7 +24,7 @@ public class InventoryPanel : BasePanel {
         base.Awake();
         CreateEmptySlots();
         SetupPaperDollSlots();
-        PopulateInventory();
+        
 
         inventoryEntryTemplate.gameObject.SetActive(false);
     }
@@ -44,6 +44,10 @@ public class InventoryPanel : BasePanel {
     public override void Open() {
         base.Open();
 
+        if (EntityManager.ActivePlayer == null)
+            return;
+
+        PopulateInventory();
         SetStatValues();
     }
 
@@ -68,6 +72,11 @@ public class InventoryPanel : BasePanel {
     }
 
     private void SetStatValues() {
+
+        if(EntityManager.ActivePlayer == null) {
+            return;
+        }
+
         cdrText.text = "Cooldown Reduction: " + TextHelper.FormatStat(StatName.CooldownReduction, EntityManager.ActivePlayer.Stats[StatName.CooldownReduction]);
 
     }

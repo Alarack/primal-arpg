@@ -22,6 +22,10 @@ public class SkillsPanel : SkillBasePanel {
     public override void Open() {
         base.Open();
 
+        if(EntityManager.ActivePlayer == null) {
+            return;
+        }
+
         AbilityUtilities.PopulateSkillEntryList(ref knownSkillEntries, skillEntryTemplate, knownSkillsHolder, SkillEntry.SkillEntryLocation.KnownSkill);
         AbilityUtilities.PopulateSkillEntryList(ref knownPassiveSkillEntries, skillEntryTemplate, knownPassiveSkillsHolder, SkillEntry.SkillEntryLocation.KnownPassive);
     }

@@ -26,6 +26,9 @@ public class ItemPickupNamePlate : MonoBehaviour, IPointerEnterHandler, IPointer
 
     private void OnDisable() {
         //EntityManager.ActivePlayer.CanAttack = true;
+
+        if(fadeTask != null && fadeTask.Running == true)
+            fadeTask.Stop();
     }
 
     public void Setup(ItemPickup parent) {

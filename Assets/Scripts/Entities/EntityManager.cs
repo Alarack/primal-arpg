@@ -6,14 +6,31 @@ using UnityEngine;
 public class EntityManager : Singleton<EntityManager> {
 
     [Header("Test Variable")]
-    public Entity testEnemyPrefab;
-    public Entity playerPrefab;
-    public Transform[] spawnPoints;
-    public int enemiesPerWave = 3;
+    //public Entity testEnemyPrefab;
+    public EntityPlayer playerPrefab;
+    public Transform playerSpawnPoint;
+    //public Transform[] spawnPoints;
+    //public int enemiesPerWave = 3;
+
+    public List<Wave> waves = new List<Wave>();
+    private int waveIndex;
 
     public static EntityPlayer ActivePlayer { get { return GetPlayer(); } }
 
-    public static Dictionary<Entity.EntityType, List<Entity>> ActiveEntities { get; private set; } = new Dictionary<Entity.EntityType, List<Entity>>(); 
+    public static Dictionary<Entity.EntityType, List<Entity>> ActiveEntities { get; private set; } = new Dictionary<Entity.EntityType, List<Entity>>();
+
+
+    private void Start() {
+        //SpawnWave();
+    }
+
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.P)) {
+            SpawnWave();
+        }
+    }
+
 
     public static void RegisterEntity(Entity target) {
         if (ActiveEntities.ContainsKey(target.entityType) == true) {
@@ -33,49 +50,111 @@ public class EntityManager : Singleton<EntityManager> {
         }
 
         if (ActiveEntities[Entity.EntityType.Enemy].Count == 0) {
-            Instance.SpawnWave();
+            //Instance.SpawnWave();
+            Debug.LogWarning("No enemies left");
         }
     }
 
     public static EntityPlayer GetPlayer() {
-        if(ActiveEntities.TryGetValue(Entity.EntityType.Player, out List<Entity> results) == true) {
+        if (ActiveEntities.TryGetValue(Entity.EntityType.Player, out List<Entity> results) == true) {
             return results[0] as EntityPlayer;
         }
 
         return null;
     }
-    //public void CreatePlayer() {
-    //    //Entity newPlayer = Instantiate(playerPrefab, Vector2.zero, Quaternion.identity);
 
-    //    PlayerController player = FindObjectOfType<PlayerController>(true);
+    public static void SpawnWave() {
 
-    //    player.gameObject.SetActive(true);
-
-    //    player.transform.position = Vector2.zero;
-
-    //    player.Stats.Refresh(StatName.Health);
-    //}
-
-    public void CreateEnemy(Vector2 spawnLocation) {
-        Entity newEnemy = Instantiate(testEnemyPrefab, spawnLocation, Quaternion.identity);
-
-    }
-
-    public void SpawnWave() {
-
-        if(spawnPoints.Length < 1) {
-            Debug.LogWarning("No spawn points in entity manager. Cannot spawn wave");
+        if(Instance.waves.Count < 1) {
+            Debug.LogError("No waves in entity manager");
             return;
         }
 
-        for (int i = 0; i < enemiesPerWave; i++) {
-            int randomIndex = Random.Range(0, spawnPoints.Length);
-            Transform targetPoint = spawnPoints[randomIndex];
-
-            CreateEnemy(targetPoint.position);
-
+        if(Instance.waveIndex >= Instance.waves.Count) {
+            Instance.waveIndex = 0;
         }
 
+        new Task(Instance.waves[Instance.waveIndex].SpawnWaveOnDelay());
+
+        Instance.waveIndex++;
+    }
+
+
+
+    public void CreatePlayer() {
+
+        if(ActivePlayer == null)
+            Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
+
+
+        new Task(OpenDefaultPanels());
+    }
+
+    private IEnumerator OpenDefaultPanels() {
+        yield return new WaitForEndOfFrame();
+
+        PanelManager.ClosePanel<InventoryPanel>();
+        PanelManager.ClosePanel<SkillsPanel>();
+        PanelManager.OpenPanel<HotbarPanel>();
+        PanelManager.OpenPanel<HUDPanel>();
+    }
+
+    //public void CreateEnemy(Vector2 spawnLocation) {
+    //    Entity newEnemy = Instantiate(testEnemyPrefab, spawnLocation, Quaternion.identity);
+
+    //}
+
+    //public void SpawnWave() {
+
+    //    if (spawnPoints.Length < 1) {
+    //        Debug.LogWarning("No spawn points in entity manager. Cannot spawn wave");
+    //        return;
+    //    }
+
+    //    for (int i = 0; i < enemiesPerWave; i++) {
+    //        int randomIndex = Random.Range(0, spawnPoints.Length);
+    //        Transform targetPoint = spawnPoints[randomIndex];
+
+    //        CreateEnemy(targetPoint.position);
+
+    //    }
+
+    //}
+
+
+    [System.Serializable]
+    public class Wave {
+
+        public float spanwDelay = 0.1f;
+        public List<WaveEntry> entries = new List<WaveEntry>();
+
+        public IEnumerator SpawnWaveOnDelay() {
+            WaitForSeconds waiter = new WaitForSeconds(spanwDelay);
+            
+            foreach (var entry in entries) {
+                for (int i = 0; i < entry.count; i++) {
+                    Vector3 randomSpawnPoint = TargetUtilities.GetViewportToWorldPoint(0.1f, 0.5f, 0.9f, 0.9f);
+
+                    EntitySpawnIndicator spawnIndicator = GameObject.Instantiate(entry.spawnIndicator, randomSpawnPoint, Quaternion.identity);
+                    spawnIndicator.Setup(entry.npcPrefab, entry.spawnVFX, entry.vfxDelay);
+                    yield return waiter;
+                    //NPC spawn = GameObject.Instantiate(entry.npcPrefab, randomSpawnPoint, Quaternion.identity);
+
+                }
+            }
+        }
+
+
+    }
+
+    [System.Serializable]
+    public class WaveEntry {
+        public NPC npcPrefab;
+        public EntitySpawnIndicator spawnIndicator;
+        public GameObject spawnVFX;
+        public int count;
+        public float vfxDelay;
+        public float weight;
     }
 
 

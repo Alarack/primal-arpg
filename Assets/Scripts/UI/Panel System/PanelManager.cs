@@ -209,6 +209,10 @@ public static class PanelManager
 
         for (int i = 0; i < blockingIds.Count; i++) {
             BasePanel panel = GetPanel(blockingIds[i]);
+
+            if (panel == null)
+                return false;
+
             if(panel.IsOpen == true)
                 return true;
         }

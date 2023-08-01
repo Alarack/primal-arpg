@@ -250,16 +250,20 @@ public static class TargetUtilities
         return modifiedForce;
     }
 
-
-
-    public static bool IsLayerInMask(LayerMask mask, int layer)
-    {
-        return mask == (mask | (1 << layer));
-    }
-
     public static Vector3 LerpByDistance(Vector3 A, Vector3 B, float distance) {
         Vector3 P = distance * Vector3.Normalize(B - A) + A;
         return P;
+    }
+
+    public static Vector3 GetViewportToWorldPoint(float xMin = 0f, float yMin = 0f, float xMax = 1f, float yMax = 1f) {
+        float randomX = Random.Range(xMin, xMax);
+        float randomY = Random.Range(yMin, yMax);
+
+        Vector2 randomVector = new Vector2(randomX, randomY);
+
+        Vector2 worldPoint = Camera.main.ViewportToWorldPoint(randomVector);
+
+        return worldPoint;
     }
 
 

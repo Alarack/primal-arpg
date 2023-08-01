@@ -5,6 +5,10 @@ using System.Linq;
 
 public class StatusManager : Singleton<StatusManager> {
 
+    //Deprecated
+
+
+
     private static Dictionary<Entity, StatusEntry> statusDictionary = new Dictionary<Entity, StatusEntry>();
 
 

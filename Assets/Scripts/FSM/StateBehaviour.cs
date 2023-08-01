@@ -78,6 +78,11 @@ namespace LL.FSM {
               
 
             for (int i = 0; i < nearbyEntities.Length; i++) {
+
+                if (nearbyEntities[i] == null) {
+                    continue;
+                }
+                
                 float distance = Vector2.Distance(brain.Owner.transform.position, nearbyEntities[i].transform.position);
 
                 if(distance < Data.minFlockDistance) {

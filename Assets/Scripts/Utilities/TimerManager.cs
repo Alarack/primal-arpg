@@ -11,6 +11,8 @@ public class TimerManager : Singleton<TimerManager> {
 
     private static List<Action> timerActions = new List<Action>();
 
+    private static List<Action> removeList = new List<Action>();
+
     private void Update() {
         UpdateTimers();
 
@@ -30,6 +32,12 @@ public class TimerManager : Singleton<TimerManager> {
 
         for (int i = timerActions.Count - 1; i >= 0; i--) {
 
+            if (removeList.Contains(timerActions[i])) {
+                removeList.Remove(timerActions[i]);
+                timerActions.RemoveAt(i);
+                continue;
+            }
+
             if (timerActions[i] == null) {
                 timerActions.RemoveAt(i);
                 continue;
@@ -46,7 +54,9 @@ public class TimerManager : Singleton<TimerManager> {
     }
 
     public static void RemoveTimerAction(Action action) {
-        timerActions.Remove(action);
+        removeList.Add(action);
+        
+        //timerActions.Remove(action);
     }
 
     public static void AddTimer(AbilityTrigger trigger, float duration, bool repeat) {

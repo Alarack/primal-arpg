@@ -939,6 +939,9 @@ public class Ability {
 
         //Debug.Log("Showing some kind of vfx");
 
+        if(Source == null)
+            yield break;
+
         GameObject activeVFX = GameObject.Instantiate(Data.windupVFX, Source.transform);
         activeVFX.transform.localPosition = Vector3.zero;
         GameObject.Destroy(activeVFX, 3f);
