@@ -1033,6 +1033,10 @@ public class Ability {
         ReceiveStartActivationInstance(null);
     }
 
+    public void NPCActivation() {
+
+    }
+
     public void ForceEndTrigger(TriggerInstance endInstance) {
         //new Task(EndAllEffectsWithDelay(endInstance));
         EndAllEffectsInstantly(endInstance);

@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 public class EntityPlayer : Entity
 {
 
+    public bool debugGodMode;
     public Inventory Inventory { get; private set; }
     //public bool CanAttack { get; set; } = true;
 
@@ -81,6 +82,11 @@ public class EntityPlayer : Entity
 
 
     protected override void Die(Entity source, Ability sourceAbility = null) {
+
+        if(debugGodMode == true) {
+            return;
+        }
+
 
         base.Die(source, sourceAbility);
 

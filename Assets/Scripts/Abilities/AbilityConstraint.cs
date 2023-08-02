@@ -312,6 +312,22 @@ public class RangeConstraint : AbilityConstraint {
             case EffectTarget.OtherEffectTarget:
                 Debug.LogWarning("Range Constraint: Other Effect target is not yet setup");
                 break;
+            case EffectTarget.CurrentAIBrainTarget:
+                NPC npc = parentAbility.Source as NPC;
+                if(npc == null) {
+                    Debug.LogError("A Range Constarint is set to Current AI Brain Target, but the source isn't an NPC: " + parentAbility.Data.abilityName);
+                    return false;
+                }
+
+                Entity sensortarget = npc.Brain.Sensor.LatestTarget;
+                if(sensortarget == null) {
+                    return false;
+                }
+
+                range = Vector2.Distance(target.transform.position, sensortarget.transform.position);
+
+
+                break;
 
             default:
                 throw new System.NotImplementedException();
@@ -320,10 +336,7 @@ public class RangeConstraint : AbilityConstraint {
 
         float maxrange = parentEffect != null ? parentEffect.Stats[StatName.EffectRange] : parentAbility.Stats[StatName.EffectRange];
 
-
         bool result = range <= maxrange /*data.maxRange*/ && range >= data.minRange;
-
-
 
         return inverse == false ? result : !result;
     }

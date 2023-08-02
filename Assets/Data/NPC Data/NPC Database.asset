@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5cae82f3a49bc4aaeb7fc6a7f3ab44, type: 3}
+  m_Name: NPC Database
+  m_EditorClassIdentifier: 
+  biomeEntries:
+  - biomeName: Grasslands
+    npcData:
+    - npcPrefab: {fileID: 9168794565821922497, guid: 4584e00d17ff5d2408de29035bd1376e, type: 3}
+      threatValue: 1
+      biome: 
+    - npcPrefab: {fileID: 6650068260157794832, guid: 8a13bdc957c175844949e580e5b5af4b, type: 3}
+      threatValue: 2
+      biome: 

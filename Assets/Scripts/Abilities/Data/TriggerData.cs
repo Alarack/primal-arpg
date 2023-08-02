@@ -35,7 +35,8 @@ public enum TriggerType {
     UnitDiedWithStatus,
     OverloadTriggered,
     ProjectileCreated,
-    AbilityInitiated
+    AbilityInitiated,
+    AIActivated
 }
 
 

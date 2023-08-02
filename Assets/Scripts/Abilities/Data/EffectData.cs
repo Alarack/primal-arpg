@@ -28,7 +28,8 @@ public enum EffectTarget {
     OtherMostRecentTarget,
     LogicSelectedAbility,
     LogicSelectedEffect,
-    CurrentValidTargets
+    CurrentValidTargets,
+    CurrentAIBrainTarget
 }
 
 public enum EffectSubTarget {

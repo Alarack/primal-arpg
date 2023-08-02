@@ -12,6 +12,12 @@ public class EntityManager : Singleton<EntityManager> {
     //public Transform[] spawnPoints;
     //public int enemiesPerWave = 3;
 
+    [Header("Default Wave Variables")]
+    public EntitySpawnIndicator spawnIndicator;
+    public GameObject spawnVFX;
+    public int count;
+    public float vfxDelay;
+
     public List<Wave> waves = new List<Wave>();
     public bool infiniteMode;
     private int waveIndex;
@@ -128,6 +134,33 @@ public class EntityManager : Singleton<EntityManager> {
     //}
 
 
+    public static List<Wave> GenerateWaves(int waveCount, string biome, float totalThreat, float minSingleThreat = 1f, float maxSingleThreat = 100f) {
+        List<Wave> results = new List<Wave>();
+
+        for (int i = 0; i < waveCount; i++) {
+            List<NPC> waveMobs = NPCDataManager.GetSpawnList(biome, totalThreat, minSingleThreat, maxSingleThreat);
+
+            Wave newWave = new Wave();
+            newWave.spanwDelay = 0.1f;
+
+            for (int j = 0; j < waveMobs.Count; j++) {
+                WaveEntry waveEntry = new WaveEntry();
+                waveEntry.spawnVFX = Instance.spawnVFX;
+                waveEntry.spawnIndicator = Instance.spawnIndicator;
+                waveEntry.npcPrefab = waveMobs[j];
+                waveEntry.vfxDelay = Instance.vfxDelay;
+                waveEntry.count = 1;
+
+                newWave.entries.Add(waveEntry);
+            }
+
+            results.Add(newWave);
+        }
+
+        return results;
+    }
+
+
     [System.Serializable]
     public class Wave {
 
@@ -160,7 +193,7 @@ public class EntityManager : Singleton<EntityManager> {
         public GameObject spawnVFX;
         public int count;
         public float vfxDelay;
-        public float weight;
+        //public float weight;
     }
 
 

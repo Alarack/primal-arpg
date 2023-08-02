@@ -150,7 +150,8 @@ namespace LL.Events {
         UnitDiedWithStatus,
         OverloadTriggered,
         ProjectileCreated,
-        AbilityInitiated
+        AbilityInitiated,
+        AIActivated
 
     }
 

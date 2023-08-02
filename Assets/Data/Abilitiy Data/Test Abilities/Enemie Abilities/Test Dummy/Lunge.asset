@@ -26,7 +26,13 @@ MonoBehaviour:
     runeAbilityTarget: 
     childAbilities: []
     tags: 
-    activationTriggerData: []
+    activationTriggerData:
+    - type: 31
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      delay1Frame: 0
+      allConstraints: []
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0

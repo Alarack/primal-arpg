@@ -391,6 +391,45 @@ public class UserActivatedTrigger : AbilityTrigger {
     }
 }
 
+public class AIActivatedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.AIActivated;
+    public override GameEvent TargetEvent => GameEvent.AIActivated;
+    public override Action<EventData> EventReceiver => OnAIActivation;
+
+    public AIActivatedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnAIActivation(EventData data) {
+
+        if (ParentAbility == null) {
+            Debug.LogError("an AI activated trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
+            return;
+        }
+
+        Ability triggeringAbility = data.GetAbility("Ability");
+
+        if (triggeringAbility != ParentAbility) {
+            return;
+        }
+
+        //if(triggeringAbility.Data.abilityName == "Test Sword Swipe") {
+        //    Debug.Log("Swipe activation recieved");
+        //}
+
+
+        TriggeringEntity = SourceEntity;
+        CauseOfTrigger = SourceEntity;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.SourceAbility = ParentAbility;
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
 public class AbilityResolvedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.AbilityResolved;

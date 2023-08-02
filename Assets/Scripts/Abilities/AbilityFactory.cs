@@ -41,6 +41,7 @@ public static class AbilityFactory {
             TriggerType.ProjectileCreated => new ProjectileCreatedTrigger(data, source, parentAbility),
             TriggerType.AbilityResolved => new AbilityResolvedTrigger(data, source, parentAbility),
             TriggerType.AbilityInitiated => new AbilityInitiatedTrigger(data, source, parentAbility),
+            TriggerType.AIActivated => new AIActivatedTrigger(data, source, parentAbility),
             _ => null,
         };
 

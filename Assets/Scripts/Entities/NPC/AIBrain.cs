@@ -1,3 +1,4 @@
+using LL.Events;
 using LL.FSM;
 using System.Collections;
 using System.Collections.Generic;
@@ -121,9 +122,17 @@ public class AIBrain : MonoBehaviour {
     public void ActivateBehaviourAbilities(StateBehaviour behaviour) {
         if(stateBehaviorAbilities.TryGetValue(behaviour, out List<Ability> behaviorAbilities) == true) {
             for (int i = 0; i < behaviorAbilities.Count; i++) {
-                behaviorAbilities[i].ForceActivate();
+                //behaviorAbilities[i].ForceActivate();
+                SendAIActivatedEvent(behaviorAbilities[i]);
             }
         }
+    }
+
+    private void SendAIActivatedEvent(Ability ability) {
+        EventData data = new EventData();
+        data.AddAbility("Ability", ability);
+
+        EventManager.SendEvent(GameEvent.AIActivated, data);
     }
 
     public void EquipBehaviourAbilities(StateBehaviour behaviour) {

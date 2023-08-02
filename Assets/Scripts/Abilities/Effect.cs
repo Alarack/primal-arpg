@@ -62,6 +62,10 @@ public abstract class Effect {
         Stats.AddStat(effectShotCount);
         Stats.AddStat(shotDelay);
         Stats.AddStat(maxTargets);
+
+        if(Data.effectName == "Sword Guy Swipe Damage") {
+            Debug.Log("Effect Range: " + Stats[StatName.EffectRange]);
+        }
     }
 
     protected void SetupTargetConstraints() {
@@ -1253,7 +1257,9 @@ public class StatAdjustmentEffect : Effect {
             StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[modData.derivedTargetStat],
             StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[modData.derivedTargetStat],
             StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[modData.derivedTargetStat],
-            StatModifierData.DeriveFromWhom.WeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll * modData.Stats[StatName.AbilityWeaponCoefficicent],
+            StatModifierData.DeriveFromWhom.WeaponDamage when Source is EntityPlayer => EntityManager.ActivePlayer.CurrentDamageRoll * modData.Stats[StatName.AbilityWeaponCoefficicent],
+            StatModifierData.DeriveFromWhom.WeaponDamage when Source is NPC => Source.Stats[StatName.AbilityWeaponCoefficicent],
+
             _ => 0f,
         };
 
@@ -1317,7 +1323,8 @@ public class StatAdjustmentEffect : Effect {
                 StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[entry.Value.targetStat],
                 StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[entry.Value.targetStat],
                 StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[entry.Value.targetStat],
-                StatModifierData.DeriveFromWhom.WeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll /** modData.Stats[StatName.AbilityWeaponCoefficicent]*/,
+                StatModifierData.DeriveFromWhom.WeaponDamage when Source is EntityPlayer => EntityManager.ActivePlayer.CurrentDamageRoll /** modData.Stats[StatName.AbilityWeaponCoefficicent]*/,
+                StatModifierData.DeriveFromWhom.WeaponDamage when Source is NPC => Source.Stats[StatName.AbilityWeaponCoefficicent],
                 _ => 0f,
             };
             
@@ -1377,7 +1384,7 @@ public class StatAdjustmentEffect : Effect {
         float globalDamageMultiplier = GetDamageModifier(activeMod);
         float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
 
-        //Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName);
+        Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName);
 
 
         if (activeMod.TargetStat == StatName.Health) {
