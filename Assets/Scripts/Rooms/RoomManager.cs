@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomManager : Singleton<RoomManager>
 {
 
+    public RewardPedestal pedestalTemplate;
 
     public static Room CurrentRoom { get; private set; }
 
@@ -12,8 +14,8 @@ public class RoomManager : Singleton<RoomManager>
 
     public static float CurrentDifficulty { get; private set; } = 5f;
 
-    private int currentRoomIndex;
-    private List<Room> roomList = new List<Room>();
+    //private int currentRoomIndex;
+    //private List<Room> roomList = new List<Room>();
 
     public static bool MultiReward { get; private set; }
     private List<RewardPedestal> currentRewards = new List<RewardPedestal>();
@@ -62,6 +64,14 @@ public class RoomManager : Singleton<RoomManager>
 
 
     #region REWARDS
+    
+    public static void CreateRewards(List<ItemDefinition> rewardItems, bool multiReward = false) {
+        MultiReward = multiReward;
+
+
+    }
+    
+    
     public static void OnRewardSelected(RewardPedestal reward) {
         
         if(MultiReward == false) {

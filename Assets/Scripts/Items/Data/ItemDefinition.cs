@@ -8,4 +8,20 @@ public class ItemDefinition : ScriptableObject
 
     public ItemData itemData;
 
+
+
+    public Item GetItemForDisplay(Entity owner) {
+
+        Item displayItem = null;
+
+        if (itemData.validSlots.Contains(ItemSlot.Weapon)) {
+            displayItem = new ItemWeapon(itemData, owner);
+        }
+        else {
+            displayItem = new Item(itemData, owner);
+        }
+
+        return displayItem;
+    }
+
 }

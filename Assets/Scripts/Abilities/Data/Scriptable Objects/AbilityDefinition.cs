@@ -8,4 +8,12 @@ public class AbilityDefinition : ScriptableObject
 
     public AbilityData AbilityData;
 
+
+
+    public Ability FetchAbilityForDisplay(Entity owner) {
+        Ability ability = AbilityFactory.CreateAbility(AbilityData, owner);
+
+        return ability;
+    }
+
 }
