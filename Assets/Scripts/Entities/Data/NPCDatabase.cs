@@ -48,11 +48,30 @@ public class NPCDatabase : ScriptableObject
                     if (entry.Key > maxIndividualThreat)
                         continue;
 
-                    filledValue += entry.Key;
-                    int randomIndex = Random.Range(0, entry.Value.Count);
-                    results.Add(entry.Value[randomIndex]);
 
-                    Debug.Log("Filled Value: " + filledValue + " : " + totalThreatLevel);
+                    if(entry.Key < maxIndividualThreat) {
+                        float reducedChance = 0.66f;
+
+                        float roll = Random.Range(0f, 1f);
+
+                        if(roll < reducedChance) {
+                            filledValue += entry.Key;
+                            int randomIndex = Random.Range(0, entry.Value.Count);
+                            results.Add(entry.Value[randomIndex]);
+
+                        }
+                    }
+                    else {
+                        filledValue += entry.Key;
+                        int randomIndex = Random.Range(0, entry.Value.Count);
+                        results.Add(entry.Value[randomIndex]);
+                    }
+
+                    //filledValue += entry.Key;
+                    //int randomIndex = Random.Range(0, entry.Value.Count);
+                    //results.Add(entry.Value[randomIndex]);
+
+                    //Debug.Log("Filled Value: " + filledValue + " : " + totalThreatLevel);
 
                     if (filledValue > totalThreatLevel)
                         break;
@@ -66,6 +85,7 @@ public class NPCDatabase : ScriptableObject
                 safetyCounter++;
 
             }
+            Debug.Log("Filled Value: " + filledValue + " : " + totalThreatLevel);
 
 
             return results;
@@ -90,7 +110,7 @@ public class NPCDatabase : ScriptableObject
     public class NPCDataEntry {
         public NPC npcPrefab;
         public float threatValue;
-        public string biome;
+        //public string biome;
     }
 
 }

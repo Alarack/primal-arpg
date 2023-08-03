@@ -19,6 +19,7 @@ public class EntityManager : Singleton<EntityManager> {
     public float vfxDelay;
 
     public List<Wave> waves = new List<Wave>();
+    public List<Wave> genearatedWaves = new List<Wave>();
     public bool infiniteMode;
     private int waveIndex;
 
@@ -29,12 +30,16 @@ public class EntityManager : Singleton<EntityManager> {
 
     private void Start() {
         //SpawnWave();
+
+        genearatedWaves = GenerateWaves(3, "Grasslands", 5, 1, 5);
     }
 
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.P)) {
-            SpawnWave();
+            //SpawnWave();
+            
+            SpawnGeneratedWave();
         }
     }
 
@@ -57,7 +62,8 @@ public class EntityManager : Singleton<EntityManager> {
         }
 
         if (ActiveEntities[Entity.EntityType.Enemy].Count == 0) {
-            SpawnWave();
+            //SpawnWave();
+            SpawnGeneratedWave();
             Debug.LogWarning("Spawning Next Wave");
         }
     }
@@ -87,6 +93,27 @@ public class EntityManager : Singleton<EntityManager> {
         }
 
         new Task(Instance.waves[Instance.waveIndex].SpawnWaveOnDelay());
+
+        Instance.waveIndex++;
+    }
+
+    public static void SpawnGeneratedWave() {
+
+        if (Instance.genearatedWaves.Count < 1) {
+            Debug.LogError("No waves in entity manager");
+            return;
+        }
+
+        if (Instance.waveIndex >= Instance.genearatedWaves.Count) {
+            if (Instance.infiniteMode == true)
+                Instance.waveIndex = 0;
+            else {
+                Debug.LogWarning("Waves Finished");
+                return;
+            }
+        }
+
+        new Task(Instance.genearatedWaves[Instance.waveIndex].SpawnWaveOnDelay());
 
         Instance.waveIndex++;
     }
@@ -138,7 +165,10 @@ public class EntityManager : Singleton<EntityManager> {
         List<Wave> results = new List<Wave>();
 
         for (int i = 0; i < waveCount; i++) {
-            List<NPC> waveMobs = NPCDataManager.GetSpawnList(biome, totalThreat, minSingleThreat, maxSingleThreat);
+
+            float waveIncrement = 1 + (i / 2f);
+            
+            List<NPC> waveMobs = NPCDataManager.GetSpawnList(biome, totalThreat * waveIncrement, minSingleThreat, maxSingleThreat);
 
             Wave newWave = new Wave();
             newWave.spanwDelay = 0.1f;

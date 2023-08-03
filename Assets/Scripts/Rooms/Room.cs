@@ -18,6 +18,8 @@ public class Room {
 
     public RoomData Data { get; protected set; }
 
+    public string roomBiome;
+
     public Room() {
 
     }
@@ -44,17 +46,23 @@ public class Room {
 
 public class EliminitionCombatRoom : Room {
 
+
+    public RoomType type => RoomType.EliminationCombat;
+
     public List<EntityManager.Wave> waves = new List<EntityManager.Wave>();
     private int waveIndex;
 
-
+    public EliminitionCombatRoom() : base() {
+        //waves = EntityManager.GenerateWaves()
+        waves = EntityManager.GenerateWaves(3, RoomManager.CurrentBiome, RoomManager.CurrentDifficulty, RoomManager.CurrentDifficulty / 5, RoomManager.CurrentDifficulty);
+    }
 
     public override void StartRoom() {
         base.StartRoom();
 
         Debug.LogWarning("Wave Starting: " + waveIndex + 1);
 
-        new Task(SpawnWave());
+        SpawnWave();
     }
 
     public override void EndRoom() {
@@ -64,17 +72,17 @@ public class EliminitionCombatRoom : Room {
     }
 
 
-    public IEnumerator SpawnWave() {
+    public void SpawnWave() {
 
         if (waves.Count < 1) {
             Debug.LogError("No waves in entity manager");
-            yield break;
+            return;
         }
 
         if (waveIndex >= waves.Count) {
             Debug.LogWarning("All waves Complete");
             EndRoom();
-            yield break;
+            return;
         }
 
         new Task(waves[waveIndex].SpawnWaveOnDelay());

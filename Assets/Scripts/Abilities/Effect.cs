@@ -1384,7 +1384,7 @@ public class StatAdjustmentEffect : Effect {
         float globalDamageMultiplier = GetDamageModifier(activeMod);
         float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
 
-        Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName);
+        //Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName);
 
 
         if (activeMod.TargetStat == StatName.Health) {

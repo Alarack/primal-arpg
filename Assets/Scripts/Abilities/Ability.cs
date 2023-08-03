@@ -629,7 +629,7 @@ public class Ability {
 
                 string scalarTooltip = adj.ScalarTooltip();
                 if (scalarTooltip == "No Scalers Found") {
-                    Debug.LogWarning("No scalers on: " + Data.abilityName);
+                    //Debug.LogWarning("No scalers on: " + Data.abilityName);
                 }
                 else {
                     builder.AppendLine();

@@ -23,6 +23,11 @@ public class ItemSpawner : Singleton<ItemSpawner>
     }
 
 
+    public static void SpawnItem(ItemDefinition item, Vector2 location) {
+        ItemPickup testPickup = Instantiate(Instance.pickupPrefab,location, Quaternion.identity);
+        testPickup.Setup(item.itemData);
+    }
+
     public static void SpawnItem(Item item, Vector2 location) {
         ItemPickup pickUp = Instantiate(Instance.pickupPrefab, location, Quaternion.identity) ;
         pickUp.Setup(item);

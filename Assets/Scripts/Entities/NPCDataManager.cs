@@ -15,7 +15,7 @@ public class NPCDataManager : Singleton<NPCDataManager>
         database.Init(this);
 
 
-        //List<NPC> testList = GetSpawnList("Grasslands", 10, 1, 2);
+        //List<NPC> testList = GetSpawnList("Grasslands", 10, 1, 5);
 
         //foreach (NPC test in testList) {
         //    Debug.Log(test.gameObject.name + " selected");
