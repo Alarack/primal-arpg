@@ -7,6 +7,10 @@ public class RoomManager : Singleton<RoomManager>
 {
 
     public RewardPedestal pedestalTemplate;
+    public Transform pedestalHolderLeft;
+    public Transform pedistalHolderRight;
+
+    public List<ItemDefinition> testRewardItems = new List<ItemDefinition>();
 
     public static Room CurrentRoom { get; private set; }
 
@@ -68,6 +72,15 @@ public class RoomManager : Singleton<RoomManager>
     public static void CreateRewards(List<ItemDefinition> rewardItems, bool multiReward = false) {
         MultiReward = multiReward;
 
+        for (int i = 0; i < rewardItems.Count; i++) {
+            Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rewardItems.Count);
+
+            RewardPedestal pedestal = Instantiate(Instance.pedestalTemplate, targetPos, Quaternion.identity);
+            pedestal.transform.SetParent(Instance.transform, false);
+            pedestal.Setup(rewardItems[i]);
+            Instance.currentRewards.Add(pedestal);
+
+        }
 
     }
     

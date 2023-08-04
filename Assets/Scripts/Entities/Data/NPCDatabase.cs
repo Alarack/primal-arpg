@@ -85,7 +85,7 @@ public class NPCDatabase : ScriptableObject
                 safetyCounter++;
 
             }
-            Debug.Log("Filled Value: " + filledValue + " : " + totalThreatLevel);
+            //Debug.Log("Filled Value: " + filledValue + " : " + totalThreatLevel);
 
 
             return results;

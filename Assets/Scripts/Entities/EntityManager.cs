@@ -136,6 +136,8 @@ public class EntityManager : Singleton<EntityManager> {
         PanelManager.ClosePanel<SkillsPanel>();
         PanelManager.OpenPanel<HotbarPanel>();
         PanelManager.OpenPanel<HUDPanel>();
+
+        RoomManager.CreateRewards(RoomManager.Instance.testRewardItems);
     }
 
     //public void CreateEnemy(Vector2 spawnLocation) {
