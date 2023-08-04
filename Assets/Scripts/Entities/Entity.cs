@@ -85,6 +85,12 @@ public abstract class Entity : MonoBehaviour {
         EventManager.RemoveMyListeners(this);
     }
 
+    protected virtual void OnCollisionEnter2D(Collision2D other) {
+
+        Debug.Log(EntityName + " Collided with: " + other.gameObject.name);
+
+    }
+
     #region ABILIITES
 
     public Ability GetAbilityByName(string name, AbilityCategory category) {

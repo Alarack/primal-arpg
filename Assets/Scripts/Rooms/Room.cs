@@ -20,6 +20,8 @@ public class Room {
 
     public string roomBiome;
 
+    public List<RoomReward> rewards = new List<RoomReward>();
+
     public Room() {
 
     }
@@ -34,6 +36,27 @@ public class Room {
 
     public virtual void EndRoom() {
         RoomManager.SpawnRoomPortals();
+    }
+
+    public virtual void SpawnRewards() {
+
+        if(rewards.Count < 1) {
+            EndRoom();
+            return;
+        }
+
+        RoomManager.CreateRewards(GetAllItemRewards());
+    }
+
+
+    protected List<ItemDefinition> GetAllItemRewards() {
+        List<ItemDefinition> results = new List<ItemDefinition>();
+        
+        for (int i = 0; i < rewards.Count; i++) {
+            results.AddRange(rewards[i].items);
+        }
+
+        return results;
     }
 
 
@@ -68,7 +91,7 @@ public class EliminitionCombatRoom : Room {
     public override void EndRoom() {
         base.EndRoom();
 
-        Debug.Log("Create Rewards for this combat elimination room");
+        
     }
 
 
@@ -81,7 +104,7 @@ public class EliminitionCombatRoom : Room {
 
         if (waveIndex >= waves.Count) {
             Debug.LogWarning("All waves Complete");
-            EndRoom();
+            SpawnRewards();
             return;
         }
 

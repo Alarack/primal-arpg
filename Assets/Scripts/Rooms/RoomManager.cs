@@ -18,8 +18,8 @@ public class RoomManager : Singleton<RoomManager>
 
     public static float CurrentDifficulty { get; private set; } = 5f;
 
-    //private int currentRoomIndex;
-    //private List<Room> roomList = new List<Room>();
+    private int currentRoomIndex;
+    private List<Room> roomList = new List<Room>();
 
     public static bool MultiReward { get; private set; }
     private List<RewardPedestal> currentRewards = new List<RewardPedestal>();
@@ -35,6 +35,10 @@ public class RoomManager : Singleton<RoomManager>
     public void OnPortalEntered(Room room) {
         CurrentRoom = room;
         EnterRoom(room);
+    }
+
+    public void OnRoomEnded(Room room) {
+
     }
 
     public static void AdjustDifficulty(float difficulty) {
@@ -100,11 +104,16 @@ public class RoomManager : Singleton<RoomManager>
             Destroy(reward.gameObject);
 
             Instance.currentRewards.Clear();
+            CurrentRoom.EndRoom();
         }
         else {
             reward.DispenseReward();
             Instance.currentRewards.Remove(reward);
             Destroy(reward.gameObject);
+
+            if(Instance.currentRewards.Count == 0) {
+                CurrentRoom.EndRoom();
+            }
         }
         
         
