@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Room {
+public abstract class Room {
     public enum RoomType {
         StartRoom,
         EliminationCombat,
@@ -14,6 +14,8 @@ public class Room {
         BossRoom,
         SecretRoom,
         TreasureRoom,
+        MiniBossRoom,
+        EventRoom
     }
 
     public RoomData Data { get; protected set; }
@@ -21,6 +23,8 @@ public class Room {
     public string roomBiome;
 
     public List<RoomReward> rewards = new List<RoomReward>();
+
+    public abstract RoomType Type { get; }
 
     public Room() {
 
@@ -30,9 +34,7 @@ public class Room {
         Data = data;
     }
 
-    public virtual void StartRoom() {
-
-    }
+    public abstract void StartRoom();
 
     public virtual void EndRoom() {
         RoomManager.SpawnRoomPortals();
@@ -59,10 +61,65 @@ public class Room {
         return results;
     }
 
+    protected void GenerateRewards(int count, ItemType type, AbilityTag tag = AbilityTag.None, ItemSlot slot = ItemSlot.None) {
+
+
+        List<ItemDefinition> results = new List<ItemDefinition>();
+
+        for (int i = 0; i < count; i++) {
+            ItemDefinition item = ItemSpawner.Instance.lootDatabase.GetItem(type, results, tag, slot);
+
+            if (item != null) {
+                results.Add(item);
+                Debug.Log(item.itemData.itemName + " has been added");
+            }
+        }
+
+        RoomReward reward = new RoomReward();
+        reward.itemCategory = type;
+        reward.items = results;
+
+        rewards.Add(reward);
+
+    }
+
 
     [System.Serializable]
     public class RoomReward {
+        
+        public enum RewardCategory {
+            ClassSkill,
+            ElementalSkill,
+            PassiveSkill,
+            Weapon,
+            Equipment,
+            SkillRune,
+            Currency,
+            ClassSelection
+        }
+
+        public RewardCategory category;
+        public ItemType itemCategory;
+        
         public List<ItemDefinition> items = new List<ItemDefinition>();
+    }
+
+}
+
+
+public class StartingRoom : Room {
+    public override RoomType Type => RoomType.StartRoom;
+
+    public StartingRoom() {
+
+        GenerateRewards(3, ItemType.ClassSelection);
+
+    }
+
+    public override void StartRoom() {
+        
+
+        SpawnRewards();
     }
 
 }
@@ -70,7 +127,7 @@ public class Room {
 public class EliminitionCombatRoom : Room {
 
 
-    public RoomType type => RoomType.EliminationCombat;
+    public override RoomType Type => RoomType.EliminationCombat;
 
     public List<EntityManager.Wave> waves = new List<EntityManager.Wave>();
     private int waveIndex;
@@ -81,8 +138,6 @@ public class EliminitionCombatRoom : Room {
     }
 
     public override void StartRoom() {
-        base.StartRoom();
-
         Debug.LogWarning("Wave Starting: " + waveIndex + 1);
 
         SpawnWave();

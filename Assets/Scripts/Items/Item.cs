@@ -40,6 +40,10 @@ public class Item
         }
 
         SetupAbilities();
+
+        if(Data.Type == ItemType.ClassSelection) {
+            Owner.SetEntityClass(Data.entityClass);
+        }
     }
 
     private void OnItemDropped(EventData data) {

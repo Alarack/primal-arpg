@@ -2,16 +2,12 @@ using LL.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.UIElements;
+
 using static AbilityTrigger;
-using static UnityEditor.Progress;
-using static UnityEngine.EventSystems.EventTrigger;
+
 using Random = UnityEngine.Random;
 
 
@@ -1229,7 +1225,13 @@ public class StatAdjustmentEffect : Effect {
 
         for (int i = 0; i < modData.Count; i++) {
 
-            results.AddRange(modData[i].GetAllScalerValues());
+            Dictionary<StatName, float> values = modData[i].GetAllScalerValues();
+
+            foreach (var entry in values) {
+                results.Add(entry.Key, entry.Value);
+            }
+
+            //results.AddRange(modData[i].GetAllScalerValues());
 
             //for (int j = 0; j < modData[i].scalers.Count; j++) {
             //    results.Add(modData[i].scalers[j].targetStat, modData[i].scalers[j].scalerStat.ModifiedValue);

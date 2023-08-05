@@ -26,7 +26,8 @@ public enum ItemType {
     Equipment,
     Rune,
     Currency,
-    Skill
+    Skill,
+    ClassSelection
 
 }
 
@@ -34,7 +35,8 @@ public enum ItemType {
 [System.Serializable]
 public class ItemData 
 {
-    public ItemType Type; 
+    public ItemType Type;
+    public Entity.EntityClass entityClass;
     public string itemName;
     public string itemDescription;
     public float itemValue;

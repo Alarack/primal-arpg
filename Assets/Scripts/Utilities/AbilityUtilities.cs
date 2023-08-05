@@ -6,10 +6,6 @@ using System.Linq;
 
 using SkillEntryLocation = SkillEntry.SkillEntryLocation;
 using GameButtonType = InputHelper.GameButtonType;
-using static UnityEngine.EventSystems.EventTrigger;
-using static UnityEngine.GraphicsBuffer;
-using System.Text;
-using static UnityEditor.FilePathAttribute;
 
 public static class AbilityUtilities {
 

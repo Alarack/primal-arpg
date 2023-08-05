@@ -93,6 +93,9 @@ MonoBehaviour:
   chainMask:
     serializedVersion: 2
     m_Bits: 256
+  projectileHitMask:
+    serializedVersion: 2
+    m_Bits: 0
   cloneSelfOnSplit: 1
   childSplitCount: 0
   splitPrefab: {fileID: 0}
@@ -187,6 +190,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 681182613052647696}
     m_Modifications:
+    - target: {fileID: 7493796543457961305, guid: 625a5893477f7b94da52aa0c2e1eb1d8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7493796544200936264, guid: 625a5893477f7b94da52aa0c2e1eb1d8, type: 3}
       propertyPath: m_Name
       value: Fire Bullet
@@ -238,8 +245,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7493796543457961311, guid: 625a5893477f7b94da52aa0c2e1eb1d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3683292891696701099}
   m_SourcePrefab: {fileID: 100100000, guid: 625a5893477f7b94da52aa0c2e1eb1d8, type: 3}
+--- !u!1 &6520576214704127262 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7493796543457961311, guid: 625a5893477f7b94da52aa0c2e1eb1d8, type: 3}
+  m_PrefabInstance: {fileID: 4432366416058931265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3683292891696701099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6520576214704127262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!4 &6520576215566635786 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7493796544200936267, guid: 625a5893477f7b94da52aa0c2e1eb1d8, type: 3}

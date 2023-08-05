@@ -5,10 +5,12 @@ using UnityEngine;
 public class ItemSpawner : Singleton<ItemSpawner>
 {
 
+    public List<ItemDefinition> classSelectionItems = new List<ItemDefinition>();
 
     public List<ItemDefinition> testItems = new List<ItemDefinition>();
 
     public ItemPickup pickupPrefab;
+    public LootDatabase lootDatabase;
 
     public static Vector2 defaultSpawnLocation = Vector2.zero;
 
@@ -19,7 +21,9 @@ public class ItemSpawner : Singleton<ItemSpawner>
             testPickup.Setup(Instance.testItems[i].itemData);
         }
 
-      
+
+        lootDatabase.InitDict();
+
     }
 
 
@@ -48,5 +52,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
         SpawnItem(newItem, location);
     }
+
+
 
 }

@@ -4,11 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Unity.VisualScripting;
-using UnityEditor.Playables;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
-using static UnityEngine.GraphicsBuffer;
+
 using TriggerInstance = AbilityTrigger.TriggerInstance;
 
 public class Ability {

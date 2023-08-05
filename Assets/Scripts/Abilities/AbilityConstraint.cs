@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Playables;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
-//using AbilityTriggerInstance = AbilityTrigger.AbilityTriggerInstance;
 
 public abstract class AbilityConstraint {
 

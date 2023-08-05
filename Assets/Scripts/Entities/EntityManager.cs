@@ -137,7 +137,32 @@ public class EntityManager : Singleton<EntityManager> {
         PanelManager.OpenPanel<HotbarPanel>();
         PanelManager.OpenPanel<HUDPanel>();
 
-        RoomManager.CreateRewards(RoomManager.Instance.testRewardItems);
+        //RoomManager.CreateRewards(RoomManager.Instance.testRewardItems);
+
+        TestingProcGenThings();
+    }
+
+
+    private void TestingProcGenThings() {
+
+        Room startingRoom = RoomManager.CreateRoom(Room.RoomType.StartRoom, 0f);
+        RoomManager.Instance.OnPortalEntered(startingRoom);
+
+
+        //List<ItemDefinition> results = new List<ItemDefinition>();
+
+        //for (int i = 0; i < 5; i++) {
+        //    ItemDefinition item = ItemSpawner.Instance.lootDatabase.GetItem(ItemType.ClassSelection, results);
+            
+        //    if(item != null) {
+        //        results.Add(item);
+        //        Debug.Log(item.itemData.itemName + " has been added");
+        //    }
+            
+        //}
+
+        
+
     }
 
     //public void CreateEnemy(Vector2 spawnLocation) {

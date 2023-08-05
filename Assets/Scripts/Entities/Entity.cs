@@ -19,12 +19,20 @@ public abstract class Entity : MonoBehaviour {
         Elemental,
     }
 
+    public enum EntityClass {
+        None,
+        SiegeMage,
+        SpellstormMage,
+        Berserker
+    }
+
     //Weapon / Ability / Skill manager
     //Health Manager
 
     public string entityName;
     public string EntityName { get { return string.IsNullOrEmpty(entityName) == false ? entityName : gameObject.name; } }
     public EntityType entityType;
+    public EntityClass CurrentClass { get; protected set; }
     public OwnerConstraintType ownerType;
     public List<EntitySubtype> subtypes = new List<EntitySubtype>();
     
@@ -106,6 +114,15 @@ public abstract class Entity : MonoBehaviour {
     }
 
     #endregion
+
+    #region ENTITY CLASS
+
+    public void SetEntityClass(EntityClass targetClass) {
+        this.CurrentClass = targetClass;
+    }
+
+    #endregion  
+
 
     #region EVENTS
 

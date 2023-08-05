@@ -55,6 +55,11 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
             case ItemType.Skill:
                 TooltipManager.Show(displayAbility.GetTooltip(), displayAbility.Data.abilityName);
                 break;
+
+            case ItemType.ClassSelection:
+                TooltipManager.Show(displayItem.Data.itemDescription, TextHelper.ColorizeText(displayItem.Data.itemName, ColorDataManager.Instance[displayItem.Data.itemName]));
+
+                break;
             default:
                 break;
         }
