@@ -40,6 +40,10 @@ public abstract class Room {
         RoomManager.SpawnRoomPortals();
     }
 
+    public virtual void OnAllEnemiesKilled() {
+
+    }
+
     public virtual void SpawnRewards() {
 
         if(rewards.Count < 1) {
@@ -134,11 +138,23 @@ public class EliminitionCombatRoom : Room {
 
     public EliminitionCombatRoom() : base() {
         //waves = EntityManager.GenerateWaves()
+
+        float roll = Random.Range(0f, 1f);
+
+        if(roll < 0.5f) {
+            GenerateRewards(3, ItemType.Skill);
+        }
+        else {
+            GenerateRewards(3, ItemType.Equipment);
+        }
+
+
+
         waves = EntityManager.GenerateWaves(3, RoomManager.CurrentBiome, RoomManager.CurrentDifficulty, RoomManager.CurrentDifficulty / 5, RoomManager.CurrentDifficulty);
     }
 
     public override void StartRoom() {
-        Debug.LogWarning("Wave Starting: " + waveIndex + 1);
+        Debug.LogWarning("Wave Starting: " + (waveIndex + 1));
 
         SpawnWave();
     }
@@ -147,6 +163,12 @@ public class EliminitionCombatRoom : Room {
         base.EndRoom();
 
         
+    }
+
+    public override void OnAllEnemiesKilled() {
+        base.OnAllEnemiesKilled();
+
+        SpawnWave();
     }
 
 

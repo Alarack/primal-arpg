@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,12 +13,8 @@ public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private Room room;
 
-    private RoomPortal portal;
-
-    public void Setup(Room room, RoomPortal portal) {
+    public void Setup(Room room) {
         this.room = room;
-        this.portal = portal;
-
         SetupDisplay();
     }
 
@@ -28,25 +26,34 @@ public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerEnter(PointerEventData eventData) {
 
+        StringBuilder builder = new StringBuilder();
 
-        Debug.Log("Room Portal mouse over");
+        string roomName = room.Type.ToString().SplitCamelCase();
 
-        //switch (displayItem.Data.Type) {
-        //    case ItemType.None:
-        //        break;
-        //    case ItemType.Equipment:
-        //        TooltipManager.Show(displayItem.GetTooltip(), TextHelper.ColorizeText(displayItem.Data.itemName, ColorDataManager.Instance["Burnt Orange"]));
-        //        break;
-        //    case ItemType.Rune:
-        //        break;
-        //    case ItemType.Currency:
-        //        break;
-        //    case ItemType.Skill:
-        //        TooltipManager.Show(displayAbility.GetTooltip(), displayAbility.Data.abilityName);
-        //        break;
-        //    default:
-        //        break;
-        //}
+        builder.Append(TextHelper.ColorizeText(roomName, Color.blue));
+
+        builder.AppendLine();
+
+        builder.AppendLine(room.rewards[0].items[0].itemData.GetItemInfo());
+
+        TooltipManager.Show(builder.ToString());
+
+        //string roomType = room.Type switch {
+        //    Room.RoomType.StartRoom => throw new System.NotImplementedException(),
+        //    Room.RoomType.EliminationCombat => throw new System.NotImplementedException(),
+        //    Room.RoomType.ItemShop => throw new System.NotImplementedException(),
+        //    Room.RoomType.SkillShop => throw new System.NotImplementedException(),
+        //    Room.RoomType.RecoveryRoom => throw new System.NotImplementedException(),
+        //    Room.RoomType.SurvivalCombat => throw new System.NotImplementedException(),
+        //    Room.RoomType.BossRoom => throw new System.NotImplementedException(),
+        //    Room.RoomType.SecretRoom => throw new System.NotImplementedException(),
+        //    Room.RoomType.TreasureRoom => throw new System.NotImplementedException(),
+        //    Room.RoomType.MiniBossRoom => throw new System.NotImplementedException(),
+        //    Room.RoomType.EventRoom => throw new System.NotImplementedException(),
+        //};
+
+
+
 
     }
 
@@ -55,7 +62,7 @@ public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        RoomManager.EnterRoom(room);
+        RoomManager.OnRoomSelected(room);
         TooltipManager.Hide();
     }
 

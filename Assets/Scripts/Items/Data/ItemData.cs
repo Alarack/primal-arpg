@@ -55,4 +55,39 @@ public class ItemData
     //public List<AbilityData> abilityData = new List<AbilityData>();
 
 
+    public string GetItemInfo() {
+
+        if(Type == ItemType.Equipment) {
+            if(validSlots.Count > 0) {
+
+                if (validSlots[0] == ItemSlot.Ring1 || validSlots[0] == ItemSlot.Ring2) {
+                    return "Ring";
+                }
+                else {
+                    return validSlots[0].ToString();
+                }
+            }
+            else {
+                Debug.LogError("An eqipment item has no valid slots");
+            }
+        }
+
+        if(Type == ItemType.Skill) {
+            for(int i = 0; i < learnableAbilities.Count; i++) {
+                if (learnableAbilities[i].AbilityData.tags.Count > 0) {
+                    string result = learnableAbilities[i].AbilityData.tags[0].ToString() + " Skill";
+                    return result;
+                }
+            }
+        }
+
+        if(Type == ItemType.Rune) {
+            return abilityDefinitions[0].AbilityData.runeAbilityTarget + " Rune";
+        }
+
+
+        return "";
+    }
+
+
 }

@@ -63,8 +63,16 @@ public class EntityManager : Singleton<EntityManager> {
 
         if (ActiveEntities[Entity.EntityType.Enemy].Count == 0) {
             //SpawnWave();
-            SpawnGeneratedWave();
-            Debug.LogWarning("Spawning Next Wave");
+            //SpawnGeneratedWave();
+            //Debug.LogWarning("Spawning Next Wave");
+
+            if(RoomManager.CurrentRoom != null) {
+               RoomManager.CurrentRoom.OnAllEnemiesKilled();
+
+            }
+
+
+
         }
     }
 

@@ -9,7 +9,7 @@ public class RoomManager : Singleton<RoomManager> {
     public Transform pedestalHolderLeft;
     public Transform pedistalHolderRight;
 
-    public List<ItemDefinition> testRewardItems = new List<ItemDefinition>();
+    public RoomPortalDisplay roomPortalTemplate;
 
     public static Room CurrentRoom { get; private set; }
 
@@ -50,6 +50,13 @@ public class RoomManager : Singleton<RoomManager> {
 
     public static void SpawnRoomPortals() {
         Debug.Log("Choose and spawn X Rooms");
+
+        Room testRoom = CreateRoom(Room.RoomType.EliminationCombat, 0f);
+        Room secondRooms = CreateRoom(Room.RoomType.EliminationCombat, 0f);
+
+        List<Room> choices = new List<Room> { testRoom, secondRooms };
+        CreateRoomPortals(choices);
+
     }
 
 
@@ -64,9 +71,6 @@ public class RoomManager : Singleton<RoomManager> {
 
             _ => CreateRandomRoom(difficultyMod),
         };
-
-
-
 
         return room;
     }
@@ -103,7 +107,7 @@ public class RoomManager : Singleton<RoomManager> {
 
         Room result = roomType switch {
             Room.RoomType.StartRoom => new StartingRoom(),
-            Room.RoomType.EliminationCombat => throw new System.NotImplementedException(),
+            Room.RoomType.EliminationCombat => new EliminitionCombatRoom(),
             Room.RoomType.ItemShop => throw new System.NotImplementedException(),
             Room.RoomType.SkillShop => throw new System.NotImplementedException(),
             Room.RoomType.RecoveryRoom => throw new System.NotImplementedException(),
@@ -122,7 +126,7 @@ public class RoomManager : Singleton<RoomManager> {
 
 
     public static void OnRoomSelected(Room room) {
-        Debug.Log("Room Selected: " + room.Data.type);
+        Debug.Log("Room Selected: " + room.Type);
 
         Instance.OnPortalEntered(room);
 
@@ -197,6 +201,18 @@ public class RoomManager : Singleton<RoomManager> {
 
         }
 
+    }
+
+    public static void CreateRoomPortals(List<Room> rooms) {
+        for (int i = 0; i < rooms.Count; i++) {
+            Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rooms.Count);
+
+            RoomPortalDisplay portal = Instantiate(Instance.roomPortalTemplate, targetPos, Quaternion.identity);
+            portal.Setup(rooms[i]);
+
+            Instance.currentPortals.Add(portal);
+
+        }
     }
 
 
