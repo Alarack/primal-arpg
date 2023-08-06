@@ -88,7 +88,7 @@ public class RoomManager : Singleton<RoomManager> {
         List<Room> choices = new List<Room>();
         foreach (ItemType type in chosenTypes) {
             Room room = CreateRoom(Room.RoomType.EliminationCombat, type);
-            Debug.Log("Creating a room.Reward: " + room.rewards[0].rewardDescription);
+            //Debug.Log("Creating a room.Reward: " + room.rewards[0].rewardDescription);
             choices.Add(room);
         }
 
@@ -230,6 +230,11 @@ public class RoomManager : Singleton<RoomManager> {
             pedestal.Setup(rewardItems[i]);
             Instance.currentRewards.Add(pedestal);
 
+        }
+
+        if(rewardItems.Count == 0) {
+            Debug.LogWarning("No rewards. Sad face");
+            CurrentRoom.EndRoom();
         }
 
     }

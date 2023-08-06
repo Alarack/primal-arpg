@@ -36,9 +36,20 @@ public class LootDatabase : ScriptableObject {
 
                     Debug.LogWarning("Checking if " + allPossibleItems[i].itemData.itemName + " is a skill");
 
-                    if(allItems[i].itemData.learnableAbilities.Count > 0) {
-                        if (EntityManager.ActivePlayer.AbilityManager.HasAbility(allItems[i].itemData.learnableAbilities[0]) == true)
+                    if(allPossibleItems[i].itemData.learnableAbilities.Count > 0) {
+                        if (EntityManager.ActivePlayer.AbilityManager.HasAbility(allPossibleItems[i].itemData.learnableAbilities[0]) == true) {
+
+                            Debug.LogWarning("Duplicate Skill Detect: " + allPossibleItems[i].itemData.learnableAbilities[0].AbilityData.abilityName);
+                            
                             continue;
+                        }
+                        else {
+                            Debug.LogWarning("Not yet seen: " + allPossibleItems[i].itemData.learnableAbilities[0].AbilityData.abilityName);
+
+                        }
+                    }
+                    else {
+                        Debug.LogWarning("No learnable abilites found on: " + allPossibleItems[i].itemData.itemName);
                     }
 
                   

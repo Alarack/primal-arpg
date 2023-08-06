@@ -131,7 +131,8 @@ public static class StatAdjustmentManager {
 
         statModAction?.Invoke(targetStat, mod);
 
-        if (mod.Source as Entity == null) {
+
+        if (mod.Source != null && mod.Source as Entity == null && mod.Source as NPC == null) {
             Debug.LogError("We're assuming all mod sources are Entities, but one is being sent in that isnt an entity");
             Debug.LogError("Souce: " + mod.Source.GetType().Name);
         }
