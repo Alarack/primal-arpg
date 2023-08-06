@@ -23,6 +23,8 @@ public class LootDatabase : ScriptableObject {
         List<ItemDefinition> allPossibleItems = dict[key];
         List<ItemDefinition> filteredList = new List<ItemDefinition>();
 
+        allPossibleItems.Shuffle();
+
         for (int i = 0; i < allPossibleItems.Count; i++) {
             if (exclusions.Contains(allPossibleItems[i])) {
                 //Debug.Log(allPossibleItems[i].itemData.itemName + " is a dupe");
@@ -39,37 +41,37 @@ public class LootDatabase : ScriptableObject {
 
     }
 
-    private ItemDefinition GetRandomItemBySlot(ItemSlot slot, List<ItemDefinition> exclusions) {
-        List<ItemDefinition> allItemsOfSlot = itemsBySlot[slot];
-        List<ItemDefinition> filteredList = new List<ItemDefinition>();
+    //private ItemDefinition GetRandomItemBySlot(ItemSlot slot, List<ItemDefinition> exclusions) {
+    //    List<ItemDefinition> allItemsOfSlot = itemsBySlot[slot];
+    //    List<ItemDefinition> filteredList = new List<ItemDefinition>();
 
-        for (int i = 0; i < allItemsOfSlot.Count; i++) {
-            if (exclusions.Contains(allItemsOfSlot[i])) {
-                continue;
-            }
-            filteredList.Add(allItemsOfSlot[i]);
-        }
+    //    for (int i = 0; i < allItemsOfSlot.Count; i++) {
+    //        if (exclusions.Contains(allItemsOfSlot[i])) {
+    //            continue;
+    //        }
+    //        filteredList.Add(allItemsOfSlot[i]);
+    //    }
 
-        if (filteredList.Count == 0)
-            return null;
+    //    if (filteredList.Count == 0)
+    //        return null;
 
-        int randomIndex = Random.Range(0, filteredList.Count);
-        return filteredList[randomIndex];
-    }
+    //    int randomIndex = Random.Range(0, filteredList.Count);
+    //    return filteredList[randomIndex];
+    //}
 
-    private ItemDefinition GetRandEquipment(List<ItemDefinition> exclusions) {
-        List<ItemDefinition> allEquipment = itemDict[ItemType.Equipment];
-        List<ItemDefinition> filteredList = new List<ItemDefinition>();
-        for (int i = 0; i < allEquipment.Count; i++) {
-            if (exclusions.Contains(allEquipment[i])) {
-                continue;
-            }
-            filteredList.Add(allEquipment[i]);
-        }
+    //private ItemDefinition GetRandEquipment(List<ItemDefinition> exclusions) {
+    //    List<ItemDefinition> allEquipment = itemDict[ItemType.Equipment];
+    //    List<ItemDefinition> filteredList = new List<ItemDefinition>();
+    //    for (int i = 0; i < allEquipment.Count; i++) {
+    //        if (exclusions.Contains(allEquipment[i])) {
+    //            continue;
+    //        }
+    //        filteredList.Add(allEquipment[i]);
+    //    }
 
-        int randomIndex = Random.Range(0, filteredList.Count);
-        return filteredList[randomIndex];
-    }
+    //    int randomIndex = Random.Range(0, filteredList.Count);
+    //    return filteredList[randomIndex];
+    //}
 
     public ItemDefinition GetItem(ItemType type, List<ItemDefinition> exclusions, AbilityTag tag = AbilityTag.None, ItemSlot slot = ItemSlot.None) {
 
@@ -87,6 +89,10 @@ public class LootDatabase : ScriptableObject {
                 //return GetRandomItemBySlot(slot, exclusions);
 
             }
+        }
+
+        if(type == ItemType.Rune) {
+            return GetRandomEquipment(itemDict, ItemType.Rune, exclusions);
         }
 
         if(type == ItemType.Skill) {

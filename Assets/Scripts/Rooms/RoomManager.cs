@@ -48,35 +48,72 @@ public class RoomManager : Singleton<RoomManager> {
         CurrentDifficulty += difficulty;
     }
 
-    public static void SpawnRoomPortals() {
+    public static void SpawnRoomPortals(int portalCount = 2) {
         Debug.Log("Choose and spawn X Rooms");
 
-        Room testRoom = CreateRoom(Room.RoomType.EliminationCombat, 0f);
-        Room secondRooms = CreateRoom(Room.RoomType.EliminationCombat, 0f);
 
-        List<Room> choices = new List<Room> { testRoom, secondRooms };
+
+
+
+        List<ItemType> rewardTypes = new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Rune};
+
+        rewardTypes.Shuffle();
+
+        List<ItemType> chosenTypes = new List<ItemType>();
+
+
+        if(portalCount > rewardTypes.Count) {
+            Debug.LogError("More portals than reward types, can't be distinct");
+        }
+
+        for (int i = 0; i < portalCount; i++) {
+            
+            if(i >= rewardTypes.Count) {
+                Debug.LogWarning("Resent count since I is creater than possible reward types");
+                i = 0;
+            }
+
+            if (chosenTypes.Count >= rewardTypes.Count) {
+                Debug.LogWarning("Clearning choosen types");
+                chosenTypes.Clear();
+            }
+
+            if (chosenTypes.Contains(rewardTypes[i])) {
+                continue;
+            }
+
+            chosenTypes.Add(rewardTypes[i]);
+        }
+
+        List<Room> choices = new List<Room>();
+        foreach (ItemType type in chosenTypes) {
+            Room room = CreateRoom(Room.RoomType.EliminationCombat, type);
+            choices.Add(room);
+        }
+
+        Debug.Log(choices.Count + " portals being made");
+
         CreateRoomPortals(choices);
 
     }
 
 
 
-    public static Room GenerateRoom(float difficultyMod = 0f) {
+    public static Room GenerateRoom(ItemType rewardType = ItemType.None, AbilityTag rewardTag = AbilityTag.None, ItemSlot rewardSlot = ItemSlot.None, float difficultyMod = 0f) {
 
 
         Room room = Instance.currentRoomIndex switch {
-            0 => CreateRoom(Room.RoomType.StartRoom, difficultyMod),
-            5 => CreateRoom(Room.RoomType.MiniBossRoom, difficultyMod),
-            10 => CreateRoom(Room.RoomType.BossRoom, difficultyMod),
+            0 => CreateRoom(Room.RoomType.StartRoom, rewardType, rewardTag, rewardSlot, difficultyMod),
+            5 => CreateRoom(Room.RoomType.MiniBossRoom, rewardType, rewardTag, rewardSlot, difficultyMod),
+            10 => CreateRoom(Room.RoomType.BossRoom, rewardType, rewardTag, rewardSlot, difficultyMod),
 
-            _ => CreateRandomRoom(difficultyMod),
+            _ => CreateRandomRoom(rewardType, rewardTag, rewardSlot, difficultyMod),
         };
 
         return room;
     }
 
-
-    public static Room CreateRandomRoom(float difficultyMod = 0f) {
+    public static Room CreateRandomRoom(ItemType rewardType = ItemType.None, AbilityTag rewardTag = AbilityTag.None, ItemSlot rewardSlot = ItemSlot.None, float difficultyMod = 0f) {
 
         Room.RoomType[] allTypes = System.Enum.GetValues(typeof(Room.RoomType)) as Room.RoomType[];
 
@@ -99,15 +136,15 @@ public class RoomManager : Singleton<RoomManager> {
 
         int randomIndex = Random.Range(0, validTypes.Count);
 
-        return CreateRoom(validTypes[randomIndex], difficultyMod);
+        return CreateRoom(validTypes[randomIndex], rewardType, rewardTag, rewardSlot, difficultyMod);
 
     }
 
-    public static Room CreateRoom(Room.RoomType roomType, float difficultyModifier) {
+    public static Room CreateRoom(Room.RoomType roomType, ItemType rewardType = ItemType.None, AbilityTag rewardTag = AbilityTag.None, ItemSlot rewardSlot = ItemSlot.None, float difficultyModifier = 0f) {
 
         Room result = roomType switch {
             Room.RoomType.StartRoom => new StartingRoom(),
-            Room.RoomType.EliminationCombat => new EliminitionCombatRoom(),
+            Room.RoomType.EliminationCombat => new EliminitionCombatRoom(rewardType, rewardTag, rewardSlot),
             Room.RoomType.ItemShop => throw new System.NotImplementedException(),
             Room.RoomType.SkillShop => throw new System.NotImplementedException(),
             Room.RoomType.RecoveryRoom => throw new System.NotImplementedException(),
@@ -123,8 +160,6 @@ public class RoomManager : Singleton<RoomManager> {
         return result;
     }
 
-
-
     public static void OnRoomSelected(Room room) {
         Debug.Log("Room Selected: " + room.Type);
 
@@ -135,11 +170,6 @@ public class RoomManager : Singleton<RoomManager> {
         }
 
         Instance.currentPortals.Clear();
-
-
-
-
-
     }
 
 

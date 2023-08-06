@@ -30,11 +30,11 @@ public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         string roomName = room.Type.ToString().SplitCamelCase();
 
-        builder.Append(TextHelper.ColorizeText(roomName, Color.blue));
+        builder.Append(TextHelper.ColorizeText(roomName, Color.cyan));
 
         builder.AppendLine();
 
-        builder.AppendLine(room.rewards[0].items[0].itemData.GetItemInfo());
+        builder.AppendLine(room.rewards[0].rewardDescription/*items[0].itemData.GetItemInfo()*/);
 
         TooltipManager.Show(builder.ToString());
 

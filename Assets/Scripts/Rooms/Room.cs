@@ -83,9 +83,41 @@ public abstract class Room {
         reward.itemCategory = type;
         reward.items = results;
 
+        SetRewardDescriptons(reward, type, tag, slot);
+
         rewards.Add(reward);
 
     }
+
+    private void SetRewardDescriptons(RoomReward reward, ItemType type, AbilityTag tag, ItemSlot slot) {
+
+        string result = type switch {
+            ItemType.None => throw new System.NotImplementedException(),
+            ItemType.Equipment when slot != ItemSlot.None => slot.ToString().Replace("1", ""), //SetEquipmentRewardDescriptions(reward, slot),
+            ItemType.Equipment when slot == ItemSlot.None => "Random Equipment",
+            ItemType.Rune => reward.items[0].itemData.runeAbilityTarget + " Rune",
+            ItemType.Currency => "Gold",
+            ItemType.Skill when tag != AbilityTag.None => tag + " Skill", //SetSkillRewardDescription(reward, tag),
+            ItemType.Skill when tag == AbilityTag.None => "Random Skill",
+            ItemType.ClassSelection => "",
+            _ => throw new System.NotImplementedException(),
+        };
+
+        reward.rewardDescription = result;
+    }
+
+    private string SetSkillRewardDescription(RoomReward reward, AbilityTag tag) {
+
+        return tag + " Skill";
+
+    }
+
+    private string SetEquipmentRewardDescriptions(RoomReward reward, ItemSlot slot) {
+
+        return slot.ToString().Replace("1", "");
+    }
+
+
 
 
     [System.Serializable]
@@ -102,7 +134,8 @@ public abstract class Room {
             ClassSelection
         }
 
-        public RewardCategory category;
+        public RewardCategory rewardCategory;
+        public string rewardDescription;
         public ItemType itemCategory;
         
         public List<ItemDefinition> items = new List<ItemDefinition>();
@@ -136,17 +169,36 @@ public class EliminitionCombatRoom : Room {
     public List<EntityManager.Wave> waves = new List<EntityManager.Wave>();
     private int waveIndex;
 
-    public EliminitionCombatRoom() : base() {
+    public EliminitionCombatRoom(ItemType rewardType, AbilityTag rewardTag, ItemSlot rewardSlot) : base() {
         //waves = EntityManager.GenerateWaves()
 
-        float roll = Random.Range(0f, 1f);
+        GenerateRewards(3, rewardType, rewardTag, rewardSlot);
 
-        if(roll < 0.5f) {
-            GenerateRewards(3, ItemType.Skill);
-        }
-        else {
-            GenerateRewards(3, ItemType.Equipment);
-        }
+
+        //float roll = Random.Range(0f, 1f);
+
+        //if(roll < 0.5f) {
+        //    GenerateRewards(3,rewardType);
+        //}
+        //else {
+        //    GenerateRewards(3, ItemType.Equipment);
+        //}
+
+
+        //List<ItemType> rewardTypes = new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Rune};
+
+        //List<ItemType> chosenTypes = new List<ItemType>();
+
+        //for (int i = 0; i < 2; i++) {
+        //    int randomIndex = Random.Range(0, rewardTypes.Count);
+
+        //    if (chosenTypes.Contains(rewardTypes[randomIndex])) {
+        //        continue;
+        //    }
+
+        //    chosenTypes.Add(rewardTypes[randomIndex]);
+        //}
+
 
 
 
