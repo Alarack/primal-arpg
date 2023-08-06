@@ -30,6 +30,21 @@ public class LootDatabase : ScriptableObject {
                 //Debug.Log(allPossibleItems[i].itemData.itemName + " is a dupe");
                 continue;
             }
+
+            if (GameManager.AllowDuiplicatSkills == false ) {
+                if(allPossibleItems[i].itemData.Type == ItemType.Skill) {
+
+                    Debug.LogWarning("Checking if " + allPossibleItems[i].itemData.itemName + " is a skill");
+
+                    if(allItems[i].itemData.learnableAbilities.Count > 0) {
+                        if (EntityManager.ActivePlayer.AbilityManager.HasAbility(allItems[i].itemData.learnableAbilities[0]) == true)
+                            continue;
+                    }
+
+                  
+                }
+            }
+
             filteredList.Add(allPossibleItems[i]);
         }
 

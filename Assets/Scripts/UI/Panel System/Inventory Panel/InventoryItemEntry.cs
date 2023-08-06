@@ -27,6 +27,9 @@ public class InventoryItemEntry : InventoryBaseEntry {
     protected override void OnItemEquipped(EventData data) {
         Item item = data.GetItem("Item");
 
+
+        //Debug.Log("A Slot: " + slot + " has detected an equip for: " + item.Data.itemName + ".  Current Slot: " + item.CurrentSlot);
+
         if (item.CurrentSlot == slot) {
             Add(item);
         }

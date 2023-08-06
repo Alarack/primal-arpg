@@ -70,6 +70,16 @@ public class Inventory : MonoBehaviour {
         return ownedItems.Contains(item);
     }
 
+    public bool ItemOwned(ItemDefinition item) {
+        for (int i = 0; i < ownedItems.Count; i++) {
+            if (ownedItems[i].Data.itemName == item.itemData.itemName) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void Add(Item item) {
         if (ownedItems.AddUnique(item) == false) {
             Debug.LogWarning("An item: " + item.Data.itemName + " was added to " + Owner.EntityName + "'s inventory, but it was already there");
@@ -81,6 +91,18 @@ public class Inventory : MonoBehaviour {
         data.AddItem("Item", item);
 
         EventManager.SendEvent(GameEvent.ItemAquired, data);
+
+
+        if(item.Data.Type == ItemType.Equipment) {
+            Item existingItem = GetItemInSlot(item.Data.validSlots[0]);
+
+            if (existingItem == null) {
+                EquipItemToSlot(item, item.Data.validSlots[0]);
+            }
+        }
+
+       
+
     }
 
     public void Remove(Item item) {
@@ -152,6 +174,8 @@ public class Inventory : MonoBehaviour {
         if (existingItem != null && existingItem != item) {
             UnEquipItem(existingItem);
         }
+
+        //Debug.Log("Equipping: " + item.Data.itemName);
 
         equippedItems[slot] = item;
         item.Equip(slot);

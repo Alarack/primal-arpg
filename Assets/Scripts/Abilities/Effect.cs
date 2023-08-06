@@ -59,9 +59,9 @@ public abstract class Effect {
         Stats.AddStat(shotDelay);
         Stats.AddStat(maxTargets);
 
-        if(Data.effectName == "Sword Guy Swipe Damage") {
-            Debug.Log("Effect Range: " + Stats[StatName.EffectRange]);
-        }
+        //if(Data.effectName == "Sword Guy Swipe Damage") {
+        //    Debug.Log("Effect Range: " + Stats[StatName.EffectRange]);
+        //}
     }
 
     protected void SetupTargetConstraints() {

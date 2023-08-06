@@ -27,9 +27,16 @@ public class ItemSpawner : Singleton<ItemSpawner>
     }
 
 
-    public static void SpawnItem(ItemDefinition item, Vector2 location) {
-        ItemPickup testPickup = Instantiate(Instance.pickupPrefab,location, Quaternion.identity);
-        testPickup.Setup(item.itemData);
+    public static void SpawnItem(ItemDefinition item, Vector2 location, bool autoPickup = false) {
+        
+        if(autoPickup == false) {
+            ItemPickup testPickup = Instantiate(Instance.pickupPrefab, location, Quaternion.identity);
+            testPickup.Setup(item.itemData);
+        }
+        else {
+            EntityManager.ActivePlayer.Inventory.Add(ItemFactory.CreateItem(item));
+        }
+
     }
 
     public static void SpawnItem(Item item, Vector2 location) {
@@ -38,16 +45,16 @@ public class ItemSpawner : Singleton<ItemSpawner>
     }
 
     public static void SpawnItem(ItemData itemData, Vector2 location) {
-        Item newItem = null;
+        Item newItem = ItemFactory.CreateItem(itemData);
 
 
-        if (itemData.validSlots.Contains(ItemSlot.Weapon)) {
-            newItem = new ItemWeapon(itemData, null);
-        }
-        else {
-            newItem = new Item(itemData, null);
+        //if (itemData.validSlots.Contains(ItemSlot.Weapon)) {
+        //    newItem = new ItemWeapon(itemData, null);
+        //}
+        //else {
+        //    newItem = new Item(itemData, null);
 
-        }
+        //}
 
 
         SpawnItem(newItem, location);

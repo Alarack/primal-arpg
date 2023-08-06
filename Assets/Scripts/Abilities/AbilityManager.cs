@@ -251,6 +251,12 @@ public class AbilityManager : MonoBehaviour
         targetAbility.ForceActivate();
     }
 
+    public bool HasAbility(AbilityDefinition ability) {
+        Ability target = GetAbilityByName(ability.AbilityData.abilityName, AbilityCategory.Any);
+
+        return target != null;
+    }
+
     #endregion
 
 }

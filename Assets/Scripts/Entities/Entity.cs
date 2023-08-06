@@ -95,7 +95,7 @@ public abstract class Entity : MonoBehaviour {
 
     protected virtual void OnCollisionEnter2D(Collision2D other) {
 
-        Debug.Log(EntityName + " Collided with: " + other.gameObject.name);
+        //Debug.Log(EntityName + " Collided with: " + other.gameObject.name);
 
     }
 

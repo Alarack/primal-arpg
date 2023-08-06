@@ -2002,6 +2002,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1613734633}
   - {fileID: 1963740970}
   - {fileID: 1498781853}
   - {fileID: 694762625}
@@ -13437,6 +13438,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1613734632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1613734633}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1613734633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613734632}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 831586246}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1663997554
 GameObject:
   m_ObjectHideFlags: 0
@@ -14233,21 +14265,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 887f025240c0f0c4085260a445586676, type: 2}
   - {fileID: 11400000, guid: 46324e51e9dcc1245bc2cbfd8b59bf8d, type: 2}
   testItems:
-  - {fileID: 11400000, guid: 997cb15959bb0714bb46746517ee8880, type: 2}
   - {fileID: 11400000, guid: fe638d5d46de76f4f91b34c62a14d976, type: 2}
-  - {fileID: 11400000, guid: 2065b63fcc389c540ad375a965db673a, type: 2}
-  - {fileID: 11400000, guid: 70028fce5f42abc4da812989392651aa, type: 2}
-  - {fileID: 11400000, guid: c04738adbdde4534a8f6feac1970b307, type: 2}
-  - {fileID: 11400000, guid: ec85753f22ac53e4cb4125485483bd0a, type: 2}
-  - {fileID: 11400000, guid: 70028fce5f42abc4da812989392651aa, type: 2}
-  - {fileID: 11400000, guid: 891329b4230a5914c925ec079260353f, type: 2}
-  - {fileID: 11400000, guid: 04feda5733c0a544686bd4e8628bcf6f, type: 2}
-  - {fileID: 11400000, guid: 8879919c1be56d84381846e35a7db5d0, type: 2}
-  - {fileID: 11400000, guid: 491c52192d824e8418b897335f62dcb3, type: 2}
-  - {fileID: 11400000, guid: 6fe4228cea425ac4e94631392b6d28ce, type: 2}
-  - {fileID: 11400000, guid: 6fe4228cea425ac4e94631392b6d28ce, type: 2}
-  - {fileID: 11400000, guid: 7d888087fe5659c45ae46a5ba0cdbd54, type: 2}
-  - {fileID: 11400000, guid: efeaa8df64353334fbd3d95ed16a8141, type: 2}
   pickupPrefab: {fileID: 777966188710461411, guid: 8809ef3536d1e574e9eccf68d35e5f08, type: 3}
   lootDatabase: {fileID: 11400000, guid: b2794aee399c25c40bf57702d372328e, type: 2}
 --- !u!1 &2056078744

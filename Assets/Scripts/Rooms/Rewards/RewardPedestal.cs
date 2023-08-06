@@ -24,7 +24,7 @@ public class RewardPedestal : MonoBehaviour
 
 
     public void DispenseReward() {
-        ItemSpawner.SpawnItem(rewardItem, transform.position);
+        ItemSpawner.SpawnItem(rewardItem, transform.position, true);
     }
 
 }

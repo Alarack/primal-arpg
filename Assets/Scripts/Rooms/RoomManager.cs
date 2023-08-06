@@ -49,7 +49,7 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     public static void SpawnRoomPortals(int portalCount = 2) {
-        Debug.Log("Choose and spawn X Rooms");
+        //Debug.Log("Choose and spawn X Rooms");
 
 
 
@@ -69,7 +69,7 @@ public class RoomManager : Singleton<RoomManager> {
         for (int i = 0; i < portalCount; i++) {
             
             if(i >= rewardTypes.Count) {
-                Debug.LogWarning("Resent count since I is creater than possible reward types");
+                Debug.LogWarning("Resent count since i is creater than possible reward types");
                 i = 0;
             }
 
@@ -88,10 +88,11 @@ public class RoomManager : Singleton<RoomManager> {
         List<Room> choices = new List<Room>();
         foreach (ItemType type in chosenTypes) {
             Room room = CreateRoom(Room.RoomType.EliminationCombat, type);
+            Debug.Log("Creating a room.Reward: " + room.rewards[0].rewardDescription);
             choices.Add(room);
         }
 
-        Debug.Log(choices.Count + " portals being made");
+
 
         CreateRoomPortals(choices);
 

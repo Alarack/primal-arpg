@@ -133,6 +133,7 @@ public static class StatAdjustmentManager {
 
         if (mod.Source as Entity == null) {
             Debug.LogError("We're assuming all mod sources are Entities, but one is being sent in that isnt an entity");
+            Debug.LogError("Souce: " + mod.Source.GetType().Name);
         }
 
         SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value);

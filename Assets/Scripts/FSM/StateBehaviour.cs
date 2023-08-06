@@ -72,7 +72,7 @@ namespace LL.FSM {
         public override void Execute() {
 
             if (nearbyEntities == null || nearbyEntities.Length < 1) {
-                Debug.Log("Nothing nearby");
+                //Debug.Log("Nothing nearby");
                 return;
             }
               

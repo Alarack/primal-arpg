@@ -42,13 +42,16 @@ public class ItemPickup : MonoBehaviour
 
     public virtual void Setup(ItemData itemData) {
 
-        if (itemData.validSlots.Contains(ItemSlot.Weapon)) {
-            Item = new ItemWeapon(itemData, null);
-        }
-        else {
-            Item = new Item(itemData, null);
+        Item = ItemFactory.CreateItem(itemData);
+
+
+        //if (itemData.validSlots.Contains(ItemSlot.Weapon)) {
+        //    Item = new ItemWeapon(itemData, null);
+        //}
+        //else {
+        //    Item = new Item(itemData, null);
             
-        }
+        //}
 
         Setup(Item);
     }

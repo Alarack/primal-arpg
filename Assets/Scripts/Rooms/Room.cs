@@ -75,7 +75,7 @@ public abstract class Room {
 
             if (item != null) {
                 results.Add(item);
-                Debug.Log(item.itemData.itemName + " has been added");
+                //Debug.Log(item.itemData.itemName + " has been added");
             }
         }
 

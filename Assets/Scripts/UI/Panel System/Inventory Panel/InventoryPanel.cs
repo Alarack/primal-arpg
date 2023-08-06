@@ -33,6 +33,7 @@ public class InventoryPanel : BasePanel {
         base.OnEnable();
         EventManager.RegisterListener(GameEvent.ItemAquired, OnItemAquired);
         EventManager.RegisterListener(GameEvent.ItemUnequipped, OnItemUnequipped);
+        EventManager.RegisterListener(GameEvent.ItemEquipped, OnItemEquipped);
         EventManager.RegisterListener(GameEvent.UnitStatAdjusted, OnStatChanged);
     }
     protected override void OnDisable() {
@@ -126,7 +127,16 @@ public class InventoryPanel : BasePanel {
     }
 
     private void OnItemEquipped(EventData data) {
+        Item item = data.GetItem("Item");
 
+        if (item == null)
+            return;
+
+        if (EntityManager.ActivePlayer.Inventory.ItemOwned(item) == true) {
+
+            if (item.Data.Type == ItemType.Equipment)
+                GetPaperDollSlot(item.CurrentSlot).Add(item);
+        }
     }
 
     private void OnItemUnequipped(EventData data) {
@@ -154,6 +164,15 @@ public class InventoryPanel : BasePanel {
             }
         }
 
+        return null;
+    }
+
+    private InventoryItemEntry GetPaperDollSlot(ItemSlot slot) {
+        for (int i = 0; i < paperDollEntries.Count; i++) {
+            if (paperDollEntries[i].slot == slot) {
+                return paperDollEntries[i];
+            }
+        }
         return null;
     }
 
