@@ -40,8 +40,8 @@ public class RoomManager : Singleton<RoomManager> {
         EnterRoom(room);
     }
 
-    public void OnRoomEnded(Room room) {
-
+    public static void OnRoomEnded(Room room) {
+        AdjustDifficulty(1f);
     }
 
     public static void AdjustDifficulty(float difficulty) {
@@ -61,9 +61,6 @@ public class RoomManager : Singleton<RoomManager> {
 
         List<ItemType> chosenTypes = new List<ItemType>();
 
-        if(Instance.currentRoomIndex <= 6) {
-            chosenTypes.Add(ItemType.Skill);
-        }
 
         if(portalCount > rewardTypes.Count) {
             Debug.LogError("More portals than reward types, can't be distinct");
@@ -93,6 +90,13 @@ public class RoomManager : Singleton<RoomManager> {
             Room room = CreateRoom(Room.RoomType.EliminationCombat, type);
             //Debug.Log("Creating a room.Reward: " + room.rewards[0].rewardDescription);
             choices.Add(room);
+        }
+
+
+        if (Instance.currentRoomIndex <= 6) {
+            if(chosenTypes.Contains(ItemType.Skill) == false) {
+                choices[0] = CreateRoom(Room.RoomType.EliminationCombat, ItemType.Skill);
+            }
         }
 
 

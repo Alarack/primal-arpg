@@ -17,19 +17,25 @@ MonoBehaviour:
     abilityIcon: {fileID: 21300000, guid: 2171199f529756242b151914e1e1d941, type: 3}
     abilityName: Swiftness
     abilityDescription: 
+    resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     includeEffectsInTooltip: 0
+    ignoreTooltip: 0
     runeAbilityTarget: 
+    childAbilities: []
     tags: 
     activationTriggerData:
     - type: 21
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      delay1Frame: 0
       allConstraints:
       - focus: 2
+        constraintData: []
+      - focus: 5
         constraintData:
         - type: 7
           inverse: 0
@@ -37,7 +43,6 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
-          targetTag: 0
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -65,11 +70,16 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
     endTriggerData:
     - type: 22
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      delay1Frame: 0
       allConstraints:
       - focus: 2
         constraintData:
@@ -79,7 +89,6 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
-          targetTag: 0
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -107,6 +116,10 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -114,6 +127,7 @@ MonoBehaviour:
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        delay1Frame: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -126,6 +140,7 @@ MonoBehaviour:
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        delay1Frame: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -136,4 +151,6 @@ MonoBehaviour:
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
+    windupVFX: {fileID: 0}
+    abilityStatData: []
     recoveryData: []

@@ -37,6 +37,7 @@ public abstract class Room {
     public abstract void StartRoom();
 
     public virtual void EndRoom() {
+        RoomManager.OnRoomEnded(this);
         RoomManager.SpawnRoomPortals();
     }
 

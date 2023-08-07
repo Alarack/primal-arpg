@@ -215,7 +215,11 @@ public class SourceOnlyConstraint : AbilityConstraint {
 
         bool result = ability == triggerInstance.SourceAbility;
 
-        //Debug.Log("Testing: " + ability.Data.abilityName + " against " + triggerInstance.sourceAbility.Data.abilityName + ". Result: " + result);
+        //if(ability.Data.abilityName == "Swiftness") {
+        //    Debug.Log("Testing: " + ability.Data.abilityName + " against " + triggerInstance.SourceAbility.Data.abilityName + ". Result: " + result);
+
+        //}
+
 
         return inverse == false ? result : !result;
 

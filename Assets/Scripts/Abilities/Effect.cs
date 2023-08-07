@@ -1415,6 +1415,7 @@ public class StatAdjustmentEffect : Effect {
                 TrackAbilityStatAdjustment(target, activeMod);
             }
             StatAdjustmentManager.AddAbilityModifier(target, activeMod);
+            //Debug.Log("Applying a : " + modData[i].targetStat + " mod to " + target.Data.abilityName);
         }
 
         return true;

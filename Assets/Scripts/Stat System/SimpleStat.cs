@@ -94,6 +94,12 @@ public class SimpleStat : BaseStat
         lastModifiedValue = result;
         isDirty = setDirty;
 
+
+        //if(Name == StatName.Cooldown) {
+        //    Debug.Log(modDictionary.Count + " mods found");
+        //    Debug.Log("Cooldown: " + lastModifiedValue);
+        //}
+
         return MathF.Round(result, 2);
     }
 
