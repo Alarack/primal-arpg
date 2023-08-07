@@ -93,6 +93,32 @@ namespace LL.FSM {
         }
     }
 
+    public class StrafeBehaviour : StateBehaviour {
+
+        public override StateBehaviourType Type => StateBehaviourType.Strafe;
+
+        private bool hasTarget;
+
+        public StrafeBehaviour(StateBehaviourData data, AIBrain brain, AISensor seonsor) : base(data, brain, seonsor) {
+
+        }
+
+        public override void ManagedUpdate() {
+            base.ManagedUpdate();
+
+            hasTarget = brain.GetLatestSensorTarget();
+        }
+
+        public override void Execute() {
+
+            if (hasTarget == false)
+                return;
+
+            
+                brain.Movement.StrafeTarget();
+        }
+    }
+
     public class FleeBehaviour : StateBehaviour {
 
         public override StateBehaviourType Type => StateBehaviourType.Flee;

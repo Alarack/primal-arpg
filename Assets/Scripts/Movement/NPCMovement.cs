@@ -57,6 +57,20 @@ public class NPCMovement : EntityMovement
         ApplyMovement(location, -1f * speedModifier);
     }
 
+    public void MovePerpendicularToPointClockwise(Vector2 location, float speedModifier = 1f) {
+        ApplyPerpendicularMovement(location, speedModifier);
+    }
+
+    public void MovePerpendicularToPointAntiClockwise(Vector2 location, float speedModifier = 1f) {
+        ApplyPerpendicularMovement(location, -1 * speedModifier);
+    }
+
+    public void StrafeTarget() {
+        if (currentTarget == null)
+            return;
+
+        MovePerpendicularToPointClockwise(currentTarget.transform.position);
+    }
 
     public void MoveAwayFromTarget() {
         if (currentTarget == null)
@@ -82,6 +96,19 @@ public class NPCMovement : EntityMovement
         Vector2 moveForce = direction.normalized * Owner.Stats[StatName.MoveSpeed] * Time.fixedDeltaTime;
 
         return moveForce;
+    }
+
+    public Vector2 PerpendicularMovement(Vector2 location) {
+        Vector2 direction = location - (Vector2)transform.position;
+        Vector2 perp = Vector2.Perpendicular(direction);
+        Vector2 moveForce = perp.normalized * Owner.Stats[StatName.MoveSpeed] * Time.fixedDeltaTime;
+
+        return moveForce;
+    }
+
+    private void ApplyPerpendicularMovement(Vector2 location, float modifer = 1f) {
+        Vector2 desiredForce = PerpendicularMovement(location) * modifer;
+        MyBody.AddForce(desiredForce, ForceMode2D.Force);
     }
 
     private void ApplyMovement(Vector2 location, float modifier = 1f) {

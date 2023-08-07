@@ -15,7 +15,8 @@ namespace LL.FSM {
         Wait,
         SpawnObject,
         AbilityContainer,
-        AntiFlock
+        AntiFlock,
+        Strafe
     }
 
 
