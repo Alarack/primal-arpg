@@ -132,12 +132,18 @@ public static class StatAdjustmentManager {
         statModAction?.Invoke(targetStat, mod);
 
 
-        if (mod.Source != null && mod.Source as Entity == null && mod.Source as NPC == null) {
+        try {
+            SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value);
+            //string name = ((Entity)mod.Source).EntityName;
+            //Debug.Log("Source: " +  name);
+        }
+        catch (System.Exception e) {
+            Debug.LogError(e.Message);
             Debug.LogError("We're assuming all mod sources are Entities, but one is being sent in that isnt an entity");
             Debug.LogError("Souce: " + mod.Source.GetType().Name);
         }
 
-        SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value);
+        //SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value);
 
         return mod.Value;
 
