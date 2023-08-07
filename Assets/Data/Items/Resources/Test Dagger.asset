@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     Type: 1
+    entityClass: 0
     itemName: Slick Stabber
     itemDescription: yeah it's my stabber, wanna fight about it?
     itemValue: 20000
@@ -23,7 +24,7 @@ MonoBehaviour:
     pickupIcon: {fileID: 21300000, guid: ad707d068f921cf4fa9a434485190873, type: 3}
     pickupOnCollision: 1
     minDamage: 5
-    maxDamage: 10
+    maxDamage: 7
     statModifierData:
     - targetStat: 25
       value: 0.15
@@ -31,10 +32,12 @@ MonoBehaviour:
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 0
+      deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
       otherTargetAbility: 
       otherTagetEffect: 
+      scalers: []
     abilityDefinitions: []
     learnableAbilities: []

@@ -32,6 +32,7 @@ MonoBehaviour:
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      delay1Frame: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -70,6 +71,8 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
       - focus: 4
         constraintData:
         - type: 7
@@ -107,6 +110,8 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -115,6 +120,7 @@ MonoBehaviour:
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        delay1Frame: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -127,6 +133,7 @@ MonoBehaviour:
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        delay1Frame: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -141,7 +148,7 @@ MonoBehaviour:
     abilityStatData:
     - variant: 0
       statName: 25
-      value: 0.45
+      value: 0.05
       maxValue: 0
       minValue: 0
     recoveryData:
@@ -154,6 +161,7 @@ MonoBehaviour:
           riderAbilityName: 
           riderEffectName: 
           triggerTimerDuration: 0
+          delay1Frame: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0

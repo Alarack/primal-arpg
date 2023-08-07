@@ -44,14 +44,14 @@ public abstract class Room {
 
     }
 
-    public virtual void SpawnRewards() {
+    public virtual void SpawnRewards(string displayText) {
 
         if(rewards.Count < 1) {
             EndRoom();
             return;
         }
 
-        RoomManager.CreateRewards(GetAllItemRewards());
+        RoomManager.CreateRewards(GetAllItemRewards(), displayText);
     }
 
 
@@ -95,7 +95,7 @@ public abstract class Room {
             ItemType.None => throw new System.NotImplementedException(),
             ItemType.Equipment when slot != ItemSlot.None => slot.ToString().Replace("1", ""), //SetEquipmentRewardDescriptions(reward, slot),
             ItemType.Equipment when slot == ItemSlot.None => "Random Equipment",
-            ItemType.Rune => reward.items[0].itemData.runeAbilityTarget + " Rune",
+            ItemType.Rune => "Skill Rune",
             ItemType.Currency => "Gold",
             ItemType.Skill when tag != AbilityTag.None => tag + " Skill", //SetSkillRewardDescription(reward, tag),
             ItemType.Skill when tag == AbilityTag.None => "Random Skill",
@@ -156,7 +156,7 @@ public class StartingRoom : Room {
     public override void StartRoom() {
         
 
-        SpawnRewards();
+        SpawnRewards("Choose a Class");
     }
 
 }
@@ -174,39 +174,11 @@ public class EliminitionCombatRoom : Room {
 
         GenerateRewards(3, rewardType, rewardTag, rewardSlot);
 
-
-        //float roll = Random.Range(0f, 1f);
-
-        //if(roll < 0.5f) {
-        //    GenerateRewards(3,rewardType);
-        //}
-        //else {
-        //    GenerateRewards(3, ItemType.Equipment);
-        //}
-
-
-        //List<ItemType> rewardTypes = new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Rune};
-
-        //List<ItemType> chosenTypes = new List<ItemType>();
-
-        //for (int i = 0; i < 2; i++) {
-        //    int randomIndex = Random.Range(0, rewardTypes.Count);
-
-        //    if (chosenTypes.Contains(rewardTypes[randomIndex])) {
-        //        continue;
-        //    }
-
-        //    chosenTypes.Add(rewardTypes[randomIndex]);
-        //}
-
-
-
-
         waves = EntityManager.GenerateWaves(3, RoomManager.CurrentBiome, RoomManager.CurrentDifficulty, RoomManager.CurrentDifficulty / 5, RoomManager.CurrentDifficulty);
     }
 
     public override void StartRoom() {
-        Debug.LogWarning("Wave Starting: " + (waveIndex + 1));
+        //Debug.LogWarning("Wave Starting: " + (waveIndex + 1));
 
         SpawnWave();
     }
@@ -233,7 +205,7 @@ public class EliminitionCombatRoom : Room {
 
         if (waveIndex >= waves.Count) {
             Debug.LogWarning("All waves Complete");
-            SpawnRewards();
+            SpawnRewards("Choose a Reward");
             return;
         }
 

@@ -93,6 +93,9 @@ MonoBehaviour:
   chainMask:
     serializedVersion: 2
     m_Bits: 0
+  projectileHitMask:
+    serializedVersion: 2
+    m_Bits: 0
   cloneSelfOnSplit: 0
   childSplitCount: 0
   splitPrefab: {fileID: 0}
@@ -233,6 +236,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 436470, guid: 31f9fcfbbcecdd24caf0eb7857420dcd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8277778, guid: 31f9fcfbbcecdd24caf0eb7857420dcd, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19857014, guid: 31f9fcfbbcecdd24caf0eb7857420dcd, type: 3}

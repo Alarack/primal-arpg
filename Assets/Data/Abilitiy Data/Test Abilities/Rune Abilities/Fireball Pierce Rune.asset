@@ -16,24 +16,29 @@ MonoBehaviour:
     category: 3
     abilityIcon: {fileID: 21300000, guid: c24feb1b063fc634795f6a1aa5240f7b, type: 3}
     abilityName: Piercing Flames
-    abilityDescription: Fireball now Pierces
+    abilityDescription: 
+    resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     includeEffectsInTooltip: 0
+    ignoreTooltip: 0
     runeAbilityTarget: Test Fireball
+    childAbilities: []
     tags: 
     activationTriggerData:
     - type: 17
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      delay1Frame: 0
       allConstraints: []
     endTriggerData:
     - type: 18
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      delay1Frame: 0
       allConstraints: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -42,6 +47,7 @@ MonoBehaviour:
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        delay1Frame: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -54,6 +60,7 @@ MonoBehaviour:
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        delay1Frame: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -64,4 +71,6 @@ MonoBehaviour:
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
+    windupVFX: {fileID: 0}
+    abilityStatData: []
     recoveryData: []

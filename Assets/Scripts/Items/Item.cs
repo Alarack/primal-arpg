@@ -17,7 +17,7 @@ public class Item
     protected List<StatModifier> activeMods = new List<StatModifier>();
     protected List<StatModifierData> modData = new List<StatModifierData>();
 
-    public Item(ItemData data, Entity owner) {
+    public Item(ItemData data, Entity owner, bool display = false) {
         this.Data = data;
         this.Owner = owner;
 
@@ -26,8 +26,12 @@ public class Item
         for (int i = 0; i < modData.Count; i++) {
             modData[i].SetupStats();
         }
-        //SetupStatModifiers();
-        //SetupAbilities();
+
+        if(display == true) {
+            SetupStatModifiers();
+            SetupAbilities();
+        }
+
 
         EventManager.RegisterListener(GameEvent.ItemAquired, OnItemAquired);
         EventManager.RegisterListener(GameEvent.ItemDropped, OnItemDropped);

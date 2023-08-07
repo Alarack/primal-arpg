@@ -13,7 +13,7 @@ public class ItemDefinition : ScriptableObject
     public Item GetItemForDisplay(Entity owner) {
 
 
-        displayItem = ItemFactory.CreateItem(itemData);
+        displayItem = ItemFactory.CreateItem(itemData, EntityManager.ActivePlayer);
 
         //if(displayItem == null) {
         //    if (itemData.validSlots.Contains(ItemSlot.Weapon)) {

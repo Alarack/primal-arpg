@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using LL.Events;
+using UnityEditor.Playables;
 
 public class AbilityManager : MonoBehaviour
 {
@@ -253,6 +254,12 @@ public class AbilityManager : MonoBehaviour
 
     public bool HasAbility(AbilityDefinition ability) {
         Ability target = GetAbilityByName(ability.AbilityData.abilityName, AbilityCategory.Any);
+
+        return target != null;
+    }
+
+    public bool HasAbility(string abilityName) {
+        Ability target = GetAbilityByName(abilityName, AbilityCategory.Any);
 
         return target != null;
     }

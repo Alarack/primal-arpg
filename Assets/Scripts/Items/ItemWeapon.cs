@@ -11,7 +11,7 @@ public class ItemWeapon : Item {
     public float DamageRoll { get { return RollDamage(); } }
     public float Averagedamage { get { return (minDamage + maxDamage) /2f; } }
     
-    public ItemWeapon(ItemData data, Entity owner) : base(data, owner) {
+    public ItemWeapon(ItemData data, Entity owner, bool display = false) : base(data, owner, display) {
         this.minDamage = data.minDamage;
         this.maxDamage = data.maxDamage;
     

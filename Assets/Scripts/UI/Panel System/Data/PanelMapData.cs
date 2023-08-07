@@ -48,8 +48,9 @@ public class PanelMapData : ScriptableObject
         List<string> ids = new List<string>();
 
         for (int i = 0; i < panelPrefabs.Count; i++) {
-            if (panelPrefabs[i].preventAttacks == true)
-                ids.Add(panelPrefabs[i].panelID); 
+            if (panelPrefabs[i].preventAttacks == true) {
+                ids.Add(panelPrefabs[i].panelID);
+            }
         }
 
         return ids;

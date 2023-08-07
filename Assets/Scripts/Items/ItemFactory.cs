@@ -6,14 +6,14 @@ public static class ItemFactory
 {
 
 
-    public static Item CreateItem(ItemData itemData) {
+    public static Item CreateItem(ItemData itemData, Entity owner) {
 
         Item result;
         if (itemData.validSlots.Contains(ItemSlot.Weapon)) {
-            result = new ItemWeapon(itemData, null);
+            result = new ItemWeapon(itemData, owner, true);
         }
         else {
-            result = new Item(itemData, null);
+            result = new Item(itemData, owner, true);
 
         }
 
@@ -22,8 +22,8 @@ public static class ItemFactory
 
     }
 
-    public static Item CreateItem(ItemDefinition itemDefinition) {
-        return CreateItem(itemDefinition.itemData);
+    public static Item CreateItem(ItemDefinition itemDefinition, Entity owner) {
+        return CreateItem(itemDefinition.itemData, owner);
     }
 
 

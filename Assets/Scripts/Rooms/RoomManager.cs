@@ -52,7 +52,7 @@ public class RoomManager : Singleton<RoomManager> {
         //Debug.Log("Choose and spawn X Rooms");
 
 
-
+        PanelManager.OpenPanel<TextDisplayPanel>().Setup("Choose a Room");
 
 
         List<ItemType> rewardTypes = new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Rune};
@@ -61,6 +61,9 @@ public class RoomManager : Singleton<RoomManager> {
 
         List<ItemType> chosenTypes = new List<ItemType>();
 
+        if(Instance.currentRoomIndex <= 6) {
+            chosenTypes.Add(ItemType.Skill);
+        }
 
         if(portalCount > rewardTypes.Count) {
             Debug.LogError("More portals than reward types, can't be distinct");
@@ -171,6 +174,8 @@ public class RoomManager : Singleton<RoomManager> {
         }
 
         Instance.currentPortals.Clear();
+
+        PanelManager.ClosePanel<TextDisplayPanel>();
     }
 
 
@@ -219,8 +224,11 @@ public class RoomManager : Singleton<RoomManager> {
         return results;
     }
 
-    public static void CreateRewards(List<ItemDefinition> rewardItems, bool multiReward = false) {
+    public static void CreateRewards(List<ItemDefinition> rewardItems, string displayText, bool multiReward = false) {
         MultiReward = multiReward;
+
+        PanelManager.OpenPanel<TextDisplayPanel>().Setup(displayText);
+
 
         for (int i = 0; i < rewardItems.Count; i++) {
             Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rewardItems.Count);
@@ -257,6 +265,7 @@ public class RoomManager : Singleton<RoomManager> {
         if (MultiReward == false) {
 
             reward.DispenseReward();
+            PanelManager.ClosePanel<TextDisplayPanel>();
 
             for (int i = 0; i < Instance.currentRewards.Count; i++) {
                 if (Instance.currentRewards[i] != reward) {
@@ -275,11 +284,13 @@ public class RoomManager : Singleton<RoomManager> {
             Destroy(reward.gameObject);
 
             if (Instance.currentRewards.Count == 0) {
+                PanelManager.ClosePanel<TextDisplayPanel>();
                 CurrentRoom.EndRoom();
+                
             }
         }
 
-
+        
     }
 
 

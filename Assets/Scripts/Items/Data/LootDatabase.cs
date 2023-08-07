@@ -33,27 +33,20 @@ public class LootDatabase : ScriptableObject {
 
             if (GameManager.AllowDuiplicatSkills == false ) {
                 if(allPossibleItems[i].itemData.Type == ItemType.Skill) {
-
-                    Debug.LogWarning("Checking if " + allPossibleItems[i].itemData.itemName + " is a skill");
-
-                    if(allPossibleItems[i].itemData.learnableAbilities.Count > 0) {
-                        if (EntityManager.ActivePlayer.AbilityManager.HasAbility(allPossibleItems[i].itemData.learnableAbilities[0]) == true) {
-
-                            Debug.LogWarning("Duplicate Skill Detect: " + allPossibleItems[i].itemData.learnableAbilities[0].AbilityData.abilityName);
-                            
-                            continue;
-                        }
-                        else {
-                            Debug.LogWarning("Not yet seen: " + allPossibleItems[i].itemData.learnableAbilities[0].AbilityData.abilityName);
-
-                        }
+                    if(CheckForDuplicateSkills(allPossibleItems[i]) == true) {
+                        continue;
                     }
-                    else {
-                        Debug.LogWarning("No learnable abilites found on: " + allPossibleItems[i].itemData.itemName);
-                    }
-
-                  
                 }
+            }
+
+            if (allPossibleItems[i].itemData.Type == ItemType.Equipment) {
+                if (CheckForDupeEquipment(allPossibleItems[i]) == true)
+                    continue;
+            }
+
+            if (allPossibleItems[i].itemData.Type == ItemType.Rune) {
+                if (CheckForInvalidRune(allPossibleItems[i]) == true) 
+                    continue;
             }
 
             filteredList.Add(allPossibleItems[i]);
@@ -65,6 +58,49 @@ public class LootDatabase : ScriptableObject {
         int randomIndex = Random.Range(0, filteredList.Count);
         return filteredList[randomIndex];
 
+    }
+
+    private bool CheckForDuplicateSkills(ItemDefinition item) {
+        //Debug.LogWarning("Checking if " + item.itemData.itemName + " is a skill");
+
+        if (item.itemData.learnableAbilities.Count > 0) {
+            if (EntityManager.ActivePlayer.AbilityManager.HasAbility(item.itemData.learnableAbilities[0]) == true) {
+
+                //Debug.LogWarning("Duplicate Skill Detect: " + item.itemData.learnableAbilities[0].AbilityData.abilityName);
+
+                return true;
+            }
+            //else {
+            //    Debug.LogWarning("Not yet seen: " + item.itemData.learnableAbilities[0].AbilityData.abilityName);
+            //    return false;
+            //}
+        }
+        //else {
+        //    Debug.LogWarning("No learnable abilites found on: " + item.itemData.itemName);
+        //    return false;
+        //}
+
+        return false;
+    }
+
+    private bool CheckForInvalidRune(ItemDefinition rune) {
+
+        string targetAbility = rune.itemData.runeAbilityTarget;
+
+        if(string.IsNullOrEmpty(targetAbility) == true)
+            return false;
+
+        if (EntityManager.ActivePlayer.AbilityManager.HasAbility(targetAbility) == false) {
+            return true;
+        }
+
+
+        return false;
+
+    }
+
+    private bool CheckForDupeEquipment(ItemDefinition item) {
+        return EntityManager.ActivePlayer.Inventory.ItemOwned(item);
     }
 
     //private ItemDefinition GetRandomItemBySlot(ItemSlot slot, List<ItemDefinition> exclusions) {

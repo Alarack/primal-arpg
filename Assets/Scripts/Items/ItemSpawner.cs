@@ -34,7 +34,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
             testPickup.Setup(item.itemData);
         }
         else {
-            EntityManager.ActivePlayer.Inventory.Add(ItemFactory.CreateItem(item));
+            EntityManager.ActivePlayer.Inventory.Add(ItemFactory.CreateItem(item, EntityManager.ActivePlayer));
         }
 
     }
@@ -44,8 +44,8 @@ public class ItemSpawner : Singleton<ItemSpawner>
         pickUp.Setup(item);
     }
 
-    public static void SpawnItem(ItemData itemData, Vector2 location) {
-        Item newItem = ItemFactory.CreateItem(itemData);
+    public static void SpawnItem(ItemData itemData, Vector2 location, Entity owner) {
+        Item newItem = ItemFactory.CreateItem(itemData, owner);
 
 
         //if (itemData.validSlots.Contains(ItemSlot.Weapon)) {

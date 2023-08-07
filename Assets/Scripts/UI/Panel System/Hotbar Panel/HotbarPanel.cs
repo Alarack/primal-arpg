@@ -48,12 +48,13 @@ public class HotbarPanel : SkillBasePanel {
 
     protected void Update() {
 
-        if (autoFireDict.Count < 1)
-            return;
-
         if(PanelManager.IsBlockingPanelOpen() == true) {
+            //Debug.Log("Blocked");
             return;
         }
+
+        if (autoFireDict.Count < 1)
+            return;
 
         foreach (var entry in autoFireDict) {
             float pressed = entry.Key.ReadValue<float>();
@@ -111,9 +112,11 @@ public class HotbarPanel : SkillBasePanel {
         if(skipManualFire == true) 
             return;
 
-        if (PanelManager.IsBlockingPanelOpen() == true)
+        if (PanelManager.IsBlockingPanelOpen() == true) {
+            //Debug.Log("Blocked");
             return;
-        
+        }
+
         Ability ability = GetAbilityBykeyBind(button);
 
         if (ability != null) {
