@@ -27,6 +27,10 @@ public class TweenHelper : MonoBehaviour
         Breathe();
     }
 
+    private void OnDisable() {
+        transform.DOKill();
+    }
+
     public void Breathe() {
         transform.DOScale(endScale, scaleDuration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
     }

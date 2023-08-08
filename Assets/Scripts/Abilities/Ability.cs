@@ -40,6 +40,7 @@ public class Ability {
     protected List<Action<BaseStat, object, float>> recoveryStatListeners = new List<Action<BaseStat, object, float>>();
 
     protected Task currentWindup;
+    protected GameObject currentWindupVFX;
 
     public List<Ability> ChildAbilities { get; protected set; } = new List<Ability>();
 
@@ -931,17 +932,37 @@ public class Ability {
         currentWindup = null;
     }
 
+    public void AbortAbilityWindup() {
+        if(currentWindup != null && currentWindup.Running == true) {
+            currentWindup.Stop();
+            if(currentWindupVFX != null)
+                GameObject.Destroy(currentWindupVFX);
+        }
+    }
+
     public IEnumerator StartAbilityWindup(TriggerInstance activationInstance) {
-        WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.AbilityWindupTime]);
+
+        float windupTime = Stats[StatName.AbilityWindupTime];
+        float ownerCastSpeed = Source.Stats[StatName.CastSpeedModifier] > 0f ? Source.Stats[StatName.CastSpeedModifier] : 1f;
+
+        if (windupTime <= 0) {
+            Debug.LogError("0 Cast time detected on " + Data.abilityName);
+            ResumeActivation(activationInstance);
+            yield break;
+        }
+
+        float waitTime = windupTime / ownerCastSpeed;
+
+        WaitForSeconds waiter = new WaitForSeconds(waitTime);
 
         //Debug.Log("Showing some kind of vfx");
 
         if(Source == null)
             yield break;
 
-        GameObject activeVFX = GameObject.Instantiate(Data.windupVFX, Source.transform);
-        activeVFX.transform.localPosition = Vector3.zero;
-        GameObject.Destroy(activeVFX, 3f);
+        currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.transform);
+        currentWindupVFX.transform.localPosition = Vector3.zero;
+        GameObject.Destroy(currentWindupVFX, 3f);
 
         yield return waiter;
 

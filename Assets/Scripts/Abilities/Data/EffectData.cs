@@ -191,7 +191,23 @@ public class StatScaler {
         this.statScaleBaseValue = clone.statScaleBaseValue;
         this.deriveTarget = clone.deriveTarget;
 
-        this.scalerStat = new SimpleStat(StatName.StatScaler, clone.statScaleBaseValue);
+
+        if(clone.scalerStat == null) {
+            this.scalerStat = new SimpleStat(StatName.StatScaler, clone.statScaleBaseValue);
+            //Debug.Log("Cloned scaler had a null stat");
+        }
+        else {
+            //Debug.Log("Cloned scaler didn't have a null stat");
+            this.scalerStat = new SimpleStat(clone.scalerStat);
+        }
+
+        //Debug.Log("Cloning a scaler: ");
+        //Debug.Log("Stat scaler null: " + clone.scalerStat == null);
+
+        //this.scalerStat = new SimpleStat(clone.scalerStat);
+
+        //this.scalerStat.CloneMods(clone.scalerStat);
+
     }
 
     public void AddScalerMod(StatModifier mod) {

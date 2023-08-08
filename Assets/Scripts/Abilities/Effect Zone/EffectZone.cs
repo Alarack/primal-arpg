@@ -193,7 +193,7 @@ public class EffectZone : Entity {
     protected virtual void CreateApplyVFX(Vector2 location, bool variance = true) {
 
         if(applyVFX == null) {
-            Debug.LogWarning("an effect zone: " + gameObject.name + " has no apply vfx");
+            //Debug.LogWarning("an effect zone: " + gameObject.name + " has no apply vfx");
             return;
         }
 

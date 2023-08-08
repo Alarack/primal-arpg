@@ -31,6 +31,12 @@ public class SkillRuneEntry : InventoryBaseEntry
 
         Item draggedItem = DraggedInventoryItem.MyItem;
 
+        if(draggedItem == null) {
+            Debug.LogError("Dragged item is null when dropping a rune");
+            return;
+        }
+
+
         if (slot == ItemSlot.Inventory) {
 
             if (draggedItem.Equipped == true) {

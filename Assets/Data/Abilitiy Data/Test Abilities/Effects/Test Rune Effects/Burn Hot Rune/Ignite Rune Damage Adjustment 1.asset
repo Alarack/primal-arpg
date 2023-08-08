@@ -19,6 +19,7 @@ MonoBehaviour:
     targeting: 9
     subTarget: 5
     deliveryPayloadToTarget: 0
+    canOverload: 0
     numberOfTargets: -1
     otherAbilityName: Ignite
     otherEffectName: Ignite Add Status
@@ -29,7 +30,6 @@ MonoBehaviour:
       changeDirection: 0
       minStatChangeRequired: 0
       statChangeDelta: 0
-      targetTag: 0
       minRange: 0
       maxRange: 0
       rangeToWhat: 0
@@ -57,14 +57,16 @@ MonoBehaviour:
       targetAbiltyName: Ignite
       targetEffectName: Ignite Add Status
       effectDesigantion: 0
+      targetEffectType: 0
       targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
     - type: 20
       inverse: 0
       statChangeTarget: 0
       changeDirection: 0
       minStatChangeRequired: 0
       statChangeDelta: 0
-      targetTag: 0
       minRange: 0
       maxRange: 0
       rangeToWhat: 0
@@ -92,7 +94,11 @@ MonoBehaviour:
       targetAbiltyName: Ignite
       targetEffectName: Ignite Add Status
       effectDesigantion: 1
+      targetEffectType: 0
       targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+    riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadCount: 1
     shotDelay: 0.2
@@ -108,10 +114,13 @@ MonoBehaviour:
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
+    projectileHitMask:
+      serializedVersion: 2
+      m_Bits: 0
     modData:
     - targetStat: 28
       value: -0.5
-      modifierType: 0
+      modifierType: 2
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 0
@@ -123,6 +132,36 @@ MonoBehaviour:
       otherTagetEffect: 
       scalers: []
     floatingTextColor:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    overloadFloatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}

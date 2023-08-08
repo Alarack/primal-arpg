@@ -10,57 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Ignite Interval Adjustment
+  m_Name: Buff Cast Speed
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Ignite  Rune Interval Adj
-    effectDescription: Reduce Interval by {}
+    effectName: Star Mage Buff Adj
+    effectDescription: 
     type: 1
-    targeting: 9
-    subTarget: 2
+    targeting: 1
+    subTarget: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
     numberOfTargets: -1
-    otherAbilityName: Ignite
-    otherEffectName: Ignite Add Status
-    targetConstraints:
-    - type: 19
-      inverse: 0
-      statChangeTarget: 0
-      changeDirection: 0
-      minStatChangeRequired: 0
-      statChangeDelta: 0
-      minRange: 0
-      maxRange: 0
-      rangeToWhat: 0
-      ownerTarget: 0
-      mostStatTarget: 0
-      mostStatEffectName: 
-      mostStatAbilityName: 
-      leastStatTarget: 0
-      leastStatEffectName: 
-      leastStatAbilityName: 
-      minStatTarget: 0
-      minStatValue: 0
-      maxStatTarget: 0
-      maxStatValue: 0
-      targetEntityName: 
-      targetSubtype: 0
-      targetPrimaryType: 0
-      targetActiveAbilityName: 
-      appliedEffectType: 0
-      appliedEffectName: 0
-      targetStateData: {fileID: 0}
-      stateEntered: 
-      stateExited: 
-      targetAbilityTag: 0
-      targetAbiltyName: Igntie
-      targetEffectName: Ignite Add Status
-      effectDesigantion: 0
-      targetEffectType: 0
-      targetStatus: 0
-      statRatioTarget: 0
-      targetRatio: 0
+    otherAbilityName: 
+    otherEffectName: 
+    targetConstraints: []
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadCount: 1
@@ -81,12 +44,25 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 19
-      value: -0.5
-      modifierType: 2
+    - targetStat: 52
+      value: 3
+      modifierType: 1
       variantTarget: 0
       modValueSetMethod: 0
-      weaponDamagePercent: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
+    - targetStat: 21
+      value: 0.75
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
       deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item Def", menuName = "Items/Item Def")]
 public class ItemDefinition : ScriptableObject
 {
-
+    public bool devItem;
     public ItemData itemData;
 
     private Item displayItem;

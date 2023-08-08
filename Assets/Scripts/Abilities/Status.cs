@@ -20,7 +20,8 @@ public class Status {
         Immobilized,
         BladeDash,
         Grow,
-        IronReign
+        IronReign,
+        SpellHaste
     }
 
     #endregion
@@ -107,7 +108,7 @@ public class Status {
         }
 
         if(ActiveEffect == null) {
-            Debug.LogError("An active effect on the stats belonging to: " + ParentEffect.Data.effectName + " is null");
+            Debug.LogError("An active effect on the status belonging to: " + ParentEffect.Data.effectName + " is null");
             return;
         }
 
@@ -133,19 +134,17 @@ public class Status {
     public virtual void Stack() {
         RefreshDuration();
 
-
         switch (stackMethod) {
             case StackMethod.None:
                 return;
             case StackMethod.LimitedStacks:
                 if (IsStackCapped == true) {
-                    Debug.LogWarning("Max stack reached");
+                    //Debug.LogWarning("Max stack reached");
                     return;
                 }
                 break;
         }
 
-        //ParentEffect.Stats.AdjustStatRangeCurrentValue(StatName.StackCount, 1, StatModType.Flat, Source);
         StackCount++;
         ActiveEffect.Stack(this);
     }
@@ -155,11 +154,15 @@ public class Status {
     }
 
     protected virtual void CleanUp(EventData timerEventData) {
-        //StatusManager.RemoveStatus(Target, this);
         TimerManager.RemoveTimerAction(ManagedUpdate);
         ParentEffect.CleanUp(Target, ActiveEffect);
-        ActiveEffect.Remove(Target);
-        ActiveEffect = null;
+        
+        if(ActiveEffect != null) {
+            ActiveEffect.Remove(Target);
+            ActiveEffect = null;
+        }
+        
+       
         EventManager.RemoveMyListeners(this);
 
         if (Target != null)
@@ -197,6 +200,12 @@ public class Status {
     }
 
     public virtual void ManagedUpdate() {
+        
+        if(ActiveEffect == null) {
+            Debug.LogError("An active effect of a status: " + ParentEffect.Data.effectName + " is null during managerd update");
+            return;
+        }
+        
         if (durationTimer != null)
             durationTimer.UpdateClock();
 

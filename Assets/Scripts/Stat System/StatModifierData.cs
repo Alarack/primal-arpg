@@ -111,10 +111,13 @@ public class StatModifierData
 
     public void CloneEffectStats(StatModifierData clone) {
         Stats = new StatCollection(this);
+        
         SimpleStat modValueStat = new SimpleStat(StatName.StatModifierValue, clone.Stats[StatName.StatModifierValue]);
         SimpleStat weaponCoeeficientStat = new SimpleStat(StatName.AbilityWeaponCoefficicent, clone.Stats[StatName.AbilityWeaponCoefficicent]);
         Stats.AddStat(modValueStat);
         Stats.AddStat(weaponCoeeficientStat);
+
+
     }
 
 
@@ -134,11 +137,14 @@ public class StatModifierData
         }
     }
 
-
     public void AddScalerMod(StatName targetStat, StatModifier mod) {
 
+        //Debug.Log("Adding a scaler mod to: " + targetStat.ToString() + " of " + mod.Value);
+
         scalersDict[targetStat].AddScalerMod(mod);
-        
+
+
+        //Debug.Log(scalersDict[targetStat].scalerStat.ModCount + " mods found");
         //for (int i = 0; i < scalers.Count; i++) {
         //    if (scalers[i].targetStat == targetStat) {
         //        scalers[i].AddScalerMod(mod);
@@ -158,7 +164,6 @@ public class StatModifierData
         //    }
         //}
     }
-
 
     public void RemoveAllscalerModsFromSource(StatName targetStat, object source) {
 

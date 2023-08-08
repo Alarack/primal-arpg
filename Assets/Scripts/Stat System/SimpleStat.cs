@@ -56,7 +56,8 @@ public enum StatName
     EssenceRegenerationRate,
     EssenceRegenerationValue,
     AbilityWindupTime,
-    OverloadRecieveChance
+    OverloadRecieveChance,
+    CastSpeedModifier
 }
 
 
@@ -75,6 +76,18 @@ public class SimpleStat : BaseStat
         isDirty = true;
 
         modDictionary = new Dictionary<object, List<StatModifier>>();
+    }
+
+    public SimpleStat (SimpleStat clone) : base(clone) {
+
+        if (clone == null) {
+            Debug.LogError("Null clone passed to copy constructor");
+            return;
+        }
+
+        BaseValue = clone.BaseValue;
+        isDirty = true;
+
     }
 
     protected virtual float GetModifiedValue(bool setDirty = false)

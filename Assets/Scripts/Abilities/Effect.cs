@@ -988,9 +988,6 @@ public class StatAdjustmentEffect : Effect {
 
     private List<StatModifierData> modData = new List<StatModifierData>();
 
-    //private Dictionary<Effect, List<StatScaler>> trackedScalers = new Dictionary<Effect, List<StatScaler>>();
-
-    //public List<StatAdjustmentOption> options = new List<StatAdjustmentOption>();
 
     public StatAdjustmentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
@@ -1005,25 +1002,16 @@ public class StatAdjustmentEffect : Effect {
             modData[i].SetupEffectStats();
         }
 
-
-        //for (int i = 0; i < data.adjustmentOptions.Count; i++) {
-        //    options.Add(new StatAdjustmentOption(data.adjustmentOptions[i]));
-        //}
-
     }
 
     public StatAdjustmentEffect(EffectData data, Entity source, StatAdjustmentEffect clone, Ability parentAbility = null) : base(data, source, parentAbility) {
 
         for (int i = 0; i < clone.modData.Count; i++) {
-            modData.Add(new StatModifierData(clone.modData[i]));
+
+            StatModifierData clonedModData = new StatModifierData(clone.modData[i]);
+            modData.Add(clonedModData);
             modData[i].CloneEffectStats(clone.modData[i]);
         }
-
-        //for (int i = 0; i < data.adjustmentOptions.Count; i++) {
-        //    options.Add(new StatAdjustmentOption(clone.options[i]));
-        //}
-
-
     }
 
     //public static StatAdjustmentEffect Clone(StatAdjustmentEffect clone) {
@@ -1336,9 +1324,15 @@ public class StatAdjustmentEffect : Effect {
 
             result *= entry.Value.scalerStat.ModifiedValue;
 
-            //Debug.Log(entry.Value.scalerStat.ModifiedValue + " is the scaler for: " + entry.Key);
+            //if(Source is EntityPlayer) {
+            //    Debug.Log(entry.Value.scalerStat.ModifiedValue + " is the scaler for: " + entry.Key + " Effect: " + Data.effectName);
 
-            //Debug.Log(result + " is the value for: " + entry.Value.targetStat);
+            //    Debug.Log("Mods on scaler found: " + entry.Value.scalerStat.ModCount);
+
+            //    Debug.Log(result + " is the after scaler value for: " + entry.Value.targetStat);
+            //}
+
+           
 
             totalDerivedValue += result;
 
@@ -1500,9 +1494,11 @@ public class StatAdjustmentEffect : Effect {
             //Debug.Log("Applying a stat adjustment to a status effect: " +Data.effectName);
 
             if (Data.subTarget == EffectSubTarget.StatModifier || Data.subTarget == EffectSubTarget.StatScalerMod) {
-                //Debug.Log("Applying a stat adjustment to a status effect's damage : " + Data.effectName);
+               
 
                 for (int i = 0; i < statusEffect.activeStatusEffects.Count; i++) {
+                    //Debug.Log("Applying a stat adjustment to a status effect's damage : " + Data.effectName);
+
                     ApplyDirectlyToEffect(statusEffect.activeStatusEffects[i]);
                 }
                 return true;

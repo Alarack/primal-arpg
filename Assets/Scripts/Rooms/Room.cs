@@ -200,12 +200,12 @@ public class EliminitionCombatRoom : Room {
     public void SpawnWave() {
 
         if (waves.Count < 1) {
-            Debug.LogError("No waves in entity manager");
+            Debug.LogError("No waves in Room");
             return;
         }
 
         if (waveIndex >= waves.Count) {
-            Debug.LogWarning("All waves Complete");
+            //Debug.LogWarning("All waves Complete");
             SpawnRewards("Choose a Reward");
             return;
         }
