@@ -59,6 +59,9 @@ MonoBehaviour:
       effectDesigantion: 1
       targetEffectType: 0
       targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+    riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadCount: 1
     shotDelay: 0.2
@@ -74,10 +77,13 @@ MonoBehaviour:
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
+    projectileHitMask:
+      serializedVersion: 2
+      m_Bits: 0
     modData:
     - targetStat: 28
       value: 2.5
-      modifierType: 0
+      modifierType: 2
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 0

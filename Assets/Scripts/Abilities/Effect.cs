@@ -1324,15 +1324,15 @@ public class StatAdjustmentEffect : Effect {
 
             result *= entry.Value.scalerStat.ModifiedValue;
 
-            //if(Source is EntityPlayer) {
+            //if (Source is EntityPlayer) {
             //    Debug.Log(entry.Value.scalerStat.ModifiedValue + " is the scaler for: " + entry.Key + " Effect: " + Data.effectName);
 
-            //    Debug.Log("Mods on scaler found: " + entry.Value.scalerStat.ModCount);
+            //    //Debug.Log("Mods on scaler found: " + entry.Value.scalerStat.ModCount);
 
             //    Debug.Log(result + " is the after scaler value for: " + entry.Value.targetStat);
             //}
 
-           
+
 
             totalDerivedValue += result;
 
