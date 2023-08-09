@@ -52,6 +52,8 @@ public abstract class Entity : MonoBehaviour {
 
     public bool IsDead { get; protected set; }
 
+    public Ability ActivelyCastingAbility { get; set; }
+
     protected virtual void Awake() {
         Stats = new StatCollection(this, statDefinitions);
 
@@ -112,6 +114,12 @@ public abstract class Entity : MonoBehaviour {
     public void ActivateAbilityByName(string name, AbilityCategory category) {
         AbilityManager.ActivateAbilityByName(name, category);
     }
+
+    //public virtual Ability IsAbilityActivelyCasting() {
+
+    //    Debug.LogError("Base Is Ability Active Casting. Overrwite this");
+    //    return null;
+    //}
 
     #endregion
 

@@ -117,6 +117,7 @@ public class AbilityData
     public bool toBestow;
     public bool suspend;
     public bool autoFire;
+    public bool ignoreOtherCasting;
     public bool includeEffectsInTooltip;
     public bool ignoreTooltip;
     public string runeAbilityTarget;
@@ -181,6 +182,16 @@ public class AbilityData
             
             if (abilityStatData[i].statName == stat) 
                 return true;
+        }
+
+        return false;
+    }
+
+    public bool HasManualActivation() {
+        for (int i = 0; i < activationTriggerData.Count; i++) {
+            if (activationTriggerData[i].type == TriggerType.UserActivated || activationTriggerData[i].type == TriggerType.AIActivated) {
+                return true;
+            }
         }
 
         return false;

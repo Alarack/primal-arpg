@@ -36,9 +36,11 @@ public class EffectZone : Entity {
         //    Debug.LogWarning("Spawning an effect zone while the source is dead: " + parentEffect.Data.effectName);
         //}
         //else {
-           
+
         //}
 
+        if(parentEffect != null && parentEffect.Source != null)
+            ownerType = parentEffect.Source.ownerType;
 
 
         SetInfo();
@@ -176,6 +178,10 @@ public class EffectZone : Entity {
     }
 
     protected virtual IEnumerator CleanupAfterLifetime() {
+
+        if (Stats[StatName.EffectLifetime] <= 0)
+            yield break;
+        
         WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.EffectLifetime]);
 
         yield return waiter;

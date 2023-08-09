@@ -13,7 +13,6 @@ public class NPC : Entity
         Brain = GetComponent<AIBrain>();
     }
 
-
     protected override void Die(Entity source, Ability sourceAbility = null)
     {
         //Play Death animation

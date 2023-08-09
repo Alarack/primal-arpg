@@ -17,9 +17,11 @@ public class Ability {
     public bool AutoFire { get; protected set; }
 
     public bool IsEquipped { get; protected set; }
+    public bool IgnoreOtherCasting { get; protected set; }
 
     //Recovery Stuff
     public bool IsReady { get { return CheckReady(); } }
+    public bool IsCasting { get { return currentWindup != null; } }
     public bool HasRecovery { get { return recoveryMethods.Count > 0; } }
     public int Charges { get { return Mathf.FloorToInt(Stats[StatName.AbilityCharge]); } }
     public int MaxCharges { get { return Mathf.FloorToInt(Stats.GetStatRangeMaxValue(StatName.AbilityCharge)); } }
@@ -67,10 +69,31 @@ public class Ability {
 
         SetupChildAbilities();
 
+        SetupIgnoreCasting();
+
     }
 
     #region SETUP AND TEAR DOWN
 
+
+    private void SetupIgnoreCasting() {
+        
+        if(Data.ignoreOtherCasting == true) {
+            SetIgnoreCastings(true);
+            return;
+        }
+        
+        if(Data.HasManualActivation() == true) {
+            SetIgnoreCastings(false);
+            //Debug.Log(Data.abilityName + " has manual castings");
+        }
+        else {
+            SetIgnoreCastings(true);
+            //Debug.Log(Data.abilityName + " has NO manual castings");
+        }
+        
+
+    }
 
     private void SetupStats() {
         Stats = new StatCollection(this, Data.abilityStatData);
@@ -441,6 +464,16 @@ public class Ability {
 
     #endregion
 
+
+    #region OPTIONS
+
+    public void SetIgnoreCastings(bool ignoreCastings) { 
+        this.IgnoreOtherCasting = ignoreCastings;
+    }
+
+
+
+    #endregion
 
     #region HELPERS
 
@@ -834,6 +867,15 @@ public class Ability {
             return;
         }
 
+        if(IgnoreOtherCasting == false) {
+            Ability castingAbility = Source.ActivelyCastingAbility;
+
+            if(castingAbility != null) {
+                //Debug.LogWarning("Another ability is casting at the moment: " + castingAbility.Data.abilityName);
+                return;
+            }
+        }
+
         if(Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
 
             if (CheckCost() == false)
@@ -841,6 +883,7 @@ public class Ability {
 
             if (currentWindup == null) {
                 currentWindup = new Task(StartAbilityWindup(activationInstance));
+                Source.ActivelyCastingAbility = this;
                 return;
             }
             else {
@@ -909,12 +952,14 @@ public class Ability {
         if(Source == null || Source.IsDead == true) {
             //Debug.LogWarning("The Source of an Ability: " + Data.abilityName + " is dead or null when resolving a cast time.");
             currentWindup = null;
+            Source.ActivelyCastingAbility = null;
             return;
         }
 
 
         if (TrySpendCharge(1) == false) {
             currentWindup = null;
+            Source.ActivelyCastingAbility = null;
             return;
         }
 
@@ -930,6 +975,7 @@ public class Ability {
         TriggerAllEffectsInstantly(activationInstance);
         
         currentWindup = null;
+        Source.ActivelyCastingAbility = null;
     }
 
     public void AbortAbilityWindup() {
@@ -937,6 +983,8 @@ public class Ability {
             currentWindup.Stop();
             if(currentWindupVFX != null)
                 GameObject.Destroy(currentWindupVFX);
+
+            currentWindup = null;
         }
     }
 
@@ -1049,10 +1097,6 @@ public class Ability {
 
     public void ForceActivate() {
         ReceiveStartActivationInstance(null);
-    }
-
-    public void NPCActivation() {
-
     }
 
     public void ForceEndTrigger(TriggerInstance endInstance) {

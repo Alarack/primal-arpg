@@ -204,8 +204,10 @@ public class Projectile : Entity {
     }
 
     private void DeployZoneEffect() {
+        //Debug.Log(gameObject.name + " is tryin to deplay an effect zone");
         EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
         activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this, parentLayer);
+        activeZone.Stats.AddMissingStats(parentEffect.Stats);
     }
 
 

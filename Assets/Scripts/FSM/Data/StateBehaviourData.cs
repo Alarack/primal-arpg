@@ -35,6 +35,7 @@ namespace LL.FSM {
         //Wander
         public float wanderIdleTime;
         public float wanderMaxDistance;
+        public bool leashToOrigin;
 
         //Wait
         public float waitTime;

@@ -44,6 +44,7 @@ public static class AbilityEditorHelper
         entry.includeEffectsInTooltip = EditorGUILayout.Toggle("Include Effect Toolip", entry.includeEffectsInTooltip);
         entry.ignoreTooltip = EditorGUILayout.Toggle("Ignore Tooltip", entry.ignoreTooltip);
         entry.autoFire = EditorGUILayout.Toggle("Autofire", entry.autoFire);
+        entry.ignoreOtherCasting = EditorGUILayout.Toggle("Ignore Other Casting", entry.ignoreOtherCasting);
 
         entry.suspend = EditorGUILayout.Toggle("Suspend?", entry.suspend);
 

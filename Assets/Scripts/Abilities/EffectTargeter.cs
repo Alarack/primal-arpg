@@ -457,7 +457,9 @@ public class EffectTargeter {
 
             EffectZone effectZone = delivery as EffectZone;
             if (effectZone != null) {
+                effectZone.Stats.AddMissingStats(parentEffect.Stats);
                 effectZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, null, parentEffect.Source.gameObject.layer);
+               
             }
 
             yield return waiter;

@@ -309,7 +309,7 @@ namespace LL.FSM {
         private Timer wanderTimer;
         private bool wandering = false;
         private bool waiting = false;
-
+        private bool hasTarget;
         private Vector2 wanderPoint;
 
         public WanderBehaviour(StateBehaviourData data, AIBrain brain, AISensor sensor) : base(data, brain, sensor) {
@@ -318,6 +318,8 @@ namespace LL.FSM {
 
         public override void ManagedUpdate() {
             base.ManagedUpdate();
+
+            hasTarget = brain.GetLatestSensorTarget();
 
             if (wanderTimer != null && waiting == true)
                 wanderTimer.UpdateClock();
@@ -335,7 +337,10 @@ namespace LL.FSM {
             float distance = Vector2.Distance(brain.transform.position, wanderPoint);
 
             if (distance > 0.1f) {
-                brain.Movement.RotateTowardPoint(wanderPoint);
+               
+                if(hasTarget == false)
+                    brain.Movement.RotateTowardPoint(wanderPoint);
+                 
                 brain.Movement.MoveTowardPoint(wanderPoint);
             }
             else {
@@ -345,7 +350,10 @@ namespace LL.FSM {
         }
 
         private void PickDirection() {
-            wanderPoint = (Vector2)brain.transform.position + (Random.insideUnitCircle * Data.wanderMaxDistance);
+            
+            Vector2 startPoint = Data.leashToOrigin == false ? (Vector2)brain.transform.position : Vector2.zero;
+            
+            wanderPoint = startPoint + (Random.insideUnitCircle * Data.wanderMaxDistance);
             wandering = true;
         }
 

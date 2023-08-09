@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: Lunge
+  m_Name: Spikey Damage Aura
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 1
+    category: 6
     abilityIcon: {fileID: 0}
-    abilityName: Lunge
+    abilityName: Spikey Damage Aura
     abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
-    ignoreOtherCasting: 1
+    ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
     ignoreTooltip: 0
     runeAbilityTarget: 
     childAbilities: []
     tags: 
     activationTriggerData:
-    - type: 31
+    - type: 17
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
@@ -44,8 +44,8 @@ MonoBehaviour:
         triggerTimerDuration: 0
         delay1Frame: 0
         allConstraints: []
-      limitedNumberOfTriggers: 0
-      maxTriggerCount: 0
+      limitedNumberOfTriggers: 1
+      maxTriggerCount: 1
       requireMultipleTriggers: 0
       minTriggerCount: 0
     endCounterData:
@@ -62,32 +62,10 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: d69a7d35f4d3f7f48ba6c012d6a0fbab, type: 2}
-    - {fileID: 11400000, guid: 9f594f4d0da41f84bb1d0f6bb2702eee, type: 2}
+    - {fileID: 11400000, guid: 35b917697c01a87489c9b4c8fedf98bb, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    windupVFX: {fileID: 3228593226293199667, guid: 504f63bf7a9b90a4cac1d01977cfae03, type: 3}
-    abilityStatData:
-    - variant: 0
-      statName: 50
-      value: 0.5
-      maxValue: 0
-      minValue: 0
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          delay1Frame: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        minTriggerCount: 0
-      cooldown: 2
+    windupVFX: {fileID: 0}
+    abilityStatData: []
+    recoveryData: []

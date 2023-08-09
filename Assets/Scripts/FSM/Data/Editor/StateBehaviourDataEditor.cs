@@ -38,6 +38,7 @@ public class StateBehaviourDataEditor : Editor
             case StateBehaviourType.Wander:
                 behaviourData.wanderMaxDistance = EditorGUILayout.FloatField("Max Distance", behaviourData.wanderMaxDistance);
                 behaviourData.wanderIdleTime = EditorGUILayout.FloatField("Idle Time", behaviourData.wanderIdleTime);
+                behaviourData.leashToOrigin = EditorGUILayout.Toggle("Leash Origin", behaviourData.leashToOrigin);
 
                 break;
             case StateBehaviourType.RotateToward:
