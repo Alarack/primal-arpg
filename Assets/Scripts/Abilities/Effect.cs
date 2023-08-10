@@ -49,6 +49,7 @@ public abstract class Effect {
 
     protected void SetupStats() {
         Stats = new StatCollection(this, Data.payloadStatData);
+        //Stats.AddMissingStats(Data.stat)
         SimpleStat effectShotCount = new SimpleStat(StatName.ShotCount, Data.payloadCount);
         SimpleStat shotDelay = new SimpleStat(StatName.FireDelay, Data.shotDelay);
         SimpleStat maxTargets = new SimpleStat(StatName.EffectMaxTargets, Data.numberOfTargets);
@@ -1021,36 +1022,53 @@ public class SpawnEntityEffect : Effect {
             return false;
 
 
-        if(Data.maxSpawns > 0 && activeSpawns.Count >= Data.maxSpawns) {
+        int maxSpawns = Stats[StatName.MaxMinionCount] > 0 ? (int)Stats[StatName.MaxMinionCount] : -1;
+
+        if (Source.Stats[StatName.MaxMinionCount] > 0 && maxSpawns > 0) {
+            maxSpawns += (int)Source.Stats[StatName.MaxMinionCount];
+        }
+
+        int spawnCount = Stats[StatName.MinionSpawnCount] > 0 ? (int)Stats[StatName.MinionSpawnCount] : 1;
+
+        if (maxSpawns > 0 && activeSpawns.Count >= maxSpawns) {
             Debug.LogWarning("Spawn count reached");
             return false;
         }
 
-        if(Data.maxSpawns > 0 && Data.spawnCount > Data.maxSpawns) {
-            Debug.LogError("[SPAWN ENTITY] spawn count is greater than max spanws");
-        }
-
-
-        int unitsToSpawn = Data.maxSpawns > 0 ? Data.spawnCount - activeSpawns.Count : Data.spawnCount;
+        int unitsToSpawn = maxSpawns > 0 ? spawnCount - activeSpawns.Count : spawnCount;
 
         for (int i = 0; i < unitsToSpawn; i++) {
             Entity spawn = PerformSpawn(target);
             spawn.ownerType = Source.ownerType;
             spawn.entityType = Source.entityType;
             spawn.gameObject.layer = Source.gameObject.layer;
+            spawn.subtypes.Add(Entity.EntitySubtype.Minion);
 
-            //NPC npc = spawn as NPC;
+            EntityPlayer player = Source as EntityPlayer;
+            if(player != null) {
+                float averageDamage = player.GetAverageDamageRoll() * Data.percentOfPlayerDamage;
+                float modifiedDamage = averageDamage * (1 + player.Stats[StatName.MinionDamageModifier]);
+                spawn.Stats.SetStatValue(StatName.AbilityWeaponCoefficicent, modifiedDamage, Source);
+            }
 
-            //if(npc != null) {
-
-            //}
-            
             EntityTargets.Add(spawn);
             LastTarget = spawn;
             activeSpawns.Add(spawn);
+
+            SendMinionSpawnedEvent(spawn);
         }
 
         return true;
+    }
+
+    private void SendMinionSpawnedEvent(Entity minion) {
+        EventData data = new EventData();
+        data.AddEntity("Minion", minion);
+        data.AddEntity("Cause", Source);
+        data.AddEffect("Causing Effect", this);
+        data.AddAbility("Causing Ability", ParentAbility);
+
+        EventManager.SendEvent(GameEvent.MinionSummoned, data);
     }
 
     public override void Remove(Entity target) {
@@ -1082,6 +1100,29 @@ public class SpawnEntityEffect : Effect {
         Vector2 nearby = (Vector2)Source.transform.position + (Random.insideUnitCircle * Random.Range(2f, 6f));
 
         return nearby;
+    }
+
+
+    public override string GetTooltip() {
+        
+        StringBuilder builder = new StringBuilder();
+
+        int maxSpawns = Stats[StatName.MaxMinionCount] > 0 ? (int)Stats[StatName.MaxMinionCount] : -1;
+
+        if (Source.Stats[StatName.MaxMinionCount] > 0 && maxSpawns > 0) {
+            maxSpawns += (int)Source.Stats[StatName.MaxMinionCount];
+        }
+
+
+        string replacement = Data.effectDescription.Replace("{}", TextHelper.ColorizeText( maxSpawns.ToString(), Color.green));
+
+        string weaponPercent = TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(Data.percentOfPlayerDamage * 100f, 2) +"%", Color.green);
+
+        string damageReplacement = replacement.Replace("{P}", weaponPercent);
+
+        builder.AppendLine(damageReplacement);
+
+        return builder.ToString();
     }
 
 }

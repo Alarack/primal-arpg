@@ -275,6 +275,14 @@ public class Inventory : MonoBehaviour {
         return 5f;
     }
 
+    public float GetAverageDamageRoll() {
+        if (CurrentWeapon != null) {
+            return CurrentWeapon.Averagedamage;
+        }
+
+        return 5f;
+    }
+
     public Tuple<float, float> GetDamageRange() {
         Tuple<float, float> result = new Tuple<float, float>(5f, 5f);
         

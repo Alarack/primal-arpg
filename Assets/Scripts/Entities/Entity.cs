@@ -17,6 +17,7 @@ public abstract class Entity : MonoBehaviour {
         Dragon,
         Goblin,
         Elemental,
+        Minion
     }
 
     public enum EntityClass {
@@ -53,6 +54,8 @@ public abstract class Entity : MonoBehaviour {
     public bool IsDead { get; protected set; }
 
     public Ability ActivelyCastingAbility { get; set; }
+
+    //public Entity MinionMaster { get; set; }
 
     protected virtual void Awake() {
         Stats = new StatCollection(this, statDefinitions);

@@ -500,16 +500,16 @@ public static class AbilityEditorHelper
                 if(entry.spawnType == EntitySpawnType.Manual) {
                     entry.entityPrefab = EditorHelper.ObjectField("Prefab", entry.entityPrefab);
                 }
+                entry.percentOfPlayerDamage = EditorGUILayout.FloatField("Percent of Player Damage", entry.percentOfPlayerDamage);
+                //entry.maxSpawns = EditorGUILayout.IntField("Max Spawns", entry.maxSpawns);
 
-                entry.maxSpawns = EditorGUILayout.IntField("Max Spawns", entry.maxSpawns);
+                //entry.spawnCount = EditorGUILayout.IntField("Spawn Count", entry.spawnCount);
 
-                entry.spawnCount = EditorGUILayout.IntField("Spawn Count", entry.spawnCount);
-
-                if(entry.maxSpawns > 0 && entry.spawnCount > entry.maxSpawns) {
-                    EditorGUILayout.Separator();
-                    EditorGUILayout.LabelField("Spawn Count greater than max spawns: ", EditorHelper2.LoadStyle(errorLabel));
-                    EditorGUILayout.Separator();
-                }
+                //if(entry.maxSpawns > 0 && entry.spawnCount > entry.maxSpawns) {
+                //    EditorGUILayout.Separator();
+                //    EditorGUILayout.LabelField("Spawn Count greater than max spawns: ", EditorHelper2.LoadStyle(errorLabel));
+                //    EditorGUILayout.Separator();
+                //}
 
                 break;
             default:

@@ -131,8 +131,9 @@ public class EffectData
 
     //Spawn Entity
     public Entity entityPrefab;
-    public int spawnCount = 1;
-    public int maxSpawns = -1;
+    public float percentOfPlayerDamage = 1f;
+    //public int spawnCount = 1;
+    //public int maxSpawns = -1;
     public EntitySpawnType spawnType;
 
 

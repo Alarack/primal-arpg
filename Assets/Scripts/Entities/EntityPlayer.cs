@@ -75,18 +75,9 @@ public class EntityPlayer : Entity
         return Inventory.GetDamageRoll();
     }
 
-    //public override Ability IsAbilityActivelyCasting() {
-    //    foreach(var entry in AbilityManager.Abilities) {
-    //        for (int i = 0; i < entry.Value.Count; i++) {
-    //            if (entry.Value[i].IsCasting == true) {
-    //                return entry.Value[i];
-    //            }
-    //        }
-    //    }
-
-    //    return null;
-    //}
-
+    public float GetAverageDamageRoll() {
+        return Inventory.GetAverageDamageRoll();
+    }
 
     #region EVENTS
 

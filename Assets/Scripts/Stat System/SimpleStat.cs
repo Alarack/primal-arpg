@@ -57,7 +57,10 @@ public enum StatName
     EssenceRegenerationValue,
     AbilityWindupTime,
     OverloadRecieveChance,
-    CastSpeedModifier
+    CastSpeedModifier,
+    MaxMinionCount,
+    MinionSpawnCount,
+    MinionDamageModifier
 }
 
 

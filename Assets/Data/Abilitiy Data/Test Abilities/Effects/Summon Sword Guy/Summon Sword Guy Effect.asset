@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Summon Sword Guy Effect
-    effectDescription: 
+    effectDescription: Summon up to {} Sword Minions. Minions inherit {P} of your
+      Weapon's Average Damage.
     type: 10
     targeting: 0
     subTarget: 0
@@ -28,7 +29,17 @@ MonoBehaviour:
     payloadPrefab: {fileID: 0}
     payloadCount: 1
     shotDelay: 0.2
-    payloadStatData: []
+    payloadStatData:
+    - variant: 0
+      statName: 53
+      value: 3
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 54
+      value: 3
+      maxValue: 0
+      minValue: 0
     spawnLocation: 0
     effectZoneInfo:
       removeEffectOnExit: 0
@@ -123,6 +134,5 @@ MonoBehaviour:
     applyTriggeringEffect: 0
     statScalersToAdd: []
     entityPrefab: {fileID: 575796059060524060, guid: b0480657d144e9a4abe5b57ec7447193, type: 3}
-    spawnCount: 3
-    maxSpawns: 3
+    percentOfPlayerDamage: 0.5
     spawnType: 0

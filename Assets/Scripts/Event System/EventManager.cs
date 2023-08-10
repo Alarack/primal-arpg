@@ -151,7 +151,8 @@ namespace LL.Events {
         OverloadTriggered,
         ProjectileCreated,
         AbilityInitiated,
-        AIActivated
+        AIActivated,
+        MinionSummoned
 
     }
 

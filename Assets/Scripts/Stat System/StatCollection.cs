@@ -121,6 +121,23 @@ public class StatCollection {
         }
     }
 
+    public void AddMissingStats(List<StatData> stats, List<StatName> exceptions = null) {
+
+        for (int i = 0; i < stats.Count; i++) {
+            if(exceptions != null) {
+                if (exceptions.Contains(stats[i].statName))
+                    continue;
+            }
+
+            if (Contains(stats[i].statName) == false) {
+                CreateStatFromData(stats[i]);
+            }
+            else {
+                SetStatValue(stats[i].statName, stats[i].value, Owner);
+            }
+        }
+    }
+
     private void CreateStatFromData(StatData data) {
         if (data.variant == StatData.StatVariant.Simple) {
             SimpleStat newSimpleStat = new SimpleStat(data.statName, data.value);
