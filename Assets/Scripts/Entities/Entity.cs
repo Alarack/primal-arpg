@@ -195,6 +195,9 @@ public abstract class Entity : MonoBehaviour {
 
     #endregion
 
+    public virtual void ForceDie(Entity source, Ability sourceAbility = null) {
+        Die(source, sourceAbility);
+    }
 
     protected virtual void Die(Entity source, Ability sourceAbility = null) {
         if(IsDead == true)

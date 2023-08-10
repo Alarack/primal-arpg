@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
 using static AbilityTrigger;
-
 using Random = UnityEngine.Random;
 
 
@@ -259,20 +257,28 @@ public abstract class Effect {
 
     }
 
-    public void UnRegisterRiderEvents() {
+    public virtual void RegisterEvents() {
+        RegisterRiderEvents();
+    }
+
+    public virtual void UnregisterEvents() {
+        UnRegisterRiderEvents();
+    }
+
+    protected  void UnRegisterRiderEvents() {
         for (int i = 0; i < riderEffects.Count; i++) {
             EventManager.RemoveMyListeners(riderEffects[i]);
         }
     }
 
-    public void RegisterRiderEvents() {
+    protected void RegisterRiderEvents() {
         for (int i = 0; i < riderEffects.Count; i++) {
             
-            riderEffects[i].RegisterEvents();
+            riderEffects[i].RegisterRiderOnEventApplied();
         }
     }
 
-    protected void RegisterEvents() {
+    protected void RegisterRiderOnEventApplied() {
         if(parentEffect != null) {
             //Debug.Log("Registering a rider event");
             EventManager.RegisterListener(GameEvent.EffectApplied, OnEffectApplied);
@@ -974,11 +980,114 @@ public class SpawnProjectileEffect : Effect {
 
 }
 
+public class SpawnEntityEffect : Effect {
+    public override EffectType Type => EffectType.SpawnEntity;
+
+
+    public List<Entity> activeSpawns = new List<Entity>(); 
+
+    public SpawnEntityEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) { 
+        
+    
+    
+    }
+
+
+    public override void RegisterEvents() {
+        base.RegisterEvents();
+        EventManager.RegisterListener(GameEvent.UnitDied, OnUnitDied);
+    }
+
+    public override void UnregisterEvents() {
+        base.UnregisterEvents();
+        EventManager.RemoveMyListeners(this);
+    }
+
+
+    private void OnUnitDied(EventData data) {
+        //Entity cause =  data.GetEntity("Killer");
+        Ability causingAbility = data.GetAbility("Ability Cause");
+        if (causingAbility == ParentAbility)
+            return;
+
+        Entity victim = data.GetEntity("Victim");
+
+        activeSpawns.RemoveIfContains(victim);
+
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+
+        if(Data.maxSpawns > 0 && activeSpawns.Count >= Data.maxSpawns) {
+            Debug.LogWarning("Spawn count reached");
+            return false;
+        }
+
+        if(Data.maxSpawns > 0 && Data.spawnCount > Data.maxSpawns) {
+            Debug.LogError("[SPAWN ENTITY] spawn count is greater than max spanws");
+        }
+
+
+        int unitsToSpawn = Data.maxSpawns > 0 ? Data.spawnCount - activeSpawns.Count : Data.spawnCount;
+
+        for (int i = 0; i < unitsToSpawn; i++) {
+            Entity spawn = PerformSpawn(target);
+            spawn.ownerType = Source.ownerType;
+            spawn.entityType = Source.entityType;
+            spawn.gameObject.layer = Source.gameObject.layer;
+
+            //NPC npc = spawn as NPC;
+
+            //if(npc != null) {
+
+            //}
+            
+            EntityTargets.Add(spawn);
+            LastTarget = spawn;
+            activeSpawns.Add(spawn);
+        }
+
+        return true;
+    }
+
+    public override void Remove(Entity target) {
+        base.Remove(target);
+
+        for (int i = 0; i < activeSpawns.Count; i++) {
+            if (activeSpawns[i] != null)
+                activeSpawns[i].ForceDie(Source, ParentAbility);
+        }
+
+        activeSpawns.Clear();
+
+    }
+
+    private Entity PerformSpawn(Entity target) {
+
+        Entity result = Data.spawnType switch {
+            EntitySpawnType.Manual => GameObject.Instantiate(Data.entityPrefab, GetSpawnLocation(), Quaternion.identity),
+            EntitySpawnType.Clone => GameObject.Instantiate(Source, GetSpawnLocation(), Quaternion.identity),
+            EntitySpawnType.Series => throw new NotImplementedException(),
+            _ => null,
+        };
+
+        return result;
+
+    }
+
+    private Vector2 GetSpawnLocation() {
+        Vector2 nearby = (Vector2)Source.transform.position + (Random.insideUnitCircle * Random.Range(2f, 6f));
+
+        return nearby;
+    }
+
+}
+
+
 public class StatAdjustmentEffect : Effect {
-
-
-
-
 
     public override EffectType Type => EffectType.StatAdjustment;
 

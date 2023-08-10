@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1392351683977763388}
   - component: {fileID: 6536745415169747781}
   m_Layer: 8
-  m_Name: Sword Boy
+  m_Name: Sword Boy Minion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   entityType: 1
   ownerType: 1
   subtypes: 
-  statDefinitions: {fileID: 11400000, guid: 81cc5d720b7baca4da20e8bf3f43e2ce, type: 2}
+  statDefinitions: {fileID: 11400000, guid: 27859cddf61c9e3418980b02f9bd60a6, type: 2}
   deathEffectPrefab: {fileID: 150606, guid: 625165fb93553b14f8ed057807ed752a, type: 3}
   spawnEffectPrefab: {fileID: 7624612741357570336, guid: ef86985cce99ffa4dbdde299ff7b3bf7, type: 3}
 --- !u!114 &1392351683977763388
@@ -748,7 +748,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 3625043607559282579, guid: 76f37d8b6578abe4ba31432641260e0f, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.79670525, a: 1}
+  m_Color: {r: 0, g: 0.33522224, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

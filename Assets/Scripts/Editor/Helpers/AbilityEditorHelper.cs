@@ -494,6 +494,24 @@ public static class AbilityEditorHelper
                 EditorGUILayout.LabelField("Scalers to Add: ", EditorStyles.boldLabel);
                 entry.statScalersToAdd = EditorHelper.DrawExtendedList(entry.statScalersToAdd, "Scaler", DrawStatScaler);
                 break;
+
+            case EffectType.SpawnEntity:
+                entry.spawnType = EditorHelper.EnumPopup("Spawn Type", entry.spawnType);
+                if(entry.spawnType == EntitySpawnType.Manual) {
+                    entry.entityPrefab = EditorHelper.ObjectField("Prefab", entry.entityPrefab);
+                }
+
+                entry.maxSpawns = EditorGUILayout.IntField("Max Spawns", entry.maxSpawns);
+
+                entry.spawnCount = EditorGUILayout.IntField("Spawn Count", entry.spawnCount);
+
+                if(entry.maxSpawns > 0 && entry.spawnCount > entry.maxSpawns) {
+                    EditorGUILayout.Separator();
+                    EditorGUILayout.LabelField("Spawn Count greater than max spawns: ", EditorHelper2.LoadStyle(errorLabel));
+                    EditorGUILayout.Separator();
+                }
+
+                break;
             default:
                 break;
         }

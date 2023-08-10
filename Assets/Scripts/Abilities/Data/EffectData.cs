@@ -14,7 +14,8 @@ public enum EffectType {
     AddChildAbility,
     ApplyOtherEffect,
     AddStatScaler,
-    ForceStatusTick
+    ForceStatusTick,
+    SpawnEntity
 }
 
 public enum EffectTarget {
@@ -54,6 +55,12 @@ public enum MovementDestination {
     SourceCurrentVelocity,
     MousePosition,
     AwayFromSource
+}
+
+public enum EntitySpawnType {
+    Manual,
+    Clone,
+    Series
 }
 
 [Serializable]
@@ -121,6 +128,12 @@ public class EffectData
 
     //Add Stat Scaler
     public List<StatScaler> statScalersToAdd = new List<StatScaler>();
+
+    //Spawn Entity
+    public Entity entityPrefab;
+    public int spawnCount = 1;
+    public int maxSpawns = -1;
+    public EntitySpawnType spawnType;
 
 
     public EffectData() {

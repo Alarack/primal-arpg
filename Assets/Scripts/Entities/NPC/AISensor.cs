@@ -4,8 +4,7 @@ using UnityEngine;
 using System;
 using LL.Events;
 
-public class AISensor : MonoBehaviour
-{
+public class AISensor : MonoBehaviour {
 
     //Owner - Who's sensor am I?
     //range - how big is my sensor area?
@@ -20,19 +19,24 @@ public class AISensor : MonoBehaviour
 
     public Entity LatestTarget { get; private set; }
     public Entity PriorityTarget { get; private set; }
-    
+
 
     private NPC owner;
     private List<Entity> targets = new List<Entity>();
     private AIBrain brain;
 
 
-    public void Initialize(NPC owner, AIBrain brain)
-    {
+    public void Initialize(NPC owner, AIBrain brain) {
         this.owner = owner;
         this.brain = brain;
         baseForgetDistance = forgetDistance;
         myCollider.radius = owner.Stats[StatName.DetectionRange];
+
+        SetDetectionMask();
+    }
+
+    public void SetDetectionMask() {
+        detectionMask = LayerTools.SetupHitMask(detectionMask, owner.gameObject.layer);
     }
 
 
@@ -46,7 +50,7 @@ public class AISensor : MonoBehaviour
 
 
     private void Update() {
-        if(LatestTarget != null && forgetDistance > 0f) {
+        if (LatestTarget != null && forgetDistance > 0f) {
             float distance = GetDistanceToTarget();
 
             if (distance > forgetDistance) {
@@ -54,6 +58,10 @@ public class AISensor : MonoBehaviour
 
                 OnDetectionLost(LatestTarget);
             }
+        }
+        
+        if (LatestTarget == null && targets != null && targets.Count > 0) {
+            FindNextClosestTarget();
         }
     }
 
@@ -72,8 +80,8 @@ public class AISensor : MonoBehaviour
         if (target != owner)
             return;
 
-        if(targetStat == StatName.Health && value < 0f) {
-            if(detectOnDamageTaken == true && cause != null && cause != owner) {
+        if (targetStat == StatName.Health && value < 0f) {
+            if (detectOnDamageTaken == true && cause != null && cause != owner) {
                 OnTargetDetected(cause);
             }
         }
@@ -81,8 +89,7 @@ public class AISensor : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
+    private void OnTriggerEnter2D(Collider2D other) {
         Entity detectedTarget = IsDetectionValid(other);
 
         if (detectedTarget == null)
@@ -92,8 +99,7 @@ public class AISensor : MonoBehaviour
 
     }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
+    private void OnTriggerExit2D(Collider2D other) {
         //Entity detectedTarget = IsDetectionValid(other);
 
         //if (detectedTarget == null)
@@ -103,7 +109,7 @@ public class AISensor : MonoBehaviour
     }
 
     public float GetDistanceToTarget(Entity target = null) {
-        if(target != null)
+        if (target != null)
             return Vector2.Distance(owner.transform.position, target.transform.position);
 
         if (target == null && LatestTarget != null)
@@ -123,17 +129,16 @@ public class AISensor : MonoBehaviour
     }
 
 
-    private void OnTargetDetected(Entity target)
-    {
+    private void OnTargetDetected(Entity target) {
         LatestTarget = target;
 
-        if(targets.Contains(target) == false)
+        if (targets.Contains(target) == false)
             targets.Add(target);
 
 
         float spotDistance = Vector2.Distance(target.transform.position, owner.transform.position);
 
-        if(spotDistance > baseForgetDistance && baseForgetDistance > 0f) {
+        if (spotDistance > baseForgetDistance && baseForgetDistance > 0f) {
             forgetDistance = spotDistance * 1.2f;
         }
 
@@ -143,12 +148,11 @@ public class AISensor : MonoBehaviour
         EventManager.SendEvent(GameEvent.UnitDetected, data);
     }
 
-    private void OnDetectionLost(Entity target)
-    {
+    private void OnDetectionLost(Entity target) {
 
         forgetDistance = baseForgetDistance;
 
-        if(targets.Contains(target) == true) {
+        if (targets.Contains(target) == true) {
             targets.Remove(target);
         }
 
@@ -160,7 +164,7 @@ public class AISensor : MonoBehaviour
 
         if (LatestTarget == target) {
 
-            if(targets.Count == 0) {
+            if (targets.Count == 0) {
                 LatestTarget = null;
                 return;
             }
@@ -170,6 +174,15 @@ public class AISensor : MonoBehaviour
 
     }
 
+    private void FindNextClosestTarget() {
+        //if(owner == null) 
+        //    return;
 
+        //Debug.Log(owner.gameObject.name + " is the owner");
+        //Debug.Log(targets.Count + " targets are in the list");
+
+
+        LatestTarget = TargetUtilities.FindNearestTargetFromList(targets, owner.transform);
+    }
 
 }

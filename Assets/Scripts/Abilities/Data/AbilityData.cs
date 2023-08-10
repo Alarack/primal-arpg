@@ -16,7 +16,8 @@ public enum AbilityTag {
     Projectile,
     Physical,
     Affliction,
-    Water
+    Water,
+    Summoning
 }
 
 public enum AbilityCategory {

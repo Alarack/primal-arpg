@@ -113,6 +113,7 @@ public static class AbilityFactory {
             EffectType.ApplyOtherEffect => new ApplyOtherEffect(data, source, parentAbility),
             EffectType.AddStatScaler => new AddStatScalerEffect(data, source, parentAbility),
             EffectType.ForceStatusTick => new ForceStatusTickEffect(data, source, parentAbility),
+            EffectType.SpawnEntity => new SpawnEntityEffect(data, source, parentAbility),
             _ => null,
         };
 

@@ -109,7 +109,14 @@ public class EntityManager : Singleton<EntityManager> {
     }
     public static EntityPlayer GetPlayer() {
         if (ActiveEntities.TryGetValue(Entity.EntityType.Player, out List<Entity> results) == true) {
-            return results[0] as EntityPlayer;
+
+            for (int i = 0; i < results.Count; i++) {
+                if (results[i] is EntityPlayer) {
+                    return results[i] as EntityPlayer;
+                }
+            }
+            
+            //return results[0] as EntityPlayer;
         }
 
         return null;

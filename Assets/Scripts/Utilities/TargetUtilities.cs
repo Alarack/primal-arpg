@@ -171,6 +171,28 @@ public static class TargetUtilities
         return closest;
     }
 
+    public static Entity FindNearestTargetFromList(List<Entity> targets, Transform myTransform) {
+        Entity closest = null;
+        float closestDistance = float.MaxValue;
+
+        for (int i = targets.Count -1; i >= 0 ; i--) {
+
+            if (targets[i] == null) {
+                targets.RemoveAt(i);
+                continue;
+            }
+            
+            float distance = Vector2.Distance(myTransform.position, targets[i].transform.position);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closest = targets[i];
+            }
+        }
+
+
+        return closest;
+    }
+
     public static Entity GetRandomNearbyEntity(Collider2D initialTarget, Vector2 myPosition, float radius, LayerMask mask) {
         List<Collider2D> nearbyColliders = Physics2D.OverlapCircleAll(myPosition, radius, mask).ToList();
 
