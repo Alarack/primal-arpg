@@ -7,6 +7,18 @@ public static class VFXUtility
 
 
 
+    public static void DesaturateSprite(SpriteRenderer spriteRender, float amount) {
+
+        Color baseColor = spriteRender.color;
+        float r = baseColor.r * amount;
+        float g = baseColor.g * amount;
+        float b = baseColor.b * amount;
+
+
+        spriteRender.color = new Color(r, g, b, baseColor.a);
+
+    }
+
     public static void SpawnVFX(GameObject prefab, Vector2 location, Quaternion rotation, float destroyTimer = 0f) {
         if(prefab == null) 
             return;

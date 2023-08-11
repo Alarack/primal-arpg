@@ -385,6 +385,7 @@ public static class AbilityEditorHelper
         entry.effectDesignation = EditorHelper.EnumPopup("Effect Designation", entry.effectDesignation);
         entry.floatingTextColor = EditorGUILayout.GradientField("Floating Text Color", entry.floatingTextColor);
         entry.canOverload = EditorGUILayout.Toggle("Can Overload?", entry.canOverload);
+        entry.canAffectDeadTargets = EditorGUILayout.Toggle("Can Affect Dead", entry.canAffectDeadTargets);
         
         if(entry.canOverload == true) {
             entry.overloadFloatingTextColor = EditorGUILayout.GradientField("Overload Floating Text Color", entry.overloadFloatingTextColor);

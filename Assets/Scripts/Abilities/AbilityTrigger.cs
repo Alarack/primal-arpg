@@ -112,11 +112,11 @@ public abstract class AbilityTrigger {
                         bool entityCheck = CheckFocusConstraints(entry.Key, foci.Item1, activationInstance);
 
                         if (entityCheck == false) {
-                            //if (ParentAbility != null)
+                            //if (ParentAbility != null && ParentAbility.Data.abilityName == "Reaping Summon")
                             //    Debug.Log("an ability: " + ParentAbility.Data.abilityName + " failed an entity constraint");
                             //else
                             //    Debug.LogWarning("A Trigger: " + Type.ToString() + " failed a constraint");
-                            
+
                             return false;
                         }
                     }
@@ -129,8 +129,8 @@ public abstract class AbilityTrigger {
                     if (foci.Item2 != null) {
                         bool abilitycheck = CheckAbilityFocusConstraints(entry.Key, foci.Item2, activationInstance);
 
-                        if (abilitycheck == false) {
-                            //Debug.Log("an ability: " + ParentAbility.Data.abilityName + " failed an ability constraint");
+                        if (abilitycheck == false && ParentAbility.Data.abilityName == "Reaping Summon") {
+                            Debug.Log("an ability: " + ParentAbility.Data.abilityName + " failed an ability constraint");
                             return false;
                         }
                     }

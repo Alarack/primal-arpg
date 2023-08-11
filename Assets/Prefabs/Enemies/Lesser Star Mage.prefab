@@ -123,7 +123,7 @@ Transform:
   - {fileID: 4862454112335061537}
   - {fileID: 3652867900123962074}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2699820486525943953
 Rigidbody2D:
@@ -213,6 +213,7 @@ MonoBehaviour:
   entityType: 1
   ownerType: 1
   subtypes: 
+  innerSprite: {fileID: 1578557840839817384}
   statDefinitions: {fileID: 11400000, guid: 2428cbea6e9813742b291a835c69b822, type: 2}
   deathEffectPrefab: {fileID: 150606, guid: 625165fb93553b14f8ed057807ed752a, type: 3}
   spawnEffectPrefab: {fileID: 7624612741357570336, guid: ef86985cce99ffa4dbdde299ff7b3bf7, type: 3}
@@ -294,7 +295,7 @@ MonoBehaviour:
   myCollider: {fileID: 7722851635618435695}
   detectionMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   detectOnDamageTaken: 1
   forgetDistance: -1
 --- !u!58 &7722851635618435695
@@ -941,3 +942,5 @@ MonoBehaviour:
   preset: 0
   endScale: 0.5
   scaleDuration: 1
+  endRotatation: 0
+  rotationDuration: 0

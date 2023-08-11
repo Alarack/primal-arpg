@@ -144,8 +144,15 @@ public abstract class Effect {
 
     public virtual bool Apply(Entity target) {
 
-        if (target == null || target.IsDead)
+        if (target == null /*|| target.IsDead*/) {
+            Debug.LogError(ParentAbility.Data.abilityName + " is trying to affect a null target");
             return false;
+        }
+
+        if(target.IsDead == true && Data.canAffectDeadTargets == false) {
+            //Debug.Log(ParentAbility.Data.abilityName + " is trying to affect a dead target");
+            return false;
+        }
 
         if (EvaluateTargetConstraints(target) == false)
             return false;
@@ -1031,11 +1038,21 @@ public class SpawnEntityEffect : Effect {
         int spawnCount = Stats[StatName.MinionSpawnCount] > 0 ? (int)Stats[StatName.MinionSpawnCount] : 1;
 
         if (maxSpawns > 0 && activeSpawns.Count >= maxSpawns) {
-            Debug.LogWarning("Spawn count reached");
+            //Debug.LogWarning("Spawn count reached");
             return false;
         }
 
-        int unitsToSpawn = maxSpawns > 0 ? spawnCount - activeSpawns.Count : spawnCount;
+
+
+        int unitsToSpawn = spawnCount; /*maxSpawns > 0 ? spawnCount - activeSpawns.Count : spawnCount;*/
+
+        if(maxSpawns > 0 && spawnCount + activeSpawns.Count > maxSpawns) { 
+            unitsToSpawn = spawnCount - activeSpawns.Count;
+        }
+
+        //Debug.Log((spawnCount - activeSpawns.Count).ToString() + " is how many I should spawn");
+
+        //Debug.Log("Spawning: " + unitsToSpawn + " units. Max: " + maxSpawns + " Current: " + activeSpawns.Count + " SpawnCount: " + spawnCount);
 
         for (int i = 0; i < unitsToSpawn; i++) {
             Entity spawn = PerformSpawn(target);
@@ -1043,6 +1060,7 @@ public class SpawnEntityEffect : Effect {
             spawn.entityType = Source.entityType;
             spawn.gameObject.layer = Source.gameObject.layer;
             spawn.subtypes.Add(Entity.EntitySubtype.Minion);
+            VFXUtility.DesaturateSprite(spawn.innerSprite, 0.4f);
 
             EntityPlayer player = Source as EntityPlayer;
             if(player != null) {
@@ -1051,9 +1069,18 @@ public class SpawnEntityEffect : Effect {
                 spawn.Stats.SetStatValue(StatName.AbilityWeaponCoefficicent, modifiedDamage, Source);
             }
 
+            NPC npc = spawn as NPC;
+            if(npc != null) {
+                npc.Brain.Sensor.RemoveFromDetectionMask(Source.gameObject.layer);
+            }
+
             EntityTargets.Add(spawn);
             LastTarget = spawn;
             activeSpawns.Add(spawn);
+
+
+            //Debug.Log("Spawning: " + spawn.EntityName);
+            //Debug.Log("Health of Spawn: " + spawn.Stats[StatName.Health]);
 
             SendMinionSpawnedEvent(spawn);
         }
@@ -1085,9 +1112,11 @@ public class SpawnEntityEffect : Effect {
 
     private Entity PerformSpawn(Entity target) {
 
+
+
         Entity result = Data.spawnType switch {
             EntitySpawnType.Manual => GameObject.Instantiate(Data.entityPrefab, GetSpawnLocation(), Quaternion.identity),
-            EntitySpawnType.Clone => GameObject.Instantiate(Source, GetSpawnLocation(), Quaternion.identity),
+            EntitySpawnType.Clone => GameObject.Instantiate(target, GetSpawnLocation(), Quaternion.identity),
             EntitySpawnType.Series => throw new NotImplementedException(),
             _ => null,
         };
@@ -1116,7 +1145,7 @@ public class SpawnEntityEffect : Effect {
 
         string replacement = Data.effectDescription.Replace("{}", TextHelper.ColorizeText( maxSpawns.ToString(), Color.green));
 
-        string weaponPercent = TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(Data.percentOfPlayerDamage * 100f, 2) +"%", Color.green);
+        string weaponPercent = TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(Data.percentOfPlayerDamage * 100f, 2) + "%", Color.green);
 
         string damageReplacement = replacement.Replace("{P}", weaponPercent);
 

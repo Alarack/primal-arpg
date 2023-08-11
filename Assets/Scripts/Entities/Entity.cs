@@ -36,7 +36,7 @@ public abstract class Entity : MonoBehaviour {
     public EntityClass CurrentClass { get; protected set; }
     public OwnerConstraintType ownerType;
     public List<EntitySubtype> subtypes = new List<EntitySubtype>();
-    
+    public SpriteRenderer innerSprite;
 
     [Header("Stat Definitions")]
     public StatDataGroup statDefinitions;

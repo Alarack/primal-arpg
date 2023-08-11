@@ -171,7 +171,7 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     public static void OnRoomSelected(Room room) {
-        Debug.Log("Room Selected: " + room.Type);
+        //Debug.Log("Room Selected: " + room.Type);
 
         Instance.OnPortalEntered(room);
 

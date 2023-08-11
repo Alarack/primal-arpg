@@ -17,6 +17,10 @@ public static class LayerTools {
        return mask |= (1 << layer);
     }
 
+    public static LayerMask RemoveFromMask(LayerMask mask, int layer) {
+        return mask &= ~(1 << layer);
+    }
+
     //public static void AddToMask(this LayerMask mask, int layer) {
     //    mask |= (1 << layer);
     //}

@@ -73,6 +73,7 @@ public class EffectData
     public EffectSubTarget subTarget;
     public bool deliveryPayloadToTarget;
     public bool canOverload;
+    public bool canAffectDeadTargets;
 
     public int numberOfTargets = -1;
     public string otherAbilityName;

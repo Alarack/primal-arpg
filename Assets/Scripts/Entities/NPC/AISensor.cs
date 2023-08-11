@@ -36,7 +36,18 @@ public class AISensor : MonoBehaviour {
     }
 
     public void SetDetectionMask() {
+
+        //Debug.Log("Setting detection Layer based on: " + LayerMask.LayerToName(owner.gameObject.layer));
+
         detectionMask = LayerTools.SetupHitMask(detectionMask, owner.gameObject.layer);
+    }
+
+    public void AddToDetectionMask(int layer) {
+        detectionMask = LayerTools.AddToMask(detectionMask, layer);
+    }
+
+    public void RemoveFromDetectionMask(int layer) {
+        detectionMask = LayerTools.RemoveFromMask(detectionMask, layer);
     }
 
 

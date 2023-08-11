@@ -79,7 +79,7 @@ public class EffectZone : Entity {
     protected override void OnDisable() {
         base.OnDisable();
 
-        if(cleanTask.Running == true)
+        if(cleanTask != null && cleanTask.Running == true)
             cleanTask.Stop();
     }
 
