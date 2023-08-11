@@ -645,7 +645,12 @@ public class Ability {
 
             string durationReplacment = radiusReplacement.Replace("{D}", TextHelper.ColorizeText(lifetime.ToString(), Color.yellow));
 
-            builder.Append(durationReplacment).AppendLine();
+            int shotCount = (int)effects[0].Stats[StatName.ShotCount];
+
+            string shotCountReplacement = durationReplacment.Replace("{SC}", TextHelper.ColorizeText(shotCount.ToString(), Color.green));
+
+
+            builder.Append(shotCountReplacement).AppendLine();
         }
 
 
