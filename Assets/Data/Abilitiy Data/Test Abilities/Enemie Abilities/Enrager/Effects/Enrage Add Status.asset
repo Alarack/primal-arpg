@@ -144,7 +144,7 @@ MonoBehaviour:
     payloadStatData:
     - variant: 0
       statName: 42
-      value: 10
+      value: 12
       maxValue: 0
       minValue: 0
     spawnLocation: 0
@@ -231,6 +231,7 @@ MonoBehaviour:
       duration: 3
       interval: 0
       VFXPrefab: {fileID: 147226, guid: 80f813576e43973458ee56048bafcfa4, type: 3}
+      vfxScaleModifier: 0.75
       statusEffectDef: {fileID: 11400000, guid: bf98f2220e5b0a64e930bc87769f7ac9, type: 2}
     statusToRemove: 
     isTeleport: 0

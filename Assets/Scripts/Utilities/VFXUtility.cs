@@ -19,18 +19,32 @@ public static class VFXUtility
 
     }
 
-    public static void SpawnVFX(GameObject prefab, Vector2 location, Quaternion rotation, float destroyTimer = 0f) {
+    public static GameObject SpawnVFX(GameObject prefab, Vector2 location, Quaternion rotation, Transform parent = null, float destroyTimer = 0f, float scaleModifier = 1f) {
         if(prefab == null) 
-            return;
+            return null;
         
         GameObject activeVFX = GameObject.Instantiate(prefab, location, rotation);
+        if(parent != null) {
+            activeVFX.transform.SetParent(parent.transform, false);
+            activeVFX.transform.localPosition = Vector3.zero;
+        }
+
+        activeVFX.transform.localScale *= scaleModifier;
+
+
         if(destroyTimer > 0f) {
             GameObject.Destroy(activeVFX, destroyTimer);
         }
+
+        return activeVFX;
     }
 
-    public static void SpawnVFX(GameObject prefab, Transform location, float destroyTiemr = 0f) {
-        SpawnVFX(prefab, location.position, location.rotation, destroyTiemr);
+    public static GameObject SpawnVFX(GameObject prefab, Transform location, Transform parent, float destroyTiemr = 0f, float scaleModifer = 1f) {
+        return SpawnVFX(prefab, location.position, location.rotation, parent, destroyTiemr, scaleModifer);
+    }
+
+    public static GameObject SpawnVFX(GameObject prefab, Transform parent, float destroyTiemr = 0f, float scaleModifier = 1f) {
+        return SpawnVFX(prefab, parent.position, parent.rotation, parent, destroyTiemr, scaleModifier);
     }
 
 

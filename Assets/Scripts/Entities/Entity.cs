@@ -222,11 +222,11 @@ public abstract class Entity : MonoBehaviour {
     #region VFX
 
     protected void SpawnDeathVFX() {
-        VFXUtility.SpawnVFX(deathEffectPrefab, transform.position, Quaternion.identity, 2f);
+        VFXUtility.SpawnVFX(deathEffectPrefab, transform.position, Quaternion.identity, null, 2f);
     }
 
     protected void SpawnEntranceEffect() {
-        VFXUtility.SpawnVFX(spawnEffectPrefab, transform.position, Quaternion.identity, 2f);
+        VFXUtility.SpawnVFX(spawnEffectPrefab, transform.position, Quaternion.identity, null, 2f);
     }
 
 
