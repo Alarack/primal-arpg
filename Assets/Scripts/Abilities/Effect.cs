@@ -1767,6 +1767,8 @@ public class StatAdjustmentEffect : Effect {
 
         float globalDamageMultiplier = 1 + Source.Stats[StatName.GlobalDamageModifier];
 
+        //Debug.Log(globalDamageMultiplier + " is the global mod");
+
         if (ParentAbility != null) {
             foreach (AbilityTag tag in ParentAbility.Tags) {
                 float value = tag switch {
@@ -1786,8 +1788,6 @@ public class StatAdjustmentEffect : Effect {
             float overloadDamageMod = 1f + Source.Stats[StatName.OverloadDamageModifier];
             globalDamageMultiplier *= overloadDamageMod;
         }
-
-
         return globalDamageMultiplier;
     }
 

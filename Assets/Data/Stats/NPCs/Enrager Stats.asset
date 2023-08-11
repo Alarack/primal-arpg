@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6d90647ad0bd0d4187c53eb7aa72968, type: 3}
-  m_Name: Lesser Mage Stats
+  m_Name: Enrager Stats
   m_EditorClassIdentifier: 
   dataList:
   - variant: 1
     statName: 0
-    value: 35
-    maxValue: 35
+    value: 50
+    maxValue: 50
     minValue: 0
   - variant: 0
     statName: 2
-    value: 5000
+    value: 6000
     maxValue: 0
     minValue: 0
   - variant: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
     minValue: 0
   - variant: 0
     statName: 28
-    value: 1
+    value: 3
     maxValue: 0
     minValue: 0
   - variant: 0

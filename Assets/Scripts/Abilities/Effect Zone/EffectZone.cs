@@ -24,13 +24,13 @@ public class EffectZone : Entity {
 
     private Task cleanTask;
 
-    public virtual void Setup(Effect parentEffect, EffectZoneInfo info, Transform parentToThis = null, Projectile carrier = null, int parentLayer = -1) {
+    public virtual void Setup(Effect parentEffect, EffectZoneInfo info, Transform parentToThis = null, Projectile carrier = null, int parentLayer = -1, MaskTargeting targeting = MaskTargeting.Opposite) {
         this.parentEffect = parentEffect;
         this.zoneInfo = info;
         this.carrier = carrier;
 
         if(parentLayer != -1)
-            mask = LayerTools.SetupHitMask(mask, parentLayer);
+            mask = LayerTools.SetupHitMask(mask, parentLayer, targeting);
 
         //if (parentEffect.Source == null) {
         //    Debug.LogWarning("Spawning an effect zone while the source is dead: " + parentEffect.Data.effectName);

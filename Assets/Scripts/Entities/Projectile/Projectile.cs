@@ -89,14 +89,14 @@ public class Projectile : Entity {
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
     }
 
-    public void Setup(Entity source, Effect parentEffect, LayerMask hitMask) {
+    public void Setup(Entity source, Effect parentEffect, LayerMask hitMask, MaskTargeting maskTargeting = MaskTargeting.Opposite) {
         this.source = source;
         this.parentEffect = parentEffect;
         this.projectileHitMask = hitMask;
         this.parentLayer = parentEffect.Source.gameObject.layer;
 
         //SetupHitMask();
-        projectileHitMask = LayerTools.SetupHitMask(projectileHitMask, source.gameObject.layer);
+        projectileHitMask = LayerTools.SetupHitMask(projectileHitMask, source.gameObject.layer, maskTargeting);
         projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Environment"));
 
 
@@ -206,7 +206,7 @@ public class Projectile : Entity {
     private void DeployZoneEffect() {
         //Debug.Log(gameObject.name + " is tryin to deplay an effect zone");
         EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
-        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this, parentLayer);
+        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this, parentLayer, parentEffect.Data.maskTargeting);
         activeZone.Stats.AddMissingStats(parentEffect.Stats);
     }
 
@@ -254,7 +254,7 @@ public class Projectile : Entity {
 
             if (cloneSelfOnSplit == true) {
                 Projectile child = Instantiate(parentEffect.Data.payloadPrefab, transform.position, transform.rotation) as Projectile;
-                child.Setup(source, parentEffect, projectileHitMask);
+                child.Setup(source, parentEffect, projectileHitMask, parentEffect.Data.maskTargeting);
                 child.SetupChildCollision(recentHit);
                 child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
 

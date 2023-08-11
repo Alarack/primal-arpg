@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Unity.VisualScripting.Member;
 
+
+public enum MaskTargeting {
+    Opposite,
+    Same,
+    Both
+}
+
+
 public static class LayerTools {
 
 
@@ -21,25 +29,37 @@ public static class LayerTools {
         return mask &= ~(1 << layer);
     }
 
-    //public static void AddToMask(this LayerMask mask, int layer) {
-    //    mask |= (1 << layer);
-    //}
-
-    public static LayerMask SetupHitMask(LayerMask mask, int sourceLayer) {
+    public static LayerMask SetupHitMask(LayerMask mask, int sourceLayer, MaskTargeting targeting = MaskTargeting.Opposite) {
         //int sourceLayer = source.gameObject.layer;
 
         //Debug.Log("Layer: " + LayerMask.LayerToName(sourceLayer));
 
-        switch (LayerMask.LayerToName(sourceLayer)) {
-            case "Enemy":
-                return mask = AddToMask(mask, LayerMask.NameToLayer("Player"));
 
-            case "Player":
-                return mask = AddToMask(mask, LayerMask.NameToLayer("Enemy"));
+        mask = LayerMask.LayerToName(sourceLayer) switch {
+            "Enemy" when targeting == MaskTargeting.Opposite => AddToMask(mask, LayerMask.NameToLayer("Player")),
+            "Enemy" when targeting == MaskTargeting.Same => AddToMask(mask, LayerMask.NameToLayer("Enemy")),
+            "Player" when targeting == MaskTargeting.Opposite => AddToMask(mask, LayerMask.NameToLayer("Enemy")),
+            "Player" when targeting == MaskTargeting.Same => AddToMask(mask, LayerMask.NameToLayer("Player")),
 
-            default:
-                return mask;
-        }
+            _ => mask,
+        };
+
+
+        //switch (LayerMask.LayerToName(sourceLayer)) {
+        //    case "Enemy":
+        //        return mask = AddToMask(mask, LayerMask.NameToLayer("Player"));
+
+        //    case "Player":
+        //        return mask = AddToMask(mask, LayerMask.NameToLayer("Enemy"));
+
+        //    default:
+        //        return mask;
+        //}
+
+
+
+        return mask;
+
     }
 
 

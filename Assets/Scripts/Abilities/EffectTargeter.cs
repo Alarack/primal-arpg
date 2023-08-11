@@ -437,7 +437,7 @@ public class EffectTargeter {
 
             Projectile projectile = delivery as Projectile;
             if (projectile != null) {
-                projectile.Setup(parentEffect.Source, parentEffect, parentEffect.Data.projectileHitMask);
+                projectile.Setup(parentEffect.Source, parentEffect, parentEffect.Data.projectileHitMask, parentEffect.Data.maskTargeting);
 
                 projectile.Stats.AddMissingStats(parentEffect.Stats);
 
@@ -458,7 +458,7 @@ public class EffectTargeter {
             EffectZone effectZone = delivery as EffectZone;
             if (effectZone != null) {
                 effectZone.Stats.AddMissingStats(parentEffect.Stats);
-                effectZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, null, parentEffect.Source.gameObject.layer);
+                effectZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, null, parentEffect.Source.gameObject.layer, parentEffect.Data.maskTargeting);
                
             }
 

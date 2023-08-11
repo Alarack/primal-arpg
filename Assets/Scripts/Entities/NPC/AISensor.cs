@@ -13,6 +13,7 @@ public class AISensor : MonoBehaviour {
     public CircleCollider2D myCollider;
     public LayerMask detectionMask;
     public bool detectOnDamageTaken;
+    public MaskTargeting maskTargeting;
     public float forgetDistance;
 
     private float baseForgetDistance;
@@ -39,7 +40,7 @@ public class AISensor : MonoBehaviour {
 
         //Debug.Log("Setting detection Layer based on: " + LayerMask.LayerToName(owner.gameObject.layer));
 
-        detectionMask = LayerTools.SetupHitMask(detectionMask, owner.gameObject.layer);
+        detectionMask = LayerTools.SetupHitMask(detectionMask, owner.gameObject.layer, maskTargeting);
     }
 
     public void AddToDetectionMask(int layer) {
