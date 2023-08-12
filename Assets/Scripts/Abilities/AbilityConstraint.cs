@@ -423,7 +423,9 @@ public class AbilityTagConstraint : AbilityConstraint {
 
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
 
-        Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
+        Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. " +
+            "This is not supported. Parent Effect: " + parentEffect.Data.effectName +
+            "Source: " + parentEffect.Source.EntityName);
 
         return false;
 

@@ -25,6 +25,8 @@ public class RoomManager : Singleton<RoomManager> {
 
     private List<RoomPortalDisplay> currentPortals = new List<RoomPortalDisplay>();
 
+    private Task rewardSpawnTask;
+    private Task createPortalsTask;
     private void Awake() {
         CurrentBiome = "Grasslands";
     }
@@ -172,6 +174,9 @@ public class RoomManager : Singleton<RoomManager> {
 
     public static void OnRoomSelected(Room room) {
         //Debug.Log("Room Selected: " + room.Type);
+        if (Instance.createPortalsTask != null && Instance.createPortalsTask.Running == true)
+            return;
+
 
         Instance.OnPortalEntered(room);
 
@@ -235,6 +240,32 @@ public class RoomManager : Singleton<RoomManager> {
 
         PanelManager.OpenPanel<TextDisplayPanel>().Setup(displayText);
 
+        
+
+        //for (int i = 0; i < rewardItems.Count; i++) {
+        //    Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rewardItems.Count);
+
+        //    RewardPedestal pedestal = Instantiate(Instance.pedestalTemplate, targetPos, Quaternion.identity);
+        //    pedestal.transform.SetParent(Instance.transform, false);
+        //    pedestal.Setup(rewardItems[i]);
+        //    Instance.currentRewards.Add(pedestal);
+
+        //}
+
+        if(rewardItems.Count == 0) {
+            Debug.LogWarning("No rewards. Sad face");
+            CurrentRoom.EndRoom();
+            return;
+        }
+
+
+        Instance.rewardSpawnTask = new Task(Instance.SpawnRewardsOnDelay(rewardItems));
+
+    }
+
+    private IEnumerator SpawnRewardsOnDelay(List<ItemDefinition> rewardItems) {
+        WaitForSeconds waiter = new WaitForSeconds(0.2f);
+
 
         for (int i = 0; i < rewardItems.Count; i++) {
             Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rewardItems.Count);
@@ -243,17 +274,31 @@ public class RoomManager : Singleton<RoomManager> {
             pedestal.transform.SetParent(Instance.transform, false);
             pedestal.Setup(rewardItems[i]);
             Instance.currentRewards.Add(pedestal);
-
+            yield return waiter;
         }
 
-        if(rewardItems.Count == 0) {
-            Debug.LogWarning("No rewards. Sad face");
-            CurrentRoom.EndRoom();
-        }
 
+        rewardSpawnTask = null;
     }
 
     public static void CreateRoomPortals(List<Room> rooms) {
+
+        Instance.createPortalsTask = new Task(Instance.CreateRoomPortalsOnDelay(rooms));
+
+        //for (int i = 0; i < rooms.Count; i++) {
+        //    Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rooms.Count);
+
+        //    RoomPortalDisplay portal = Instantiate(Instance.roomPortalTemplate, targetPos, Quaternion.identity);
+        //    portal.Setup(rooms[i]);
+
+        //    Instance.currentPortals.Add(portal);
+
+        //}
+    }
+
+    private IEnumerator CreateRoomPortalsOnDelay(List<Room> rooms) {
+        WaitForSeconds waiter = new WaitForSeconds(0.2f);
+
         for (int i = 0; i < rooms.Count; i++) {
             Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rooms.Count);
 
@@ -261,12 +306,19 @@ public class RoomManager : Singleton<RoomManager> {
             portal.Setup(rooms[i]);
 
             Instance.currentPortals.Add(portal);
-
+            yield return waiter;
         }
+
+        createPortalsTask = null;
     }
 
 
     public static void OnRewardSelected(RewardPedestal reward) {
+
+        if(Instance.rewardSpawnTask != null && Instance.rewardSpawnTask.Running == true) {
+            return;
+        }
+
 
         if (MultiReward == false) {
 
