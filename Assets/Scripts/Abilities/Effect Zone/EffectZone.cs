@@ -28,6 +28,7 @@ public class EffectZone : Entity {
         this.parentEffect = parentEffect;
         this.zoneInfo = info;
         this.carrier = carrier;
+        this.ownerType = parentEffect.Source.ownerType;
 
         if(parentLayer != -1)
             mask = LayerTools.SetupHitMask(mask, parentLayer, targeting);
@@ -70,7 +71,9 @@ public class EffectZone : Entity {
         cleanTask = new Task(CleanupAfterLifetime());
     }
 
-    private void Update() {
+    protected override void Update() {
+        base.Update();
+        
         if(persistantZoneTimer != null) {
             persistantZoneTimer.UpdateClock();
         }

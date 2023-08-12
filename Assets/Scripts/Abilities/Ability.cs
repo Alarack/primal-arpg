@@ -150,6 +150,9 @@ public class Ability {
         for (int i = 0; i < ChildAbilities.Count; i++) {
             ChildAbilities[i].Equip();
         }
+
+        if(Data.category == AbilityCategory.PassiveSkill)
+            IsActive = true;
     }
 
     public void Uneqeuip() {
@@ -171,6 +174,7 @@ public class Ability {
         UnregisterAbility();
         TearDown();
         IsEquipped = false;
+        IsActive = false;
 
         //for (int i = 0; i < ChildAbilities.Count; i++) {
         //    ChildAbilities[i].Uneqeuip();

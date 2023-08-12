@@ -94,6 +94,7 @@ public class Projectile : Entity {
         this.parentEffect = parentEffect;
         this.projectileHitMask = hitMask;
         this.parentLayer = parentEffect.Source.gameObject.layer;
+        this.ownerType = source.ownerType;
 
         //SetupHitMask();
         projectileHitMask = LayerTools.SetupHitMask(projectileHitMask, source.gameObject.layer, maskTargeting);
@@ -173,7 +174,7 @@ public class Projectile : Entity {
             return;
         }
 
-        DeployZoneEffect();
+        DeployZoneEffect(other);
 
         ApplyImpact(other);
 
@@ -203,8 +204,18 @@ public class Projectile : Entity {
         StartCleanUp();
     }
 
-    private void DeployZoneEffect() {
+    private void DeployZoneEffect(Collider2D other) {
         //Debug.Log(gameObject.name + " is tryin to deplay an effect zone");
+        if(other != null && parentEffect.Data.effectZoneInfo.effectZonePrefab == null) {
+            Entity otherEntity = other.GetComponent<Entity>();
+            if (otherEntity != null) {
+                parentEffect.Apply(otherEntity);
+            }
+
+            return;
+        }
+        
+        
         EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
         activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this, parentLayer, parentEffect.Data.maskTargeting);
         activeZone.Stats.AddMissingStats(parentEffect.Stats);
@@ -331,7 +342,7 @@ public class Projectile : Entity {
             smoothScale.Stop();
 
         if (deployZone == true) {
-            DeployZoneEffect();
+            DeployZoneEffect(null);
             SpawnDeathVFX();
         }
 
@@ -349,7 +360,7 @@ public class Projectile : Entity {
             killTimer.Stop();
 
         if (deployZone == true) {
-            DeployZoneEffect();
+            DeployZoneEffect(null);
             SpawnDeathVFX();
         }
 

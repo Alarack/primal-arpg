@@ -43,8 +43,8 @@ public class EntityPlayer : Entity
     }
 
 
-    private void Update() {
-
+    protected override void Update() {
+        base.Update();
         if(essenceRegenTimer != null) {
             essenceRegenTimer.UpdateClock();
         }

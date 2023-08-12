@@ -80,6 +80,7 @@ public static class AbilityFactory {
             ConstraintType.EffectType => new EffectTypeConstraint(data, source, parentAbility),
             ConstraintType.AbilityActive => new AbilityActiveConstraint(data, source, parentAbility),
             ConstraintType.StatRatio => new StatRatioConstraint(data, source, parentAbility),
+            ConstraintType.UnitIsMoving => new IsMovingConstraint(data, source, parentAbility),
             _ => null,
         };
 

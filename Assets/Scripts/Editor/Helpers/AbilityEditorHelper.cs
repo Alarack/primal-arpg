@@ -344,6 +344,10 @@ public static class AbilityEditorHelper
                 entry.statRatioTarget = EditorHelper.EnumPopup("Target Stat", entry.statRatioTarget);
                 entry.targetRatio = EditorGUILayout.FloatField("Ratio", entry.targetRatio);
                 break;
+
+            case ConstraintType.UnitIsMoving:
+                entry.movementMagnitudeLimit = EditorGUILayout.FloatField("Magnitude Limit", entry.movementMagnitudeLimit);
+                break;
             default:
                 break;
         }

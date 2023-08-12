@@ -35,7 +35,8 @@ public enum ConstraintType {
     AbilityActive,
     EffectApplied,
     EffectType,
-    StatRatio
+    StatRatio,
+    UnitIsMoving
 }
 
 public enum GainedOrLost {
@@ -143,6 +144,9 @@ public class ConstraintData
     //Stat Ratio
     public StatName statRatioTarget;
     public float targetRatio;
+
+    //Is Moving
+    public float movementMagnitudeLimit = 0.1f;
 
     public ConstraintData() {
 

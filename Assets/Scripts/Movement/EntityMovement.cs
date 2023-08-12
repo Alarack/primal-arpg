@@ -31,4 +31,12 @@ public class EntityMovement : MonoBehaviour
 
     }
 
+    public virtual float IsMoving() {
+        if(MyBody != null) {
+            return MyBody.velocity.magnitude;
+        }
+
+        return 0f;
+    }
+
 }

@@ -77,6 +77,26 @@ public class SubtypeConstraint : AbilityConstraint {
 
 }
 
+public class IsMovingConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.UnitIsMoving;
+
+
+    private Entity.EntitySubtype targetSubtype;
+
+    public IsMovingConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        this.targetSubtype = data.targetSubtype;
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        bool result = target.IsMoving >= data.movementMagnitudeLimit;
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
 public class HasTargetConstraint : AbilityConstraint {
 
     public override ConstraintType Type => ConstraintType.HasStatus;

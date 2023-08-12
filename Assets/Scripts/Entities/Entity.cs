@@ -46,6 +46,7 @@ public abstract class Entity : MonoBehaviour {
     public GameObject spawnEffectPrefab;
 
     public EntityMovement Movement { get; private set; }
+    public float IsMoving { get { return Movement.IsMoving(); } }
     public AbilityManager AbilityManager { get; private set; }
     public StatCollection Stats { get; private set; }
 
@@ -81,6 +82,10 @@ public abstract class Entity : MonoBehaviour {
 
         if (AbilityManager != null)
             AbilityManager.Setup();
+    }
+
+    protected virtual void Update() {
+        //Debug.Log("Moving: " + IsMoving);
     }
 
     protected virtual void OnEnable() {
