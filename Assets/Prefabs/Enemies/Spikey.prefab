@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0033afe55e0cb214c85e1010a5b2fe05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityName: 
+  entityName: Spikey
   entityType: 1
   ownerType: 1
   subtypes: 
@@ -436,6 +436,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectOnDamageTaken: 1
+  maskTargeting: 0
   forgetDistance: -1
 --- !u!58 &5205618166023707433
 CircleCollider2D:

@@ -161,6 +161,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectOnDamageTaken: 1
+  maskTargeting: 0
   forgetDistance: -1
 --- !u!58 &5773089343024401896
 CircleCollider2D:
@@ -721,7 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0033afe55e0cb214c85e1010a5b2fe05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityName: 
+  entityName: Basic Zombie
   entityType: 1
   ownerType: 1
   subtypes: 

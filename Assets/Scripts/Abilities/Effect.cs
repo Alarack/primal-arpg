@@ -1069,10 +1069,10 @@ public class SpawnEntityEffect : Effect {
                 spawn.Stats.SetStatValue(StatName.AbilityWeaponCoefficicent, modifiedDamage, Source);
             }
 
-            NPC npc = spawn as NPC;
-            if(npc != null) {
-                npc.Brain.Sensor.RemoveFromDetectionMask(Source.gameObject.layer);
-            }
+            //NPC npc = spawn as NPC;
+            //if(npc != null) {
+            //    npc.Brain.Sensor.RemoveFromDetectionMask(Source.gameObject.layer);
+            //}
 
             EntityTargets.Add(spawn);
             LastTarget = spawn;
@@ -1116,7 +1116,7 @@ public class SpawnEntityEffect : Effect {
 
         Entity result = Data.spawnType switch {
             EntitySpawnType.Manual => GameObject.Instantiate(Data.entityPrefab, GetSpawnLocation(), Quaternion.identity),
-            EntitySpawnType.Clone => GameObject.Instantiate(target, GetSpawnLocation(), Quaternion.identity),
+            EntitySpawnType.Clone => GameObject.Instantiate(NPCDataManager.GetNPCPrefabByName(target.EntityName), GetSpawnLocation(), Quaternion.identity),
             EntitySpawnType.Series => throw new NotImplementedException(),
             _ => null,
         };

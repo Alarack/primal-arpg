@@ -238,7 +238,17 @@ public class OwnerConstraint : AbilityConstraint {
 
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
 
-        bool result = target.ownerType == ownerTarget;
+
+        bool result = ownerTarget switch {
+            OwnerConstraintType.Friendly => target.ownerType == source.ownerType,
+            OwnerConstraintType.Enemy => target.ownerType != source.ownerType,
+            OwnerConstraintType.Ally => throw new System.NotImplementedException(),
+            OwnerConstraintType.Neutral => throw new System.NotImplementedException(),
+            _ => throw new System.NotImplementedException(),
+        };
+
+
+        //bool result = target.ownerType == ownerTarget;
 
         //Debug.Log(target.EntityName + " is owned by " + ownerTarget + ": " + result);
 
@@ -246,15 +256,22 @@ public class OwnerConstraint : AbilityConstraint {
     }
 
     public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
-        bool result = ability.Source.ownerType == ownerTarget;
+        
+        
+        return Evaluate(ability.Source, triggerInstance);
+        
+        //bool result = ability.Source.ownerType == ownerTarget;
 
-        return inverse == false ? result : !result;
+        //return inverse == false ? result : !result;
     }
 
     public override bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
-        bool result = effect.Source.ownerType == ownerTarget; 
         
-        return inverse == false ? result : !result;
+        return Evaluate(effect.Source, triggerInstance);
+        
+        //bool result = effect.Source.ownerType == ownerTarget; 
+        
+        //return inverse == false ? result : !result;
     }
 }
 

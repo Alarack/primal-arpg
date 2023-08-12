@@ -14,6 +14,13 @@ public class NPCDatabase : ScriptableObject
         for(int i = 0; i < biomeEntries.Count; i++) {
             biomeEntries[i].SetupThreatDict();
             manager.npcBiomeDict.Add(biomeEntries[i].biomeName, biomeEntries[i]);
+
+            for(int j = 0; j < biomeEntries[i].npcData.Count; j++) {
+                NPC current = biomeEntries[i].npcData[j].npcPrefab;
+
+                manager.npcsByName.Add(current.EntityName, current);
+            }
+
         }
     }
 
