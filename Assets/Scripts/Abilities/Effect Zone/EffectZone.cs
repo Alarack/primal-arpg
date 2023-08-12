@@ -7,6 +7,8 @@ public class EffectZone : Entity {
 
     //[Header("VFX")]
     //public GameObject spawnVFX;
+    public ParticleSystem vfxParticles;
+    public float particleSpeed = 1f;
     protected GameObject applyVFX;
     //public GameObject deathVFX;
 
@@ -193,6 +195,24 @@ public class EffectZone : Entity {
 
     protected virtual void CleanUp() {
         //Die();
+
+        if(vfxParticles != null) {
+            vfxParticles.transform.SetParent(null, true);
+            vfxParticles.Stop();
+            //vfxParticles.main.simulationSpeed = particleSpeed;
+
+            ParticleSystem[] particles = vfxParticles.GetComponentsInChildren<ParticleSystem>();
+            for (int i = 0; i < particles.Length; i++) {
+                ParticleSystem.MainModule main = particles[i].main;
+                main.simulationSpeed = particleSpeed;
+            }
+            
+           
+            
+            
+            Destroy(vfxParticles.gameObject, 2f);
+        }
+
 
         SpawnDeathVFX();
         Destroy(gameObject);

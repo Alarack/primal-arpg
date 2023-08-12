@@ -30,7 +30,17 @@ MonoBehaviour:
     payloadPrefab: {fileID: 3297998850913606696, guid: da2d316d8bf6a6047a3bfb21bee61222, type: 3}
     payloadCount: 1
     shotDelay: 0.2
-    payloadStatData: []
+    payloadStatData:
+    - variant: 0
+      statName: 11
+      value: 0.5
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 19
+      value: 1
+      maxValue: 0
+      minValue: 0
     spawnLocation: 0
     effectZoneInfo:
       removeEffectOnExit: 0
@@ -39,8 +49,8 @@ MonoBehaviour:
       applyOnInterval: 1
       affectSource: 0
       spawnVFX: {fileID: 0}
-      applyVFX: {fileID: 0}
-      deathVFX: {fileID: 0}
+      applyVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
+      deathVFX: {fileID: 1573430751113452, guid: 1b082c791be53f1438dde980868dc6a9, type: 3}
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
@@ -61,7 +71,7 @@ MonoBehaviour:
       scalers:
       - targetStat: 28
         deriveTarget: 15
-        statScaleBaseValue: 0.15
+        statScaleBaseValue: 0.2
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 0.6077585, b: 0, a: 1}
