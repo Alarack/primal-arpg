@@ -13,7 +13,7 @@ public class HotbarPanel : SkillBasePanel {
     private PlayerInputActions playerInputActions;
 
 
-    private List<Action<GameButtonType>> autoFireSlots = new List<Action<GameButtonType>>();
+    //private List<Action<GameButtonType>> autoFireSlots = new List<Action<GameButtonType>>();
     private Dictionary<InputAction, GameButtonType> autoFireDict = new Dictionary<InputAction, GameButtonType>();
 
     protected override void Awake() {
@@ -77,6 +77,10 @@ public class HotbarPanel : SkillBasePanel {
         }
 
         return null;
+
+    }
+    
+    public void AssignAbility(int index, Ability ability) {
 
     }
 

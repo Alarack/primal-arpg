@@ -430,7 +430,19 @@ public class EffectTargeter {
 
         //Debug.Log(parentEffect.Stats[StatName.ShotCount] + " projectiles on " + parentEffect.ParentAbility.Data.abilityName);
 
-        for (int i = 0; i < parentEffect.Stats[StatName.ShotCount]; i++) {
+        int baseShotCount = (int)parentEffect.Stats[StatName.ShotCount];
+        int totalShots = baseShotCount;
+
+
+
+        if (parentEffect.ParentAbility.Tags.Contains(AbilityTag.Projectile)) {
+            int ownerShotCount = (int)parentEffect.Source.Stats[StatName.ShotCount];
+
+            totalShots += ownerShotCount;
+        }
+
+
+        for (int i = 0; i < totalShots; i++) {
 
             //Instantiate payload;
             Entity delivery = GameObject.Instantiate(parentEffect.Data.payloadPrefab, location, parentEffect.Source.transform.rotation);

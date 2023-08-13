@@ -49,7 +49,36 @@ public class SkillBasePanel : BasePanel
         AbilityUtilities.CreateEmptySkillEntries(ref activeSkillEntries, 6, skillEntryTemplate, holder, SkillEntry.SkillEntryLocation.Hotbar, defaultKeybinds);
     }
 
+    public Ability GetActiveAbilityBySlot(int index) {
+        
+        if(index >= activeSkillEntries.Count) {
+            Debug.LogError("Index out of range. Tried to get the " + index + "item, but there are only " + activeSkillEntries.Count);
+            return null;
+        }
+        
+        return activeSkillEntries[index].Ability;
+    }
 
+    public int GetAbilitySlotIndex(Ability ability) {
+
+        //Debug.Log("Checking: " + ability.Data.abilityName);
+        
+        for (int i = 0; i < activeSkillEntries.Count; i++) {
+
+            //if (activeSkillEntries[i].Ability != null)
+            //    Debug.Log("Found: " + activeSkillEntries[i].Ability.Data.abilityName);
+            
+            if (activeSkillEntries[i].Ability == ability) {
+                //Debug.Log("Match!");
+                
+                return i;
+            }
+        }
+
+        Debug.LogError("Could not find: " + ability.Data.abilityName + " in acitve slots");
+
+        return -1;
+    }
 
     #region EVENTS
 

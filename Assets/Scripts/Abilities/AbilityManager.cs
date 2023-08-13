@@ -5,11 +5,10 @@ using System;
 using LL.Events;
 using UnityEditor.Playables;
 
-public class AbilityManager : MonoBehaviour
-{
+public class AbilityManager : MonoBehaviour {
 
     public List<AbilityDefinition> preloadedAbilities = new List<AbilityDefinition>();
-    public List<AbilityDefinition> preloadedPassives = new List<AbilityDefinition>(); 
+    public List<AbilityDefinition> preloadedPassives = new List<AbilityDefinition>();
 
     public List<Ability> this[AbilityCategory category] { get { return GetAbilitiesByCategory(category); } }
 
@@ -27,12 +26,14 @@ public class AbilityManager : MonoBehaviour
     public Action<Ability, int, Ability, int> onAbilitySwapped;
 
 
+    private List<Ability> learnedAbilities = new List<Ability>();
+
     public Entity Owner { get; private set; }
 
     private void Awake() {
         Owner = GetComponent<Entity>();
         SetupAbilityDict();
-        
+
     }
 
     public void Setup() {
@@ -42,6 +43,9 @@ public class AbilityManager : MonoBehaviour
     private void OnEnable() {
         EventManager.RegisterListener(GameEvent.ItemAquired, OnItemAquired);
         EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnAbilityStatChanged);
+
+        EventManager.RegisterListener(GameEvent.ItemEquipped, OnItemEquipped);
+        EventManager.RegisterListener(GameEvent.ItemUnequipped, OnItemUnequipped);
     }
 
     private void OnDisable() {
@@ -52,9 +56,39 @@ public class AbilityManager : MonoBehaviour
         Item item = data.GetItem("Item");
 
         if (item.Data.Type == ItemType.Skill) {
-            for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
-                LearnAbility(item.Data.learnableAbilities[i].AbilityData);
-            }
+            //for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
+            //    LearnAbility(item.Data.learnableAbilities[i].AbilityData);
+            //}
+            LearnItemAbilities(item);
+        }
+    }
+
+    private List<Ability> LearnItemAbilities(Item item) {
+        List<Ability> newItemAbilities = new List<Ability>();
+
+        for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
+            newItemAbilities.Add(LearnAbility(item.Data.learnableAbilities[i].AbilityData));
+        }
+
+        learnedAbilities.AddRange(newItemAbilities);
+
+        return newItemAbilities;
+    }
+
+    private void OnItemEquipped(EventData data) {
+        Item item = data.GetItem("Item");
+
+        if (item is ItemWeapon) {
+            List<Ability> newWeaponAbilities = LearnItemAbilities(item);
+            EquipWeaponAbility(newWeaponAbilities[0]);
+        }
+    }
+
+    public void OnItemUnequipped(EventData data) {
+        Item item = data.GetItem("Item");
+
+        if (item is ItemWeapon) {
+            UnlearnAbility(item.Data.learnableAbilities[0]);
         }
     }
 
@@ -65,9 +99,9 @@ public class AbilityManager : MonoBehaviour
         if (stat != StatName.AbilityRuneSlots)
             return;
 
-        if(KnownAbilities.Contains(ability) == true) {
+        if (KnownAbilities.Contains(ability) == true) {
 
-            if(ability.equippedRunes.Count > ability.RuneSlots) {
+            if (ability.equippedRunes.Count > ability.RuneSlots) {
                 Debug.Log(ability.Data.abilityName + " is Overloaded!");
             }
 
@@ -122,9 +156,34 @@ public class AbilityManager : MonoBehaviour
         EventManager.SendEvent(GameEvent.AbilityLearned, data);
     }
 
-    public void LearnAbility(AbilityData abilityData) {
+    public Ability LearnAbility(AbilityData abilityData) {
         Ability newAbility = AbilityFactory.CreateAbility(abilityData, Owner);
         LearnAbility(newAbility, abilityData.category);
+
+        return newAbility;
+    }
+
+
+    public void UnlearnAbility(AbilityDefinition abilityDef) {
+
+        for (int i = learnedAbilities.Count - 1; i >= 0; i--) {
+            if (learnedAbilities[i].Data.abilityName == abilityDef.AbilityData.abilityName) {
+
+                //Debug.Log("Unearling a weapon ability: " + learnedAbilities[i].Data.abilityName);
+
+                Abilities[AbilityCategory.KnownSkill].RemoveIfContains(learnedAbilities[i]);
+
+                int currentSlot = PanelManager.GetPanel<HotbarPanel>().GetAbilitySlotIndex(learnedAbilities[i]);
+
+                if (currentSlot > -1) {
+                    UnequipAbility(learnedAbilities[i], currentSlot);
+                }
+
+                learnedAbilities.Remove(learnedAbilities[i]);
+            }
+        }
+
+
     }
 
     public void UnlearnAbility(Ability ability) {
@@ -146,6 +205,14 @@ public class AbilityManager : MonoBehaviour
             Debug.LogError("Tried to equip a skill you didn't know");
     }
 
+    public void EquipWeaponAbility(Ability ability) {
+        Ability currentWeaponAbility = PanelManager.GetPanel<HotbarPanel>().GetActiveAbilityBySlot(4);
+
+        if (currentWeaponAbility == null) {
+            EquipAbility(ability, 4);
+        }
+    }
+
     public void UnequipAbility(Ability ability, int index) {
         if (ActiveAbilities.RemoveIfContains(ability) == true) {
             ability.Uneqeuip();
@@ -158,7 +225,7 @@ public class AbilityManager : MonoBehaviour
     public void MoveAbilitySlot(Ability ability, int fromIndex, int toIndex) {
         UnequipAbility(ability, fromIndex);
         EquipAbility(ability, toIndex);
-        
+
         //onAbilityUnequipped?.Invoke(ability, fromIndex);
         //onAbilityEquipped?.Invoke(ability, toIndex);
     }
@@ -184,9 +251,9 @@ public class AbilityManager : MonoBehaviour
 
     public List<Effect> GetAllEffects() {
         List<Ability> allAbiliites = GetAllAbilities();
-        List<Effect> results = new List<Effect>();  
+        List<Effect> results = new List<Effect>();
 
-        foreach(var entry in allAbiliites) {
+        foreach (var entry in allAbiliites) {
 
             List<Effect> effects = entry.GetAllEffects();
 
@@ -201,8 +268,8 @@ public class AbilityManager : MonoBehaviour
     }
 
     public Ability GetAbilityByName(string name, AbilityCategory category) {
-        
-        if(category == AbilityCategory.Any) {
+
+        if (category == AbilityCategory.Any) {
             foreach (var entry in Abilities) {
                 List<Ability> abilities = entry.Value;
                 for (int i = 0; i < abilities.Count; i++) {
@@ -223,8 +290,8 @@ public class AbilityManager : MonoBehaviour
     }
 
     public List<Ability> GetRuneAbilities(string abilityName) {
-        List<Ability> results = new List<Ability>();    
-        
+        List<Ability> results = new List<Ability>();
+
         for (int i = 0; i < RuneAbilities.Count; i++) {
             if (RuneAbilities[i].Data.runeAbilityTarget == abilityName)
                 results.Add(RuneAbilities[i]);
