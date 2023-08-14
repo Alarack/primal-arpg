@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LL.Events;
 
 public class ItemSpawner : Singleton<ItemSpawner>
 {
@@ -10,6 +11,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
     public List<ItemDefinition> testItems = new List<ItemDefinition>();
 
     public ItemPickup pickupPrefab;
+    public ItemPickup coinPickupPrefab;
     public LootDatabase lootDatabase;
 
     public static Vector2 defaultSpawnLocation = Vector2.zero;
@@ -26,6 +28,29 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
     }
 
+    private void OnEnable() {
+        EventManager.RegisterListener(GameEvent.UnitDied, OnUnitDied);
+    }
+
+    private void OnDisable() {
+        EventManager.RemoveMyListeners(this);
+    }
+
+
+    #region EVENTS
+
+    public void OnUnitDied(EventData data) {
+        Entity target = data.GetEntity("Victim");
+        Entity killer = data.GetEntity("Killer");
+
+        if (target.ownerType == OwnerConstraintType.Enemy && killer.ownerType == OwnerConstraintType.Friendly) {
+            int threat = (int)NPCDataManager.GetThreatLevel(target.entityName);
+
+            SpawnCoins(threat, target.transform.position); 
+        }
+    }
+
+    #endregion
 
     public static void SpawnItem(ItemDefinition item, Vector2 location, bool autoPickup = false) {
         
@@ -58,6 +83,25 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
 
         SpawnItem(newItem, location);
+    }
+
+    public static void SpawnCoins(int count, Vector2 location, float valueMin = 1f, float valueMax = 1f) {
+
+        for (int i = 0; i < count; i++) {
+            ItemData coinData = new ItemData();
+            coinData.itemValue = Random.Range(valueMin, valueMax);
+            coinData.itemName = "Coin";
+            coinData.Type = ItemType.Currency;
+            coinData.pickupOnCollision = true;
+
+            ItemPickup pickup = Instantiate(Instance.coinPickupPrefab, location, Quaternion.identity);
+            pickup.Setup(coinData);
+        }
+
+
+       
+
+    
     }
 
 

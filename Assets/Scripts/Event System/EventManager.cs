@@ -152,7 +152,8 @@ namespace LL.Events {
         ProjectileCreated,
         AbilityInitiated,
         AIActivated,
-        MinionSummoned
+        MinionSummoned,
+        CurrencyChanged
 
     }
 

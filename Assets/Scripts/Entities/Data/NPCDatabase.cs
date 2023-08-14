@@ -19,6 +19,7 @@ public class NPCDatabase : ScriptableObject
                 NPC current = biomeEntries[i].npcData[j].npcPrefab;
 
                 manager.npcsByName.Add(current.EntityName, current);
+                manager.threatTable.Add(current.EntityName, biomeEntries[i].npcData[j].threatValue);
             }
 
         }

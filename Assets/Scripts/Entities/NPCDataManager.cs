@@ -10,6 +10,7 @@ public class NPCDataManager : Singleton<NPCDataManager>
     public Dictionary<string, NPCBiomeEntry> npcBiomeDict = new Dictionary<string, NPCBiomeEntry>();
 
     public Dictionary<string, NPC> npcsByName = new Dictionary<string, NPC>();
+    public Dictionary<string, float> threatTable = new Dictionary<string, float>();
 
 
     private void Awake() {
@@ -28,6 +29,13 @@ public class NPCDataManager : Singleton<NPCDataManager>
             return npc;
 
         return null;
+    }
+
+    public static float GetThreatLevel(string name) {
+        if (Instance.threatTable.TryGetValue(name, out float threat))
+            return threat;
+
+        return -1f;
     }
 
     public static List<NPC> GetSpawnList(string biome, float totalThreat, float minSingleThreat, float maxSingleThreat) {

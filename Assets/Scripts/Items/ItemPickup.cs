@@ -15,6 +15,10 @@ public class ItemPickup : MonoBehaviour
     [Header("VFX")]
     public GameObject collectVFX;
     public GameObject spawnVFX;
+    public float vfxScale = 1f;
+
+    [Header("Lifetime")]
+    public float lifetime;
 
     protected Rigidbody2D rb;
     protected ItemPickupTooltip tooltip;
@@ -31,13 +35,18 @@ public class ItemPickup : MonoBehaviour
 
     protected virtual void Start() {
         VFXUtility.SpawnVFX(spawnVFX, transform, 2f);
+
+        if(lifetime > 0) {
+            Destroy(gameObject, lifetime);
+        }
     }
 
 
     public virtual void Setup(Item item) {
         this.Item = item;
         SetupImage();
-        tooltip.Setup(this);
+        if(tooltip != null) 
+            tooltip.Setup(this);
     }
 
     public virtual void Setup(ItemData itemData) {
@@ -57,8 +66,11 @@ public class ItemPickup : MonoBehaviour
     }
 
     protected void SetupImage() {
-        mainSprite.sprite = Item.Data.pickupIcon;
-        shadowSprite.sprite = Item.Data.pickupIcon;
+
+        if(Item.Data.pickupIcon != null) {
+            mainSprite.sprite = Item.Data.pickupIcon;
+            shadowSprite.sprite = Item.Data.pickupIcon;
+        }
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D other) {
@@ -77,7 +89,7 @@ public class ItemPickup : MonoBehaviour
         if(Item == null) 
             return;
 
-        VFXUtility.SpawnVFX(collectVFX, transform, 2f);
+        VFXUtility.SpawnVFX(collectVFX, transform.position, Quaternion.identity, null, 2f, vfxScale);
 
         EntityManager.ActivePlayer.Inventory.Add(Item);
         Destroy(gameObject);

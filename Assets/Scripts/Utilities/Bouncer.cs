@@ -22,6 +22,7 @@ public class Bouncer : MonoBehaviour {
     public float maxXForce;
     public float minXForce;
     public float fakeGravity = -100;
+    public bool randomRotation = true;
 
     [Header("Landing Event")]
     public UnityEvent onGroundHitUnityEvent;
@@ -77,10 +78,14 @@ public class Bouncer : MonoBehaviour {
         verticalVelocity = Random.Range(minYForce, maxYForce);
 
         spriteRenderer.sortingOrder = 10;
-        float randomSpin = Random.Range(-180f, 180f);
-        foreach (var body in myBodies) {
-            body.angularVelocity = randomSpin;
+        
+        if(randomRotation == true) {
+            float randomSpin = Random.Range(-180f, 180f);
+            foreach (var body in myBodies) {
+                body.angularVelocity = randomSpin;
+            }
         }
+        
     }
 
     private void UpdatePositon() {

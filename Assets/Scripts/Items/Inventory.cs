@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour {
 
     public Entity Owner { get; private set; }
 
-
+    public Dictionary<string, float> currencyDictionary = new Dictionary<string, float>();
 
     private List<Item> ownedItems = new List<Item>();
     private Dictionary<ItemSlot, Item> equippedItems = new Dictionary<ItemSlot, Item>();
@@ -81,6 +81,12 @@ public class Inventory : MonoBehaviour {
     }
 
     public void Add(Item item) {
+        
+        if(item.Data.Type == ItemType.Currency) {
+            AdjustCurrency(item);
+            return;
+        }
+        
         if (ownedItems.AddUnique(item) == false) {
             Debug.LogWarning("An item: " + item.Data.itemName + " was added to " + Owner.EntityName + "'s inventory, but it was already there");
             return;
@@ -100,9 +106,28 @@ public class Inventory : MonoBehaviour {
                 EquipItemToSlot(item, item.Data.validSlots[0]);
             }
         }
+    }
 
-       
 
+    private void AdjustCurrency(Item item) {
+
+        if(currencyDictionary.TryGetValue(item.Data.itemName, out float count) == true) {
+            currencyDictionary[item.Data.itemName] += count;
+        }
+        else {
+            currencyDictionary.Add(item.Data.itemName, item.Data.itemValue);
+        }
+
+
+        SendCurrencyChangedEvent(item);
+    }
+
+    private void SendCurrencyChangedEvent(Item item) {
+        EventData data = new EventData();
+        data.AddFloat("Value", item.Data.itemValue);
+        data.AddString("Currency Name", item.Data.itemName);
+
+        EventManager.SendEvent(GameEvent.CurrencyChanged, data);
     }
 
     public void Remove(Item item) {

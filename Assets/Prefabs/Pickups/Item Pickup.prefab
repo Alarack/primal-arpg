@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3564096672574349106}
   - component: {fileID: 5717006733172980667}
   - component: {fileID: 3592956111575553506}
+  - component: {fileID: 7565818175801230950}
   m_Layer: 0
   m_Name: Pickup Sprite
   m_TagString: Untagged
@@ -112,6 +113,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &7565818175801230950
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117356227729204522}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &731661297676837380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,6 +1069,7 @@ MonoBehaviour:
   maxXForce: 5
   minXForce: -5
   fakeGravity: -50
+  randomRotation: 1
   onGroundHitUnityEvent:
     m_PersistentCalls:
       m_Calls:
