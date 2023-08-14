@@ -18,7 +18,7 @@ public class RoomManager : Singleton<RoomManager> {
     public static float CurrentDifficulty { get; private set; } = 5f;
 
     private int currentRoomIndex;
-    private List<Room> roomList = new List<Room>();
+    //private List<Room> roomList = new List<Room>();
 
     public static bool MultiReward { get; private set; }
     private List<RewardPedestal> currentRewards = new List<RewardPedestal>();
@@ -71,7 +71,7 @@ public class RoomManager : Singleton<RoomManager> {
         for (int i = 0; i < portalCount; i++) {
             
             if(i >= rewardTypes.Count) {
-                Debug.LogWarning("Resent count since i is creater than possible reward types");
+                Debug.LogWarning("Reset count since i is creater than possible reward types");
                 i = 0;
             }
 
@@ -107,6 +107,26 @@ public class RoomManager : Singleton<RoomManager> {
 
         CreateRoomPortals(choices);
 
+    }
+
+    public static void CreateRoomPortals(List<Room> rooms) {
+        Instance.createPortalsTask = new Task(Instance.CreateRoomPortalsOnDelay(rooms));
+    }
+
+    private IEnumerator CreateRoomPortalsOnDelay(List<Room> rooms) {
+        WaitForSeconds waiter = new WaitForSeconds(0.2f);
+
+        for (int i = 0; i < rooms.Count; i++) {
+            Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rooms.Count);
+
+            RoomPortalDisplay portal = Instantiate(Instance.roomPortalTemplate, targetPos, Quaternion.identity);
+            portal.Setup(rooms[i]);
+
+            Instance.currentPortals.Add(portal);
+            yield return waiter;
+        }
+
+        createPortalsTask = null;
     }
 
 
@@ -240,18 +260,6 @@ public class RoomManager : Singleton<RoomManager> {
 
         PanelManager.OpenPanel<TextDisplayPanel>().Setup(displayText);
 
-        
-
-        //for (int i = 0; i < rewardItems.Count; i++) {
-        //    Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rewardItems.Count);
-
-        //    RewardPedestal pedestal = Instantiate(Instance.pedestalTemplate, targetPos, Quaternion.identity);
-        //    pedestal.transform.SetParent(Instance.transform, false);
-        //    pedestal.Setup(rewardItems[i]);
-        //    Instance.currentRewards.Add(pedestal);
-
-        //}
-
         if(rewardItems.Count == 0) {
             Debug.LogWarning("No rewards. Sad face");
             CurrentRoom.EndRoom();
@@ -281,37 +289,7 @@ public class RoomManager : Singleton<RoomManager> {
         rewardSpawnTask = null;
     }
 
-    public static void CreateRoomPortals(List<Room> rooms) {
-
-        Instance.createPortalsTask = new Task(Instance.CreateRoomPortalsOnDelay(rooms));
-
-        //for (int i = 0; i < rooms.Count; i++) {
-        //    Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rooms.Count);
-
-        //    RoomPortalDisplay portal = Instantiate(Instance.roomPortalTemplate, targetPos, Quaternion.identity);
-        //    portal.Setup(rooms[i]);
-
-        //    Instance.currentPortals.Add(portal);
-
-        //}
-    }
-
-    private IEnumerator CreateRoomPortalsOnDelay(List<Room> rooms) {
-        WaitForSeconds waiter = new WaitForSeconds(0.2f);
-
-        for (int i = 0; i < rooms.Count; i++) {
-            Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rooms.Count);
-
-            RoomPortalDisplay portal = Instantiate(Instance.roomPortalTemplate, targetPos, Quaternion.identity);
-            portal.Setup(rooms[i]);
-
-            Instance.currentPortals.Add(portal);
-            yield return waiter;
-        }
-
-        createPortalsTask = null;
-    }
-
+   
 
     public static void OnRewardSelected(RewardPedestal reward) {
 

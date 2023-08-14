@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
+using static AffixDatabase;
 
 public class NPC : Entity
 {
@@ -11,6 +12,8 @@ public class NPC : Entity
     public Timer spawnInTimer;
     public float spawnDelayTime = 0.5f;
     private Collider2D myCollider;
+
+    public List<NPCEliteAffixData> currentEliteAffixes = new List<NPCEliteAffixData>();
 
     public bool active;
 
@@ -44,6 +47,17 @@ public class NPC : Entity
     private void OnSpawnInComplete(EventData data) {
         active = true;
         myCollider.enabled = true;
+    }
+
+    public void BecomeElite(EliteAffixType type) {
+        NPCEliteAffixData eliteData = AffixDataManager.GetEliteAffixDataByType(type);
+        currentEliteAffixes.Add(eliteData);
+
+        for (int i = 0; i < eliteData.abilities.Count; i++) {
+            Brain.AddAbility(eliteData.abilities[i]);
+        }
+
+        VFXUtility.SpawnVFX(eliteData.vfxPrefab, transform, 0f, 2f);
     }
 
     protected override void Die(Entity source, Ability sourceAbility = null)

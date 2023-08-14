@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28f95596dadcc5b4caff86465b07a8c2, type: 3}
+  m_Name: Affix Database
+  m_EditorClassIdentifier: 
+  eliteAffixdata:
+  - type: 1
+    threatModifier: 3
+    vfxPrefab: {fileID: 137932, guid: f0c7a15b5680e5942940c754bfe84dbd, type: 3}
+    abilities:
+    - {fileID: 11400000, guid: 272ed2f1fcbdf1b478161ae1f971b112, type: 2}

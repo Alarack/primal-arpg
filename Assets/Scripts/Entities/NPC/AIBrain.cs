@@ -49,14 +49,30 @@ public class AIBrain : MonoBehaviour {
         CreateStateChangers();
 
         CreateAbilities();
+
+        //if(RoomManager.CurrentDifficulty > 5) {
+
+        //    float roll = Random.Range(0f, 1f);
+            
+        //    if(roll >= 0.5f)
+        //        Owner.BecomeElite(AffixDatabase.EliteAffixType.Overcharged);
+        //}
     }
 
     private void CreateAbilities() {
         for (int i = 0; i < abilityDefinitions.Count; i++) {
-            Ability ability = AbilityFactory.CreateAbility(abilityDefinitions[i].AbilityData, Owner);
-            ability.Equip();
-            abilities.Add(ability);
+            AddAbility(abilityDefinitions[i]);
+            
+            //Ability ability = AbilityFactory.CreateAbility(abilityDefinitions[i].AbilityData, Owner);
+            //ability.Equip();
+            //abilities.Add(ability);
         }
+    }
+
+    public void AddAbility(AbilityDefinition abilityDef) {
+        Ability ability = AbilityFactory.CreateAbility(abilityDef.AbilityData, Owner);
+        ability.Equip();
+        abilities.Add(ability);
     }
 
     public void AddAbility(Ability ability) {
