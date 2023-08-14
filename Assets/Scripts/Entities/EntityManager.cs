@@ -33,7 +33,7 @@ public class EntityManager : Singleton<EntityManager> {
     private void Start() {
         //SpawnWave();
 
-        genearatedWaves = GenerateWaves(3, "Grasslands", 5, 1, 5);
+        //genearatedWaves = GenerateWaves(3, "Grasslands", 5, 1, 5);
     }
 
 

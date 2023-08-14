@@ -8,9 +8,42 @@ public class NPC : Entity
 
     public AIBrain Brain { get; protected set; }
 
+    public Timer spawnInTimer;
+    public float spawnDelayTime = 0.5f;
+    private Collider2D myCollider;
+
+    public bool active;
+
     protected override void Awake() {
         base.Awake();
         Brain = GetComponent<AIBrain>();
+        myCollider = GetComponent<Collider2D>();
+        myCollider.enabled = false;
+
+        spawnInTimer = new Timer(spawnDelayTime, OnSpawnInComplete, false);
+    }
+
+    protected override void Update() {
+        base.Update();
+
+        if(spawnInTimer != null && active == false) {
+            spawnInTimer.UpdateClock();
+        }
+    }
+
+    public override void AddAbility(Ability ability) {
+        base.AddAbility(ability);
+        Brain.AddAbility(ability);
+    }
+
+    public override void RemoveAbility(Ability ability) {
+        base.RemoveAbility(ability);
+        Brain.RemoveAbility(ability);
+    }
+
+    private void OnSpawnInComplete(EventData data) {
+        active = true;
+        myCollider.enabled = true;
     }
 
     protected override void Die(Entity source, Ability sourceAbility = null)

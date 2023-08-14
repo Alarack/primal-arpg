@@ -59,6 +59,16 @@ public class AIBrain : MonoBehaviour {
         }
     }
 
+    public void AddAbility(Ability ability) {
+        abilities.Add(ability);
+        ability.Equip();
+    }
+
+    public void RemoveAbility(Ability ability) {
+        ability.Uneqeuip();
+        abilities.Remove(ability);
+    }
+
     public void AddAbilitiesFromBehavior(List<AbilityDefinition> newAbilities, StateBehaviour behavior) {
         List<Ability> abiliitesToAdd = new List<Ability>();
         
@@ -98,10 +108,16 @@ public class AIBrain : MonoBehaviour {
     }
 
     private void Update() {
+        if(Owner.active == false) 
+            return;
+        
         fsm.ManagedUpdate();
     }
 
     private void FixedUpdate() {
+        if (Owner.active == false)
+            return;
+
         fsm.ManagedFixedUpdate();
     }
 

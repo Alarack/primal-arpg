@@ -17,7 +17,10 @@ public abstract class Entity : MonoBehaviour {
         Dragon,
         Goblin,
         Elemental,
-        Minion
+        Minion,
+        Elite,
+        Boss,
+        MiniBoss
     }
 
     public enum EntityClass {
@@ -121,6 +124,14 @@ public abstract class Entity : MonoBehaviour {
 
     public void ActivateAbilityByName(string name, AbilityCategory category) {
         AbilityManager.ActivateAbilityByName(name, category);
+    }
+
+    public virtual void AddAbility(Ability ability) {
+
+    }
+
+    public virtual void RemoveAbility(Ability ability) { 
+    
     }
 
     //public virtual Ability IsAbilityActivelyCasting() {
