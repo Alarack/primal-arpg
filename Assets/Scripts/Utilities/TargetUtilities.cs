@@ -147,9 +147,9 @@ public static class TargetUtilities
                 self.Movement.MyBody.velocity = Vector2.zero;
             }
         }
-        else {
-            Debug.LogWarning("Nothing nearby in range");
-        }
+        //else {
+        //    Debug.LogWarning("Nothing nearby in range");
+        //}
     }
 
     public static Entity FindNearestTarget(Collider2D initialTarget, Vector2 myPosition, float radius, LayerMask mask) {

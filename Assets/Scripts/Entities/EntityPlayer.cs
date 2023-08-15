@@ -11,6 +11,7 @@ public class EntityPlayer : Entity
 {
 
     public bool debugGodMode;
+    public CircleCollider2D vacumCollider;
     public Inventory Inventory { get; private set; }
     //public bool CanAttack { get; set; } = true;
 
@@ -77,6 +78,14 @@ public class EntityPlayer : Entity
 
     public float GetAverageDamageRoll() {
         return Inventory.GetAverageDamageRoll();
+    }
+
+    public void ActivateBigVacum() {
+        vacumCollider.radius = 50f;
+    }
+
+    public void DeactivateBigVacum() {
+        vacumCollider.radius = 6f;
     }
 
     #region EVENTS

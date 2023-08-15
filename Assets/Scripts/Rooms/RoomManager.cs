@@ -104,7 +104,7 @@ public class RoomManager : Singleton<RoomManager> {
         }
 
 
-
+        EntityManager.ActivePlayer.DeactivateBigVacum();
         CreateRoomPortals(choices);
 
     }
@@ -259,6 +259,7 @@ public class RoomManager : Singleton<RoomManager> {
         MultiReward = multiReward;
 
         PanelManager.OpenPanel<TextDisplayPanel>().Setup(displayText);
+        EntityManager.ActivePlayer.ActivateBigVacum();
 
         if(rewardItems.Count == 0) {
             Debug.LogWarning("No rewards. Sad face");

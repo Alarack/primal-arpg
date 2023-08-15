@@ -112,7 +112,7 @@ public class Inventory : MonoBehaviour {
     private void AdjustCurrency(Item item) {
 
         if(currencyDictionary.TryGetValue(item.Data.itemName, out float count) == true) {
-            currencyDictionary[item.Data.itemName] += count;
+            currencyDictionary[item.Data.itemName] += item.Data.itemValue;
         }
         else {
             currencyDictionary.Add(item.Data.itemName, item.Data.itemValue);
@@ -125,7 +125,9 @@ public class Inventory : MonoBehaviour {
     private void SendCurrencyChangedEvent(Item item) {
         EventData data = new EventData();
         data.AddFloat("Value", item.Data.itemValue);
+        data.AddFloat("Current Balance", currencyDictionary[item.Data.itemName]);
         data.AddString("Currency Name", item.Data.itemName);
+
 
         EventManager.SendEvent(GameEvent.CurrencyChanged, data);
     }

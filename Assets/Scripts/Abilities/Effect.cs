@@ -1773,8 +1773,8 @@ public class StatAdjustmentEffect : Effect {
             foreach (AbilityTag tag in ParentAbility.Tags) {
                 float value = tag switch {
                     AbilityTag.None => 0f,
-                    AbilityTag.Fire => 0f,
-                    AbilityTag.Poison => throw new System.NotImplementedException(),
+                    AbilityTag.Fire => Source.Stats[StatName.FireDamageModifier],
+                    AbilityTag.Poison => Source.Stats[StatName.PoisonDamageModifier],
                     AbilityTag.Healing => 0f,
                     AbilityTag.Melee => Source.Stats[StatName.MeleeDamageModifier],
                     _ => 0f,

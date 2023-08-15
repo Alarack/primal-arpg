@@ -60,7 +60,13 @@ public enum StatName
     CastSpeedModifier,
     MaxMinionCount,
     MinionSpawnCount,
-    MinionDamageModifier
+    MinionDamageModifier,
+    FireDamageModifier,
+    WaterDamageModifier,
+    AirDamageModifier,
+    ForceDamageModifier,
+    PoisonDamageModifier,
+    Mastery
 }
 
 
