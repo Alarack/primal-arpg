@@ -12,7 +12,8 @@ public class WallHelper : MonoBehaviour {
     }
 
     public WallDirection direciton;
-
+    public SpriteRenderer sprite;
+    public BoxCollider2D myCollider;
 
     private void Awake() {
         //Vector3 position = Camera.main.WorldToViewportPoint(transform.position);
@@ -30,12 +31,15 @@ public class WallHelper : MonoBehaviour {
                 transform.localScale = new Vector3(screenWidthScale, 1f, 1f);
                 break;
             case WallDirection.SOUTH:
-                point = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0, dist));
-                transform.localScale = new Vector3(screenWidthScale, 1f, 1f);
+                point = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.15f, dist));
+                //transform.localScale = new Vector3(screenWidthScale, 1f, 1f);
+                sprite.size = new Vector2(screenWidthScale * 0.98f, 2f);
+                myCollider.size = new Vector2(screenWidthScale, 2f);
                 break;
             case WallDirection.EAST:
                 point = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, dist));
                 transform.localScale = new Vector3(1f, screenHeightScale, 1f);
+                
                 break;
             case WallDirection.WEST:
                 point = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.5f, dist));
