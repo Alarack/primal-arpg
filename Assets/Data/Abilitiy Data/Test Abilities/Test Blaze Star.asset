@@ -21,7 +21,8 @@ MonoBehaviour:
     resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 0
+    autoFire: 1
+    ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
     ignoreTooltip: 0
     runeAbilityTarget: 
@@ -32,6 +33,7 @@ MonoBehaviour:
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      delay1Frame: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -70,6 +72,9 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
       - focus: 4
         constraintData:
         - type: 7
@@ -107,6 +112,9 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -115,6 +123,7 @@ MonoBehaviour:
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        delay1Frame: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -127,6 +136,7 @@ MonoBehaviour:
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        delay1Frame: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -149,6 +159,7 @@ MonoBehaviour:
           riderAbilityName: 
           riderEffectName: 
           triggerTimerDuration: 0
+          delay1Frame: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   devItem: 0
   itemData:
-    Type: 0
+    Type: 6
     entityClass: 0
     itemName: 
     itemDescription: 
@@ -26,6 +26,19 @@ MonoBehaviour:
     pickupOnCollision: 0
     minDamage: 0
     maxDamage: 0
-    statModifierData: []
+    statModifierData:
+    - targetStat: 21
+      value: 0.05
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 0
+      deriveStatMultiplier: 0
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
     abilityDefinitions: []
     learnableAbilities: []

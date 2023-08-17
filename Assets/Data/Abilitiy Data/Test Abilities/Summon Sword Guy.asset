@@ -20,7 +20,7 @@ MonoBehaviour:
     resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 0
+    autoFire: 1
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 1
     ignoreTooltip: 0
@@ -73,6 +73,7 @@ MonoBehaviour:
           targetStatus: 0
           statRatioTarget: 0
           targetRatio: 0
+          movementMagnitudeLimit: 0.1
       - focus: 4
         constraintData:
         - type: 7
@@ -112,6 +113,7 @@ MonoBehaviour:
           targetStatus: 0
           statRatioTarget: 0
           targetRatio: 0
+          movementMagnitudeLimit: 0.1
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
