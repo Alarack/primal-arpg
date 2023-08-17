@@ -27,7 +27,8 @@ public enum ItemType {
     Rune,
     Currency,
     Skill,
-    ClassSelection
+    ClassSelection,
+    StatBooster
 
 }
 
@@ -54,6 +55,20 @@ public class ItemData
     public List<AbilityDefinition> learnableAbilities = new List<AbilityDefinition>();
     //public List<AbilityData> abilityData = new List<AbilityData>();
 
+    public ItemData() {
+
+    }
+
+    public ItemData (StatName stat, float value) {
+        Type = ItemType.StatBooster;
+        itemName = stat.ToString() + " Booster";
+        StatModifierData modData = StatModifierData.CreateBaseStatBooster(stat, value);
+        statModifierData.Add(modData);
+    }
+
+    public Item GetDisplayItem() {
+        return ItemFactory.CreateItem(this, EntityManager.ActivePlayer);
+    }
 
     public string GetItemInfo() {
 

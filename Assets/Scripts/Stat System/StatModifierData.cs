@@ -81,6 +81,19 @@ public class StatModifierData
     public StatCollection Stats { get; private set; }
 
 
+    public static StatModifierData CreateBaseStatBooster(StatName stat, float value) {
+        StatModifierData data = new StatModifierData();
+        data.targetStat = stat;
+        data.value = value;
+        data.modifierType = StatModType.Flat;
+        data.variantTarget = stat == StatName.Health || stat == StatName.Essence ? StatVariantTarget.RangeMax : StatVariantTarget.Simple;
+        data.modValueSetMethod = ModValueSetMethod.Manual;
+
+
+        return data;
+    }
+
+
     public StatModifierData() {
        
     }

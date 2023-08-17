@@ -29,7 +29,7 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
 
 
     private void SetupDisplay() {
-        displayItem = pedestal.rewardItem.GetItemForDisplay(EntityManager.ActivePlayer);
+        displayItem = pedestal.rewardItem.GetDisplayItem();
         rewardImage.sprite = displayItem.Data.itemIcon;
 
         if(displayItem.Data.Type == ItemType.Skill) {

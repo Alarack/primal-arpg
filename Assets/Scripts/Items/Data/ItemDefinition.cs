@@ -12,17 +12,10 @@ public class ItemDefinition : ScriptableObject
 
     public Item GetItemForDisplay(Entity owner) {
 
-
-        displayItem = ItemFactory.CreateItem(itemData, EntityManager.ActivePlayer);
-
-        //if(displayItem == null) {
-        //    if (itemData.validSlots.Contains(ItemSlot.Weapon)) {
-        //        displayItem = new ItemWeapon(itemData, owner);
-        //    }
-        //    else {
-        //        displayItem = new Item(itemData, owner);
-        //    }
-        //}
+        if(displayItem == null) {
+            displayItem = itemData.GetDisplayItem();
+            
+        }
 
         return displayItem;
     }

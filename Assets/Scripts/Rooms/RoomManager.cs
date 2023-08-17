@@ -281,7 +281,7 @@ public class RoomManager : Singleton<RoomManager> {
 
             RewardPedestal pedestal = Instantiate(Instance.pedestalTemplate, targetPos, Quaternion.identity);
             pedestal.transform.SetParent(Instance.transform, false);
-            pedestal.Setup(rewardItems[i]);
+            pedestal.Setup(rewardItems[i].itemData);
             Instance.currentRewards.Add(pedestal);
             yield return waiter;
         }

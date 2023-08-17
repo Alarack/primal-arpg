@@ -5,13 +5,13 @@ using UnityEngine;
 public class RewardPedestal : MonoBehaviour
 {
 
-    public ItemDefinition rewardItem;
+    public ItemData rewardItem;
 
     public RewardPedestalDisplay display;
 
 
 
-    public void Setup(ItemDefinition rewardItem) {
+    public void Setup(ItemData rewardItem) {
         this.rewardItem = rewardItem;
         display.Setup(this);
     }

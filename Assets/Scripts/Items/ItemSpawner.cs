@@ -54,14 +54,26 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
     public static void SpawnItem(ItemDefinition item, Vector2 location, bool autoPickup = false) {
         
-        if(autoPickup == false) {
+        SpawnItem(item.itemData, location, autoPickup);
+
+        //if(autoPickup == false) {
+        //    ItemPickup testPickup = Instantiate(Instance.pickupPrefab, location, Quaternion.identity);
+        //    testPickup.Setup(item.itemData);
+        //}
+        //else {
+        //    EntityManager.ActivePlayer.Inventory.Add(ItemFactory.CreateItem(item, EntityManager.ActivePlayer));
+        //}
+
+    }
+
+    public static void SpawnItem(ItemData item, Vector2 location, bool autoPickup = false) {
+        if (autoPickup == false) {
             ItemPickup testPickup = Instantiate(Instance.pickupPrefab, location, Quaternion.identity);
-            testPickup.Setup(item.itemData);
+            testPickup.Setup(item);
         }
         else {
             EntityManager.ActivePlayer.Inventory.Add(ItemFactory.CreateItem(item, EntityManager.ActivePlayer));
         }
-
     }
 
     public static void SpawnItem(Item item, Vector2 location) {
@@ -97,13 +109,12 @@ public class ItemSpawner : Singleton<ItemSpawner>
             ItemPickup pickup = Instantiate(Instance.coinPickupPrefab, location, Quaternion.identity);
             pickup.Setup(coinData);
         }
-
-
-       
-
-    
     }
 
+
+    public static void CreateStatBooster(StatName stat) {
+
+    }
 
 
 }

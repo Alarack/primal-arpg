@@ -11,11 +11,11 @@ public class LootDatabase : ScriptableObject {
 
     public Dictionary<AbilityTag, List<ItemDefinition>> itemsByTag = new Dictionary<AbilityTag, List<ItemDefinition>>();
 
-    public ItemDefinition[] allItems;
+    public Dictionary<StatName, ItemData> statBoosters = new Dictionary<StatName, ItemData>();
 
 
+    private ItemDefinition[] allItems;
     private AbilityTag[] allTags; 
-
 
 
 
@@ -235,9 +235,79 @@ public class LootDatabase : ScriptableObject {
     }
 
 
-    [System.Serializable]
-    public class LootDataEntry {
-        public ItemType Type;
+
+    private void CreateBaseStatBoosters() {
+        StatName[] allStats = System.Enum.GetValues(typeof(StatName)) as StatName[];
+
+        List<ItemData> desiredStats = new List<ItemData>();
+
+        foreach (StatName stat in allStats) {
+            ItemData data = stat switch {
+                StatName.Health => new ItemData(stat, 2f),
+                StatName.MoveSpeed => throw new System.NotImplementedException(),
+                StatName.EffectLifetime => throw new System.NotImplementedException(),
+                StatName.ShotCount => new ItemData(stat, 0.2f),
+                StatName.Accuracy => throw new System.NotImplementedException(),
+                StatName.DashSpeed => throw new System.NotImplementedException(),
+                StatName.DashDuration => throw new System.NotImplementedException(),
+                StatName.EffectInterval => throw new System.NotImplementedException(),
+                StatName.CooldownReduction => new ItemData(stat, 0.05f),
+                StatName.GlobalDamageModifier => new ItemData(stat, 0.1f),
+                StatName.GlobalEffectDurationModifier => throw new System.NotImplementedException(),
+                StatName.MeleeDamageModifier => new ItemData(stat, 0.15f),
+                StatName.OverloadChance => new ItemData(stat, 0.05f),
+                StatName.OverloadDamageModifier => new ItemData(stat, 0.2f),
+                StatName.ProjectilePierceCount => throw new System.NotImplementedException(),
+                StatName.GlobalEffectIntervalModifier => throw new System.NotImplementedException(),
+                StatName.DashCooldown => throw new System.NotImplementedException(),
+                StatName.ProjectileChainCount => throw new System.NotImplementedException(),
+                StatName.ProjectileSplitCount => throw new System.NotImplementedException(),
+                StatName.ProjectileSplitQuantity => throw new System.NotImplementedException(),
+                StatName.GlobalEffectSizeModifier => throw new System.NotImplementedException(),
+                StatName.GlobalEffectRangeModifier => throw new System.NotImplementedException(),
+                StatName.GlobalProjectileSizeModifier => throw new System.NotImplementedException(),
+                StatName.Essence => new ItemData(stat, 20f),
+                StatName.EssenceRegenerationRate => new ItemData(stat, 1f),
+                StatName.EssenceRegenerationValue => new ItemData(stat, 0.1f),
+                StatName.OverloadRecieveChance => new ItemData(stat, 0.1f),
+                StatName.CastSpeedModifier => new ItemData(stat, 0.1f),
+                StatName.MaxMinionCount => new ItemData(stat, 0.2f),
+                StatName.MinionDamageModifier => new ItemData(stat, 0.15f),
+                StatName.FireDamageModifier => new ItemData(stat, 0.15f),
+                StatName.WaterDamageModifier => new ItemData(stat, 0.15f),
+                StatName.AirDamageModifier => new ItemData(stat, 0.15f),
+                StatName.ForceDamageModifier => new ItemData(stat, 0.15f),
+                StatName.PoisonDamageModifier => new ItemData(stat, 0.15f),
+                _ => throw new System.NotImplementedException(),
+            };
+
+            if(data != null) {
+                statBoosters.Add(stat, data);
+            }
+        }
+
+
+
     }
 
+
+
+    [System.Serializable]
+    public class StatBooserData {
+        public StatName stat;
+        public ItemData statModItem;
+    }
+
+
+    //[System.Serializable]
+    //public class LootDataEntry {
+    //    public ItemType Type;
+    //}
+
+    //[System.Serializable]
+    //public class StatBooserData {
+    //    public StatName stat;
+    //    public float value;
+    //    public StatModType modType;
+    //}
 }
