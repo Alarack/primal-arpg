@@ -66,7 +66,7 @@ public enum StatName
     AirDamageModifier,
     ForceDamageModifier,
     PoisonDamageModifier,
-    Mastery
+    GlobalMoveSpeedModifier
 }
 
 

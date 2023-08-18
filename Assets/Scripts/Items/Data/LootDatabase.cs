@@ -232,6 +232,9 @@ public class LootDatabase : ScriptableObject {
             }
 
         }
+
+        statBoosters.Clear();
+        CreateBaseStatBoosters();
     }
 
 
@@ -239,37 +242,36 @@ public class LootDatabase : ScriptableObject {
     private void CreateBaseStatBoosters() {
         StatName[] allStats = System.Enum.GetValues(typeof(StatName)) as StatName[];
 
-        List<ItemData> desiredStats = new List<ItemData>();
+        //List<ItemData> desiredStats = new List<ItemData>();
 
         foreach (StatName stat in allStats) {
             ItemData data = stat switch {
                 StatName.Health => new ItemData(stat, 2f),
-                StatName.MoveSpeed => throw new System.NotImplementedException(),
-                StatName.EffectLifetime => throw new System.NotImplementedException(),
+                StatName.GlobalMoveSpeedModifier => new ItemData(stat, 0.1f),
                 StatName.ShotCount => new ItemData(stat, 0.2f),
-                StatName.Accuracy => throw new System.NotImplementedException(),
-                StatName.DashSpeed => throw new System.NotImplementedException(),
-                StatName.DashDuration => throw new System.NotImplementedException(),
-                StatName.EffectInterval => throw new System.NotImplementedException(),
-                StatName.CooldownReduction => new ItemData(stat, 0.05f),
+                //StatName.Accuracy => throw new System.NotImplementedException(),
+                //StatName.DashSpeed => throw new System.NotImplementedException(),
+                //StatName.DashDuration => throw new System.NotImplementedException(),
+                //StatName.EffectInterval => throw new System.NotImplementedException(),
+                StatName.CooldownReduction => new ItemData(stat, -0.05f),
                 StatName.GlobalDamageModifier => new ItemData(stat, 0.1f),
-                StatName.GlobalEffectDurationModifier => throw new System.NotImplementedException(),
+                StatName.GlobalEffectDurationModifier => new ItemData(stat, 0.2f),
                 StatName.MeleeDamageModifier => new ItemData(stat, 0.15f),
                 StatName.OverloadChance => new ItemData(stat, 0.05f),
                 StatName.OverloadDamageModifier => new ItemData(stat, 0.2f),
-                StatName.ProjectilePierceCount => throw new System.NotImplementedException(),
-                StatName.GlobalEffectIntervalModifier => throw new System.NotImplementedException(),
-                StatName.DashCooldown => throw new System.NotImplementedException(),
-                StatName.ProjectileChainCount => throw new System.NotImplementedException(),
-                StatName.ProjectileSplitCount => throw new System.NotImplementedException(),
-                StatName.ProjectileSplitQuantity => throw new System.NotImplementedException(),
-                StatName.GlobalEffectSizeModifier => throw new System.NotImplementedException(),
-                StatName.GlobalEffectRangeModifier => throw new System.NotImplementedException(),
-                StatName.GlobalProjectileSizeModifier => throw new System.NotImplementedException(),
+                StatName.ProjectilePierceCount => new ItemData(stat, 0.2f),
+                StatName.GlobalEffectIntervalModifier => new ItemData(stat, -0.1f),
+                StatName.DashCooldown => new ItemData(stat, 0.1f),
+                StatName.ProjectileChainCount => new ItemData(stat, 0.2f),
+                StatName.ProjectileSplitCount => new ItemData(stat, 0.2f),
+                StatName.ProjectileSplitQuantity => new ItemData(stat, 1f),
+                StatName.GlobalEffectSizeModifier => new ItemData(stat, 0.2f),
+                //StatName.GlobalEffectRangeModifier => throw new System.NotImplementedException(),
+                StatName.GlobalProjectileSizeModifier => new ItemData(stat, 0.2f),
                 StatName.Essence => new ItemData(stat, 20f),
                 StatName.EssenceRegenerationRate => new ItemData(stat, 1f),
                 StatName.EssenceRegenerationValue => new ItemData(stat, 0.1f),
-                StatName.OverloadRecieveChance => new ItemData(stat, 0.1f),
+                //StatName.OverloadRecieveChance => new ItemData(stat, 0.1f),
                 StatName.CastSpeedModifier => new ItemData(stat, 0.1f),
                 StatName.MaxMinionCount => new ItemData(stat, 0.2f),
                 StatName.MinionDamageModifier => new ItemData(stat, 0.15f),
@@ -278,7 +280,8 @@ public class LootDatabase : ScriptableObject {
                 StatName.AirDamageModifier => new ItemData(stat, 0.15f),
                 StatName.ForceDamageModifier => new ItemData(stat, 0.15f),
                 StatName.PoisonDamageModifier => new ItemData(stat, 0.15f),
-                _ => throw new System.NotImplementedException(),
+                StatName.ProjectileLifetime => new ItemData(stat, 0.1f),
+                _ => null,
             };
 
             if(data != null) {

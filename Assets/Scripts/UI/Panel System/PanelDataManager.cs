@@ -22,6 +22,8 @@ public class PanelDataManager : Singleton<PanelDataManager>
 
     private void Update() {
 
+#if UNITY_EDITOR
+
         if (Input.GetKeyDown(KeyCode.C)) {
             PanelManager.TogglePanel<InventoryPanel>();
         }
@@ -29,6 +31,12 @@ public class PanelDataManager : Singleton<PanelDataManager>
         if (Input.GetKeyDown(KeyCode.Q)) {
             PanelManager.TogglePanel<SkillsPanel>();
         }
+
+        if(Input.GetKeyDown(KeyCode.L)) {
+            PanelManager.OpenPanel<LevelUpPanel>();
+        }
+
+#endif
 
     }
 

@@ -32,6 +32,14 @@ public class StatModifier
         VariantTarget = variantTarget;
     }
 
+    public StatModifier(StatModifierData data, object source) {
+        Value = data.value;
+        ModType = data.modifierType;
+        Source = source;
+        TargetStat = data.targetStat;
+        VariantTarget = data.variantTarget;
+    }
+
     public void UpdateModValue(float updatedValue)
     {
         Value = updatedValue;

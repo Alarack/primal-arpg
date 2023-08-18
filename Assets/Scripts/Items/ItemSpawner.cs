@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
+using System.Linq;
 
 public class ItemSpawner : Singleton<ItemSpawner>
 {
@@ -114,6 +115,33 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
     public static void CreateStatBooster(StatName stat) {
 
+    }
+
+    public static List<ItemData> CreateStatBoosterSet(int count) {
+        List<StatName> usedStats = new List<StatName>();
+
+        List<ItemData> results = new List<ItemData>();
+
+        List<StatName> allStats = Instance.lootDatabase.statBoosters.Keys.ToList();
+
+        allStats.Shuffle();
+
+
+        for(int i = 0; i < allStats.Count; i++) {
+            if (usedStats.Contains(allStats[i]))
+                continue;
+
+            results.Add(Instance.lootDatabase.statBoosters[allStats[i]]);
+            usedStats.Add(allStats[i]);
+
+
+            if(results.Count >= count) {
+                break;
+            }
+
+        }
+
+        return results;
     }
 
 
