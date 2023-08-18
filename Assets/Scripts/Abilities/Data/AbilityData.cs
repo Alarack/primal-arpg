@@ -18,7 +18,9 @@ public enum AbilityTag {
     Affliction,
     Water,
     Summoning,
-    Death
+    Death,
+    Space,
+    Teleportation
 }
 
 public enum AbilityCategory {

@@ -437,6 +437,72 @@ public class ForcedMovementEffect : Effect {
     }
 }
 
+public class TeleportEffect : Effect {
+
+    public override EffectType Type => EffectType.Teleport;
+
+
+    public TeleportEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        switch (Data.teleportDestination) {
+            case TeleportDestination.MousePointer:
+                TeleportToMousePointer(target);
+                break;
+            case TeleportDestination.RandomViewport:
+                break;
+            case TeleportDestination.RandomNearTarget:
+                break;
+            case TeleportDestination.SourceForward:
+                break;
+            default:
+                break;
+        }
+
+
+     
+
+        return true;
+    }
+
+    private void TeleportToMousePointer(Entity target) {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 viewportCheck = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
+        //Debug.Log(viewportCheck + " is the viewport checker");
+
+        if (viewportCheck.x < 0.05f || viewportCheck.x > 0.95f) {
+            ParentAbility.RecoveryCharge(1);
+            return;
+
+        }
+
+        if (viewportCheck.y < 0.22f || viewportCheck.y > 0.95f) {
+            ParentAbility.RecoveryCharge(1);
+            return;
+        }
+
+
+        VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+
+        target.transform.position = mousePos;
+
+        VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+
+    }
+
+    private void ApplySourceForward(Entity target) {
+       
+    }
+
+   
+}
+
 public class AddStatScalerEffect : Effect {
 
     public override EffectType Type => EffectType.AddStatScaler;

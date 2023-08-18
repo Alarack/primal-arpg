@@ -507,17 +507,15 @@ public static class AbilityEditorHelper
                     entry.entityPrefab = EditorHelper.ObjectField("Prefab", entry.entityPrefab);
                 }
                 entry.percentOfPlayerDamage = EditorGUILayout.FloatField("Percent of Player Damage", entry.percentOfPlayerDamage);
-                //entry.maxSpawns = EditorGUILayout.IntField("Max Spawns", entry.maxSpawns);
+                break;
 
-                //entry.spawnCount = EditorGUILayout.IntField("Spawn Count", entry.spawnCount);
+            case EffectType.Teleport:
+                entry.teleportDestination = EditorHelper.EnumPopup("Teleport Destination", entry.teleportDestination);
+                entry.teleportVFX = EditorHelper.ObjectField("Teleport VFX", entry.teleportVFX);
 
-                //if(entry.maxSpawns > 0 && entry.spawnCount > entry.maxSpawns) {
-                //    EditorGUILayout.Separator();
-                //    EditorGUILayout.LabelField("Spawn Count greater than max spawns: ", EditorHelper2.LoadStyle(errorLabel));
-                //    EditorGUILayout.Separator();
-                //}
 
                 break;
+
             default:
                 break;
         }

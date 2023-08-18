@@ -15,7 +15,8 @@ public enum EffectType {
     ApplyOtherEffect,
     AddStatScaler,
     ForceStatusTick,
-    SpawnEntity
+    SpawnEntity,
+    Teleport
 }
 
 public enum EffectTarget {
@@ -55,6 +56,13 @@ public enum MovementDestination {
     SourceCurrentVelocity,
     MousePosition,
     AwayFromSource
+}
+
+public enum TeleportDestination {
+    MousePointer,
+    RandomViewport,
+    RandomNearTarget,
+    SourceForward
 }
 
 public enum EntitySpawnType {
@@ -111,8 +119,12 @@ public class EffectData
     public bool isTeleport;
     public bool invertDestination;
     public MovementDestination targetDestination;
-
     public float moveForce;
+
+    //Teleport
+    public TeleportDestination teleportDestination;
+    public GameObject teleportVFX;
+    public float forwardDistance;
 
     //Spawn Projectile
     public List<Projectile> tokenPrefabs = new List<Projectile>();
