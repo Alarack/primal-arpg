@@ -153,7 +153,9 @@ namespace LL.Events {
         AbilityInitiated,
         AIActivated,
         MinionSummoned,
-        CurrencyChanged
+        CurrencyChanged,
+        TeleportInitiated,
+        TeleportConcluded
 
     }
 

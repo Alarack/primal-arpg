@@ -489,15 +489,36 @@ public class TeleportEffect : Effect {
 
 
         VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+        SendTeleportInitiatedEvent(target);
 
         target.transform.position = mousePos;
 
         VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+        SendTeleportConcludedEvent(target);
 
     }
 
     private void ApplySourceForward(Entity target) {
        
+    }
+
+
+    private void SendTeleportInitiatedEvent(Entity target) {
+        EventData data = new EventData();
+        data.AddEntity("Target", target);
+        data.AddEffect("Effect", this);
+        data.AddAbility("Ability", ParentAbility);
+
+        EventManager.SendEvent(GameEvent.TeleportInitiated, data);
+    }
+
+    private void SendTeleportConcludedEvent(Entity target) {
+        EventData data = new EventData();
+        data.AddEntity("Target", target);
+        data.AddEffect("Effect", this);
+        data.AddAbility("Ability", ParentAbility);
+
+        EventManager.SendEvent(GameEvent.TeleportConcluded, data);
     }
 
    

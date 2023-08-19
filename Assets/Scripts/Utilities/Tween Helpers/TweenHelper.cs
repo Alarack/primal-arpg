@@ -10,6 +10,7 @@ public class TweenHelper : MonoBehaviour
     public enum TweenPreset {
         Breathing,
         Rotating,
+        Grow
     }
 
     public TweenPreset preset;
@@ -32,6 +33,7 @@ public class TweenHelper : MonoBehaviour
         Action tweenMethod = preset switch {
             TweenPreset.Breathing => Breathe,
             TweenPreset.Rotating => Rotate,
+            TweenPreset.Grow => Grow,
             _ => null,
         };
 
@@ -53,6 +55,10 @@ public class TweenHelper : MonoBehaviour
 
     public void Rotate() {
         transform.DOLocalRotate(new Vector3(0f, 0f, endRotatation), rotationDuration, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+    }
+
+    public void Grow() {
+        transform.DOScale(endScale, scaleDuration).SetEase(Ease.OutSine);
     }
 
 }

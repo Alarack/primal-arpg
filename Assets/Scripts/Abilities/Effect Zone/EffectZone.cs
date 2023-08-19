@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class EffectZone : Entity {
 
-    //[Header("VFX")]
-    //public GameObject spawnVFX;
+
     public ParticleSystem vfxParticles;
     public float particleSpeed = 1f;
     protected GameObject applyVFX;
-    //public GameObject deathVFX;
+    public GameObject windupFinishedVFX;
+    public GameObject growStartVFX;
 
-    //[Header("Masking")]
     private LayerMask mask;
 
     protected Effect parentEffect;
@@ -26,6 +25,17 @@ public class EffectZone : Entity {
 
     private Task cleanTask;
 
+    private Collider2D myCollider;
+
+    private Timer windupTimer;
+
+    protected override void Awake() {
+        base.Awake();
+
+        myCollider = GetComponent<Collider2D>();
+    }
+
+
     public virtual void Setup(Effect parentEffect, EffectZoneInfo info, Transform parentToThis = null, Projectile carrier = null, int parentLayer = -1, MaskTargeting targeting = MaskTargeting.Opposite) {
         this.parentEffect = parentEffect;
         this.zoneInfo = info;
@@ -38,13 +48,12 @@ public class EffectZone : Entity {
         //if (parentEffect.Source == null) {
         //    Debug.LogWarning("Spawning an effect zone while the source is dead: " + parentEffect.Data.effectName);
         //}
-        //else {
-
-        //}
 
         if(parentEffect != null && parentEffect.Source != null)
             ownerType = parentEffect.Source.ownerType;
 
+
+        SetupWindup();
 
         SetInfo();
         SetSize();
@@ -79,6 +88,10 @@ public class EffectZone : Entity {
         if(persistantZoneTimer != null) {
             persistantZoneTimer.UpdateClock();
         }
+
+        if(windupTimer != null) {
+            windupTimer.UpdateClock();
+        }
     }
 
     protected override void OnDisable() {
@@ -93,6 +106,13 @@ public class EffectZone : Entity {
         spawnEffectPrefab = zoneInfo.spawnVFX;
         deathEffectPrefab = zoneInfo.deathVFX;
 
+    }
+
+    private void SetupWindup() {
+        if (Stats.Contains(StatName.EffectZoneWindupTime) == true && Stats[StatName.EffectZoneWindupTime] > 0) {
+            myCollider.enabled = false;
+            windupTimer = new Timer(Stats[StatName.EffectZoneWindupTime], OnWindupFinished, false);
+        }
     }
 
     private void SetSize() {
@@ -126,7 +146,13 @@ public class EffectZone : Entity {
         transform.localScale = new Vector3(effectSize, effectSize, effectSize);
     }
 
-
+    private void OnWindupFinished(EventData data) {
+        myCollider.enabled = true;
+        CircleCollider2D circleCollider = myCollider as CircleCollider2D;
+        circleCollider.radius = Stats[StatName.EffectSize] * 5f;
+        VFXUtility.SpawnVFX(windupFinishedVFX, transform, null, 2f, Stats[StatName.EffectSize] * 3f);
+        Destroy(growStartVFX);
+    }
     private void ConfigureCollision() {
         if (zoneInfo.affectSource == true)
             return;
@@ -186,6 +212,15 @@ public class EffectZone : Entity {
 
         if (Stats[StatName.EffectLifetime] <= 0)
             yield break;
+
+        //bool winding = myCollider != null && myCollider.enabled == false;
+        WaitForEndOfFrame windupWaiter = new WaitForEndOfFrame();
+
+        while (myCollider != null && myCollider.enabled == false) {
+            Debug.Log("Wiating for fuse");
+            yield return windupWaiter;
+        }
+
         
         WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.EffectLifetime]);
 
