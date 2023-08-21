@@ -48,7 +48,16 @@ public enum DeliverySpawnLocation {
     Trigger,
     Cause,
     MousePointer,
-    Target
+    AITarget,
+    FixedLocations,
+    ViewportPosition
+}
+
+public enum DeliverySpawnLocationHardPoint {
+    LeftCenter,
+    RightCenter,
+    TopCenter,
+    BottomCenter,
 }
 
 public enum MovementDestination {
@@ -98,6 +107,8 @@ public class EffectData
     public float shotDelay = 0.2f;
     public List<StatData> payloadStatData = new List<StatData>();
     public DeliverySpawnLocation spawnLocation;
+    public Vector2 minViewportValues;
+    public Vector2 maxViewportValues;
     public EffectZoneInfo effectZoneInfo;
     public LayerMask projectileHitMask;
 

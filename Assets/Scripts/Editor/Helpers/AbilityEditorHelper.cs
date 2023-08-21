@@ -429,6 +429,11 @@ public static class AbilityEditorHelper
 
         entry.spawnLocation = EditorHelper.EnumPopup("Spawn Location", entry.spawnLocation);
 
+        if(entry.spawnLocation == DeliverySpawnLocation.ViewportPosition) {
+            entry.minViewportValues = EditorGUILayout.Vector2Field("Min Values", entry.minViewportValues);
+            entry.maxViewportValues = EditorGUILayout.Vector2Field("Max Values", entry.maxViewportValues);
+        }
+
         EditorGUILayout.Separator();
         EditorGUILayout.LabelField("Effect Zone: ", EditorStyles.boldLabel);
         

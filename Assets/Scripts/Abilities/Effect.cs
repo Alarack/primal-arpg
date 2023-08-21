@@ -1058,7 +1058,7 @@ public class SpawnProjectileEffect : Effect {
                     Vector3 mousPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     token.transform.localPosition = mousPos;
                     break;
-                case DeliverySpawnLocation.Target:
+                case DeliverySpawnLocation.AITarget:
                     token.transform.localPosition = target.transform.position;
                     break;
                 default:

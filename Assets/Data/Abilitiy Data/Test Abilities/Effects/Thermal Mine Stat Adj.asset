@@ -33,10 +33,17 @@ MonoBehaviour:
     payloadStatData:
     - variant: 0
       statName: 41
-      value: 1
+      value: 5
       maxValue: 0
       minValue: 0
-    spawnLocation: 3
+    - variant: 0
+      statName: 14
+      value: 3
+      maxValue: 0
+      minValue: 0
+    spawnLocation: 6
+    minViewportValues: {x: 0.25, y: 0.9}
+    maxViewportValues: {x: 0.1, y: 0.9}
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0

@@ -20,6 +20,8 @@ public class TweenHelper : MonoBehaviour
     public float endRotatation;
     public float rotationDuration;
 
+    public bool startOnAwake = true;
+
     private Vector3 initialScale;
 
 
@@ -30,6 +32,14 @@ public class TweenHelper : MonoBehaviour
 
     public void Start() {
 
+        if(startOnAwake) {
+            StartTweeing();
+        }
+       
+    }
+
+
+    public void StartTweeing() {
         Action tweenMethod = preset switch {
             TweenPreset.Breathing => Breathe,
             TweenPreset.Rotating => Rotate,
@@ -37,7 +47,7 @@ public class TweenHelper : MonoBehaviour
             _ => null,
         };
 
-        if(tweenMethod == null ) {
+        if (tweenMethod == null) {
             Debug.LogError("Null tween preset in Tween Helper. You probably forgot to add it to the switch");
             return;
         }

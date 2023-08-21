@@ -10,6 +10,7 @@ public class EffectZone : Entity {
     public float particleSpeed = 1f;
     protected GameObject applyVFX;
     public GameObject windupFinishedVFX;
+    public ParticleSystem effectTelegraph;
     public GameObject growStartVFX;
 
     private LayerMask mask;
@@ -29,10 +30,17 @@ public class EffectZone : Entity {
 
     private Timer windupTimer;
 
+    private ParticleSystem activeEffectTelegraph;
+    private GameObject activeGrowVFX;
+
+    public TweenHelper tweenHelper;
+
     protected override void Awake() {
         base.Awake();
 
         myCollider = GetComponent<Collider2D>();
+
+        
     }
 
 
@@ -53,10 +61,12 @@ public class EffectZone : Entity {
             ownerType = parentEffect.Source.ownerType;
 
 
-        SetupWindup();
+        
 
         SetInfo();
         SetSize();
+
+        SetupWindup();
 
         if (parentToThis != null) {
             transform.SetParent(parentToThis, false);
@@ -111,7 +121,24 @@ public class EffectZone : Entity {
     private void SetupWindup() {
         if (Stats.Contains(StatName.EffectZoneWindupTime) == true && Stats[StatName.EffectZoneWindupTime] > 0) {
             myCollider.enabled = false;
+            //growStartVFX.transform.localScale = new Vector3(1 / effectSize, 1 / effectSize, 1 / effectSize);
+            //growStartVFX.transform.SetParent(null, true);
+            activeGrowVFX = Instantiate(growStartVFX, transform.position, transform.rotation);
+            //activeGrowVFX.transform.SetParent(transform, true);
+            activeGrowVFX.transform.localScale = new Vector3(1f / effectSize, 1f /effectSize,  1f/effectSize);
+            TweenHelper helper = activeGrowVFX.AddComponent<TweenHelper>();
+            helper.preset = TweenHelper.TweenPreset.Grow;
+            helper.endScale = effectSize;
+            helper.scaleDuration = Stats[StatName.EffectZoneWindupTime];
+            helper.startOnAwake = true;
+
             windupTimer = new Timer(Stats[StatName.EffectZoneWindupTime], OnWindupFinished, false);
+            activeEffectTelegraph = Instantiate(effectTelegraph, transform.position, transform.rotation);
+            activeEffectTelegraph.transform.SetParent(transform.parent, true);
+            activeEffectTelegraph.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
+            //activeEffectTelegraph.gameObject.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
+            //ParticleSystem.MainModule main = activeEffectTelegraph.main;
+            //main.startSize =
         }
     }
 
@@ -142,16 +169,22 @@ public class EffectZone : Entity {
         effectSize *= globalSizeMod;
 
         //Debug.Log("effect size: " + effectSize);
+        if(tweenHelper != null &&  tweenHelper.startOnAwake == false) {
+            //tweenHelper.endScale = effectSize;
+            tweenHelper.StartTweeing();
+        }
+
 
         transform.localScale = new Vector3(effectSize, effectSize, effectSize);
     }
 
     private void OnWindupFinished(EventData data) {
         myCollider.enabled = true;
-        CircleCollider2D circleCollider = myCollider as CircleCollider2D;
-        circleCollider.radius = Stats[StatName.EffectSize] * 5f;
-        VFXUtility.SpawnVFX(windupFinishedVFX, transform, null, 2f, Stats[StatName.EffectSize] * 3f);
-        Destroy(growStartVFX);
+        //CircleCollider2D circleCollider = myCollider as CircleCollider2D;
+        //circleCollider.radius = effectSize;
+        VFXUtility.SpawnVFX(windupFinishedVFX, transform, null, 1f, effectSize);
+        Destroy(activeGrowVFX);
+        Destroy(activeEffectTelegraph.gameObject);
     }
     private void ConfigureCollision() {
         if (zoneInfo.affectSource == true)
@@ -217,7 +250,7 @@ public class EffectZone : Entity {
         WaitForEndOfFrame windupWaiter = new WaitForEndOfFrame();
 
         while (myCollider != null && myCollider.enabled == false) {
-            Debug.Log("Wiating for fuse");
+            //Debug.Log("Wiating for fuse");
             yield return windupWaiter;
         }
 

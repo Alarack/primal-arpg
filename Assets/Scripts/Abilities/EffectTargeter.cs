@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Linq;
 using System;
 
+using Random = UnityEngine.Random;
+
 
 using TriggerInstance = AbilityTrigger.TriggerInstance;
 //using AbilityTriggerInstance = AbilityTrigger.AbilityTriggerInstance;
@@ -413,11 +415,42 @@ public class EffectTargeter {
             DeliverySpawnLocation.Trigger => ActivationInstance.TriggeringEntity.transform.position,
             DeliverySpawnLocation.Cause => ActivationInstance.CauseOfTrigger.transform.position,
             DeliverySpawnLocation.MousePointer => Camera.main.ScreenToWorldPoint(Input.mousePosition),
-            DeliverySpawnLocation.Target => throw new NotImplementedException(),
+            DeliverySpawnLocation.AITarget => GetAITargetPosition(),
+            DeliverySpawnLocation.ViewportPosition => GetViewportPosition(),
             _ => throw new NotImplementedException(),
-        };
+        } ;
 
         return targetLocation;
+    }
+
+
+    private Vector2 GetViewportPosition() {
+
+        float randomX = Random.Range(parentEffect.Data.minViewportValues.x, parentEffect.Data.maxViewportValues.x);
+        float randomY = Random.Range(parentEffect.Data.minViewportValues.y, parentEffect.Data.maxViewportValues.y);
+
+        //Debug.Log(randomX + ", " + randomY);
+
+        Vector2 convertedPoint = Camera.main.ViewportToWorldPoint(new Vector2(randomX, randomY));
+
+
+
+        return convertedPoint;
+
+    }
+
+    private Vector2 GetAITargetPosition() {
+        NPC npc = parentEffect.Source as NPC;
+        if(npc == null) {
+            Debug.LogError("Can't get an ai target from a non NPC " + parentEffect.Data.effectName);
+            return Vector2.zero;
+        }
+
+        if(npc.Brain.Sensor.LatestTarget == null) { 
+            return Vector2.zero;
+        }
+
+        return npc.Brain.Sensor.LatestTarget.transform.position;
     }
 
     private IEnumerator DeliveryPayloadOnDelay(Vector2 location, Entity target = null) {
@@ -444,8 +477,10 @@ public class EffectTargeter {
 
         for (int i = 0; i < totalShots; i++) {
 
+            Vector2 payloadLocation = GetPayloadSpawnLocation();
+
             //Instantiate payload;
-            Entity delivery = GameObject.Instantiate(parentEffect.Data.payloadPrefab, location, parentEffect.Source.transform.rotation);
+            Entity delivery = GameObject.Instantiate(parentEffect.Data.payloadPrefab, payloadLocation, parentEffect.Source.transform.rotation);
 
             Projectile projectile = delivery as Projectile;
             if (projectile != null) {
