@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Thermal Mine Stat Adj
+  m_Name: Counter Mine Stat Adj
   m_EditorClassIdentifier: 
   effectData:
     effectName: Thermal Mine Damage
@@ -28,15 +28,15 @@ MonoBehaviour:
     targetConstraints: []
     riderEffects: []
     payloadPrefab: {fileID: 2109167299929148009, guid: 8bfcb3bdef1c71e4790524346e267da4, type: 3}
-    payloadCount: 3
+    payloadCount: 1
     shotDelay: 0.2
     payloadStatData:
     - variant: 0
       statName: 41
-      value: 5
+      value: 3
       maxValue: 0
       minValue: 0
-    spawnLocation: 6
+    spawnLocation: 4
     minViewportValues: {x: 0.1, y: 0.25}
     maxViewportValues: {x: 0.9, y: 0.9}
     effectZoneInfo:

@@ -29,7 +29,7 @@ MonoBehaviour:
     childAbilities: []
     tags: 0100000006000000
     activationTriggerData:
-    - type: 6
+    - type: 31
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
@@ -147,8 +147,13 @@ MonoBehaviour:
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    windupVFX: {fileID: 0}
-    abilityStatData: []
+    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
+    abilityStatData:
+    - variant: 0
+      statName: 50
+      value: 1
+      maxValue: 0
+      minValue: 0
     recoveryData:
     - type: 0
       recoveryTriggers: []
@@ -165,4 +170,4 @@ MonoBehaviour:
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         minTriggerCount: 0
-      cooldown: 1
+      cooldown: 3
