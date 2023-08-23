@@ -159,7 +159,7 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
 
     public override void TearDown() {
         base.TearDown();
-        
+        cooldownTimer.ResetTimer();
         TimerManager.RemoveTimerAction(Recover);
         ParentAbility.Stats.RemoveStatListener(StatName.Cooldown, OnCooldownChanged);
     }

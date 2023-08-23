@@ -50,7 +50,8 @@ public enum DeliverySpawnLocation {
     MousePointer,
     AITarget,
     FixedLocations,
-    ViewportPosition
+    RandomViewportPosition,
+    WorldPositionSequence
 }
 
 public enum DeliverySpawnLocationHardPoint {
@@ -107,6 +108,8 @@ public class EffectData
     public float shotDelay = 0.2f;
     public List<StatData> payloadStatData = new List<StatData>();
     public DeliverySpawnLocation spawnLocation;
+    public WorldPositionConstant spawnLocationStart;
+    public WorldPositionConstant spawnLocationEnd;
     public Vector2 minViewportValues;
     public Vector2 maxViewportValues;
     public EffectZoneInfo effectZoneInfo;

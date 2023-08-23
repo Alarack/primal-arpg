@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e64f4036e690064cb32abed64c30c22, type: 3}
-  m_Name: Spawn Bombs
+  m_Name: Spawn Bombs Center Row
   m_EditorClassIdentifier: 
   mode: 2
   behavourType: 8
@@ -24,5 +24,5 @@ MonoBehaviour:
   spawnOffset: {x: 0, y: 0}
   minFlockDistance: 0
   abilities:
-  - {fileID: 11400000, guid: ead96d06d76b8fc44a53a84775f4dc73, type: 2}
+  - {fileID: 11400000, guid: 71764ce883de041478360ff26ed9d430, type: 2}
   - {fileID: 11400000, guid: f4d9177c4642f4040b448f1f089c43be, type: 2}

@@ -66,6 +66,13 @@ namespace LL.FSM {
             if (CurrentState != null)
                 CurrentState.OnExit();
 
+            //if(newState.stateName == "Molten Menece Phase 2a") {
+            //    Debug.Log("Changing State: " + TextHelper.ColorizeText( newState.stateName, Color.green));
+            //}
+            //else {
+            //    Debug.Log("Changing State: " + TextHelper.ColorizeText(newState.stateName, Color.red));
+            //}
+
             //Debug.Log("Changing State: " + newState.stateName);
 
             PreviousState = CurrentState;

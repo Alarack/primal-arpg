@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 
 using TriggerInstance = AbilityTrigger.TriggerInstance;
+using static UnityEngine.GraphicsBuffer;
 //using AbilityTriggerInstance = AbilityTrigger.AbilityTriggerInstance;
 
 public class EffectTargeter {
@@ -387,7 +388,7 @@ public class EffectTargeter {
 
 
     public void ApplyPayloadDeliveryToTarget(Entity target) {
-        new Task(DeliveryPayloadOnDelay(GetPayloadSpawnLocation(), target));
+        new Task(DeliveryPayloadOnDelay(/*GetPayloadSpawnLocation(),*/ target));
     }
 
     public void ApplyPayloadDelivery() {
@@ -400,7 +401,7 @@ public class EffectTargeter {
         //    _ => throw new NotImplementedException(),
         //};
 
-        new Task(DeliveryPayloadOnDelay(GetPayloadSpawnLocation()));
+        new Task(DeliveryPayloadOnDelay(/*GetPayloadSpawnLocation())*/));
     }
 
     public Vector2 GetPayloadSpawnLocation() {
@@ -416,15 +417,27 @@ public class EffectTargeter {
             DeliverySpawnLocation.Cause => ActivationInstance.CauseOfTrigger.transform.position,
             DeliverySpawnLocation.MousePointer => Camera.main.ScreenToWorldPoint(Input.mousePosition),
             DeliverySpawnLocation.AITarget => GetAITargetPosition(),
-            DeliverySpawnLocation.ViewportPosition => GetViewportPosition(),
+            DeliverySpawnLocation.RandomViewportPosition => GetRandomViewportPosition(),
             _ => throw new NotImplementedException(),
         } ;
 
         return targetLocation;
     }
 
+    public List<Vector2> GetPayloadSpawnlocationSequence(int count) {
+        
+        if (count < -2) {
+            Debug.LogError("Two few points?");
+        }
+        
+        List<Vector2> results = TargetHelper.GetWorldSpacePointSequence(parentEffect.Data.spawnLocationStart, parentEffect.Data.spawnLocationEnd, count, false);
 
-    private Vector2 GetViewportPosition() {
+
+        return results;
+    }
+
+
+    private Vector2 GetRandomViewportPosition() {
 
         float randomX = Random.Range(parentEffect.Data.minViewportValues.x, parentEffect.Data.maxViewportValues.x);
         float randomY = Random.Range(parentEffect.Data.minViewportValues.y, parentEffect.Data.maxViewportValues.y);
@@ -453,7 +466,7 @@ public class EffectTargeter {
         return npc.Brain.Sensor.LatestTarget.transform.position;
     }
 
-    private IEnumerator DeliveryPayloadOnDelay(Vector2 location, Entity target = null) {
+    private IEnumerator DeliveryPayloadOnDelay(Entity target = null) {
         WaitForSeconds waiter = new WaitForSeconds(parentEffect.Stats[StatName.FireDelay]);
 
         if(parentEffect.Source == null) {
@@ -475,43 +488,61 @@ public class EffectTargeter {
         }
 
 
+
+        if(parentEffect.Data.spawnLocation == DeliverySpawnLocation.WorldPositionSequence) {
+
+            List<Vector2> deliveryPoints = GetPayloadSpawnlocationSequence(totalShots);
+
+            for (int i = 0; i < deliveryPoints.Count; i++) {
+                CreateDeliveryPayload(target, deliveryPoints[i]);
+                yield return waiter;
+            }
+
+
+            yield break;
+        }
+
+
         for (int i = 0; i < totalShots; i++) {
 
             Vector2 payloadLocation = GetPayloadSpawnLocation();
 
-            //Instantiate payload;
-            Entity delivery = GameObject.Instantiate(parentEffect.Data.payloadPrefab, payloadLocation, parentEffect.Source.transform.rotation);
-
-            Projectile projectile = delivery as Projectile;
-            if (projectile != null) {
-                projectile.Setup(parentEffect.Source, parentEffect, parentEffect.Data.projectileHitMask, parentEffect.Data.maskTargeting);
-
-                projectile.Stats.AddMissingStats(parentEffect.Stats);
-
-                float sourceInaccuracy = (1f - parentEffect.Source.Stats[StatName.Accuracy]) * 360f;
-                float projectileInaccuracy = (1f - projectile.Stats[StatName.Accuracy]) * 360f;
-                float totalInaccuracy = (projectileInaccuracy + sourceInaccuracy) / 2f;
-
-
-                if(target != null) {
-                    projectile.transform.rotation = TargetUtilities.GetRotationTowardTarget(target.transform, projectile.transform);
-                }
-
-                projectile.transform.eulerAngles += new Vector3(0f, 0f, UnityEngine.Random.Range(-totalInaccuracy, totalInaccuracy));
-
-
-            }
-
-            EffectZone effectZone = delivery as EffectZone;
-            if (effectZone != null) {
-                effectZone.Stats.AddMissingStats(parentEffect.Stats);
-                effectZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, null, parentEffect.Source.gameObject.layer, parentEffect.Data.maskTargeting);
-               
-            }
+            CreateDeliveryPayload(target, payloadLocation);
 
             yield return waiter;
         }
 
+    }
+
+    private void CreateDeliveryPayload(Entity target, Vector2 payloadLocation) {
+        Entity delivery = GameObject.Instantiate(parentEffect.Data.payloadPrefab, payloadLocation, parentEffect.Source.transform.rotation);
+
+        Projectile projectile = delivery as Projectile;
+        if (projectile != null) {
+            projectile.Setup(parentEffect.Source, parentEffect, parentEffect.Data.projectileHitMask, parentEffect.Data.maskTargeting);
+
+            projectile.Stats.AddMissingStats(parentEffect.Stats);
+
+            float sourceInaccuracy = (1f - parentEffect.Source.Stats[StatName.Accuracy]) * 360f;
+            float projectileInaccuracy = (1f - projectile.Stats[StatName.Accuracy]) * 360f;
+            float totalInaccuracy = (projectileInaccuracy + sourceInaccuracy) / 2f;
+
+
+            if (target != null) {
+                projectile.transform.rotation = TargetUtilities.GetRotationTowardTarget(target.transform, projectile.transform);
+            }
+
+            projectile.transform.eulerAngles += new Vector3(0f, 0f, UnityEngine.Random.Range(-totalInaccuracy, totalInaccuracy));
+
+
+        }
+
+        EffectZone effectZone = delivery as EffectZone;
+        if (effectZone != null) {
+            effectZone.Stats.AddMissingStats(parentEffect.Stats);
+            effectZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, null, parentEffect.Source.gameObject.layer, parentEffect.Data.maskTargeting);
+
+        }
     }
 
 

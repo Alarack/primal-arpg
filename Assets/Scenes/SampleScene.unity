@@ -11967,10 +11967,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
-  upperLeftCorner: {fileID: 0}
-  upperRightCorner: {fileID: 0}
-  lowerLeftCorner: {fileID: 0}
-  lowerRightCorner: {fileID: 0}
 --- !u!1 &1958357232
 GameObject:
   m_ObjectHideFlags: 0
@@ -14318,13 +14314,145 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateData.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateData.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 75b2949bbe306d04eae2c9f2e6d9fe88, type: 2}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateData.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7650c3c1c8a573745a4a189b1b57efa6, type: 2}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].toStateData
+      value: 
+      objectReference: {fileID: 11400000, guid: 75b2949bbe306d04eae2c9f2e6d9fe88, type: 2}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[1].toStateData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7650c3c1c8a573745a4a189b1b57efa6, type: 2}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[2].toStateData
+      value: 
+      objectReference: {fileID: 11400000, guid: 75b2949bbe306d04eae2c9f2e6d9fe88, type: 2}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].fromStateData
+      value: 
+      objectReference: {fileID: 11400000, guid: e359b19234327d840b89ce4fc89adad2, type: 2}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[1].fromStateData
+      value: 
+      objectReference: {fileID: 11400000, guid: 75b2949bbe306d04eae2c9f2e6d9fe88, type: 2}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[2].fromStateData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7650c3c1c8a573745a4a189b1b57efa6, type: 2}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[1].triggerData.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[2].triggerData.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[1].triggerData.Array.data[0].type
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[2].triggerData.Array.data[0].type
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[1].triggerData.Array.data[0].triggerTimerDuration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[2].triggerData.Array.data[0].triggerTimerDuration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.data[0].allConstraints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[1].triggerData.Array.data[0].allConstraints.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.data[0].allConstraints.Array.data[0].focus
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[1].triggerData.Array.data[0].allConstraints.Array.data[0].focus
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.data[0].allConstraints.Array.data[0].constraintData.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[1].triggerData.Array.data[0].allConstraints.Array.data[0].constraintData.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.data[0].allConstraints.Array.data[0].constraintData.Array.data[1].type
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.data[0].allConstraints.Array.data[0].constraintData.Array.data[2].type
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[1].triggerData.Array.data[0].allConstraints.Array.data[0].constraintData.Array.data[0].type
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.data[0].allConstraints.Array.data[0].constraintData.Array.data[1].targetRatio
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.data[0].allConstraints.Array.data[0].constraintData.Array.data[0].changeDirection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.data[0].allConstraints.Array.data[0].constraintData.Array.data[0].movementMagnitudeLimit
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.data[0].allConstraints.Array.data[0].constraintData.Array.data[1].movementMagnitudeLimit
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[0].triggerData.Array.data[0].allConstraints.Array.data[0].constraintData.Array.data[2].movementMagnitudeLimit
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442283054591421390, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
+      propertyPath: stateChangeData.Array.data[1].triggerData.Array.data[0].allConstraints.Array.data[0].constraintData.Array.data[0].movementMagnitudeLimit
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6054216379721955940, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
       propertyPath: m_Name
       value: Molten Menece
       objectReference: {fileID: 0}
     - target: {fileID: 6054216379721955940, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

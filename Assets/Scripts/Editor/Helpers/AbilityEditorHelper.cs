@@ -348,6 +348,10 @@ public static class AbilityEditorHelper
             case ConstraintType.UnitIsMoving:
                 entry.movementMagnitudeLimit = EditorGUILayout.FloatField("Magnitude Limit", entry.movementMagnitudeLimit);
                 break;
+
+            case ConstraintType.IsInState:
+                
+                break;
             default:
                 break;
         }
@@ -429,9 +433,14 @@ public static class AbilityEditorHelper
 
         entry.spawnLocation = EditorHelper.EnumPopup("Spawn Location", entry.spawnLocation);
 
-        if(entry.spawnLocation == DeliverySpawnLocation.ViewportPosition) {
+        if(entry.spawnLocation == DeliverySpawnLocation.RandomViewportPosition) {
             entry.minViewportValues = EditorGUILayout.Vector2Field("Min Values", entry.minViewportValues);
             entry.maxViewportValues = EditorGUILayout.Vector2Field("Max Values", entry.maxViewportValues);
+        }
+
+        if(entry.spawnLocation == DeliverySpawnLocation.WorldPositionSequence) {
+            entry.spawnLocationStart = EditorHelper.EnumPopup("Start Point", entry.spawnLocationStart);
+            entry.spawnLocationEnd = EditorHelper.EnumPopup("End Point", entry.spawnLocationEnd);
         }
 
         EditorGUILayout.Separator();

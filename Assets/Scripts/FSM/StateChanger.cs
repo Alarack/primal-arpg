@@ -23,6 +23,7 @@ public class StateChanger {
     private void CreateTriggers() {
         for (int i = 0; i < changerData.triggerData.Count; i++) {
             AbilityTrigger newTrigger = AbilityFactory.CreateAbilityTrigger(changerData.triggerData[i], brain.Owner);
+            newTrigger.AIState = changerData.fromStateData.stateName;
             newTrigger.ActivationCallback = ReceiveStateTrigger;
             triggers.Add(newTrigger);
         }

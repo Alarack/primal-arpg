@@ -305,6 +305,8 @@ public class Ability {
     public void TearDown() {
         //End all current Effects
         ForceEndTrigger(null);
+        AbortAbilityWindup();
+
 
         //Tear down actvation triggers
         for (int i = 0; i < activationTriggers.Count; i++) {
@@ -994,6 +996,7 @@ public class Ability {
                 GameObject.Destroy(currentWindupVFX);
 
             currentWindup = null;
+            Source.ActivelyCastingAbility = null;
         }
     }
 
@@ -1012,7 +1015,7 @@ public class Ability {
 
         WaitForSeconds waiter = new WaitForSeconds(waitTime);
 
-        //Debug.Log("Showing some kind of vfx");
+        //Debug.Log("Winding up: " + Data.abilityName);
 
         if(Source == null)
             yield break;

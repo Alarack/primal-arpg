@@ -22,6 +22,7 @@ public abstract class AbilityTrigger {
     public Ability CauseOfAbilityTrigger { get; protected set; }
     public TriggerData Data { get; protected set; }
 
+    public string AIState { get; set; }
 
     protected Dictionary<ConstraintFocus, List<AbilityConstraint>> constraintDict = new Dictionary<ConstraintFocus, List<AbilityConstraint>>();
 
@@ -52,7 +53,7 @@ public abstract class AbilityTrigger {
     /// </summary>
     protected void SetupConstraints() {
         foreach (ConstraintDataFocus constraintFocus in Data.allConstraints) {
-            
+
             //For each focus (Source, Trigger, Cause) in our data, add an assosiated entry into our constraint Dictionary.
             constraintDict.Add(constraintFocus.focus, CreateConstraints(constraintFocus.constraintData));
         }
@@ -97,7 +98,7 @@ public abstract class AbilityTrigger {
         foreach (var entry in constraintDict) {
             Tuple<Entity, Ability, Effect> foci = GetConstraintFocus(entry.Key, activationInstance);
 
-            if(foci == null) {
+            if (foci == null) {
                 Debug.LogError("Could not get constraint focus group from a trigger on : " + SourceEntity.EntityName + " : " + ParentAbility.Data.abilityName);
                 return false;
             }
@@ -266,7 +267,7 @@ public abstract class AbilityTrigger {
     /// Check all constraints and anything else that may invalidate an ability activating
     /// </summary>
     protected bool IsTriggerValid(TriggerInstance activationInstance) {
-        
+
         //if(activationInstance is AbilityTriggerInstance) {
         //    if(CheckAllAbilityConstraints(activationInstance as AbilityTriggerInstance) == false) {
         //        return false;
@@ -275,12 +276,12 @@ public abstract class AbilityTrigger {
         //        return true;
         //    }
         //}
-        
+
         //if (CheckAllConstrains(activationInstance) == false)
         //    return false;
 
 
-        if(CheckMultiTypeConstraints(activationInstance) == false) 
+        if (CheckMultiTypeConstraints(activationInstance) == false)
             return false;
 
 
@@ -291,11 +292,11 @@ public abstract class AbilityTrigger {
     /// Attempt to Activate an ability after receving an event
     /// </summary>
     protected void TryActivateTrigger(TriggerInstance activationInstance) {
-        if(Data.delay1Frame == true) {
+        if (Data.delay1Frame == true) {
             new Task(FrameDelay(activationInstance));
             return;
         }
-        
+
         if (IsTriggerValid(activationInstance) == false) {
             return;
         }
@@ -333,7 +334,7 @@ public abstract class AbilityTrigger {
             this.Type = type;
         }
 
-        
+
     }
 
     //public class AbilityTriggerInstance : TriggerInstance {
@@ -363,8 +364,8 @@ public class UserActivatedTrigger : AbilityTrigger {
     }
 
     public void OnUserActivation(EventData data) {
-      
-        if(ParentAbility == null) {
+
+        if (ParentAbility == null) {
             Debug.LogError("a user activated trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
             return;
         }
@@ -557,7 +558,7 @@ public class OverloadTrigger : AbilityTrigger {
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
         triggerInstance.TriggeringAbility = triggeringAbility;
         triggerInstance.TriggeringEffect = triggeringEffect;
-        
+
         TryActivateTrigger(triggerInstance);
     }
 }
@@ -585,7 +586,7 @@ public class ProjectilePiercedTrigger : AbilityTrigger {
 
         TriggeringEntity = projectile;
         CauseOfTrigger = cause;
-        
+
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
         triggerInstance.SourceEffect = parentEffect;
@@ -667,7 +668,7 @@ public class RuneEquippedTrigger : AbilityTrigger {
         triggerInstance.TriggeringAbility = TriggeringAbility;
         triggerInstance.CausingAbility = CauseOfAbilityTrigger;
         triggerInstance.SourceAbility = ParentAbility;
-        
+
         TryActivateTrigger(triggerInstance);
 
     }
@@ -862,7 +863,7 @@ public class ProjectileCreatedTrigger : AbilityTrigger {
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
         triggerInstance.CausingEffect = causingEffect;
-        triggerInstance.CausingAbility= causingAbility;
+        triggerInstance.CausingAbility = causingAbility;
         TryActivateTrigger(triggerInstance);
     }
 }
@@ -947,7 +948,7 @@ public class StatChangedTrigger : AbilityTrigger {
         triggerInstance.CausingAbility = CauseOfAbilityTrigger;
         triggerInstance.SourceAbility = ParentAbility;
         triggerInstance.TriggeringAbility = ParentAbility;
-        
+
         TryActivateTrigger(triggerInstance);
     }
 
@@ -1047,7 +1048,7 @@ public class StateEnteredTrigger : AbilityTrigger {
     public class StateEnteredTriggerInstance : TriggerInstance {
 
         public string stateEntered;
-        
+
         public StateEnteredTriggerInstance(Entity trigger, Entity cause, TriggerType type, string stateEntered) : base(trigger, cause, type) {
             this.stateEntered = stateEntered;
         }
@@ -1115,7 +1116,7 @@ public class WeaponCooldownStartedTrigger : AbilityTrigger {
         Entity owner = data.GetEntity("Owner");
         Weapon weapon = data.GetWeapon("Weapon");
 
-        if(owner == null) {
+        if (owner == null) {
             Debug.LogError("A null owner was passed to a Weapon Cooldown Started Trigger");
         }
 
@@ -1150,32 +1151,71 @@ public class TimedTrigger : AbilityTrigger {
 
     private Timer myTimer;
 
+    private NPC aiOwner;
+
     public TimedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
         SetupTriggerTimer();
+
+        aiOwner = SourceEntity as NPC;
+
+        //if(aiOwner != null) {
+        //    EventManager.RegisterListener(GameEvent.StateEntered, OnStateEntered);
+        //}
     }
 
+    
+    private void OnStateEntered(EventData data) {
+        string stateName = data.GetString("State"); 
+        if(stateName == AIState)
+            ResetClock();
+    }
 
     private void SetupTriggerTimer() {
         //TimerManager.AddTimer(this, Data.triggerTimerDuration, true);
 
         EventData data = new EventData();
         data.AddTrigger("Trigger", this);
-        data.AddEntity("Owner", ParentAbility.Source);
+        data.AddEntity("Owner", SourceEntity);
+
+
 
         myTimer = new Timer(Data.triggerTimerDuration, OnTriggerTimerCompleted, true, data);
         TimerManager.AddTimerAction(UpdateClock);
     }
 
+    public void ResetClock() {
+
+        //Debug.Log("Resetting clock for state: " + AIState);
+
+        myTimer.ResetTimer();
+    }
+
 
     private void UpdateClock() {
-        if (ParentAbility.IsEquipped == false)
+        if (ParentAbility != null && ParentAbility.IsEquipped == false)
             return;
 
-        if (ParentAbility.IsActive == false)
+        if (ParentAbility != null && ParentAbility.IsActive == false)
             return;
 
-        if(myTimer != null)
+        if (CheckAIState() == true)
+            return;
+
+        if (myTimer != null)
             myTimer.UpdateClock();
+    }
+
+    private bool CheckAIState() {
+        if (aiOwner == null)
+            return false;
+
+        if (aiOwner.Brain.CurrentStateName != AIState) {
+            return true;
+        }
+
+
+
+        return false;
     }
 
     private void OnTriggerTimerCompleted(EventData data) {
@@ -1203,7 +1243,7 @@ public class TimedTrigger : AbilityTrigger {
         TryActivateTrigger(triggerInstance);
     }
 
-    
+
 
 
 }
@@ -1240,15 +1280,15 @@ public class RiderTrigger : AbilityTrigger {
             return;
         }
 
-        if(targetEffect == targetAbility.GetEffectByName(Data.riderEffectName) == false) {
+        if (targetEffect == targetAbility.GetEffectByName(Data.riderEffectName) == false) {
 
             //Debug.LogWarning("The target effect: " + targetEffect.Data.effectName + " does not match the rider effect: " + Data.riderEffectName);
 
-            
+
             return;
         }
 
-        if(targetEffect.EntityTargets.Count > 0) {
+        if (targetEffect.EntityTargets.Count > 0) {
             ridereffectTargets = targetEffect.ValidTargets;
             TriggeringEntity = targetEffect.LastTarget;
         }
