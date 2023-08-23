@@ -90,6 +90,7 @@ public class EffectData
     public EffectTarget targeting;
     public EffectSubTarget subTarget;
     public MaskTargeting maskTargeting;
+    public bool hideFloatingText;
     public bool deliveryPayloadToTarget;
     public bool canOverload;
     public bool canAffectDeadTargets;

@@ -471,7 +471,7 @@ public static class AbilityEditorHelper
                 break;
             case EffectType.StatAdjustment:
                 EditorGUILayout.LabelField("Mod Data: ", EditorStyles.boldLabel);
-                
+                entry.hideFloatingText = EditorGUILayout.Toggle("Hide Floating Text", entry.hideFloatingText);
                 EditorGUI.indentLevel++;
                 entry.modData = EditorHelper.DrawExtendedList(entry.modData, "Mod", DrawStatModifierData);
                 EditorGUI.indentLevel--;

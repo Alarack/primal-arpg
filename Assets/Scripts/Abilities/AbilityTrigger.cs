@@ -1163,10 +1163,10 @@ public class TimedTrigger : AbilityTrigger {
         //}
     }
 
-    
+
     private void OnStateEntered(EventData data) {
-        string stateName = data.GetString("State"); 
-        if(stateName == AIState)
+        string stateName = data.GetString("State");
+        if (stateName == AIState)
             ResetClock();
     }
 
@@ -1201,15 +1201,27 @@ public class TimedTrigger : AbilityTrigger {
         if (CheckAIState() == true)
             return;
 
+        //Debug.Log("Updating a trigger timer for: " + SourceEntity.EntityName);
+
         if (myTimer != null)
             myTimer.UpdateClock();
     }
 
     private bool CheckAIState() {
-        if (aiOwner == null)
+        if (aiOwner == null) {
+            Debug.Log("No ai owner");
             return false;
+        }
+
+        if (string.IsNullOrEmpty(AIState) == true) {
+            return false;
+        }
 
         if (aiOwner.Brain.CurrentStateName != AIState) {
+            //Debug.Log("Wrong state: Current:" + aiOwner.Brain.CurrentStateName + ". Target: " + AIState);
+            //if (ParentAbility != null) {
+            //    Debug.Log("Parent Ability: " + ParentAbility.Data.abilityName);
+            //}
             return true;
         }
 

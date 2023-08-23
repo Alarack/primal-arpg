@@ -145,6 +145,18 @@ public class AIBrain : MonoBehaviour {
 
     }
 
+    public void TearDownAbilities() {
+        for (int i = 0; i < abilities.Count; i++) {
+            abilities[i].Uneqeuip();
+        }
+
+        foreach (var entry in stateBehaviorAbilities) {
+            for (int i = 0; i < entry.Value.Count; i++) {
+                entry.Value[i].Uneqeuip();
+            }
+        }
+    }
+
     public void ActivateAllAbilities() {
         for (int i = 0; i < abilities.Count; i++) {
             abilities[i].ForceActivate();

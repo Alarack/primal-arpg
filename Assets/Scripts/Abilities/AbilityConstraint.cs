@@ -359,11 +359,14 @@ public class RangeConstraint : AbilityConstraint {
 
                 Entity sensortarget = npc.Brain.Sensor.LatestTarget;
                 if(sensortarget == null) {
+                    //Debug.Log("No target");
                     return false;
                 }
 
                 range = Vector2.Distance(target.transform.position, sensortarget.transform.position);
 
+
+                //Debug.Log(range + " is the current range");
 
                 break;
 
@@ -372,9 +375,15 @@ public class RangeConstraint : AbilityConstraint {
             
         }
 
-        float maxrange = parentEffect != null ? parentEffect.Stats[StatName.EffectRange] : parentAbility.Stats[StatName.EffectRange];
+
+        float effectRange = parentEffect != null ? parentEffect.Stats[StatName.EffectRange] : parentAbility.Stats[StatName.EffectRange];
+
+
+        float maxrange = effectRange > 0 ? effectRange : data.maxRange; //parentEffect != null ? parentEffect.Stats[StatName.EffectRange] : parentAbility.Stats[StatName.EffectRange];
 
         bool result = range <= maxrange /*data.maxRange*/ && range >= data.minRange;
+
+        //Debug.Log(result + " " + range);
 
         return inverse == false ? result : !result;
     }

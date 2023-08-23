@@ -67,6 +67,8 @@ public class NPC : Entity
         //Award exp
         base.Die(source, sourceAbility);
 
+        Brain.TearDownAbilities();
+
         EntityManager.RemoveEntity(this);
         //EffectManager.RemoveTarget(this);
         SpawnDeathVFX();

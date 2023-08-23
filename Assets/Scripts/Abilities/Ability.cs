@@ -133,7 +133,7 @@ public class Ability {
             return;
         }
 
-
+        //Debug.Log("Equipping: " + Data.abilityName);
 
         SetupActivationTriggers();
         SetupEndTriggers();

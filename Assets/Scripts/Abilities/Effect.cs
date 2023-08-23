@@ -1649,7 +1649,7 @@ public class StatAdjustmentEffect : Effect {
         //Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName);
 
 
-        if (activeMod.TargetStat == StatName.Health) {
+        if (activeMod.TargetStat == StatName.Health && Data.hideFloatingText == false) {
             //Debug.LogWarning("Damage dealt: " + modValueResult + " : " + Data.effectName);
 
             FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString(), 0.75f, isOverloading);
