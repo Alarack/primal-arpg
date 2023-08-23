@@ -46,4 +46,12 @@ public class NPCDataManager : Singleton<NPCDataManager>
         return null;
     }
 
+    public static NPC GetBoss(string biome) {
+        if (Instance.npcBiomeDict.TryGetValue(biome, out NPCBiomeEntry biomeEntry)) {
+            return biomeEntry.GetBoss();
+        }
+
+        return null;
+    }
+
 }

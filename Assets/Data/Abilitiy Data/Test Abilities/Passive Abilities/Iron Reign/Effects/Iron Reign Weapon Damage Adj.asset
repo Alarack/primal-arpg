@@ -18,8 +18,11 @@ MonoBehaviour:
     type: 1
     targeting: 9
     subTarget: 5
+    maskTargeting: 0
+    hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
+    canAffectDeadTargets: 0
     numberOfTargets: -1
     otherAbilityName: Test Sword Swipe
     otherEffectName: Sword Swipe Damage
@@ -61,12 +64,17 @@ MonoBehaviour:
       targetStatus: 0
       statRatioTarget: 0
       targetRatio: 0
+      movementMagnitudeLimit: 0.1
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadCount: 1
     shotDelay: 0.2
     payloadStatData: []
     spawnLocation: 0
+    spawnLocationStart: 0
+    spawnLocationEnd: 0
+    minViewportValues: {x: 0, y: 0}
+    maxViewportValues: {x: 0, y: 0}
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
@@ -82,7 +90,7 @@ MonoBehaviour:
       m_Bits: 0
     modData:
     - targetStat: 28
-      value: 2.5
+      value: 1.5
       modifierType: 2
       variantTarget: 0
       modValueSetMethod: 0
@@ -161,6 +169,9 @@ MonoBehaviour:
     invertDestination: 0
     targetDestination: 0
     moveForce: 0
+    teleportDestination: 0
+    teleportVFX: {fileID: 0}
+    forwardDistance: 0
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -172,3 +183,6 @@ MonoBehaviour:
     targetOtherEffectName: 
     applyTriggeringEffect: 0
     statScalersToAdd: []
+    entityPrefab: {fileID: 0}
+    percentOfPlayerDamage: 1
+    spawnType: 0

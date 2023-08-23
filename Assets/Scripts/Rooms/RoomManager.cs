@@ -89,7 +89,7 @@ public class RoomManager : Singleton<RoomManager> {
 
         List<Room> choices = new List<Room>();
         foreach (ItemType type in chosenTypes) {
-            Room room = CreateRoom(Room.RoomType.EliminationCombat, type);
+            Room room = CreateRoom(Instance.GetRoomType(), type);
             //Debug.Log("Creating a room.Reward: " + room.rewards[0].rewardDescription);
             choices.Add(room);
         }
@@ -99,7 +99,7 @@ public class RoomManager : Singleton<RoomManager> {
             //Debug.Log("Current Room: " + Instance.currentRoomIndex);
             if(chosenTypes.Contains(ItemType.Skill) == false) {
                 //Debug.LogWarning("Adding a skill room since there wasn't one");
-                choices[0] = CreateRoom(Room.RoomType.EliminationCombat, ItemType.Skill);
+                choices[0] = CreateRoom(Instance.GetRoomType(), ItemType.Skill);
             }
         }
 
@@ -107,6 +107,13 @@ public class RoomManager : Singleton<RoomManager> {
         EntityManager.ActivePlayer.DeactivateBigVacum();
         CreateRoomPortals(choices);
 
+    }
+
+    private Room.RoomType GetRoomType() {
+        if (Instance.currentRoomIndex % 2 == 0)
+            return Room.RoomType.BossRoom;
+        else
+            return Room.RoomType.EliminationCombat;
     }
 
     public static void CreateRoomPortals(List<Room> rooms) {
@@ -181,7 +188,7 @@ public class RoomManager : Singleton<RoomManager> {
             Room.RoomType.SkillShop => throw new System.NotImplementedException(),
             Room.RoomType.RecoveryRoom => throw new System.NotImplementedException(),
             Room.RoomType.SurvivalCombat => throw new System.NotImplementedException(),
-            Room.RoomType.BossRoom => throw new System.NotImplementedException(),
+            Room.RoomType.BossRoom => new BossRoom(rewardType, rewardTag, rewardSlot),
             Room.RoomType.SecretRoom => throw new System.NotImplementedException(),
             Room.RoomType.TreasureRoom => throw new System.NotImplementedException(),
             _ => throw new System.NotImplementedException(),

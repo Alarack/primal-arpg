@@ -1147,12 +1147,19 @@ public class SpawnEntityEffect : Effect {
             spawn.entityType = Source.entityType;
             spawn.gameObject.layer = Source.gameObject.layer;
             spawn.subtypes.Add(Entity.EntitySubtype.Minion);
-            VFXUtility.DesaturateSprite(spawn.innerSprite, 0.4f);
+
+            if(spawn.innerSprite != null)
+                VFXUtility.DesaturateSprite(spawn.innerSprite, 0.4f);
 
             EntityPlayer player = Source as EntityPlayer;
             if(player != null) {
                 float averageDamage = player.GetAverageDamageRoll() * Data.percentOfPlayerDamage;
                 float modifiedDamage = averageDamage * (1 + player.Stats[StatName.MinionDamageModifier]);
+                spawn.Stats.SetStatValue(StatName.AbilityWeaponCoefficicent, modifiedDamage, Source);
+            }
+            else {
+                float baseDamage = Source.Stats[StatName.AbilityWeaponCoefficicent] * Data.percentOfPlayerDamage;
+                float modifiedDamage = baseDamage * (1 + Source.Stats[StatName.MinionDamageModifier]);
                 spawn.Stats.SetStatValue(StatName.AbilityWeaponCoefficicent, modifiedDamage, Source);
             }
 

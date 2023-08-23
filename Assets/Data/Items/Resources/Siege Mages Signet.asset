@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
   m_Name: Siege Mages Signet
   m_EditorClassIdentifier: 
+  devItem: 0
   itemData:
     Type: 1
+    entityClass: 0
     itemName: Siege Mages' Signet
     itemDescription: Your Area Effects and Projectiles become HUGE
     itemValue: 150
@@ -26,7 +28,7 @@ MonoBehaviour:
     maxDamage: 0
     statModifierData:
     - targetStat: 39
-      value: 2
+      value: 1
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0

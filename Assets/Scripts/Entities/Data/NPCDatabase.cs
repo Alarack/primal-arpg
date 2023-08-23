@@ -40,7 +40,21 @@ public class NPCDatabase : ScriptableObject
         
         }
 
-        public List<NPC> FillThreatList(float totalThreatLevel, float minIndividualThreat, float maxIndividualThreat) {
+        public NPC GetBoss() {
+            List<NPC> bosses = new List<NPC>();
+
+            for (int i = 0; i < npcData.Count; i++) {
+                if (npcData[i].subTypes.Contains(Entity.EntitySubtype.Boss)) {
+                    bosses.Add(npcData[i].npcPrefab);
+                }
+            }
+
+            int randomIndex = Random.Range(0, bosses.Count);
+            return bosses[randomIndex];
+
+        }
+
+        public List<NPC> FillThreatList(float totalThreatLevel, float minIndividualThreat, float maxIndividualThreat, bool includeBosses = false) {
             float filledValue = 0f;
             List<NPC> results = new List<NPC>();
 
@@ -56,7 +70,6 @@ public class NPCDatabase : ScriptableObject
                     if (entry.Key > maxIndividualThreat)
                         continue;
 
-
                     if(entry.Key < maxIndividualThreat) {
                         float reducedChance = 0.66f;
 
@@ -70,9 +83,15 @@ public class NPCDatabase : ScriptableObject
                         }
                     }
                     else {
-                        filledValue += entry.Key;
                         int randomIndex = Random.Range(0, entry.Value.Count);
-                        results.Add(entry.Value[randomIndex]);
+                        NPC target = entry.Value[randomIndex];
+
+                        if(includeBosses == false && target.subtypes.Contains(Entity.EntitySubtype.Boss)) {
+                            continue;
+                        }
+                        
+                        filledValue += entry.Key;
+                        results.Add(target);
                     }
 
                     //filledValue += entry.Key;
@@ -118,6 +137,7 @@ public class NPCDatabase : ScriptableObject
     public class NPCDataEntry {
         public NPC npcPrefab;
         public float threatValue;
+        public List<Entity.EntitySubtype> subTypes = new List<Entity.EntitySubtype>();
         //public string biome;
     }
 

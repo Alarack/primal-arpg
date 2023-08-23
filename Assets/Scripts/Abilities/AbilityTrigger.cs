@@ -42,7 +42,7 @@ public abstract class AbilityTrigger {
         EventManager.RegisterListener(TargetEvent, EventReceiver);
     }
 
-    public void TearDown() {
+    public virtual void TearDown() {
         EventManager.RemoveMyListeners(this);
         constraintDict.Clear();
         ActivationCallback = null;
@@ -1161,6 +1161,12 @@ public class TimedTrigger : AbilityTrigger {
         //if(aiOwner != null) {
         //    EventManager.RegisterListener(GameEvent.StateEntered, OnStateEntered);
         //}
+    }
+
+    public override void TearDown() {
+        base.TearDown();
+
+        TimerManager.RemoveTimerAction(UpdateClock);
     }
 
 

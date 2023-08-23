@@ -58,7 +58,7 @@ namespace LL.FSM {
 
         public void ChangeState(State newState) {
             if (CurrentState != null && CurrentState.stateName == newState.stateName) {
-                Debug.LogError(Owner.gameObject.name + " is trying to transition to the same state it's already in: " + CurrentState.stateName);
+                Debug.LogWarning(Owner.gameObject.name + " is trying to transition to the same state it's already in: " + CurrentState.stateName);
                 return;
             }
 
@@ -73,7 +73,7 @@ namespace LL.FSM {
             //    Debug.Log("Changing State: " + TextHelper.ColorizeText(newState.stateName, Color.red));
             //}
 
-            //Debug.Log("Changing State: " + newState.stateName);
+            Debug.Log("Changing State: " + newState.stateName);
 
             PreviousState = CurrentState;
             CurrentState = newState;

@@ -15,8 +15,10 @@ public class EntityManager : Singleton<EntityManager> {
     [Header("Default Wave Variables")]
     public EntitySpawnIndicator spawnIndicator;
     public GameObject spawnVFX;
+    public GameObject bossSpawnVFX;
     public int count;
     public float vfxDelay;
+    public float bossVFXDelay;
 
     public List<Wave> waves = new List<Wave>();
     public List<Wave> genearatedWaves = new List<Wave>();
@@ -233,6 +235,23 @@ public class EntityManager : Singleton<EntityManager> {
 
     //}
 
+
+    public static Wave GenerateBossWave(string biome) {
+        Wave bossWave = new Wave();
+        NPC bossPrefab = NPCDataManager.GetBoss(biome);
+
+        WaveEntry waveEntry = new WaveEntry();
+        waveEntry.spawnVFX = Instance.bossSpawnVFX;
+        waveEntry.spawnIndicator = Instance.spawnIndicator;
+        waveEntry.npcPrefab = bossPrefab;
+        waveEntry.vfxDelay = Instance.bossVFXDelay;
+        waveEntry.count = 1;
+
+        bossWave.entries.Add(waveEntry);
+
+        return bossWave;
+
+    }
 
     public static List<Wave> GenerateWaves(int waveCount, string biome, float totalThreat, float minSingleThreat = 1f, float maxSingleThreat = 100f) {
         List<Wave> results = new List<Wave>();

@@ -45,14 +45,14 @@ public abstract class Room {
 
     }
 
-    public virtual void SpawnRewards(string displayText) {
+    public virtual void SpawnRewards(string displayText, bool multiReward = false) {
 
         if(rewards.Count < 1) {
             EndRoom();
             return;
         }
 
-        RoomManager.CreateRewards(GetAllItemRewards(), displayText);
+        RoomManager.CreateRewards(GetAllItemRewards(), displayText, multiReward);
     }
 
 
@@ -215,6 +215,31 @@ public class EliminitionCombatRoom : Room {
         waveIndex++;
     }
 
+}
+
+public class BossRoom : Room {
+    public override RoomType Type =>RoomType.BossRoom;
+
+    EntityManager.Wave bossWave;
+
+    public BossRoom(ItemType rewardType, AbilityTag rewardTag, ItemSlot rewardSlot) : base() {
+        
+        GenerateRewards(2, rewardType, rewardTag, rewardSlot);
+        
+        bossWave = EntityManager.GenerateBossWave(RoomManager.CurrentBiome);
+    
+    }
+
+    public override void StartRoom() {
+        new Task(bossWave.SpawnWaveOnDelay());
+    }
+
+
+    public override void OnAllEnemiesKilled() {
+        base.OnAllEnemiesKilled();
+
+        SpawnRewards("Congratulations!", true);
+    }
 }
 
 
