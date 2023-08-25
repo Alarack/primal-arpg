@@ -158,7 +158,7 @@ public class Ability {
     public void Uneqeuip() {
         //Debug.Log("Unequipping: " + Data.abilityName);
         if (IsEquipped == false) {
-            Debug.LogWarning("Tried to unequip " + Data.abilityName + " but it wasn't equipped");
+            //Debug.LogWarning("Tried to unequip " + Data.abilityName + " but it wasn't equipped");
             return;
         }
 

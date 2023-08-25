@@ -18,8 +18,11 @@ MonoBehaviour:
     type: 1
     targeting: 5
     subTarget: 0
+    maskTargeting: 0
+    hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 1
+    canAffectDeadTargets: 0
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
@@ -56,6 +59,10 @@ MonoBehaviour:
       maxValue: 0
       minValue: 0
     spawnLocation: 0
+    spawnLocationStart: 0
+    spawnLocationEnd: 0
+    minViewportValues: {x: 0, y: 0}
+    maxViewportValues: {x: 0, y: 0}
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
@@ -66,6 +73,9 @@ MonoBehaviour:
       applyVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 2109167299929148009, guid: be7028d38a74792409bf494d09b5f3e0, type: 3}
+    projectileHitMask:
+      serializedVersion: 2
+      m_Bits: 0
     modData:
     - targetStat: 0
       value: -1
@@ -82,7 +92,7 @@ MonoBehaviour:
       scalers:
       - targetStat: 28
         deriveTarget: 15
-        statScaleBaseValue: 1.2
+        statScaleBaseValue: 2.5
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 0.6077585, b: 0, a: 1}
@@ -150,6 +160,9 @@ MonoBehaviour:
     invertDestination: 0
     targetDestination: 0
     moveForce: 0
+    teleportDestination: 0
+    teleportVFX: {fileID: 0}
+    forwardDistance: 0
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -161,3 +174,6 @@ MonoBehaviour:
     targetOtherEffectName: 
     applyTriggeringEffect: 0
     statScalersToAdd: []
+    entityPrefab: {fileID: 0}
+    percentOfPlayerDamage: 1
+    spawnType: 0

@@ -73,7 +73,7 @@ namespace LL.FSM {
             //    Debug.Log("Changing State: " + TextHelper.ColorizeText(newState.stateName, Color.red));
             //}
 
-            Debug.Log("Changing State: " + newState.stateName);
+            //Debug.Log("Changing State: " + newState.stateName);
 
             PreviousState = CurrentState;
             CurrentState = newState;
