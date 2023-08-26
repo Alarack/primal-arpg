@@ -45,14 +45,14 @@ public abstract class Room {
 
     }
 
-    public virtual void SpawnRewards(string displayText, bool multiReward = false) {
+    public virtual void SpawnRewards(string displayText, bool multiReward = false, bool shopMode = false) {
 
         if(rewards.Count < 1) {
             EndRoom();
             return;
         }
 
-        RoomManager.CreateRewards(GetAllItemRewards(), displayText, multiReward);
+        RoomManager.CreateRewards(GetAllItemRewards(), displayText, multiReward, shopMode);
     }
 
 
@@ -239,6 +239,23 @@ public class BossRoom : Room {
         base.OnAllEnemiesKilled();
 
         SpawnRewards("Congratulations!", true);
+    }
+}
+
+public class ShopRoom : Room {
+    public override RoomType Type => RoomType.ItemShop;
+
+    public ShopRoom(ItemType rewardType, AbilityTag rewardTag, ItemSlot rewardSlot) : base() {
+        GenerateRewards(5, rewardType, rewardTag, rewardSlot);
+    }
+
+
+    public override void StartRoom() {
+        SpawnRewards("Shop!", true, true);
+
+        List<Vector2> portalLocations = TargetHelper.GetUpperCenterRow(2);
+
+        RoomManager.SpawnRoomPortals(2, portalLocations);
     }
 }
 

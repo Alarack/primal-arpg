@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
@@ -10,11 +11,13 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public Image rewardImage;
 
+    [Header("Costs")]
+    public TextMeshProUGUI costTextField;
+    public GameObject costArea;
+
 
     private RewardPedestal pedestal;
-
     private Item displayItem;
-
     private Ability displayAbility;
 
     private void Awake() {
@@ -34,6 +37,14 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
 
         if(displayItem.Data.Type == ItemType.Skill) {
             displayAbility = displayItem.Data.learnableAbilities[0].FetchAbilityForDisplay(EntityManager.ActivePlayer);
+        }
+
+        if(pedestal.enforceCost == true) {
+            costArea.SetActive(true);
+            costTextField.text = pedestal.rewardItem.itemValue.ToString();
+        }
+        else {
+            costArea.SetActive(false);
         }
     }
 
@@ -72,8 +83,19 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        RoomManager.OnRewardSelected(pedestal);
-        TooltipManager.Hide();
+        
+        if(pedestal.enforceCost == false) {
+            RoomManager.OnRewardSelected(pedestal);
+            TooltipManager.Hide();
+        }
+        else {
+            if(EntityManager.ActivePlayer.Inventory.TryBuyItem(displayItem)  == true) {
+                RoomManager.OnRewardSelected(pedestal);
+                TooltipManager.Hide();
+            }
+        }
+        
+      
     }
 
     #endregion

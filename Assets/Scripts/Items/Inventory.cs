@@ -119,14 +119,38 @@ public class Inventory : MonoBehaviour {
         }
 
 
-        SendCurrencyChangedEvent(item);
+        SendCurrencyChangedEvent(item.Data.itemValue, item.Data.itemName, null);
     }
 
-    private void SendCurrencyChangedEvent(Item item) {
+    public bool TryBuyItem(Item item) {
+        float cost = item.Data.itemValue;
+
+        if(currencyDictionary.TryGetValue("Coin", out float count) == true) {
+            float difference = count - cost;
+
+            if(difference < 0) {
+                Debug.LogWarning("Not enough coins to buy: " + item.Data.itemName);
+                return false;
+            }
+
+            currencyDictionary["Coin"] -= cost;
+
+            SendCurrencyChangedEvent(count, "Coin", item);
+            return true;
+        }
+
+
+        
+        return false;
+
+    }
+
+    private void SendCurrencyChangedEvent(float value, string currencyType, Item purchase) {
         EventData data = new EventData();
-        data.AddFloat("Value", item.Data.itemValue);
-        data.AddFloat("Current Balance", currencyDictionary[item.Data.itemName]);
-        data.AddString("Currency Name", item.Data.itemName);
+        data.AddFloat("Value", value);
+        data.AddFloat("Current Balance", currencyDictionary[currencyType]);
+        data.AddString("Currency Name", currencyType);
+        data.AddItem("Item Purchased", purchase);
 
 
         EventManager.SendEvent(GameEvent.CurrencyChanged, data);

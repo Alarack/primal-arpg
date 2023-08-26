@@ -47,7 +47,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
         if (target.ownerType == OwnerConstraintType.Enemy && killer.ownerType == OwnerConstraintType.Friendly) {
             int threat = (int)NPCDataManager.GetThreatLevel(target.entityName);
 
-            SpawnCoins(threat, target.transform.position); 
+            SpawnCoins(threat, target.transform.position, threat, threat * 3); 
         }
     }
 
@@ -102,7 +102,10 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
         for (int i = 0; i < count; i++) {
             ItemData coinData = new ItemData();
-            coinData.itemValue = Random.Range(valueMin, valueMax);
+
+            int valueRange = Random.Range((int)valueMin, (int)(valueMax + 1));
+            
+            coinData.itemValue = valueRange;
             coinData.itemName = "Coin";
             coinData.Type = ItemType.Currency;
             coinData.pickupOnCollision = true;

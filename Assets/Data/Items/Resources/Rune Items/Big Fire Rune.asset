@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
   m_Name: Big Fire Rune
   m_EditorClassIdentifier: 
+  devItem: 0
   itemData:
     Type: 2
+    entityClass: 0
     itemName: Huge Heat Rune
     itemDescription: 
-    itemValue: 20000
+    itemValue: 50
     runeAbilityTarget: Test Fireball
     validSlots: 0e000000
     itemIcon: {fileID: 21300000, guid: 6cf60844347bb6849a8931227d37b78a, type: 3}

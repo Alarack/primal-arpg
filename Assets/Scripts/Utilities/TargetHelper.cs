@@ -153,6 +153,15 @@ public class TargetHelper : Singleton<TargetHelper>
         return result;
     }
 
+
+
+    public static List<Vector2> GetUpperCenterRow(int count) {
+        Vector2 start = GetMidpoint(WorldPositionConstant.LeftMiddle, WorldPositionConstant.UpperLeft);
+        Vector2 end = GetMidpoint(WorldPositionConstant.RightMiddle, WorldPositionConstant.UpperRight);
+
+        return GetWorldSpacePointSequence(start, end, count, false);
+    }
+
     public static List<Vector2> GetCenterRow(int count) {
         Vector2 start = GetWorldPoint(WorldPositionConstant.LeftMiddle); //GetMidpoint(WorldPositionConstant.UpperLeft, WorldPositionConstant.LowerLeft);
         Vector2 end = GetWorldPoint(WorldPositionConstant.RightMiddle); //GetMidpoint(WorldPositionConstant.UpperRight, WorldPositionConstant.LowerRight);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class RoomManager : Singleton<RoomManager> {
 
@@ -32,9 +33,9 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     public static void EnterRoom(Room room) {
-        room.StartRoom();
-
         Instance.currentRoomIndex++;
+
+        room.StartRoom();
     }
 
     public void OnPortalEntered(Room room) {
@@ -50,27 +51,28 @@ public class RoomManager : Singleton<RoomManager> {
         CurrentDifficulty += difficulty;
     }
 
-    public static void SpawnRoomPortals(int portalCount = 2) {
+    public static void SpawnRoomPortals(int portalCount = 2, List<Vector2> portalLocations = null) {
         //Debug.Log("Choose and spawn X Rooms");
 
+        Debug.Log("Room Index: " + Instance.currentRoomIndex);
 
         PanelManager.OpenPanel<TextDisplayPanel>().Setup("Choose a Room");
 
 
-        List<ItemType> rewardTypes = new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Rune};
+        List<ItemType> rewardTypes = new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Rune };
 
         rewardTypes.Shuffle();
 
         List<ItemType> chosenTypes = new List<ItemType>();
 
 
-        if(portalCount > rewardTypes.Count) {
+        if (portalCount > rewardTypes.Count) {
             Debug.LogError("More portals than reward types, can't be distinct");
         }
 
         for (int i = 0; i < portalCount; i++) {
-            
-            if(i >= rewardTypes.Count) {
+
+            if (i >= rewardTypes.Count) {
                 Debug.LogWarning("Reset count since i is creater than possible reward types");
                 i = 0;
             }
@@ -97,7 +99,7 @@ public class RoomManager : Singleton<RoomManager> {
 
         if (Instance.currentRoomIndex <= 5) {
             //Debug.Log("Current Room: " + Instance.currentRoomIndex);
-            if(chosenTypes.Contains(ItemType.Skill) == false) {
+            if (chosenTypes.Contains(ItemType.Skill) == false) {
                 //Debug.LogWarning("Adding a skill room since there wasn't one");
                 choices[0] = CreateRoom(Instance.GetRoomType(), ItemType.Skill);
             }
@@ -105,26 +107,34 @@ public class RoomManager : Singleton<RoomManager> {
 
 
         EntityManager.ActivePlayer.DeactivateBigVacum();
-        CreateRoomPortals(choices);
+        CreateRoomPortals(choices, portalLocations);
 
     }
 
     private Room.RoomType GetRoomType() {
         if (Instance.currentRoomIndex % 2 == 0)
+            return Room.RoomType.ItemShop;
+
+        if (Instance.currentRoomIndex % 5 == 0)
             return Room.RoomType.BossRoom;
-        else
-            return Room.RoomType.EliminationCombat;
+
+        return Room.RoomType.EliminationCombat;
     }
 
-    public static void CreateRoomPortals(List<Room> rooms) {
-        Instance.createPortalsTask = new Task(Instance.CreateRoomPortalsOnDelay(rooms));
+    public static void CreateRoomPortals(List<Room> rooms, List<Vector2> portalLocations = null) {
+        Instance.createPortalsTask = new Task(Instance.CreateRoomPortalsOnDelay(rooms, portalLocations));
     }
 
-    private IEnumerator CreateRoomPortalsOnDelay(List<Room> rooms) {
+    private IEnumerator CreateRoomPortalsOnDelay(List<Room> rooms, List<Vector2> portalLocations = null) {
         WaitForSeconds waiter = new WaitForSeconds(0.2f);
 
+        if(portalLocations == null) {
+            portalLocations = new List<Vector2>() { Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position };
+        }
+
+
         for (int i = 0; i < rooms.Count; i++) {
-            Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rooms.Count);
+            Vector2 targetPos = Vector2.Lerp(portalLocations[0], portalLocations[ portalLocations.Count -1], (i + 0.5f) / rooms.Count);
 
             RoomPortalDisplay portal = Instantiate(Instance.roomPortalTemplate, targetPos, Quaternion.identity);
             portal.Setup(rooms[i]);
@@ -184,7 +194,7 @@ public class RoomManager : Singleton<RoomManager> {
         Room result = roomType switch {
             Room.RoomType.StartRoom => new StartingRoom(),
             Room.RoomType.EliminationCombat => new EliminitionCombatRoom(rewardType, rewardTag, rewardSlot),
-            Room.RoomType.ItemShop => throw new System.NotImplementedException(),
+            Room.RoomType.ItemShop => new ShopRoom(rewardType, rewardTag, rewardSlot),
             Room.RoomType.SkillShop => throw new System.NotImplementedException(),
             Room.RoomType.RecoveryRoom => throw new System.NotImplementedException(),
             Room.RoomType.SurvivalCombat => throw new System.NotImplementedException(),
@@ -207,16 +217,25 @@ public class RoomManager : Singleton<RoomManager> {
 
         Instance.OnPortalEntered(room);
 
-        for (int i = 0; i < Instance.currentPortals.Count; i++) {
-            Destroy(Instance.currentPortals[i].gameObject);
-        }
+        Instance.CleanUpRoomPortals();
+        Instance.CleanUpRewardPedestals();
 
-        Instance.currentPortals.Clear();
+        //for (int i = 0; i < Instance.currentPortals.Count; i++) {
+        //    Destroy(Instance.currentPortals[i].gameObject);
+        //}
+
+        //Instance.currentPortals.Clear();
 
         PanelManager.ClosePanel<TextDisplayPanel>();
     }
 
+    private void CleanUpRoomPortals() {
+        for (int i = 0; i < currentPortals.Count; i++) {
+            Destroy(currentPortals[i].gameObject);
+        }
 
+        currentPortals.Clear();
+    }
 
     #region REWARDS
 
@@ -262,24 +281,24 @@ public class RoomManager : Singleton<RoomManager> {
         return results;
     }
 
-    public static void CreateRewards(List<ItemDefinition> rewardItems, string displayText, bool multiReward = false) {
+    public static void CreateRewards(List<ItemDefinition> rewardItems, string displayText, bool multiReward = false, bool shopMode = false) {
         MultiReward = multiReward;
 
         PanelManager.OpenPanel<TextDisplayPanel>().Setup(displayText);
         EntityManager.ActivePlayer.ActivateBigVacum();
 
-        if(rewardItems.Count == 0) {
+        if (rewardItems.Count == 0) {
             Debug.LogWarning("No rewards. Sad face");
             CurrentRoom.EndRoom();
             return;
         }
 
 
-        Instance.rewardSpawnTask = new Task(Instance.SpawnRewardsOnDelay(rewardItems));
+        Instance.rewardSpawnTask = new Task(Instance.SpawnRewardsOnDelay(rewardItems, shopMode));
 
     }
 
-    private IEnumerator SpawnRewardsOnDelay(List<ItemDefinition> rewardItems) {
+    private IEnumerator SpawnRewardsOnDelay(List<ItemDefinition> rewardItems, bool shopMode = false) {
         WaitForSeconds waiter = new WaitForSeconds(0.2f);
 
 
@@ -288,7 +307,7 @@ public class RoomManager : Singleton<RoomManager> {
 
             RewardPedestal pedestal = Instantiate(Instance.pedestalTemplate, targetPos, Quaternion.identity);
             pedestal.transform.SetParent(Instance.transform, false);
-            pedestal.Setup(rewardItems[i].itemData);
+            pedestal.Setup(rewardItems[i].itemData, shopMode);
             Instance.currentRewards.Add(pedestal);
             yield return waiter;
         }
@@ -297,11 +316,11 @@ public class RoomManager : Singleton<RoomManager> {
         rewardSpawnTask = null;
     }
 
-   
+
 
     public static void OnRewardSelected(RewardPedestal reward) {
 
-        if(Instance.rewardSpawnTask != null && Instance.rewardSpawnTask.Running == true) {
+        if (Instance.rewardSpawnTask != null && Instance.rewardSpawnTask.Running == true) {
             return;
         }
 
@@ -311,15 +330,17 @@ public class RoomManager : Singleton<RoomManager> {
             reward.DispenseReward();
             PanelManager.ClosePanel<TextDisplayPanel>();
 
-            for (int i = 0; i < Instance.currentRewards.Count; i++) {
-                if (Instance.currentRewards[i] != reward) {
-                    Destroy(Instance.currentRewards[i].gameObject);
-                }
-            }
+            Instance.CleanUpRewardPedestals();
 
-            Destroy(reward.gameObject);
+            //for (int i = 0; i < Instance.currentRewards.Count; i++) {
+            //    if (Instance.currentRewards[i] != reward) {
+            //        Destroy(Instance.currentRewards[i].gameObject);
+            //    }
+            //}
 
-            Instance.currentRewards.Clear();
+            //Destroy(reward.gameObject);
+
+            //Instance.currentRewards.Clear();
             CurrentRoom.EndRoom();
         }
         else {
@@ -330,11 +351,19 @@ public class RoomManager : Singleton<RoomManager> {
             if (Instance.currentRewards.Count == 0) {
                 PanelManager.ClosePanel<TextDisplayPanel>();
                 CurrentRoom.EndRoom();
-                
+
             }
         }
 
-        
+
+    }
+
+    private void CleanUpRewardPedestals() {
+        for (int i = 0; i < currentRewards.Count; i++) {
+            Destroy(currentRewards[i].gameObject);
+        }
+
+        currentRewards.Clear();
     }
 
 
