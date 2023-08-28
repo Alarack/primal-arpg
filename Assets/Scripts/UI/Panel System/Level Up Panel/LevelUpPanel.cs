@@ -48,7 +48,15 @@ public class LevelUpPanel : BasePanel
 
         StatAdjustmentManager.ApplyStatAdjustment(EntityManager.ActivePlayer, mod, mod.TargetStat, mod.VariantTarget, null);
 
-        Close();
+        EntityManager.ActivePlayer.levelsStored--;
+        PanelManager.GetPanel<HUDPanel>().UpdateStockpile();
+
+        if(EntityManager.ActivePlayer.levelsStored == 0) {
+            Close();
+        }
+        else {
+            Open();
+        }
     }
 
 

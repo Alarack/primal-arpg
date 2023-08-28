@@ -13,6 +13,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
     public ItemPickup pickupPrefab;
     public ItemPickup coinPickupPrefab;
+    public ItemPickup expPickupPrefab;
     public LootDatabase lootDatabase;
 
     public static Vector2 defaultSpawnLocation = Vector2.zero;
@@ -27,6 +28,14 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
         lootDatabase.InitDict();
 
+    }
+
+    private void Update() {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.E)) {
+            SpawnEXP(25, EntityManager.ActivePlayer.transform.position);
+        }
+#endif
     }
 
     private void OnEnable() {
@@ -47,7 +56,8 @@ public class ItemSpawner : Singleton<ItemSpawner>
         if (target.ownerType == OwnerConstraintType.Enemy && killer.ownerType == OwnerConstraintType.Friendly) {
             int threat = (int)NPCDataManager.GetThreatLevel(target.entityName);
 
-            SpawnCoins(threat, target.transform.position, threat, threat * 3); 
+            SpawnCoins(threat, target.transform.position, threat, threat * 3);
+            SpawnEXP(threat, target.transform.position, 1f, 1f);
         }
     }
 
@@ -112,6 +122,22 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
             ItemPickup pickup = Instantiate(Instance.coinPickupPrefab, location, Quaternion.identity);
             pickup.Setup(coinData);
+        }
+    }
+
+    public static void SpawnEXP(int count, Vector2 location, float valueMin = 1f, float valueMax = 1f) {
+        for (int i = 0; i < count; i++) {
+            ItemData expDataItem = new ItemData();
+
+            int valueRange = Random.Range((int)valueMin, (int)(valueMax + 1));
+
+            expDataItem.itemValue = valueRange;
+            expDataItem.itemName = "EXP";
+            expDataItem.Type = ItemType.Experience;
+            expDataItem.pickupOnCollision = true;
+
+            ItemPickup pickup = Instantiate(Instance.expPickupPrefab, location, Quaternion.identity);
+            pickup.Setup(expDataItem);
         }
     }
 

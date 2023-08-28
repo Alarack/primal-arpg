@@ -36,6 +36,8 @@ public abstract class Entity : MonoBehaviour {
     public string entityName;
     public string EntityName { get { return string.IsNullOrEmpty(entityName) == false ? entityName : gameObject.name; } }
     public EntityType entityType;
+    public int entityLevel = 1;
+    public int levelsStored = 0;
     public EntityClass CurrentClass { get; protected set; }
     public OwnerConstraintType ownerType;
     public List<EntitySubtype> subtypes = new List<EntitySubtype>();
@@ -64,7 +66,7 @@ public abstract class Entity : MonoBehaviour {
     protected virtual void Awake() {
         Stats = new StatCollection(this, statDefinitions);
 
-        if(Stats.Contains(StatName.Health) && Stats[StatName.Health] < 1) {
+        if (Stats.Contains(StatName.Health) && Stats[StatName.Health] < 1) {
             Debug.LogError(EntityName + " has 0 starting health. You probably forgot to set the range curren value to the max");
         }
 
@@ -75,7 +77,7 @@ public abstract class Entity : MonoBehaviour {
         //    EntityManager.RegisterEntity(this);
         //}
 
-        
+
     }
 
     protected virtual void Start() {
@@ -130,8 +132,8 @@ public abstract class Entity : MonoBehaviour {
 
     }
 
-    public virtual void RemoveAbility(Ability ability) { 
-    
+    public virtual void RemoveAbility(Ability ability) {
+
     }
 
     //public virtual Ability IsAbilityActivelyCasting() {
@@ -214,16 +216,30 @@ public abstract class Entity : MonoBehaviour {
 
     #endregion
 
+    public virtual void LevelUp() {
+        entityLevel++;
+        levelsStored++;
+        Stats.AddMaxValueModifier(StatName.Experience, 0.1f, StatModType.PercentMult, this);
+        Stats.EmptyStatRange(StatName.Experience, this);
+
+        EventData data = new EventData();
+        data.AddEntity("Target", this);
+        data.AddInt("Level", entityLevel);
+
+        EventManager.SendEvent(GameEvent.EntityLeveled, data);
+
+    }
+
     public virtual void ForceDie(Entity source, Ability sourceAbility = null) {
         Die(source, sourceAbility);
     }
 
     protected virtual void Die(Entity source, Ability sourceAbility = null) {
-        if(IsDead == true)
+        if (IsDead == true)
             return;
 
         IsDead = true;
-        
+
         EventData data = new EventData();
         data.AddEntity("Victim", this);
         data.AddEntity("Killer", source);

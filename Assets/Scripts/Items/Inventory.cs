@@ -86,6 +86,11 @@ public class Inventory : MonoBehaviour {
             AdjustCurrency(item);
             return;
         }
+
+        if(item.Data.Type == ItemType.Experience) {
+            AddExp(item);
+            return;
+        }
         
         if (ownedItems.AddUnique(item) == false) {
             Debug.LogWarning("An item: " + item.Data.itemName + " was added to " + Owner.EntityName + "'s inventory, but it was already there");
@@ -106,6 +111,23 @@ public class Inventory : MonoBehaviour {
                 EquipItemToSlot(item, item.Data.validSlots[0]);
             }
         }
+    }
+
+
+    private void AddExp(Item item) {
+
+
+        StatAdjustmentManager.ApplyStatAdjustment(Owner, item.Data.itemValue, StatName.Experience, StatModType.Flat, StatModifierData.StatVariantTarget.RangeCurrent, Owner, null);
+
+        //Owner.Stats.AdjustStatRangeCurrentValue(StatName.Experience, item.Data.itemValue, StatModType.Flat, Owner);
+
+
+
+        if(Owner.Stats.GetStatRangeRatio(StatName.Experience) >= 1) {
+            Owner.LevelUp();
+        }
+
+
     }
 
 

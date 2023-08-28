@@ -249,6 +249,16 @@ public class StatCollection {
         targetStat.SetStatValue(value, source);
     }
 
+    public void EmptyStatRange(StatName name, object source) {
+        if (Contains(name) == false) {
+            Debug.LogError("Stat: " + name + " was not found");
+            return;
+        }
+
+        StatRange targetStat = GetStat<StatRange>(name);
+        targetStat.Empty(source);
+    }
+
     public void AddModifier(StatName name, StatModifier mod) {
         if (Contains(name) == false) {
             Debug.LogError("Stat: " + name + " was not found");

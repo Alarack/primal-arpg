@@ -155,7 +155,8 @@ namespace LL.Events {
         MinionSummoned,
         CurrencyChanged,
         TeleportInitiated,
-        TeleportConcluded
+        TeleportConcluded,
+        EntityLeveled
 
     }
 

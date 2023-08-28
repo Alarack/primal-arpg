@@ -253,7 +253,7 @@ public class LootDatabase : ScriptableObject {
                 //StatName.DashSpeed => throw new System.NotImplementedException(),
                 //StatName.DashDuration => throw new System.NotImplementedException(),
                 //StatName.EffectInterval => throw new System.NotImplementedException(),
-                StatName.CooldownReduction => new ItemData(stat, -0.05f),
+                StatName.CooldownReduction => new ItemData(stat, 0.05f),
                 StatName.GlobalDamageModifier => new ItemData(stat, 0.1f),
                 StatName.GlobalEffectDurationModifier => new ItemData(stat, 0.2f),
                 StatName.MeleeDamageModifier => new ItemData(stat, 0.15f),

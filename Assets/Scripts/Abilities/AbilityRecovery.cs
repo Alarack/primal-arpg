@@ -120,6 +120,14 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
         Entity target = data.GetEntity("Target");
         Entity source = data.GetEntity("Source");
 
+
+        //Debug.Log(target.EntityName + " has had " + stat + " changed by " + data.GetFloat("Value"));
+
+        //if(target != source) {
+        //    Debug.LogWarning(target.EntityName + " is not " + Source.EntityName);
+        //}
+
+
         if (stat != StatName.CooldownReduction || target != Source)
             return;
 
@@ -137,7 +145,7 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
 
 
         ParentAbility.Stats.AddModifier(StatName.Cooldown, cdrMod);
-        //Debug.Log("Cooldown Reduction changed. CDR: " + -cdrPercent + ". My Cooldown: " + cooldownStats[StatName.Cooldown]);
+        //Debug.Log("Cooldown Reduction changed. CDR: " + -cdrPercent + ". My Cooldown: " + ParentAbility.Stats[StatName.Cooldown]);
         //Debug.Log("Modifier Value: " + -cdrPercent);
 
 

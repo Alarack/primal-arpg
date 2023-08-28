@@ -63,6 +63,10 @@ public class StatRange : BaseStat {
         AdjustValueFlat(difference, source);
     }
 
+    public void Empty(object source) {
+        AdjustValueFlat(-currentValue, source);
+    }
+
 
     #region MODIFY MIN AND MAX
 

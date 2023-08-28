@@ -32,11 +32,14 @@ public class PanelDataManager : Singleton<PanelDataManager>
             PanelManager.TogglePanel<SkillsPanel>();
         }
 
-        if(Input.GetKeyDown(KeyCode.L)) {
+        //if(Input.GetKeyDown(KeyCode.L)) {
+        //    PanelManager.OpenPanel<LevelUpPanel>();
+        //}
+#endif
+
+        if(EntityManager.ActivePlayer != null && EntityManager.ActivePlayer.levelsStored > 0 && Input.GetKeyDown(KeyCode.L)) {
             PanelManager.OpenPanel<LevelUpPanel>();
         }
-
-#endif
 
     }
 

@@ -80,7 +80,9 @@ public class AbilityManager : MonoBehaviour {
 
         if (item is ItemWeapon) {
             List<Ability> newWeaponAbilities = LearnItemAbilities(item);
-            EquipWeaponAbility(newWeaponAbilities[0]);
+            
+            if(newWeaponAbilities.Count > 0)
+                EquipWeaponAbility(newWeaponAbilities[0]);
         }
     }
 
@@ -88,7 +90,8 @@ public class AbilityManager : MonoBehaviour {
         Item item = data.GetItem("Item");
 
         if (item is ItemWeapon) {
-            UnlearnAbility(item.Data.learnableAbilities[0]);
+            if(item.Data.learnableAbilities.Count > 0)
+                UnlearnAbility(item.Data.learnableAbilities[0]);
         }
     }
 

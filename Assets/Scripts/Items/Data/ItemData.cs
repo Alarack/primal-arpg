@@ -28,7 +28,8 @@ public enum ItemType {
     Currency,
     Skill,
     ClassSelection,
-    StatBooster
+    StatBooster,
+    Experience
 
 }
 

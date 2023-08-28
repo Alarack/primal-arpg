@@ -67,7 +67,8 @@ public enum StatName
     ForceDamageModifier,
     PoisonDamageModifier,
     GlobalMoveSpeedModifier,
-    EffectZoneWindupTime
+    EffectZoneWindupTime,
+    Experience
 }
 
 
