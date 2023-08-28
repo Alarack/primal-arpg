@@ -128,6 +128,11 @@ public abstract class Entity : MonoBehaviour {
         AbilityManager.ActivateAbilityByName(name, category);
     }
 
+    public virtual bool HasAbilityOfTag(AbilityTag tag) {
+        Debug.LogError(EntityName + " is running the base HasAbilityOfTag Method. Overwrite this");
+        return false;
+    }
+
     public virtual void AddAbility(Ability ability) {
 
     }

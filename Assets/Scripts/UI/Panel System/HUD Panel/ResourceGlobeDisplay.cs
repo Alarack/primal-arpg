@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
-public class ResourceGlobeDisplay : MonoBehaviour
+public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
     public float smoothSpeed = 10f;
@@ -21,6 +22,8 @@ public class ResourceGlobeDisplay : MonoBehaviour
     public void Setup(StatRange stat) {
         AssosiatedStat = stat;
         AssosiatedStat.onValueChanged += OnStatValueChanged;
+
+        UpdateStatText();
     }
 
     private void OnDisable() {
@@ -38,9 +41,7 @@ public class ResourceGlobeDisplay : MonoBehaviour
 
         //globeFillImage.fillAmount = AssosiatedStat.Ratio;
 
-        if (resourceStatText != null) {
-            resourceStatText.text = AssosiatedStat.ModifiedValue + " / " + AssosiatedStat.MaxValueStat.ModifiedValue;
-        }
+        UpdateStatText();
     }
 
     private IEnumerator SmoothlyAdjustFill() {
@@ -55,5 +56,29 @@ public class ResourceGlobeDisplay : MonoBehaviour
         }
 
     }
+
+    private void UpdateStatText() {
+        if (resourceStatText != null) {
+            resourceStatText.text = AssosiatedStat.ModifiedValue + "/" + AssosiatedStat.MaxValueStat.ModifiedValue;
+        }
+    }
+
+
+
+    public void OnPointerEnter(PointerEventData eventData) {
+        if (resourceStatText != null) {
+            resourceStatText.gameObject.SetActive(true);
+            //resourceStatText.text = AssosiatedStat.ModifiedValue + " / " + AssosiatedStat.MaxValueStat.ModifiedValue;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        if (resourceStatText != null) {
+            resourceStatText.gameObject.SetActive(false);
+            //resourceStatText.text = AssosiatedStat.ModifiedValue + " / " + AssosiatedStat.MaxValueStat.ModifiedValue;
+        }
+    }
+
+
 
 }

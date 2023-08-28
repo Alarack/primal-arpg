@@ -153,6 +153,9 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
         List<StatName> allStats = Instance.lootDatabase.statBoosters.Keys.ToList();
 
+        Instance.FilterStats(allStats, ref usedStats);
+
+
         allStats.Shuffle();
 
 
@@ -171,6 +174,58 @@ public class ItemSpawner : Singleton<ItemSpawner>
         }
 
         return results;
+    }
+
+
+
+
+    private bool IsStatRelevant(StatName stat) {
+
+        bool result = stat switch {
+            StatName.Health => true,
+            StatName.GlobalMoveSpeedModifier => true,
+            StatName.ShotCount => true,
+            StatName.CooldownReduction => true,
+            StatName.GlobalDamageModifier => true,
+            StatName.GlobalEffectDurationModifier => true,
+            StatName.MeleeDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Melee),
+            StatName.OverloadChance => true,
+            StatName.OverloadDamageModifier => true,
+            StatName.ProjectilePierceCount => true,
+            StatName.GlobalEffectIntervalModifier => true,
+            StatName.DashCooldown => true,
+            StatName.ProjectileChainCount => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
+            StatName.ProjectileSplitCount => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
+            StatName.ProjectileSplitQuantity => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
+            StatName.GlobalEffectSizeModifier => true,
+            StatName.GlobalProjectileSizeModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
+            StatName.Essence => true,
+            StatName.EssenceRegenerationRate => true,
+            StatName.EssenceRegenerationValue => true,
+            //StatName.OverloadRecieveChance => new ItemData(stat, 0.1f),
+            StatName.CastSpeedModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.CastTime),
+            StatName.MaxMinionCount => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Summoning),
+            StatName.MinionDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Summoning),
+            StatName.FireDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Fire),
+            StatName.WaterDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Water),
+            StatName.AirDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Air),
+            StatName.ForceDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Force),
+            StatName.PoisonDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Poison),
+            StatName.ProjectileLifetime => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
+            _ => false,
+        };
+
+
+        return result;
+    }
+
+    private void FilterStats(List<StatName> allStats, ref List<StatName> usedStats) {
+
+        for (int i = 0; i < allStats.Count; i++) {
+            if (IsStatRelevant(allStats[i]) == false) {
+                usedStats.Add(allStats[i]);
+            }
+        }
     }
 
 

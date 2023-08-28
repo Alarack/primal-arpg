@@ -102,6 +102,12 @@ public static class StatAdjustmentManager {
         return mod.Value;
     }
 
+
+    public static float AdjustStatRerolls(float value) {
+        StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.StatReroll, EntityManager.ActivePlayer, StatModifierData.StatVariantTarget.Simple);
+        return ApplyStatAdjustment(EntityManager.ActivePlayer, mod, mod.TargetStat, mod.VariantTarget, null);
+    }
+
     public static float ApplyStatAdjustment(Entity target, float value, StatName targetStat, StatModType modType, StatModifierData.StatVariantTarget statVariant, object source, Ability sourceAbility, float multiplier = 1f) {
         StatModifier mod = new StatModifier(value, modType, targetStat, source, statVariant);
         return ApplyStatAdjustment(target, mod, targetStat, statVariant, sourceAbility, multiplier);

@@ -20,7 +20,9 @@ public enum AbilityTag {
     Summoning,
     Death,
     Space,
-    Teleportation
+    Teleportation,
+    CastTime,
+    Air
 }
 
 public enum AbilityCategory {

@@ -90,6 +90,18 @@ public class EntityPlayer : Entity
 
     #region EVENTS
 
+
+    public override bool HasAbilityOfTag(AbilityTag tag) {
+
+        List<Ability> targetAbilities = AbilityManager.GetAbilitiesByTag(tag, AbilityCategory.KnownSkill);
+
+
+
+        return false;
+    }
+
+
+
     #endregion
 
 

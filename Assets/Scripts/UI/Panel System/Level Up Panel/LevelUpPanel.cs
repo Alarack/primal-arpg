@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static StatModifierData;
+using TMPro;
 
 public class LevelUpPanel : BasePanel
 {
@@ -10,6 +11,8 @@ public class LevelUpPanel : BasePanel
     public StatBoostEntry template;
     public Transform holder;
 
+    [Header("Rerolls")]
+    public TextMeshProUGUI rerollText;
 
     private List<StatBoostEntry> entries = new List<StatBoostEntry>();
 
@@ -22,9 +25,11 @@ public class LevelUpPanel : BasePanel
     public override void Open() {
         base.Open();
 
-        SetupStatChoices();
-    }
+        if(entries == null || entries.Count == 0)
+            SetupStatChoices();
 
+        UpdateRerollText();
+    }
 
     private void SetupStatChoices() {
         entries.ClearList();
@@ -39,6 +44,22 @@ public class LevelUpPanel : BasePanel
         }
     }
 
+    public void OnRerollClicked() {
+        Entity player = EntityManager.ActivePlayer;
+
+
+        int availableRolls = (int)player.Stats[StatName.StatReroll];
+
+        if(availableRolls > 0) {
+            StatAdjustmentManager.AdjustStatRerolls(-1);
+            SetupStatChoices();
+            UpdateRerollText();
+        }
+    }
+
+    private void UpdateRerollText() {
+        rerollText.text = "Rerolls: " + EntityManager.ActivePlayer.Stats[StatName.StatReroll];
+    }
 
 
     public void OnStatSelected(StatBoostEntry entry) {
@@ -55,7 +76,7 @@ public class LevelUpPanel : BasePanel
             Close();
         }
         else {
-            Open();
+           SetupStatChoices();
         }
     }
 

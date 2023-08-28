@@ -80,8 +80,8 @@ public class AbilityManager : MonoBehaviour {
 
         if (item is ItemWeapon) {
             List<Ability> newWeaponAbilities = LearnItemAbilities(item);
-            
-            if(newWeaponAbilities.Count > 0)
+
+            if (newWeaponAbilities.Count > 0)
                 EquipWeaponAbility(newWeaponAbilities[0]);
         }
     }
@@ -90,7 +90,7 @@ public class AbilityManager : MonoBehaviour {
         Item item = data.GetItem("Item");
 
         if (item is ItemWeapon) {
-            if(item.Data.learnableAbilities.Count > 0)
+            if (item.Data.learnableAbilities.Count > 0)
                 UnlearnAbility(item.Data.learnableAbilities[0]);
         }
     }
@@ -270,6 +270,19 @@ public class AbilityManager : MonoBehaviour {
         return results;
     }
 
+    public List<Ability> GetAbilitiesByTag(AbilityTag tag, AbilityCategory category) {
+        List<Ability> results = new List<Ability>();
+
+        for (int i = 0; i < Abilities[category].Count; i++) {
+            if (Abilities[category][i].Tags.Contains(tag) == true) {
+                results.Add(Abilities[category][i]);
+            }
+        }
+
+
+        return results;
+    }
+
     public Ability GetAbilityByName(string name, AbilityCategory category) {
 
         if (category == AbilityCategory.Any) {
@@ -282,7 +295,6 @@ public class AbilityManager : MonoBehaviour {
                 }
             }
         }
-
 
         for (int i = 0; i < this[category].Count; i++) {
             if (this[category][i].Data.abilityName == name)
