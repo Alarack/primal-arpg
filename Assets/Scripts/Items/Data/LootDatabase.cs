@@ -42,6 +42,9 @@ public class LootDatabase : ScriptableObject {
             if (allPossibleItems[i].itemData.Type == ItemType.Equipment) {
                 if (CheckForDupeEquipment(allPossibleItems[i]) == true)
                     continue;
+
+                if (CheckForInvalidItemTag(allPossibleItems[i]) == true) 
+                    continue;
             }
 
             if (allPossibleItems[i].itemData.Type == ItemType.Rune) {
@@ -102,6 +105,32 @@ public class LootDatabase : ScriptableObject {
     private bool CheckForDupeEquipment(ItemDefinition item) {
         return EntityManager.ActivePlayer.Inventory.ItemOwned(item);
     }
+
+    private bool CheckForInvalidItemTag(ItemDefinition item) {
+
+        List<AbilityTag> relevantTags = EntityManager.ActivePlayer.AbilityManager.GetRelevantTags();
+
+        //for (int i = 0; i < relevantTags.Count; i++) {
+        //    Debug.Log(relevantTags[i] + " is a relevant tag");
+        //}
+
+        //for (int i = 0; i < item.itemData.abilityTags.Count; i++) {
+        //    Debug.Log("Item Tag: " + item.itemData.abilityTags[i]);
+        //}
+
+        if (item.itemData.abilityTags.Count == 0)
+            return false;
+
+        for (int i = 0; i < item.itemData.abilityTags.Count; i++) {
+            if (relevantTags.Contains(item.itemData.abilityTags[i])) 
+                return false;
+        }
+
+        //Debug.Log(item.itemData.itemName + " is INVALID");
+
+        return true;
+    }
+
 
     //private ItemDefinition GetRandomItemBySlot(ItemSlot slot, List<ItemDefinition> exclusions) {
     //    List<ItemDefinition> allItemsOfSlot = itemsBySlot[slot];
@@ -205,7 +234,7 @@ public class LootDatabase : ScriptableObject {
 
         for (int i = 0; i < allItems.Length; i++) {
             if (itemDict.TryGetValue(allItems[i].itemData.Type, out List<ItemDefinition> items) == true) {
-                itemDict[allItems[i].itemData.Type].Add(allItems[i]);
+                itemDict[allItems[i].itemData.Type].AddUnique(allItems[i]);
             }
             else {
                 itemDict.Add(allItems[i].itemData.Type, new List<ItemDefinition> { allItems[i] });
@@ -213,7 +242,7 @@ public class LootDatabase : ScriptableObject {
 
             if (allItems[i].itemData.Type == ItemType.Equipment) {
                 if (itemsBySlot.TryGetValue(allItems[i].itemData.validSlots[0], out List<ItemDefinition> slottedItems) == true) {
-                    itemsBySlot[allItems[i].itemData.validSlots[0]].Add(allItems[i]);
+                    itemsBySlot[allItems[i].itemData.validSlots[0]].AddUnique(allItems[i]);
                 }
                 else {
                     itemsBySlot.Add(allItems[i].itemData.validSlots[0], new List<ItemDefinition> { allItems[i] });
@@ -226,8 +255,15 @@ public class LootDatabase : ScriptableObject {
 
                 if(tags != null && tags.Count > 0) {
                     foreach (AbilityTag tag in tags) {
-                        itemsByTag[tag].Add(allItems[i]);
+                        itemsByTag[tag].AddUnique(allItems[i]);
                     }
+                }
+            }
+
+            if (allItems[i].itemData.abilityTags != null && allItems[i].itemData.abilityTags.Count > 0) {
+                List<AbilityTag> tags = allItems[i].itemData.abilityTags;
+                foreach (AbilityTag tag in tags) {
+                    itemsByTag[tag].AddUnique(allItems[i]);
                 }
             }
 

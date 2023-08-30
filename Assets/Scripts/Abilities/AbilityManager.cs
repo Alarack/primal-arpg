@@ -283,6 +283,18 @@ public class AbilityManager : MonoBehaviour {
         return results;
     }
 
+    public List<AbilityTag> GetRelevantTags() {
+        List<AbilityTag> results = new List<AbilityTag>();
+
+        for (int i = 0; i < KnownAbilities.Count; i++) {
+            for (int j = 0; j < KnownAbilities[i].Tags.Count; j++) {
+                results.AddUnique(KnownAbilities[i].Tags[j]);
+            }
+        }
+
+        return results;
+    }
+
     public Ability GetAbilityByName(string name, AbilityCategory category) {
 
         if (category == AbilityCategory.Any) {
@@ -345,6 +357,8 @@ public class AbilityManager : MonoBehaviour {
 
         return target != null;
     }
+
+
 
     #endregion
 

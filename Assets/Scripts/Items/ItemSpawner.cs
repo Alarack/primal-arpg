@@ -191,7 +191,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
             StatName.MeleeDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Melee),
             StatName.OverloadChance => true,
             StatName.OverloadDamageModifier => true,
-            StatName.ProjectilePierceCount => true,
+            StatName.ProjectilePierceCount => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
             StatName.GlobalEffectIntervalModifier => true,
             StatName.DashCooldown => true,
             StatName.ProjectileChainCount => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
