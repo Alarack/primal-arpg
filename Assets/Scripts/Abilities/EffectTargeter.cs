@@ -542,6 +542,11 @@ public class EffectTargeter {
             effectZone.Stats.AddMissingStats(parentEffect.Stats);
             effectZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, null, parentEffect.Source.gameObject.layer, parentEffect.Data.maskTargeting);
 
+            if(effectZone.Stats.Contains(StatName.Accuracy) == true) {
+                float zoneInnaccuracy = (1f - effectZone.Stats[StatName.Accuracy]) * 360f;
+
+                effectZone.transform.eulerAngles += new Vector3(0f, 0f, Random.Range(-zoneInnaccuracy, zoneInnaccuracy));
+            }
         }
     }
 
