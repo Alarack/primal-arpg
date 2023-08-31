@@ -44,7 +44,15 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     public static void OnRoomEnded(Room room) {
-        AdjustDifficulty(1f);
+        
+        if(room.Type == Room.RoomType.EliminationCombat || 
+            room.Type == Room.RoomType.BossRoom ||
+            room.Type == Room.RoomType.SurvivalCombat) {
+            
+            AdjustDifficulty(1f);
+
+        }
+
     }
 
     public static void AdjustDifficulty(float difficulty) {

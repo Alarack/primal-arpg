@@ -257,6 +257,10 @@ public class ShopRoom : Room {
 
         RoomManager.SpawnRoomPortals(2, portalLocations);
     }
+
+    public override void EndRoom() {
+        RoomManager.OnRoomEnded(this);
+    }
 }
 
 

@@ -515,6 +515,11 @@ public class EffectTargeter {
     }
 
     private void CreateDeliveryPayload(Entity target, Vector2 payloadLocation) {
+        if(parentEffect.Source == null) {
+            Debug.LogWarning("null source for: " + parentEffect.Data.effectName + " when creating delivery payload");
+            return;
+        }
+        
         Entity delivery = GameObject.Instantiate(parentEffect.Data.payloadPrefab, payloadLocation, parentEffect.Source.transform.rotation);
 
         Projectile projectile = delivery as Projectile;

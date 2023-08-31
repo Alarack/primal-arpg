@@ -21,6 +21,7 @@ MonoBehaviour:
     itemValue: 150
     runeAbilityTarget: 
     validSlots: 01000000
+    abilityTags: 
     itemIcon: {fileID: 21300000, guid: ad707d068f921cf4fa9a434485190873, type: 3}
     pickupIcon: {fileID: 21300000, guid: ad707d068f921cf4fa9a434485190873, type: 3}
     pickupOnCollision: 1
@@ -41,4 +42,5 @@ MonoBehaviour:
       otherTagetEffect: 
       scalers: []
     abilityDefinitions: []
-    learnableAbilities: []
+    learnableAbilities:
+    - {fileID: 11400000, guid: 6d1433a22de77014da18fac88cec570b, type: 2}

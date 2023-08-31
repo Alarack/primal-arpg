@@ -1215,7 +1215,7 @@ public class TimedTrigger : AbilityTrigger {
 
     private bool CheckAIState() {
         if (aiOwner == null) {
-            Debug.Log("No ai owner");
+            //Debug.Log("No ai owner");
             return false;
         }
 

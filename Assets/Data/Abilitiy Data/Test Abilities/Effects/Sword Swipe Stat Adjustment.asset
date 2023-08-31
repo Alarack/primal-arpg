@@ -18,12 +18,16 @@ MonoBehaviour:
     type: 1
     targeting: 5
     subTarget: 0
+    maskTargeting: 0
+    hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 1
+    canAffectDeadTargets: 0
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
     targetConstraints: []
+    riderEffects: []
     payloadPrefab: {fileID: 5357787465864582416, guid: 28a977b1833efca4faee8bfc52f5ca04, type: 3}
     payloadCount: 1
     shotDelay: 0.2
@@ -34,6 +38,10 @@ MonoBehaviour:
       maxValue: 0
       minValue: 0
     spawnLocation: 0
+    spawnLocationStart: 0
+    spawnLocationEnd: 0
+    minViewportValues: {x: 0, y: 0}
+    maxViewportValues: {x: 0, y: 0}
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 1
@@ -44,6 +52,9 @@ MonoBehaviour:
       applyVFX: {fileID: 5591243758346380215, guid: ca9c94ff75e9802488778534d6dabe07, type: 3}
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
+    projectileHitMask:
+      serializedVersion: 2
+      m_Bits: 0
     modData:
     - targetStat: 0
       value: -10
@@ -60,7 +71,7 @@ MonoBehaviour:
       scalers:
       - targetStat: 28
         deriveTarget: 15
-        statScaleBaseValue: 0.75
+        statScaleBaseValue: 1
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -128,6 +139,9 @@ MonoBehaviour:
     invertDestination: 0
     targetDestination: 0
     moveForce: 0
+    teleportDestination: 0
+    teleportVFX: {fileID: 0}
+    forwardDistance: 0
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -139,3 +153,6 @@ MonoBehaviour:
     targetOtherEffectName: 
     applyTriggeringEffect: 0
     statScalersToAdd: []
+    entityPrefab: {fileID: 0}
+    percentOfPlayerDamage: 1
+    spawnType: 0
