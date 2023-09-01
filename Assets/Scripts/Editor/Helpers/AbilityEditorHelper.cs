@@ -527,6 +527,10 @@ public static class AbilityEditorHelper
                 entry.teleportDestination = EditorHelper.EnumPopup("Teleport Destination", entry.teleportDestination);
                 entry.teleportVFX = EditorHelper.ObjectField("Teleport VFX", entry.teleportVFX);
 
+                if(entry.teleportDestination == TeleportDestination.OtherTarget) {
+                    entry.otherAbilityName = EditorGUILayout.TextField("Other Ability Name", entry.otherAbilityName);
+                    entry.otherEffectName = EditorGUILayout.TextField("Other Effect Name", entry.otherEffectName);
+                }
 
                 break;
 

@@ -72,7 +72,9 @@ public enum TeleportDestination {
     MousePointer,
     RandomViewport,
     RandomNearTarget,
-    SourceForward
+    SourceForward,
+    OtherTarget,
+    TargetSequence
 }
 
 public enum EntitySpawnType {

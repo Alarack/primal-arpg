@@ -116,6 +116,7 @@ public static class AbilityFactory {
             EffectType.ForceStatusTick => new ForceStatusTickEffect(data, source, parentAbility),
             EffectType.SpawnEntity => new SpawnEntityEffect(data, source, parentAbility),
             EffectType.Teleport => new TeleportEffect(data, source, parentAbility),
+            EffectType.None => new EmptyEffect(data, source, parentAbility),
             _ => null,
         };
 

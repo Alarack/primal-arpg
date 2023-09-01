@@ -23,6 +23,11 @@ public static class AbilityUtilities {
             Ability newAbility = AbilityFactory.CreateAbility(abilityData[i].AbilityData, source);
             abilities.Add(newAbility);
 
+
+            
+            if(source != null)
+                source.AbilityManager.AbilitiesByName.Add(newAbility.Data.abilityName, newAbility);
+
             if(autoEquip == true) {
                 newAbility.Equip();
             }
@@ -139,6 +144,16 @@ public static class AbilityUtilities {
         return source.GetAbilityByName(name, category);
     }
 
+    public static Ability GetAbilityByName(string name, Entity source) {
+        
+        if(source.AbilityManager.AbilitiesByName.ContainsKey(name) == false) {
+            Debug.LogError("Ability: " + name + " not found in dict. Source: " + source.EntityName); 
+            return null;
+        }
+        
+        return source.AbilityManager.AbilitiesByName[name];
+    }
+
     public static Effect GetEffectByName(string name, Ability ability) {
         return ability.GetEffectByName(name);
     }
@@ -150,7 +165,9 @@ public static class AbilityUtilities {
     }
 
     public static Tuple<Ability, Effect> GetAbilityAndEffectByName(string abilityName, string effectName, Entity source, AbilityCategory category) {
-        Ability targetAbility = GetAbilityByName(abilityName, source, category);
+        Ability targetAbility = GetAbilityByName(abilityName, source);//GetAbilityByName(abilityName, source, category);
+        
+        
         Effect targetEffect = GetEffectByName(effectName, targetAbility);
 
         Tuple<Ability, Effect> target = new Tuple<Ability, Effect>(targetAbility, targetEffect);

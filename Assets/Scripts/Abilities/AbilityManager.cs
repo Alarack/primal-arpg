@@ -19,6 +19,8 @@ public class AbilityManager : MonoBehaviour {
 
     public Dictionary<AbilityCategory, List<Ability>> Abilities { get; private set; } = new Dictionary<AbilityCategory, List<Ability>>();
 
+    public Dictionary<string, Ability> AbilitiesByName { get; protected set; } = new Dictionary<string, Ability>();
+
     public Action<Ability, int> onAbilityEquipped;
     public Action<Ability, int> onAbilityUnequipped;
     public Action<Ability> onAbilityLearned;
@@ -144,7 +146,10 @@ public class AbilityManager : MonoBehaviour {
 
 
         Abilities[category].AddUnique(ability);
-
+        
+        if(AbilitiesByName.ContainsKey(ability.Data.abilityName) == false) {
+            AbilitiesByName.Add(ability.Data.abilityName, ability);
+        }
 
         //if (category == AbilityCategory.ActiveSkill || category == AbilityCategory.KnownSkill) {
 
@@ -183,6 +188,7 @@ public class AbilityManager : MonoBehaviour {
                 }
 
                 learnedAbilities.Remove(learnedAbilities[i]);
+                AbilitiesByName.Remove(learnedAbilities[i].Data.abilityName);
             }
         }
 

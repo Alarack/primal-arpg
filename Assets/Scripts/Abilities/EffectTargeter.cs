@@ -154,8 +154,17 @@ public class EffectTargeter {
             Debug.LogWarning("0 Targets Found on : " + effectName + " on " + parentEffect.ParentAbility.Data.abilityName);
             return null;
         }
+    }
 
+    public List<Entity> GetOtherEffectEntityTargets(string abilityName, string effectName, AbilityCategory category) {
+        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, parentEffect.Source, category);
 
+        
+        if(target.Item2.EntityTargets.Count > 0) {
+            return target.Item2.EntityTargets;
+        }
+
+        return null;
     }
 
     public Entity GetSourceTarget() {
@@ -384,6 +393,16 @@ public class EffectTargeter {
             parentEffect.Apply(target);
             parentEffect.SendEffectAppliedEvent();
         }
+    }
+
+    public void ApplyToOtherEntityTargets(List<Entity> targets) {
+
+        for (int i = 0; i < targets.Count; i++) {
+            parentEffect.Apply(targets[i]);
+        }
+
+        if(targets.Count > 0)
+            parentEffect.SendEffectAppliedEvent();
     }
 
 

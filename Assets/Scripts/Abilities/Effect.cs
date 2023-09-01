@@ -381,6 +381,36 @@ public abstract class Effect {
 
 }
 
+public class EmptyEffect : Effect {
+    public override EffectType Type => EffectType.None;
+
+    public EmptyEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        return true;
+    }
+
+    public override bool ApplyToAbility(Ability target) {
+        if( base.ApplyToAbility(target) == false)
+            return false;
+
+        return true;
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+
+        return true;
+    }
+}
+
 public class ForcedMovementEffect : Effect {
 
     public override EffectType Type => EffectType.Movement;
@@ -459,6 +489,11 @@ public class TeleportEffect : Effect {
                 break;
             case TeleportDestination.SourceForward:
                 break;
+
+            case TeleportDestination.OtherTarget:
+                Entity other = targeter.GetLastTargetFromOtherEffect(Data.otherAbilityName, Data.otherEffectName, AbilityCategory.Any);
+                TeleportToEntity(target, other);
+                break;
             default:
                 break;
         }
@@ -467,6 +502,20 @@ public class TeleportEffect : Effect {
      
 
         return true;
+    }
+
+    private void TeleportToEntity(Entity target, Entity other) {
+        
+        if(other == null)
+            return;
+        
+        VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+        SendTeleportInitiatedEvent(target);
+
+        target.transform.position = other.transform.position;
+
+        VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+        SendTeleportConcludedEvent(target);
     }
 
     private void TeleportToMousePointer(Entity target) {
