@@ -261,7 +261,7 @@ public class EffectZone : Entity {
         CleanUp();
     }
 
-    protected virtual void CleanUp() {
+    public virtual void CleanUp() {
         //Die();
 
         if(vfxParticles != null) {

@@ -214,7 +214,9 @@ public class Projectile : Entity {
 
             return;
         }
-        
+
+        if (parentEffect == null)
+            return;
         
         EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
         activeZone.Stats.AddMissingStats(parentEffect.Stats);
@@ -316,7 +318,7 @@ public class Projectile : Entity {
         CleanUp(true);
     }
 
-    private void StartCleanUp() {
+    public void StartCleanUp() {
 
         myCollider.enabled = false;
         Movement.CanMove = false;

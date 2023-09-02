@@ -163,8 +163,7 @@ public class EffectData
     //Spawn Entity
     public Entity entityPrefab;
     public float percentOfPlayerDamage = 1f;
-    //public int spawnCount = 1;
-    //public int maxSpawns = -1;
+    public bool destroyPreviousSummonAtCap;
     public EntitySpawnType spawnType;
 
 

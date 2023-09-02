@@ -521,6 +521,7 @@ public static class AbilityEditorHelper
                     entry.entityPrefab = EditorHelper.ObjectField("Prefab", entry.entityPrefab);
                 }
                 entry.percentOfPlayerDamage = EditorGUILayout.FloatField("Percent of Player Damage", entry.percentOfPlayerDamage);
+                entry.destroyPreviousSummonAtCap = EditorGUILayout.Toggle("Overwrite Previous?", entry.destroyPreviousSummonAtCap);
                 break;
 
             case EffectType.Teleport:
