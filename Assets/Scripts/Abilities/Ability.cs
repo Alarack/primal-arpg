@@ -656,10 +656,22 @@ public class Ability {
             string shotCountReplacement = durationReplacment.Replace("{SC}", TextHelper.ColorizeText(shotCount.ToString(), Color.green));
 
 
-            builder.Append(shotCountReplacement).AppendLine();
+            builder.Append(shotCountReplacement);
+
+            if(Data.showChildAbilitiesInTooltip == false) {
+                builder.AppendLine();
+            }
         }
 
 
+        if (Data.showChildAbilitiesInTooltip == true) {
+            for (int i = 0; i < ChildAbilities.Count; i++) {
+                builder.Append(ChildAbilities[i].GetTooltip());
+
+                if (i != ChildAbilities.Count - 1)
+                    builder.AppendLine();
+            }
+        }
 
 
         //float damagePercent = GetWeaponDamageScaler(); //GetDamageEffectRatio();
@@ -742,13 +754,9 @@ public class Ability {
         //    builder.AppendLine("Attached Abilities: ");
         //}
 
+       
 
-        //for (int i = 0; i < ChildAbilities.Count; i++) {
-        //    builder.Append(ChildAbilities[i].GetTooltip());
-
-        //    if(i != ChildAbilities.Count  -1)
-        //        builder.AppendLine();
-        //}
+        
 
 
         builder.Append(GetRunesTooltip());

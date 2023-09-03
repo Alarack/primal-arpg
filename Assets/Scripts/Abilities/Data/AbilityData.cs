@@ -125,6 +125,7 @@ public class AbilityData
     public bool autoFire;
     public bool ignoreOtherCasting;
     public bool includeEffectsInTooltip;
+    public bool showChildAbilitiesInTooltip;
     public bool ignoreTooltip;
     public string runeAbilityTarget;
 

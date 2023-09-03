@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: Return to Beacon Ability
+  m_Name: A_Return to Beacon
   m_EditorClassIdentifier: 
   AbilityData:
     category: 1
@@ -23,9 +23,11 @@ MonoBehaviour:
     autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
+    showChildAbilitiesInTooltip: 1
     ignoreTooltip: 0
     runeAbilityTarget: 
-    childAbilities: []
+    childAbilities:
+    - {fileID: 11400000, guid: a4f627db313c50f46898f7f4a352b0d6, type: 2}
     tags: 
     activationTriggerData:
     - type: 6

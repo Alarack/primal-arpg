@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Teleport to Beacon Effect
+  m_Name: E_Spawn Nexus
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Teleport to Beacon
+    effectName: Spawn Nexus Effect
     effectDescription: 
-    type: 11
-    targeting: 1
+    type: 10
+    targeting: 0
     subTarget: 0
     maskTargeting: 0
     hideFloatingText: 0
@@ -24,14 +24,24 @@ MonoBehaviour:
     canOverload: 0
     canAffectDeadTargets: 0
     numberOfTargets: -1
-    otherAbilityName: Nexus Beacon
-    otherEffectName: Spawn Nexus Effect
+    otherAbilityName: 
+    otherEffectName: 
     targetConstraints: []
     riderEffects: []
-    payloadPrefab: {fileID: 286713208447769744, guid: 85e7d02cb5bb18e4ab3a3ff867678721, type: 3}
+    payloadPrefab: {fileID: 0}
     payloadCount: 1
     shotDelay: 0.2
-    payloadStatData: []
+    payloadStatData:
+    - variant: 0
+      statName: 54
+      value: 1
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 53
+      value: 1
+      maxValue: 0
+      minValue: 0
     spawnLocation: 0
     spawnLocationStart: 0
     spawnLocationEnd: 0
@@ -118,8 +128,8 @@ MonoBehaviour:
     invertDestination: 0
     targetDestination: 0
     moveForce: 0
-    teleportDestination: 4
-    teleportVFX: {fileID: 1773673519030548, guid: 6e3db7afa59301e48bc3999ec41f1410, type: 3}
+    teleportDestination: 0
+    teleportVFX: {fileID: 0}
     forwardDistance: 0
     tokenPrefabs: []
     tokenSpawnLocation: 0
@@ -132,7 +142,7 @@ MonoBehaviour:
     targetOtherEffectName: 
     applyTriggeringEffect: 0
     statScalersToAdd: []
-    entityPrefab: {fileID: 0}
+    entityPrefab: {fileID: 7972673835003333191, guid: 06ee10cf87cb4cf4db2e76093144883a, type: 3}
     percentOfPlayerDamage: 1
-    destroyPreviousSummonAtCap: 0
+    destroyPreviousSummonAtCap: 1
     spawnType: 0
