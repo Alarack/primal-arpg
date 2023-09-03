@@ -1288,18 +1288,6 @@ public class SpawnEntityEffect : Effect {
 
     private Vector2 GetSpawnLocation() {
 
-        //Vector2 location = Data.spawnLocation switch {
-        //    DeliverySpawnLocation.Source => Source.transform.position,
-        //    DeliverySpawnLocation.Trigger => targeter.ActivationInstance.TriggeringEntity.transform.position,
-        //    DeliverySpawnLocation.Cause => targeter.ActivationInstance.CauseOfTrigger.transform.position,
-        //    DeliverySpawnLocation.MousePointer => Camera.main.ScreenToWorldPoint(Input.mousePosition),
-        //    DeliverySpawnLocation.AITarget => throw new NotImplementedException(),
-        //    DeliverySpawnLocation.FixedLocations => throw new NotImplementedException(),
-        //    DeliverySpawnLocation.RandomViewportPosition => throw new NotImplementedException(),
-        //    DeliverySpawnLocation.WorldPositionSequence => throw new NotImplementedException(),
-        //    _ => throw new NotImplementedException(),
-        //};
-
         Vector2 location = targeter.GetPayloadSpawnLocation();
 
         //Vector2 nearby = (Vector2)Source.transform.position + (Random.insideUnitCircle * Random.Range(2f, 6f));
