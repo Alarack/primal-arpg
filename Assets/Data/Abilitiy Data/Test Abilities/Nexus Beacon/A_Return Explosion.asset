@@ -16,13 +16,14 @@ MonoBehaviour:
     category: 1
     abilityIcon: {fileID: 21300000, guid: 1c1372e6c4b93bd4d918300a53015161, type: 3}
     abilityName: Return Explosion
-    abilityDescription: Cause an explosion in a {} meter radius
+    abilityDescription: ', then cause an explosion in a {ES} meter radius'
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
+    showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     runeAbilityTarget: 
     childAbilities: []

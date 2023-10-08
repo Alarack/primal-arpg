@@ -4,8 +4,6 @@ using UnityEngine;
 using System;
 using LL.Events;
 using LL.FSM;
-using static Unity.VisualScripting.Member;
-using static UnityEngine.GraphicsBuffer;
 
 public abstract class AbilityTrigger {
     public abstract TriggerType Type { get; }
@@ -364,6 +362,45 @@ public class UserActivatedTrigger : AbilityTrigger {
     }
 
     public void OnUserActivation(EventData data) {
+
+        if (ParentAbility == null) {
+            Debug.LogError("a user activated trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
+            return;
+        }
+
+        Ability triggeringAbility = data.GetAbility("Ability");
+
+        //if(triggeringAbility != ParentAbility) {
+        //    return;
+        //}
+
+        //if(triggeringAbility.Data.abilityName == "Test Sword Swipe") {
+        //    Debug.Log("Swipe activation recieved");
+        //}
+
+
+        TriggeringEntity = SourceEntity;
+        CauseOfTrigger = SourceEntity;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.SourceAbility = ParentAbility;
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
+public class UserCancelledTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.UserCancelled;
+    public override GameEvent TargetEvent => GameEvent.UserAbilityCanceled;
+    public override Action<EventData> EventReceiver => OnUserCancelled;
+
+    public UserCancelledTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnUserCancelled(EventData data) {
 
         if (ParentAbility == null) {
             Debug.LogError("a user activated trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);

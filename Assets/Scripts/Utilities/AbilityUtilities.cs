@@ -25,7 +25,7 @@ public static class AbilityUtilities {
 
 
             
-            if(source != null)
+            if(source != null && newAbility.Data.category != AbilityCategory.Rune)
                 source.AbilityManager.AbilitiesByName.Add(newAbility.Data.abilityName, newAbility);
 
             if(autoEquip == true) {

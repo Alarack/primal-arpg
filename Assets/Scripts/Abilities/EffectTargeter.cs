@@ -571,7 +571,11 @@ public class EffectTargeter {
 
                 effectZone.transform.eulerAngles += new Vector3(0f, 0f, Random.Range(-zoneInnaccuracy, zoneInnaccuracy));
             }
+
+            parentEffect.ActiveEffectZones.Add(effectZone);
         }
+
+        
     }
 
 

@@ -156,7 +156,8 @@ namespace LL.Events {
         CurrencyChanged,
         TeleportInitiated,
         TeleportConcluded,
-        EntityLeveled
+        EntityLeveled,
+        UserAbilityCanceled
 
     }
 

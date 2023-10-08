@@ -22,6 +22,8 @@ public abstract class Effect {
     public List<Entity> ValidTargets { get { return targeter.GatherValidTargets(); } }
     public Entity LastTarget { get; protected set; }
 
+    public List<EffectZone> ActiveEffectZones { get; set; } = new List<EffectZone>();
+
     protected TriggerInstance currentTriggerInstance;
     protected List<AbilityConstraint> targetConstraints = new List<AbilityConstraint>();
     protected EffectTargeter targeter;
@@ -262,6 +264,16 @@ public abstract class Effect {
             riderEffects[i].RemoveFromAllTargets();
         }
 
+        //Lingering Effect Zones
+
+        for (int i = 0; i < ActiveEffectZones.Count; i++) {
+            if (ActiveEffectZones[i] == null)
+                continue;
+
+            ActiveEffectZones[i].CleanUp();
+        }
+
+        ActiveEffectZones.Clear();
 
     }
 

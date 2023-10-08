@@ -22,7 +22,8 @@ public enum AbilityTag {
     Space,
     Teleportation,
     CastTime,
-    Air
+    Air,
+    Channeled
 }
 
 public enum AbilityCategory {

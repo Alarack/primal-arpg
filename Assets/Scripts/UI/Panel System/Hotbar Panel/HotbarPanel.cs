@@ -27,11 +27,22 @@ public class HotbarPanel : SkillBasePanel {
         base.OnEnable();
 
         playerInputActions.Player.Fire.performed += OnFirePerformed;
+        playerInputActions.Player.Fire.canceled += OnFireCanceled;
+
         playerInputActions.Player.SecondaryFire.performed += OnSecondaryFirePerformed;
+        playerInputActions.Player.SecondaryFire.canceled += OnsecondaryFireCanceled;
+
         playerInputActions.Player.Skill1.performed += OnSkill1Performed;
+        playerInputActions.Player.Skill1.canceled += OnSkill1Canceled;  
+
         playerInputActions.Player.Skill2.performed += OnSkill2Performed;
+        playerInputActions.Player.Skill2.canceled += OnSkill2Canceled;
+
         playerInputActions.Player.Skill3.performed += OnSkill3Performed;
+        playerInputActions.Player.Skill3.canceled += OnSkill3Canceled;
+
         playerInputActions.Player.Skill4.performed += OnSkill4Performed;
+        playerInputActions.Player.Skill4.canceled += OnSkill4Canceled;
 
     }
 
@@ -39,11 +50,22 @@ public class HotbarPanel : SkillBasePanel {
         base.OnDisable();
 
         playerInputActions.Player.Fire.performed -= OnFirePerformed;
+        playerInputActions.Player.Fire.canceled -= OnFireCanceled;
+
         playerInputActions.Player.SecondaryFire.performed -= OnSecondaryFirePerformed;
+        playerInputActions.Player.SecondaryFire.canceled -= OnsecondaryFireCanceled;
+        
         playerInputActions.Player.Skill1.performed -= OnSkill1Performed;
+        playerInputActions.Player.Skill1.canceled -= OnSkill1Canceled;
+
         playerInputActions.Player.Skill2.performed -= OnSkill2Performed;
+        playerInputActions.Player.Skill2.canceled -= OnSkill2Canceled;
+
         playerInputActions.Player.Skill3.performed -= OnSkill3Performed;
+        playerInputActions.Player.Skill3.canceled -= OnSkill3Canceled;
+
         playerInputActions.Player.Skill4.performed -= OnSkill4Performed;
+        playerInputActions.Player.Skill4.canceled -= OnSkill4Canceled;
     }
 
     protected void Update() {
@@ -90,24 +112,48 @@ public class HotbarPanel : SkillBasePanel {
         OnSkillBindPressed(GameButtonType.PrimaryAttack, DoesAbilityAutoFire(GameButtonType.PrimaryAttack));
     }
 
+    private void OnFireCanceled(InputAction.CallbackContext context) {
+        OnSkillBindCanceled(GameButtonType.PrimaryAttack);
+    }
+
     private void OnSecondaryFirePerformed(InputAction.CallbackContext context) {
         OnSkillBindPressed(GameButtonType.SecondaryAttack, DoesAbilityAutoFire(GameButtonType.SecondaryAttack));
+    }
+
+    private void OnsecondaryFireCanceled(InputAction.CallbackContext context) {
+        OnSkillBindCanceled(GameButtonType.SecondaryAttack);
     }
 
     private void OnSkill1Performed(InputAction.CallbackContext context) {
         OnSkillBindPressed(GameButtonType.Skill1, DoesAbilityAutoFire(GameButtonType.Skill1));
     }
 
+    private void OnSkill1Canceled(InputAction.CallbackContext context) {
+        OnSkillBindCanceled(GameButtonType.Skill1);
+    }
+
     private void OnSkill2Performed(InputAction.CallbackContext context) {
         OnSkillBindPressed(GameButtonType.Skill2, DoesAbilityAutoFire(GameButtonType.Skill2));
+    }
+
+    private void OnSkill2Canceled(InputAction.CallbackContext context) {
+        OnSkillBindCanceled(GameButtonType.Skill2);
     }
 
     private void OnSkill3Performed(InputAction.CallbackContext context) {
         OnSkillBindPressed(GameButtonType.Skill3, DoesAbilityAutoFire(GameButtonType.Skill3));
     }
 
+    private void OnSkill3Canceled(InputAction.CallbackContext context) {
+        OnSkillBindCanceled(GameButtonType.Skill3);
+    }
+
     private void OnSkill4Performed(InputAction.CallbackContext context) {
         OnSkillBindPressed(GameButtonType.Skill4, DoesAbilityAutoFire(GameButtonType.Skill4));
+    }
+
+    private void OnSkill4Canceled(InputAction.CallbackContext context) {
+        OnSkillBindCanceled(GameButtonType.Skill4);
     }
 
 
@@ -128,6 +174,22 @@ public class HotbarPanel : SkillBasePanel {
             eventData.AddAbility("Ability", ability);
 
             EventManager.SendEvent(GameEvent.UserActivatedAbility, eventData);
+        }
+    }
+
+    private void OnSkillBindCanceled(GameButtonType button) {
+        if (PanelManager.IsBlockingPanelOpen() == true) {
+            //Debug.Log("Blocked");
+            return;
+        }
+
+        Ability ability = GetAbilityBykeyBind(button);
+
+        if (ability != null) {
+            EventData eventData = new EventData();
+            eventData.AddAbility("Ability", ability);
+
+            EventManager.SendEvent(GameEvent.UserAbilityCanceled, eventData);
         }
     }
 

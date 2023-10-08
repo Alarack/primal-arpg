@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using static Unity.VisualScripting.Member;
 
 public static class AbilityFactory {
 
@@ -42,6 +41,7 @@ public static class AbilityFactory {
             TriggerType.AbilityResolved => new AbilityResolvedTrigger(data, source, parentAbility),
             TriggerType.AbilityInitiated => new AbilityInitiatedTrigger(data, source, parentAbility),
             TriggerType.AIActivated => new AIActivatedTrigger(data, source, parentAbility),
+            TriggerType.UserCancelled => new UserCancelledTrigger(data, source, parentAbility),
             _ => null,
         };
 

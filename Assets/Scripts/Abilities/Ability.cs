@@ -15,7 +15,7 @@ public class Ability {
     public AbilityData Data { get; protected set; }
     public bool IsActive { get; protected set; }
     public bool AutoFire { get; protected set; }
-
+    public bool IsChanneled { get { return Tags.Contains(AbilityTag.Channeled); } }
     public bool IsEquipped { get; protected set; }
     public bool IgnoreOtherCasting { get; protected set; }
 
@@ -43,6 +43,7 @@ public class Ability {
 
     protected Task currentWindup;
     protected GameObject currentWindupVFX;
+    protected Timer channelingCostTimer;
 
     public List<Ability> ChildAbilities { get; protected set; } = new List<Ability>();
 
@@ -70,11 +71,17 @@ public class Ability {
         SetupChildAbilities();
 
         SetupIgnoreCasting();
+        SetupTimers();
 
     }
 
     #region SETUP AND TEAR DOWN
 
+    private void SetupTimers() {
+        if(IsChanneled == true) {
+            channelingCostTimer = new Timer(1f, ApplyCost, true);
+        }
+    }
 
     private void SetupIgnoreCasting() {
         
@@ -153,6 +160,9 @@ public class Ability {
 
         if(Data.category == AbilityCategory.PassiveSkill)
             IsActive = true;
+
+        if (IsChanneled == true)
+            TimerManager.AddTimerAction(HandleChannelingCost);
     }
 
     public void Uneqeuip() {
@@ -179,6 +189,9 @@ public class Ability {
         //for (int i = 0; i < ChildAbilities.Count; i++) {
         //    ChildAbilities[i].Uneqeuip();
         //}
+
+        if (IsChanneled == true)
+            TimerManager.RemoveTimerAction(HandleChannelingCost);
     }
 
     private void RegisterAbility() {
@@ -874,6 +887,11 @@ public class Ability {
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
 
+        if (IsChanneled == true && IsActive == true) {
+            return;
+        }
+
+
 
         if (IsReady == false) {
             //Debug.Log("An ability: " + Data.abilityName + " tried to trigger, but is not ready.");
@@ -894,6 +912,9 @@ public class Ability {
                 return;
             }
         }
+
+
+
 
         if(Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
 
@@ -933,8 +954,22 @@ public class Ability {
 
         TriggerAllEffectsInstantly(activationInstance);
 
+
+
         //new Task(TriggerAllEffectsWithDelay(activationInstance));
 
+    }
+
+    protected void ApplyCost(EventData data) {
+        if (CheckCost() == false)
+            RecieveEndActivationInstance(null);
+    }
+
+    protected void HandleChannelingCost() {
+        if(IsActive == false) 
+            return;
+
+        channelingCostTimer.UpdateClock();
     }
 
     protected void SendAbilityResolvedEvent(TriggerInstance triggerInstance) {
