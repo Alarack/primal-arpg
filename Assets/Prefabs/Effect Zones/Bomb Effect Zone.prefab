@@ -86,6 +86,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Fireball Zone Effect
   entityType: 3
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 0
   subtypes: 
   innerSprite: {fileID: 0}
@@ -97,7 +99,7 @@ MonoBehaviour:
   windupFinishedVFX: {fileID: 1707519472764412, guid: 70142c574eda8c946afcd53b4ac828d8, type: 3}
   effectTelegraph: {fileID: 19878032, guid: 4f6f8033878834a4f98364e35a9eeaed, type: 3}
   growStartVFX: {fileID: 1197214378550038, guid: 5d9755a0ee56e674ea5bbc8811b520e4, type: 3}
-  tweenHelper: {fileID: 1283890652137236257}
+  tweenHelper: {fileID: 0}
 --- !u!1001 &1827239814300102125
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -126,4 +126,22 @@ public class EntityPlayer : Entity
         //Destroy(gameObject);
     }
 
+
+    #region DEBUG
+
+    private void OnDrawGizmos() {
+
+        Ray2D ray = new Ray2D(transform.position, transform.up);
+
+        Vector2 forwardPoint = ray.GetPoint(7f);
+
+        //Physics2D.Raycast(transform.position, transform.up, 7f);
+
+
+        Gizmos.DrawSphere(forwardPoint, 0.5f);
+    }
+
+
+    #endregion
+
 }

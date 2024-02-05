@@ -18,6 +18,13 @@ public class ProjectileMovement : EntityMovement
     public Transform seekTarget;
     public LayerMask targetLayers;
     public float seekRadius;
+    public bool seekForwardWithoutTarget;
+    public float seekDuration = -1f;
+    public float forwardPointDistance = 8f;
+
+    private Vector2 seekPoint;
+
+    private Timer seekTimer;
 
     [Header("Drunk Variables")]
     public float drunkInterval;
@@ -37,7 +44,35 @@ public class ProjectileMovement : EntityMovement
             drunkTimer = new Timer(drunkInterval, RandomizeDirection, true);
         }
 
+        if(movementBehavior == MovementBehavior.Seeking && seekDuration > 0f) {
+            seekTimer = new Timer(seekDuration, OnSeekTimerFinished);
+        }
 
+
+    }
+
+    private void Start() {
+
+        if (seekForwardWithoutTarget == true)
+            SetSeekPoint();
+        
+    }
+
+    private void SetSeekPoint() {
+        Entity source = (Owner as Projectile) != null ? (Owner as Projectile).Source : null;
+
+        if (source == null) {
+            Debug.LogError("A projectile: " + gameObject.name + " has a null source entity");
+            return;
+        }
+
+        Ray2D ray = new Ray2D(source.transform.position, source.transform.up);
+
+        seekPoint = ray.GetPoint(forwardPointDistance);
+    }
+
+    private void OnSeekTimerFinished(EventData data) {
+        movementBehavior = MovementBehavior.Straight;
     }
 
     private void Update()
@@ -45,6 +80,10 @@ public class ProjectileMovement : EntityMovement
         if (movementBehavior == MovementBehavior.Drunk && drunkTimer != null)
         {
             drunkTimer.UpdateClock();
+        }
+
+        if(movementBehavior == MovementBehavior.Seeking && seekTimer != null) {
+            seekTimer.UpdateClock();
         }
     }
 
@@ -75,14 +114,25 @@ public class ProjectileMovement : EntityMovement
     private void MoveSeeking()
     {
         MoveStraight();
+        
+        
+        if(seekForwardWithoutTarget == false) {
+            RotateTowardTarget();
+        }
+        else {
+            RotateTowardForwardPoint();
+        }
+        
+       
+
+    }
+
+    private void RotateTowardTarget() {
         CheckForTargets();
 
         if (seekTarget == null)
             return;
-
-
         TargetUtilities.RotateSmoothlyTowardTarget(seekTarget, transform, Owner.Stats[StatName.RotationSpeed]);
-
     }
 
     private void MoveDrunk()
@@ -111,22 +161,20 @@ public class ProjectileMovement : EntityMovement
         lastDrunkRotation = Quaternion.Euler(drunkVector);
 
         //transform.eulerAngles = drunkVector;
- 
-
-
-
-
 
         //float randomAngle = Random.Range(0f, 360f);
         //transform.eulerAngles = new Vector3(0f, 0f, randomAngle);
 
-
         //Quaternion randomRot = Random.rotation;
         //Vector3 euler = new Vector3(0f, 0f, randomRot.eulerAngles.z);
         //transform.rotation = Quaternion.Euler(euler);
-
     }
 
+
+    private void RotateTowardForwardPoint() {
+
+        TargetUtilities.RotateSmoothlyTowardTarget(seekPoint, transform, Owner.Stats[StatName.RotationSpeed]);
+    }
 
     private void CheckForTargets()
     {

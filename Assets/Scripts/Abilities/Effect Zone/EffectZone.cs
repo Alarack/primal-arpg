@@ -40,7 +40,7 @@ public class EffectZone : Entity {
 
         myCollider = GetComponent<Collider2D>();
 
-        
+
     }
 
 
@@ -50,18 +50,18 @@ public class EffectZone : Entity {
         this.carrier = carrier;
         this.ownerType = parentEffect.Source.ownerType;
 
-        if(parentLayer != -1)
+        if (parentLayer != -1)
             mask = LayerTools.SetupHitMask(mask, parentLayer, targeting);
 
         //if (parentEffect.Source == null) {
         //    Debug.LogWarning("Spawning an effect zone while the source is dead: " + parentEffect.Data.effectName);
         //}
 
-        if(parentEffect != null && parentEffect.Source != null)
+        if (parentEffect != null && parentEffect.Source != null)
             ownerType = parentEffect.Source.ownerType;
 
 
-        
+
 
         SetInfo();
         SetSize();
@@ -73,17 +73,17 @@ public class EffectZone : Entity {
             transform.localPosition = Vector3.zero;
         }
 
-        if(info.applyOnInterval == true) {
+        if (info.applyOnInterval == true) {
             persistantZoneTimer = new Timer(Stats[StatName.EffectInterval], OnEffectInterval, true);
 
             float effectDurationModifier = parentEffect.Source.Stats[StatName.GlobalEffectDurationModifier];
 
-            if(effectDurationModifier != 0) {
+            if (effectDurationModifier != 0) {
                 Stats.AddModifier(StatName.EffectLifetime, effectDurationModifier, StatModType.PercentAdd, parentEffect.Source);
             }
         }
 
-        if(info.parentEffectToOrigin == true) {
+        if (info.parentEffectToOrigin == true) {
             transform.SetParent(parentEffect.Source.transform, true);
             transform.localPosition = Vector3.zero;
         }
@@ -94,12 +94,12 @@ public class EffectZone : Entity {
 
     protected override void Update() {
         base.Update();
-        
-        if(persistantZoneTimer != null) {
+
+        if (persistantZoneTimer != null) {
             persistantZoneTimer.UpdateClock();
         }
 
-        if(windupTimer != null) {
+        if (windupTimer != null) {
             windupTimer.UpdateClock();
         }
     }
@@ -107,7 +107,7 @@ public class EffectZone : Entity {
     protected override void OnDisable() {
         base.OnDisable();
 
-        if(cleanTask != null && cleanTask.Running == true)
+        if (cleanTask != null && cleanTask.Running == true)
             cleanTask.Stop();
     }
 
@@ -125,7 +125,7 @@ public class EffectZone : Entity {
             //growStartVFX.transform.SetParent(null, true);
             activeGrowVFX = Instantiate(growStartVFX, transform.position, transform.rotation);
             //activeGrowVFX.transform.SetParent(transform, true);
-            activeGrowVFX.transform.localScale = new Vector3(1f / effectSize, 1f /effectSize,  1f/effectSize);
+            activeGrowVFX.transform.localScale = new Vector3(1f / effectSize, 1f / effectSize, 1f / effectSize);
             TweenHelper helper = activeGrowVFX.AddComponent<TweenHelper>();
             helper.preset = TweenHelper.TweenPreset.Grow;
             helper.endScale = effectSize;
@@ -151,11 +151,11 @@ public class EffectZone : Entity {
             }
         }
 
-        if(carrier != null) {
+        if (carrier != null) {
             float carrierSize = carrier.Stats[StatName.ProjectileSize];
             //Debug.Log("Carrier Size: " + carrierSize);
-            
-            if(carrierSize > effectSize) {
+
+            if (carrierSize > effectSize) {
                 effectSize = carrierSize;
             }
         }
@@ -169,7 +169,7 @@ public class EffectZone : Entity {
         effectSize *= globalSizeMod;
 
         //Debug.Log("effect size: " + effectSize);
-        if(tweenHelper != null &&  tweenHelper.startOnAwake == false) {
+        if (tweenHelper != null && tweenHelper.startOnAwake == false) {
             //tweenHelper.endScale = effectSize;
             tweenHelper.StartTweeing();
         }
@@ -178,19 +178,42 @@ public class EffectZone : Entity {
         transform.localScale = new Vector3(effectSize, effectSize, effectSize);
     }
 
+    private void CleanUpGrowTweens() {
+        if (activeGrowVFX == null)
+            return;
+        
+        TweenHelper growTween = activeGrowVFX.GetComponent<TweenHelper>();
+
+        if (growTween != null) {
+            growTween.KillTweens();
+        }
+
+        Destroy(activeGrowVFX);
+
+        if(activeEffectTelegraph != null) 
+            Destroy(activeEffectTelegraph.gameObject);
+    }
+
     private void OnWindupFinished(EventData data) {
         myCollider.enabled = true;
         //CircleCollider2D circleCollider = myCollider as CircleCollider2D;
         //circleCollider.radius = effectSize;
         VFXUtility.SpawnVFX(windupFinishedVFX, transform, null, 1f, effectSize);
-        Destroy(activeGrowVFX);
-        Destroy(activeEffectTelegraph.gameObject);
+
+        //Debug.LogWarning("Windup Finished: " + gameObject.name);
+
+        CleanUpGrowTweens();
+
+
+
+        //Destroy(activeGrowVFX);
+        //Destroy(activeEffectTelegraph.gameObject);
     }
     private void ConfigureCollision() {
         if (zoneInfo.affectSource == true)
             return;
 
-        if (parentEffect.Source == null) 
+        if (parentEffect.Source == null)
             return;
 
         Collider2D sourceCollider = parentEffect.Source.GetComponent<Collider2D>();
@@ -219,7 +242,7 @@ public class EffectZone : Entity {
         targets.RemoveIfContains(target);
 
 
-        if(zoneInfo.removeEffectOnExit == true) {
+        if (zoneInfo.removeEffectOnExit == true) {
             parentEffect.Remove(target);
         }
 
@@ -254,7 +277,7 @@ public class EffectZone : Entity {
             yield return windupWaiter;
         }
 
-        
+
         WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.EffectLifetime]);
 
         yield return waiter;
@@ -264,7 +287,9 @@ public class EffectZone : Entity {
     public virtual void CleanUp() {
         //Die();
 
-        if(vfxParticles != null) {
+        CleanUpGrowTweens();
+
+        if (vfxParticles != null) {
             vfxParticles.transform.SetParent(null, true);
             vfxParticles.Stop();
             //vfxParticles.main.simulationSpeed = particleSpeed;
@@ -274,12 +299,14 @@ public class EffectZone : Entity {
                 ParticleSystem.MainModule main = particles[i].main;
                 main.simulationSpeed = particleSpeed;
             }
-            
-           
-            
-            
+
+
+
+
             Destroy(vfxParticles.gameObject, 2f);
         }
+
+        
 
 
         SpawnDeathVFX();
@@ -289,7 +316,7 @@ public class EffectZone : Entity {
 
     protected virtual void CreateApplyVFX(Vector2 location, bool variance = true) {
 
-        if(applyVFX == null) {
+        if (applyVFX == null) {
             //Debug.LogWarning("an effect zone: " + gameObject.name + " has no apply vfx");
             return;
         }
@@ -311,7 +338,7 @@ public class EffectZone : Entity {
     protected virtual void OnTriggerEnter2D(Collider2D other) {
         if (LayerTools.IsLayerInMask(mask, other.gameObject.layer) == false)
             return;
-        
+
         Entity otherEntity = other.GetComponent<Entity>();
         if (otherEntity == null) {
             //Debug.LogWarning("An effect Zone: " + gameObject.name + " is trying to apply an effect to a non-entity: " + other.gameObject.name);
@@ -342,7 +369,7 @@ public class EffectZone : Entity {
 
     protected virtual void OnTriggerStay2D(Collider2D other) {
 
-      
+
 
     }
 

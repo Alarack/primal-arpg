@@ -56,6 +56,10 @@ public class TweenHelper : MonoBehaviour
     }
 
     private void OnDisable() {
+        KillTweens();
+    }
+
+    public void KillTweens() {
         transform.DOKill();
     }
 

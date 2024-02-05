@@ -32,7 +32,7 @@ public class Projectile : Entity {
     public float smoothScaleSpeed;
 
     private Collider2D myCollider;
-    private Entity source;
+    public Entity Source { get; private set; }
 
     private List<Effect> onHitEffects = new List<Effect>();
 
@@ -51,7 +51,7 @@ public class Projectile : Entity {
     protected override void Awake() {
         base.Awake();
 
-        if(Stats.Contains(StatName.ProjectileSize) == false) {
+        if (Stats.Contains(StatName.ProjectileSize) == false) {
             Stats.AddStat(new SimpleStat(StatName.ProjectileSize, 1f));
         }
 
@@ -83,14 +83,14 @@ public class Projectile : Entity {
     }
 
     public void Setup(Entity source, Weapon parentWeapon, List<Effect> onHitEffects) {
-        this.source = source;
+        this.Source = source;
         this.onHitEffects = onHitEffects;
         //this.parentWeapon = parentWeapon;
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
     }
 
     public void Setup(Entity source, Effect parentEffect, LayerMask hitMask, MaskTargeting maskTargeting = MaskTargeting.Opposite) {
-        this.source = source;
+        this.Source = source;
         this.parentEffect = parentEffect;
         this.projectileHitMask = hitMask;
         this.parentLayer = parentEffect.Source.gameObject.layer;
@@ -128,7 +128,7 @@ public class Projectile : Entity {
         if (projectileSize <= 0)
             projectileSize = 1f;
 
-        float globalSizeMod = 1f + source.Stats[StatName.GlobalProjectileSizeModifier];
+        float globalSizeMod = 1f + Source.Stats[StatName.GlobalProjectileSizeModifier];
 
         projectileSize *= globalSizeMod;
     }
@@ -142,6 +142,8 @@ public class Projectile : Entity {
         if (this == null)
             yield break;
 
+        WaitForEndOfFrame waiter = new WaitForEndOfFrame();
+
         while (this != null && transform.localScale.x != projectileSize) {
             if (transform == null)
                 yield break;
@@ -149,7 +151,7 @@ public class Projectile : Entity {
             float targetScale = Mathf.MoveTowards(transform.localScale.x, projectileSize, Time.deltaTime * smoothScaleSpeed);
             //Debug.Log("Target scale: " + targetScale);
             transform.localScale = new Vector3(targetScale, targetScale, targetScale);
-            yield return new WaitForEndOfFrame();
+            yield return waiter;
         }
 
     }
@@ -206,7 +208,7 @@ public class Projectile : Entity {
 
     private void DeployZoneEffect(Collider2D other) {
         //Debug.Log(gameObject.name + " is tryin to deplay an effect zone");
-        if(other != null && parentEffect.Data.effectZoneInfo.effectZonePrefab == null) {
+        if (other != null && parentEffect.Data.effectZoneInfo.effectZonePrefab == null) {
             Entity otherEntity = other.GetComponent<Entity>();
             if (otherEntity != null) {
                 parentEffect.Apply(otherEntity);
@@ -217,11 +219,14 @@ public class Projectile : Entity {
 
         if (parentEffect == null)
             return;
-        
+
+        if (parentEffect.Data.effectZoneInfo.effectZonePrefab == null)
+            return;
+
         EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
         activeZone.Stats.AddMissingStats(parentEffect.Stats);
         activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this, parentLayer, parentEffect.Data.maskTargeting);
-       
+
     }
 
 
@@ -245,7 +250,7 @@ public class Projectile : Entity {
         EventData data = new EventData();
 
         data.AddEntity("Projectile", this);
-        data.AddEntity("Owner", source);
+        data.AddEntity("Owner", Source);
         data.AddEntity("Cause", cause);
         data.AddEffect("Parent Effect", parentEffect);
         data.AddAbility("Ability", parentEffect.ParentAbility);
@@ -268,7 +273,7 @@ public class Projectile : Entity {
 
             if (cloneSelfOnSplit == true) {
                 Projectile child = Instantiate(parentEffect.Data.payloadPrefab, transform.position, transform.rotation) as Projectile;
-                child.Setup(source, parentEffect, projectileHitMask, parentEffect.Data.maskTargeting);
+                child.Setup(Source, parentEffect, projectileHitMask, parentEffect.Data.maskTargeting);
                 child.SetupChildCollision(recentHit);
                 child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
 
@@ -299,7 +304,7 @@ public class Projectile : Entity {
         EventData data = new EventData();
 
         data.AddEntity("Projectile", this);
-        data.AddEntity("Owner", source);
+        data.AddEntity("Owner", Source);
         data.AddEntity("Cause", cause);
         data.AddEffect("Parent Effect", parentEffect);
         data.AddAbility("Ability", parentEffect.ParentAbility);
@@ -341,7 +346,7 @@ public class Projectile : Entity {
         if (impactTask != null && impactTask.Running == true)
             impactTask.Stop();
 
-        if(smoothScale != null && smoothScale.Running == true)
+        if (smoothScale != null && smoothScale.Running == true)
             smoothScale.Stop();
 
         if (deployZone == true) {
@@ -377,7 +382,7 @@ public class Projectile : Entity {
     private void DealDamage(Entity target) {
         //Debug.Log("Doing Damage " + Stats[StatName.BaseDamage]);
 
-        float value = StatAdjustmentManager.DealDamageOrHeal(target, Stats[StatName.BaseDamage], source, null);
+        float value = StatAdjustmentManager.DealDamageOrHeal(target, Stats[StatName.BaseDamage], Source, null);
         FloatingText floatingText = FloatingTextManager.SpawnFloatingText(target.transform.position, value.ToString());
         floatingText.SetColor(textColorGradient);
     }
