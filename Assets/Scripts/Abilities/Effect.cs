@@ -423,6 +423,45 @@ public class EmptyEffect : Effect {
     }
 }
 
+public class ActivateAbilityEffect : Effect {
+    public override EffectType Type => EffectType.ActivateOtherAbility;
+
+    public ActivateAbilityEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        Ability targetAbility = target.GetAbilityByName(Data.nameOfAbilityToActivate, AbilityCategory.Any);
+
+        if (targetAbility != null) {
+            targetAbility.ForceActivate();
+        } 
+
+
+        return true;
+    }
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+        target.ForceActivate();
+
+        return true;
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+
+        return true;
+    }
+}
+
 public class ForcedMovementEffect : Effect {
 
     public override EffectType Type => EffectType.Movement;
@@ -707,7 +746,6 @@ public class ApplyOtherEffect : Effect {
         return true;
     }
 }
-
 
 public class AddChildAbilityEffect : Effect {
 
@@ -1331,7 +1369,6 @@ public class SpawnEntityEffect : Effect {
     }
 
 }
-
 
 public class StatAdjustmentEffect : Effect {
 

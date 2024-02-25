@@ -117,6 +117,7 @@ public static class AbilityFactory {
             EffectType.SpawnEntity => new SpawnEntityEffect(data, source, parentAbility),
             EffectType.Teleport => new TeleportEffect(data, source, parentAbility),
             EffectType.None => new EmptyEffect(data, source, parentAbility),
+            EffectType.ActivateOtherAbility => new ActivateAbilityEffect(data, source, parentAbility),
             _ => null,
         };
 

@@ -125,6 +125,7 @@ public static class AbilityEditorHelper
         EditorGUILayout.LabelField(placeholderTriggerName, EditorHelper2.LoadStyle(triggerHeader));
 
         entry.type = EditorHelper.EnumPopup("Trigger Type", entry.type);
+        entry.procChance = EditorGUILayout.FloatField("Proc Chance", entry.procChance);
         entry.delay1Frame = EditorGUILayout.Toggle("Delay 1 Frame", entry.delay1Frame);
         if (entry.type == TriggerType.Rider) {
             entry.riderAbilityName = EditorGUILayout.TextField("Target Ability", entry.riderAbilityName);
@@ -534,6 +535,10 @@ public static class AbilityEditorHelper
                     entry.otherEffectName = EditorGUILayout.TextField("Other Effect Name", entry.otherEffectName);
                 }
 
+                break;
+
+            case EffectType.ActivateOtherAbility:
+                entry.nameOfAbilityToActivate = EditorGUILayout.TextField("Ability Name", entry.nameOfAbilityToActivate);
                 break;
 
             default:

@@ -299,7 +299,34 @@ public abstract class AbilityTrigger {
             return;
         }
 
+        if (RollProc() == false)
+            return;
+
+
         ActivationCallback?.Invoke(activationInstance);
+    }
+
+    protected bool RollProc() {
+
+        if (ParentAbility != null) {
+            if (ParentAbility.Stats.Contains(StatName.ProcChance) == false)
+                return true;
+
+            float proc = ParentAbility.Stats[StatName.ProcChance];
+            float roll = UnityEngine.Random.Range(0f, proc);
+            return roll < proc;
+
+        }
+
+        if(Data.procChance > 0f && Data.procChance < 1f) {
+            float roll = UnityEngine.Random.Range(0f, Data.procChance);
+
+            return roll < Data.procChance;
+        }
+
+        Debug.LogError("A trigger of type: " + Data.type + " has no parent ability,  and no proc chance in its data. Source Entity: " + SourceEntity.EntityName);
+
+        return true;
     }
 
     protected IEnumerator FrameDelay(TriggerInstance activationInstance) {

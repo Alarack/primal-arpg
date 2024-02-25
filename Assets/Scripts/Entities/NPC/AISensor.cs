@@ -154,6 +154,8 @@ public class AISensor : MonoBehaviour {
             forgetDistance = spotDistance * 1.2f;
         }
 
+        //Debug.Log(owner.EntityName + " has detected: " + target.EntityName);
+
         EventData data = new EventData();
         data.AddEntity("Target", target);
         data.AddEntity("Cause", owner);

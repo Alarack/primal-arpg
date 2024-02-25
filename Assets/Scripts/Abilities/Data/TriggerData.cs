@@ -46,6 +46,7 @@ public class TriggerData
 {
 
     public TriggerType type;
+    public float procChance = 1f;
 
     public string riderAbilityName;
     public string riderEffectName;

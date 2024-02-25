@@ -16,7 +16,8 @@ public enum EffectType {
     AddStatScaler,
     ForceStatusTick,
     SpawnEntity,
-    Teleport
+    Teleport,
+    ActivateOtherAbility
 }
 
 public enum EffectTarget {
@@ -166,6 +167,8 @@ public class EffectData
     public bool destroyPreviousSummonAtCap;
     public EntitySpawnType spawnType;
 
+    //Activate Other Ability
+    public string nameOfAbilityToActivate;
 
     public EffectData() {
 

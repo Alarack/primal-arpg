@@ -69,7 +69,8 @@ public enum StatName
     GlobalMoveSpeedModifier,
     EffectZoneWindupTime,
     Experience,
-    StatReroll
+    StatReroll,
+    ProcChance
 }
 
 
