@@ -26,6 +26,7 @@ namespace LL.FSM {
                 StateBehaviourType.AbilityContainer => new AbilityBehaviour(data, brain, sensor),
                 StateBehaviourType.AntiFlock => new AntiFlockBehaviour(data, brain, sensor),
                 StateBehaviourType.Strafe => new StrafeBehaviour(data, brain, sensor),
+                StateBehaviourType.ChangeTargeting => new ChangeTargetingBehaviour(data, brain, sensor),
                 _ => null,
             };
 

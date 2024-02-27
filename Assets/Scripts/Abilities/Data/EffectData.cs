@@ -17,7 +17,8 @@ public enum EffectType {
     ForceStatusTick,
     SpawnEntity,
     Teleport,
-    ActivateOtherAbility
+    ActivateOtherAbility,
+    NPCStateChange
 }
 
 public enum EffectTarget {
@@ -165,10 +166,14 @@ public class EffectData
     public Entity entityPrefab;
     public float percentOfPlayerDamage = 1f;
     public bool destroyPreviousSummonAtCap;
+    public bool inheritParentLayer = true;
     public EntitySpawnType spawnType;
 
     //Activate Other Ability
     public string nameOfAbilityToActivate;
+
+    //NPC State Change
+    public string targetStateName;
 
     public EffectData() {
 

@@ -20,7 +20,8 @@ public abstract class Entity : MonoBehaviour {
         Minion,
         Elite,
         Boss,
-        MiniBoss
+        MiniBoss,
+        Orbital
     }
 
     public enum EntityClass {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using LL.FSM;
 
 public static class AbilityEditorHelper 
 {
@@ -352,7 +353,9 @@ public static class AbilityEditorHelper
                 break;
 
             case ConstraintType.IsInState:
-                
+  
+                entry.targetStateData = (StateData)EditorGUILayout.ObjectField("To State:", entry.targetStateData, typeof(StateData), false);
+
                 break;
             default:
                 break;
@@ -524,6 +527,7 @@ public static class AbilityEditorHelper
                 }
                 entry.percentOfPlayerDamage = EditorGUILayout.FloatField("Percent of Player Damage", entry.percentOfPlayerDamage);
                 entry.destroyPreviousSummonAtCap = EditorGUILayout.Toggle("Overwrite Previous?", entry.destroyPreviousSummonAtCap);
+                entry.inheritParentLayer = EditorGUILayout.Toggle("Inherit Parent Layer?", entry.inheritParentLayer);
                 break;
 
             case EffectType.Teleport:
@@ -539,6 +543,10 @@ public static class AbilityEditorHelper
 
             case EffectType.ActivateOtherAbility:
                 entry.nameOfAbilityToActivate = EditorGUILayout.TextField("Ability Name", entry.nameOfAbilityToActivate);
+                break;
+
+            case EffectType.NPCStateChange:
+                entry.targetStateName = EditorGUILayout.TextField("Target State", entry.targetStateName);
                 break;
 
             default:

@@ -118,6 +118,7 @@ public static class AbilityFactory {
             EffectType.Teleport => new TeleportEffect(data, source, parentAbility),
             EffectType.None => new EmptyEffect(data, source, parentAbility),
             EffectType.ActivateOtherAbility => new ActivateAbilityEffect(data, source, parentAbility),
+            EffectType.NPCStateChange => new NPCStateChangeEffect(data, source, parentAbility),
             _ => null,
         };
 

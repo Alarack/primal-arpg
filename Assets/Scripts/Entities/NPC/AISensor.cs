@@ -36,6 +36,14 @@ public class AISensor : MonoBehaviour {
         SetDetectionMask();
     }
 
+
+    public void UpdateTargeting(MaskTargeting targeting) {
+        maskTargeting = targeting;
+        FlushTagets();
+        detectionMask = 0;
+        SetDetectionMask();
+    }
+
     public void SetDetectionMask() {
 
         //Debug.Log("Setting detection Layer based on: " + LayerMask.LayerToName(owner.gameObject.layer));
@@ -197,6 +205,11 @@ public class AISensor : MonoBehaviour {
 
 
         LatestTarget = TargetUtilities.FindNearestTargetFromList(targets, owner.transform);
+    }
+
+    private void FlushTagets() {
+        targets.Clear();
+        LatestTarget = null;
     }
 
 }

@@ -216,7 +216,9 @@ public class AIBrain : MonoBehaviour {
         fsm.ChangeState(stateName);
     }
 
-
+    public void ForceStateChange(string stateName) {
+        fsm.ChangeState(stateName);
+    }
 
 
 

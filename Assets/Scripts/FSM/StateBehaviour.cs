@@ -39,7 +39,9 @@ namespace LL.FSM {
         }
 
         public virtual void OnEnter() {
-
+            //if (brain.Owner.subtypes.Contains(Entity.EntitySubtype.Orbital)) {
+            //    Debug.LogWarning("Entering Behavior: " + Data.name);
+            //}
         }
 
         public virtual void OnExit() { 
@@ -115,7 +117,7 @@ namespace LL.FSM {
                 return;
 
             
-                brain.Movement.StrafeTarget();
+                brain.Movement.StrafeTarget(Data.rotationSpeedModifier);
         }
     }
 
@@ -156,8 +158,12 @@ namespace LL.FSM {
 
         private bool hasTarget;
 
+        private Camera cam;
+
         public ChaseBehaviour(StateBehaviourData data, AIBrain brain, AISensor seonsor) : base(data, brain, seonsor) {
 
+            if(data.chaseMouse == true || data.fleeMouse == true)
+                cam = Camera.main;
         }
 
         public override void ManagedUpdate() {
@@ -167,6 +173,21 @@ namespace LL.FSM {
         }
 
         public override void Execute() {
+
+            if(Data.chaseMouse == true) {
+                Vector2 mousPos = cam.ScreenToWorldPoint(Input.mousePosition);
+                float distanceToMouse = Vector2.Distance(brain.Owner.transform.position, mousPos);
+
+                if(distanceToMouse < 0f) {
+                    return;
+                }
+
+                if (distanceToMouse > Data.chaseDistance)
+                    brain.Movement.MoveTowardPoint(mousPos);
+
+                return;
+            }
+
 
             if (hasTarget == false)
                 return;
@@ -214,6 +235,27 @@ namespace LL.FSM {
         }
     }
 
+    public class ChangeTargetingBehaviour : StateBehaviour {
+
+        public override StateBehaviourType Type => StateBehaviourType.ChangeTargeting;
+
+        public ChangeTargetingBehaviour(StateBehaviourData data, AIBrain brain, AISensor sensor) : base(data, brain, sensor) {
+
+        }
+
+        public override void Execute() {
+            
+            if(Data.reverseTargeting == false) {
+                brain.Sensor.UpdateTargeting(Data.newMaskTargeting);
+            }
+            else {
+                MaskTargeting desiredTarget = brain.Sensor.maskTargeting == MaskTargeting.Opposite ? MaskTargeting.Same : MaskTargeting.Opposite;
+                brain.Sensor.UpdateTargeting(desiredTarget);
+            }
+
+        }
+    }
+
     public class AbilityBehaviour : StateBehaviour {
 
         public override StateBehaviourType Type => StateBehaviourType.AbilityContainer;
@@ -237,6 +279,8 @@ namespace LL.FSM {
         }
 
         public override void OnEnter() {
+            base.OnEnter();
+            hasTarget = brain.GetLatestSensorTarget();
             brain.EquipBehaviourAbilities(this);
         }
 
@@ -246,8 +290,14 @@ namespace LL.FSM {
 
         public override void Execute() {
 
-            if (hasTarget == false)
+            if (hasTarget == false) {
+
+                if (brain.Owner.subtypes.Contains(Entity.EntitySubtype.Orbital)) {
+                    Debug.LogWarning("No target for ability");
+                }
+                
                 return;
+            }
 
             brain.ActivateBehaviourAbilities(this);
         }

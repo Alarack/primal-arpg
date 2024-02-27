@@ -39,7 +39,9 @@ public static class LayerTools {
             "Enemy" when targeting == MaskTargeting.Same => AddToMask(mask, LayerMask.NameToLayer("Enemy")),
             "Player" when targeting == MaskTargeting.Opposite => AddToMask(mask, LayerMask.NameToLayer("Enemy")),
             "Player" when targeting == MaskTargeting.Same => AddToMask(mask, LayerMask.NameToLayer("Player")),
-
+            "Orbital" when targeting == MaskTargeting.Opposite => AddToMask(mask, LayerMask.NameToLayer("Enemy")),
+            "Orbital" when targeting == MaskTargeting.Same => AddToMask(mask, LayerMask.NameToLayer("Player")),
+            
             _ => mask,
         };
 

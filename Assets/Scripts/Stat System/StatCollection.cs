@@ -86,6 +86,11 @@ public class StatCollection {
     public StatCollection(object owner, StatDataGroup defaultStats) {
         Owner = owner;
 
+        if(defaultStats == null) {
+            Debug.LogWarning("No stat definitions provided to: " + owner.ToString());
+            return;
+        }
+
         int count = defaultStats.dataList.Count;
         for (int i = 0; i < count; i++) {
             CreateStatFromData(defaultStats.dataList[i]);

@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e64f4036e690064cb32abed64c30c22, type: 3}
-  m_Name: Strafe
+  m_Name: Orb Assault
   m_EditorClassIdentifier: 
-  mode: 3
-  behavourType: 10
+  mode: 0
+  behavourType: 8
   chaseDistance: 0
+  chaseMouse: 0
   fleeDistance: 0
+  fleeMouse: 0
   rotationSpeedModifier: 1
   wanderIdleTime: 0
   wanderMaxDistance: 0
@@ -24,4 +26,7 @@ MonoBehaviour:
   spawn: {fileID: 0}
   spawnOffset: {x: 0, y: 0}
   minFlockDistance: 0
-  abilities: []
+  abilities:
+  - {fileID: 11400000, guid: a0ba4e3d625642746aa88cd8e2155734, type: 2}
+  newMaskTargeting: 0
+  reverseTargeting: 0

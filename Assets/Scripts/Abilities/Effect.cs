@@ -423,6 +423,43 @@ public class EmptyEffect : Effect {
     }
 }
 
+public class NPCStateChangeEffect : Effect {
+    public override EffectType Type => EffectType.NPCStateChange;
+
+    public NPCStateChangeEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        NPC npc = target as NPC;
+        if(npc != null) {
+            npc.Brain.ForceStateChange(Data.targetStateName);
+            return true;
+        }
+
+
+        return false;
+    }
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+        return true;
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+
+        return true;
+    }
+}
+
 public class ActivateAbilityEffect : Effect {
     public override EffectType Type => EffectType.ActivateOtherAbility;
 
@@ -1262,7 +1299,10 @@ public class SpawnEntityEffect : Effect {
             Entity spawn = PerformSpawn(target);
             spawn.ownerType = Source.ownerType;
             spawn.entityType = Source.entityType;
-            spawn.gameObject.layer = Source.gameObject.layer;
+            
+            if(Data.inheritParentLayer == true)
+                spawn.gameObject.layer = Source.gameObject.layer;
+
             spawn.subtypes.Add(Entity.EntitySubtype.Minion);
 
             if(spawn.innerSprite != null)

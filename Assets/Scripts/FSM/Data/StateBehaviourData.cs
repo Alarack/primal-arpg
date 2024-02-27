@@ -16,7 +16,8 @@ namespace LL.FSM {
         SpawnObject,
         AbilityContainer,
         AntiFlock,
-        Strafe
+        Strafe,
+        ChangeTargeting
     }
 
 
@@ -28,9 +29,14 @@ namespace LL.FSM {
 
         //Pursue
         public float chaseDistance;
+        public bool chaseMouse;
 
         //Flee
         public float fleeDistance;
+        public bool fleeMouse;
+
+        //Strafe
+        public float rotationSpeedModifier = 1f;
 
         //Wander
         public float wanderIdleTime;
@@ -50,6 +56,9 @@ namespace LL.FSM {
         //Ability Container
         public List<AbilityDefinition> abilities = new List<AbilityDefinition>();
 
+        //Change Targeting
+        public MaskTargeting newMaskTargeting;
+        public bool reverseTargeting;
     }
 
 }

@@ -32,6 +32,7 @@ public class StateBehaviourDataEditor : Editor
                 break;
             case StateBehaviourType.Chase:
                 behaviourData.chaseDistance = EditorGUILayout.FloatField("Max Distance", behaviourData.chaseDistance);
+                behaviourData.chaseMouse = EditorGUILayout.Toggle("Target Mouse", behaviourData.chaseMouse);
                 break;
             case StateBehaviourType.Attack:
                 break;
@@ -57,6 +58,22 @@ public class StateBehaviourDataEditor : Editor
                 break;
             case StateBehaviourType.AntiFlock:
                 behaviourData.minFlockDistance = EditorGUILayout.FloatField("Min Distance", behaviourData.minFlockDistance);
+                break;
+
+            case StateBehaviourType.Strafe:
+                behaviourData.rotationSpeedModifier = EditorGUILayout.FloatField("Rotate Mod", behaviourData.rotationSpeedModifier);
+
+                break;
+
+            case StateBehaviourType.ChangeTargeting:
+                behaviourData.reverseTargeting = EditorGUILayout.Toggle("Reverse", behaviourData.reverseTargeting);
+
+                if(behaviourData.reverseTargeting == false) {
+                    behaviourData.newMaskTargeting = EditorHelper.EnumPopup("Targeting", behaviourData.newMaskTargeting);
+                }
+
+
+
                 break;
                 
         }

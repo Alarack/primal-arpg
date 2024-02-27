@@ -65,11 +65,11 @@ public class NPCMovement : EntityMovement
         ApplyPerpendicularMovement(location, -1 * speedModifier);
     }
 
-    public void StrafeTarget() {
+    public void StrafeTarget(float modifier = 1f) {
         if (currentTarget == null)
             return;
 
-        MovePerpendicularToPointClockwise(currentTarget.transform.position);
+        MovePerpendicularToPointClockwise(currentTarget.transform.position, modifier);
     }
 
     public void MoveAwayFromTarget() {
