@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
   m_Name: Soellstorm Mage
   m_EditorClassIdentifier: 
+  devItem: 0
   itemData:
     Type: 5
     entityClass: 2
@@ -20,12 +21,14 @@ MonoBehaviour:
       prevail!</b>
     itemValue: 0
     runeAbilityTarget: 
-    validSlots: 
+    validSlots: 0f000000
+    abilityTags: 
     itemIcon: {fileID: 21300000, guid: 60d9a35f459ded94b963aed12390f07e, type: 3}
     pickupIcon: {fileID: 21300000, guid: 60d9a35f459ded94b963aed12390f07e, type: 3}
     pickupOnCollision: 0
     minDamage: 0
     maxDamage: 0
     statModifierData: []
-    abilityDefinitions: []
+    abilityDefinitions:
+    - {fileID: 11400000, guid: d64321cba43052b4e82289a80c780a59, type: 2}
     learnableAbilities: []

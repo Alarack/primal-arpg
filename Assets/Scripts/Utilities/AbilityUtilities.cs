@@ -17,18 +17,26 @@ public static class AbilityUtilities {
         }
     }
 
-    public static void SetupAbilities(List<AbilityDefinition> abilityData, List<Ability> abilities, Entity source, bool autoEquip = false) {
+    public static void SetupAbilities(List<AbilityDefinition> abilityData, List<Ability> abilities, Entity source, bool autoEquip = false, bool registerWithPlayer = false) {
         for (int i = 0; i < abilityData.Count; i++) {
+
+            //Debug.Log("Setting up: " + abilityData[i].AbilityData.abilityName);
 
             Ability newAbility = AbilityFactory.CreateAbility(abilityData[i].AbilityData, source);
             abilities.Add(newAbility);
 
+            if(source != null && registerWithPlayer == true && newAbility.Data.category != AbilityCategory.Rune) {
 
-            
-            if(source != null && newAbility.Data.category != AbilityCategory.Rune)
-                source.AbilityManager.AbilitiesByName.Add(newAbility.Data.abilityName, newAbility);
+                if (source.AbilityManager.AbilitiesByName.ContainsKey(newAbility.Data.abilityName) == false) {
+                    source.AbilityManager.AbilitiesByName.Add(newAbility.Data.abilityName, newAbility);
 
-            if(autoEquip == true) {
+                }
+                else {
+                    Debug.LogWarning("An ability: " + newAbility.Data.abilityName + " has already been added to " + source.EntityName + "'s Abilities By Name dict"); ;
+                }
+            }
+
+            if (autoEquip == true) {
                 newAbility.Equip();
             }
         }

@@ -19,6 +19,7 @@ public enum ItemSlot {
     Head,
     Inventory,
     RuneSlot,
+    Class
 }
 
 public enum ItemType { 

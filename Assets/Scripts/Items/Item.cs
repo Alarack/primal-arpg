@@ -47,6 +47,7 @@ public class Item
 
         if(Data.Type == ItemType.ClassSelection) {
             Owner.SetEntityClass(Data.entityClass);
+            Equip(ItemSlot.Class);
         }
     }
 
@@ -59,9 +60,9 @@ public class Item
         EventManager.RemoveMyListeners(this);
     }
 
-    protected void SetupAbilities() {
+    protected void SetupAbilities(bool autoEquip = false, bool registerWithPlayer = false) {
         Abilities.Clear();
-        AbilityUtilities.SetupAbilities(Data.abilityDefinitions, Abilities, Owner);
+        AbilityUtilities.SetupAbilities(Data.abilityDefinitions, Abilities, Owner, autoEquip, registerWithPlayer);
     }
 
     protected void SetupStatModifiers() {
@@ -83,7 +84,7 @@ public class Item
         CurrentSlot = slot;
 
         SetupStatModifiers();
-        SetupAbilities();
+        SetupAbilities(false, true);
 
         for (int i = 0;i < Abilities.Count;i++) {
             Abilities[i].Equip();

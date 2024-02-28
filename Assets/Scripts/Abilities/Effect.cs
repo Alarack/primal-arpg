@@ -1380,9 +1380,9 @@ public class SpawnEntityEffect : Effect {
 
         Vector2 location = targeter.GetPayloadSpawnLocation();
 
-        //Vector2 nearby = (Vector2)Source.transform.position + (Random.insideUnitCircle * Random.Range(2f, 6f));
+        Vector2 nearby = location + Random.insideUnitCircle * Random.Range(2f, 6f);
 
-        return location;
+        return nearby;
     }
 
 

@@ -23,7 +23,10 @@ public class NPC : Entity
         myCollider = GetComponent<Collider2D>();
         myCollider.enabled = false;
 
-        spawnInTimer = new Timer(spawnDelayTime, OnSpawnInComplete, false);
+        if (spawnDelayTime > 0f)
+            spawnInTimer = new Timer(spawnDelayTime, OnSpawnInComplete, false);
+        else
+            OnSpawnInComplete(null);
     }
 
     protected override void Update() {

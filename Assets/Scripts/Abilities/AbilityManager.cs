@@ -186,8 +186,9 @@ public class AbilityManager : MonoBehaviour {
                     UnequipAbility(learnedAbilities[i], currentSlot);
                 }
 
-                learnedAbilities.Remove(learnedAbilities[i]);
                 AbilitiesByName.Remove(learnedAbilities[i].Data.abilityName);
+                learnedAbilities.Remove(learnedAbilities[i]);
+                
             }
         }
 
