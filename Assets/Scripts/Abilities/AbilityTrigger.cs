@@ -997,7 +997,7 @@ public class StatChangedTrigger : AbilityTrigger {
     public void OnStatChanged(EventData data) {
         StatName targetStat = (StatName)data.GetInt("Stat");
         Entity affectedTarget = data.GetEntity("Target");
-        Entity causeOfChange = data.GetEntity("Cause");
+        Entity causeOfChange = data.GetEntity("Source");
         float changeValue = data.GetFloat("Value");
         Ability ability = data.GetAbility("Ability");
 
@@ -1005,7 +1005,8 @@ public class StatChangedTrigger : AbilityTrigger {
         CauseOfTrigger = causeOfChange;
         CauseOfAbilityTrigger = ability;
 
-        //Debug.Log(affectedTarget.gameObject.name + " had a stat change: " + targetStat + " :: " + changeValue);
+        //string cause = causeOfChange != null ? causeOfChange.EntityName : "null entity";
+        //Debug.Log(affectedTarget.gameObject.name + " had a stat change: " + targetStat + " :: " + changeValue + " caused by: " + cause);
 
 
         StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, targetStat, changeValue, CauseOfAbilityTrigger);
