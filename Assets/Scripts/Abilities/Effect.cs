@@ -317,6 +317,7 @@ public abstract class Effect {
         //Debug.Log("Rider effect is firing: " + Data.effectName + " from " + parentEffect.Data.effectName);
 
         Apply(parentEffect.LastTarget);
+        SendEffectAppliedEvent();
     }
 
     public void SendEffectAppliedEvent() {
@@ -325,6 +326,7 @@ public abstract class Effect {
         data.AddAbility("Ability", ParentAbility);
         data.AddEntity("Source", Source);
 
+        data.AddEffect("Parent Effect", parentEffect);
 
         //Debug.Log(effectName + " has been applied from the card: " + ParentAbility.Source.cardName);
 
@@ -426,6 +428,9 @@ public class EmptyEffect : Effect {
 public class NPCStateChangeEffect : Effect {
     public override EffectType Type => EffectType.NPCStateChange;
 
+    private string previousStateName;
+
+
     public NPCStateChangeEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
     }
@@ -436,12 +441,26 @@ public class NPCStateChangeEffect : Effect {
 
         NPC npc = target as NPC;
         if(npc != null) {
-            npc.Brain.ForceStateChange(Data.targetStateName);
+            previousStateName = npc.Brain.ForceStateChange(Data.targetStateName);
             return true;
         }
 
 
         return false;
+    }
+
+    public override void Remove(Entity target) {
+        base.Remove(target);
+
+        if(string.IsNullOrEmpty(previousStateName) == true) {
+            Debug.LogWarning("No previous state name saved when removing a forced state change");
+            return;
+        }
+
+        NPC npc = target as NPC;
+        if (npc != null ) {
+            npc.Brain.ForceStateChange(previousStateName);
+        }
     }
 
     public override bool ApplyToAbility(Ability target) {
@@ -520,6 +539,7 @@ public class ForcedMovementEffect : Effect {
             case MovementDestination.SourceCurrentVelocity:
                 break;
             case MovementDestination.MousePosition:
+                ApplyTowardMouse(target);
                 break;
             case MovementDestination.AwayFromSource:
                 ApplyForceAwayFromSource(target);
@@ -530,6 +550,18 @@ public class ForcedMovementEffect : Effect {
         }
 
         return true;
+    }
+
+
+    private void ApplyTowardMouse(Entity target) {
+        Vector2 directionToMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Source.transform.position;
+        Vector2 force = directionToMouse.normalized * Data.moveForce;
+
+        Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
+
+        if (targetBody != null) {
+            targetBody.AddForce(force, ForceMode2D.Impulse);
+        }
     }
 
     private void ApplySourceForward(Entity target) {

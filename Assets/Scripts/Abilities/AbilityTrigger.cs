@@ -1328,8 +1328,10 @@ public class TimedTrigger : AbilityTrigger {
         TriggeringEntity = owner;
         CauseOfTrigger = owner;
 
+        //if(ParentAbility != null && ParentAbility.Data.abilityName == "Swing Orb") {
+        //    Debug.LogWarning("Trigger Timer Complete");
 
-        //Debug.LogWarning("Trigger Timer Complete");
+        //}
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
 
@@ -1358,6 +1360,7 @@ public class RiderTrigger : AbilityTrigger {
     private void OnEffectApplied(EventData data) {
 
         Effect targetEffect = data.GetEffect("Effect");
+        Effect parentEffect = data.GetEffect("Parent Effect");
 
         Ability targetAbility = SourceEntity.GetAbilityByName(Data.riderAbilityName, AbilityCategory.Any);
 
@@ -1373,12 +1376,25 @@ public class RiderTrigger : AbilityTrigger {
             return;
         }
 
-        if (targetEffect == targetAbility.GetEffectByName(Data.riderEffectName) == false) {
+        Effect matchingEffect = targetAbility.GetEffectByName(Data.riderEffectName);
 
-            //Debug.LogWarning("The target effect: " + targetEffect.Data.effectName + " does not match the rider effect: " + Data.riderEffectName);
+        bool foundMatch = targetEffect == matchingEffect;
 
-
+        if (parentEffect == null && foundMatch == false) {
+            Debug.LogWarning("No Parent Effect found and the target effect: " + targetEffect.Data.effectName + " does not match the rider effect: " + Data.riderEffectName);
             return;
+        }
+
+        if(parentEffect != null) {
+            
+            if(parentEffect.Data.effectName != Data.riderEffectName) {
+                Debug.LogWarning("Parent Effect Name: " + parentEffect.Data.effectName);
+                Debug.Log("Does not match");
+                Debug.LogWarning("Rider Effect Name: " +  Data.riderEffectName);
+                
+                //Debug.LogWarning("Parent effect found and the target effect: " + targetEffect.Data.effectName + " does not match the rider effect: " + Data.riderEffectName);
+                return;
+            }
         }
 
         if (targetEffect.EntityTargets.Count > 0) {
@@ -1388,7 +1404,7 @@ public class RiderTrigger : AbilityTrigger {
 
         CauseOfTrigger = targetEffect.Source;
 
-        //Debug.Log("A rider ability: " + ParentAbility.Data.abilityName + " is trying to trigger");
+        Debug.Log("A rider ability: " + ParentAbility.Data.abilityName + " is trying to trigger");
 
 
         RiderTriggerInstance triggerInstance = new RiderTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, ridereffectTargets);

@@ -24,6 +24,10 @@ public class AIBrain : MonoBehaviour {
 
     public List<AbilityDefinition> abilityDefinitions = new List<AbilityDefinition>();
 
+
+    public string debugCurrentState;
+    public string debugPreviousState;
+
     private FSM fsm;
     private List<StateChanger> stateChangers = new List<StateChanger>();
 
@@ -215,10 +219,20 @@ public class AIBrain : MonoBehaviour {
         //Debug.LogWarning("Brain is recieveing a state change Trigger: " + triggerInstance.GetType());
 
         fsm.ChangeState(stateName);
+
+        //debugCurrentState = fsm.CurrentState != null ? fsm.CurrentState.stateName : "No Current State";
+        //debugPreviousState = fsm.PreviousState != null ?  fsm.PreviousState.stateName : "No Previous State";
     }
 
-    public void ForceStateChange(string stateName) {
+    public string ForceStateChange(string stateName) {
+
+      
         fsm.ChangeState(stateName);
+
+        string previousState = fsm.PreviousState != null ? fsm.PreviousState.stateName : "";
+        //Debug.Log("Forcing state to: " + stateName);
+
+        return previousState;
     }
 
 

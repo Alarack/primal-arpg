@@ -95,6 +95,9 @@ public class EntityManager : Singleton<EntityManager> {
     private IEnumerator DelayedCheckForEnemies() {
         yield return new WaitForSeconds(0.5f);
 
+        if (ActiveEntities.ContainsKey(Entity.EntityType.Enemy) == false)
+            yield break;
+
         if (ActiveEntities[Entity.EntityType.Enemy].Count == 0) {
 
             if (RoomManager.CurrentRoom != null) {

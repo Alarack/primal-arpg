@@ -409,7 +409,9 @@ public static class AbilityEditorHelper
 
         entry.targeting = EditorHelper.EnumPopup("Targeting", entry.targeting);
         entry.subTarget = EditorHelper.EnumPopup("Sub Target", entry.subTarget);
-        entry.maskTargeting = EditorHelper.EnumPopup("Mask Targeting", entry.maskTargeting);
+        
+        if(entry.targeting != EffectTarget.LogicSelected)
+            entry.maskTargeting = EditorHelper.EnumPopup("Mask Targeting", entry.maskTargeting);
 
         EditorGUILayout.Separator();
         EditorGUILayout.LabelField("Rider Effects", EditorHelper2.LoadStyle(effectHeader));
