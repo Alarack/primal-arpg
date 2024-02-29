@@ -38,6 +38,7 @@ public class AISensor : MonoBehaviour {
 
 
     public void UpdateTargeting(MaskTargeting targeting) {
+        
         maskTargeting = targeting;
         FlushTagets();
         detectionMask = 0;
@@ -45,7 +46,7 @@ public class AISensor : MonoBehaviour {
     }
 
     public void SetDetectionMask() {
-
+        myCollider.enabled = true;
         //Debug.Log("Setting detection Layer based on: " + LayerMask.LayerToName(owner.gameObject.layer));
 
         detectionMask = LayerTools.SetupHitMask(detectionMask, owner.gameObject.layer, maskTargeting);
@@ -210,6 +211,7 @@ public class AISensor : MonoBehaviour {
     private void FlushTagets() {
         targets.Clear();
         LatestTarget = null;
+        myCollider.enabled = false;
     }
 
 }

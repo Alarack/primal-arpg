@@ -474,10 +474,20 @@ public class AIActivatedTrigger : AbilityTrigger {
         }
 
         Ability triggeringAbility = data.GetAbility("Ability");
+        NPC owner = data.GetEntity("NPC") as NPC;
+
 
         if (triggeringAbility != ParentAbility) {
             return;
         }
+
+        if (owner == null) {
+            Debug.LogError("Null Owner on an AI triggered ability: " + triggeringAbility.Data.abilityName);
+            return;
+        }
+
+
+
 
         //if(triggeringAbility.Data.abilityName == "Test Sword Swipe") {
         //    Debug.Log("Swipe activation recieved");

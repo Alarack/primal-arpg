@@ -175,6 +175,7 @@ public class AIBrain : MonoBehaviour {
     private void SendAIActivatedEvent(Ability ability) {
         EventData data = new EventData();
         data.AddAbility("Ability", ability);
+        data.AddEntity("NPC", Owner);
 
         EventManager.SendEvent(GameEvent.AIActivated, data);
     }

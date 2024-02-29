@@ -292,9 +292,9 @@ namespace LL.FSM {
 
             if (hasTarget == false) {
 
-                if (brain.Owner.subtypes.Contains(Entity.EntitySubtype.Orbital)) {
-                    Debug.LogWarning("No target for ability");
-                }
+                //if (brain.Owner.subtypes.Contains(Entity.EntitySubtype.Orbital)) {
+                //    Debug.LogWarning("No target for orbital ability");
+                //}
                 
                 return;
             }

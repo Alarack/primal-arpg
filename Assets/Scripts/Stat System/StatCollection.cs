@@ -87,7 +87,7 @@ public class StatCollection {
         Owner = owner;
 
         if(defaultStats == null) {
-            Debug.LogWarning("No stat definitions provided to: " + owner.ToString());
+            //Debug.LogWarning("No stat definitions provided to: " + owner.ToString());
             return;
         }
 

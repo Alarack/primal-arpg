@@ -15,6 +15,8 @@ public class NPC : Entity
 
     public List<NPCEliteAffixData> currentEliteAffixes = new List<NPCEliteAffixData>();
 
+    public Entity MinionMaster { get; set; }
+
     public bool active;
 
     protected override void Awake() {

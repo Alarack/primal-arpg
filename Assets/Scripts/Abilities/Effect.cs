@@ -1299,6 +1299,9 @@ public class SpawnEntityEffect : Effect {
             Entity spawn = PerformSpawn(target);
             spawn.ownerType = Source.ownerType;
             spawn.entityType = Source.entityType;
+            if(spawn is NPC) {
+                ((NPC)spawn).MinionMaster = Source;
+            }
             
             if(Data.inheritParentLayer == true)
                 spawn.gameObject.layer = Source.gameObject.layer;
@@ -1380,7 +1383,7 @@ public class SpawnEntityEffect : Effect {
 
         Vector2 location = targeter.GetPayloadSpawnLocation();
 
-        Vector2 nearby = location + Random.insideUnitCircle * Random.Range(2f, 6f);
+        Vector2 nearby = location + Random.insideUnitCircle * Random.Range(2f, 4f);
 
         return nearby;
     }
