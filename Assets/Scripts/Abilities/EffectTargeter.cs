@@ -562,10 +562,19 @@ public class EffectTargeter {
 
         }
 
+
+        
+
         EffectZone effectZone = delivery as EffectZone;
         if (effectZone != null) {
             effectZone.Stats.AddMissingStats(parentEffect.Stats);
-            effectZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, null, parentEffect.Source.gameObject.layer, parentEffect.Data.maskTargeting);
+
+            Transform parentTransform = null;
+            if (parentEffect.Data.effectZoneInfo.parentToTarget == true)
+                parentTransform = ActivationInstance.TriggeringEntity.transform;
+
+            
+            effectZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, parentTransform, null, parentEffect.Source.gameObject.layer, parentEffect.Data.maskTargeting);
 
             if(effectZone.Stats.Contains(StatName.Accuracy) == true) {
                 float zoneInnaccuracy = (1f - effectZone.Stats[StatName.Accuracy]) * 360f;
@@ -573,6 +582,9 @@ public class EffectTargeter {
                 effectZone.transform.eulerAngles += new Vector3(0f, 0f, Random.Range(-zoneInnaccuracy, zoneInnaccuracy));
             }
 
+
+            //Debug.LogWarning("Creating an effect zone payload delivery for: " + parentEffect.Data.effectName);
+            //Debug.Log(effectZone.gameObject.name);
             parentEffect.ActiveEffectZones.Add(effectZone);
         }
 

@@ -32,14 +32,15 @@ MonoBehaviour:
     payloadCount: 1
     shotDelay: 0.2
     payloadStatData: []
-    spawnLocation: 0
+    spawnLocation: 1
     spawnLocationStart: 0
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
     effectZoneInfo:
       removeEffectOnExit: 0
-      parentEffectToOrigin: 1
+      parentEffectToOrigin: 0
+      parentToTarget: 1
       applyOncePerTarget: 0
       applyOnInterval: 0
       affectSource: 0

@@ -317,7 +317,7 @@ public abstract class Effect {
         //Debug.Log("Rider effect is firing: " + Data.effectName + " from " + parentEffect.Data.effectName);
 
         Apply(parentEffect.LastTarget);
-        SendEffectAppliedEvent();
+        //SendEffectAppliedEvent();
     }
 
     public void SendEffectAppliedEvent() {

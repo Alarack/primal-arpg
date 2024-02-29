@@ -383,6 +383,7 @@ public struct EffectZoneInfo {
     [Header("Options")]
     public bool removeEffectOnExit;
     public bool parentEffectToOrigin;
+    public bool parentToTarget;
     public bool applyOncePerTarget;
     public bool applyOnInterval;
 

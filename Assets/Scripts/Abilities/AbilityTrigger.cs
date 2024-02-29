@@ -1381,7 +1381,7 @@ public class RiderTrigger : AbilityTrigger {
         bool foundMatch = targetEffect == matchingEffect;
 
         if (parentEffect == null && foundMatch == false) {
-            Debug.LogWarning("No Parent Effect found and the target effect: " + targetEffect.Data.effectName + " does not match the rider effect: " + Data.riderEffectName);
+            //Debug.LogWarning("No Parent Effect found and the target effect: " + targetEffect.Data.effectName + " does not match the rider effect: " + Data.riderEffectName);
             return;
         }
 
@@ -1404,7 +1404,7 @@ public class RiderTrigger : AbilityTrigger {
 
         CauseOfTrigger = targetEffect.Source;
 
-        Debug.Log("A rider ability: " + ParentAbility.Data.abilityName + " is trying to trigger");
+        //Debug.Log("A rider ability: " + ParentAbility.Data.abilityName + " is trying to trigger");
 
 
         RiderTriggerInstance triggerInstance = new RiderTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, ridereffectTargets);
