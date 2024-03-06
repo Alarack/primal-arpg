@@ -10,11 +10,13 @@ public class SkillsPanel : SkillBasePanel {
     public Transform knownSkillsHolder;
     public Transform activePassiveSkillsHolder;
     public Transform knownPassiveSkillsHolder;
+    public Transform classFeatureSkillHolder;
 
     [Header("Passive Collection Sub Panel")]
     public PassiveSkillPanel passiveCollectionPanel;
 
     private List<SkillEntry> knownSkillEntries = new List<SkillEntry>();
+    private List<SkillEntry> classFeatureEntries = new List<SkillEntry>();
 
     private List<SkillEntry> activePassiveSkillEntries = new List<SkillEntry>();
     private List<SkillEntry> knownPassiveSkillEntries = new List<SkillEntry>();
@@ -28,6 +30,8 @@ public class SkillsPanel : SkillBasePanel {
 
         AbilityUtilities.PopulateSkillEntryList(ref knownSkillEntries, skillEntryTemplate, knownSkillsHolder, SkillEntry.SkillEntryLocation.KnownSkill);
         AbilityUtilities.PopulateSkillEntryList(ref knownPassiveSkillEntries, skillEntryTemplate, knownPassiveSkillsHolder, SkillEntry.SkillEntryLocation.KnownPassive);
+        AbilityUtilities.PopulateSkillEntryList(ref classFeatureEntries, skillEntryTemplate, classFeatureSkillHolder, SkillEntry.SkillEntryLocation.ClassFeatureSkill);
+
     }
 
     public override void Close() {

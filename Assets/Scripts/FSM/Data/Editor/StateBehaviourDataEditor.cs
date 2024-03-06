@@ -33,6 +33,7 @@ public class StateBehaviourDataEditor : Editor
             case StateBehaviourType.Chase:
                 behaviourData.chaseDistance = EditorGUILayout.FloatField("Max Distance", behaviourData.chaseDistance);
                 behaviourData.chaseMouse = EditorGUILayout.Toggle("Target Mouse", behaviourData.chaseMouse);
+                behaviourData.accelerateViaDistance = EditorGUILayout.Toggle("Dynamic Speed", behaviourData.accelerateViaDistance);
                 break;
             case StateBehaviourType.Attack:
                 break;

@@ -12662,9 +12662,9 @@ MonoBehaviour:
   testItems:
   - {fileID: 11400000, guid: fe638d5d46de76f4f91b34c62a14d976, type: 2}
   - {fileID: 11400000, guid: e5475fac560ba144989315e55878dcca, type: 2}
-  - {fileID: 11400000, guid: 997cb15959bb0714bb46746517ee8880, type: 2}
-  - {fileID: 11400000, guid: 70028fce5f42abc4da812989392651aa, type: 2}
   - {fileID: 11400000, guid: 42b787de66fa5084291f03179b586b74, type: 2}
+  - {fileID: 11400000, guid: 505ca33a6cac1b148ad0763c73755801, type: 2}
+  - {fileID: 11400000, guid: 036412feb2b66e54f9d3de6de746b1f0, type: 2}
   pickupPrefab: {fileID: 777966188710461411, guid: 8809ef3536d1e574e9eccf68d35e5f08, type: 3}
   coinPickupPrefab: {fileID: 4481293274202257508, guid: 4886ae56ae035f949839f56ebc45901d, type: 3}
   expPickupPrefab: {fileID: 2448004172980267282, guid: 41e4ab46877027447b2437fd7bcd0084, type: 3}
@@ -13779,6 +13779,10 @@ PrefabInstance:
     - target: {fileID: 2355154853937751283, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -19.720001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3379676291349145198, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -399.77997
       objectReference: {fileID: 0}
     - target: {fileID: 3940398973686752301, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
       propertyPath: m_Name

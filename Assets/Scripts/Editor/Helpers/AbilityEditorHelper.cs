@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using LL.FSM;
 
-public static class AbilityEditorHelper 
-{
+public static class AbilityEditorHelper {
     public const string abilityHeader = "Ability Header";
     public const string triggerHeader = "Trigger Header";
     public const string effectHeader = "Effect Header";
@@ -22,7 +21,7 @@ public static class AbilityEditorHelper
         entry.abilityIcon = EditorHelper.ObjectField("Sprite", entry.abilityIcon);
         entry.category = EditorHelper.EnumPopup("Category", entry.category);
         entry.tags = EditorHelper.DrawList("Tags", "Tag", entry.tags, AbilityTag.None, EditorHelper.DrawListOfEnums);
-        
+
         if (entry.category == AbilityCategory.Rune) {
             entry.runeAbilityTarget = EditorGUILayout.TextField("Rune Target Ability Name", entry.runeAbilityTarget);
         }
@@ -37,7 +36,7 @@ public static class AbilityEditorHelper
         entry.abilityStatData = EditorHelper.DrawExtendedList(entry.abilityStatData, "Stat", DrawStatData);
         EditorGUI.indentLevel--;
 
-        if(entry.ContainsStat(StatName.AbilityWindupTime)) {
+        if (entry.ContainsStat(StatName.AbilityWindupTime)) {
             entry.windupVFX = EditorHelper.ObjectField("WindupVFX", entry.windupVFX);
         }
 
@@ -50,8 +49,8 @@ public static class AbilityEditorHelper
 
         entry.suspend = EditorGUILayout.Toggle("Suspend?", entry.suspend);
 
-       
-        
+
+
         EditorGUILayout.Separator();
 
         EditorGUILayout.BeginVertical(GUI.skin.box);
@@ -133,7 +132,7 @@ public static class AbilityEditorHelper
             entry.riderEffectName = EditorGUILayout.TextField("Target Effect", entry.riderEffectName);
         }
 
-        if(entry.type == TriggerType.Timed) {
+        if (entry.type == TriggerType.Timed) {
             entry.triggerTimerDuration = EditorGUILayout.FloatField("Duration", entry.triggerTimerDuration);
         }
 
@@ -246,7 +245,7 @@ public static class AbilityEditorHelper
     }
 
     public static void DrawConstraintDataFocus(ConstraintDataFocus entry) {
-        EditorGUILayout.LabelField(ObjectNames.NicifyVariableName( entry.focus.ToString()) + " Constraints", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField(ObjectNames.NicifyVariableName(entry.focus.ToString()) + " Constraints", EditorStyles.boldLabel);
         entry.constraintData = EditorHelper.DrawExtendedList(entry.constraintData, entry.focus.ToString() + " Constraint", DrawConstraintData);
     }
 
@@ -275,8 +274,8 @@ public static class AbilityEditorHelper
             case ConstraintType.SourceOnly:
                 break;
             case ConstraintType.StatChanged:
-            //case ConstraintType.UnitStatDecreased:
-            //case ConstraintType.UnitStatIncreased:
+                //case ConstraintType.UnitStatDecreased:
+                //case ConstraintType.UnitStatIncreased:
                 entry.statChangeTarget = EditorHelper.EnumPopup("Target Stat", entry.statChangeTarget);
                 entry.changeDirection = EditorHelper.EnumPopup("Change Direction", entry.changeDirection);
 
@@ -353,7 +352,7 @@ public static class AbilityEditorHelper
                 break;
 
             case ConstraintType.IsInState:
-  
+
                 entry.targetStateData = (StateData)EditorGUILayout.ObjectField("To State:", entry.targetStateData, typeof(StateData), false);
 
                 break;
@@ -372,7 +371,7 @@ public static class AbilityEditorHelper
 
         entry.type = EditorHelper.EnumPopup("Type", entry.type);
 
-        if(entry.type == RecoveryType.Timed) {
+        if (entry.type == RecoveryType.Timed) {
             entry.cooldown = EditorGUILayout.FloatField("Cooldown", entry.cooldown);
         }
         else {
@@ -399,8 +398,8 @@ public static class AbilityEditorHelper
         entry.floatingTextColor = EditorGUILayout.GradientField("Floating Text Color", entry.floatingTextColor);
         entry.canOverload = EditorGUILayout.Toggle("Can Overload?", entry.canOverload);
         entry.canAffectDeadTargets = EditorGUILayout.Toggle("Can Affect Dead", entry.canAffectDeadTargets);
-        
-        if(entry.canOverload == true) {
+
+        if (entry.canOverload == true) {
             entry.overloadFloatingTextColor = EditorGUILayout.GradientField("Overload Floating Text Color", entry.overloadFloatingTextColor);
 
         }
@@ -409,8 +408,8 @@ public static class AbilityEditorHelper
 
         entry.targeting = EditorHelper.EnumPopup("Targeting", entry.targeting);
         entry.subTarget = EditorHelper.EnumPopup("Sub Target", entry.subTarget);
-        
-        if(entry.targeting != EffectTarget.LogicSelected)
+
+        if (entry.targeting != EffectTarget.LogicSelected)
             entry.maskTargeting = EditorHelper.EnumPopup("Mask Targeting", entry.maskTargeting);
 
         EditorGUILayout.Separator();
@@ -428,7 +427,7 @@ public static class AbilityEditorHelper
         if (entry.targeting != EffectTarget.PayloadDelivered) {
             entry.numberOfTargets = EditorGUILayout.IntField("Number of Targets", entry.numberOfTargets);
             entry.deliveryPayloadToTarget = EditorGUILayout.Toggle("Use Payload?", entry.deliveryPayloadToTarget);
-            
+
         }
         else {
             EditorGUILayout.LabelField("Payload: ", EditorStyles.boldLabel);
@@ -440,23 +439,23 @@ public static class AbilityEditorHelper
 
         entry.spawnLocation = EditorHelper.EnumPopup("Spawn Location", entry.spawnLocation);
 
-        if(entry.spawnLocation == DeliverySpawnLocation.RandomViewportPosition) {
+        if (entry.spawnLocation == DeliverySpawnLocation.RandomViewportPosition) {
             entry.minViewportValues = EditorGUILayout.Vector2Field("Min Values", entry.minViewportValues);
             entry.maxViewportValues = EditorGUILayout.Vector2Field("Max Values", entry.maxViewportValues);
         }
 
-        if(entry.spawnLocation == DeliverySpawnLocation.WorldPositionSequence) {
+        if (entry.spawnLocation == DeliverySpawnLocation.WorldPositionSequence) {
             entry.spawnLocationStart = EditorHelper.EnumPopup("Start Point", entry.spawnLocationStart);
             entry.spawnLocationEnd = EditorHelper.EnumPopup("End Point", entry.spawnLocationEnd);
         }
 
         EditorGUILayout.Separator();
         EditorGUILayout.LabelField("Effect Zone: ", EditorStyles.boldLabel);
-        
+
         EditorGUI.indentLevel++;
         entry.effectZoneInfo = DrawEffectZoneInfo(entry.effectZoneInfo);
         EditorGUI.indentLevel--;
-        
+
         EditorGUILayout.Separator();
 
         EditorGUILayout.Separator();
@@ -500,10 +499,14 @@ public static class AbilityEditorHelper
             case EffectType.Movement:
                 //EditorGUILayout.LabelField("Not Yet Implemented: ", errorLabel);
                 entry.targetDestination = EditorHelper.EnumPopup("Move Direction", entry.targetDestination);
-                entry.moveForce = EditorGUILayout.FloatField("Force", entry.moveForce);
+
+                if (entry.HasStat(StatName.Knockback) <= 0f) {
+                    EditorGUILayout.LabelField("Add Knockback Stat!! ", EditorStyles.boldLabel);
+                }
 
                 break;
             case EffectType.AddChildAbility:
+            case EffectType.AddAbility:
                 EditorGUILayout.LabelField("Abilities to Add: ", EditorStyles.boldLabel);
                 entry.abilitiesToAdd = EditorHelper.DrawList("Child Abilities", entry.abilitiesToAdd, null, DrawAbilityDefinitionList);
                 break;
@@ -511,7 +514,7 @@ public static class AbilityEditorHelper
                 EditorGUILayout.LabelField("Apply Other Effect: ", EditorStyles.boldLabel);
                 entry.applyTriggeringEffect = EditorGUILayout.Toggle("Apply Triggering Effect", entry.applyTriggeringEffect);
 
-                if(entry.applyTriggeringEffect == false) {
+                if (entry.applyTriggeringEffect == false) {
                     entry.targetOtherEffectName = EditorGUILayout.TextField("Target Effect", entry.targetOtherEffectName);
                     entry.targetOtherEffectParentAbilityName = EditorGUILayout.TextField("Target Parent Ability", entry.targetOtherEffectParentAbilityName);
 
@@ -524,7 +527,7 @@ public static class AbilityEditorHelper
 
             case EffectType.SpawnEntity:
                 entry.spawnType = EditorHelper.EnumPopup("Spawn Type", entry.spawnType);
-                if(entry.spawnType == EntitySpawnType.Manual) {
+                if (entry.spawnType == EntitySpawnType.Manual) {
                     entry.entityPrefab = EditorHelper.ObjectField("Prefab", entry.entityPrefab);
                 }
                 entry.percentOfPlayerDamage = EditorGUILayout.FloatField("Percent of Player Damage", entry.percentOfPlayerDamage);
@@ -536,7 +539,7 @@ public static class AbilityEditorHelper
                 entry.teleportDestination = EditorHelper.EnumPopup("Teleport Destination", entry.teleportDestination);
                 entry.teleportVFX = EditorHelper.ObjectField("Teleport VFX", entry.teleportVFX);
 
-                if(entry.teleportDestination == TeleportDestination.OtherTarget) {
+                if (entry.teleportDestination == TeleportDestination.OtherTarget) {
                     entry.otherAbilityName = EditorGUILayout.TextField("Other Ability Name", entry.otherAbilityName);
                     entry.otherEffectName = EditorGUILayout.TextField("Other Effect Name", entry.otherEffectName);
                 }
@@ -560,13 +563,13 @@ public static class AbilityEditorHelper
     }
 
     public static StatData DrawStatData(StatData entry) {
-        if(entry == null) 
+        if (entry == null)
             entry = new StatData();
-               
+
 
         entry.variant = EditorHelper.EnumPopup("Variant", entry.variant);
         entry.statName = EditorHelper.EnumPopup("Stat Name", entry.statName);
-        
+
         entry.value = EditorGUILayout.FloatField("Value", entry.value);
 
         if (entry.variant == StatData.StatVariant.Range) {
@@ -587,7 +590,7 @@ public static class AbilityEditorHelper
     }
 
     private static bool AreStatsDuplicated(StatData data, List<StatData> list) {
-        for (int i = 0; i <list.Count; i++) {
+        for (int i = 0; i < list.Count; i++) {
             StatData currentData = list[i];
 
             if (currentData != data && currentData.statName == data.statName)
@@ -629,7 +632,7 @@ public static class AbilityEditorHelper
                 //entry.deriveTarget = EditorHelper.EnumPopup("Derive Target", entry.deriveTarget);
                 //entry.derivedTargetStat = EditorHelper.EnumPopup("Target Stat", entry.derivedTargetStat);
                 entry.invertDerivedValue = EditorGUILayout.Toggle("Invert?", entry.invertDerivedValue);
-                
+
                 EditorGUILayout.Separator();
                 EditorGUILayout.LabelField("Scalers: ", EditorStyles.boldLabel);
                 entry.scalers = EditorHelper.DrawExtendedList(entry.scalers, "Scaler", DrawStatScaler);
@@ -684,7 +687,7 @@ public static class AbilityEditorHelper
         entry.stackMethod = EditorHelper.EnumPopup("Stack Method", entry.stackMethod);
         entry.initialStackCount = EditorGUILayout.IntField("Initial Stacks", entry.initialStackCount);
 
-        if(entry.stackMethod == Status.StackMethod.LimitedStacks) {
+        if (entry.stackMethod == Status.StackMethod.LimitedStacks) {
             entry.maxStacks = EditorGUILayout.IntField("Max Stacks", entry.maxStacks);
         }
 

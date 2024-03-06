@@ -1,0 +1,218 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
+  m_Name: E_Grant To Existing Orbs
+  m_EditorClassIdentifier: 
+  effectData:
+    effectName: Add Detonate Effect
+    effectDescription: 
+    type: 14
+    targeting: 4
+    subTarget: 1
+    maskTargeting: 1
+    hideFloatingText: 0
+    deliveryPayloadToTarget: 0
+    canOverload: 0
+    canAffectDeadTargets: 0
+    numberOfTargets: -1
+    otherAbilityName: 
+    otherEffectName: 
+    targetConstraints:
+    - type: 4
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: 
+      targetEffectName: 
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+    - type: 8
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 7
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: 
+      targetEffectName: 
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+    riderEffects: []
+    payloadPrefab: {fileID: 0}
+    payloadCount: 1
+    shotDelay: 0.2
+    payloadStatData: []
+    spawnLocation: 0
+    spawnLocationStart: 0
+    spawnLocationEnd: 0
+    minViewportValues: {x: 0, y: 0}
+    maxViewportValues: {x: 0, y: 0}
+    effectZoneInfo:
+      removeEffectOnExit: 0
+      parentEffectToOrigin: 0
+      parentToTarget: 0
+      applyOncePerTarget: 0
+      applyOnInterval: 0
+      affectSource: 0
+      spawnVFX: {fileID: 0}
+      applyVFX: {fileID: 0}
+      deathVFX: {fileID: 0}
+      effectZonePrefab: {fileID: 0}
+    projectileHitMask:
+      serializedVersion: 2
+      m_Bits: 0
+    modData: []
+    floatingTextColor:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    overloadFloatingTextColor:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    effectDesignation: 0
+    statusToAdd: []
+    statusToRemove: 
+    isTeleport: 0
+    invertDestination: 0
+    targetDestination: 0
+    teleportDestination: 0
+    teleportVFX: {fileID: 0}
+    forwardDistance: 0
+    tokenPrefabs: []
+    tokenSpawnLocation: 0
+    overlapCircleRadius: 0
+    overlapLayerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    abilitiesToAdd:
+    - {fileID: 11400000, guid: 30354f3c9f45ec3478ce46b0d61453c4, type: 2}
+    targetOtherEffectParentAbilityName: 
+    targetOtherEffectName: 
+    applyTriggeringEffect: 0
+    statScalersToAdd: []
+    entityPrefab: {fileID: 0}
+    percentOfPlayerDamage: 1
+    destroyPreviousSummonAtCap: 0
+    inheritParentLayer: 1
+    spawnType: 0
+    nameOfAbilityToActivate: 
+    targetStateName: 

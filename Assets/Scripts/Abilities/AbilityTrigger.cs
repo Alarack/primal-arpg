@@ -324,7 +324,7 @@ public abstract class AbilityTrigger {
             return roll < Data.procChance;
         }
 
-        Debug.LogError("A trigger of type: " + Data.type + " has no parent ability,  and no proc chance in its data. Source Entity: " + SourceEntity.EntityName);
+        Debug.LogWarning("A trigger of type: " + Data.type + " has no parent ability,  and no proc chance in its data. Source Entity: " + SourceEntity.EntityName);
 
         return true;
     }
@@ -1015,9 +1015,16 @@ public class StatChangedTrigger : AbilityTrigger {
         CauseOfTrigger = causeOfChange;
         CauseOfAbilityTrigger = ability;
 
-        //string cause = causeOfChange != null ? causeOfChange.EntityName : "null entity";
-        //Debug.Log(affectedTarget.gameObject.name + " had a stat change: " + targetStat + " :: " + changeValue + " caused by: " + cause);
 
+        //if(ParentAbility != null && ParentAbility.Source.ownerType == OwnerConstraintType.Friendly) {
+        //    string cause = causeOfChange != null ? causeOfChange.EntityName : "null entity";
+        //    Debug.Log(affectedTarget.gameObject.name + " had a stat change: " + targetStat + " :: " + changeValue + " caused by: " + cause);
+
+        //    string abilityCause = ability != null ? ability.Data.abilityName : "Null ability";
+        //    Debug.Log("Ability Cause: " + abilityCause);
+        //}
+
+        
 
         StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, targetStat, changeValue, CauseOfAbilityTrigger);
         triggerInstance.CausingAbility = CauseOfAbilityTrigger;
@@ -1089,6 +1096,34 @@ public class UnitDetectedTrigger : AbilityTrigger {
         TriggeringEntity = target;
         if (cause != null)
             CauseOfTrigger = cause;
+        else
+            CauseOfTrigger = SourceEntity;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
+public class EntitySpawnedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.EntitySpawned;
+
+    public override GameEvent TargetEvent => GameEvent.EntitySpawned;
+
+    public override Action<EventData> EventReceiver => OnEntitySpawned;
+
+    public EntitySpawnedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    }
+
+    private void OnEntitySpawned(EventData data) {
+        Entity target = data.GetEntity("Entity");
+        Ability cause = data.GetAbility("Cause");
+
+        TriggeringEntity = target;
+        if (cause != null) {
+            CauseOfAbilityTrigger = cause;
+            CauseOfTrigger = cause.Source;
+        }
         else
             CauseOfTrigger = SourceEntity;
 

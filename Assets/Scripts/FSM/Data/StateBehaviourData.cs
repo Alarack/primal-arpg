@@ -30,6 +30,7 @@ namespace LL.FSM {
         //Pursue
         public float chaseDistance;
         public bool chaseMouse;
+        public bool accelerateViaDistance;
 
         //Flee
         public float fleeDistance;

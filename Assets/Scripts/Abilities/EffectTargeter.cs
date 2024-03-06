@@ -246,9 +246,12 @@ public class EffectTargeter {
         List<Ability> results = new List<Ability>();
 
         if (validEffectTargets.Count == 0) {
-            Debug.LogWarning("An ability: "
+            Debug.LogWarning(
+                "An Effect: " 
+                + parentEffect.Data.effectName
+                + " on the bility: "
                 + parentEffect.ParentAbility.Data.abilityName
-                + ":: on the entity: "
+                + " :: on the entity: "
                 + parentEffect.Source.EntityName
                 + " triggered an effect and had 0 valid targets");
         }
@@ -588,7 +591,7 @@ public class EffectTargeter {
             parentEffect.ActiveEffectZones.Add(effectZone);
         }
 
-        
+        delivery.SpawningAbility = parentEffect.ParentAbility;
     }
 
 

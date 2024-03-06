@@ -182,8 +182,18 @@ namespace LL.FSM {
                     return;
                 }
 
-                if (distanceToMouse > Data.chaseDistance)
-                    brain.Movement.MoveTowardPoint(mousPos);
+                if (distanceToMouse > Data.chaseDistance) {
+
+                    float modifier = 1f;
+
+                    if(Data.accelerateViaDistance == true) {
+                        modifier += distanceToMouse;
+                    }
+                    
+                    
+                    brain.Movement.MoveTowardPoint(mousPos, modifier);
+
+                }
 
                 return;
             }

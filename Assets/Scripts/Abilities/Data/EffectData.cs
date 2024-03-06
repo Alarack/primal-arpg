@@ -18,7 +18,8 @@ public enum EffectType {
     SpawnEntity,
     Teleport,
     ActivateOtherAbility,
-    NPCStateChange
+    NPCStateChange,
+    AddAbility
 }
 
 public enum EffectTarget {
@@ -138,7 +139,7 @@ public class EffectData
     public bool isTeleport;
     public bool invertDestination;
     public MovementDestination targetDestination;
-    public float moveForce;
+    //public float moveForce;
 
     //Teleport
     public TeleportDestination teleportDestination;
@@ -212,6 +213,15 @@ public class EffectData
     //        target.Add(new KeywordData(clone[i]));
     //    }
     //}
+
+    public float HasStat(StatName stat) {
+        for (int i = 0; i < payloadStatData.Count; i++) {
+            if (payloadStatData[i].statName == stat)
+                return payloadStatData[i].value;
+        }
+
+        return 0f;
+    }
 
 }
 

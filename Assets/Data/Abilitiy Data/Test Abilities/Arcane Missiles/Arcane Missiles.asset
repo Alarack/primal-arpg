@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 6
     abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
     abilityName: Arcane Missiles
-    abilityDescription: Whnever you use a Skill, fire {SC} Arcane Missiles which
-      seek forward.
+    abilityDescription: Whnever you use a non-Weapon Skill, fire {SC} Arcane Missiles
+      which seek forward.
     resourceCost: 35
     toBestow: 0
     suspend: 0
@@ -30,7 +30,8 @@ MonoBehaviour:
     childAbilities: []
     tags: 0500000008000000
     activationTriggerData:
-    - type: 11
+    - type: 6
+      procChance: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
@@ -116,11 +117,50 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+        - type: 17
+          inverse: 1
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 21
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
@@ -134,6 +174,7 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
@@ -157,6 +198,7 @@ MonoBehaviour:
         useCustomRefreshTrigger: 0
         customRefreshTriggerData:
           type: 0
+          procChance: 1
           riderAbilityName: 
           riderEffectName: 
           triggerTimerDuration: 0
@@ -166,4 +208,4 @@ MonoBehaviour:
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         minTriggerCount: 0
-      cooldown: 0.5
+      cooldown: 0.25

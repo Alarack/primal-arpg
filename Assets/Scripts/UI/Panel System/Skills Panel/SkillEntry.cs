@@ -18,7 +18,8 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         Hotbar,
         RunePanel,
         ActivePassive,
-        KnownPassive
+        KnownPassive,
+        ClassFeatureSkill
     }
 
 
@@ -304,7 +305,9 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (Ability == null)
             return true;
 
-        if (location == SkillEntryLocation.Hotbar || location == SkillEntryLocation.RunePanel)
+        if (location == SkillEntryLocation.Hotbar || 
+            location == SkillEntryLocation.RunePanel ||
+            location == SkillEntryLocation.ClassFeatureSkill)
             return true;
 
         return false;

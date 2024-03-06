@@ -11,6 +11,7 @@ public class AbilityManager : MonoBehaviour {
 
     public List<Ability> this[AbilityCategory category] { get { return GetAbilitiesByCategory(category); } }
 
+    public List<Ability> ClassFeatures { get { return GetClassFeatures(); } }
     public List<Ability> PassiveAbilities { get { return this[AbilityCategory.PassiveSkill]; } }
     public List<Ability> ActiveAbilities { get { return this[AbilityCategory.ActiveSkill]; } }
     public List<Ability> KnownAbilities { get { return this[AbilityCategory.KnownSkill]; } }
@@ -106,7 +107,7 @@ public class AbilityManager : MonoBehaviour {
         if (KnownAbilities.Contains(ability) == true) {
 
             if (ability.equippedRunes.Count > ability.RuneSlots) {
-                Debug.Log(ability.Data.abilityName + " is Overloaded!");
+                Debug.LogWarning(ability.Data.abilityName + " is Overloaded!");
             }
 
         }
@@ -141,7 +142,7 @@ public class AbilityManager : MonoBehaviour {
 
     #region LEARNING AND EQUIPPING
 
-    public void LearnAbility(Ability ability, AbilityCategory category) {
+    public void LearnAbility(Ability ability, AbilityCategory category, bool autoEquip = false) {
 
 
         Abilities[category].AddUnique(ability);
@@ -150,6 +151,8 @@ public class AbilityManager : MonoBehaviour {
             AbilitiesByName.Add(ability.Data.abilityName, ability);
         }
 
+        if(autoEquip == true)
+            ability.Equip();
         //if (category == AbilityCategory.ActiveSkill || category == AbilityCategory.KnownSkill) {
 
         //    if (KnownAbilities.AddUnique(ability) == true) {
@@ -163,9 +166,9 @@ public class AbilityManager : MonoBehaviour {
         EventManager.SendEvent(GameEvent.AbilityLearned, data);
     }
 
-    public Ability LearnAbility(AbilityData abilityData) {
+    public Ability LearnAbility(AbilityData abilityData, bool autoEquip = false) {
         Ability newAbility = AbilityFactory.CreateAbility(abilityData, Owner);
-        LearnAbility(newAbility, abilityData.category);
+        LearnAbility(newAbility, abilityData.category, autoEquip);
 
         return newAbility;
     }
@@ -226,6 +229,7 @@ public class AbilityManager : MonoBehaviour {
         if (ActiveAbilities.RemoveIfContains(ability) == true) {
             ability.Uneqeuip();
             onAbilityUnequipped?.Invoke(ability, index);
+            //Debug.Log("Unequipping: " + ability.Data.abilityName);
         }
         else
             Debug.LogError(ability.Data.abilityName + " is not equipped, so we can't unequip it");
@@ -253,6 +257,18 @@ public class AbilityManager : MonoBehaviour {
         foreach (var entry in Abilities) {
             for (int i = 0; i < entry.Value.Count; i++) {
                 results.AddUnique(entry.Value[i]);
+            }
+        }
+        return results;
+    }
+
+    public List<Ability> GetClassFeatures() {
+        List<Ability> results = new List<Ability>();
+
+        foreach (var entry in Abilities) {
+            for (int i = 0; i < entry.Value.Count; i++) {
+                if (entry.Value[i].Tags.Contains(AbilityTag.ClassFeature))
+                    results.AddUnique(entry.Value[i]);
             }
         }
         return results;

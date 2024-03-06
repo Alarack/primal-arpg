@@ -31,7 +31,12 @@ MonoBehaviour:
     payloadPrefab: {fileID: 2109167299929148009, guid: 9bb3c24f0b1eb9d4087e7f4145ba25bf, type: 3}
     payloadCount: 1
     shotDelay: 0.2
-    payloadStatData: []
+    payloadStatData:
+    - variant: 0
+      statName: 9
+      value: 75
+      maxValue: 0
+      minValue: 0
     spawnLocation: 0
     spawnLocationStart: 0
     spawnLocationEnd: 0
@@ -40,6 +45,7 @@ MonoBehaviour:
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 1
+      parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 0
       affectSource: 0
@@ -133,7 +139,6 @@ MonoBehaviour:
     isTeleport: 0
     invertDestination: 0
     targetDestination: 2
-    moveForce: 75
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0

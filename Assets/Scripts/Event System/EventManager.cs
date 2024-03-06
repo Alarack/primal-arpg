@@ -157,7 +157,9 @@ namespace LL.Events {
         TeleportInitiated,
         TeleportConcluded,
         EntityLeveled,
-        UserAbilityCanceled
+        UserAbilityCanceled,
+        EffectStatAdjusted,
+        EntitySpawned
 
     }
 

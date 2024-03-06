@@ -62,7 +62,7 @@ public abstract class Entity : MonoBehaviour {
 
     public Ability ActivelyCastingAbility { get; set; }
 
-    //public Entity MinionMaster { get; set; }
+    public Ability SpawningAbility { get; set; }
 
     protected virtual void Awake() {
         Stats = new StatCollection(this, statDefinitions);
@@ -88,6 +88,8 @@ public abstract class Entity : MonoBehaviour {
 
         if (AbilityManager != null)
             AbilityManager.Setup();
+
+        SendEntitySpawnEvent();
     }
 
     protected virtual void Update() {
@@ -160,6 +162,14 @@ public abstract class Entity : MonoBehaviour {
 
 
     #region EVENTS
+
+    private void SendEntitySpawnEvent() {
+        EventData data = new EventData();
+        data.AddEntity("Entity", this);
+        data.AddAbility("Cause", SpawningAbility);
+
+        EventManager.SendEvent(GameEvent.EntitySpawned, data);
+    }
 
     protected virtual void RegisterStatListeners() {
         //if(Stats.Contains(StatName.Health) == true) {

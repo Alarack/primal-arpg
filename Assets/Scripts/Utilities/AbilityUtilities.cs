@@ -94,6 +94,7 @@ public static class AbilityUtilities {
             SkillEntryLocation.KnownSkill => EntityManager.ActivePlayer.AbilityManager.KnownAbilities,
             SkillEntryLocation.Hotbar => EntityManager.ActivePlayer.AbilityManager.ActiveAbilities,
             SkillEntryLocation.KnownPassive => EntityManager.ActivePlayer.AbilityManager.PassiveAbilities,
+            SkillEntryLocation.ClassFeatureSkill => EntityManager.ActivePlayer.AbilityManager.ClassFeatures,
             _ => new List<Ability>(),
         };
 
@@ -101,6 +102,9 @@ public static class AbilityUtilities {
 
         if(location == SkillEntryLocation.KnownPassive || location == SkillEntryLocation.ActivePassive) {
             for (int i = 0; i < abilities.Count; i++) {
+                //if (abilities[i].Tags.Contains(AbilityTag.ClassFeature) == true)
+                //    return;
+                
                 list.Add(CreatePassiveSkillEntry(abilities[i], prefab, holder, location));
             }
         }

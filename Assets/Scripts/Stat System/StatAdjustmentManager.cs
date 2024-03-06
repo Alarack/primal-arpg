@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
+using static UnityEngine.GraphicsBuffer;
 
 public static class StatAdjustmentManager {
 
@@ -17,10 +18,14 @@ public static class StatAdjustmentManager {
 
     public static void AddEffectModifier(Effect effect, StatModifier mod) {
         effect.Stats.AddModifier(mod.TargetStat, mod);
+
+        SendEffectStatChangeEvent(mod.TargetStat, effect, mod.Value);
     }
 
     public static void RemoveEffectModifier(Effect effect, StatModifier mod) {
         effect.Stats.RemoveModifier(mod.TargetStat, mod);
+
+        SendEffectStatChangeEvent(mod.TargetStat, effect, mod.Value);
     }
 
     public static void AddAbilityModifier(Ability ability, StatModifier mod) {
@@ -163,6 +168,15 @@ public static class StatAdjustmentManager {
         data.AddFloat("Value", changeValue);
 
         EventManager.SendEvent(GameEvent.AbilityStatAdjusted, data);
+    }
+
+    private static void SendEffectStatChangeEvent(StatName statName, Effect target, float changeValue) {
+        EventData data = new EventData();
+        data.AddEffect("Effect", target);
+        data.AddInt("Stat", (int)statName);
+        data.AddFloat("Value", changeValue);
+
+        EventManager.SendEvent(GameEvent.EffectStatAdjusted, data);
     }
 
     private static void SendStatChangeEvent(StatName targetStat, Entity target, Entity source, Ability sourceAbility, float changeValue) {

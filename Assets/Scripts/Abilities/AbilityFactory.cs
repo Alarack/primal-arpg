@@ -42,6 +42,7 @@ public static class AbilityFactory {
             TriggerType.AbilityInitiated => new AbilityInitiatedTrigger(data, source, parentAbility),
             TriggerType.AIActivated => new AIActivatedTrigger(data, source, parentAbility),
             TriggerType.UserCancelled => new UserCancelledTrigger(data, source, parentAbility),
+            TriggerType.EntitySpawned => new EntitySpawnedTrigger(data, source, parentAbility),
             _ => null,
         };
 
@@ -119,6 +120,7 @@ public static class AbilityFactory {
             EffectType.None => new EmptyEffect(data, source, parentAbility),
             EffectType.ActivateOtherAbility => new ActivateAbilityEffect(data, source, parentAbility),
             EffectType.NPCStateChange => new NPCStateChangeEffect(data, source, parentAbility),
+            EffectType.AddAbility => new AddAbilityEffect(data, source, parentAbility),
             _ => null,
         };
 

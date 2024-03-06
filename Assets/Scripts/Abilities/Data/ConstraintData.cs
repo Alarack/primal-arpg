@@ -36,7 +36,7 @@ public enum ConstraintType {
     EffectApplied,
     EffectType,
     StatRatio,
-    UnitIsMoving
+    UnitIsMoving,
 }
 
 public enum GainedOrLost {

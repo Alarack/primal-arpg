@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using static AbilityTrigger;
+using static Status;
+using static UnityEngine.GraphicsBuffer;
 using Random = UnityEngine.Random;
 
 
@@ -555,7 +557,7 @@ public class ForcedMovementEffect : Effect {
 
     private void ApplyTowardMouse(Entity target) {
         Vector2 directionToMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Source.transform.position;
-        Vector2 force = directionToMouse.normalized * Data.moveForce;
+        Vector2 force = directionToMouse.normalized * Stats[StatName.Knockback];
 
         Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
 
@@ -565,7 +567,7 @@ public class ForcedMovementEffect : Effect {
     }
 
     private void ApplySourceForward(Entity target) {
-        Vector2 force = target.transform.up.normalized * Data.moveForce;
+        Vector2 force = target.transform.up.normalized * Stats[StatName.Knockback];
 
         Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
 
@@ -577,7 +579,7 @@ public class ForcedMovementEffect : Effect {
     private void ApplyForceAwayFromSource(Entity target) {
         Vector2 direction = target.transform.position - Source.transform.position;
 
-        Vector2 resultingForce = direction.normalized * Data.moveForce;
+        Vector2 resultingForce = direction.normalized * Stats[StatName.Knockback];
 
         Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
 
@@ -816,6 +818,95 @@ public class ApplyOtherEffect : Effect {
     }
 }
 
+public class AddAbilityEffect : Effect {
+
+    public override EffectType Type => EffectType.AddAbility;
+
+
+    private Dictionary<Entity, List<Ability>> trackedAbilities = new Dictionary<Entity, List<Ability>>();
+
+    private List<Ability> activeAbilities = new List<Ability>();
+
+    public AddAbilityEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        for (int i = 0; i < data.abilitiesToAdd.Count; i++) {
+            Ability template = AbilityFactory.CreateAbility(data.abilitiesToAdd[i].AbilityData, source);
+            activeAbilities.Add(template);
+        }
+
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        for (int i = 0; i < Data.abilitiesToAdd.Count; i++) {
+            Ability newChild = target.AbilityManager.LearnAbility(Data.abilitiesToAdd[i].AbilityData, true);
+            TrackAbilties(target, newChild);
+
+            Debug.Log("Adding new ability: " + newChild.Data.abilityName);
+        }
+
+        return true;
+
+
+
+    }
+
+    public override void Remove(Entity target) {
+        base.Remove(target);
+
+
+        if (trackedAbilities.TryGetValue(target, out List<Ability> abilitiesLearned) == true) {
+
+            for (int i = 0; i < abilitiesLearned.Count; i++) {
+                target.AbilityManager.UnlearnAbility(abilitiesLearned[i]);
+            }
+
+            trackedAbilities.Remove(target);
+        }
+    }
+
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+        throw new NotImplementedException();
+    }
+
+    private void TrackAbilties(Entity target, Ability newAbility) {
+        if (trackedAbilities.TryGetValue(target, out List<Ability> children) == true) {
+            children.Add(newAbility);
+        }
+        else {
+            trackedAbilities.Add(target, new List<Ability> { newAbility });
+        }
+    }
+
+    public override void RemoveFromAbility(Ability target) {
+        base.RemoveFromAbility(target);
+
+       throw new NotImplementedException();
+
+    }
+
+    public override string GetTooltip() {
+        //return base.GetTooltip();
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < activeAbilities.Count; i++) {
+            builder.Append(activeAbilities[i].GetTooltip());
+
+            if (i != activeAbilities.Count - 1)
+                builder.AppendLine();
+        }
+
+        return builder.ToString();
+    }
+}
+
+
 public class AddChildAbilityEffect : Effect {
 
     public override EffectType Type => EffectType.AddChildAbility;
@@ -839,6 +930,10 @@ public class AddChildAbilityEffect : Effect {
 
         throw new NotImplementedException();
 
+    }
+
+    public override void Remove(Entity target) {
+        base.Remove(target);
     }
 
 
@@ -1259,6 +1354,7 @@ public class SpawnEntityEffect : Effect {
     public override void RegisterEvents() {
         base.RegisterEvents();
         EventManager.RegisterListener(GameEvent.UnitDied, OnUnitDied);
+        EventManager.RegisterListener(GameEvent.EffectStatAdjusted, OnStatChanged);
     }
 
     public override void UnregisterEvents() {
@@ -1266,7 +1362,21 @@ public class SpawnEntityEffect : Effect {
         EventManager.RemoveMyListeners(this);
     }
 
+    private void OnStatChanged(EventData data) {
+       Effect target = data.GetEffect("Effect");
 
+        if (target != this)
+            return;
+       
+        StatName stat =  (StatName)data.GetInt("Stat");
+
+        if(stat == StatName.MaxMinionCount) {
+            if(activeSpawns.Count > Stats[StatName.MaxMinionCount]) {
+                //Debug.LogError("Too many spawns");
+                activeSpawns[0].ForceDie(null);
+            }
+        }
+    }
     private void OnUnitDied(EventData data) {
         //Entity cause =  data.GetEntity("Killer");
         Ability causingAbility = data.GetAbility("Ability Cause");
@@ -1406,6 +1516,8 @@ public class SpawnEntityEffect : Effect {
             EntitySpawnType.Series => throw new NotImplementedException(),
             _ => null,
         };
+
+        result.SpawningAbility = ParentAbility;
 
         return result;
 

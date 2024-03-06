@@ -166,9 +166,11 @@ public class Ability {
     }
 
     public void Uneqeuip() {
+
         //Debug.Log("Unequipping: " + Data.abilityName);
+
         if (IsEquipped == false) {
-            //Debug.LogWarning("Tried to unequip " + Data.abilityName + " but it wasn't equipped");
+            Debug.LogWarning("Tried to unequip " + Data.abilityName + " but it wasn't equipped");
             return;
         }
 
@@ -186,12 +188,14 @@ public class Ability {
         IsEquipped = false;
         IsActive = false;
 
-        //for (int i = 0; i < ChildAbilities.Count; i++) {
-        //    ChildAbilities[i].Uneqeuip();
-        //}
+        for (int i = 0; i < ChildAbilities.Count; i++) {
+            ChildAbilities[i].Uneqeuip();
+        }
 
         if (IsChanneled == true)
             TimerManager.RemoveTimerAction(HandleChannelingCost);
+
+        
     }
 
     private void RegisterAbility() {
@@ -947,7 +951,10 @@ public class Ability {
             return;
         }
 
-        //Debug.Log(TextHelper.ColorizeText( "An ability: " + Data.abilityName + " is starting. Source: " + Source.gameObject.name, Color.green));
+        //if (Source != null && Source.ownerType == OwnerConstraintType.Friendly && Source.subtypes.Contains(Entity.EntitySubtype.Orbital))
+        //    Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is starting. Source: " + Source.gameObject.name, Color.green));
+
+
         IsActive = true;
         
         SendAbilityInitiatedEvent(activationInstance);

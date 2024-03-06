@@ -23,7 +23,10 @@ public enum AbilityTag {
     Teleportation,
     CastTime,
     Air,
-    Channeled
+    Channeled,
+    ClassFeature,
+    Orbital,
+    Weapon
 }
 
 public enum AbilityCategory {
@@ -33,7 +36,8 @@ public enum AbilityCategory {
     Rune,
     Any,
     ChildAbility,
-    PassiveSkill
+    PassiveSkill,
+    ClassFeatureSkill
 }
 
 

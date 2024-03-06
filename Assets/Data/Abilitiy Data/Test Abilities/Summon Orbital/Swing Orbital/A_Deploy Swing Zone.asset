@@ -27,7 +27,7 @@ MonoBehaviour:
     ignoreTooltip: 0
     runeAbilityTarget: 
     childAbilities: []
-    tags: 
+    tags: 14000000
     activationTriggerData:
     - type: 5
       procChance: 1
@@ -72,21 +72,4 @@ MonoBehaviour:
     baseRuneSlots: 2
     windupVFX: {fileID: 0}
     abilityStatData: []
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          procChance: 1
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          delay1Frame: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        minTriggerCount: 0
-      cooldown: 0.25
+    recoveryData: []
