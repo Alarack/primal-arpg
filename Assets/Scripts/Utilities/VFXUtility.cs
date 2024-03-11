@@ -36,6 +36,8 @@ public static class VFXUtility
             GameObject.Destroy(activeVFX, destroyTimer);
         }
 
+        //Debug.LogWarning("Spawned: " + activeVFX.name);
+
         return activeVFX;
     }
 

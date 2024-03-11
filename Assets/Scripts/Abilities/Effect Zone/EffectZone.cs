@@ -90,6 +90,8 @@ public class EffectZone : Entity {
 
         ConfigureCollision();
         cleanTask = new Task(CleanupAfterLifetime());
+
+        SpawnEntranceEffect(effectSize);
     }
 
     protected override void Update() {

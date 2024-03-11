@@ -70,7 +70,8 @@ public enum StatName
     EffectZoneWindupTime,
     Experience,
     StatReroll,
-    ProcChance
+    ProcChance,
+    EssenceShield
 }
 
 

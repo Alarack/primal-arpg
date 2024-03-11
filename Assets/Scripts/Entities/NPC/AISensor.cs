@@ -102,7 +102,10 @@ public class AISensor : MonoBehaviour {
             return;
 
         if (targetStat == StatName.Health && value < 0f) {
-            if (detectOnDamageTaken == true && cause != null && cause != owner) {
+            if (detectOnDamageTaken == true 
+                && cause != null 
+                && cause != owner 
+                && cause.subtypes.Contains(Entity.EntitySubtype.Orbital) == false) {
                 OnTargetDetected(cause);
             }
         }

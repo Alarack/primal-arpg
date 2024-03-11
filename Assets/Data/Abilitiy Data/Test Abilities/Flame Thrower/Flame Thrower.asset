@@ -30,6 +30,7 @@ MonoBehaviour:
     tags: 010000000600000012000000
     activationTriggerData:
     - type: 6
+      procChance: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
@@ -117,6 +118,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
     endTriggerData:
     - type: 32
+      procChance: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
@@ -206,6 +208,7 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
@@ -219,6 +222,7 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
@@ -237,7 +241,7 @@ MonoBehaviour:
     abilityStatData:
     - variant: 0
       statName: 46
-      value: 20
+      value: 2
       maxValue: 0
       minValue: 0
     - variant: 0
@@ -252,6 +256,7 @@ MonoBehaviour:
         useCustomRefreshTrigger: 0
         customRefreshTriggerData:
           type: 0
+          procChance: 1
           riderAbilityName: 
           riderEffectName: 
           triggerTimerDuration: 0

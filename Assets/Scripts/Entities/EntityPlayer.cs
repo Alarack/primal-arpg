@@ -6,16 +6,14 @@ using System;
 using System.Linq;
 using System.Text;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
-public class EntityPlayer : Entity
-{
+public class EntityPlayer : Entity {
 
     public bool debugGodMode;
     public CircleCollider2D vacumCollider;
     public Inventory Inventory { get; private set; }
-    //public bool CanAttack { get; set; } = true;
 
-    private Timer essenceRegenTimer;
 
     public float CurrentDamageRoll { get { return GetDamgeRoll(); } }
 
@@ -28,48 +26,24 @@ public class EntityPlayer : Entity
 
     protected override void Start() {
         base.Start();
-
-        essenceRegenTimer = new Timer(Stats[StatName.EssenceRegenerationRate], RegenEssence, true);
     }
 
     protected override void OnEnable() {
         base.OnEnable();
 
-        Stats.AddStatListener(StatName.EssenceRegenerationRate, OnEssenceRegenChanged);
     }
 
     protected override void OnDisable() {
         base.OnDisable();
-        Stats.RemoveStatListener(StatName.EssenceRegenerationRate, OnEssenceRegenChanged);
     }
 
 
     protected override void Update() {
         base.Update();
-        if(essenceRegenTimer != null) {
+        if (essenceRegenTimer != null) {
             essenceRegenTimer.UpdateClock();
         }
 
-    }
-
-
-    public bool TrySpendEssence(float value) {
-        float difference = Stats[StatName.Essence] - value;
-
-        if (difference < 0)
-            return false;
-
-        Stats.AdjustStatRangeCurrentValue(StatName.Essence, -value, StatModType.Flat, this);
-        return true;
-    }
-
-    private void OnEssenceRegenChanged(BaseStat stat, object source, float value) {
-        essenceRegenTimer.SetDuration(stat.ModifiedValue);
-    }
- 
-    private void RegenEssence(EventData data) {
-        //Debug.Log("Regening: " + Stats[StatName.EssenceRegenerationValue] + "% of max essence. CurrentValue: " + Stats[StatName.Essence]);
-        Stats.AdjustStatRangeByPercentOfMaxValue(StatName.Essence, Stats[StatName.EssenceRegenerationValue], this);
     }
 
     public float GetDamgeRoll() {
@@ -90,7 +64,6 @@ public class EntityPlayer : Entity
 
     #region EVENTS
 
-
     public override bool HasAbilityOfTag(AbilityTag tag) {
 
         List<Ability> targetAbilities = AbilityManager.GetAbilitiesByTag(tag, AbilityCategory.KnownSkill);
@@ -107,7 +80,7 @@ public class EntityPlayer : Entity
 
     protected override void Die(Entity source, Ability sourceAbility = null) {
 
-        if(debugGodMode == true) {
+        if (debugGodMode == true) {
             return;
         }
 

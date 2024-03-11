@@ -1957,15 +1957,52 @@ public class StatAdjustmentEffect : Effect {
     private void ApplyToEntity(Entity target, StatModifier activeMod) {
 
         float globalDamageMultiplier = GetDamageModifier(activeMod);
+
+        float targetManaShield = target.Stats[StatName.EssenceShield];
+        
+        if(targetManaShield > 0f && activeMod.TargetStat == StatName.Health) {
+            float leftoverDamage = target.HandleManaShield(activeMod.Value * globalDamageMultiplier, targetManaShield);
+
+            
+
+            if(leftoverDamage < 0f) {
+                activeMod.UpdateModValue(leftoverDamage);
+                float modValueResultAfterShield = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, 1f);
+                ShowFloatingtext(activeMod, modValueResultAfterShield, target.transform.position);
+                Debug.LogWarning("Damage after mana shield: " + modValueResultAfterShield);
+
+            }
+            else {
+                Debug.Log("No leftover damage");
+
+            }
+
+            return;
+        }
+        
+        
         float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
 
         //Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName);
 
 
+        ShowFloatingtext(activeMod, modValueResult, target.transform.position);
+
+        //if (activeMod.TargetStat == StatName.Health && Data.hideFloatingText == false) {
+        //    //Debug.LogWarning("Damage dealt: " + modValueResult + " : " + Data.effectName);
+
+        //    FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString(), 0.75f, isOverloading);
+
+        //    Gradient targetGrad = isOverloading == false ? Data.floatingTextColor : Data.overloadFloatingTextColor;
+        //    text.SetColor(targetGrad);
+        //}
+    }
+
+    private void ShowFloatingtext(StatModifier activeMod, float modValueResult, Vector2 position) {
         if (activeMod.TargetStat == StatName.Health && Data.hideFloatingText == false) {
             //Debug.LogWarning("Damage dealt: " + modValueResult + " : " + Data.effectName);
 
-            FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString(), 0.75f, isOverloading);
+            FloatingText text = FloatingTextManager.SpawnFloatingText(position, modValueResult.ToString(), 0.75f, isOverloading);
 
             Gradient targetGrad = isOverloading == false ? Data.floatingTextColor : Data.overloadFloatingTextColor;
             text.SetColor(targetGrad);

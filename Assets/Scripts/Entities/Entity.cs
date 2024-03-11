@@ -64,6 +64,8 @@ public abstract class Entity : MonoBehaviour {
 
     public Ability SpawningAbility { get; set; }
 
+    protected Timer essenceRegenTimer;
+
     protected virtual void Awake() {
         Stats = new StatCollection(this, statDefinitions);
 
@@ -89,6 +91,10 @@ public abstract class Entity : MonoBehaviour {
         if (AbilityManager != null)
             AbilityManager.Setup();
 
+        if(Stats.Contains(StatName.EssenceRegenerationRate) == true)
+            essenceRegenTimer = new Timer(Stats[StatName.EssenceRegenerationRate], RegenEssence, true);
+
+
         SendEntitySpawnEvent();
     }
 
@@ -99,6 +105,10 @@ public abstract class Entity : MonoBehaviour {
     protected virtual void OnEnable() {
         RegisterStatListeners();
         SpawnEntranceEffect();
+
+        if (Stats.Contains(StatName.EssenceRegenerationRate) == true)
+            Stats.AddStatListener(StatName.EssenceRegenerationRate, OnEssenceRegenChanged);
+
     }
 
     protected virtual void OnDisable() {
@@ -107,6 +117,9 @@ public abstract class Entity : MonoBehaviour {
         //}
 
         //StopAllCoroutines();
+        if (Stats.Contains(StatName.EssenceRegenerationRate) == true)
+            Stats.RemoveStatListener(StatName.EssenceRegenerationRate, OnEssenceRegenChanged);
+
 
         EventManager.RemoveMyListeners(this);
     }
@@ -116,6 +129,72 @@ public abstract class Entity : MonoBehaviour {
         //Debug.Log(EntityName + " Collided with: " + other.gameObject.name);
 
     }
+
+    #region ESSENCE
+
+    public bool TrySpendEssence(float value) {
+        float difference = Stats[StatName.Essence] - value;
+
+        if (difference < 0)
+            return false;
+
+        Debug.Log("Spending: " + value + " Essence");
+
+        Stats.AdjustStatRangeCurrentValue(StatName.Essence, -value, StatModType.Flat, this);
+        SendEssenceChangedEvent(-value);
+
+        return true;
+    }
+
+    public void SpendAllEssence() {
+        float allMana = Stats[StatName.Essence];
+
+
+        Stats.AdjustStatRangeCurrentValue(StatName.Essence, -allMana, StatModType.Flat, this);
+        SendEssenceChangedEvent(-allMana);
+    }
+
+    public float HandleManaShield(float incomingDamage, float conversionRate) {
+
+        if (incomingDamage > 0f)
+            return 0f;
+
+        float convertedDamage = incomingDamage * -1;
+
+        Debug.Log("Incoming damage: " + convertedDamage);
+
+        float manaCost = convertedDamage * conversionRate;
+
+
+        if (Stats[StatName.Essence] < conversionRate) {
+            Debug.Log("Not enough mana to shield: " + conversionRate);
+            return incomingDamage;
+        }
+
+
+        if (Stats[StatName.Essence] > manaCost) {
+            TrySpendEssence(manaCost);
+            Debug.LogWarning("Blocked all damage: " + manaCost);
+            return 0f;
+        }
+
+        float leftOver = manaCost - Stats[StatName.Essence];
+        SpendAllEssence();
+        return -leftOver;
+
+    }
+
+    protected void OnEssenceRegenChanged(BaseStat stat, object source, float value) {
+        essenceRegenTimer.SetDuration(stat.ModifiedValue);
+    }
+
+    protected void RegenEssence(EventData data) {
+        //Debug.Log("Regening: " + Stats[StatName.EssenceRegenerationValue] + "% of max essence. CurrentValue: " + Stats[StatName.Essence]);
+        Stats.AdjustStatRangeByPercentOfMaxValue(StatName.Essence, Stats[StatName.EssenceRegenerationValue], this);
+        SendEssenceChangedEvent(Stats[StatName.EssenceRegenerationValue]);
+    }
+
+    #endregion
 
     #region ABILIITES
 
@@ -169,6 +248,15 @@ public abstract class Entity : MonoBehaviour {
         data.AddAbility("Cause", SpawningAbility);
 
         EventManager.SendEvent(GameEvent.EntitySpawned, data);
+    }
+
+    protected void SendEssenceChangedEvent(float value) {
+        EventData data = new EventData();
+        data.AddEntity("Target", this);
+        data.AddFloat("Value", value);
+        data.AddInt("Stat", (int)StatName.Essence);
+
+        EventManager.SendEvent(GameEvent.UnitStatAdjusted, data);
     }
 
     protected virtual void RegisterStatListeners() {
@@ -269,12 +357,17 @@ public abstract class Entity : MonoBehaviour {
 
     #region VFX
 
-    protected void SpawnDeathVFX() {
-        VFXUtility.SpawnVFX(deathEffectPrefab, transform.position, Quaternion.identity, null, 2f);
+    protected void SpawnDeathVFX(float scale = 1f) {
+        VFXUtility.SpawnVFX(deathEffectPrefab, transform.position, Quaternion.identity, null, 2f, scale);
     }
 
-    protected void SpawnEntranceEffect() {
-        VFXUtility.SpawnVFX(spawnEffectPrefab, transform.position, Quaternion.identity, null, 2f);
+    protected void SpawnEntranceEffect(float scale = 1f) {
+        
+        //if(spawnEffectPrefab != null)
+        //    Debug.LogWarning("Spawing Entrance Effect for: " + EntityName + " : " + spawnEffectPrefab.name);
+        
+        
+        VFXUtility.SpawnVFX(spawnEffectPrefab, transform.position, Quaternion.identity, null, 2f, scale);
     }
 
 

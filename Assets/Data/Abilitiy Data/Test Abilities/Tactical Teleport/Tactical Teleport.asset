@@ -23,12 +23,14 @@ MonoBehaviour:
     autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
+    showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     runeAbilityTarget: 
     childAbilities: []
     tags: 0e0000000f000000
     activationTriggerData:
     - type: 6
+      procChance: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
@@ -79,6 +81,7 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
@@ -92,6 +95,7 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
@@ -107,7 +111,12 @@ MonoBehaviour:
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     windupVFX: {fileID: 0}
-    abilityStatData: []
+    abilityStatData:
+    - variant: 0
+      statName: 46
+      value: 0
+      maxValue: 0
+      minValue: 0
     recoveryData:
     - type: 0
       recoveryTriggers: []
@@ -115,6 +124,7 @@ MonoBehaviour:
         useCustomRefreshTrigger: 0
         customRefreshTriggerData:
           type: 0
+          procChance: 1
           riderAbilityName: 
           riderEffectName: 
           triggerTimerDuration: 0
@@ -124,4 +134,4 @@ MonoBehaviour:
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         minTriggerCount: 0
-      cooldown: 1
+      cooldown: 4
