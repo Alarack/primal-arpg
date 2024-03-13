@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Missile Storm Rune
+  m_Name: Focused Regen Rune
   m_EditorClassIdentifier: 
   devItem: 0
   itemData:
     Type: 2
     entityClass: 0
-    itemName: MIssile Storm
-    itemDescription: Your Arcane Missles can trigger themselves.
-    itemValue: 50
-    runeAbilityTarget: Arcane Missiles
+    itemName: Focused Regeneration Rune
+    itemDescription: Your Essence regenerates faster.
+    itemValue: 200
+    runeAbilityTarget: Essence Field
     validSlots: 0e000000
     abilityTags: 
-    itemIcon: {fileID: 21300000, guid: 2171199f529756242b151914e1e1d941, type: 3}
-    pickupIcon: {fileID: 21300000, guid: 2171199f529756242b151914e1e1d941, type: 3}
+    itemIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
+    pickupIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
     pickupOnCollision: 1
     minDamage: 0
     maxDamage: 0
     statModifierData: []
     abilityDefinitions:
-    - {fileID: 11400000, guid: e600b12ade7d52743846c7013fc7bb3c, type: 2}
+    - {fileID: 11400000, guid: 166270206d726a243b8d30e23ff0306e, type: 2}
     learnableAbilities: []

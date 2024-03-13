@@ -189,7 +189,9 @@ public static class StatAdjustmentManager {
 
         EventManager.SendEvent(GameEvent.UnitStatAdjusted, eventData);
 
-        //Debug.Log("Adjusting a stat: " + targetStat + " Value: " + changeValue + " target: " + target.gameObject.name);
+        //if(target is EntityPlayer)
+        //    Debug.Log("Adjusting a stat: " + targetStat + " Value: " + changeValue + " target: " + target.gameObject.name);
+
     }
 
 

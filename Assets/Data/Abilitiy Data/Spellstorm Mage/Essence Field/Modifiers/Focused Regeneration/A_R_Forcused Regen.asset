@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: Missile Storm
+  m_Name: A_R_Forcused Regen
   m_EditorClassIdentifier: 
   AbilityData:
     category: 3
-    abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
-    abilityName: Missile Storm
+    abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
+    abilityName: Focursed Regeneration
     abilityDescription: 
     resourceCost: 0
     toBestow: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
-    runeAbilityTarget: Arcane Missiles
+    runeAbilityTarget: Essence Field
     childAbilities: []
     tags: 
     activationTriggerData:
@@ -35,7 +35,9 @@ MonoBehaviour:
       riderEffectName: 
       triggerTimerDuration: 0
       delay1Frame: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 0
+        constraintData: []
     endTriggerData:
     - type: 18
       procChance: 1
@@ -43,7 +45,9 @@ MonoBehaviour:
       riderEffectName: 
       triggerTimerDuration: 0
       delay1Frame: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 0
+        constraintData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -73,7 +77,7 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: a4b644f55d6804a4a925877af860334a, type: 2}
+    - {fileID: 11400000, guid: 27346d4075bbaa0459ec66cfbcb08578, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

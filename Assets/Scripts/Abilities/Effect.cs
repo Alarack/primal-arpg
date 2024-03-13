@@ -518,6 +518,14 @@ public class ActivateAbilityEffect : Effect {
 
         return true;
     }
+
+
+    public override string GetTooltip() {
+        string baseDesc = base.GetTooltip();
+
+        string replacement = baseDesc.Replace("{PR}", TextHelper.FormatStat(StatName.ProcChance, ParentAbility.Stats[StatName.ProcChance]));
+        return replacement;
+    }
 }
 
 public class ForcedMovementEffect : Effect {
@@ -985,8 +993,12 @@ public class AddChildAbilityEffect : Effect {
 
         StringBuilder builder = new StringBuilder();
 
+        Debug.Log("Effect: " + Data.effectName +" : Showing tooltip for an Add Child Ability Effect with: " + activeAbilities.Count + " abilites to add");
+
         for (int i = 0; i < activeAbilities.Count; i++) {
             builder.Append(activeAbilities[i].GetTooltip());
+
+
 
             if (i != activeAbilities.Count - 1)
                 builder.AppendLine();
@@ -1963,17 +1975,11 @@ public class StatAdjustmentEffect : Effect {
         if(targetManaShield > 0f && activeMod.TargetStat == StatName.Health) {
             float leftoverDamage = target.HandleManaShield(activeMod.Value * globalDamageMultiplier, targetManaShield);
 
-            
-
             if(leftoverDamage < 0f) {
                 activeMod.UpdateModValue(leftoverDamage);
                 float modValueResultAfterShield = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, 1f);
                 ShowFloatingtext(activeMod, modValueResultAfterShield, target.transform.position);
-                Debug.LogWarning("Damage after mana shield: " + modValueResultAfterShield);
-
-            }
-            else {
-                Debug.Log("No leftover damage");
+                //Debug.LogWarning("Damage after mana shield: " + modValueResultAfterShield);
 
             }
 

@@ -149,6 +149,11 @@ public class Ability {
         RegisterAbility();
         IsEquipped = true;
 
+
+        for (int i = 0; i < equippedRunes.Count; i++) {
+            equippedRunes[i].ReactivateEquippedRunes();
+        }
+
         EventData data = new EventData();
         data.AddAbility("Ability", this);
 
@@ -174,9 +179,9 @@ public class Ability {
             return;
         }
 
-        //for (int i = 0; i < equippedRunes.Count; i++) {
-        //    equippedRunes[i].UnEquip();
-        //}
+        for (int i = 0; i < equippedRunes.Count; i++) {
+            equippedRunes[i].DeactivateEquippedRunes();
+        }
 
         EventData data = new EventData();
         data.AddAbility("Ability", this);
@@ -672,8 +677,12 @@ public class Ability {
 
             string shotCountReplacement = durationReplacment.Replace("{SC}", TextHelper.ColorizeText(shotCount.ToString(), Color.green));
 
+            float procChance = Stats[StatName.ProcChance];
 
-            builder.Append(shotCountReplacement);
+            string procReplacement = shotCountReplacement.Replace("{PR}", TextHelper.FormatStat(StatName.ProcChance, procChance));
+
+
+            builder.Append(procReplacement);
 
             if(Data.showChildAbilitiesInTooltip == false) {
                 builder.AppendLine();
@@ -738,7 +747,7 @@ public class Ability {
 
                 if (string.IsNullOrEmpty(effectTooltip) == false) {
 
-                    builder.Append(effect.GetTooltip()).AppendLine();
+                    builder.Append(effectTooltip).AppendLine();
 
                     //if (cooldown > 0f)
                     //    builder.Append(effect.GetTooltip()).AppendLine();
@@ -754,7 +763,7 @@ public class Ability {
             if (Stats[StatName.EssenceCost] > 0) {
                 builder.AppendLine("Cost: " + TextHelper.ColorizeText(Stats[StatName.EssenceCost].ToString(), Color.cyan) + " Essence");
             }
-            else{
+            else if (Stats[StatName.EssenceCost] < 0){
                 builder.AppendLine("Generates: " + TextHelper.ColorizeText(Mathf.Abs(Stats[StatName.EssenceCost]).ToString(), Color.cyan) + " Essence");
 
             }
@@ -835,6 +844,9 @@ public class Ability {
             //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
             builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName).AppendLine();
             //builder.Append(runes[i].GetTooltip());
+            
+            Debug.Log("Displaing tooltip for: " + runes[i].effects.Count + " effects on the ability: " + runes[i].Data.abilityName);
+            
             for (int j = 0; j < runes[i].effects.Count; j++) {
                 builder.Append(runes[i].effects[j].GetTooltip()).AppendLine();
             }

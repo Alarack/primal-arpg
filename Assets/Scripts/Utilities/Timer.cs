@@ -41,6 +41,8 @@ public class Timer
                 if (onCompleteCallback != null)
                     onCompleteCallback(callbackData);
 
+                //Debug.Log("Time Elapsed. Duration: " + Duration);
+
                 if(resetTimerOnComplete == true)
                 {
                     ResetTimer();
@@ -79,6 +81,8 @@ public class Timer
         if (timeElapsed > Duration) {
             timeElapsed = 0f;
         }
+
+        //Debug.Log("Setting Duration to: " + duration);
     }
 
 

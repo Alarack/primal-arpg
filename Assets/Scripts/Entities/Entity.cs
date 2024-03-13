@@ -138,7 +138,7 @@ public abstract class Entity : MonoBehaviour {
         if (difference < 0)
             return false;
 
-        Debug.Log("Spending: " + value + " Essence");
+        //Debug.Log("Spending: " + value + " Essence");
 
         Stats.AdjustStatRangeCurrentValue(StatName.Essence, -value, StatModType.Flat, this);
         SendEssenceChangedEvent(-value);
@@ -161,20 +161,20 @@ public abstract class Entity : MonoBehaviour {
 
         float convertedDamage = incomingDamage * -1;
 
-        Debug.Log("Incoming damage: " + convertedDamage);
+        //Debug.Log("Incoming damage: " + convertedDamage);
 
         float manaCost = convertedDamage * conversionRate;
 
 
         if (Stats[StatName.Essence] < conversionRate) {
-            Debug.Log("Not enough mana to shield: " + conversionRate);
+            //Debug.Log("Not enough mana to shield: " + conversionRate);
             return incomingDamage;
         }
 
 
         if (Stats[StatName.Essence] > manaCost) {
             TrySpendEssence(manaCost);
-            Debug.LogWarning("Blocked all damage: " + manaCost);
+            //Debug.LogWarning("Blocked all damage: " + manaCost);
             return 0f;
         }
 
@@ -185,6 +185,7 @@ public abstract class Entity : MonoBehaviour {
     }
 
     protected void OnEssenceRegenChanged(BaseStat stat, object source, float value) {
+        //Debug.Log("Essence regen changed: " + value + " :: " + Stats[StatName.EssenceRegenerationRate]);
         essenceRegenTimer.SetDuration(stat.ModifiedValue);
     }
 

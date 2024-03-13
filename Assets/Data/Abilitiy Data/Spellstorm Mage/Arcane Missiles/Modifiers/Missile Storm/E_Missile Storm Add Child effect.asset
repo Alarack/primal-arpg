@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Missile Storm Add Child effect
+  m_Name: E_Missile Storm Add Child effect
   m_EditorClassIdentifier: 
   effectData:
     effectName: Missile Storm Add Child
-    effectDescription: Whenever Arcane Missles causes damage, it has a {PR} chance
-      to trigger another Arcane Missile.
+    effectDescription: '[Effect level] Whenever Arcane Missles causes damage, it
+      has a {PR} chance to trigger another Arcane Missile.'
     type: 6
     targeting: 8
     subTarget: 4
@@ -79,6 +79,7 @@ MonoBehaviour:
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
+      parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 0
       affectSource: 0
@@ -156,7 +157,6 @@ MonoBehaviour:
     isTeleport: 0
     invertDestination: 0
     targetDestination: 0
-    moveForce: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0
@@ -175,5 +175,7 @@ MonoBehaviour:
     entityPrefab: {fileID: 0}
     percentOfPlayerDamage: 1
     destroyPreviousSummonAtCap: 0
+    inheritParentLayer: 1
     spawnType: 0
     nameOfAbilityToActivate: 
+    targetStateName: 

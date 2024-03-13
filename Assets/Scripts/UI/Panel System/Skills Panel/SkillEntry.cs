@@ -186,7 +186,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         if (eventData.button == PointerEventData.InputButton.Right) {
 
-            if (Ability != null)
+            if (Ability != null && Ability.IsEquipped == true)
                 PanelManager.OpenPanel<RunesPanel>().Setup(Ability);
 
             //SkillModifier embiggen = SkillModifierFactory.MakeProjectileBigger();

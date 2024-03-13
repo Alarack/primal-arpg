@@ -87,6 +87,9 @@ public static class TextHelper
             StatName.CastSpeedModifier when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "% </color>",
             StatName.DashCooldown => $"<color=#{bonusColor}>-" + (value) * 100 + "% </color>",
             StatName.GlobalMoveSpeedModifier => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
+            StatName.EssenceRegenerationRate when value < 0 => $"<color=#{bonusColor}>" + (-value) * 100 + "% </color>",
+            StatName.EssenceShield when value > 0 => $"<color=#{bonusColor}>" + value + "</color>",
+            StatName.ProcChance when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             _ => "No Entry For: " + stat,
         };
 

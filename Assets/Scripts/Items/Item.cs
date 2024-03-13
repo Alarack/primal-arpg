@@ -99,6 +99,24 @@ public class Item
         EventManager.SendEvent(GameEvent.ItemEquipped, data);
     }
 
+    public void DeactivateEquippedRunes() {
+        if(Data.Type == ItemType.Rune) {
+            for (int i = 0; i < Abilities.Count; i++) {
+                if (Abilities[i].IsEquipped == true)
+                    Abilities[i].Uneqeuip();
+            }
+        }
+    }
+
+    public void ReactivateEquippedRunes() {
+        if (Data.Type == ItemType.Rune) {
+            for (int i = 0; i < Abilities.Count; i++) {
+                if (Abilities[i].IsEquipped == false)
+                    Abilities[i].Equip();
+            }
+        }
+    }
+
     public void UnEquip() {
 
 
@@ -143,7 +161,7 @@ public class Item
 
             string abilityTooltip = Abilities[i].GetTooltip();
             if(string.IsNullOrEmpty(abilityTooltip) == false) {
-                builder.Append(Abilities[i].GetTooltip());
+                builder.Append(abilityTooltip);
 
                 if ( i != Abilities.Count - 1) {
                     builder.AppendLine();

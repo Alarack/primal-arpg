@@ -26,7 +26,8 @@ public enum AbilityTag {
     Channeled,
     ClassFeature,
     Orbital,
-    Weapon
+    Weapon,
+    Arcane
 }
 
 public enum AbilityCategory {
