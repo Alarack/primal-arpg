@@ -308,10 +308,10 @@ public class EffectZone : Entity {
             Destroy(vfxParticles.gameObject, 2f);
         }
 
-        
 
 
-        SpawnDeathVFX();
+
+        SpawnDeathVFX(effectSize);
         Destroy(gameObject);
     }
 

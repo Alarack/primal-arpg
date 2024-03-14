@@ -121,9 +121,9 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
         Entity source = data.GetEntity("Source");
 
 
-        //Debug.Log(target.EntityName + " has had " + stat + " changed by " + data.GetFloat("Value"));
+        
 
-        //if(target != source) {
+        //if (source != null && target != source) {
         //    Debug.LogWarning(target.EntityName + " is not " + Source.EntityName);
         //}
 
@@ -131,15 +131,27 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
         if (stat != StatName.CooldownReduction || target != Source)
             return;
 
+        //Debug.Log(target.EntityName + " has had " + stat + " changed by " + data.GetFloat("Value"));
+
+        //Debug.Log(Source.EntityName + " is the owner of an ability with a cooldown: " + ParentAbility.Data.abilityName);
+        //Debug.Log(target.EntityName + " : Target Cooldown: " + target.Stats[StatName.CooldownReduction]);
+        //Debug.Log(Source.EntityName + " : Source Cooldown: " + Source.Stats[StatName.CooldownReduction]);
+        
+        
         float cooldownReduction = Source.Stats[StatName.CooldownReduction];
+
+
+       
 
         ParentAbility.Stats.RemoveAllModifiersFromSource(this);
 
 
         float cdrPercent =  cooldownReduction;
 
-        if (cdrPercent <= 0)
-            return;
+        //Debug.Log("Cooldown Reduction: " + cooldownReduction);
+
+        //if (cdrPercent <= 0)
+        //    return;
 
         StatModifier cdrMod = new StatModifier(-cdrPercent, StatModType.PercentAdd, StatName.Cooldown, this, StatModifierData.StatVariantTarget.Simple);
 

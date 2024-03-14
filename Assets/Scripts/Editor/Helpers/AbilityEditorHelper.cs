@@ -510,6 +510,17 @@ public static class AbilityEditorHelper {
                 EditorGUILayout.LabelField("Abilities to Add: ", EditorStyles.boldLabel);
                 entry.abilitiesToAdd = EditorHelper.DrawList("Child Abilities", entry.abilitiesToAdd, null, DrawAbilityDefinitionList);
                 break;
+
+            case EffectType.AddEffect:
+
+                if (entry.subTarget == EffectSubTarget.Entity) {
+                    entry.targetAbilityToAddEffectsTo = EditorGUILayout.TextField("Target Ability", entry.targetAbilityToAddEffectsTo);
+                }
+
+                EditorGUILayout.LabelField("Effects to Add: " + EditorStyles.boldLabel);
+                entry.effectsToAdd = EditorHelper.DrawList("Child Effects", entry.effectsToAdd, null, DrawEffectDefinitionList);
+
+                break;
             case EffectType.ApplyOtherEffect:
                 EditorGUILayout.LabelField("Apply Other Effect: ", EditorStyles.boldLabel);
                 entry.applyTriggeringEffect = EditorGUILayout.Toggle("Apply Triggering Effect", entry.applyTriggeringEffect);

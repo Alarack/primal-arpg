@@ -826,6 +826,147 @@ public class ApplyOtherEffect : Effect {
     }
 }
 
+public class AddEffectEffect : Effect {
+
+    public override EffectType Type => EffectType.AddEffect;
+
+
+    private Dictionary<Entity, List<Effect>> entityTrackedEffects = new Dictionary<Entity, List<Effect>>();
+    private Dictionary<Ability, List<Effect>> abilityTrackedEffects = new Dictionary<Ability, List<Effect>>();
+
+    private List<Effect> activeEffects = new List<Effect>();
+
+    public AddEffectEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        for (int i = 0; i < data.abilitiesToAdd.Count; i++) {
+            Effect template = AbilityFactory.CreateEffect(data.effectsToAdd[i].effectData, source);
+            activeEffects.Add(template);
+        }
+
+    }
+
+    public override bool Apply(Entity target) {
+
+        if (base.Apply(target) == false)
+            return false;
+
+
+        Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
+
+        if(targetAbility == null) {
+            Debug.LogError("Could not find the ability: " + Data.targetAbilityToAddEffectsTo + " on the Entity: " + target.EntityName);
+            return false;
+        }
+
+        for (int i = 0; i < Data.effectsToAdd.Count; i++) {
+            Effect newEffect = AbilityFactory.CreateEffect(Data.effectsToAdd[i].effectData, Source, ParentAbility);
+            
+            targetAbility.AddEffect(newEffect);
+            TrackEffectsOnEntity(target, newEffect);
+
+        }
+
+
+        //for (int i = 0; i < Data.effectsToAdd.Count; i++) {
+        //    Ability newChild = target.AbilityManager.LearnAbility(Data.abilitiesToAdd[i].AbilityData, true);
+        //    TrackEffects(target, newChild);
+
+        //    Debug.Log("Adding new ability: " + newChild.Data.abilityName);
+        //}
+
+        return true;
+
+
+
+    }
+
+    public override void Remove(Entity target) {
+        base.Remove(target);
+
+        Debug.LogError("Tring to add an effect to a target with Add Effect is not supported");
+
+        if (entityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
+
+            Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
+
+            if(targetAbility == null) {
+                Debug.LogError("Could not find the ability: " + Data.targetAbilityToAddEffectsTo + " on the Entity: " + target.EntityName);
+                return;
+            }
+
+            for (int i = 0; i < effectsAdded.Count; i++) {
+                
+                
+              targetAbility.RemoveEffect(effectsAdded[i]);
+            }
+
+            entityTrackedEffects.Remove(target);
+        }
+    }
+
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+        for (int i = 0; i < Data.effectsToAdd.Count; i++) {
+            Effect newEffect = AbilityFactory.CreateEffect(Data.effectsToAdd[i].effectData, Source, ParentAbility);
+
+            target.AddEffect(newEffect);
+            TrackEffectsOnAbility(target, newEffect);
+
+        }
+
+        return true;
+    }
+
+    private void TrackEffectsOnAbility(Ability target, Effect newEffect) {
+        if (abilityTrackedEffects.TryGetValue(target, out List<Effect> children) == true) {
+            children.Add(newEffect);
+        }
+        else {
+            abilityTrackedEffects.Add(target, new List<Effect> { newEffect });
+        }
+    }
+
+    private void TrackEffectsOnEntity(Entity target, Effect newEffect) {
+        if (entityTrackedEffects.TryGetValue(target, out List<Effect> children) == true) {
+            children.Add(newEffect);
+        }
+        else {
+            entityTrackedEffects.Add(target, new List<Effect> { newEffect });
+        }
+    }
+
+    public override void RemoveFromAbility(Ability target) {
+        base.RemoveFromAbility(target);
+
+        if (abilityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
+            for (int i = 0; i < effectsAdded.Count; i++) {
+                target.RemoveEffect(effectsAdded[i]);
+            }
+
+            abilityTrackedEffects.Remove(target);
+        }
+
+    }
+
+    public override string GetTooltip() {
+        //return base.GetTooltip();
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < activeEffects.Count; i++) {
+            builder.Append(activeEffects[i].GetTooltip());
+
+            if (i != activeEffects.Count - 1)
+                builder.AppendLine();
+        }
+
+        return builder.ToString();
+    }
+}
+
+
 public class AddAbilityEffect : Effect {
 
     public override EffectType Type => EffectType.AddAbility;
@@ -1986,10 +2127,10 @@ public class StatAdjustmentEffect : Effect {
             return;
         }
         
-        
+        //Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName + " with a value of: " + activeMod.Value);
+
         float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
 
-        //Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName);
 
 
         ShowFloatingtext(activeMod, modValueResult, target.transform.position);
@@ -2306,6 +2447,9 @@ public class StatAdjustmentEffect : Effect {
    
 
     public override string GetTooltip() {
+
+        Debug.Log("Showing a Tooltip for: " + Data.effectName);
+
 
         StringBuilder builder = new StringBuilder();
 

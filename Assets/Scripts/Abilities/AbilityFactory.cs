@@ -121,6 +121,7 @@ public static class AbilityFactory {
             EffectType.ActivateOtherAbility => new ActivateAbilityEffect(data, source, parentAbility),
             EffectType.NPCStateChange => new NPCStateChangeEffect(data, source, parentAbility),
             EffectType.AddAbility => new AddAbilityEffect(data, source, parentAbility),
+            EffectType.AddEffect => new AddEffectEffect(data, source, parentAbility),
             _ => null,
         };
 

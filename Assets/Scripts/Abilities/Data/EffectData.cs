@@ -19,7 +19,8 @@ public enum EffectType {
     Teleport,
     ActivateOtherAbility,
     NPCStateChange,
-    AddAbility
+    AddAbility,
+    AddEffect
 }
 
 public enum EffectTarget {
@@ -154,6 +155,10 @@ public class EffectData
 
     //Add Child Ability
     public List<AbilityDefinition> abilitiesToAdd = new List<AbilityDefinition>();
+
+    //Add Effect
+    public List<EffectDefinition> effectsToAdd = new List<EffectDefinition>();
+    public string targetAbilityToAddEffectsTo;
 
     //Apply Other Effect
     public string targetOtherEffectParentAbilityName;

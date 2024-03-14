@@ -377,7 +377,7 @@ public class Ability {
 
     #endregion
 
-    #region CHILD ABILITIES
+    #region CHILD ABILITIES / ADD EFFECTS
 
     public void AddChildAbility(Ability ability) {
         ChildAbilities.Add(ability);
@@ -404,6 +404,14 @@ public class Ability {
             if (ability.IsEquipped)
                 ability.Uneqeuip();
         }
+    }
+
+    public void AddEffect(Effect newEffect) {
+        effects.Add(newEffect);
+    }
+
+    public void RemoveEffect(Effect target) {
+        effects.RemoveIfContains(target);
     }
 
 

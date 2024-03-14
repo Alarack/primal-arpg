@@ -142,6 +142,9 @@ public static class StatAdjustmentManager {
 
         statModAction?.Invoke(targetStat, mod);
 
+        //Debug.Log(targetStat + " " + mod.Value + " Stat mod applied to: " + target.EntityName);
+
+        //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
 
         try {
             SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value);
