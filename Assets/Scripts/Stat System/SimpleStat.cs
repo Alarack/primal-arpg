@@ -71,7 +71,8 @@ public enum StatName
     Experience,
     StatReroll,
     ProcChance,
-    EssenceShield
+    EssenceShield,
+    Armor
 }
 
 

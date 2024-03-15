@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Teleport Effect
+  m_Name: E_Armor Stat Adj
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Teleport Effect
+    effectName: Nexus Armor Stat Adj
     effectDescription: 
-    type: 11
-    targeting: 1
+    type: 1
+    targeting: 0
     subTarget: 0
-    maskTargeting: 1
+    maskTargeting: 0
+    hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
+    onlyShowTooltipInRune: 0
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
@@ -32,9 +34,14 @@ MonoBehaviour:
     shotDelay: 0.2
     payloadStatData: []
     spawnLocation: 0
+    spawnLocationStart: 0
+    spawnLocationEnd: 0
+    minViewportValues: {x: 0, y: 0}
+    maxViewportValues: {x: 0, y: 0}
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
+      parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 0
       affectSource: 0
@@ -45,7 +52,20 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData: []
+    modData:
+    - targetStat: 67
+      value: 0.25
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -111,10 +131,10 @@ MonoBehaviour:
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
+    resetMovement: 0
     targetDestination: 0
-    moveForce: 0
     teleportDestination: 0
-    teleportVFX: {fileID: 1773673519030548, guid: 6e3db7afa59301e48bc3999ec41f1410, type: 3}
+    teleportVFX: {fileID: 0}
     forwardDistance: 0
     tokenPrefabs: []
     tokenSpawnLocation: 0
@@ -123,10 +143,16 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    effectsToAdd: []
+    targetAbilityToAddEffectsTo: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
     statScalersToAdd: []
     entityPrefab: {fileID: 0}
     percentOfPlayerDamage: 1
+    destroyPreviousSummonAtCap: 0
+    inheritParentLayer: 1
     spawnType: 0
+    nameOfAbilityToActivate: 
+    targetStateName: 

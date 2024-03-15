@@ -22,7 +22,8 @@ public class Status {
         Grow,
         IronReign,
         SpellHaste,
-        Enraged
+        Enraged,
+        Armored
     }
 
     #endregion

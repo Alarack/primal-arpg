@@ -153,7 +153,7 @@ public abstract class Effect {
             return false;
         }
 
-        if(target.IsDead == true && Data.canAffectDeadTargets == false) {
+        if (target.IsDead == true && Data.canAffectDeadTargets == false) {
             //Debug.Log(ParentAbility.Data.abilityName + " is trying to affect a dead target");
             return false;
         }
@@ -172,9 +172,9 @@ public abstract class Effect {
         LastTarget = target;
 
 
-        if(Data.canOverload == true) {
-            if(CheckOverload(target) == true) {
-                
+        if (Data.canOverload == true) {
+            if (CheckOverload(target) == true) {
+
                 isOverloading = true;
                 SendOverloadEvent(target);
             }
@@ -197,7 +197,7 @@ public abstract class Effect {
 
         //Debug.Log("Roll: " + roll + " Chance: " + totalChance);
 
-        if( roll < totalChance) {
+        if (roll < totalChance) {
             return true;
         }
 
@@ -287,7 +287,7 @@ public abstract class Effect {
         UnRegisterRiderEvents();
     }
 
-    protected  void UnRegisterRiderEvents() {
+    protected void UnRegisterRiderEvents() {
         for (int i = 0; i < riderEffects.Count; i++) {
             EventManager.RemoveMyListeners(riderEffects[i]);
         }
@@ -295,13 +295,13 @@ public abstract class Effect {
 
     protected void RegisterRiderEvents() {
         for (int i = 0; i < riderEffects.Count; i++) {
-            
+
             riderEffects[i].RegisterRiderOnEventApplied();
         }
     }
 
     protected void RegisterRiderOnEventApplied() {
-        if(parentEffect != null) {
+        if (parentEffect != null) {
             //Debug.Log("Registering a rider event");
             EventManager.RegisterListener(GameEvent.EffectApplied, OnEffectApplied);
         }
@@ -401,7 +401,7 @@ public class EmptyEffect : Effect {
     public override EffectType Type => EffectType.None;
 
     public EmptyEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
-    
+
     }
 
     public override bool Apply(Entity target) {
@@ -412,7 +412,7 @@ public class EmptyEffect : Effect {
     }
 
     public override bool ApplyToAbility(Ability target) {
-        if( base.ApplyToAbility(target) == false)
+        if (base.ApplyToAbility(target) == false)
             return false;
 
         return true;
@@ -442,7 +442,7 @@ public class NPCStateChangeEffect : Effect {
             return false;
 
         NPC npc = target as NPC;
-        if(npc != null) {
+        if (npc != null) {
             previousStateName = npc.Brain.ForceStateChange(Data.targetStateName);
             return true;
         }
@@ -454,13 +454,13 @@ public class NPCStateChangeEffect : Effect {
     public override void Remove(Entity target) {
         base.Remove(target);
 
-        if(string.IsNullOrEmpty(previousStateName) == true) {
+        if (string.IsNullOrEmpty(previousStateName) == true) {
             Debug.LogWarning("No previous state name saved when removing a forced state change");
             return;
         }
 
         NPC npc = target as NPC;
-        if (npc != null ) {
+        if (npc != null) {
             npc.Brain.ForceStateChange(previousStateName);
         }
     }
@@ -496,7 +496,7 @@ public class ActivateAbilityEffect : Effect {
 
         if (targetAbility != null) {
             targetAbility.ForceActivate();
-        } 
+        }
 
 
         return true;
@@ -573,7 +573,7 @@ public class ForcedMovementEffect : Effect {
 
             if (Data.resetMovement == true)
                 targetBody.velocity = Vector2.zero;
-            
+
             targetBody.AddForce(force, ForceMode2D.Impulse);
         }
     }
@@ -633,16 +633,16 @@ public class TeleportEffect : Effect {
         }
 
 
-     
+
 
         return true;
     }
 
     private void TeleportToEntity(Entity target, Entity other) {
-        
-        if(other == null)
+
+        if (other == null)
             return;
-        
+
         VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
         SendTeleportInitiatedEvent(target);
 
@@ -682,7 +682,7 @@ public class TeleportEffect : Effect {
     }
 
     private void ApplySourceForward(Entity target) {
-       
+
     }
 
 
@@ -704,7 +704,7 @@ public class TeleportEffect : Effect {
         EventManager.SendEvent(GameEvent.TeleportConcluded, data);
     }
 
-   
+
 }
 
 public class AddStatScalerEffect : Effect {
@@ -731,7 +731,7 @@ public class AddStatScalerEffect : Effect {
 
         StatAdjustmentEffect adj = target as StatAdjustmentEffect;
 
-        if(adj == null) {
+        if (adj == null) {
             Debug.LogError("Target: " + target.Type + " cannot accept stat scalers. Make sure you're targeting a Stat Adjustment Effect");
             return false;
         }
@@ -789,7 +789,7 @@ public class AddStatScalerEffect : Effect {
 
         }
 
-        return builder.ToString();  
+        return builder.ToString();
     }
 
 }
@@ -857,14 +857,14 @@ public class AddEffectEffect : Effect {
 
         Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
 
-        if(targetAbility == null) {
+        if (targetAbility == null) {
             Debug.LogError("Could not find the ability: " + Data.targetAbilityToAddEffectsTo + " on the Entity: " + target.EntityName);
             return false;
         }
 
         for (int i = 0; i < Data.effectsToAdd.Count; i++) {
             Effect newEffect = AbilityFactory.CreateEffect(Data.effectsToAdd[i].effectData, Source, ParentAbility);
-            
+
             targetAbility.AddEffect(newEffect);
             TrackEffectsOnEntity(target, newEffect);
 
@@ -893,15 +893,15 @@ public class AddEffectEffect : Effect {
 
             Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
 
-            if(targetAbility == null) {
+            if (targetAbility == null) {
                 Debug.LogError("Could not find the ability: " + Data.targetAbilityToAddEffectsTo + " on the Entity: " + target.EntityName);
                 return;
             }
 
             for (int i = 0; i < effectsAdded.Count; i++) {
-                
-                
-              targetAbility.RemoveEffect(effectsAdded[i]);
+
+
+                targetAbility.RemoveEffect(effectsAdded[i]);
             }
 
             entityTrackedEffects.Remove(target);
@@ -1042,7 +1042,7 @@ public class AddAbilityEffect : Effect {
     public override void RemoveFromAbility(Ability target) {
         base.RemoveFromAbility(target);
 
-       throw new NotImplementedException();
+        throw new NotImplementedException();
 
     }
 
@@ -1077,7 +1077,7 @@ public class AddChildAbilityEffect : Effect {
             Ability template = AbilityFactory.CreateAbility(data.abilitiesToAdd[i].AbilityData, source);
             activeAbilities.Add(template);
         }
-        
+
     }
 
     public override bool Apply(Entity target) {
@@ -1141,7 +1141,7 @@ public class AddChildAbilityEffect : Effect {
 
         StringBuilder builder = new StringBuilder();
 
-        Debug.Log("Effect: " + Data.effectName +" : Showing tooltip for an Add Child Ability Effect with: " + activeAbilities.Count + " abilites to add");
+        Debug.Log("Effect: " + Data.effectName + " : Showing tooltip for an Add Child Ability Effect with: " + activeAbilities.Count + " abilites to add");
 
         for (int i = 0; i < activeAbilities.Count; i++) {
             builder.Append(activeAbilities[i].GetTooltip());
@@ -1158,10 +1158,10 @@ public class AddChildAbilityEffect : Effect {
 
 public class ForceStatusTickEffect : Effect {
 
-    public override EffectType Type =>EffectType.ForceStatusTick;
+    public override EffectType Type => EffectType.ForceStatusTick;
 
     public ForceStatusTickEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
-    
+
     }
 
 
@@ -1171,8 +1171,8 @@ public class ForceStatusTickEffect : Effect {
 
         AddStatusEffect addStatusEffect = target as AddStatusEffect;
 
-        if(addStatusEffect == null) {
-            Debug.LogError("an effect: " + Data.effectName + " tried to force a non-status to tick: " + target.Data.effectName); 
+        if (addStatusEffect == null) {
+            Debug.LogError("an effect: " + Data.effectName + " tried to force a non-status to tick: " + target.Data.effectName);
             return false;
         }
 
@@ -1223,14 +1223,14 @@ public class AddStatusEffect : Effect {
 
     public void ForceTick() {
 
-        for (int i = activeStatusDict.Count -1; i >=0 ; i--) {
+        for (int i = activeStatusDict.Count - 1; i >= 0; i--) {
             List<Status> checks = activeStatusDict.ElementAt(i).Value;
 
             for (int j = checks.Count - 1; j >= 0; j--) {
                 checks[j].ForceTick();
             }
         }
-        
+
         //foreach (var entry in activeStatusDict) {
         //    for (int i = entry.Value.Count -1; i >= 0; i--) {
         //        entry.Value[i].ForceTick();
@@ -1362,7 +1362,7 @@ public class AddStatusEffect : Effect {
                         builder.AppendLine();
                         builder.Append("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), Color.green));
                     }
-   
+
 
 
                     if (Data.statusToAdd[0].maxStacks > 0) {
@@ -1502,12 +1502,12 @@ public class SpawnEntityEffect : Effect {
     public override EffectType Type => EffectType.SpawnEntity;
 
 
-    public List<Entity> activeSpawns = new List<Entity>(); 
+    public List<Entity> activeSpawns = new List<Entity>();
 
-    public SpawnEntityEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) { 
-        
-    
-    
+    public SpawnEntityEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+
+
     }
 
 
@@ -1523,15 +1523,15 @@ public class SpawnEntityEffect : Effect {
     }
 
     private void OnStatChanged(EventData data) {
-       Effect target = data.GetEffect("Effect");
+        Effect target = data.GetEffect("Effect");
 
         if (target != this)
             return;
-       
-        StatName stat =  (StatName)data.GetInt("Stat");
 
-        if(stat == StatName.MaxMinionCount) {
-            if(activeSpawns.Count > Stats[StatName.MaxMinionCount]) {
+        StatName stat = (StatName)data.GetInt("Stat");
+
+        if (stat == StatName.MaxMinionCount) {
+            if (activeSpawns.Count > Stats[StatName.MaxMinionCount]) {
                 //Debug.LogError("Too many spawns");
                 activeSpawns[0].ForceDie(null);
             }
@@ -1565,18 +1565,18 @@ public class SpawnEntityEffect : Effect {
         if (maxSpawns > 0 && activeSpawns.Count >= maxSpawns) {
             //Debug.LogWarning("Spawn count reached");
 
-            if(Data.destroyPreviousSummonAtCap == true) {
+            if (Data.destroyPreviousSummonAtCap == true) {
                 Entity oldest = activeSpawns[0];
 
                 Projectile projectile = oldest as Projectile;
-                if(projectile != null) {
+                if (projectile != null) {
                     activeSpawns.Remove(projectile);
                     projectile.StartCleanUp();
                 }
                 else {
                     activeSpawns.Remove(oldest);
                     oldest.ForceDie(Source, ParentAbility);
-                    
+
                 }
             }
             else {
@@ -1589,7 +1589,7 @@ public class SpawnEntityEffect : Effect {
 
         int unitsToSpawn = spawnCount; /*maxSpawns > 0 ? spawnCount - activeSpawns.Count : spawnCount;*/
 
-        if(maxSpawns > 0 && spawnCount + activeSpawns.Count > maxSpawns) { 
+        if (maxSpawns > 0 && spawnCount + activeSpawns.Count > maxSpawns) {
             unitsToSpawn = spawnCount - activeSpawns.Count;
         }
 
@@ -1601,20 +1601,20 @@ public class SpawnEntityEffect : Effect {
             Entity spawn = PerformSpawn(target);
             spawn.ownerType = Source.ownerType;
             spawn.entityType = Source.entityType;
-            if(spawn is NPC) {
+            if (spawn is NPC) {
                 ((NPC)spawn).MinionMaster = Source;
             }
-            
-            if(Data.inheritParentLayer == true)
+
+            if (Data.inheritParentLayer == true)
                 spawn.gameObject.layer = Source.gameObject.layer;
 
             spawn.subtypes.Add(Entity.EntitySubtype.Minion);
 
-            if(spawn.innerSprite != null)
+            if (spawn.innerSprite != null)
                 VFXUtility.DesaturateSprite(spawn.innerSprite, 0.4f);
 
             EntityPlayer player = Source as EntityPlayer;
-            if(player != null) {
+            if (player != null) {
                 float averageDamage = player.GetAverageDamageRoll() * Data.percentOfPlayerDamage;
                 float modifiedDamage = averageDamage * (1 + player.Stats[StatName.MinionDamageModifier]);
                 spawn.Stats.SetStatValue(StatName.AbilityWeaponCoefficicent, modifiedDamage, Source);
@@ -1694,7 +1694,7 @@ public class SpawnEntityEffect : Effect {
 
 
     public override string GetTooltip() {
-        
+
         StringBuilder builder = new StringBuilder();
 
         int maxSpawns = Stats[StatName.MaxMinionCount] > 0 ? (int)Stats[StatName.MaxMinionCount] : -1;
@@ -1704,7 +1704,7 @@ public class SpawnEntityEffect : Effect {
         }
 
 
-        string replacement = Data.effectDescription.Replace("{}", TextHelper.ColorizeText( maxSpawns.ToString(), Color.green));
+        string replacement = Data.effectDescription.Replace("{}", TextHelper.ColorizeText(maxSpawns.ToString(), Color.green));
 
         string weaponPercent = TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(Data.percentOfPlayerDamage * 100f, 2) + "%", Color.green);
 
@@ -1773,7 +1773,7 @@ public class StatAdjustmentEffect : Effect {
         for (int i = 0; i < modData.Count; i++) {
 
             modData[i].Stats.RemoveAllModifiersFromSource(status);
-            
+
 
             StatName targetStat = StatName.Vitality;
             if (modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.DerivedFromMultipleSources) {
@@ -1783,7 +1783,7 @@ public class StatAdjustmentEffect : Effect {
 
                 StatModifier stackMultiplier1 = new StatModifier(status.StackCount - 1, StatModType.PercentAdd, targetStat, status, modData[i].variantTarget);
                 modData[i].AddScalerMod(targetStat, stackMultiplier1);
-                
+
                 //AddScalerMod(StatName.AbilityWeaponCoefficicent, stackMultiplier1);
 
 
@@ -1803,7 +1803,7 @@ public class StatAdjustmentEffect : Effect {
             }
 
 
-         
+
 
 
             StatModifier stackMultiplier = new StatModifier(status.StackCount - 1, StatModType.PercentAdd, targetStat, status, modData[i].variantTarget);
@@ -1830,7 +1830,7 @@ public class StatAdjustmentEffect : Effect {
         for (int i = 0; i < modData.Count; i++) {
 
             modData[i].AddScaler(scaler);
-            
+
             //for (int j = 0; j < modData[i].scalers.Count; j++) {
             //    if (modData[i].scalers[j].targetStat == scaler.targetStat) {
             //        Debug.LogError("Duplicate stat scaler: " + scaler.targetStat + ". this is not supported");
@@ -1848,7 +1848,7 @@ public class StatAdjustmentEffect : Effect {
     public void RemoveScaler(StatScaler scaler) {
         for (int i = 0; i < modData.Count; i++) {
             modData[i].RemoveScaler(scaler);
-            
+
             //modData[i].scalers.RemoveIfContains(scaler);
         }
     }
@@ -1884,7 +1884,7 @@ public class StatAdjustmentEffect : Effect {
     public void AddScalerMod(StatName targetStat, StatModifier mod) {
         for (int i = 0; i < modData.Count; i++) {
             modData[i].AddScalerMod(targetStat, mod);
-            
+
             //for (int j = 0; j < modData[i].scalers.Count; j++) {
             //    if (modData[i].scalers[j].targetStat == targetStat) {
             //        modData[i].scalers[j].AddScalerMod(mod);
@@ -1897,7 +1897,7 @@ public class StatAdjustmentEffect : Effect {
     public void RemoveScalerMod(StatName targetStat, StatModifier mod) {
         for (int i = 0; i < modData.Count; i++) {
             modData[i].RemoveScalerMod(targetStat, mod);
-            
+
             //for (int j = 0; j < modData[i].scalers.Count; j++) {
             //    if (modData[i].scalers[j].targetStat == targetStat) {
             //        modData[i].scalers[j].RemoveScalerMod(mod);
@@ -1929,11 +1929,11 @@ public class StatAdjustmentEffect : Effect {
         float result = -1f;
 
         for (int i = 0; i < modData.Count; i++) {
-            
+
             result = modData[i].GetWeaponScaler();
-            
-            if(result > 0) {
-               return result;
+
+            if (result > 0) {
+                return result;
             }
 
 
@@ -2018,11 +2018,11 @@ public class StatAdjustmentEffect : Effect {
     }
 
     private float GetProjectileStatContrabution(StatName stat, float scalerMultiplier) {
-        
+
         if (activeDelivery != null) {
             float projectileStatValue = activeDelivery.Stats[stat] * scalerMultiplier;
 
-            if(Stats.Contains(stat) == true) {
+            if (Stats.Contains(stat) == true) {
                 projectileStatValue -= (Stats[stat] * scalerMultiplier); //Hack to prevent double dipping on projectile stats on both effect and projectile
             }
 
@@ -2056,7 +2056,7 @@ public class StatAdjustmentEffect : Effect {
                 StatModifierData.DeriveFromWhom.WeaponDamage when Source is NPC => Source.Stats[StatName.AbilityWeaponCoefficicent],
                 _ => 0f,
             };
-            
+
 
 
 
@@ -2109,7 +2109,7 @@ public class StatAdjustmentEffect : Effect {
         }
 
 
-       
+
 
         return modData.invertDerivedValue == false ? targetValue : -targetValue;
     }
@@ -2118,38 +2118,91 @@ public class StatAdjustmentEffect : Effect {
 
         float globalDamageMultiplier = GetDamageModifier(activeMod);
 
-        float targetManaShield = target.Stats[StatName.EssenceShield];
-        
-        if(targetManaShield > 0f && activeMod.TargetStat == StatName.Health) {
-            float leftoverDamage = target.HandleManaShield(activeMod.Value * globalDamageMultiplier, targetManaShield);
-
-            if(leftoverDamage < 0f) {
-                activeMod.UpdateModValue(leftoverDamage);
-                float modValueResultAfterShield = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, 1f);
-                ShowFloatingtext(activeMod, modValueResultAfterShield, target.transform.position);
-                //Debug.LogWarning("Damage after mana shield: " + modValueResultAfterShield);
-
-            }
-
+        if (activeMod.TargetStat != StatName.Health) {
+            StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
             return;
+
         }
-        
-        //Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName + " with a value of: " + activeMod.Value);
 
-        float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
+        float damageAfterArmor = HandleArmor(target, activeMod.Value * globalDamageMultiplier);
 
+        float damageAfterManaShield = CheckManaShield(target, damageAfterArmor);
 
+        activeMod.UpdateModValue(damageAfterManaShield);
+
+        float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, 1f);
 
         ShowFloatingtext(activeMod, modValueResult, target.transform.position);
 
-        //if (activeMod.TargetStat == StatName.Health && Data.hideFloatingText == false) {
-        //    //Debug.LogWarning("Damage dealt: " + modValueResult + " : " + Data.effectName);
 
-        //    FloatingText text = FloatingTextManager.SpawnFloatingText(target.transform.position, modValueResult.ToString(), 0.75f, isOverloading);
+        //float targetManaShield = target.Stats[StatName.EssenceShield];
 
-        //    Gradient targetGrad = isOverloading == false ? Data.floatingTextColor : Data.overloadFloatingTextColor;
-        //    text.SetColor(targetGrad);
+        //if (targetManaShield > 0f) {
+        //    float leftoverDamage = target.HandleManaShield(activeMod.Value * globalDamageMultiplier, targetManaShield);
+
+        //    if (leftoverDamage < 0f) {
+        //        activeMod.UpdateModValue(leftoverDamage);
+        //        float modValueResultAfterShield = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, 1f);
+        //        ShowFloatingtext(activeMod, modValueResultAfterShield, target.transform.position);
+        //        //Debug.LogWarning("Damage after mana shield: " + modValueResultAfterShield);
+
+        //    }
+
+        //    return;
         //}
+
+        ////Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName + " with a value of: " + activeMod.Value);
+
+        //float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
+
+
+
+        //ShowFloatingtext(activeMod, modValueResult, target.transform.position);
+
+    }
+
+    private float CheckManaShield(Entity target, float incomingdamage) {
+        float targetManaShield = target.Stats[StatName.EssenceShield];
+
+        if (targetManaShield > 0f) {
+            float leftoverDamage = target.HandleManaShield(incomingdamage, targetManaShield);
+            
+            if(leftoverDamage < 0f) {
+                return leftoverDamage;
+            }
+        }
+
+        return incomingdamage;
+    }
+
+    private float HandleArmor(Entity target, float incomingDamage) {
+
+        if (incomingDamage > 0f)
+            return incomingDamage;
+        
+        float targetArmor = target.Stats[StatName.Armor];
+
+        if(targetArmor == 0f) {
+            return incomingDamage;
+        }
+
+
+        float softCap = targetArmor;
+
+        if(targetArmor > 0.75f) {
+            softCap = 0.75f;
+        }
+
+        float armorModifier = 1 - softCap;
+
+
+        float result = incomingDamage * armorModifier;
+
+
+        Debug.Log("reducing " + incomingDamage + " damage to: " + (armorModifier * 100) + "% . Resulting Damage: " + result);
+
+
+        return result;
     }
 
     private void ShowFloatingtext(StatModifier activeMod, float modValueResult, Vector2 position) {
@@ -2218,7 +2271,7 @@ public class StatAdjustmentEffect : Effect {
 
 
             //if (modData[i].targetStat != StatName.Health) {
-                //Debug.Log("Applying a mod of " + modData[i].targetStat + " to " + target.Data.effectName);
+            //Debug.Log("Applying a mod of " + modData[i].targetStat + " to " + target.Data.effectName);
             //}
 
 
@@ -2264,7 +2317,7 @@ public class StatAdjustmentEffect : Effect {
             //Debug.Log("Applying a stat adjustment to a status effect: " +Data.effectName);
 
             if (Data.subTarget == EffectSubTarget.StatModifier || Data.subTarget == EffectSubTarget.StatScalerMod) {
-               
+
 
                 for (int i = 0; i < statusEffect.activeStatusEffects.Count; i++) {
                     //Debug.Log("Applying a stat adjustment to a status effect's damage : " + Data.effectName);
@@ -2375,7 +2428,7 @@ public class StatAdjustmentEffect : Effect {
             }
         }
 
-        if(isOverloading == true) {
+        if (isOverloading == true) {
             float overloadDamageMod = 1f + Source.Stats[StatName.OverloadDamageModifier];
             globalDamageMultiplier *= overloadDamageMod;
         }
@@ -2433,7 +2486,7 @@ public class StatAdjustmentEffect : Effect {
         Dictionary<StatName, float> scalers = GetAllScalerValues();
 
 
-        if(scalers.Count == 0) {
+        if (scalers.Count == 0) {
             return "No Scalers Found";
         }
 
@@ -2451,7 +2504,7 @@ public class StatAdjustmentEffect : Effect {
         return builder.ToString();
     }
 
-   
+
 
     public override string GetTooltip() {
 

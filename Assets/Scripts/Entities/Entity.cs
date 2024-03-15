@@ -73,6 +73,11 @@ public abstract class Entity : MonoBehaviour {
             Debug.LogError(EntityName + " has 0 starting health. You probably forgot to set the range curren value to the max");
         }
 
+        if((entityType == EntityType.Enemy || entityType == EntityType.Player) && Stats.Contains(StatName.Armor) == false) {
+            Debug.Log("Adding base 0 armor to: " + EntityName);
+            Stats.AddStat(new SimpleStat(StatName.Armor, 0f));
+        }
+
         Movement = GetComponent<EntityMovement>();
         AbilityManager = GetComponent<AbilityManager>();
 
