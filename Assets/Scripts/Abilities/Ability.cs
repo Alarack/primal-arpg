@@ -751,6 +751,10 @@ public class Ability {
             
             foreach (Effect effect in effects) {
 
+                if (effect.Data.onlyShowTooltipInRune == true) {
+                    continue;
+                }
+
                 string effectTooltip = effect.GetTooltip();
 
                 if (string.IsNullOrEmpty(effectTooltip) == false) {
@@ -853,9 +857,10 @@ public class Ability {
             builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName).AppendLine();
             //builder.Append(runes[i].GetTooltip());
             
-            Debug.Log("Displaing tooltip for: " + runes[i].effects.Count + " effects on the ability: " + runes[i].Data.abilityName);
+            //Debug.Log("Displaing tooltip for: " + runes[i].effects.Count + " effects on the ability: " + runes[i].Data.abilityName);
             
             for (int j = 0; j < runes[i].effects.Count; j++) {
+                //Debug.Log("Getting tooltip for the effect: " + runes[i].effects[j].Data.effectName);
                 builder.Append(runes[i].effects[j].GetTooltip()).AppendLine();
             }
         }

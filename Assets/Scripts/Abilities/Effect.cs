@@ -570,6 +570,10 @@ public class ForcedMovementEffect : Effect {
         Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
 
         if (targetBody != null) {
+
+            if (Data.resetMovement == true)
+                targetBody.velocity = Vector2.zero;
+            
             targetBody.AddForce(force, ForceMode2D.Impulse);
         }
     }
@@ -837,9 +841,10 @@ public class AddEffectEffect : Effect {
     private List<Effect> activeEffects = new List<Effect>();
 
     public AddEffectEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
-        for (int i = 0; i < data.abilitiesToAdd.Count; i++) {
+        for (int i = 0; i < data.effectsToAdd.Count; i++) {
             Effect template = AbilityFactory.CreateEffect(data.effectsToAdd[i].effectData, source);
             activeEffects.Add(template);
+            //Debug.Log("Creating a display effect for: " + data.effectName + " by the name of: " + template.Data.effectName);
         }
 
     }
@@ -954,6 +959,8 @@ public class AddEffectEffect : Effect {
         //return base.GetTooltip();
 
         StringBuilder builder = new StringBuilder();
+
+        //Debug.Log("Showing a tooltip for an Add Effect Effect On " + Data.effectName + ". " + activeEffects.Count + " effects found to add");
 
         for (int i = 0; i < activeEffects.Count; i++) {
             builder.Append(activeEffects[i].GetTooltip());
@@ -1350,7 +1357,7 @@ public class AddStatusEffect : Effect {
                     }
 
                     if (activeStatusEffects[i].Data.canOverload == true) {
-                        float overloadChance = ParentAbility.GetAbilityOverloadChance();
+                        float overloadChance = ParentAbility != null ? ParentAbility.GetAbilityOverloadChance() : Source.Stats[StatName.OverloadChance];
 
                         builder.AppendLine();
                         builder.Append("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), Color.green));

@@ -186,6 +186,7 @@ MonoBehaviour:
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
+    resetMovement: 0
     targetDestination: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
@@ -198,8 +199,9 @@ MonoBehaviour:
       m_Bits: 0
     abilitiesToAdd: []
     effectsToAdd:
-    - {fileID: 11400000, guid: bd871bf3b4f935342b9b705f59985fcc, type: 2}
+    - {fileID: 11400000, guid: a1ddb20d359f6474684d138e8192e18f, type: 2}
     targetAbilityToAddEffectsTo: 
+    hideTooltip: 1
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0

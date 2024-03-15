@@ -100,6 +100,8 @@ public class EffectData
     public bool deliveryPayloadToTarget;
     public bool canOverload;
     public bool canAffectDeadTargets;
+    //public bool hideTooltip;
+    public bool onlyShowTooltipInRune;
 
     public int numberOfTargets = -1;
     public string otherAbilityName;
@@ -139,6 +141,7 @@ public class EffectData
     //Movement
     public bool isTeleport;
     public bool invertDestination;
+    public bool resetMovement;
     public MovementDestination targetDestination;
     //public float moveForce;
 
@@ -159,6 +162,7 @@ public class EffectData
     //Add Effect
     public List<EffectDefinition> effectsToAdd = new List<EffectDefinition>();
     public string targetAbilityToAddEffectsTo;
+    
 
     //Apply Other Effect
     public string targetOtherEffectParentAbilityName;

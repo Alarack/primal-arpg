@@ -34,7 +34,7 @@ MonoBehaviour:
     payloadStatData:
     - variant: 0
       statName: 9
-      value: 75
+      value: 100
       maxValue: 0
       minValue: 0
     spawnLocation: 0
@@ -138,6 +138,7 @@ MonoBehaviour:
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
+    resetMovement: 0
     targetDestination: 2
     teleportDestination: 0
     teleportVFX: {fileID: 0}
@@ -149,6 +150,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    effectsToAdd: []
+    targetAbilityToAddEffectsTo: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0

@@ -187,7 +187,7 @@ namespace LL.FSM {
                     float modifier = 1f;
 
                     if(Data.accelerateViaDistance == true) {
-                        modifier += distanceToMouse;
+                        modifier += distanceToMouse * 2f;
                     }
                     
                     

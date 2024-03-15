@@ -398,6 +398,7 @@ public static class AbilityEditorHelper {
         entry.floatingTextColor = EditorGUILayout.GradientField("Floating Text Color", entry.floatingTextColor);
         entry.canOverload = EditorGUILayout.Toggle("Can Overload?", entry.canOverload);
         entry.canAffectDeadTargets = EditorGUILayout.Toggle("Can Affect Dead", entry.canAffectDeadTargets);
+        entry.onlyShowTooltipInRune = EditorGUILayout.Toggle("Rune Only Tooltip", entry.onlyShowTooltipInRune);
 
         if (entry.canOverload == true) {
             entry.overloadFloatingTextColor = EditorGUILayout.GradientField("Overload Floating Text Color", entry.overloadFloatingTextColor);
@@ -499,6 +500,7 @@ public static class AbilityEditorHelper {
             case EffectType.Movement:
                 //EditorGUILayout.LabelField("Not Yet Implemented: ", errorLabel);
                 entry.targetDestination = EditorHelper.EnumPopup("Move Direction", entry.targetDestination);
+                entry.resetMovement = EditorGUILayout.Toggle("Reset Movement", entry.resetMovement);
 
                 if (entry.HasStat(StatName.Knockback) <= 0f) {
                     EditorGUILayout.LabelField("Add Knockback Stat!! ", EditorStyles.boldLabel);
@@ -516,7 +518,7 @@ public static class AbilityEditorHelper {
                 if (entry.subTarget == EffectSubTarget.Entity) {
                     entry.targetAbilityToAddEffectsTo = EditorGUILayout.TextField("Target Ability", entry.targetAbilityToAddEffectsTo);
                 }
-
+                //entry.hideTooltip = EditorGUILayout.Toggle("Hide Tooltip", entry.hideTooltip);
                 EditorGUILayout.LabelField("Effects to Add: " + EditorStyles.boldLabel);
                 entry.effectsToAdd = EditorHelper.DrawList("Child Effects", entry.effectsToAdd, null, DrawEffectDefinitionList);
 
