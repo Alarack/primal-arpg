@@ -37,6 +37,7 @@ public enum ConstraintType {
     EffectType,
     StatRatio,
     UnitIsMoving,
+    AbilityOnHotbar
 }
 
 public enum GainedOrLost {
@@ -134,6 +135,9 @@ public class ConstraintData
     public string targetAbiltyName;
     public string targetEffectName;
     public StatModifierData.StatModDesignation effectDesigantion;
+
+    //Ability On Hotbar
+    //public string targetAbilityOnHotbar;
 
     //Effect Type
     public EffectType targetEffectType;

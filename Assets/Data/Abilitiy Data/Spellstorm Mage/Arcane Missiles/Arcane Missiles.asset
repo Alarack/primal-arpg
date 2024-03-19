@@ -30,7 +30,7 @@ MonoBehaviour:
     childAbilities: []
     tags: 0500000008000000
     activationTriggerData:
-    - type: 6
+    - type: 11
       procChance: 1
       riderAbilityName: 
       riderEffectName: 
@@ -155,6 +155,44 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+        - type: 29
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -191,21 +229,4 @@ MonoBehaviour:
     baseRuneSlots: 2
     windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
     abilityStatData: []
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          procChance: 1
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          delay1Frame: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        minTriggerCount: 0
-      cooldown: 0.25
+    recoveryData: []

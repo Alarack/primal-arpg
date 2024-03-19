@@ -1107,7 +1107,7 @@ public class AddChildAbilityEffect : Effect {
             Ability newChild = target.AddChildAbility(Data.abilitiesToAdd[i]);
             TrackChildAbilties(target, newChild);
 
-            Debug.Log("Creating child ability: " + newChild.Data.abilityName);
+            //Debug.Log("Creating child ability: " + newChild.Data.abilityName);
         }
 
         return true;
@@ -1141,7 +1141,7 @@ public class AddChildAbilityEffect : Effect {
 
         StringBuilder builder = new StringBuilder();
 
-        Debug.Log("Effect: " + Data.effectName + " : Showing tooltip for an Add Child Ability Effect with: " + activeAbilities.Count + " abilites to add");
+        //Debug.Log("Effect: " + Data.effectName + " : Showing tooltip for an Add Child Ability Effect with: " + activeAbilities.Count + " abilites to add");
 
         for (int i = 0; i < activeAbilities.Count; i++) {
             builder.Append(activeAbilities[i].GetTooltip());
@@ -2168,7 +2168,12 @@ public class StatAdjustmentEffect : Effect {
             float leftoverDamage = target.HandleManaShield(incomingdamage, targetManaShield);
             
             if(leftoverDamage < 0f) {
+                //Debug.Log("Damage after mana shield: " + leftoverDamage);
                 return leftoverDamage;
+            }
+            else {
+                //Debug.Log("Mana shield absorbed all damage");
+                return 0f;
             }
         }
 
@@ -2508,7 +2513,7 @@ public class StatAdjustmentEffect : Effect {
 
     public override string GetTooltip() {
 
-        Debug.Log("Showing a Tooltip for: " + Data.effectName);
+        //Debug.Log("Showing a Tooltip for: " + Data.effectName);
 
 
         StringBuilder builder = new StringBuilder();

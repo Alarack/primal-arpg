@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using LL.Events;
-using LL.FSM;
 
 public abstract class AbilityTrigger {
     public abstract TriggerType Type { get; }
@@ -299,8 +298,10 @@ public abstract class AbilityTrigger {
             return;
         }
 
-        if (RollProc() == false)
+        if (RollProc() == false) {
             return;
+        }
+      
 
 
         ActivationCallback?.Invoke(activationInstance);
@@ -313,18 +314,19 @@ public abstract class AbilityTrigger {
                 return true;
 
             float proc = ParentAbility.Stats[StatName.ProcChance];
-            float roll = UnityEngine.Random.Range(0f, proc);
+            float roll = UnityEngine.Random.Range(0f, 1f);
+
             return roll < proc;
 
         }
 
-        if(Data.procChance > 0f && Data.procChance < 1f) {
+        if (Data.procChance > 0f && Data.procChance < 1f) {
             float roll = UnityEngine.Random.Range(0f, Data.procChance);
 
             return roll < Data.procChance;
         }
 
-        Debug.LogWarning("A trigger of type: " + Data.type + " has no parent ability,  and no proc chance in its data. Source Entity: " + SourceEntity.EntityName);
+        //Debug.LogWarning("A trigger of type: " + Data.type + " has no parent ability,  and no proc chance in its data. Source Entity: " + SourceEntity.EntityName);
 
         return true;
     }
@@ -1024,7 +1026,7 @@ public class StatChangedTrigger : AbilityTrigger {
         //    Debug.Log("Ability Cause: " + abilityCause);
         //}
 
-        
+
 
         StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, targetStat, changeValue, CauseOfAbilityTrigger);
         triggerInstance.CausingAbility = CauseOfAbilityTrigger;
@@ -1420,13 +1422,13 @@ public class RiderTrigger : AbilityTrigger {
             return;
         }
 
-        if(parentEffect != null) {
-            
-            if(parentEffect.Data.effectName != Data.riderEffectName) {
+        if (parentEffect != null) {
+
+            if (parentEffect.Data.effectName != Data.riderEffectName) {
                 Debug.LogWarning("Parent Effect Name: " + parentEffect.Data.effectName);
                 Debug.Log("Does not match");
-                Debug.LogWarning("Rider Effect Name: " +  Data.riderEffectName);
-                
+                Debug.LogWarning("Rider Effect Name: " + Data.riderEffectName);
+
                 //Debug.LogWarning("Parent effect found and the target effect: " + targetEffect.Data.effectName + " does not match the rider effect: " + Data.riderEffectName);
                 return;
             }

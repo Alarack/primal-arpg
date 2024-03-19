@@ -915,7 +915,6 @@ public class Ability {
 
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
-
         if (IsChanneled == true && IsActive == true) {
             return;
         }
@@ -1183,6 +1182,7 @@ public class Ability {
     }
 
     public void ForceActivate() {
+        //Debug.LogWarning("Force activating: " + Data.abilityName);
         ReceiveStartActivationInstance(null);
     }
 

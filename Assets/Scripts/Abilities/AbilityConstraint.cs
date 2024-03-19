@@ -163,6 +163,7 @@ public class StatChangedConstraint : AbilityConstraint {
         else
             result = false;
 
+
         //if(parentAbility != null) 
         //    Debug.LogWarning("Result for Unit Stat Changed on: " + parentAbility.Data.abilityName + " " + result);
         //else
@@ -234,6 +235,36 @@ public class SourceOnlyConstraint : AbilityConstraint {
     public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
 
         bool result = ability == triggerInstance.SourceAbility;
+
+        //if(ability.Data.abilityName == "Swiftness") {
+        //    Debug.Log("Testing: " + ability.Data.abilityName + " against " + triggerInstance.SourceAbility.Data.abilityName + ". Result: " + result);
+
+        //}
+
+
+        return inverse == false ? result : !result;
+
+    }
+}
+
+public class AbilityOnHotbarConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.AbilityOnHotbar;
+
+    public AbilityOnHotbarConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        Debug.LogError("An Ability On Hotbar Constraint is trying to evaluate an Entity. This is not supported");
+        return false;
+    }
+
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+
+        bool result = EntityManager.ActivePlayer.AbilityManager.IsAbilityOnHotbar(ability);
 
         //if(ability.Data.abilityName == "Swiftness") {
         //    Debug.Log("Testing: " + ability.Data.abilityName + " against " + triggerInstance.SourceAbility.Data.abilityName + ". Result: " + result);

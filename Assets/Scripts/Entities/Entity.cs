@@ -74,7 +74,7 @@ public abstract class Entity : MonoBehaviour {
         }
 
         if((entityType == EntityType.Enemy || entityType == EntityType.Player) && Stats.Contains(StatName.Armor) == false) {
-            Debug.Log("Adding base 0 armor to: " + EntityName);
+            //Debug.Log("Adding base 0 armor to: " + EntityName);
             Stats.AddStat(new SimpleStat(StatName.Armor, 0f));
         }
 

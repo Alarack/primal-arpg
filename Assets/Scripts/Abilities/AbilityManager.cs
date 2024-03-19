@@ -380,6 +380,10 @@ public class AbilityManager : MonoBehaviour {
         return target != null;
     }
 
+    public bool IsAbilityOnHotbar(Ability ability) {
+        return ActiveAbilities.Contains(ability);
+    }
+
 
 
     #endregion
