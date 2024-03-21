@@ -56,7 +56,8 @@ public enum DeliverySpawnLocation {
     FixedLocations,
     RandomViewportPosition,
     WorldPositionSequence,
-    AbilityLastPayloadLocation
+    AbilityLastPayloadLocation,
+    LastEffectZoneLocation
 }
 
 public enum DeliverySpawnLocationHardPoint {

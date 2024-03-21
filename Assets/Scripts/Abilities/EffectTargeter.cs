@@ -442,8 +442,9 @@ public class EffectTargeter {
             DeliverySpawnLocation.AITarget => GetAITargetPosition(),
             DeliverySpawnLocation.RandomViewportPosition => GetRandomViewportPosition(),
             DeliverySpawnLocation.AbilityLastPayloadLocation => GetLastAbilityPayloadLocation(),
+            DeliverySpawnLocation.LastEffectZoneLocation => ActivationInstance.SavedLocation,
             _ => throw new NotImplementedException(),
-        } ;
+        };
 
         return targetLocation;
     }
@@ -466,6 +467,8 @@ public class EffectTargeter {
         return targetAbility.LastPayloadLocation;
 
     }
+
+
 
     private Vector2 GetRandomViewportPosition() {
 

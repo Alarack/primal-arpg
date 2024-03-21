@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Slow Bubble Effect
-    effectDescription: Reduce Enemy movement and Attack Speed by {}
+    effectDescription: Reduce Enemy movement and Attack Speed by {} for {D} Seconds.
     type: 1
     targeting: 5
     subTarget: 1
@@ -41,7 +41,7 @@ MonoBehaviour:
       minValue: 0
     - variant: 0
       statName: 11
-      value: 2
+      value: 3
       maxValue: 0
       minValue: 0
     spawnLocation: 3

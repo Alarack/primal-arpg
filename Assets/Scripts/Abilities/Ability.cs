@@ -1013,13 +1013,14 @@ public class Ability {
         EventManager.SendEvent(GameEvent.AbilityResolved, data);
     }
 
-    public void SendAbilityEndedEvent() {
+    public void SendAbilityEndedEvent(EffectZone zone = null) {
 
         //Debug.LogWarning("Sending end event for: " + Data.abilityName);
 
         EventData data = new EventData();
         data.AddAbility("Ability", this);
         data.AddEntity("Source", Source);
+        data.AddEntity("EffectZone", zone);
 
         EventManager.SendEvent(GameEvent.AbilityEnded, data);
     }
@@ -1118,7 +1119,7 @@ public class Ability {
 
     public void RecieveEndActivationInstance(TriggerInstance endInstance) {
 
-        Debug.LogWarning("Recieveing end event for: " + Data.abilityName);
+        //Debug.LogWarning("Recieveing end event for: " + Data.abilityName);
 
 
 

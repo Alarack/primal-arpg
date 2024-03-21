@@ -316,7 +316,7 @@ public class EffectZone : Entity {
 
         SpawnDeathVFX(effectSize);
 
-        parentEffect.ParentAbility.SendAbilityEndedEvent();
+        parentEffect.ParentAbility.SendAbilityEndedEvent(this);
 
         Destroy(gameObject);
     }

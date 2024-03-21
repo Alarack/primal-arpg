@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using LL.Events;
+using DG.Tweening;
 
 public abstract class AbilityTrigger {
     public abstract TriggerType Type { get; }
@@ -353,6 +354,8 @@ public abstract class AbilityTrigger {
         public Effect CausingEffect { get; set; }
         public Effect SourceEffect { get; set; }
 
+        public Vector2 SavedLocation { get; set; }
+
         public TriggerType Type { get; private set; }
 
         public TriggerInstance(Entity trigger, Entity cause, TriggerType type) {
@@ -566,6 +569,7 @@ public class AbilityEndedTrigger : AbilityTrigger {
         }
 
         Ability triggeringAbility = data.GetAbility("Ability");
+        Entity effectZone = data.GetEntity("EffectZone");
 
         //if(triggeringAbility != ParentAbility) {
         //    return;
@@ -584,6 +588,7 @@ public class AbilityEndedTrigger : AbilityTrigger {
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
         triggerInstance.TriggeringAbility = triggeringAbility;
         triggerInstance.SourceAbility = ParentAbility;
+        triggerInstance.SavedLocation = effectZone != null ? effectZone.transform.position : Vector2.zero;
         TryActivateTrigger(triggerInstance);
 
     }
