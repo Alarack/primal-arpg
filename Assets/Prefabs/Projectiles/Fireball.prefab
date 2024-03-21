@@ -50,8 +50,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Fireball
   entityType: 2
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 0
   subtypes: 
+  innerSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: 3e74270a47e8b2f408876aaaa5983d30, type: 2}
   deathEffectPrefab: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
   spawnEffectPrefab: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
@@ -100,6 +103,7 @@ MonoBehaviour:
   childSplitCount: 0
   splitPrefab: {fileID: 0}
   smoothScaleSpeed: 10
+  varyInitalSpeed: 1
 --- !u!58 &2428786216548617761
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -180,6 +184,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   seekRadius: 0
+  seekForwardWithoutTarget: 0
+  seekDuration: -1
+  forwardPointDistance: 8
   drunkInterval: 0
   drunkVariance: 0
 --- !u!1001 &4432366416058931265

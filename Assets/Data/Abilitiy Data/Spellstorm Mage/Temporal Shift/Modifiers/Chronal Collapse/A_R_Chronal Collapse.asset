@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_R_Time Rip
+  m_Name: A_R_Chronal Collapse
   m_EditorClassIdentifier: 
   AbilityData:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
-    abilityName: Time Rip Rune
+    abilityName: Chronal Collapse Rune
     abilityDescription: 
     resourceCost: 0
     toBestow: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 4ac2cafe7fdec2547b4e1943d58f483d, type: 2}
+    - {fileID: 11400000, guid: 008470e903572a744b18adfe0fdc7997, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

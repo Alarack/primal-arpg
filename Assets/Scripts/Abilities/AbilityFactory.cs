@@ -43,6 +43,7 @@ public static class AbilityFactory {
             TriggerType.AIActivated => new AIActivatedTrigger(data, source, parentAbility),
             TriggerType.UserCancelled => new UserCancelledTrigger(data, source, parentAbility),
             TriggerType.EntitySpawned => new EntitySpawnedTrigger(data, source, parentAbility),
+            TriggerType.AbilityEnded => new AbilityEndedTrigger(data, source, parentAbility),
             _ => null,
         };
 

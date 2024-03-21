@@ -53,6 +53,9 @@ public class EffectZone : Entity {
         if (parentLayer != -1)
             mask = LayerTools.SetupHitMask(mask, parentLayer, targeting);
 
+        if(info.affectProjectiles == true) {
+            mask = LayerTools.AddToMask(mask, LayerMask.NameToLayer("Projectile"));
+        }
         //if (parentEffect.Source == null) {
         //    Debug.LogWarning("Spawning an effect zone while the source is dead: " + parentEffect.Data.effectName);
         //}
@@ -233,7 +236,7 @@ public class EffectZone : Entity {
 
         parentEffect.TrackActiveDelivery(carrier);
 
-        //Debug.Log("Zone effect is applying: " + parentEffect.Data.effectName);
+        //Debug.Log("Zone effect is applying: " + parentEffect.Data.effectName + " to " + target.EntityName);
         parentEffect.Apply(target);
         CreateApplyVFX(target.transform.position);
 
@@ -312,6 +315,9 @@ public class EffectZone : Entity {
 
 
         SpawnDeathVFX(effectSize);
+
+        parentEffect.ParentAbility.SendAbilityEndedEvent();
+
         Destroy(gameObject);
     }
 
@@ -388,6 +394,7 @@ public struct EffectZoneInfo {
     public bool parentToTarget;
     public bool applyOncePerTarget;
     public bool applyOnInterval;
+    public bool affectProjectiles;
 
     [Header("Collision")]
     public bool affectSource;

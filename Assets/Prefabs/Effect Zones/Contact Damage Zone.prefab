@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6259089046512783265}
   - component: {fileID: 4852563009456750943}
   - component: {fileID: 5268179857032388948}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Contact Damage Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,11 +83,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: 
   entityType: 3
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 1
   subtypes: 
+  innerSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: 2f1b26faeb1e74648957db224110e1a6, type: 2}
   deathEffectPrefab: {fileID: 0}
   spawnEffectPrefab: {fileID: 0}
+  vfxParticles: {fileID: 0}
+  particleSpeed: 1
+  windupFinishedVFX: {fileID: 0}
+  effectTelegraph: {fileID: 0}
+  growStartVFX: {fileID: 0}
+  tweenHelper: {fileID: 0}
 --- !u!1001 &105190010267976454
 PrefabInstance:
   m_ObjectHideFlags: 0

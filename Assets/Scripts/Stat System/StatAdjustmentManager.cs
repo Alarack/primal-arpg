@@ -102,7 +102,7 @@ public static class StatAdjustmentManager {
         statModAction?.Invoke(mod.TargetStat, mod);
 
 
-        SendStatChangeEvent(mod.TargetStat, target, source, sourceAbility, mod.Value);
+        SendStatChangeEvent(mod.TargetStat, target, source, sourceAbility, mod.Value, true);
 
         return mod.Value;
     }
@@ -129,7 +129,6 @@ public static class StatAdjustmentManager {
     }
 
     public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, Ability sourceAbility, float multiplier = 1f, bool overload = false) {
-
         Action<StatName, StatModifier> statModAction = statVarient switch {
             StatModifierData.StatVariantTarget.Simple => target.Stats.AddModifier,
             StatModifierData.StatVariantTarget.RangeCurrent => target.Stats.AdjustStatRangeCurrentValue,
@@ -146,10 +145,12 @@ public static class StatAdjustmentManager {
         //if(targetStat == StatName.Health && sourceAbility != null) {
         //    Debug.LogWarning(sourceAbility.Data.abilityName + " is changing health ");
         //}
-
-        //Debug.Log(targetStat + " " + mod.Value + " Stat mod applied to: " + target.EntityName);
+     
+        //Debug.Log(targetStat + " " + mod.ModType + " Stat mod applied to: " + target.EntityName);
 
         //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
+        
+       
 
         try {
             SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value);
@@ -187,13 +188,14 @@ public static class StatAdjustmentManager {
         EventManager.SendEvent(GameEvent.EffectStatAdjusted, data);
     }
 
-    private static void SendStatChangeEvent(StatName targetStat, Entity target, Entity source, Ability sourceAbility, float changeValue) {
+    private static void SendStatChangeEvent(StatName targetStat, Entity target, Entity source, Ability sourceAbility, float changeValue, bool isRemoveal = false) {
         EventData eventData = new EventData();
         eventData.AddEntity("Target", target);
         eventData.AddEntity("Source", source);
         eventData.AddAbility("Ability", sourceAbility);
         eventData.AddFloat("Value", changeValue);
         eventData.AddInt("Stat", (int)targetStat);
+        eventData.AddBool("Removal", isRemoveal);
 
         EventManager.SendEvent(GameEvent.UnitStatAdjusted, eventData);
 

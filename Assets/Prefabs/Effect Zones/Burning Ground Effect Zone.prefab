@@ -261,7 +261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7661616566570303864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7601085, y: 0.48758548, z: -21.164885}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -318,11 +318,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: 
   entityType: 3
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 0
   subtypes: 
+  innerSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: d2ae9678188ec1149a3c761b3e2f7353, type: 2}
   deathEffectPrefab: {fileID: 0}
   spawnEffectPrefab: {fileID: 0}
+  vfxParticles: {fileID: 0}
+  particleSpeed: 1
+  windupFinishedVFX: {fileID: 0}
+  effectTelegraph: {fileID: 0}
+  growStartVFX: {fileID: 0}
+  tweenHelper: {fileID: 0}
 --- !u!1 &8130571504712126032
 GameObject:
   m_ObjectHideFlags: 0

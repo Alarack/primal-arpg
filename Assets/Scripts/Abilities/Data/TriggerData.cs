@@ -38,7 +38,8 @@ public enum TriggerType {
     AbilityInitiated,
     AIActivated,
     UserCancelled,
-    EntitySpawned
+    EntitySpawned,
+    AbilityEnded
 }
 
 

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Slow Bubble
+  m_Name: E_Grant Collapse
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Slow Bubble Effect
-    effectDescription: Reduce Enemy movement and Attack Speed by {}
-    type: 1
-    targeting: 5
-    subTarget: 1
+    effectName: Grant Collapse
+    effectDescription: 
+    type: 6
+    targeting: 8
+    subTarget: 4
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -28,69 +28,71 @@ MonoBehaviour:
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
-    targetConstraints: []
+    targetConstraints:
+    - type: 18
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: Temporal Shift
+      targetEffectName: 
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
     riderEffects: []
-    payloadPrefab: {fileID: 1593382238141744661, guid: b9c52cec3bd29154494ac174848a324d, type: 3}
+    payloadPrefab: {fileID: 0}
     payloadCount: 1
     shotDelay: 0.2
-    payloadStatData:
-    - variant: 0
-      statName: 41
-      value: 4
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 11
-      value: 2
-      maxValue: 0
-      minValue: 0
-    spawnLocation: 3
+    payloadStatData: []
+    spawnLocation: 0
     spawnLocationStart: 0
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
     effectZoneInfo:
-      removeEffectOnExit: 1
+      removeEffectOnExit: 0
       parentEffectToOrigin: 0
       parentToTarget: 0
-      applyOncePerTarget: 1
+      applyOncePerTarget: 0
       applyOnInterval: 0
-      affectProjectiles: 1
+      affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
-      deathVFX: {fileID: 1279125013800246, guid: d25631b69b059d64385ac05f70824713, type: 3}
+      deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData:
-    - targetStat: 2
-      value: -0.5
-      modifierType: 2
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
-    - targetStat: 21
-      value: -0.5
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
+    modData: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -167,7 +169,8 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
-    abilitiesToAdd: []
+    abilitiesToAdd:
+    - {fileID: 11400000, guid: 84891d3709a0f814db6ae96b770b8c71, type: 2}
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
     targetOtherEffectParentAbilityName: 

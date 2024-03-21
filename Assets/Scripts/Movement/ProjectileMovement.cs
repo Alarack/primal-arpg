@@ -33,7 +33,6 @@ public class ProjectileMovement : EntityMovement
 
     private Quaternion lastDrunkRotation;
 
-
     protected override void Awake()
     {
         base.Awake();
@@ -56,6 +55,46 @@ public class ProjectileMovement : EntityMovement
         if (seekForwardWithoutTarget == true)
             SetSeekPoint();
         
+    }
+
+    private void OnEnable() {
+
+        EventManager.RegisterListener(GameEvent.UnitStatAdjusted, OnSpeedChanged);
+    }
+
+    private void OnDisable() {
+        EventManager.RemoveMyListeners(this);
+    }
+
+    private void OnSpeedChanged(EventData data) {
+
+        Entity target = data.GetEntity("Target");
+        StatName stat = (StatName)data.GetInt("Stat");
+        bool removal = data.GetBool("Removal");
+        float value = data.GetFloat("Value");
+
+        if (target != Owner)
+            return;
+
+        if(stat != StatName.MoveSpeed) 
+            return;
+
+
+        if(removal == false) {
+            //Debug.Log(Owner.EntityName + "has had their speed changed by " + value);
+
+            float speedHack = 1 + value;
+            MyBody.velocity *= speedHack;
+        }
+        else {
+            //Debug.Log(Owner.EntityName + "has a stat mod of " + value + " removed");
+            float speedHack = 1 - value;
+            MyBody.velocity *= speedHack;
+        }
+
+
+
+
     }
 
     private void SetSeekPoint() {

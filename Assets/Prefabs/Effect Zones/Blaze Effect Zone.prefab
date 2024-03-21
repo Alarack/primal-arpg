@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7421666834524237060}
   - component: {fileID: 3297998850913606696}
   - component: {fileID: 3447229071113286555}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Blaze Effect Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: 
   entityType: 3
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 0
   subtypes: 
   innerSprite: {fileID: 0}
@@ -56,6 +58,10 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   vfxParticles: {fileID: 5890382370703847105}
   particleSpeed: 3
+  windupFinishedVFX: {fileID: 0}
+  effectTelegraph: {fileID: 0}
+  growStartVFX: {fileID: 0}
+  tweenHelper: {fileID: 0}
 --- !u!58 &3447229071113286555
 CircleCollider2D:
   m_ObjectHideFlags: 0

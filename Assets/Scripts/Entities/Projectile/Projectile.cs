@@ -30,6 +30,7 @@ public class Projectile : Entity {
 
     [Header("Misc")]
     public float smoothScaleSpeed;
+    public bool varyInitalSpeed = true;
 
     private Collider2D myCollider;
     public Entity Source { get; private set; }
@@ -58,9 +59,12 @@ public class Projectile : Entity {
 
         myCollider = GetComponent<Collider2D>();
 
-        float speedVariance = UnityEngine.Random.Range(0.8f, 1.2f);
-
-        Stats.AddModifier(StatName.MoveSpeed, speedVariance, StatModType.PercentAdd, this);
+        if(varyInitalSpeed == true) {
+            float speedVariance = UnityEngine.Random.Range(-0.2f, 0.2f);
+            Stats.AddModifier(StatName.MoveSpeed, speedVariance, StatModType.PercentAdd, this);
+        }
+       
+        //Debug.Log("Projectile: " + EntityName + " has an initial speed of: " + Stats[StatName.MoveSpeed].ToString());
 
         killTimer = new Task(KillAfterLifetime());
 
@@ -98,13 +102,19 @@ public class Projectile : Entity {
 
         //SetupHitMask();
         projectileHitMask = LayerTools.SetupHitMask(projectileHitMask, source.gameObject.layer, maskTargeting);
-        projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Environment"));
-
+        //projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Environment"));
+        StartCoroutine(DelayEnvironmentMask());
 
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
         SetupSize();
 
         SendProjectileCreatedEvent();
+    }
+
+    private IEnumerator DelayEnvironmentMask() {
+        yield return new WaitForSeconds(0.15f);
+        projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Environment"));
+
     }
 
     private void SendProjectileCreatedEvent() {

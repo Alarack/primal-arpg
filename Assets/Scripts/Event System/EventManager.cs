@@ -159,7 +159,8 @@ namespace LL.Events {
         EntityLeveled,
         UserAbilityCanceled,
         EffectStatAdjusted,
-        EntitySpawned
+        EntitySpawned,
+        AbilityEnded
 
     }
 

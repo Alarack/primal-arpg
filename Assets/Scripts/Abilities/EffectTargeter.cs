@@ -441,6 +441,7 @@ public class EffectTargeter {
             DeliverySpawnLocation.MousePointer => Camera.main.ScreenToWorldPoint(Input.mousePosition),
             DeliverySpawnLocation.AITarget => GetAITargetPosition(),
             DeliverySpawnLocation.RandomViewportPosition => GetRandomViewportPosition(),
+            DeliverySpawnLocation.AbilityLastPayloadLocation => GetLastAbilityPayloadLocation(),
             _ => throw new NotImplementedException(),
         } ;
 
@@ -459,6 +460,12 @@ public class EffectTargeter {
         return results;
     }
 
+    private Vector2 GetLastAbilityPayloadLocation() {
+        Ability targetAbility = parentEffect.Source.GetAbilityByName(parentEffect.Data.targetAbilityForLastPayload, AbilityCategory.Any);
+
+        return targetAbility.LastPayloadLocation;
+
+    }
 
     private Vector2 GetRandomViewportPosition() {
 
@@ -589,6 +596,8 @@ public class EffectTargeter {
             //Debug.LogWarning("Creating an effect zone payload delivery for: " + parentEffect.Data.effectName);
             //Debug.Log(effectZone.gameObject.name);
             parentEffect.ActiveEffectZones.Add(effectZone);
+
+            parentEffect.ParentAbility.LastPayloadLocation = effectZone.transform.position;
         }
 
         delivery.SpawningAbility = parentEffect.ParentAbility;

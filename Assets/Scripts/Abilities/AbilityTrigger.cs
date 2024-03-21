@@ -548,6 +548,47 @@ public class AbilityResolvedTrigger : AbilityTrigger {
     }
 }
 
+public class AbilityEndedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.AbilityEnded;
+    public override GameEvent TargetEvent => GameEvent.AbilityEnded;
+    public override Action<EventData> EventReceiver => OnAbilityEnded;
+
+    public AbilityEndedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnAbilityEnded(EventData data) {
+
+        if (ParentAbility == null) {
+            Debug.LogError("An ability resolved trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
+            return;
+        }
+
+        Ability triggeringAbility = data.GetAbility("Ability");
+
+        //if(triggeringAbility != ParentAbility) {
+        //    return;
+        //}
+
+        //if(triggeringAbility.Data.abilityName == "Test Sword Swipe") {
+        //    Debug.Log("Swipe activation recieved");
+        //}
+
+        //Debug.Log("Recieveing an ability resolve trigger: " + triggeringAbility.Data.abilityName);
+
+
+        TriggeringEntity = SourceEntity;
+        CauseOfTrigger = SourceEntity;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.SourceAbility = ParentAbility;
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
 public class AbilityInitiatedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.AbilityInitiated;

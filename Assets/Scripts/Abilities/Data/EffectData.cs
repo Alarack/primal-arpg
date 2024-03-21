@@ -55,7 +55,8 @@ public enum DeliverySpawnLocation {
     AITarget,
     FixedLocations,
     RandomViewportPosition,
-    WorldPositionSequence
+    WorldPositionSequence,
+    AbilityLastPayloadLocation
 }
 
 public enum DeliverySpawnLocationHardPoint {
@@ -106,6 +107,7 @@ public class EffectData
     public int numberOfTargets = -1;
     public string otherAbilityName;
     public string otherEffectName;
+    public string targetAbilityForLastPayload;
 
     public List<ConstraintData> targetConstraints = new List<ConstraintData>();
     public List<EffectDefinition> riderEffects = new List<EffectDefinition>();

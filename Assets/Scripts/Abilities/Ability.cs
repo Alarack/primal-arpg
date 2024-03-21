@@ -19,6 +19,8 @@ public class Ability {
     public bool IsEquipped { get; protected set; }
     public bool IgnoreOtherCasting { get; protected set; }
 
+    public Vector2 LastPayloadLocation { get; set; } = Vector2.zero;
+
     //Recovery Stuff
     public bool IsReady { get { return CheckReady(); } }
     public bool IsCasting { get { return currentWindup != null; } }
@@ -1011,6 +1013,17 @@ public class Ability {
         EventManager.SendEvent(GameEvent.AbilityResolved, data);
     }
 
+    public void SendAbilityEndedEvent() {
+
+        //Debug.LogWarning("Sending end event for: " + Data.abilityName);
+
+        EventData data = new EventData();
+        data.AddAbility("Ability", this);
+        data.AddEntity("Source", Source);
+
+        EventManager.SendEvent(GameEvent.AbilityEnded, data);
+    }
+
     protected void SendAbilityInitiatedEvent(TriggerInstance triggerInstance) {
         EventData data = new EventData();
         data.AddAbility("Ability", this);
@@ -1105,6 +1118,10 @@ public class Ability {
 
     public void RecieveEndActivationInstance(TriggerInstance endInstance) {
 
+        Debug.LogWarning("Recieveing end event for: " + Data.abilityName);
+
+
+
         if (endCounter != null && endCounter.Evaluate() == false) {
             //Debug.LogError(Counter.Count + " is not enough triggers for " + abilityName);
             return;
@@ -1158,6 +1175,8 @@ public class Ability {
         for (int i = 0; i < count; i++) {
             effects[i].RecieveEndActivationInstance(activationInstance);
         }
+
+        SendAbilityEndedEvent();
     }
 
     protected IEnumerator EndAllEffects(TriggerInstance activationInstance = null) {

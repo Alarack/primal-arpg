@@ -450,6 +450,10 @@ public static class AbilityEditorHelper {
             entry.spawnLocationEnd = EditorHelper.EnumPopup("End Point", entry.spawnLocationEnd);
         }
 
+        if(entry.spawnLocation == DeliverySpawnLocation.AbilityLastPayloadLocation) {
+            entry.targetAbilityForLastPayload = EditorGUILayout.TextField("Target Ability", entry.targetAbilityForLastPayload);
+        }
+
         EditorGUILayout.Separator();
         EditorGUILayout.LabelField("Effect Zone: ", EditorStyles.boldLabel);
 
@@ -680,6 +684,7 @@ public static class AbilityEditorHelper {
         entry.applyOncePerTarget = EditorGUILayout.Toggle("Apply Once per Target", entry.applyOncePerTarget);
         entry.applyOnInterval = EditorGUILayout.Toggle("Apply on Interval", entry.applyOnInterval);
         entry.affectSource = EditorGUILayout.Toggle("Affect Source?", entry.affectSource);
+        entry.affectProjectiles = EditorGUILayout.Toggle("Affect Projectiles?", entry.affectProjectiles);
 
         EditorGUILayout.Separator();
 
