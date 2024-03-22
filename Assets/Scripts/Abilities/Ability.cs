@@ -81,7 +81,11 @@ public class Ability {
 
     private void SetupTimers() {
         if(IsChanneled == true) {
-            channelingCostTimer = new Timer(1f, ApplyCost, true);
+            float channelInterval = Stats.Contains(StatName.ChannelInterval) ? Stats[StatName.ChannelInterval] : 1f;
+            
+            channelingCostTimer = new Timer(channelInterval, ApplyCost, true);
+
+            EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnStatChanged);
         }
     }
 
@@ -147,6 +151,7 @@ public class Ability {
         SetupActivationTriggers();
         SetupEndTriggers();
         SetupTriggerCounters();
+        SetupTimers();
         //SetupRecoveries();
         RegisterAbility();
         IsEquipped = true;
@@ -363,6 +368,8 @@ public class Ability {
             endCounter.TearDown();
 
         RemoveEffectEvents();
+
+        EventManager.RemoveMyListeners(this);
     }
 
     public void EndAllGlobalEffects() {
@@ -497,7 +504,17 @@ public class Ability {
 
     #region EVENTS
 
+    private void OnStatChanged(EventData data) {
+        Ability target = data.GetAbility("Ability");
+        StatName stat = (StatName)data.GetInt("Stat");
+        if (target != this)
+            return;
 
+        if(stat == StatName.ChannelInterval && Tags.Contains(AbilityTag.Channeled)) {
+            channelingCostTimer.SetDuration(Stats[StatName.ChannelInterval]);
+        }
+
+    }
 
 
     #endregion
@@ -994,8 +1011,14 @@ public class Ability {
     }
 
     protected void ApplyCost(EventData data) {
-        if (CheckCost() == false)
+
+        if (CheckCost() == false) {
             RecieveEndActivationInstance(null);
+        }
+        else if (Data.recastOnChannelCost == true) {
+            SendAbilityInitiatedEvent(null);
+            TriggerAllEffectsInstantly(null);
+        }
     }
 
     protected void HandleChannelingCost() {
@@ -1130,6 +1153,11 @@ public class Ability {
 
         IsActive = false;
         //new Task(EndAllEffectsWithDelay(endInstance));
+
+        if(Tags.Contains(AbilityTag.Channeled) == true) {
+            channelingCostTimer.ResetTimer();
+        }
+
         EndAllEffectsInstantly(endInstance);
 
     }

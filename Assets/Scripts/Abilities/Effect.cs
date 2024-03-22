@@ -54,12 +54,21 @@ public abstract class Effect {
     protected void SetupStats() {
         Stats = new StatCollection(this, Data.payloadStatData);
         //Stats.AddMissingStats(Data.stat)
-        SimpleStat effectShotCount = new SimpleStat(StatName.ShotCount, Data.payloadCount);
-        SimpleStat shotDelay = new SimpleStat(StatName.FireDelay, Data.shotDelay);
+        
+        if(Data.HasStat(StatName.ShotCount) == 0f) {
+            SimpleStat effectShotCount = new SimpleStat(StatName.ShotCount, Data.payloadCount);
+            Stats.AddStat(effectShotCount);
+        }
+
+        if (Data.HasStat(StatName.FireDelay) == 0f) {
+            SimpleStat shotDelay = new SimpleStat(StatName.FireDelay, Data.shotDelay);
+            Stats.AddStat(shotDelay);
+        }
+        
         SimpleStat maxTargets = new SimpleStat(StatName.EffectMaxTargets, Data.numberOfTargets);
         //SimpleStat effectRange = new SimpleStat(StatName.EffectRange, Data.)
-        Stats.AddStat(effectShotCount);
-        Stats.AddStat(shotDelay);
+        
+      
         Stats.AddStat(maxTargets);
 
         //if(Data.effectName == "Sword Guy Swipe Damage") {

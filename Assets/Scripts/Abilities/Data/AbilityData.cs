@@ -133,6 +133,7 @@ public class AbilityData
     public bool includeEffectsInTooltip;
     public bool showChildAbilitiesInTooltip;
     public bool ignoreTooltip;
+    public bool recastOnChannelCost;
     public string runeAbilityTarget;
 
     public List<AbilityDefinition> childAbilities = new List<AbilityDefinition>();

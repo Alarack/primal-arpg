@@ -31,6 +31,11 @@ public class SkillBasePanel : BasePanel
     protected override void OnEnable() {
         base.OnEnable();
 
+        if(EntityManager.ActivePlayer == null) {
+            Debug.LogError("No player exists when opening skill panel");
+            return;
+        }
+
         EntityManager.ActivePlayer.AbilityManager.onAbilityEquipped += OnAbilityEquipped;
         EntityManager.ActivePlayer.AbilityManager.onAbilityUnequipped += OnAbilityUnequipped;
         EntityManager.ActivePlayer.AbilityManager.onAbilitySwapped += OnAbilitySwapped;

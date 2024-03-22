@@ -516,8 +516,10 @@ public class EffectTargeter {
 
         if (parentEffect.ParentAbility.Tags.Contains(AbilityTag.Projectile)) {
             int ownerShotCount = (int)parentEffect.Source.Stats[StatName.ShotCount];
+            int abilityShotCount = (int)parentEffect.ParentAbility.Stats[StatName.ShotCount];
 
             totalShots += ownerShotCount;
+            totalShots += abilityShotCount;
         }
 
 

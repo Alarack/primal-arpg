@@ -34,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 8370788523002943128}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3450977549038650053
 MonoBehaviour:
@@ -50,8 +50,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Iceball
   entityType: 2
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 0
   subtypes: 
+  innerSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: e77ab14f8143cd7438e594d7b5babd8d, type: 2}
   deathEffectPrefab: {fileID: 0}
   spawnEffectPrefab: {fileID: 153912, guid: 932046b7eaf3b554f8d74c81e2f00558, type: 3}
@@ -93,10 +96,14 @@ MonoBehaviour:
   chainMask:
     serializedVersion: 2
     m_Bits: 256
+  projectileHitMask:
+    serializedVersion: 2
+    m_Bits: 0
   cloneSelfOnSplit: 1
   childSplitCount: 0
   splitPrefab: {fileID: 0}
   smoothScaleSpeed: 10
+  varyInitalSpeed: 1
 --- !u!58 &6526865975621331289
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -177,6 +184,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   seekRadius: 0
+  seekForwardWithoutTarget: 0
+  seekDuration: -1
+  forwardPointDistance: 8
   drunkInterval: 0
   drunkVariance: 0
 --- !u!1001 &1195687313969735237

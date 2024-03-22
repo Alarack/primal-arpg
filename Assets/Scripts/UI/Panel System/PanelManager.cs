@@ -100,6 +100,10 @@ public static class PanelManager
         if (canvasRoot == null)
             canvasRoot = PanelDataManager.Instance.canvasRoot;
 
+        if(targetPanel.panelPrefab == null) {
+            Debug.LogError("No panel prefab found for: " + targetPanel.panelID);
+        }
+
         BasePanel activePanel = GameObject.Instantiate(targetPanel.panelPrefab, canvasRoot) as BasePanel;
         activePanel.Initialize(targetPanel.panelID);
         currentPanels.Add(targetPanel.panelID, activePanel);

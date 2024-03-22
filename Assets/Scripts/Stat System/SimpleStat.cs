@@ -72,7 +72,8 @@ public enum StatName
     StatReroll,
     ProcChance,
     EssenceShield,
-    Armor
+    Armor,
+    ChannelInterval
 }
 
 
