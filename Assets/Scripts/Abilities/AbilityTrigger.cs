@@ -441,6 +441,11 @@ public class UserCancelledTrigger : AbilityTrigger {
 
         Ability triggeringAbility = data.GetAbility("Ability");
 
+        if(triggeringAbility.IsChanneled == false) {
+            //Debug.LogWarning("A non channeled ability has been canceled. This hack is stopping the cancelation");
+            return;
+        }
+
         //if(triggeringAbility != ParentAbility) {
         //    return;
         //}
@@ -1337,6 +1342,10 @@ public class TimedTrigger : AbilityTrigger {
     private void SetupTriggerTimer() {
         //TimerManager.AddTimer(this, Data.triggerTimerDuration, true);
 
+        if(Data.autoActivateTimer == true) {
+            ParentAbility.SetActive(true);
+        }
+
         EventData data = new EventData();
         data.AddTrigger("Trigger", this);
         data.AddEntity("Owner", SourceEntity);
@@ -1411,7 +1420,7 @@ public class TimedTrigger : AbilityTrigger {
         TriggeringEntity = owner;
         CauseOfTrigger = owner;
 
-        //if(ParentAbility != null && ParentAbility.Data.abilityName == "Swing Orb") {
+        //if (ParentAbility != null /*&& ParentAbility.Data.abilityName == "Swing Orb"*/) {
         //    Debug.LogWarning("Trigger Timer Complete");
 
         //}

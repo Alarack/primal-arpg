@@ -249,7 +249,7 @@ public class EffectTargeter {
             Debug.LogWarning(
                 "An Effect: " 
                 + parentEffect.Data.effectName
-                + " on the bility: "
+                + " on the Ability: "
                 + parentEffect.ParentAbility.Data.abilityName
                 + " :: on the entity: "
                 + parentEffect.Source.EntityName

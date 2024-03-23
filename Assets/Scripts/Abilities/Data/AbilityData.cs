@@ -27,7 +27,9 @@ public enum AbilityTag {
     ClassFeature,
     Orbital,
     Weapon,
-    Arcane
+    Arcane,
+    Void,
+    Time
 }
 
 public enum AbilityCategory {

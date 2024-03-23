@@ -16,7 +16,8 @@ MonoBehaviour:
     category: 1
     abilityIcon: {fileID: 21300000, guid: 7f043036a149568428143c68bfb26561, type: 3}
     abilityName: Fracture Reality
-    abilityDescription: 
+    abilityDescription: Break open the boundary to the Void, drawing in unstable
+      Void Bolts
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -28,7 +29,7 @@ MonoBehaviour:
     recastOnChannelCost: 1
     runeAbilityTarget: 
     childAbilities: []
-    tags: 0e0000000600000012000000
+    tags: 1700000012000000
     activationTriggerData:
     - type: 6
       procChance: 1
@@ -36,6 +37,7 @@ MonoBehaviour:
       riderEffectName: 
       triggerTimerDuration: 0
       delay1Frame: 0
+      autoActivateTimer: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -124,6 +126,7 @@ MonoBehaviour:
       riderEffectName: 
       triggerTimerDuration: 0
       delay1Frame: 0
+      autoActivateTimer: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -214,6 +217,7 @@ MonoBehaviour:
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -228,6 +232,7 @@ MonoBehaviour:
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -272,6 +277,7 @@ MonoBehaviour:
           riderEffectName: 
           triggerTimerDuration: 0
           delay1Frame: 0
+          autoActivateTimer: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0

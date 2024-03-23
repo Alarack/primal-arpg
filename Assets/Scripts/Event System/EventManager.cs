@@ -160,7 +160,9 @@ namespace LL.Events {
         UserAbilityCanceled,
         EffectStatAdjusted,
         EntitySpawned,
-        AbilityEnded
+        AbilityEnded,
+        TagAdded,
+        TagRemoved,
 
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
 using static AffixDatabase;
+using System;
 
 public class NPC : Entity
 {
@@ -19,23 +20,37 @@ public class NPC : Entity
 
     public bool active;
 
+    private Timer selfDestructTimer;
+
     protected override void Awake() {
         base.Awake();
         Brain = GetComponent<AIBrain>();
         myCollider = GetComponent<Collider2D>();
-        myCollider.enabled = false;
+        
+        if(myCollider != null )
+            myCollider.enabled = false;
 
         if (spawnDelayTime > 0f)
             spawnInTimer = new Timer(spawnDelayTime, OnSpawnInComplete, false);
         else
             OnSpawnInComplete(null);
+
+        if(Stats.Contains(StatName.NPCLifetime)) {
+            selfDestructTimer = new Timer(Stats[StatName.NPCLifetime], SelfDestruct, false);
+        }
     }
+
+
 
     protected override void Update() {
         base.Update();
 
         if(spawnInTimer != null && active == false) {
             spawnInTimer.UpdateClock();
+        }
+
+        if(selfDestructTimer != null) {
+            selfDestructTimer.UpdateClock();
         }
     }
 
@@ -51,7 +66,8 @@ public class NPC : Entity
 
     private void OnSpawnInComplete(EventData data) {
         active = true;
-        myCollider.enabled = true;
+        if(myCollider != null) 
+            myCollider.enabled = true;
     }
 
     public void BecomeElite(EliteAffixType type) {
@@ -65,11 +81,15 @@ public class NPC : Entity
         VFXUtility.SpawnVFX(eliteData.vfxPrefab, transform, 0f, 2f);
     }
 
+    private void SelfDestruct(EventData data) {
+        ForceDie(this);
+    }
+
     protected override void Die(Entity source, Ability sourceAbility = null)
     {
-        //Play Death animation
-        //Drop Loot
-        //Award exp
+
+        //Debug.Log(EntityName + " is dying");
+
         base.Die(source, sourceAbility);
 
         Brain.TearDownAbilities();

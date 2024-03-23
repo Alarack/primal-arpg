@@ -73,13 +73,13 @@ public class Ability {
         SetupChildAbilities();
 
         SetupIgnoreCasting();
-        SetupTimers();
+        SetupChannelTimer();
 
     }
 
     #region SETUP AND TEAR DOWN
 
-    private void SetupTimers() {
+    private void SetupChannelTimer() {
         if(IsChanneled == true) {
             float channelInterval = Stats.Contains(StatName.ChannelInterval) ? Stats[StatName.ChannelInterval] : 1f;
             
@@ -151,7 +151,7 @@ public class Ability {
         SetupActivationTriggers();
         SetupEndTriggers();
         SetupTriggerCounters();
-        SetupTimers();
+        SetupChannelTimer();
         //SetupRecoveries();
         RegisterAbility();
         IsEquipped = true;
@@ -516,9 +516,69 @@ public class Ability {
 
     }
 
+    private void OnTagAdded(EventData data) {
+        AbilityTag tag = (AbilityTag)data.GetInt("Tag");
+    }
+
+    private void OnTagRemoved(EventData data) {
+
+    }
+
+    public void SendTagAddedEvent(AbilityTag tagAdded, Ability cause = null) {
+        EventData data = new EventData();
+        data.AddInt("Tag", (int)tagAdded);
+        data.AddAbility("Cause", cause);
+        data.AddAbility("Ability", this);
+
+
+        EventManager.SendEvent(GameEvent.TagAdded, data);
+    }
+
+    public void SendTagRemovedEvent(AbilityTag tagRemoved, Ability cause = null) {
+        EventData data = new EventData();
+        data.AddInt("Tag", (int)tagRemoved);
+        data.AddAbility("Cause", cause);
+        data.AddAbility("Ability", this);
+
+
+        EventManager.SendEvent(GameEvent.TagRemoved, data);
+    }
 
     #endregion
 
+    #region TAGS
+
+    public void AddTag(AbilityTag tag, Ability cause = null) {
+    
+        if(Tags.AddUnique(tag) == false) {
+            Debug.LogError("Tried To add a tag: " + tag + " to " + Data.abilityName + ", but it was already present");
+            return;
+        }
+
+        if(tag == AbilityTag.Channeled) {
+            IsActive = false;
+            SetupChannelTimer();
+        }
+
+
+        SendTagAddedEvent(tag, cause);
+    }
+
+    public void RemoveTag(AbilityTag tag, Ability cause = null) {
+        if (Tags.RemoveIfContains(tag) == false) {
+            Debug.LogError("Tried To remove a tag: " + tag + " from " + Data.abilityName + ", but it wasn't present");
+            return;
+        }
+
+        if(tag == AbilityTag.Channeled) {
+            if (channelingCostTimer != null)
+                channelingCostTimer = null;
+        }
+
+        SendTagRemovedEvent(tag, cause);
+    }
+
+    #endregion  
 
     #region OPTIONS
 
@@ -853,7 +913,11 @@ public class Ability {
 
             //builder.Append(runes[i].GetTooltip());
             for (int j = 0; j < runes[i].effects.Count; j++) {
-                builder.Append(runes[i].effects[j].GetTooltip()).AppendLine();
+
+                string effectTooltip = runes[i].effects[j].GetTooltip();
+
+                if(string.IsNullOrEmpty(effectTooltip) == false)
+                    builder.Append(effectTooltip).AppendLine();
 
                 //if(j != runes[i].effects.Count - 1) {
                 //    builder.AppendLine();
@@ -880,7 +944,10 @@ public class Ability {
             
             for (int j = 0; j < runes[i].effects.Count; j++) {
                 //Debug.Log("Getting tooltip for the effect: " + runes[i].effects[j].Data.effectName);
-                builder.Append(runes[i].effects[j].GetTooltip()).AppendLine();
+                string effectTooltip = runes[i].effects[j].GetTooltip();
+
+                if(string.IsNullOrEmpty (effectTooltip) == false)
+                    builder.Append(effectTooltip).AppendLine();
             }
         }
 
@@ -1022,7 +1089,7 @@ public class Ability {
     }
 
     protected void HandleChannelingCost() {
-        if(IsActive == false) 
+        if(IsActive == false || IsChanneled == false) 
             return;
 
         channelingCostTimer.UpdateClock();
@@ -1227,6 +1294,11 @@ public class Ability {
 
             effects[i].RecieveEndActivationInstance(activationInstance);
         }
+    }
+
+
+    public void SetActive(bool active) {
+        IsActive = active;
     }
 
     public void ForceActivate() {

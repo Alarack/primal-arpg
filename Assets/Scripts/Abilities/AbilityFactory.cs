@@ -124,6 +124,10 @@ public static class AbilityFactory {
             EffectType.NPCStateChange => new NPCStateChangeEffect(data, source, parentAbility),
             EffectType.AddAbility => new AddAbilityEffect(data, source, parentAbility),
             EffectType.AddEffect => new AddEffectEffect(data, source, parentAbility),
+            EffectType.AddTag => new AddTagEffect(data, source, parentAbility),
+            EffectType.RemoveTag => new RemoveTagEffect(data, source, parentAbility),
+            EffectType.SuppressEffect => new SuppressEffect(data, source, parentAbility),
+            EffectType.RemoveEffect => new RemoveEffectEffect(data, source, parentAbility),
             _ => null,
         };
 

@@ -47,7 +47,9 @@ public class AIBrain : MonoBehaviour {
     }
 
     private void Start() {
-        Sensor.Initialize(Owner, this);
+
+        if(Sensor != null)
+            Sensor.Initialize(Owner, this);
 
         fsm = new FSM(Owner, stateData);
         CreateStateChangers();
@@ -77,6 +79,8 @@ public class AIBrain : MonoBehaviour {
         Ability ability = AbilityFactory.CreateAbility(abilityDef.AbilityData, Owner);
         ability.Equip();
         abilities.Add(ability);
+
+        //Debug.Log("Adding : " + ability.Data.abilityName);
     }
 
     public void AddAbility(Ability ability) {

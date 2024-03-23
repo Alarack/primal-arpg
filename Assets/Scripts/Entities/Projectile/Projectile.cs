@@ -177,6 +177,9 @@ public class Projectile : Entity {
     }
 
     private void SetupCollisionIgnore(Collider2D ownerCollider) {
+        if (ownerCollider == null)
+            return;
+        
         Physics2D.IgnoreCollision(ownerCollider, myCollider);
     }
 

@@ -20,7 +20,11 @@ public enum EffectType {
     ActivateOtherAbility,
     NPCStateChange,
     AddAbility,
-    AddEffect
+    AddEffect,
+    AddTag,
+    RemoveTag,
+    SuppressEffect,
+    RemoveEffect
 }
 
 public enum EffectTarget {
@@ -165,7 +169,10 @@ public class EffectData
     //Add Effect
     public List<EffectDefinition> effectsToAdd = new List<EffectDefinition>();
     public string targetAbilityToAddEffectsTo;
-    
+
+    //Remove Effect
+    public List<string> effectsToRemove = new List<string>();
+    public string targetAbilityToRemoveEffectsFrom;
 
     //Apply Other Effect
     public string targetOtherEffectParentAbilityName;
@@ -187,6 +194,12 @@ public class EffectData
 
     //NPC State Change
     public string targetStateName;
+
+    //Add Tag
+    public List<AbilityTag> tagsToAdd = new List<AbilityTag>();
+
+    //Remove Tag
+    public List<AbilityTag> tagsToRemove = new List<AbilityTag>();
 
     public EffectData() {
 

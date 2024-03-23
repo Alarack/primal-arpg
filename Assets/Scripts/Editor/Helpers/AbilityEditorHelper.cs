@@ -112,6 +112,12 @@ public static class AbilityEditorHelper {
         return result;
     }
 
+    public static string DrawListOfStrings(List<string> list, int index) {
+        string result = EditorGUILayout.TextField(list[index]);
+
+        return result;
+    }
+
     public static AbilityDefinition DrawAbilityDefinitionList(List<AbilityDefinition> list, int index) {
         AbilityDefinition result = EditorHelper.ObjectField(list[index]);
 
@@ -135,6 +141,7 @@ public static class AbilityEditorHelper {
 
         if (entry.type == TriggerType.Timed) {
             entry.triggerTimerDuration = EditorGUILayout.FloatField("Duration", entry.triggerTimerDuration);
+            entry.autoActivateTimer = EditorGUILayout.Toggle("Auto Start", entry.autoActivateTimer);
         }
 
         EditorGUILayout.LabelField("Constraints", EditorStyles.boldLabel);
@@ -524,8 +531,20 @@ public static class AbilityEditorHelper {
                     entry.targetAbilityToAddEffectsTo = EditorGUILayout.TextField("Target Ability", entry.targetAbilityToAddEffectsTo);
                 }
                 //entry.hideTooltip = EditorGUILayout.Toggle("Hide Tooltip", entry.hideTooltip);
-                EditorGUILayout.LabelField("Effects to Add: " + EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("Effects to Add: ", EditorStyles.boldLabel);
                 entry.effectsToAdd = EditorHelper.DrawList("Child Effects", entry.effectsToAdd, null, DrawEffectDefinitionList);
+
+                break;
+
+            case EffectType.RemoveEffect:
+
+                if (entry.subTarget == EffectSubTarget.Entity) {
+                    entry.targetAbilityToRemoveEffectsFrom = EditorGUILayout.TextField("Target Ability", entry.targetAbilityToAddEffectsTo);
+                }
+                //entry.hideTooltip = EditorGUILayout.Toggle("Hide Tooltip", entry.hideTooltip);
+                EditorGUILayout.LabelField("Effects to Remove: ", EditorStyles.boldLabel);
+                entry.effectsToRemove = EditorHelper.DrawList("Effect Names", entry.effectsToRemove, null, DrawListOfStrings);
+
 
                 break;
             case EffectType.ApplyOtherEffect:
@@ -570,6 +589,14 @@ public static class AbilityEditorHelper {
 
             case EffectType.NPCStateChange:
                 entry.targetStateName = EditorGUILayout.TextField("Target State", entry.targetStateName);
+                break;
+
+            case EffectType.AddTag:
+                entry.tagsToAdd = EditorHelper.DrawList("Tags To Add", "Tag", entry.tagsToAdd, AbilityTag.None, EditorHelper.DrawListOfEnums);
+                break;
+
+            case EffectType.RemoveTag:
+                entry.tagsToRemove = EditorHelper.DrawList("Tags To Remove", "Tag", entry.tagsToRemove, AbilityTag.None, EditorHelper.DrawListOfEnums);
                 break;
 
             default:

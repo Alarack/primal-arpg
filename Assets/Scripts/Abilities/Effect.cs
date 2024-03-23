@@ -24,6 +24,8 @@ public abstract class Effect {
     public List<Entity> ValidTargets { get { return targeter.GatherValidTargets(); } }
     public Entity LastTarget { get; protected set; }
 
+    public bool Suppressed { get; set; } = false;
+
     public List<EffectZone> ActiveEffectZones { get; set; } = new List<EffectZone>();
 
     protected TriggerInstance currentTriggerInstance;
@@ -144,6 +146,11 @@ public abstract class Effect {
     }
 
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
+
+        if(Suppressed == true) {
+            Debug.LogWarning(Data.effectName + " is suppressed");
+            return;
+        }
 
         currentTriggerInstance = activationInstance;
 
@@ -716,6 +723,126 @@ public class TeleportEffect : Effect {
 
 }
 
+public class SuppressEffect : Effect {
+    public override EffectType Type => EffectType.SuppressEffect;
+
+    private List<Effect> trackedEffects = new List<Effect>();
+
+    public SuppressEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+        target.Suppressed = true;
+        trackedEffects.Add(target);
+
+        return true;
+    }
+
+    public override void RemoveFromEffect(Effect target) {
+        base.RemoveFromEffect(target);
+
+        if(trackedEffects.Contains(target) == false) {
+            Debug.LogError("An effect: " + target.Data.effectName + " is not tracked by a suppress effect and is trying to be removed");
+            return;
+        }
+
+        target.Suppressed = false;
+
+        trackedEffects.Remove(target);
+    }
+}
+
+public class AddTagEffect : Effect {
+
+    public override EffectType Type => EffectType.AddTag;
+
+    private Dictionary<Ability, List<AbilityTag>> trackedTags = new Dictionary<Ability, List<AbilityTag>>();
+
+    public AddTagEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        
+    }
+
+    public override bool ApplyToAbility(Ability target) {
+        if(base.ApplyToAbility(target) == false)
+            return false;
+
+        for (int i = 0; i < Data.tagsToAdd.Count; i++) {
+            target.AddTag(Data.tagsToAdd[i]);
+        }
+
+        TrackTags(target);
+
+        return true;
+    }
+
+    public override void RemoveFromAbility(Ability target) {
+        base.RemoveFromAbility(target);
+
+        if(trackedTags.TryGetValue(target, out List<AbilityTag> tags) == true) {
+            for (int i = 0; i < tags.Count; i++) {
+                target.RemoveTag(tags[i]);
+            }
+
+            trackedTags.Remove(target);
+        }
+    }
+
+
+    private void TrackTags(Ability target) {
+        if(trackedTags.ContainsKey(target) == false) {
+            trackedTags.Add(target, Data.tagsToAdd);
+        }
+    }
+}
+
+public class RemoveTagEffect : Effect {
+
+    public override EffectType Type => EffectType.RemoveTag;
+
+    private Dictionary<Ability, List<AbilityTag>> trackedTags = new Dictionary<Ability, List<AbilityTag>>();
+
+    public RemoveTagEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+        for (int i = 0; i < Data.tagsToRemove.Count; i++) {
+            target.RemoveTag(Data.tagsToRemove[i]);
+        }
+
+        TrackTags(target);
+
+        return true;
+    }
+
+    public override void RemoveFromAbility(Ability target) {
+        base.RemoveFromAbility(target);
+
+        if (trackedTags.TryGetValue(target, out List<AbilityTag> tags) == true) {
+            for (int i = 0; i < tags.Count; i++) {
+                target.AddTag(tags[i]);
+            }
+
+            trackedTags.Remove(target);
+        }
+    }
+
+
+    private void TrackTags(Ability target) {
+        if (trackedTags.ContainsKey(target) == false) {
+            trackedTags.Add(target, Data.tagsToRemove);
+        }
+    }
+}
+
+
 public class AddStatScalerEffect : Effect {
 
     public override EffectType Type => EffectType.AddStatScaler;
@@ -843,10 +970,8 @@ public class AddEffectEffect : Effect {
 
     public override EffectType Type => EffectType.AddEffect;
 
-
     private Dictionary<Entity, List<Effect>> entityTrackedEffects = new Dictionary<Entity, List<Effect>>();
     private Dictionary<Ability, List<Effect>> abilityTrackedEffects = new Dictionary<Ability, List<Effect>>();
-
     private List<Effect> activeEffects = new List<Effect>();
 
     public AddEffectEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
@@ -855,14 +980,12 @@ public class AddEffectEffect : Effect {
             activeEffects.Add(template);
             //Debug.Log("Creating a display effect for: " + data.effectName + " by the name of: " + template.Data.effectName);
         }
-
     }
 
     public override bool Apply(Entity target) {
 
         if (base.Apply(target) == false)
             return false;
-
 
         Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
 
@@ -876,27 +999,13 @@ public class AddEffectEffect : Effect {
 
             targetAbility.AddEffect(newEffect);
             TrackEffectsOnEntity(target, newEffect);
-
         }
 
-
-        //for (int i = 0; i < Data.effectsToAdd.Count; i++) {
-        //    Ability newChild = target.AbilityManager.LearnAbility(Data.abilitiesToAdd[i].AbilityData, true);
-        //    TrackEffects(target, newChild);
-
-        //    Debug.Log("Adding new ability: " + newChild.Data.abilityName);
-        //}
-
         return true;
-
-
-
     }
 
     public override void Remove(Entity target) {
         base.Remove(target);
-
-        Debug.LogError("Tring to add an effect to a target with Add Effect is not supported");
 
         if (entityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
 
@@ -908,8 +1017,6 @@ public class AddEffectEffect : Effect {
             }
 
             for (int i = 0; i < effectsAdded.Count; i++) {
-
-
                 targetAbility.RemoveEffect(effectsAdded[i]);
             }
 
@@ -965,20 +1072,146 @@ public class AddEffectEffect : Effect {
     }
 
     public override string GetTooltip() {
-        //return base.GetTooltip();
-
         StringBuilder builder = new StringBuilder();
 
         //Debug.Log("Showing a tooltip for an Add Effect Effect On " + Data.effectName + ". " + activeEffects.Count + " effects found to add");
 
         for (int i = 0; i < activeEffects.Count; i++) {
-            builder.Append(activeEffects[i].GetTooltip());
+            
+            string effectTooltip = activeEffects[i].GetTooltip();
+            
+            if(string.IsNullOrEmpty(effectTooltip) == false)
+                builder.Append(effectTooltip);
 
             if (i != activeEffects.Count - 1)
                 builder.AppendLine();
         }
 
         return builder.ToString();
+    }
+}
+
+public class RemoveEffectEffect : Effect {
+
+    public override EffectType Type => EffectType.RemoveEffect;
+
+    private Dictionary<Entity, List<Effect>> entityTrackedEffects = new Dictionary<Entity, List<Effect>>();
+    private Dictionary<Ability, List<Effect>> abilityTrackedEffects = new Dictionary<Ability, List<Effect>>();
+    //private List<Effect> activeEffects = new List<Effect>();
+
+    public RemoveEffectEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        //for (int i = 0; i < data.effectsToAdd.Count; i++) {
+        //    Effect template = AbilityFactory.CreateEffect(data.effectsToAdd[i].effectData, source);
+        //    activeEffects.Add(template);
+        //    //Debug.Log("Creating a display effect for: " + data.effectName + " by the name of: " + template.Data.effectName);
+        //}
+    }
+
+    public override bool Apply(Entity target) {
+
+        if (base.Apply(target) == false)
+            return false;
+
+        Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
+
+        if (targetAbility == null) {
+            Debug.LogError("Could not find the ability: " + Data.targetAbilityToAddEffectsTo + " on the Entity: " + target.EntityName);
+            return false;
+        }
+
+        for (int i = 0; i < Data.effectsToRemove.Count; i++) {
+            string targetName = Data.effectsToRemove[i];
+            Effect targetEffect = targetAbility.GetEffectByName(targetName);
+
+            if(targetEffect == null) {
+                Debug.LogError("Could not find an effect: " + targetName + " on the ability " + targetAbility.Data.abilityName);
+                continue;
+            }
+
+            targetAbility.RemoveEffect(targetEffect);
+            TrackEffectsOnEntity(target, targetEffect);
+        }
+
+        return true;
+    }
+
+    public override void Remove(Entity target) {
+        base.Remove(target);
+
+        if (entityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
+
+            Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
+
+            if (targetAbility == null) {
+                Debug.LogError("Could not find the ability: " + Data.targetAbilityToAddEffectsTo + " on the Entity: " + target.EntityName);
+                return;
+            }
+
+            for (int i = 0; i < effectsAdded.Count; i++) {
+                targetAbility.AddEffect(effectsAdded[i]);
+            }
+
+            entityTrackedEffects.Remove(target);
+        }
+    }
+
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+        for (int i = 0; i < Data.effectsToRemove.Count; i++) {
+
+            string targetName = Data.effectsToRemove[i];
+            Effect targetEffect = target.GetEffectByName(targetName);
+
+            if (targetEffect == null) {
+                Debug.LogError("Could not find an effect: " + targetName + " on the ability " + target.Data.abilityName);
+                continue;
+            }
+
+            target.RemoveEffect(targetEffect);
+            TrackEffectsOnAbility(target, targetEffect);
+        }
+
+        return true;
+    }
+
+    private void TrackEffectsOnAbility(Ability target, Effect newEffect) {
+        if (abilityTrackedEffects.TryGetValue(target, out List<Effect> children) == true) {
+            children.Add(newEffect);
+        }
+        else {
+            abilityTrackedEffects.Add(target, new List<Effect> { newEffect });
+        }
+    }
+
+    private void TrackEffectsOnEntity(Entity target, Effect newEffect) {
+        if (entityTrackedEffects.TryGetValue(target, out List<Effect> children) == true) {
+            children.Add(newEffect);
+        }
+        else {
+            entityTrackedEffects.Add(target, new List<Effect> { newEffect });
+        }
+    }
+
+    public override void RemoveFromAbility(Ability target) {
+        base.RemoveFromAbility(target);
+
+        if (abilityTrackedEffects.TryGetValue(target, out List<Effect> effectsRemoved) == true) {
+            for (int i = 0; i < effectsRemoved.Count; i++) {
+                target.AddEffect(effectsRemoved[i]);
+            }
+
+            abilityTrackedEffects.Remove(target);
+        }
+
+    }
+
+    public override string GetTooltip() {
+        return base.GetTooltip();
+        
+       
     }
 }
 
@@ -1012,14 +1245,10 @@ public class AddAbilityEffect : Effect {
         }
 
         return true;
-
-
-
     }
 
     public override void Remove(Entity target) {
         base.Remove(target);
-
 
         if (trackedAbilities.TryGetValue(target, out List<Ability> abilitiesLearned) == true) {
 
@@ -1030,7 +1259,6 @@ public class AddAbilityEffect : Effect {
             trackedAbilities.Remove(target);
         }
     }
-
 
     public override bool ApplyToAbility(Ability target) {
         if (base.ApplyToAbility(target) == false)

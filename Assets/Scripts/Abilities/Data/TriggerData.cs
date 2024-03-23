@@ -55,6 +55,7 @@ public class TriggerData
 
     public float triggerTimerDuration;
     public bool delay1Frame;
+    public bool autoActivateTimer;
 
     public List<ConstraintDataFocus> allConstraints = new List<ConstraintDataFocus>();
 

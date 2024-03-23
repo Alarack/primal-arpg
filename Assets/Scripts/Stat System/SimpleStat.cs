@@ -73,7 +73,8 @@ public enum StatName
     ProcChance,
     EssenceShield,
     Armor,
-    ChannelInterval
+    ChannelInterval,
+    NPCLifetime
 }
 
 
