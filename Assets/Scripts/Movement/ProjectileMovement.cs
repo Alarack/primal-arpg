@@ -97,6 +97,11 @@ public class ProjectileMovement : EntityMovement
 
     }
 
+    public void SetSeekMask(int parentLayer, MaskTargeting targeting) {
+
+        targetLayers = LayerTools.SetupHitMask(targetLayers, parentLayer, targeting);
+    }
+
     private void SetSeekPoint() {
         Entity source = (Owner as Projectile) != null ? (Owner as Projectile).Source : null;
 

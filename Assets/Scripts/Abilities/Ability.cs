@@ -1239,32 +1239,32 @@ public class Ability {
         SendAbilityResolvedEvent(activationInstance);
     }
 
-    protected IEnumerator TriggerAllEffects(TriggerInstance activationInstance = null) {
-        WaitForEndOfFrame waiter = new WaitForEndOfFrame();
+    //protected IEnumerator TriggerAllEffects(TriggerInstance activationInstance = null) {
+    //    WaitForEndOfFrame waiter = new WaitForEndOfFrame();
 
-        int count = effects.Count;
-        for (int i = 0; i < count; i++) {
-            yield return waiter;
-            effects[i].ReceiveStartActivationInstance(activationInstance);
-        }
+    //    int count = effects.Count;
+    //    for (int i = 0; i < count; i++) {
+    //        yield return waiter;
+    //        effects[i].ReceiveStartActivationInstance(activationInstance);
+    //    }
 
-        //Debug.Log("An ability: " + Data.abilityName + " has resolved. Source: " + Source.gameObject.name);
-        SendAbilityResolvedEvent(activationInstance);
-    }
+    //    //Debug.Log("An ability: " + Data.abilityName + " has resolved. Source: " + Source.gameObject.name);
+    //    SendAbilityResolvedEvent(activationInstance);
+    //}
 
-    protected IEnumerator TriggerAllEffectsWithDelay(TriggerInstance activationInstance = null) {
-        WaitForEndOfFrame waiter = new WaitForEndOfFrame();
+    //protected IEnumerator TriggerAllEffectsWithDelay(TriggerInstance activationInstance = null) {
+    //    WaitForEndOfFrame waiter = new WaitForEndOfFrame();
 
-        yield return waiter;
+    //    yield return waiter;
 
-        int count = effects.Count;
-        for (int i = 0; i < count; i++) {
-            effects[i].ReceiveStartActivationInstance(activationInstance);
-        }
+    //    int count = effects.Count;
+    //    for (int i = 0; i < count; i++) {
+    //        effects[i].ReceiveStartActivationInstance(activationInstance);
+    //    }
 
-        //Debug.Log("An ability: " + Data.abilityName + " has resolved. Source: " + Source.gameObject.name);
-        SendAbilityResolvedEvent(activationInstance);
-    }
+    //    //Debug.Log("An ability: " + Data.abilityName + " has resolved. Source: " + Source.gameObject.name);
+    //    SendAbilityResolvedEvent(activationInstance);
+    //}
 
     protected void EndAllEffectsInstantly(TriggerInstance activationInstance = null) {
         int count = effects.Count;

@@ -102,6 +102,12 @@ public class Projectile : Entity {
 
         //SetupHitMask();
         projectileHitMask = LayerTools.SetupHitMask(projectileHitMask, source.gameObject.layer, maskTargeting);
+
+        ProjectileMovement move = Movement as ProjectileMovement;
+        if(move != null) {
+            move.SetSeekMask(source.gameObject.layer, maskTargeting);
+        }
+ 
         //projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Environment"));
         StartCoroutine(DelayEnvironmentMask());
 
