@@ -311,6 +311,7 @@ public class Ability {
             Effect effect = AbilityFactory.CreateEffect(Data.effectDefinitions[i].effectData, Source, this);
             effects.Add(effect);
 
+            
             //Debug.LogWarning("An ability: " + Data.abilityName + " is creating an effect: " + effect.Data.effectName);
 
         }
@@ -391,6 +392,8 @@ public class Ability {
     public void AddChildAbility(Ability ability) {
         ChildAbilities.Add(ability);
         ability.ParentAbility = this;
+
+        //Debug.Log("Adding " + ability.Data.abilityName + " as a child to " + Data.abilityName);
     }
 
     public Ability AddChildAbility(AbilityData data) {
@@ -417,6 +420,9 @@ public class Ability {
 
     public void AddEffect(Effect newEffect) {
         effects.Add(newEffect);
+
+        //Debug.LogWarning("Adding a new effect: " + newEffect.Data.effectName + " to " + Data.abilityName);
+        //newEffect.InheritStatsFromParentAbility(this);
     }
 
     public void RemoveEffect(Effect target) {

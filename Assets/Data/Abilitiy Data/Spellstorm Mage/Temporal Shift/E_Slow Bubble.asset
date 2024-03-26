@@ -24,6 +24,7 @@ MonoBehaviour:
     canOverload: 0
     canAffectDeadTargets: 0
     onlyShowTooltipInRune: 0
+    inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
@@ -36,7 +37,7 @@ MonoBehaviour:
     payloadStatData:
     - variant: 0
       statName: 41
-      value: 4
+      value: 2
       maxValue: 0
       minValue: 0
     - variant: 0
@@ -170,6 +171,8 @@ MonoBehaviour:
     abilitiesToAdd: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    effectsToRemove: []
+    targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
@@ -181,3 +184,5 @@ MonoBehaviour:
     spawnType: 0
     nameOfAbilityToActivate: 
     targetStateName: 
+    tagsToAdd: 
+    tagsToRemove: 

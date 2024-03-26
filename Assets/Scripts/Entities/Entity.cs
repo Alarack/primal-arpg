@@ -68,6 +68,7 @@ public abstract class Entity : MonoBehaviour {
     protected Timer essenceRegenTimer;
 
     protected virtual void Awake() {
+        //Debug.Log(EntityName + " is waking");
         Stats = new StatCollection(this, statDefinitions);
 
         if (Stats.Contains(StatName.Health) && Stats[StatName.Health] < 1) {

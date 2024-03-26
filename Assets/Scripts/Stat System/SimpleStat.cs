@@ -74,7 +74,9 @@ public enum StatName
     EssenceShield,
     Armor,
     ChannelInterval,
-    NPCLifetime
+    NPCLifetime,
+    StatusLifetime,
+    StatusInterval
 }
 
 

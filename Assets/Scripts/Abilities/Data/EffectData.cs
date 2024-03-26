@@ -108,6 +108,7 @@ public class EffectData
     public bool canAffectDeadTargets;
     //public bool hideTooltip;
     public bool onlyShowTooltipInRune;
+    public bool inheritStatsFromParentAbility = true;
 
     public int numberOfTargets = -1;
     public string otherAbilityName;

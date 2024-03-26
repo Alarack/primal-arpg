@@ -88,7 +88,7 @@ public class Status {
 
     private void CreateTimers() {
 
-        float totalDuration = ParentEffect.GetModifiedEffectDuration();
+        float totalDuration = ParentEffect.GetModifiedStatusDuration();
         float totalInterval = ParentEffect.GetModifiedIntervalDuration();
 
         if (totalDuration > 0f)

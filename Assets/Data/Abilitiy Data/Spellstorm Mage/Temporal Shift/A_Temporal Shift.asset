@@ -21,7 +21,7 @@ MonoBehaviour:
     resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 0
+    autoFire: 1
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 1
     showChildAbilitiesInTooltip: 0
@@ -37,6 +37,7 @@ MonoBehaviour:
       riderEffectName: 
       triggerTimerDuration: 0
       delay1Frame: 0
+      autoActivateTimer: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -128,6 +129,7 @@ MonoBehaviour:
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -142,6 +144,7 @@ MonoBehaviour:
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -153,7 +156,17 @@ MonoBehaviour:
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     windupVFX: {fileID: 0}
-    abilityStatData: []
+    abilityStatData:
+    - variant: 0
+      statName: 11
+      value: 4
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 41
+      value: 4
+      maxValue: 0
+      minValue: 0
     recoveryData:
     - type: 0
       recoveryTriggers: []
@@ -166,9 +179,10 @@ MonoBehaviour:
           riderEffectName: 
           triggerTimerDuration: 0
           delay1Frame: 0
+          autoActivateTimer: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         minTriggerCount: 0
-      cooldown: 0.2
+      cooldown: 5

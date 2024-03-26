@@ -56,8 +56,10 @@ public abstract class Effect {
     protected void SetupStats() {
         Stats = new StatCollection(this, Data.payloadStatData);
         //Stats.AddMissingStats(Data.stat)
-        
-        if(Data.HasStat(StatName.ShotCount) == 0f) {
+
+
+
+        if (Data.HasStat(StatName.ShotCount) == 0f) {
             SimpleStat effectShotCount = new SimpleStat(StatName.ShotCount, Data.payloadCount);
             Stats.AddStat(effectShotCount);
         }
@@ -66,16 +68,47 @@ public abstract class Effect {
             SimpleStat shotDelay = new SimpleStat(StatName.FireDelay, Data.shotDelay);
             Stats.AddStat(shotDelay);
         }
-        
+
         SimpleStat maxTargets = new SimpleStat(StatName.EffectMaxTargets, Data.numberOfTargets);
         //SimpleStat effectRange = new SimpleStat(StatName.EffectRange, Data.)
-        
-      
+
+
         Stats.AddStat(maxTargets);
+
+        InheritStatsFromParentAbility();
 
         //if(Data.effectName == "Sword Guy Swipe Damage") {
         //    Debug.Log("Effect Range: " + Stats[StatName.EffectRange]);
         //}
+    }
+
+    public void InheritStatsFromParentAbility() {
+
+        if (ParentAbility == null) {
+            //Debug.LogWarning(Data.effectName + " has no parent ability to inherit from");
+            return;
+        }
+        
+        if (Data.inheritStatsFromParentAbility == false) {
+            Debug.LogWarning(Data.effectName + " does not inherit stats from it's parent");
+            return;
+        }
+ 
+        List<StatName> exceptions = new List<StatName> {
+            StatName.Cooldown,
+            StatName.AbilityCharge,
+            StatName.AbilityRuneSlots,
+            StatName.AbilityWeaponCoefficicent,
+            StatName.AbilityWindupTime,
+            StatName.ProcChance,
+            StatName.EssenceCost,
+            StatName.OverloadChance,
+            StatName.ChannelInterval,
+
+        };
+
+
+        Stats.AddMissingStats(ParentAbility.Stats, exceptions, ParentAbility.Data.abilityName, Data.effectName);
     }
 
     protected void SetupTargetConstraints() {
@@ -147,7 +180,7 @@ public abstract class Effect {
 
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
-        if(Suppressed == true) {
+        if (Suppressed == true) {
             Debug.LogWarning(Data.effectName + " is suppressed");
             return;
         }
@@ -346,7 +379,7 @@ public abstract class Effect {
 
         data.AddEffect("Parent Effect", parentEffect);
 
-        //Debug.Log(effectName + " has been applied from the card: " + ParentAbility.Source.cardName);
+        //Debug.Log(Data.effectName + " has been applied from the Ability: " + ParentAbility.Data.abilityName);
 
         EventManager.SendEvent(GameEvent.EffectApplied, data);
     }
@@ -745,7 +778,7 @@ public class SuppressEffect : Effect {
     public override void RemoveFromEffect(Effect target) {
         base.RemoveFromEffect(target);
 
-        if(trackedEffects.Contains(target) == false) {
+        if (trackedEffects.Contains(target) == false) {
             Debug.LogError("An effect: " + target.Data.effectName + " is not tracked by a suppress effect and is trying to be removed");
             return;
         }
@@ -763,11 +796,11 @@ public class AddTagEffect : Effect {
     private Dictionary<Ability, List<AbilityTag>> trackedTags = new Dictionary<Ability, List<AbilityTag>>();
 
     public AddTagEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
-        
+
     }
 
     public override bool ApplyToAbility(Ability target) {
-        if(base.ApplyToAbility(target) == false)
+        if (base.ApplyToAbility(target) == false)
             return false;
 
         for (int i = 0; i < Data.tagsToAdd.Count; i++) {
@@ -782,7 +815,7 @@ public class AddTagEffect : Effect {
     public override void RemoveFromAbility(Ability target) {
         base.RemoveFromAbility(target);
 
-        if(trackedTags.TryGetValue(target, out List<AbilityTag> tags) == true) {
+        if (trackedTags.TryGetValue(target, out List<AbilityTag> tags) == true) {
             for (int i = 0; i < tags.Count; i++) {
                 target.RemoveTag(tags[i]);
             }
@@ -793,7 +826,7 @@ public class AddTagEffect : Effect {
 
 
     private void TrackTags(Ability target) {
-        if(trackedTags.ContainsKey(target) == false) {
+        if (trackedTags.ContainsKey(target) == false) {
             trackedTags.Add(target, Data.tagsToAdd);
         }
     }
@@ -972,12 +1005,12 @@ public class AddEffectEffect : Effect {
 
     private Dictionary<Entity, List<Effect>> entityTrackedEffects = new Dictionary<Entity, List<Effect>>();
     private Dictionary<Ability, List<Effect>> abilityTrackedEffects = new Dictionary<Ability, List<Effect>>();
-    private List<Effect> activeEffects = new List<Effect>();
+    private List<Effect> activeDisplayEffects = new List<Effect>();
 
     public AddEffectEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
         for (int i = 0; i < data.effectsToAdd.Count; i++) {
             Effect template = AbilityFactory.CreateEffect(data.effectsToAdd[i].effectData, source);
-            activeEffects.Add(template);
+            activeDisplayEffects.Add(template);
             //Debug.Log("Creating a display effect for: " + data.effectName + " by the name of: " + template.Data.effectName);
         }
     }
@@ -995,7 +1028,7 @@ public class AddEffectEffect : Effect {
         }
 
         for (int i = 0; i < Data.effectsToAdd.Count; i++) {
-            Effect newEffect = AbilityFactory.CreateEffect(Data.effectsToAdd[i].effectData, Source, ParentAbility);
+            Effect newEffect = AbilityFactory.CreateEffect(Data.effectsToAdd[i].effectData, Source, targetAbility);
 
             targetAbility.AddEffect(newEffect);
             TrackEffectsOnEntity(target, newEffect);
@@ -1030,7 +1063,7 @@ public class AddEffectEffect : Effect {
             return false;
 
         for (int i = 0; i < Data.effectsToAdd.Count; i++) {
-            Effect newEffect = AbilityFactory.CreateEffect(Data.effectsToAdd[i].effectData, Source, ParentAbility);
+            Effect newEffect = AbilityFactory.CreateEffect(Data.effectsToAdd[i].effectData, Source, target);
 
             target.AddEffect(newEffect);
             TrackEffectsOnAbility(target, newEffect);
@@ -1076,14 +1109,14 @@ public class AddEffectEffect : Effect {
 
         //Debug.Log("Showing a tooltip for an Add Effect Effect On " + Data.effectName + ". " + activeEffects.Count + " effects found to add");
 
-        for (int i = 0; i < activeEffects.Count; i++) {
-            
-            string effectTooltip = activeEffects[i].GetTooltip();
-            
-            if(string.IsNullOrEmpty(effectTooltip) == false)
+        for (int i = 0; i < activeDisplayEffects.Count; i++) {
+
+            string effectTooltip = activeDisplayEffects[i].GetTooltip();
+
+            if (string.IsNullOrEmpty(effectTooltip) == false)
                 builder.Append(effectTooltip);
 
-            if (i != activeEffects.Count - 1)
+            if (i != activeDisplayEffects.Count - 1)
                 builder.AppendLine();
         }
 
@@ -1123,7 +1156,7 @@ public class RemoveEffectEffect : Effect {
             string targetName = Data.effectsToRemove[i];
             Effect targetEffect = targetAbility.GetEffectByName(targetName);
 
-            if(targetEffect == null) {
+            if (targetEffect == null) {
                 Debug.LogError("Could not find an effect: " + targetName + " on the ability " + targetAbility.Data.abilityName);
                 continue;
             }
@@ -1210,8 +1243,8 @@ public class RemoveEffectEffect : Effect {
 
     public override string GetTooltip() {
         return base.GetTooltip();
-        
-       
+
+
     }
 }
 
@@ -1428,8 +1461,8 @@ public class AddStatusEffect : Effect {
 
     public AddStatusEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
-        SimpleStat durationStat = new SimpleStat(StatName.EffectLifetime, data.statusToAdd[0].duration);
-        SimpleStat intervalStat = new SimpleStat(StatName.EffectInterval, data.statusToAdd[0].interval);
+        SimpleStat durationStat = new SimpleStat(StatName.StatusLifetime, data.statusToAdd[0].duration);
+        SimpleStat intervalStat = new SimpleStat(StatName.StatusInterval, data.statusToAdd[0].interval);
 
         float stackValue = data.statusToAdd[0].maxStacks > 0 ? data.statusToAdd[0].maxStacks : float.MaxValue;
 
@@ -1446,16 +1479,16 @@ public class AddStatusEffect : Effect {
         }
     }
 
-    public float GetModifiedEffectDuration() {
+    public float GetModifiedStatusDuration() {
         float effectDurationModifier = 1 + Source.Stats[StatName.GlobalEffectDurationModifier];
 
-        return Stats[StatName.EffectLifetime] * effectDurationModifier;
+        return Stats[StatName.StatusLifetime] * effectDurationModifier;
     }
 
     public float GetModifiedIntervalDuration() {
         float effectIntervalModifier = 1 + Source.Stats[StatName.GlobalEffectIntervalModifier];
 
-        return Stats[StatName.EffectInterval] * effectIntervalModifier;
+        return Stats[StatName.StatusInterval] * effectIntervalModifier;
     }
 
     public void ForceTick() {
@@ -1579,7 +1612,7 @@ public class AddStatusEffect : Effect {
                     float damageRatio = activeStatusEffects[i].GetWeaponScaler();
                     //TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green)
 
-                    string durationText = TextHelper.ColorizeText(GetModifiedEffectDuration().ToString(), Color.yellow) + " seconds";
+                    string durationText = TextHelper.ColorizeText(GetModifiedStatusDuration().ToString(), Color.yellow) + " seconds";
                     string intervalText = TextHelper.ColorizeText(GetModifiedIntervalDuration().ToString(), Color.yellow) + " seconds";
 
 
@@ -2403,8 +2436,8 @@ public class StatAdjustmentEffect : Effect {
 
         if (targetManaShield > 0f) {
             float leftoverDamage = target.HandleManaShield(incomingdamage, targetManaShield);
-            
-            if(leftoverDamage < 0f) {
+
+            if (leftoverDamage < 0f) {
                 //Debug.Log("Damage after mana shield: " + leftoverDamage);
                 return leftoverDamage;
             }
@@ -2421,17 +2454,17 @@ public class StatAdjustmentEffect : Effect {
 
         if (incomingDamage > 0f)
             return incomingDamage;
-        
+
         float targetArmor = target.Stats[StatName.Armor];
 
-        if(targetArmor == 0f) {
+        if (targetArmor == 0f) {
             return incomingDamage;
         }
 
 
         float softCap = targetArmor;
 
-        if(targetArmor > 0.75f) {
+        if (targetArmor > 0.75f) {
             softCap = 0.75f;
         }
 
@@ -2773,8 +2806,8 @@ public class StatAdjustmentEffect : Effect {
             }
         }
 
-        if (Stats.Contains(StatName.EffectLifetime)){
-            string effectTime = TextHelper.ColorizeText(Stats[StatName.EffectLifetime].ToString(), Color.yellow) ;
+        if (Stats.Contains(StatName.EffectLifetime)) {
+            string effectTime = TextHelper.ColorizeText(Stats[StatName.EffectLifetime].ToString(), Color.yellow);
 
             string durationReplacement = replacement.Replace("{D}", effectTime);
             builder.Append(durationReplacement);

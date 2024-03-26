@@ -23,9 +23,12 @@ MonoBehaviour:
     deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
+    onlyShowTooltipInRune: 0
+    inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
+    targetAbilityForLastPayload: 
     targetConstraints:
     - type: 18
       inverse: 0
@@ -71,16 +74,6 @@ MonoBehaviour:
     shotDelay: 0.2
     payloadStatData:
     - variant: 0
-      statName: 41
-      value: 2
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 11
-      value: 5
-      maxValue: 0
-      minValue: 0
-    - variant: 0
       statName: 19
       value: 0.5
       maxValue: 0
@@ -96,6 +89,7 @@ MonoBehaviour:
       parentToTarget: 0
       applyOncePerTarget: 1
       applyOnInterval: 1
+      affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
@@ -201,7 +195,8 @@ MonoBehaviour:
     effectsToAdd:
     - {fileID: 11400000, guid: a1ddb20d359f6474684d138e8192e18f, type: 2}
     targetAbilityToAddEffectsTo: 
-    hideTooltip: 1
+    effectsToRemove: []
+    targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
@@ -213,3 +208,5 @@ MonoBehaviour:
     spawnType: 0
     nameOfAbilityToActivate: 
     targetStateName: 
+    tagsToAdd: 
+    tagsToRemove: 

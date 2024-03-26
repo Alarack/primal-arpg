@@ -407,6 +407,7 @@ public static class AbilityEditorHelper {
         entry.canOverload = EditorGUILayout.Toggle("Can Overload?", entry.canOverload);
         entry.canAffectDeadTargets = EditorGUILayout.Toggle("Can Affect Dead", entry.canAffectDeadTargets);
         entry.onlyShowTooltipInRune = EditorGUILayout.Toggle("Rune Only Tooltip", entry.onlyShowTooltipInRune);
+        entry.inheritStatsFromParentAbility = EditorGUILayout.Toggle("Inherit Stats", entry.inheritStatsFromParentAbility);
 
         if (entry.canOverload == true) {
             entry.overloadFloatingTextColor = EditorGUILayout.GradientField("Overload Floating Text Color", entry.overloadFloatingTextColor);

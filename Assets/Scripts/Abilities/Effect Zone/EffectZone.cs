@@ -64,7 +64,8 @@ public class EffectZone : Entity {
             ownerType = parentEffect.Source.ownerType;
 
 
-
+        //if(Stats.Contains(StatName.EffectLifetime))
+        //    Debug.Log("Lifetime for: " + EntityName + ": " + Stats[StatName.EffectLifetime]);   
 
         SetInfo();
         SetSize();
@@ -274,6 +275,8 @@ public class EffectZone : Entity {
         if (Stats[StatName.EffectLifetime] <= 0)
             yield break;
 
+        //Debug.LogWarning("Destroying: " + EntityName + " after " + Stats[StatName.EffectLifetime] + " seconds");
+
         //bool winding = myCollider != null && myCollider.enabled == false;
         WaitForEndOfFrame windupWaiter = new WaitForEndOfFrame();
 
@@ -318,6 +321,8 @@ public class EffectZone : Entity {
 
         parentEffect.ParentAbility.SendAbilityEndedEvent(this);
 
+        //Debug.LogWarning("Cleaning Up: " + EntityName);
+
         Destroy(gameObject);
     }
 
@@ -344,8 +349,11 @@ public class EffectZone : Entity {
 
 
     protected virtual void OnTriggerEnter2D(Collider2D other) {
-        if (LayerTools.IsLayerInMask(mask, other.gameObject.layer) == false)
+        if (LayerTools.IsLayerInMask(mask, other.gameObject.layer) == false) {
+            //Debug.Log(EntityName + " rejected a layer: " + other.gameObject.layer);
             return;
+        }
+          
 
         Entity otherEntity = other.GetComponent<Entity>();
         if (otherEntity == null) {
@@ -355,6 +363,7 @@ public class EffectZone : Entity {
 
 
         if (zoneInfo.applyOncePerTarget == true && IsTargetAlreadyAffected(otherEntity) == true) {
+            //Debug.LogWarning(otherEntity.EntityName + " has already been affected by " + parentEffect.Data.effectName);
             return;
         }
 

@@ -107,8 +107,7 @@ public class StatCollection {
 
     }
 
-    public void AddMissingStats(StatCollection stats, List<StatName> exceptions = null) {
-
+    public void AddMissingStats(StatCollection stats, List<StatName> exceptions = null, string parent = "", string child = "") {
         foreach (var item in stats.statDictionary) {
 
             if(exceptions != null) {
@@ -119,8 +118,21 @@ public class StatCollection {
             if(Contains(item.Key) == false) {
                 SimpleStat missingStat = new SimpleStat(item.Key, item.Value.ModifiedValue);
                 AddStat(missingStat);
+                
+                //if(item.Key == StatName.EffectLifetime) {
+                //    Debug.Log(item.Key + " Not found on: " + child + ". Adding it from: " + parent  +". Value: " + item.Value.ModifiedValue);
+                //}
+             
             }
             else {
+
+                if (stats[item.Key] == 0)
+                    continue;
+
+                //if (item.Key == StatName.EffectLifetime) {
+                //    Debug.Log(item.Key + " already exists on: " + child + " ["+ GetStatCurrentValue(item.Key) +"]. Setting value from: " + parent +" to: " + stats[item.Key]);
+                //}
+                
                 SetStatValue(item.Key, stats[item.Key], stats.Owner);
             }
         }

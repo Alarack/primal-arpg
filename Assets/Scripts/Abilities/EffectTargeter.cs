@@ -510,6 +510,11 @@ public class EffectTargeter {
         //Debug.Log(parentEffect.Stats[StatName.ShotCount] + " projectiles on " + parentEffect.ParentAbility.Data.abilityName);
 
         int baseShotCount = (int)parentEffect.Stats[StatName.ShotCount];
+
+        if(baseShotCount == 0) {
+            Debug.LogError("Shot Count of 0 on " + parentEffect.Data.effectName + " add a Shot Count Stat to it or its parent ability");
+        }
+
         int totalShots = baseShotCount;
 
 
@@ -582,7 +587,7 @@ public class EffectTargeter {
 
         EffectZone effectZone = delivery as EffectZone;
         if (effectZone != null) {
-            effectZone.Stats.AddMissingStats(parentEffect.Stats);
+            effectZone.Stats.AddMissingStats(parentEffect.Stats, null, parentEffect.Data.effectName, effectZone.EntityName);
 
             Transform parentTransform = null;
             if (parentEffect.Data.effectZoneInfo.parentToTarget == true)
