@@ -24,9 +24,11 @@ MonoBehaviour:
     canOverload: 0
     canAffectDeadTargets: 0
     onlyShowTooltipInRune: 0
+    inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
+    targetAbilityForLastPayload: 
     targetConstraints:
     - type: 18
       inverse: 0
@@ -82,6 +84,7 @@ MonoBehaviour:
       parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 0
+      affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
@@ -171,6 +174,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 44dc4cb90848a29458589e4dd7ed399d, type: 2}
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    effectsToRemove: []
+    targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
@@ -182,3 +187,5 @@ MonoBehaviour:
     spawnType: 0
     nameOfAbilityToActivate: 
     targetStateName: 
+    tagsToAdd: 
+    tagsToRemove: 

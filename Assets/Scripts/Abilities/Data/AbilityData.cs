@@ -29,7 +29,7 @@ public enum AbilityTag {
     Weapon,
     Arcane,
     Void,
-    Time
+    Time,
 }
 
 public enum AbilityCategory {

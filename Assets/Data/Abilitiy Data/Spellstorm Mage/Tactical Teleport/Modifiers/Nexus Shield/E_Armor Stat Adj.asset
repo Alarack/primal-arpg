@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Nexus Armor Stat Adj
-    effectDescription: 
+    effectDescription: 'Armor Bonus: {}'
     type: 1
     targeting: 0
     subTarget: 0
@@ -24,9 +24,11 @@ MonoBehaviour:
     canOverload: 0
     canAffectDeadTargets: 0
     onlyShowTooltipInRune: 0
+    inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
+    targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
     payloadPrefab: {fileID: 0}
@@ -44,6 +46,7 @@ MonoBehaviour:
       parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 0
+      affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
@@ -145,6 +148,8 @@ MonoBehaviour:
     abilitiesToAdd: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    effectsToRemove: []
+    targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
@@ -156,3 +161,5 @@ MonoBehaviour:
     spawnType: 0
     nameOfAbilityToActivate: 
     targetStateName: 
+    tagsToAdd: 
+    tagsToRemove: 

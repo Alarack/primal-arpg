@@ -1594,6 +1594,14 @@ public class AddStatusEffect : Effect {
 
             switch (activeStatusEffects[i].Data.effectDesignation) {
                 case StatModifierData.StatModDesignation.None:
+                    //builder.AppendLine();
+
+                    //Debug.Log("Showing a tooltip for a non damage status");
+                    //Debug.Log(activeStatusEffects[i].GetTooltip());
+
+                    builder.Append(activeStatusEffects[i].GetTooltip());
+
+
                     break;
                 case StatModifierData.StatModDesignation.PrimaryDamage:
 

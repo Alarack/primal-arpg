@@ -43,7 +43,7 @@ public static class TextHelper
             StatName.EffectInterval when value > 0 => $"<color=#{penaltyColor}>+" + (value * 100) + "% </color>",
             StatName.AbilityCharge => throw new System.NotImplementedException(),
             //StatName.CooldownReduction when value > 0 => builder.Append("Cooldown Reduction").Append("-").Append( (value * 100) + "%").ToString(),
-            StatName.CooldownReduction when value > 0 => $"<color=#{bonusColor}>-" +(value * 100) + "% </color>",
+            StatName.CooldownReduction when value > 0 => $"<color=#{bonusColor}>" +(value * 100) + "% </color>",
             StatName.CooldownReduction when value <= 0 => "+" + (value * 100) + "%",
             StatName.GlobalDamageModifier when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.GlobalDamageModifier when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "% </color>",
@@ -91,6 +91,8 @@ public static class TextHelper
             StatName.EssenceRegenerationRate when value < 0 => $"<color=#{bonusColor}>" + (-value) * 100 + "% </color>",
             StatName.EssenceShield when value > 0 => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.ProcChance when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.Armor when value > 0 => $"<color=#{bonusColor}>+" + (value) * 100 + "%</color>",
+            StatName.Armor when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "%</color>",
             _ => "No Entry For: " + stat,
         };
 
