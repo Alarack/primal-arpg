@@ -774,14 +774,12 @@ public class Ability {
 
             string procReplacement = shotCountReplacement.Replace("{PR}", TextHelper.FormatStat(StatName.ProcChance, procChance));
 
-
             builder.Append(procReplacement);
 
             if(Data.showChildAbilitiesInTooltip == false) {
                 builder.AppendLine();
             }
         }
-
 
         if (Data.showChildAbilitiesInTooltip == true) {
             for (int i = 0; i < ChildAbilities.Count; i++) {
@@ -791,9 +789,6 @@ public class Ability {
                     builder.AppendLine();
             }
         }
-
-
-        //float damagePercent = GetWeaponDamageScaler(); //GetDamageEffectRatio();
 
         if (effects[0] is StatAdjustmentEffect) {
 
@@ -825,10 +820,6 @@ public class Ability {
             }
         }
 
-
-
-
-
         float cooldown = GetCooldown();
 
         if (Data.includeEffectsInTooltip == true) {
@@ -841,19 +832,11 @@ public class Ability {
                 }
 
                 string effectTooltip = effect.GetTooltip();
-
                 if (string.IsNullOrEmpty(effectTooltip) == false) {
-
                     builder.Append(effectTooltip).AppendLine();
-
-                    //if (cooldown > 0f)
-                    //    builder.Append(effect.GetTooltip()).AppendLine();
-                    //else
-                    //    builder.Append(effect.GetTooltip());
                 }
             }
         }
-
 
         if (Stats.Contains(StatName.EssenceCost)) {
 
@@ -864,23 +847,12 @@ public class Ability {
                 builder.AppendLine("Generates: " + TextHelper.ColorizeText(Mathf.Abs(Stats[StatName.EssenceCost]).ToString(), Color.cyan) + " Essence");
 
             }
-
-
         }
 
 
         if (cooldown > 0f) {
             builder.Append("Cooldown: " + TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(cooldown, 2), Color.yellow)).Append(" Seconds").AppendLine();
         }
-
-        //if(ChildAbilities.Count > 0) {
-        //    builder.AppendLine("Attached Abilities: ");
-        //}
-
-       
-
-        
-
 
         builder.Append(GetRunesTooltip());
 

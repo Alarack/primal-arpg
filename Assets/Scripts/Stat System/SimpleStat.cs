@@ -76,7 +76,8 @@ public enum StatName
     ChannelInterval,
     NPCLifetime,
     StatusLifetime,
-    StatusInterval
+    StatusInterval,
+    MaxStackCount
 }
 
 

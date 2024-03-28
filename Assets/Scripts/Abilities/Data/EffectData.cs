@@ -106,6 +106,7 @@ public class EffectData
     public bool deliveryPayloadToTarget;
     public bool canOverload;
     public bool canAffectDeadTargets;
+    public bool nonStacking;
     //public bool hideTooltip;
     public bool onlyShowTooltipInRune;
     public bool inheritStatsFromParentAbility = true;

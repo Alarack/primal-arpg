@@ -101,6 +101,12 @@ public static class StatAdjustmentManager {
 
         statModAction?.Invoke(mod.TargetStat, mod);
 
+        //Debug.Log("Removing: " + mod.TargetStat);
+
+
+        //Debug.Log(mod.TargetStat + " " + mod.ModType + " With a value of: " + mod.Value + " removed from: " + target.EntityName);
+        //Debug.Log("Resulting Value for : " + mod.TargetStat + " : " + target.Stats[mod.TargetStat]);
+
 
         SendStatChangeEvent(mod.TargetStat, target, source, sourceAbility, mod.Value, true);
 
@@ -145,12 +151,13 @@ public static class StatAdjustmentManager {
         //if(targetStat == StatName.Health && sourceAbility != null) {
         //    Debug.LogWarning(sourceAbility.Data.abilityName + " is changing health ");
         //}
-     
-        //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
 
+        //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
+        //Debug.Log("Applying: " + targetStat);
         //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
-        
-       
+
+
+
 
         try {
             SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value);

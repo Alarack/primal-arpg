@@ -54,7 +54,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
         Entity killer = data.GetEntity("Killer");
 
         if (target.ownerType == OwnerConstraintType.Enemy && killer.ownerType == OwnerConstraintType.Friendly) {
-            int threat = (int)NPCDataManager.GetThreatLevel(target.entityName);
+            int threat = (int)NPCDataManager.GetThreatLevel(target.EntityName);
 
             SpawnCoins(threat, target.transform.position, threat, threat * 3);
             SpawnEXP(threat, target.transform.position, 1f, 1f);

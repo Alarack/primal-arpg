@@ -27,6 +27,7 @@ public abstract class Effect {
     public bool Suppressed { get; set; } = false;
 
     public List<EffectZone> ActiveEffectZones { get; set; } = new List<EffectZone>();
+    public Dictionary<Entity, int> PsudoStacks { get; set; } = new Dictionary<Entity, int>();
 
     protected TriggerInstance currentTriggerInstance;
     protected List<AbilityConstraint> targetConstraints = new List<AbilityConstraint>();
@@ -88,12 +89,12 @@ public abstract class Effect {
             //Debug.LogWarning(Data.effectName + " has no parent ability to inherit from");
             return;
         }
-        
+
         if (Data.inheritStatsFromParentAbility == false) {
             Debug.LogWarning(Data.effectName + " does not inherit stats from it's parent");
             return;
         }
- 
+
         List<StatName> exceptions = new List<StatName> {
             StatName.Cooldown,
             StatName.AbilityCharge,
@@ -210,6 +211,27 @@ public abstract class Effect {
         if (EvaluateTargetConstraints(target) == false)
             return false;
 
+        if (CheckNonStacking(target) == true)
+            return false;
+
+        //if (Data.nonStacking == true) {
+        //    if (EntityTargets.Contains(target) == true) {
+        //        //Debug.LogWarning("Add a psudo stack to " + Data.effectName);
+
+        //        if (PsudoStacks.TryGetValue(target, out int count) == true) {
+        //            count++;
+        //            Debug.LogWarning("Incementing a count for : " + Data.effectName + " on " + target.EntityName + " :: " + count);
+
+        //        }
+        //        else {
+        //            Debug.LogWarning("Starting a Psudo Stack for: " + Data.effectName + " on " + target.EntityName);
+        //            PsudoStacks.Add(target, 1);
+        //        }
+
+        //        return false;
+        //    }
+        //}
+
 
         if (EntityTargets.Contains(target) == false) {
             EntityTargets.Add(target);
@@ -235,6 +257,27 @@ public abstract class Effect {
         return true;
     }
 
+    private bool CheckNonStacking(Entity target) {
+        if (Data.nonStacking == false)
+            return false;
+
+        if (EntityTargets.Contains(target) == true) {
+            if (PsudoStacks.ContainsKey(target) == true) {
+                PsudoStacks[target]++;
+                //Debug.LogWarning("Incementing a count for : " + Data.effectName + " on " + target.EntityName + " :: " + count);
+            }
+            else {
+                //Debug.LogWarning("Starting a Psudo Stack for: " + Data.effectName + " on " + target.EntityName);
+                PsudoStacks.Add(target, 1);
+            }
+
+            return true;
+        }
+
+
+        return false;
+    }
+
     private bool CheckOverload(Entity target) {
         float sourceChance = Source.Stats[StatName.OverloadChance];
         float targetChance = target == null ? 0f : target.Stats[StatName.OverloadRecieveChance];
@@ -254,6 +297,14 @@ public abstract class Effect {
     }
 
     public virtual void Remove(Entity target) {
+
+        //if (Stats.Contains(StatName.MaxStackCount) == false) {
+        //    if (EntityTargets.Contains(target) == true) {
+        //        Debug.LogWarning("Remove a psudo stack from " + Data.effectName);
+        //    }
+        //}
+
+
         EntityTargets.RemoveIfContains(target);
     }
 
@@ -406,6 +457,20 @@ public abstract class Effect {
         activeDelivery = delivery;
     }
 
+
+    public bool IsTargetInOtherZone(EffectZone zone, Entity target) {
+
+        for (int i = 0; i < ActiveEffectZones.Count; i++) {
+            if (ActiveEffectZones[i] == null || ActiveEffectZones[i] == zone)
+                continue;
+
+            if (ActiveEffectZones[i].IsTargetAlreadyAffected(target) == true)
+                return true;
+        }
+
+
+        return false;
+    }
 
     public virtual string GetTooltip() {
 
@@ -1572,7 +1637,6 @@ public class AddStatusEffect : Effect {
 
         if (activeStatusDict.TryGetValue(target, out List<Status> statusList)) {
             for (int i = 0; i < statusList.Count; i++) {
-                //StatusManager.RemoveStatus(target, statusList[i]);
                 statusList[i].Remove();
             }
 
@@ -2062,27 +2126,12 @@ public class StatAdjustmentEffect : Effect {
                 StatModifier stackMultiplier1 = new StatModifier(status.StackCount - 1, StatModType.PercentAdd, targetStat, status, modData[i].variantTarget);
                 modData[i].AddScalerMod(targetStat, stackMultiplier1);
 
-                //AddScalerMod(StatName.AbilityWeaponCoefficicent, stackMultiplier1);
-
-
-                //StatScaler targetScaler = modData[i].GetScalerByStat(StatName.AbilityWeaponCoefficicent);
-                //targetScaler.scalerStat.RemoveAllModifiersFromSource(status);
-
-                //StatModifier stackMultiplier1 = new StatModifier(status.StackCount - 1, StatModType.PercentAdd, targetStat, status, modData[i].variantTarget);
-                //targetScaler.scalerStat.AddModifier(stackMultiplier1);
-
                 return;
-
-
             }
 
             if (modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.Manual) {
                 targetStat = StatName.StatModifierValue;
             }
-
-
-
-
 
             StatModifier stackMultiplier = new StatModifier(status.StackCount - 1, StatModType.PercentAdd, targetStat, status, modData[i].variantTarget);
             modData[i].Stats.AddModifier(stackMultiplier.TargetStat, stackMultiplier);

@@ -34,8 +34,8 @@ public abstract class Entity : MonoBehaviour {
 
     //Weapon / Ability / Skill manager
     //Health Manager
-
-    public string entityName;
+    [SerializeField]
+    private string entityName;
     public string EntityName { get { return string.IsNullOrEmpty(entityName) == false ? entityName : gameObject.name; } }
     public EntityType entityType;
     public int entityLevel = 1;

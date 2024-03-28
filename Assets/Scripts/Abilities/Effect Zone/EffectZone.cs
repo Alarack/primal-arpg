@@ -2,6 +2,7 @@ using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class EffectZone : Entity {
 
@@ -53,7 +54,7 @@ public class EffectZone : Entity {
         if (parentLayer != -1)
             mask = LayerTools.SetupHitMask(mask, parentLayer, targeting);
 
-        if(info.affectProjectiles == true) {
+        if (info.affectProjectiles == true) {
             mask = LayerTools.AddToMask(mask, LayerMask.NameToLayer("Projectile"));
         }
         //if (parentEffect.Source == null) {
@@ -187,7 +188,7 @@ public class EffectZone : Entity {
     private void CleanUpGrowTweens() {
         if (activeGrowVFX == null)
             return;
-        
+
         TweenHelper growTween = activeGrowVFX.GetComponent<TweenHelper>();
 
         if (growTween != null) {
@@ -196,7 +197,7 @@ public class EffectZone : Entity {
 
         Destroy(activeGrowVFX);
 
-        if(activeEffectTelegraph != null) 
+        if (activeEffectTelegraph != null)
             Destroy(activeEffectTelegraph.gameObject);
     }
 
@@ -238,20 +239,48 @@ public class EffectZone : Entity {
         parentEffect.TrackActiveDelivery(carrier);
 
         //Debug.Log("Zone effect is applying: " + parentEffect.Data.effectName + " to " + target.EntityName);
-        parentEffect.Apply(target);
-        CreateApplyVFX(target.transform.position);
+        bool applied = parentEffect.Apply(target);
 
-        parentEffect.SendEffectAppliedEvent();
+
+        if (applied == true) {
+            CreateApplyVFX(target.transform.position);
+            parentEffect.SendEffectAppliedEvent();
+        }
+
     }
 
     protected virtual void Remove(Entity target) {
         targets.RemoveIfContains(target);
 
-
         if (zoneInfo.removeEffectOnExit == true) {
+
+            if (CheckNonStacking(target) == true)
+                return;
+
             parentEffect.Remove(target);
         }
 
+    }
+
+    private bool CheckNonStacking(Entity target) {
+        bool inOtherZone = parentEffect.IsTargetInOtherZone(this, target);
+
+        if (parentEffect.Data.nonStacking == false || inOtherZone == false)
+            return false;
+
+        //if (parentEffect.Data.nonStacking == true && inOtherZone) {
+        if (parentEffect.PsudoStacks.ContainsKey(target) == true) {
+            parentEffect.PsudoStacks[target]--;
+            //Debug.LogWarning("Decrementing a count for : " + parentEffect.Data.effectName + " on " + target.EntityName + " :: " + count);
+        }
+
+        if (parentEffect.PsudoStacks[target] == 0) {
+            parentEffect.PsudoStacks.Remove(target);
+        }
+        return true;
+        //}
+
+        //return false;
     }
 
     protected virtual void ApplyToAllTargets() {
@@ -276,15 +305,12 @@ public class EffectZone : Entity {
             yield break;
 
         //Debug.LogWarning("Destroying: " + EntityName + " after " + Stats[StatName.EffectLifetime] + " seconds");
-
-        //bool winding = myCollider != null && myCollider.enabled == false;
         WaitForEndOfFrame windupWaiter = new WaitForEndOfFrame();
 
         while (myCollider != null && myCollider.enabled == false) {
             //Debug.Log("Wiating for fuse");
             yield return windupWaiter;
         }
-
 
         WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.EffectLifetime]);
 
@@ -293,8 +319,6 @@ public class EffectZone : Entity {
     }
 
     public virtual void CleanUp() {
-        //Die();
-
         CleanUpGrowTweens();
 
         if (vfxParticles != null) {
@@ -308,21 +332,12 @@ public class EffectZone : Entity {
                 main.simulationSpeed = particleSpeed;
             }
 
-
-
-
             Destroy(vfxParticles.gameObject, 2f);
         }
 
-
-
-
         SpawnDeathVFX(effectSize);
-
         parentEffect.ParentAbility.SendAbilityEndedEvent(this);
-
         //Debug.LogWarning("Cleaning Up: " + EntityName);
-
         Destroy(gameObject);
     }
 
@@ -341,7 +356,9 @@ public class EffectZone : Entity {
 
         GameObject activeVFX = Instantiate(applyVFX, loc, Quaternion.identity);
 
-        activeVFX.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
+        float scale = zoneInfo.applyOnInterval == true ? 1f : effectSize;
+
+        activeVFX.transform.localScale = new Vector3(scale, scale, scale);
 
         Destroy(activeVFX, 2f);
 
@@ -353,13 +370,24 @@ public class EffectZone : Entity {
             //Debug.Log(EntityName + " rejected a layer: " + other.gameObject.layer);
             return;
         }
-          
 
         Entity otherEntity = other.GetComponent<Entity>();
         if (otherEntity == null) {
             //Debug.LogWarning("An effect Zone: " + gameObject.name + " is trying to apply an effect to a non-entity: " + other.gameObject.name);
             return;
         }
+
+        //bool inOtherZone = parentEffect.IsTargetInOtherZone(this, otherEntity);
+        //if (Stats.Contains(StatName.MaxStackCount) == false && inOtherZone) {
+        //    Debug.LogWarning("Cannot Add " + otherEntity.EntityName + " It is already in another effect zone");
+        //    return;
+        //}
+
+        //if (Stats.Contains(StatName.MaxStackCount) == true) {
+        //    if (Stats[StatName.MaxStackCount] > 1) {
+
+        //    }
+        //}
 
 
         if (zoneInfo.applyOncePerTarget == true && IsTargetAlreadyAffected(otherEntity) == true) {
