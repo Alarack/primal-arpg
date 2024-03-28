@@ -404,39 +404,39 @@ public class Projectile : Entity {
 
     #region DEPRECATED
 
-    private void DealDamage(Entity target) {
-        //Debug.Log("Doing Damage " + Stats[StatName.BaseDamage]);
+    //private void DealDamage(Entity target) {
+    //    //Debug.Log("Doing Damage " + Stats[StatName.BaseDamage]);
 
-        float value = StatAdjustmentManager.DealDamageOrHeal(target, Stats[StatName.BaseDamage], Source, null);
-        FloatingText floatingText = FloatingTextManager.SpawnFloatingText(target.transform.position, value.ToString());
-        floatingText.SetColor(textColorGradient);
-    }
+    //    float value = StatAdjustmentManager.DealDamageOrHeal(target, Stats[StatName.BaseDamage], Source, null);
+    //    FloatingText floatingText = FloatingTextManager.SpawnFloatingText(target.transform.position, value.ToString());
+    //    floatingText.SetColor(textColorGradient);
+    //}
 
-    private void ApplyOnHitEffects(Entity target) {
-        if (onHitEffects == null || onHitEffects.Count == 0) {
-            return;
-        }
+    //private void ApplyOnHitEffects(Entity target) {
+    //    if (onHitEffects == null || onHitEffects.Count == 0) {
+    //        return;
+    //    }
 
-        for (int i = 0; i < onHitEffects.Count; i++) {
-            onHitEffects[i].Apply(target);
-        }
-    }
+    //    for (int i = 0; i < onHitEffects.Count; i++) {
+    //        onHitEffects[i].Apply(target);
+    //    }
+    //}
 
-    private void Ricochet(Collider2D other) {
-        Vector2 direction = other.transform.position - transform.position;
-        Vector2 offsetVector = TargetUtilities.CreateRandomDirection(-impactNoise, impactNoise);
-        direction += offsetVector;
-        Vector2 reboundForce = (-direction.normalized) * UnityEngine.Random.Range(reboundForceMod.x, reboundForceMod.y);
-
-
-        float rotationForce = UnityEngine.Random.Range(720f, 1080f);
-        rotationForce *= UnityEngine.Random.Range(0, 2) * 2 - 1;
+    //private void Ricochet(Collider2D other) {
+    //    Vector2 direction = other.transform.position - transform.position;
+    //    Vector2 offsetVector = TargetUtilities.CreateRandomDirection(-impactNoise, impactNoise);
+    //    direction += offsetVector;
+    //    Vector2 reboundForce = (-direction.normalized) * UnityEngine.Random.Range(reboundForceMod.x, reboundForceMod.y);
 
 
-        Movement.MyBody.angularVelocity = rotationForce;
-        Movement.MyBody.AddForce(reboundForce, ForceMode2D.Force);
+    //    float rotationForce = UnityEngine.Random.Range(720f, 1080f);
+    //    rotationForce *= UnityEngine.Random.Range(0, 2) * 2 - 1;
 
-    }
+
+    //    Movement.MyBody.angularVelocity = rotationForce;
+    //    Movement.MyBody.AddForce(reboundForce, ForceMode2D.Force);
+
+    //}
 
     #endregion
 

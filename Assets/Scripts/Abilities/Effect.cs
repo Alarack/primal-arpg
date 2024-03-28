@@ -1074,7 +1074,7 @@ public class AddEffectEffect : Effect {
 
     public AddEffectEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
         for (int i = 0; i < data.effectsToAdd.Count; i++) {
-            Effect template = AbilityFactory.CreateEffect(data.effectsToAdd[i].effectData, source);
+            Effect template = AbilityFactory.CreateEffect(data.effectsToAdd[i].effectData, source, ParentAbility);
             activeDisplayEffects.Add(template);
             //Debug.Log("Creating a display effect for: " + data.effectName + " by the name of: " + template.Data.effectName);
         }
@@ -2842,6 +2842,9 @@ public class StatAdjustmentEffect : Effect {
 
         //Debug.Log("Showing a Tooltip for: " + Data.effectName);
 
+        if(Data.effectZoneInfo.applyOnInterval == true) {
+            return GetDamageOverTimeTooltip();
+        }
 
         StringBuilder builder = new StringBuilder();
 
@@ -2873,6 +2876,50 @@ public class StatAdjustmentEffect : Effect {
         }
 
         builder.Append(replacement);
+        return builder.ToString();
+    }
+
+
+    public string GetDamageOverTimeTooltip() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.AppendLine();
+
+        string scalarTooltip = ScalarTooltip();
+
+        builder.AppendLine("Scales From: ");
+
+        builder.Append(scalarTooltip).AppendLine();
+
+        float damageRatio = GetWeaponScaler();
+
+        float effectDurationModifier = 1 + Source.Stats[StatName.GlobalEffectDurationModifier];
+        float duration = Stats[StatName.EffectLifetime] * effectDurationModifier;
+
+        float intervalDurationModifier = 1 + Source.Stats[StatName.GlobalEffectIntervalModifier];
+        float interval = Stats[StatName.EffectInterval] * intervalDurationModifier;
+  
+        string durationText = TextHelper.ColorizeText(duration.ToString(), Color.yellow) + " seconds";
+        string intervalText = TextHelper.ColorizeText(interval.ToString(), Color.yellow) + " seconds";
+
+
+        if (damageRatio > 0) {
+            builder.Append("Causes " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", Color.green)
+           + " of Weapon Damage every " + intervalText + " for "
+           + durationText);
+
+        }
+        else {
+            builder.Append(GetTooltip() + "for " + durationText);
+        }
+
+        if (Data.canOverload == true) {
+            float overloadChance = ParentAbility != null ? ParentAbility.GetAbilityOverloadChance() : Source.Stats[StatName.OverloadChance];
+
+            builder.AppendLine();
+            builder.Append("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), Color.green));
+        }
+
         return builder.ToString();
     }
 

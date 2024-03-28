@@ -258,7 +258,7 @@ public class StatCollection {
 
     public void SetStatValue(StatName name, float value, object source) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " was not found");
+            Debug.LogWarning("Stat: " + name + " was not found");
             return;
         }
 
@@ -268,7 +268,7 @@ public class StatCollection {
 
     public void EmptyStatRange(StatName name, object source) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " was not found");
+            Debug.LogWarning("Stat: " + name + " was not found");
             return;
         }
 
@@ -278,7 +278,7 @@ public class StatCollection {
 
     public void AddModifier(StatName name, StatModifier mod) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " was not found");
+            Debug.LogWarning("Stat: " + name + " was not found");
             return;
         }
 
@@ -288,7 +288,7 @@ public class StatCollection {
 
     public void AddModifier(StatName name, float value, StatModType modType, object source) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " was not found");
+            Debug.LogWarning("Stat: " + name + " was not found");
             return;
         }
 
@@ -298,7 +298,7 @@ public class StatCollection {
 
     public void RemoveModifier(StatName name, StatModifier mod) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " not found");
+            Debug.LogWarning("Stat: " + name + " not found");
             return;
         }
 
@@ -308,7 +308,7 @@ public class StatCollection {
 
     public void AddMinValueModifier(StatName name, StatModifier mod) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " not found");
+            Debug.LogWarning("Stat: " + name + " not found");
             return;
         }
 
@@ -318,7 +318,7 @@ public class StatCollection {
 
     public void AddMinValueModifier(StatName name, float value, StatModType modType, object source) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " was not found");
+            Debug.LogWarning("Stat: " + name + " was not found");
             return;
         }
 
@@ -328,7 +328,7 @@ public class StatCollection {
 
     public void RemoveMinValueModifier(StatName name, StatModifier mod) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " not found");
+            Debug.LogWarning("Stat: " + name + " not found");
             return;
         }
 
@@ -338,7 +338,7 @@ public class StatCollection {
 
     public void AddMaxValueModifier(StatName name, StatModifier mod) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " not found");
+            Debug.LogWarning("Stat: " + name + " not found");
             return;
         }
 
@@ -348,7 +348,7 @@ public class StatCollection {
 
     public void AddMaxValueModifier(StatName name, float value, StatModType modType, object source) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " was not found");
+            Debug.LogWarning("Stat: " + name + " was not found");
             return;
         }
 
@@ -358,7 +358,7 @@ public class StatCollection {
 
     public void RemoveMaxValueModifier(StatName name, StatModifier mod) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " not found");
+            Debug.LogWarning("Stat: " + name + " not found");
             return;
         }
 
@@ -377,7 +377,7 @@ public class StatCollection {
 
     public void AdjustStatRangeCurrentValue(StatName name, float value, StatModType modType, object source) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " was not found");
+            Debug.LogWarning("Stat: " + name + " was not found");
             return;
         }
 
@@ -397,7 +397,7 @@ public class StatCollection {
 
     public void AdjustStatRangeByPercentOfMaxValue(StatName name, float value, object source) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " was not found");
+            Debug.LogWarning("Stat: " + name + " was not found");
             return;
         }
 
@@ -412,7 +412,7 @@ public class StatCollection {
 
     public void RemoveAllModifiersFromSource(StatName name, object source) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " was not found");
+            Debug.LogWarning("Stat: " + name + " was not found");
             return;
         }
 
@@ -429,7 +429,7 @@ public class StatCollection {
 
     public void Refresh(StatName name) {
         if (Contains(name) == false) {
-            Debug.LogError("Stat: " + name + " was not found");
+            Debug.LogWarning("Stat: " + name + " was not found");
             return;
         }
 

@@ -90,6 +90,11 @@ public static class StatAdjustmentManager {
 
     public static float RemoveStatAdjustment(Entity target, StatModifier mod, StatModifierData.StatVariantTarget variant, Entity source, Ability sourceAbility, bool removeRangeAdjsument = false) {
 
+        if (target.Stats.Contains(mod.TargetStat) == false) {
+            Debug.LogWarning(target.EntityName + " does not have " + mod.TargetStat + " whem removing.");
+            return 0f;
+        }
+
         Action<StatName, StatModifier> statModAction = variant switch {
             StatModifierData.StatVariantTarget.Simple => target.Stats.RemoveModifier,
             StatModifierData.StatVariantTarget.RangeCurrent => null, /*when removeRangeAdjsument == true => target.Stats.RemoveCurrentRangeAdjustment*/
@@ -97,6 +102,10 @@ public static class StatAdjustmentManager {
             StatModifierData.StatVariantTarget.RangeMax => target.Stats.RemoveMaxValueModifier,
             _ => null,
         };
+
+        //if(target.Stats.Contains(mod.TargetStat) == false) {
+        //    Debug.LogError(target.EntityName + " does not have " + mod.TargetStat);
+        //}
 
 
         statModAction?.Invoke(mod.TargetStat, mod);
@@ -135,6 +144,13 @@ public static class StatAdjustmentManager {
     }
 
     public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, Ability sourceAbility, float multiplier = 1f, bool overload = false) {
+
+        if (target.Stats.Contains(mod.TargetStat) == false) {
+            Debug.LogWarning(target.EntityName + " does not have " + mod.TargetStat + " whem adding.");
+            return 0f;
+        }
+
+
         Action<StatName, StatModifier> statModAction = statVarient switch {
             StatModifierData.StatVariantTarget.Simple => target.Stats.AddModifier,
             StatModifierData.StatVariantTarget.RangeCurrent => target.Stats.AdjustStatRangeCurrentValue,
@@ -144,6 +160,9 @@ public static class StatAdjustmentManager {
         };
 
         mod.UpdateModValue(mod.Value * multiplier);
+
+       
+
 
         statModAction?.Invoke(targetStat, mod);
 
