@@ -272,11 +272,13 @@ public class EffectZone : Entity {
         if (parentEffect.PsudoStacks.ContainsKey(target) == true) {
             parentEffect.PsudoStacks[target]--;
             //Debug.LogWarning("Decrementing a count for : " + parentEffect.Data.effectName + " on " + target.EntityName + " :: " + count);
+
+            if (parentEffect.PsudoStacks[target] == 0) {
+                parentEffect.PsudoStacks.Remove(target);
+            }
         }
 
-        if (parentEffect.PsudoStacks[target] == 0) {
-            parentEffect.PsudoStacks.Remove(target);
-        }
+       
         return true;
         //}
 
