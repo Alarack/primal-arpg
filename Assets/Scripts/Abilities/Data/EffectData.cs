@@ -138,6 +138,7 @@ public class EffectData
     public Gradient floatingTextColor = new Gradient();
     public Gradient overloadFloatingTextColor = new Gradient();
     public StatModifierData.StatModDesignation effectDesignation;
+    public bool addMissingStatIfNotPresent;
     //public List<StatScaler> adjustmentOptions = new List<StatScaler>();
 
 

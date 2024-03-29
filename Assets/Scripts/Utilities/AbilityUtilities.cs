@@ -68,7 +68,6 @@ public static class AbilityUtilities {
         }
     }
 
-
     public static SkillEntry CreateSkillEntry(Ability ability, SkillEntry prefab, Transform holder, SkillEntryLocation location, GameButtonType keyBind = GameButtonType.None, int index = -1) {
         SkillEntry entry = GameObject.Instantiate(prefab, holder);
         entry.gameObject.SetActive(true);
@@ -139,7 +138,6 @@ public static class AbilityUtilities {
     }
 
     #endregion
-
 
     #region GETTERS
 
@@ -262,6 +260,38 @@ public static class AbilityUtilities {
 
 
     #endregion
+
+    #region CONVERTERS
+
+    public static List<StatName> ConvertTagsToStats(Ability ability) {
+        List<StatName> results = new List<StatName>();
+
+        for (int i = 0; i < ability.Tags.Count; i++) {
+            StatName stat = ability.Tags[i] switch {
+                //AbilityTag.Fire => throw new NotImplementedException(),
+                //AbilityTag.Poison => throw new NotImplementedException(),
+                //AbilityTag.Melee => throw new NotImplementedException(),
+                //AbilityTag.Force => throw new NotImplementedException(),
+                //AbilityTag.Physical => throw new NotImplementedException(),
+                //AbilityTag.Water => throw new NotImplementedException(),
+                //AbilityTag.Space => throw new NotImplementedException(),
+                //AbilityTag.Air => throw new NotImplementedException(),
+                AbilityTag.Arcane => StatName.VulnerableArcane,
+                //AbilityTag.Void => throw new NotImplementedException(),
+                //AbilityTag.Time => throw new NotImplementedException(),
+                _ => StatName.Armor,
+            };
+
+            if(stat != StatName.Armor)
+                results.Add(stat);
+        }
+
+
+        return results;
+    }
+
+    #endregion
+
 
     #region CLEAN UP
 

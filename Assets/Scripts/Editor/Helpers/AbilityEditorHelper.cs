@@ -493,6 +493,7 @@ public static class AbilityEditorHelper {
             case EffectType.StatAdjustment:
                 EditorGUILayout.LabelField("Mod Data: ", EditorStyles.boldLabel);
                 entry.hideFloatingText = EditorGUILayout.Toggle("Hide Floating Text", entry.hideFloatingText);
+                entry.addMissingStatIfNotPresent = EditorGUILayout.Toggle("Add Missing Stat", entry.addMissingStatIfNotPresent);
                 EditorGUI.indentLevel++;
                 entry.modData = EditorHelper.DrawExtendedList(entry.modData, "Mod", DrawStatModifierData);
                 EditorGUI.indentLevel--;

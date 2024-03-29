@@ -143,11 +143,18 @@ public static class StatAdjustmentManager {
         return ApplyStatAdjustment(target, mod, StatName.CooldownReduction, StatModifierData.StatVariantTarget.RangeCurrent, sourceAbility, multiplier);
     }
 
-    public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, Ability sourceAbility, float multiplier = 1f, bool overload = false) {
+    public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, Ability sourceAbility, float multiplier = 1f, bool addMissingStat = false) {
 
         if (target.Stats.Contains(mod.TargetStat) == false) {
-            Debug.LogWarning(target.EntityName + " does not have " + mod.TargetStat + " whem adding.");
-            return 0f;
+
+            if (addMissingStat == false) {
+                Debug.LogWarning(target.EntityName + " does not have " + mod.TargetStat + " whem adding.");
+                return 0f;
+            }
+
+            Debug.LogWarning(target.EntityName + " does not have " + mod.TargetStat + ". Adding it as a Simple stat with 0 value.");
+            SimpleStat newStat = new SimpleStat(targetStat, 0f);
+            target.Stats.AddStat(newStat);
         }
 
 
@@ -161,22 +168,17 @@ public static class StatAdjustmentManager {
 
         mod.UpdateModValue(mod.Value * multiplier);
 
-       
-
-
         statModAction?.Invoke(targetStat, mod);
-
 
         //if(targetStat == StatName.Health && sourceAbility != null) {
         //    Debug.LogWarning(sourceAbility.Data.abilityName + " is changing health ");
         //}
 
-        //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
-        //Debug.Log("Applying: " + targetStat);
-        //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
-
-
-
+        if (targetStat == StatName.VulnerableArcane) {
+            //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
+            //Debug.Log("Applying: " + targetStat);
+            //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
+        }
 
         try {
             SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value);

@@ -77,7 +77,11 @@ public enum StatName
     NPCLifetime,
     StatusLifetime,
     StatusInterval,
-    MaxStackCount
+    MaxStackCount,
+    ArcaneDamageModifier,
+    VoidDamageModifier,
+    SpatialDamageModifier,
+    VulnerableArcane
 }
 
 

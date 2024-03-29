@@ -223,7 +223,7 @@ public class EffectTargeter {
         List<Entity> results = new List<Entity>();
 
         if (validTargets.Count == 0) {
-            Debug.LogWarning("An ability: "
+            Debug.Log("An ability: "
                 + parentEffect.ParentAbility.Data.abilityName
                 + ":: on the entity: "
                 + parentEffect.Source.EntityName

@@ -23,7 +23,8 @@ public class Status {
         IronReign,
         SpellHaste,
         Enraged,
-        Armored
+        Armored,
+        Vulnerable
     }
 
     #endregion
@@ -143,7 +144,7 @@ public class Status {
                 return;
             case StackMethod.LimitedStacks:
                 if (IsStackCapped == true) {
-                    //Debug.LogWarning("Max stack reached");
+                    Debug.LogWarning("Max stack reached");
                     return;
                 }
                 break;
@@ -151,6 +152,20 @@ public class Status {
 
         StackCount++;
         ActiveEffect.Stack(this);
+
+        //Debug.Log("Stacking: " + ActiveEffect.Data.effectName + " Count: " + StackCount);
+
+    }
+
+    public void ReApply() {
+        if (Target == null) {
+            //Debug.LogWarning("A target with a status is null. Removing status");
+            Remove();
+            return;
+        }
+
+        ParentEffect.Remove(Target);
+        ForceTick();
     }
 
     public virtual void Remove() {

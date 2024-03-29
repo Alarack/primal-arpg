@@ -236,7 +236,10 @@ public class Projectile : Entity {
         if (other != null && parentEffect.Data.effectZoneInfo.effectZonePrefab == null) {
             Entity otherEntity = other.GetComponent<Entity>();
             if (otherEntity != null) {
-                parentEffect.Apply(otherEntity);
+                bool applied = parentEffect.Apply(otherEntity);
+                if(applied == true) {
+                    parentEffect.SendEffectAppliedEvent();
+                }
             }
 
             return;

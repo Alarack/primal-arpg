@@ -1592,6 +1592,7 @@ public class AddStatusEffect : Effect {
         return true;
     }
 
+
     private void ApplyNewStatus(Entity target) {
         for (int i = 0; i < activeStatusEffects.Count; i++) {
 
@@ -2111,11 +2112,9 @@ public class StatAdjustmentEffect : Effect {
     //}
 
     public override void Stack(Status status) {
-
         for (int i = 0; i < modData.Count; i++) {
 
             modData[i].Stats.RemoveAllModifiersFromSource(status);
-
 
             StatName targetStat = StatName.Vitality;
             if (modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.DerivedFromMultipleSources) {
@@ -2135,6 +2134,16 @@ public class StatAdjustmentEffect : Effect {
 
             StatModifier stackMultiplier = new StatModifier(status.StackCount - 1, StatModType.PercentAdd, targetStat, status, modData[i].variantTarget);
             modData[i].Stats.AddModifier(stackMultiplier.TargetStat, stackMultiplier);
+
+            //Status with no Interval don't tick past the first time, so they need to be updated with the new value
+            if(status.Data.interval == 0) {
+                Remove(status.Target);
+                status.ForceTick();
+            }
+
+
+            //Debug.Log("Stacking a stat mod for : " + modData[i].targetStat + ". Stack Count: " + (status.StackCount - 1));
+            //Debug.Log("Stacking: " + Data.effectName + ". Value: " + modData[i].Stats[targetStat]);
         }
     }
 
@@ -2443,15 +2452,26 @@ public class StatAdjustmentEffect : Effect {
 
     private void ApplyToEntity(Entity target, StatModifier activeMod) {
 
-        float globalDamageMultiplier = GetDamageModifier(activeMod);
+        float globalDamageMultiplier = GetDamageModifier(activeMod, target);
 
         if (activeMod.TargetStat != StatName.Health) {
-            StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
+            StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier, Data.addMissingStatIfNotPresent);
             return;
 
         }
 
-        float damageAfterArmor = HandleArmor(target, activeMod.Value * globalDamageMultiplier);
+        float vulnerabilityMod = GetVulnerabilityModifier(target, activeMod.Value );
+
+        float incommingDamage = activeMod.Value * vulnerabilityMod * globalDamageMultiplier;
+
+        //if(target is NPC) {
+            //Debug.Log("Raw Incoming Damage: " + MathF.Round( activeMod.Value, 1));
+            //Debug.Log("Vulnerability Mod: " + vulnerabilityMod);
+            //Debug.Log("Total: " + MathF.Round( incommingDamage, 1));
+        //}
+
+
+        float damageAfterArmor = HandleArmor(target, incommingDamage);
 
         float damageAfterManaShield = CheckManaShield(target, damageAfterArmor);
 
@@ -2460,32 +2480,6 @@ public class StatAdjustmentEffect : Effect {
         float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, 1f);
 
         ShowFloatingtext(activeMod, modValueResult, target.transform.position);
-
-
-        //float targetManaShield = target.Stats[StatName.EssenceShield];
-
-        //if (targetManaShield > 0f) {
-        //    float leftoverDamage = target.HandleManaShield(activeMod.Value * globalDamageMultiplier, targetManaShield);
-
-        //    if (leftoverDamage < 0f) {
-        //        activeMod.UpdateModValue(leftoverDamage);
-        //        float modValueResultAfterShield = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, 1f);
-        //        ShowFloatingtext(activeMod, modValueResultAfterShield, target.transform.position);
-        //        //Debug.LogWarning("Damage after mana shield: " + modValueResultAfterShield);
-
-        //    }
-
-        //    return;
-        //}
-
-        ////Debug.Log("applying a mod of: " + activeMod.TargetStat + " to " + target.EntityName + " with a value of: " + activeMod.Value);
-
-        //float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier);
-
-
-
-        //ShowFloatingtext(activeMod, modValueResult, target.transform.position);
-
     }
 
     private float CheckManaShield(Entity target, float incomingdamage) {
@@ -2518,7 +2512,6 @@ public class StatAdjustmentEffect : Effect {
             return incomingDamage;
         }
 
-
         float softCap = targetArmor;
 
         if (targetArmor > 0.75f) {
@@ -2530,11 +2523,52 @@ public class StatAdjustmentEffect : Effect {
 
         float result = incomingDamage * armorModifier;
 
-
-        Debug.Log("reducing " + incomingDamage + " damage to: " + (armorModifier * 100) + "% . Resulting Damage: " + result);
-
+        Debug.Log("Armor is modifing " + incomingDamage + " damage to: " + (armorModifier * 100) + "% . Resulting Damage: " + result);
 
         return result;
+    }
+
+
+    private float GetVulnerabilityModifier(Entity target, float incomingDamage) {
+        if (incomingDamage > 0f)
+            return 1f;
+
+
+        List<StatName> vulnerabilities = AbilityUtilities.ConvertTagsToStats(ParentAbility);
+
+        float totalVlunerability = 0f;
+        for (int i = 0; i < vulnerabilities.Count; i++) {
+            float value = target.Stats[vulnerabilities[i]];
+
+            //if(value > 0f) {
+            //    Debug.LogWarning(target.EntityName + " is weak to: " + vulnerabilities[i] + " by: " + value);
+            //}
+
+            totalVlunerability += value;
+        }
+
+        float result = 1 + totalVlunerability;
+
+        //if(result > 1f)
+        //    Debug.LogWarning("Total Vulnerability Modifier: " + result);
+
+        return result;
+    }
+
+    private float HandleResistance(Entity target, float incomingDamage, List<AbilityTag> damageTypes) {
+
+        if (incomingDamage > 0f)
+            return incomingDamage;
+
+        float dividedDamageByType = incomingDamage / damageTypes.Count;
+
+        for (int i = 0; i < damageTypes.Count; i++) {
+            
+        }
+
+
+
+        return 0f;
     }
 
     private void ShowFloatingtext(StatModifier activeMod, float modValueResult, Vector2 position) {
@@ -2730,7 +2764,7 @@ public class StatAdjustmentEffect : Effect {
 
 
 
-    private float GetDamageModifier(StatModifier mod) {
+    private float GetDamageModifier(StatModifier mod, Entity target) {
 
         if (mod.TargetStat != StatName.Health)
             return 1f;
@@ -2759,6 +2793,8 @@ public class StatAdjustmentEffect : Effect {
                 globalDamageMultiplier += value;
             }
         }
+
+
 
         if (isOverloading == true) {
             float overloadDamageMod = 1f + Source.Stats[StatName.OverloadDamageModifier];
