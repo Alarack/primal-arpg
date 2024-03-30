@@ -11,6 +11,7 @@ public class StatCollection {
 
     private Dictionary<StatName, BaseStat> statDictionary = new Dictionary<StatName, BaseStat>();
 
+    private StatCollection parentCollection;
 
     #region EVENTS
 
@@ -97,14 +98,14 @@ public class StatCollection {
         }
     }
 
-    public StatCollection(object owner, List<StatData> data) {
+    public StatCollection(object owner, List<StatData> data, StatCollection parentCollection = null) {
         Owner = owner;
+        this.parentCollection = parentCollection;
 
         int count = data.Count;
         for (int i = 0; i < count; i++) {
             CreateStatFromData(data[i]);
         }
-
     }
 
     public void AddMissingStats(StatCollection stats, List<StatName> exceptions = null, string parent = "", string child = "") {
@@ -212,6 +213,11 @@ public class StatCollection {
     }
 
     public float GetStatCurrentValue(StatName name) {
+
+        if (parentCollection != null && parentCollection.Contains(name) == true) {
+            return parentCollection[name];
+        }
+        
         if (Contains(name) == false) {
             //Debug.LogWarning("Stat: " + name + " was not found");
             return 0f;

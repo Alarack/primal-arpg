@@ -55,7 +55,9 @@ public abstract class Effect {
     }
 
     protected void SetupStats() {
-        Stats = new StatCollection(this, Data.payloadStatData);
+        StatCollection parentStats = ParentAbility != null ? ParentAbility.Stats : null;
+        
+        Stats = new StatCollection(this, Data.payloadStatData, parentStats);
         //Stats.AddMissingStats(Data.stat)
 
 
@@ -431,7 +433,7 @@ public abstract class Effect {
 
     public virtual void RegisterEvents() {
         RegisterRiderEvents();
-        EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnAbilityStatChanged);
+        //EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnAbilityStatChanged);
     }
 
     public virtual void UnregisterEvents() {
@@ -483,7 +485,7 @@ public abstract class Effect {
         if (parentEffect != null) {
             //Debug.Log("Registering a rider event");
             EventManager.RegisterListener(GameEvent.EffectApplied, OnEffectApplied);
-            EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnAbilityStatChanged);
+            //EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnAbilityStatChanged);
 
         }
     }
