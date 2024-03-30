@@ -771,7 +771,11 @@ public class Ability {
 
             string procReplacement = shotCountReplacement.Replace("{PR}", TextHelper.FormatStat(StatName.ProcChance, procChance));
 
-            builder.Append(procReplacement);
+            float statusLife = Stats[StatName.StatusLifetime] > 0f ? Stats[StatName.StatusLifetime] : -1f;
+            string statusLifeText = statusLife > 0 ? TextHelper.ColorizeText(statusLife.ToString(), Color.yellow) : TextHelper.ColorizeText( "Infintie", Color.yellow);
+            string statusLifeReplacement = procReplacement.Replace("{SL}", statusLifeText);
+
+            builder.Append(statusLifeReplacement);
 
             if(Data.showChildAbilitiesInTooltip == false) {
                 builder.AppendLine();

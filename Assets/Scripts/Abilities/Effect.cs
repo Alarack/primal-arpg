@@ -139,6 +139,7 @@ public abstract class Effect {
         RiderEffects.Add(rider);
 
         //Debug.LogWarning("Adding: " + rider.Data.effectName + " to " + Data.effectName);
+        rider.RegisterEvents();
         rider.RegisterRiderOnEventApplied();
 
         return rider;
@@ -152,8 +153,7 @@ public abstract class Effect {
         }
 
         target.RemoveFromAllTargets();
-        EventManager.RemoveMyListeners(target);
-
+        target.UnregisterEvents();
         RiderEffects.Remove(target);
 
         //Debug.LogWarning("Removing: " + target.Data.effectName + " from " + Data.effectName);
@@ -431,10 +431,39 @@ public abstract class Effect {
 
     public virtual void RegisterEvents() {
         RegisterRiderEvents();
+        EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnAbilityStatChanged);
     }
 
     public virtual void UnregisterEvents() {
         UnRegisterRiderEvents();
+        EventManager.RemoveMyListeners(this);
+    }
+
+    protected virtual void OnAbilityStatChanged(EventData data) {
+        if (ParentAbility == null)
+            return;
+
+        Ability ability = data.GetAbility("Ability");
+
+        if (ability != ParentAbility) {
+            
+            if(Data.effectName == "Apply Arcane Vulnerable Status")
+                Debug.LogWarning(ability.Data.abilityName + " is not " + ParentAbility.Data.abilityName);
+            
+            return;
+        }
+
+        StatName stat = (StatName)data.GetInt("Stat");
+
+        if (Stats.Contains(stat) == false)
+            return;
+
+        Stats.SetStatValue(stat, ParentAbility.Stats[stat], ParentAbility);
+
+        //Debug.Log("Updating: " + stat + " on " + Data.effectName + " because it changed on the parent ability: " + ability.Data.abilityName + ". Value: " + Stats[stat]);
+
+
+
     }
 
     protected void UnRegisterRiderEvents() {
@@ -454,6 +483,8 @@ public abstract class Effect {
         if (parentEffect != null) {
             //Debug.Log("Registering a rider event");
             EventManager.RegisterListener(GameEvent.EffectApplied, OnEffectApplied);
+            EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnAbilityStatChanged);
+
         }
     }
 
@@ -1179,8 +1210,6 @@ public class AddRiderEffect : Effect {
                 target.RemoveRider(effects[i]);
             }
         }
-
-
     }
 
     private void TrackEffectOnEffect(Effect target, Effect newEffect) {
@@ -1292,7 +1321,9 @@ public class RemoveRiderEffect : Effect {
         for (int i = 0; i < Data.ridersToRemove.Count; i++) {
             EffectData removedData = target.RemoveRider(Data.ridersToRemove[i].effectData.effectName);
             
-            TrackEffectOnEffect(target, removedData);
+
+            if(removedData != null)
+                TrackEffectOnEffect(target, removedData);
         }
 
         return true;
@@ -2917,12 +2948,9 @@ public class StatAdjustmentEffect : Effect {
                 //Debug.Log("Tracking a mod: " + activeMod.TargetStat + " on " + target.Data.effectName);
             }
 
-
             //if (modData[i].targetStat != StatName.Health) {
             //Debug.Log("Applying a mod of " + modData[i].targetStat + " to " + target.Data.effectName);
             //}
-
-
 
             switch (Data.subTarget) {
                 case EffectSubTarget.Effect:

@@ -92,6 +92,8 @@ public class Status {
         float totalDuration = ParentEffect.GetModifiedStatusDuration();
         float totalInterval = ParentEffect.GetModifiedIntervalDuration();
 
+        //Debug.Log("Total duration of a status " + Data.statusName + " on " + ParentEffect.Data.effectName + " is " + totalDuration);
+
         if (totalDuration > 0f)
             durationTimer = new Timer(totalDuration, CleanUp, false);
 

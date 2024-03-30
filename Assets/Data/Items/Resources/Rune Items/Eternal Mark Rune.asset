@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Eternal Mark Rune
+  m_EditorClassIdentifier: 
+  devItem: 0
+  itemData:
+    Type: 2
+    entityClass: 0
+    itemName: Eternal Mark Rune
+    itemDescription: 
+    itemValue: 200
+    runeAbilityTarget: Arcane Storm
+    validSlots: 0e000000
+    abilityTags: 
+    itemIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
+    pickupIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
+    pickupOnCollision: 1
+    minDamage: 0
+    maxDamage: 0
+    statModifierData: []
+    abilityDefinitions:
+    - {fileID: 11400000, guid: 7b7d739900ec7114f88b7d47ca4cd9b3, type: 2}
+    learnableAbilities: []
