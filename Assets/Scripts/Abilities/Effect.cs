@@ -37,8 +37,8 @@ public abstract class Effect {
 
     public StatCollection Stats { get; protected set; }
 
-    [System.NonSerialized]
-    protected List<Effect> riderEffects = new List<Effect>();
+    //[System.NonSerialized]
+    public List<Effect> RiderEffects { get; protected set; } = new List<Effect>();
     protected Effect parentEffect;
 
     protected bool isOverloading;
@@ -124,9 +124,59 @@ public abstract class Effect {
         for (int i = 0; i < Data.riderEffects.Count; i++) {
             Effect rider = AbilityFactory.CreateEffect(Data.riderEffects[i].effectData, Source, ParentAbility);
             rider.parentEffect = this;
-            riderEffects.Add(rider);
+            RiderEffects.Add(rider);
             //Debug.Log("Creating a rider: " + rider.Data.effectName + " for " + Data.effectName);
         }
+    }
+
+    public virtual Effect AddRider(EffectDefinition effectDef) {
+        return AddRider(effectDef.effectData);
+    }
+
+    public virtual Effect AddRider(EffectData data) {
+        Effect rider = AbilityFactory.CreateEffect(data, Source, ParentAbility);
+        rider.parentEffect = this;
+        RiderEffects.Add(rider);
+
+        //Debug.LogWarning("Adding: " + rider.Data.effectName + " to " + Data.effectName);
+        rider.RegisterRiderOnEventApplied();
+
+        return rider;
+    }
+
+
+    public virtual EffectData RemoveRider(Effect target) {
+        if(RiderEffects.Contains(target) == false) {
+            Debug.LogError("No Rider named: " + target.Data.effectName + " exists on : " + Data.effectName);
+            return null;
+        }
+
+        target.RemoveFromAllTargets();
+        EventManager.RemoveMyListeners(target);
+
+        RiderEffects.Remove(target);
+
+        //Debug.LogWarning("Removing: " + target.Data.effectName + " from " + Data.effectName);
+
+        return target.Data;
+    }
+
+    public virtual EffectData RemoveRider(string riderName) {
+        Effect target = null;
+
+        for (int i = 0; i < RiderEffects.Count; i++) {
+            if (RiderEffects[i].Data.effectName == riderName) {
+                target = RiderEffects[i];
+                break;
+            }
+        }
+
+        if (target == null) {
+            Debug.LogError("Could not find Rider: " + riderName + " on the effect: " + Data.effectName);
+            return null;
+        }
+
+        return RemoveRider(target);
     }
 
     public bool EvaluateTargetConstraints(Entity target) {
@@ -362,8 +412,8 @@ public abstract class Effect {
 
         //Rider Experiments
 
-        for (int i = 0; i < riderEffects.Count; i++) {
-            riderEffects[i].RemoveFromAllTargets();
+        for (int i = 0; i < RiderEffects.Count; i++) {
+            RiderEffects[i].RemoveFromAllTargets();
         }
 
         //Lingering Effect Zones
@@ -388,15 +438,15 @@ public abstract class Effect {
     }
 
     protected void UnRegisterRiderEvents() {
-        for (int i = 0; i < riderEffects.Count; i++) {
-            EventManager.RemoveMyListeners(riderEffects[i]);
+        for (int i = 0; i < RiderEffects.Count; i++) {
+            EventManager.RemoveMyListeners(RiderEffects[i]);
         }
     }
 
     protected void RegisterRiderEvents() {
-        for (int i = 0; i < riderEffects.Count; i++) {
+        for (int i = 0; i < RiderEffects.Count; i++) {
 
-            riderEffects[i].RegisterRiderOnEventApplied();
+            RiderEffects[i].RegisterRiderOnEventApplied();
         }
     }
 
@@ -1064,6 +1114,232 @@ public class ApplyOtherEffect : Effect {
     }
 }
 
+
+public class AddRiderEffect : Effect {
+
+    public override EffectType Type => EffectType.AddRider;
+    private List<Effect> activeDisplayEffects = new List<Effect>();
+    private Dictionary<Effect, List<Effect>> effectTrackedRiderEffects = new Dictionary<Effect, List<Effect>>();
+
+    public AddRiderEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        for (int i = 0; i < data.ridersToAdd.Count; i++) {
+            Effect template = AbilityFactory.CreateEffect(data.ridersToAdd[i].effectData, source, ParentAbility);
+            activeDisplayEffects.Add(template);
+            //Debug.Log("Creating a display effect for: " + data.effectName + " by the name of: " + template.Data.effectName);
+        }
+    }
+
+    public override bool Apply(Entity target) {
+
+        if (base.Apply(target) == false)
+            return false;
+
+        Debug.LogError("Applying Riders to Entities is not yet supported");
+        return false;
+
+        //Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
+
+        //if (targetAbility == null) {
+        //    Debug.LogError("Could not find the ability: " + Data.targetAbilityToAddEffectsTo + " on the Entity: " + target.EntityName);
+        //    return false;
+        //}
+
+        //for (int i = 0; i < Data.effectsToAdd.Count; i++) {
+        //    Effect newEffect = AbilityFactory.CreateEffect(Data.effectsToAdd[i].effectData, Source, targetAbility);
+
+        //    targetAbility.AddEffect(newEffect);
+        //    TrackEffectsOnEntity(target, newEffect);
+        //}
+
+        //return true;
+    }
+
+    public override void Remove(Entity target) {
+        base.Remove(target);
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if(base.ApplyToEffect(target) == false)
+            return false;
+
+        for (int i = 0; i < Data.ridersToAdd.Count; i++) {
+            Effect newRider = target.AddRider(Data.ridersToAdd[i]);
+            TrackEffectOnEffect(target, newRider);
+        }
+
+        return true;
+    }
+
+    public override void RemoveFromEffect(Effect target) {
+        base.RemoveFromEffect(target);
+
+        if(effectTrackedRiderEffects.TryGetValue(target, out List<Effect> effects) == true) {
+
+            for (int i = 0; i < effects.Count; i++) {
+                target.RemoveRider(effects[i]);
+            }
+        }
+
+
+    }
+
+    private void TrackEffectOnEffect(Effect target, Effect newEffect) {
+        if (effectTrackedRiderEffects.TryGetValue(target, out List<Effect> children) == true) {
+            children.Add(newEffect);
+        }
+        else {
+            effectTrackedRiderEffects.Add(target, new List<Effect> { newEffect });
+        }
+    }
+
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+        Debug.LogError("Applying Riders to Abilities is not yet supported");
+        return false;
+
+        //for (int i = 0; i < Data.effectsToAdd.Count; i++) {
+        //    Effect newEffect = AbilityFactory.CreateEffect(Data.effectsToAdd[i].effectData, Source, target);
+
+        //    target.AddEffect(newEffect);
+        //    TrackEffectsOnAbility(target, newEffect);
+
+        //}
+
+        //return true;
+    }
+
+    //private void TrackEffectsOnAbility(Ability target, Effect newEffect) {
+    //    if (abilityTrackedEffects.TryGetValue(target, out List<Effect> children) == true) {
+    //        children.Add(newEffect);
+    //    }
+    //    else {
+    //        abilityTrackedEffects.Add(target, new List<Effect> { newEffect });
+    //    }
+    //}
+
+    //private void TrackEffectsOnEntity(Entity target, Effect newEffect) {
+    //    if (entityTrackedEffects.TryGetValue(target, out List<Effect> children) == true) {
+    //        children.Add(newEffect);
+    //    }
+    //    else {
+    //        entityTrackedEffects.Add(target, new List<Effect> { newEffect });
+    //    }
+    //}
+
+    public override void RemoveFromAbility(Ability target) {
+        base.RemoveFromAbility(target);
+
+        //if (abilityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
+        //    for (int i = 0; i < effectsAdded.Count; i++) {
+        //        target.RemoveEffect(effectsAdded[i]);
+        //    }
+
+        //    abilityTrackedEffects.Remove(target);
+        //}
+
+    }
+
+    public override string GetTooltip() {
+        StringBuilder builder = new StringBuilder();
+
+        //Debug.Log("Showing a tooltip for an Add Effect Effect On " + Data.effectName + ". " + activeEffects.Count + " effects found to add");
+
+        for (int i = 0; i < activeDisplayEffects.Count; i++) {
+
+            string effectTooltip = activeDisplayEffects[i].GetTooltip();
+
+            if (string.IsNullOrEmpty(effectTooltip) == false)
+                builder.Append(effectTooltip);
+
+            if (i != activeDisplayEffects.Count - 1)
+                builder.AppendLine();
+        }
+
+        return builder.ToString();
+    }
+}
+
+public class RemoveRiderEffect : Effect {
+
+    public override EffectType Type => EffectType.RemoveRider;
+
+    private Dictionary<Effect, List<EffectData>> effectTrackedRiderEffects = new Dictionary<Effect, List<EffectData>>();
+
+    public RemoveRiderEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        
+    }
+
+    public override bool Apply(Entity target) {
+
+        if (base.Apply(target) == false)
+            return false;
+
+        Debug.LogError("Applying Riders to Entities is not yet supported");
+        return false;
+    }
+
+    public override void Remove(Entity target) {
+        base.Remove(target);
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+        for (int i = 0; i < Data.ridersToRemove.Count; i++) {
+            EffectData removedData = target.RemoveRider(Data.ridersToRemove[i].effectData.effectName);
+            
+            TrackEffectOnEffect(target, removedData);
+        }
+
+        return true;
+    }
+
+    public override void RemoveFromEffect(Effect target) {
+        base.RemoveFromEffect(target);
+
+        if (effectTrackedRiderEffects.TryGetValue(target, out List<EffectData> effects) == true) {
+
+            for (int i = 0; i < effects.Count; i++) {
+                target.AddRider(effects[i]);
+            }
+        }
+    }
+
+    private void TrackEffectOnEffect(Effect target, EffectData removedData) {
+        if (effectTrackedRiderEffects.TryGetValue(target, out List<EffectData> children) == true) {
+            children.Add(removedData);
+        }
+        else {
+            effectTrackedRiderEffects.Add(target, new List<EffectData> { removedData });
+        }
+    }
+
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+        Debug.LogError("Removeing Riders from Abilities is not yet supported");
+        return false;
+    }
+
+
+
+    public override void RemoveFromAbility(Ability target) {
+        base.RemoveFromAbility(target);
+    }
+
+    public override string GetTooltip() {
+        return base.GetTooltip();
+        
+    }
+}
+
+
 public class AddEffectEffect : Effect {
 
     public override EffectType Type => EffectType.AddEffect;
@@ -1526,16 +1802,19 @@ public class AddStatusEffect : Effect {
 
     public AddStatusEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
-        SimpleStat durationStat = new SimpleStat(StatName.StatusLifetime, data.statusToAdd[0].duration);
-        SimpleStat intervalStat = new SimpleStat(StatName.StatusInterval, data.statusToAdd[0].interval);
+        //float duration = Stats.Contains(StatName.StatusLifetime) == true ? Stats[StatName.StatusLifetime] : data.statusToAdd[0].duration;
+        //float interval = Stats.Contains(StatName.StatusInterval) == true ? Stats[StatName.StatusInterval] : data.statusToAdd[0].interval;
+
+        //SimpleStat durationStat = new SimpleStat(StatName.StatusLifetime, duration /*data.statusToAdd[0].duration*/);
+        //SimpleStat intervalStat = new SimpleStat(StatName.StatusInterval, interval /*data.statusToAdd[0].interval*/);
 
         float stackValue = data.statusToAdd[0].maxStacks > 0 ? data.statusToAdd[0].maxStacks : float.MaxValue;
 
         StatRange stacksStat = new StatRange(StatName.StackCount, 0, stackValue, data.statusToAdd[0].initialStackCount);
 
         Stats.AddStat(stacksStat);
-        Stats.AddStat(durationStat);
-        Stats.AddStat(intervalStat);
+        //Stats.AddStat(durationStat);
+        //Stats.AddStat(intervalStat);
 
 
         for (int i = 0; i < data.statusToAdd.Count; i++) {
@@ -1664,7 +1943,10 @@ public class AddStatusEffect : Effect {
                     //Debug.Log("Showing a tooltip for a non damage status");
                     //Debug.Log(activeStatusEffects[i].GetTooltip());
 
-                    builder.Append(activeStatusEffects[i].GetTooltip());
+                    builder.AppendLine(activeStatusEffects[i].GetTooltip());
+
+                    builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
+
 
 
                     break;

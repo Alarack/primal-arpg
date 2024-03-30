@@ -25,6 +25,7 @@ MonoBehaviour:
     canAffectDeadTargets: 0
     nonStacking: 0
     onlyShowTooltipInRune: 0
+    showRiderTooltip: 1
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
@@ -73,7 +74,7 @@ MonoBehaviour:
       scalers:
       - targetStat: 28
         deriveTarget: 15
-        statScaleBaseValue: 0.5
+        statScaleBaseValue: 1
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -154,6 +155,8 @@ MonoBehaviour:
     abilitiesToAdd: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    ridersToAdd: []
+    ridersToRemove: []
     effectsToRemove: []
     targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 

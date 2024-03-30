@@ -144,7 +144,7 @@ public class Status {
                 return;
             case StackMethod.LimitedStacks:
                 if (IsStackCapped == true) {
-                    Debug.LogWarning("Max stack reached");
+                    //Debug.LogWarning("Max stack reached");
                     return;
                 }
                 break;

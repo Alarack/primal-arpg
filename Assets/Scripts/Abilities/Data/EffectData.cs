@@ -24,7 +24,9 @@ public enum EffectType {
     AddTag,
     RemoveTag,
     SuppressEffect,
-    RemoveEffect
+    RemoveEffect,
+    AddRider,
+    RemoveRider
 }
 
 public enum EffectTarget {
@@ -109,6 +111,7 @@ public class EffectData
     public bool nonStacking;
     //public bool hideTooltip;
     public bool onlyShowTooltipInRune;
+    public bool showRiderTooltip;
     public bool inheritStatsFromParentAbility = true;
 
     public int numberOfTargets = -1;
@@ -172,6 +175,12 @@ public class EffectData
     //Add Effect
     public List<EffectDefinition> effectsToAdd = new List<EffectDefinition>();
     public string targetAbilityToAddEffectsTo;
+
+    //Add Rider Effect
+    public List<EffectDefinition> ridersToAdd = new List<EffectDefinition>();
+
+    //Remove Rider Effect
+    public List<EffectDefinition> ridersToRemove = new List<EffectDefinition>();
 
     //Remove Effect
     public List<string> effectsToRemove = new List<string>();

@@ -737,9 +737,6 @@ public class Ability {
             builder.AppendLine("Cast Time: " + TextHelper.ColorizeText(Stats[StatName.AbilityWindupTime].ToString(), Color.yellow) + " Seconds");
         }
 
-
-
-
         if (string.IsNullOrEmpty(Data.abilityDescription) == false) {
             int targets = GetMaxTargets();
 
@@ -809,6 +806,12 @@ public class Ability {
                 string projectileStats = effects[0].GetProjectileStatsTooltip();
                 if (string.IsNullOrEmpty(projectileStats) == false) {
                     builder.AppendLine(projectileStats);
+                }
+
+                if(adj.Data.showRiderTooltip == true) {
+                    for (int i = 0; i < adj.RiderEffects.Count; i++) {
+                        builder.AppendLine(adj.RiderEffects[i].GetTooltip());
+                    }
                 }
 
                 if (effects[0].Data.canOverload == true) {

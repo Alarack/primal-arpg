@@ -152,7 +152,7 @@ public static class StatAdjustmentManager {
                 return 0f;
             }
 
-            Debug.LogWarning(target.EntityName + " does not have " + mod.TargetStat + ". Adding it as a Simple stat with 0 value.");
+            Debug.Log(target.EntityName + " does not have " + mod.TargetStat + ". Adding it as a Simple stat with 0 value.");
             SimpleStat newStat = new SimpleStat(targetStat, 0f);
             target.Stats.AddStat(newStat);
         }

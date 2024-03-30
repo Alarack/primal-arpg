@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Acane Vulnerable Adj
+  m_Name: E_Add Void Rider
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Apply Arcane Vulnerable
-    effectDescription: 'Arcane Vulnerability: {}'
-    type: 1
-    targeting: 0
-    subTarget: 0
+    effectName: Add Void Vul
+    effectDescription: 
+    type: 20
+    targeting: 9
+    subTarget: 2
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -25,13 +25,50 @@ MonoBehaviour:
     canAffectDeadTargets: 0
     nonStacking: 0
     onlyShowTooltipInRune: 0
-    showRiderTooltip: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
-    targetConstraints: []
+    targetConstraints:
+    - type: 19
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: 
+      targetEffectName: Arcane Storm Damage
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadCount: 1
@@ -57,20 +94,7 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData:
-    - targetStat: 76
-      value: 0.1
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
+    modData: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -132,7 +156,7 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
-    addMissingStatIfNotPresent: 1
+    addMissingStatIfNotPresent: 0
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
@@ -151,7 +175,8 @@ MonoBehaviour:
     abilitiesToAdd: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
-    ridersToAdd: []
+    ridersToAdd:
+    - {fileID: 11400000, guid: fa9ddcf2b59938d48818d6684e3540ca, type: 2}
     ridersToRemove: []
     effectsToRemove: []
     targetAbilityToRemoveEffectsFrom: 

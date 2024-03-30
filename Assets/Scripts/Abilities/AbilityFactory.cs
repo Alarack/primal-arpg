@@ -128,6 +128,8 @@ public static class AbilityFactory {
             EffectType.RemoveTag => new RemoveTagEffect(data, source, parentAbility),
             EffectType.SuppressEffect => new SuppressEffect(data, source, parentAbility),
             EffectType.RemoveEffect => new RemoveEffectEffect(data, source, parentAbility),
+            EffectType.AddRider => new AddRiderEffect(data, source, parentAbility),
+            EffectType.RemoveRider => new RemoveRiderEffect(data, source, parentAbility),
             _ => null,
         };
 

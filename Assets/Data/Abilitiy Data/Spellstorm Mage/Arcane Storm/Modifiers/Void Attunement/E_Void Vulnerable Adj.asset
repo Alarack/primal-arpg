@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Acane Vulnerable Adj
+  m_Name: E_Void Vulnerable Adj
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Apply Arcane Vulnerable
-    effectDescription: 'Arcane Vulnerability: {}'
+    effectName: Apply Void Vulnerable adj
+    effectDescription: 'Void Vulnerability: {}'
     type: 1
     targeting: 0
     subTarget: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 76
+    - targetStat: 77
       value: 0.1
       modifierType: 0
       variantTarget: 0

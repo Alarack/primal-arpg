@@ -408,6 +408,7 @@ public static class AbilityEditorHelper {
         entry.canAffectDeadTargets = EditorGUILayout.Toggle("Can Affect Dead", entry.canAffectDeadTargets);
         entry.nonStacking = EditorGUILayout.Toggle("Non Stacking", entry.nonStacking);
         entry.onlyShowTooltipInRune = EditorGUILayout.Toggle("Rune Only Tooltip", entry.onlyShowTooltipInRune);
+        entry.showRiderTooltip = EditorGUILayout.Toggle("Show Rider Tooltip", entry.showRiderTooltip);
         entry.inheritStatsFromParentAbility = EditorGUILayout.Toggle("Inherit Stats", entry.inheritStatsFromParentAbility);
 
         if (entry.canOverload == true) {
@@ -528,6 +529,18 @@ public static class AbilityEditorHelper {
                 entry.abilitiesToAdd = EditorHelper.DrawList("Child Abilities", entry.abilitiesToAdd, null, DrawAbilityDefinitionList);
                 break;
 
+
+            case EffectType.AddRider:
+                EditorGUILayout.LabelField("Riders to Add: ", EditorStyles.boldLabel);
+                entry.ridersToAdd = EditorHelper.DrawList("Child Effects", entry.ridersToAdd, null, DrawEffectDefinitionList);
+
+                break;
+
+            case EffectType.RemoveRider:
+                EditorGUILayout.LabelField("Riders to Remove: ", EditorStyles.boldLabel);
+                entry.ridersToRemove = EditorHelper.DrawList("Effects", entry.ridersToRemove, null, DrawEffectDefinitionList);
+
+                break;
             case EffectType.AddEffect:
 
                 if (entry.subTarget == EffectSubTarget.Entity) {

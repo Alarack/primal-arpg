@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: E_Aracne Vulnerable Status
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Apply Vlunerable Status
+    effectName: Apply Arcane Vulnerable Status
     effectDescription: 
     type: 3
     targeting: 2
@@ -25,6 +25,7 @@ MonoBehaviour:
     canAffectDeadTargets: 0
     nonStacking: 0
     onlyShowTooltipInRune: 0
+    showRiderTooltip: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
@@ -124,9 +125,9 @@ MonoBehaviour:
       stackMethod: 1
       maxStacks: 3
       initialStackCount: 1
-      duration: 30
+      duration: 0
       interval: 0
-      VFXPrefab: {fileID: 173350, guid: b73366db2a2695c46a59adb7555604e9, type: 3}
+      VFXPrefab: {fileID: 119216, guid: e85f4a610ef9e5b4aa9cedce76136489, type: 3}
       vfxScaleModifier: 1
       statusEffectDef: {fileID: 11400000, guid: ce8ac60e0e427214081a76f1cb7d9a28, type: 2}
     statusToRemove: 
@@ -146,6 +147,8 @@ MonoBehaviour:
     abilitiesToAdd: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    ridersToAdd: []
+    ridersToRemove: []
     effectsToRemove: []
     targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 

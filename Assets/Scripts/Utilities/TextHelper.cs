@@ -93,6 +93,10 @@ public static class TextHelper
             StatName.ProcChance when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.Armor when value > 0 => $"<color=#{bonusColor}>+" + (value) * 100 + "%</color>",
             StatName.Armor when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "%</color>",
+            StatName.VulnerableArcane => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.VulnerableSpace => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.VulnerableTime => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.VulnerableVoid => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             _ => "No Entry For: " + stat,
         };
 
