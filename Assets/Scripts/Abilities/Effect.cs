@@ -1938,6 +1938,39 @@ public class ForceStatusTickEffect : Effect {
 
     }
 
+    public override bool Apply(Entity target) {
+        if(base.Apply(target) == false)
+            return false;
+
+        //Debug.Log("Force Ticking Status on: " + target.EntityName);
+        for (int i = 0; i < target.ActiveStatuses.Count; i++) {
+            if (target.ActiveStatuses[i].ParentEffect.Data.effectDesignation == StatModifierData.StatModDesignation.PrimaryDamage) {
+                target.ActiveStatuses[i].ForceTick();
+            }
+        }
+
+
+        //Effect targetEffect = AbilityUtilities.GetEffectByName(
+        //    Data.forceTickAbility.AbilityData.abilityName,
+        //    Data.forceTickStatusEffect.effectData.effectName, Source, AbilityCategory.Any);
+
+        //if (targetEffect == null) {
+        //    Debug.LogError("Could not find effect: " + Data.forceTickStatusEffect.effectData.effectName);
+        //    return false;
+        //}
+
+        //AddStatusEffect addStatusEffect = targetEffect as AddStatusEffect;
+
+        //if (addStatusEffect == null) {
+        //    Debug.LogError("an effect: " + Data.effectName + " tried to force a non-status to tick: " + targetEffect.Data.effectName);
+        //    return false;
+        //}
+
+        //addStatusEffect.ForceTickOnTarget(target);
+
+        return true;
+    }
+
 
     public override bool ApplyToEffect(Effect target) {
         if (base.ApplyToEffect(target) == false)
@@ -1996,6 +2029,14 @@ public class AddStatusEffect : Effect {
         float effectIntervalModifier = 1 + Source.Stats[StatName.GlobalEffectIntervalModifier];
 
         return Stats[StatName.StatusInterval] * effectIntervalModifier;
+    }
+
+    public void ForceTickOnTarget(Entity target) {
+        if(activeStatusDict.TryGetValue(target, out List<Status> activeStatuses) == true) {
+            for (int i = 0; i < activeStatuses.Count; i++) {
+                activeStatuses[i].ForceTick();
+            }
+        }
     }
 
     public void ForceTick() {

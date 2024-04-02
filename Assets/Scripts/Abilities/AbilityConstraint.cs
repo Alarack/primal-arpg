@@ -508,7 +508,14 @@ public class EffectAppliedToConstraint : AbilityConstraint {
 
         Entity targetEntity = triggerInstance.TriggeringEntity;
 
-        result = effect.EntityTargets.Contains(targetEntity);
+        for (int i = 0; i < targetEntity.ActiveStatuses.Count; i++) {
+            if (targetEntity.ActiveStatuses[i].ParentEffect == effect) {
+                result = true; 
+                break;
+            }
+        }
+
+        //result = effect.EntityTargets.Contains(targetEntity);
 
 
         //Effect otherEffect = AbilityUtilities.GetEffectByName(parentEffect.Data.otherEffectName, parentEffect.Data.otherAbilityName, parentEffect.Source, AbilityCategory.Any);

@@ -221,6 +221,8 @@ public class EffectData
     //Change Effect Zone
     public EffectZone newEffectZonePrefab;
 
+
+
     public EffectData() {
 
     }
