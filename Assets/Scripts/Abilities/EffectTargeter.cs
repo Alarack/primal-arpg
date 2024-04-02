@@ -560,7 +560,7 @@ public class EffectTargeter {
             return;
         }
         
-        Entity delivery = GameObject.Instantiate(parentEffect.Data.payloadPrefab, payloadLocation, parentEffect.Source.transform.rotation);
+        Entity delivery = GameObject.Instantiate(parentEffect.PayloadPrefab, payloadLocation, parentEffect.Source.transform.rotation);
 
         Projectile projectile = delivery as Projectile;
         if (projectile != null) {

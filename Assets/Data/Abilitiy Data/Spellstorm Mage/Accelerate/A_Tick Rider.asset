@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_R_Void Attunement
+  m_Name: A_Tick Rider
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 3
-    abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
-    abilityName: Void Attunement Rune
-    abilityDescription: Arcane Storm causes Void Vulnerability instead of Arcane
-      Vulnerability. It deals Void Damage instead of Arcane Damage.
+    category: 5
+    abilityIcon: {fileID: 0}
+    abilityName: Accelerate Tick Rider
+    abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -27,31 +26,19 @@ MonoBehaviour:
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
-    runeAbilityTarget: Arcane Storm
+    runeAbilityTarget: 
     childAbilities: []
     tags: 
     activationTriggerData:
-    - type: 17
+    - type: 5
       procChance: 1
-      riderAbilityName: 
-      riderEffectName: 
+      riderAbilityName: Accelerate
+      riderEffectName: Accelerate Gather
       triggerTimerDuration: 0
       delay1Frame: 0
       autoActivateTimer: 0
-      allConstraints:
-      - focus: 0
-        constraintData: []
-    endTriggerData:
-    - type: 18
-      procChance: 1
-      riderAbilityName: 
-      riderEffectName: 
-      triggerTimerDuration: 0
-      delay1Frame: 0
-      autoActivateTimer: 0
-      allConstraints:
-      - focus: 0
-        constraintData: []
+      allConstraints: []
+    endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -83,11 +70,7 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: c013326033a6ba24e88a679ffd111838, type: 2}
-    - {fileID: 11400000, guid: 21bd645756815fe43aec3bf4d61e3454, type: 2}
-    - {fileID: 11400000, guid: e1b85742f3cbcc54f83efbdf460c76c9, type: 2}
-    - {fileID: 11400000, guid: 115280a118725dc4e910163a95ae37b0, type: 2}
-    - {fileID: 11400000, guid: 41a3913904d97d5469aff2ec64e9cce8, type: 2}
+    - {fileID: 11400000, guid: f62cd09f5c422b9488d2fe1ac846653b, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

@@ -10,26 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: Test Ignite
+  m_Name: A_Accelerate
   m_EditorClassIdentifier: 
   AbilityData:
     category: 1
-    abilityIcon: {fileID: 21300000, guid: 9271550f4be3d9c44a1901ba2c1aa07c, type: 3}
-    abilityName: Ignite
-    abilityDescription: Launch a ball of super-heated plasma causing damage over
-      time.
+    abilityIcon: {fileID: 21300000, guid: 0e3410d18b5e34f439a997d07357b59a, type: 3}
+    abilityName: Accelerate
+    abilityDescription: Launch a bolt of Temporal energy. Instantly tick all damage
+      over time effects on affected targets.
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 1
     ignoreOtherCasting: 0
-    includeEffectsInTooltip: 1
+    includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
     runeAbilityTarget: 
-    childAbilities: []
-    tags: 01000000080000000a000000
+    childAbilities:
+    - {fileID: 11400000, guid: a40e6591c1e4e2943ae3e4154d18c624, type: 2}
+    tags: 
     activationTriggerData:
     - type: 6
       procChance: 1
@@ -151,24 +152,14 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 749293adecd8a2244bd78eeb2ce0a7ba, type: 2}
+    - {fileID: 11400000, guid: d3020cb38b0b1134dbb2dabb925e1388, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     windupVFX: {fileID: 0}
     abilityStatData:
     - variant: 0
-      statName: 25
-      value: 0.05
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 70
-      value: 5
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 71
+      statName: 46
       value: 1
       maxValue: 0
       minValue: 0

@@ -1501,6 +1501,9 @@ public class RiderTrigger : AbilityTrigger {
 
         RiderTriggerInstance triggerInstance = new RiderTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, ridereffectTargets);
 
+        triggerInstance.TriggeringEffect = targetEffect;
+        triggerInstance.TriggeringAbility = targetEffect.ParentAbility;
+
         TryActivateTrigger(triggerInstance);
     }
 

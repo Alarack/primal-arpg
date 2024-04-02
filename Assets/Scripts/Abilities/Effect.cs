@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 using static AbilityTrigger;
 using static Status;
@@ -23,6 +24,9 @@ public abstract class Effect {
     public List<Ability> AbilityTargets { get; protected set; } = new List<Ability>();
     public List<Entity> ValidTargets { get { return targeter.GatherValidTargets(); } }
     public Entity LastTarget { get; protected set; }
+
+    public Entity PayloadPrefab { get; set; }
+    public EffectZone EffectZonePrefab { get; set; }
 
     public bool Suppressed { get; set; } = false;
 
@@ -48,6 +52,8 @@ public abstract class Effect {
         this.ParentAbility = parentAbility;
         this.Targeting = data.targeting;
         this.Source = source;
+        this.PayloadPrefab = data.payloadPrefab;
+        this.EffectZonePrefab = data.effectZoneInfo.effectZonePrefab;
         SetupStats();
         SetupTargetConstraints();
         SetupRiderEffects();
@@ -624,6 +630,87 @@ public class EmptyEffect : Effect {
     }
 }
 
+public class EffectChangePayaload : Effect {
+    public override EffectType Type => EffectType.ChangePayload;
+
+    private Dictionary<Effect, Entity> trackedPayloads = new Dictionary<Effect, Entity>();
+
+
+    public EffectChangePayaload(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        Debug.LogError("Changing Payloads at the Entity level is not yet supported");
+        return false;
+    }
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+
+        Debug.LogError("Changing Payloads at the Ability level is not yet supported");
+        return false;
+
+
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+
+        if(TrackChangedPayload(target) == true) {
+            target.PayloadPrefab = Data.newPayloadPrefab;
+        }
+
+
+        return true;
+    }
+
+    public override void RemoveFromEffect(Effect target) {
+        base.RemoveFromEffect(target);
+
+        if(trackedPayloads.TryGetValue(target, out Entity payload) == true) {
+
+            if(target.PayloadPrefab == payload) {
+                Debug.LogError(target.Data.effectName + " already has the payload tracked by " + Data.effectName);
+                return;
+            }
+
+            target.PayloadPrefab = payload;
+            trackedPayloads.Remove(target);
+        }
+        else {
+            Debug.LogError(target.Data.effectName + " is not tracked by a change payload effect: " + Data.effectName);
+        }
+
+       
+    }
+
+
+    private bool TrackChangedPayload(Effect target) {
+        if(trackedPayloads.TryGetValue(target, out Entity trackedPayload)== true) {
+            if(trackedPayload == Data.newPayloadPrefab) {
+                Debug.LogError("Trying to reapply the same changed payload to: " + target.Data.effectName);
+                return false;
+            }
+
+            trackedPayloads[target] = target.PayloadPrefab;
+            
+        }
+        else {
+            trackedPayloads.Add(target, target.PayloadPrefab);
+        }
+
+        return true;
+    }
+}
+
 public class NPCStateChangeEffect : Effect {
     public override EffectType Type => EffectType.NPCStateChange;
 
@@ -952,10 +1039,14 @@ public class AddTagEffect : Effect {
             return false;
 
         for (int i = 0; i < Data.tagsToAdd.Count; i++) {
+
+            if (TrackTag(target, Data.tagsToAdd[i]) == false)
+                continue;
+            
             target.AddTag(Data.tagsToAdd[i]);
         }
 
-        TrackTags(target);
+        //TrackTags(target);
 
         return true;
     }
@@ -972,6 +1063,24 @@ public class AddTagEffect : Effect {
         }
     }
 
+
+    private bool TrackTag(Ability target, AbilityTag tag) {
+        
+        if(trackedTags.TryGetValue(target, out List<AbilityTag> tags) == true) {
+            if (target.Tags.Contains(tag) == false) {
+                tags.Add(tag);
+                return true;
+            }
+        }
+        else {
+            if (target.Tags.Contains(tag) == false) {
+                trackedTags.Add(target, new List<AbilityTag> { tag });
+                return true;
+            }
+        }
+        return false;
+        
+    }
 
     private void TrackTags(Ability target) {
         if (trackedTags.ContainsKey(target) == false) {
@@ -995,10 +1104,14 @@ public class RemoveTagEffect : Effect {
             return false;
 
         for (int i = 0; i < Data.tagsToRemove.Count; i++) {
+
+            if (TrackTag(target, Data.tagsToRemove[i]) == false)
+                continue;
+            
             target.RemoveTag(Data.tagsToRemove[i]);
         }
 
-        TrackTags(target);
+        //TrackTags(target);
 
         return true;
     }
@@ -1015,6 +1128,23 @@ public class RemoveTagEffect : Effect {
         }
     }
 
+    private bool TrackTag(Ability target, AbilityTag tag) {
+
+        if (trackedTags.TryGetValue(target, out List<AbilityTag> tags) == true) {
+            if (target.Tags.Contains(tag) == true) {
+                tags.Add(tag);
+                return true;
+            }
+        }
+        else {
+            if (target.Tags.Contains(tag) == true) {
+                trackedTags.Add(target, new List<AbilityTag> { tag });
+                return true;
+            }
+        }
+        return false;
+
+    }
 
     private void TrackTags(Ability target) {
         if (trackedTags.ContainsKey(target) == false) {

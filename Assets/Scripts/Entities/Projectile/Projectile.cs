@@ -233,7 +233,7 @@ public class Projectile : Entity {
 
     private void DeployZoneEffect(Collider2D other) {
         //Debug.Log(gameObject.name + " is tryin to deplay an effect zone");
-        if (other != null && parentEffect.Data.effectZoneInfo.effectZonePrefab == null) {
+        if (other != null && parentEffect.EffectZonePrefab == null) {
             Entity otherEntity = other.GetComponent<Entity>();
             if (otherEntity != null) {
                 bool applied = parentEffect.Apply(otherEntity);
@@ -248,10 +248,10 @@ public class Projectile : Entity {
         if (parentEffect == null)
             return;
 
-        if (parentEffect.Data.effectZoneInfo.effectZonePrefab == null)
+        if (parentEffect.EffectZonePrefab == null)
             return;
 
-        EffectZone activeZone = Instantiate(parentEffect.Data.effectZoneInfo.effectZonePrefab, transform.position, Quaternion.identity);
+        EffectZone activeZone = Instantiate(parentEffect.EffectZonePrefab, transform.position, Quaternion.identity);
         activeZone.Stats.AddMissingStats(parentEffect.Stats);
         activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this, parentLayer, parentEffect.Data.maskTargeting);
 
@@ -300,7 +300,7 @@ public class Projectile : Entity {
         for (int i = 0; i < Stats[StatName.ProjectileSplitQuantity]; i++) {
 
             if (cloneSelfOnSplit == true) {
-                Projectile child = Instantiate(parentEffect.Data.payloadPrefab, transform.position, transform.rotation) as Projectile;
+                Projectile child = Instantiate(parentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
                 child.Setup(Source, parentEffect, projectileHitMask, parentEffect.Data.maskTargeting);
                 child.SetupChildCollision(recentHit);
                 child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);

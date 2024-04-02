@@ -159,16 +159,16 @@ public class Status {
 
     }
 
-    public void ReApply() {
-        if (Target == null) {
-            //Debug.LogWarning("A target with a status is null. Removing status");
-            Remove();
-            return;
-        }
+    //public void ReApply() {
+    //    if (Target == null) {
+    //        //Debug.LogWarning("A target with a status is null. Removing status");
+    //        Remove();
+    //        return;
+    //    }
 
-        ParentEffect.Remove(Target);
-        ForceTick();
-    }
+    //    ParentEffect.Remove(Target);
+    //    ForceTick();
+    //}
 
     public virtual void Remove() {
         CleanUp(null);

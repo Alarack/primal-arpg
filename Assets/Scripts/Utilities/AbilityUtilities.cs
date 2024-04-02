@@ -277,13 +277,14 @@ public static class AbilityUtilities {
                 //AbilityTag.Space => throw new NotImplementedException(),
                 //AbilityTag.Air => throw new NotImplementedException(),
                 AbilityTag.Arcane => StatName.VulnerableArcane,
-                //AbilityTag.Void => throw new NotImplementedException(),
-                //AbilityTag.Time => throw new NotImplementedException(),
+                AbilityTag.Void => StatName.VulnerableVoid,
+                AbilityTag.Time => StatName.VulnerableTime,
                 _ => StatName.Armor,
             };
 
             if(stat != StatName.Armor)
                 results.Add(stat);
+            
         }
 
 

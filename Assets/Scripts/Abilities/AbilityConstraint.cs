@@ -486,6 +486,44 @@ public class EffectTypeConstraint : AbilityConstraint {
 
 }
 
+public class EffectAppliedToConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.EffectAppliedTo;
+
+    public EffectAppliedToConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
+
+
+        return false;
+    }
+
+    public override bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
+
+        bool result = false;
+
+        Entity targetEntity = triggerInstance.TriggeringEntity;
+
+        result = effect.EntityTargets.Contains(targetEntity);
+
+
+        //Effect otherEffect = AbilityUtilities.GetEffectByName(parentEffect.Data.otherEffectName, parentEffect.Data.otherAbilityName, parentEffect.Source, AbilityCategory.Any);
+        //for (int i = 0; i < effect.EntityTargets.Count; i++) {
+        //    if (otherEffect.EntityTargets.Contains(effect.EntityTargets[i])) {
+        //        result = true;
+        //        break;
+        //    }
+        //}
+ 
+
+        return inverse == false ? result : !result;
+    }
+}
+
 
 public class AbilityTagConstraint : AbilityConstraint {
 

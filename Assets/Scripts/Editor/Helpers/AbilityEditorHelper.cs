@@ -615,6 +615,10 @@ public static class AbilityEditorHelper {
                 entry.tagsToRemove = EditorHelper.DrawList("Tags To Remove", "Tag", entry.tagsToRemove, AbilityTag.None, EditorHelper.DrawListOfEnums);
                 break;
 
+            case EffectType.ChangePayload:
+                entry.newPayloadPrefab = EditorHelper.ObjectField("Payload Prefab", entry.newPayloadPrefab);
+                break;
+
             default:
                 break;
         }

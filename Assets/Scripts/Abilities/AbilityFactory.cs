@@ -84,6 +84,7 @@ public static class AbilityFactory {
             ConstraintType.StatRatio => new StatRatioConstraint(data, source, parentAbility),
             ConstraintType.UnitIsMoving => new IsMovingConstraint(data, source, parentAbility),
             ConstraintType.AbilityOnHotbar => new AbilityOnHotbarConstraint(data, source, parentAbility),
+            ConstraintType.EffectAppliedTo => new EffectAppliedToConstraint(data, source, parentAbility),
             _ => null,
         };
 
@@ -130,6 +131,7 @@ public static class AbilityFactory {
             EffectType.RemoveEffect => new RemoveEffectEffect(data, source, parentAbility),
             EffectType.AddRider => new AddRiderEffect(data, source, parentAbility),
             EffectType.RemoveRider => new RemoveRiderEffect(data, source, parentAbility),
+            EffectType.ChangePayload => new EffectChangePayaload(data, source, parentAbility),
             _ => null,
         };
 

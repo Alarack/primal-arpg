@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_R_Void Attunement
+  m_Name: A_R_Deluge
   m_EditorClassIdentifier: 
   AbilityData:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
-    abilityName: Void Attunement Rune
-    abilityDescription: Arcane Storm causes Void Vulnerability instead of Arcane
-      Vulnerability. It deals Void Damage instead of Arcane Damage.
+    abilityName: Deluge Rune
+    abilityDescription: Arcane storm has a much lower cooldown and causes much less
+      damage.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -83,11 +83,8 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: c013326033a6ba24e88a679ffd111838, type: 2}
-    - {fileID: 11400000, guid: 21bd645756815fe43aec3bf4d61e3454, type: 2}
-    - {fileID: 11400000, guid: e1b85742f3cbcc54f83efbdf460c76c9, type: 2}
-    - {fileID: 11400000, guid: 115280a118725dc4e910163a95ae37b0, type: 2}
-    - {fileID: 11400000, guid: 41a3913904d97d5469aff2ec64e9cce8, type: 2}
+    - {fileID: 11400000, guid: f908d2d2b6b6e5140bebaaef39e3bcaa, type: 2}
+    - {fileID: 11400000, guid: 3b1f8aed28c0290449dbddd164dbc073, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

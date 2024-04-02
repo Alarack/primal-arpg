@@ -26,7 +26,9 @@ public enum EffectType {
     SuppressEffect,
     RemoveEffect,
     AddRider,
-    RemoveRider
+    RemoveRider,
+    ChangePayload,
+    ChangeEffectZone
 }
 
 public enum EffectTarget {
@@ -212,6 +214,12 @@ public class EffectData
 
     //Remove Tag
     public List<AbilityTag> tagsToRemove = new List<AbilityTag>();
+
+    //Change Payload
+    public Entity newPayloadPrefab;
+
+    //Change Effect Zone
+    public EffectZone newEffectZonePrefab;
 
     public EffectData() {
 
