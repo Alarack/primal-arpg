@@ -114,6 +114,7 @@ public class EffectData
     //public bool hideTooltip;
     public bool onlyShowTooltipInRune;
     public bool showRiderTooltip;
+    public bool showScalers;
     public bool inheritStatsFromParentAbility = true;
 
     public int numberOfTargets = -1;

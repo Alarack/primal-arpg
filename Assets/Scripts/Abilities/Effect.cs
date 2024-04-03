@@ -1826,7 +1826,7 @@ public class AddAbilityEffect : Effect {
         StringBuilder builder = new StringBuilder();
 
         for (int i = 0; i < activeAbilities.Count; i++) {
-            builder.Append(activeAbilities[i].GetTooltip());
+            builder.Append(activeAbilities[i].GetTooltip(false));
 
             if (i != activeAbilities.Count - 1)
                 builder.AppendLine();
@@ -1918,7 +1918,7 @@ public class AddChildAbilityEffect : Effect {
         //Debug.Log("Effect: " + Data.effectName + " : Showing tooltip for an Add Child Ability Effect with: " + activeAbilities.Count + " abilites to add");
 
         for (int i = 0; i < activeAbilities.Count; i++) {
-            builder.Append(activeAbilities[i].GetTooltip());
+            builder.Append(activeAbilities[i].GetTooltip(false));
 
 
 
@@ -2149,24 +2149,33 @@ public class AddStatusEffect : Effect {
 
                     builder.AppendLine(activeStatusEffects[i].GetTooltip());
 
-                    builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
+                    float maxStacks = Stats.GetStatRangeMaxValue(StatName.StackCount);
+
+                    if(maxStacks < float.MaxValue && Data.statusToAdd[0].stackMethod != StackMethod.None) {
+                        builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
+                    }
+                    if(Data.statusToAdd[0].stackMethod == StackMethod.Infinite) {
+                        builder.Append("Stacks Infinitely");
+                    }
+
+                    if (Data.statusToAdd[0].stackMethod == StackMethod.None) {
+                        builder.Append("Doesn't Stack");
+                    }
+
 
 
 
                     break;
                 case StatModifierData.StatModDesignation.PrimaryDamage:
 
-                    builder.AppendLine();
-
-                    string scalarTooltip = activeStatusEffects[i].ScalarTooltip();
-
-                    //Debug.Log("Ability Level: " + scalarTooltip);
-
-                    builder.AppendLine("Scales From: ");
-
-                    builder.Append(scalarTooltip).AppendLine();
+                    //builder.AppendLine();
 
 
+                    if(Data.showScalers == true) {
+                        string scalarTooltip = activeStatusEffects[i].ScalarTooltip();
+                        builder.AppendLine("Scales From: ");
+                        builder.Append(scalarTooltip).AppendLine();
+                    }
 
                     float damageRatio = activeStatusEffects[i].GetWeaponScaler();
                     //TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green)

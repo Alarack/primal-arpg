@@ -707,7 +707,7 @@ public class Ability {
         return totalChance;
     }
 
-    public string GetTooltip() {
+    public string GetTooltip(bool showTags = true) {
 
         if (Data.ignoreTooltip == true) {
             return "";
@@ -716,7 +716,7 @@ public class Ability {
 
         StringBuilder builder = new StringBuilder();
 
-        if (Tags.Count > 0) {
+        if (Tags.Count > 0 && showTags == true) {
 
             builder.Append(TextHelper.ColorizeText("[", Color.gray, 20f));
 
@@ -784,7 +784,7 @@ public class Ability {
 
         if (Data.showChildAbilitiesInTooltip == true) {
             for (int i = 0; i < ChildAbilities.Count; i++) {
-                builder.Append(ChildAbilities[i].GetTooltip());
+                builder.Append(ChildAbilities[i].GetTooltip(false));
 
                 if (i != ChildAbilities.Count - 1)
                     builder.AppendLine();
@@ -796,9 +796,13 @@ public class Ability {
             StatAdjustmentEffect adj = effects[0] as StatAdjustmentEffect;
             if (Data.category != AbilityCategory.Rune) {
 
+                //Debug.Log("Ability tooltip for an effect: " + effects[0].Data.effectName);
+
                 string scalarTooltip = adj.ScalarTooltip();
                 if (scalarTooltip == "No Scalers Found") {
                     //Debug.LogWarning("No scalers on: " + Data.abilityName);
+                    builder.AppendLine().AppendLine();
+                    builder.AppendLine(adj.GetTooltip());
                 }
                 else {
                     builder.AppendLine();

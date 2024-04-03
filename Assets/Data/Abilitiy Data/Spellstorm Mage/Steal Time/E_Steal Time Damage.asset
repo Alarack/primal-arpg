@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Time Shard Slow
+  m_Name: E_Steal Time Damage
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Time Shard Slow Adjustment
-    effectDescription: 'Slow: {}'
+    effectName: Steal Time Damage
+    effectDescription: 
     type: 1
-    targeting: 5
-    subTarget: 1
+    targeting: 0
+    subTarget: 0
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -26,7 +26,6 @@ MonoBehaviour:
     nonStacking: 0
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
-    showScalers: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
@@ -59,35 +58,22 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 2
-      value: -0.5
-      modifierType: 2
-      variantTarget: 0
-      modValueSetMethod: 0
+    - targetStat: 0
+      value: 0
+      modifierType: 0
+      variantTarget: 1
+      modValueSetMethod: 6
       weaponDamagePercent: 1
       deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
-      invertDerivedValue: 0
+      invertDerivedValue: 1
       otherTargetAbility: 
       otherTagetEffect: 
       scalers:
       - targetStat: 28
         deriveTarget: 15
         statScaleBaseValue: 0.5
-    - targetStat: 21
-      value: -0.5
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 0, g: 1, b: 1, a: 1}
@@ -148,7 +134,7 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 3
       m_NumAlphaKeys: 3
-    effectDesignation: 0
+    effectDesignation: 1
     addMissingStatIfNotPresent: 0
     statusToAdd: []
     statusToRemove: 

@@ -409,6 +409,12 @@ public static class AbilityEditorHelper {
         entry.nonStacking = EditorGUILayout.Toggle("Non Stacking", entry.nonStacking);
         entry.onlyShowTooltipInRune = EditorGUILayout.Toggle("Rune Only Tooltip", entry.onlyShowTooltipInRune);
         entry.showRiderTooltip = EditorGUILayout.Toggle("Show Rider Tooltip", entry.showRiderTooltip);
+        
+        if(entry.type == EffectType.AddStatus) {
+            entry.showScalers = EditorGUILayout.Toggle("Show Scalers in Tooltip", entry.showScalers);
+
+        }
+
         entry.inheritStatsFromParentAbility = EditorGUILayout.Toggle("Inherit Stats", entry.inheritStatsFromParentAbility);
 
         if (entry.canOverload == true) {

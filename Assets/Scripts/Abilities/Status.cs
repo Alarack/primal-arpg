@@ -24,7 +24,8 @@ public class Status {
         SpellHaste,
         Enraged,
         Armored,
-        Vulnerable
+        Vulnerable,
+        StealTime
     }
 
     #endregion
@@ -131,7 +132,7 @@ public class Status {
     protected void CreateVFX() {
         if (Data.VFXPrefab == null)
             return;
-
+        Debug.Log("Spawing VFX for Status: " +  Data.VFXPrefab.name);
         activeVFX = VFXUtility.SpawnVFX(Data.VFXPrefab, Target.transform, 0f, Data.vfxScaleModifier);
 
         //activeVFX = GameObject.Instantiate(Data.VFXPrefab, Target.transform);

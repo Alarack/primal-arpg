@@ -22,7 +22,7 @@ MonoBehaviour:
     suspend: 0
     autoFire: 0
     ignoreOtherCasting: 0
-    includeEffectsInTooltip: 0
+    includeEffectsInTooltip: 1
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
@@ -195,8 +195,8 @@ MonoBehaviour:
     windupVFX: {fileID: 0}
     abilityStatData:
     - variant: 0
-      statName: 65
-      value: 1
+      statName: 70
+      value: 3
       maxValue: 0
       minValue: 0
     recoveryData: []
