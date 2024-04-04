@@ -141,11 +141,11 @@ public class Projectile : Entity {
     private void UpdateProjectleSize() {
         projectileSize = Stats[StatName.ProjectileSize];
 
-        if(parentEffect.ParentAbility != null && parentEffect.ParentAbility.Stats.Contains(StatName.ProjectileSize)) {
-            float inheritedAbilitySize = parentEffect.ParentAbility.Stats[StatName.ProjectileSize];
-            projectileSize += inheritedAbilitySize;
-            //Debug.Log("Updating projectile size by: " + inheritedAbilitySize);
-        }
+        //if(parentEffect.ParentAbility != null && parentEffect.ParentAbility.Stats.Contains(StatName.ProjectileSize)) {
+        //    float inheritedAbilitySize = parentEffect.ParentAbility.Stats[StatName.ProjectileSize];
+        //    projectileSize += inheritedAbilitySize;
+        //    //Debug.Log("Updating projectile size by: " + inheritedAbilitySize);
+        //}
 
         if (projectileSize <= 0)
             projectileSize = 1f;

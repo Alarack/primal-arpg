@@ -707,7 +707,7 @@ public class Ability {
         return totalChance;
     }
 
-    public string GetTooltip(bool showTags = true) {
+    public string GetTooltip(bool showTags = true, bool addLine = false) {
 
         if (Data.ignoreTooltip == true) {
             return "";
@@ -784,7 +784,7 @@ public class Ability {
 
         if (Data.showChildAbilitiesInTooltip == true) {
             for (int i = 0; i < ChildAbilities.Count; i++) {
-                builder.Append(ChildAbilities[i].GetTooltip(false));
+                builder.Append(ChildAbilities[i].GetTooltip(false, true));
 
                 if (i != ChildAbilities.Count - 1)
                     builder.AppendLine();
@@ -801,7 +801,11 @@ public class Ability {
                 string scalarTooltip = adj.ScalarTooltip();
                 if (scalarTooltip == "No Scalers Found") {
                     //Debug.LogWarning("No scalers on: " + Data.abilityName);
-                    builder.AppendLine().AppendLine();
+                    
+                    if(string.IsNullOrEmpty(Data.abilityDescription) == false || addLine == true) {
+                        builder.AppendLine().AppendLine();
+                    }
+                    
                     builder.AppendLine(adj.GetTooltip());
                 }
                 else {
