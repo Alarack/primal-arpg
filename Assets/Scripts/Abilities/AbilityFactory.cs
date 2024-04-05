@@ -132,6 +132,7 @@ public static class AbilityFactory {
             EffectType.AddRider => new AddRiderEffect(data, source, parentAbility),
             EffectType.RemoveRider => new RemoveRiderEffect(data, source, parentAbility),
             EffectType.ChangePayload => new EffectChangePayaload(data, source, parentAbility),
+            EffectType.ChangeEffectZone => new EffectChangeEffectZpme(data, source, parentAbility),
             _ => null,
         };
 

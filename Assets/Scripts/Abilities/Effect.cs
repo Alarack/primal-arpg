@@ -711,6 +711,87 @@ public class EffectChangePayaload : Effect {
     }
 }
 
+public class EffectChangeEffectZpme : Effect {
+    public override EffectType Type => EffectType.ChangeEffectZone;
+
+    private Dictionary<Effect, EffectZone> trackedEffectZones = new Dictionary<Effect, EffectZone>();
+
+
+    public EffectChangeEffectZpme(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        Debug.LogError("Changing Payloads at the Entity level is not yet supported");
+        return false;
+    }
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+
+        Debug.LogError("Changing Payloads at the Ability level is not yet supported");
+        return false;
+
+
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+
+        if (TrackChangedEffectZone(target) == true) {
+            target.EffectZonePrefab = Data.newEffectZonePrefab;
+        }
+
+
+        return true;
+    }
+
+    public override void RemoveFromEffect(Effect target) {
+        base.RemoveFromEffect(target);
+
+        if (trackedEffectZones.TryGetValue(target, out EffectZone effectZone) == true) {
+
+            if (target.EffectZonePrefab == effectZone) {
+                Debug.LogError(target.Data.effectName + " already has the effect zone tracked by " + Data.effectName);
+                return;
+            }
+
+            target.EffectZonePrefab = effectZone;
+            trackedEffectZones.Remove(target);
+        }
+        else {
+            Debug.LogError(target.Data.effectName + " is not tracked by a change effect zone effect: " + Data.effectName);
+        }
+
+
+    }
+
+
+    private bool TrackChangedEffectZone(Effect target) {
+        if (trackedEffectZones.TryGetValue(target, out EffectZone trackedEffectZone) == true) {
+            if (trackedEffectZone == Data.newEffectZonePrefab) {
+                Debug.LogError("Trying to reapply the same changed effect zone to: " + target.Data.effectName);
+                return false;
+            }
+
+            trackedEffectZones[target] = target.EffectZonePrefab;
+
+        }
+        else {
+            trackedEffectZones.Add(target, target.EffectZonePrefab);
+        }
+
+        return true;
+    }
+}
+
 public class NPCStateChangeEffect : Effect {
     public override EffectType Type => EffectType.NPCStateChange;
 

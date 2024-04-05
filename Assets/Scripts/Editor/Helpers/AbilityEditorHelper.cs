@@ -625,6 +625,10 @@ public static class AbilityEditorHelper {
                 entry.newPayloadPrefab = EditorHelper.ObjectField("Payload Prefab", entry.newPayloadPrefab);
                 break;
 
+            case EffectType.ChangeEffectZone:
+                entry.newEffectZonePrefab = EditorHelper.ObjectField("Effect Zone Prefab", entry.newEffectZonePrefab);
+                break;
+
             case EffectType.ForceStatusTick:
                 //if(entry.subTarget == EffectSubTarget.Entity) {
                 //    entry.forceTickAbility = EditorHelper.ObjectField("Status Ability", entry.forceTickAbility);

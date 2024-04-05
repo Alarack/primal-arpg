@@ -251,6 +251,8 @@ public class Projectile : Entity {
         if (parentEffect.EffectZonePrefab == null)
             return;
 
+        Debug.LogWarning("Creating effect zone: " + parentEffect.EffectZonePrefab.gameObject.name);
+
         EffectZone activeZone = Instantiate(parentEffect.EffectZonePrefab, transform.position, Quaternion.identity);
         activeZone.Stats.AddMissingStats(parentEffect.Stats);
         activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this, parentLayer, parentEffect.Data.maskTargeting);
