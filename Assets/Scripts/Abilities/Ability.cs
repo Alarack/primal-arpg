@@ -767,9 +767,15 @@ public class Ability {
 
             string shotCountReplacement = durationReplacment.Replace("{SC}", TextHelper.ColorizeText(shotCount.ToString(), Color.green));
 
+            int chainCount = (int)effects[0].Stats[StatName.ProjectileChainCount];
+
+            string chainCountReplacement = shotCountReplacement.Replace("{CC}", TextHelper.ColorizeText(chainCount.ToString(), Color.green));
+
+
+
             float procChance = Stats[StatName.ProcChance];
 
-            string procReplacement = shotCountReplacement.Replace("{PR}", TextHelper.FormatStat(StatName.ProcChance, procChance));
+            string procReplacement = chainCountReplacement.Replace("{PR}", TextHelper.FormatStat(StatName.ProcChance, procChance));
 
             float statusLife = Stats[StatName.StatusLifetime] > 0f ? Stats[StatName.StatusLifetime] : -1f;
             string statusLifeText = statusLife > 0 ? TextHelper.ColorizeText(statusLife.ToString(), Color.yellow) : TextHelper.ColorizeText( "Infintie", Color.yellow);

@@ -19,11 +19,17 @@ public static class VFXUtility
 
     }
 
-    public static GameObject SpawnVFX(GameObject prefab, Vector2 location, Quaternion rotation, Transform parent = null, float destroyTimer = 0f, float scaleModifier = 1f) {
+    public static GameObject SpawnVFX(GameObject prefab, Vector2 location, Quaternion rotation, Transform parent = null, float destroyTimer = 0f, float scaleModifier = 1f, bool variance = false) {
         if(prefab == null) 
             return null;
-        
-        GameObject activeVFX = GameObject.Instantiate(prefab, location, rotation);
+
+
+        Vector2 loc = location;
+        if (variance)
+            loc = new Vector2(location.x + Random.Range(-0.5f, 0.5f), location.y + Random.Range(-0.5f, 0.5f));
+
+
+        GameObject activeVFX = GameObject.Instantiate(prefab, loc, rotation);
         if(parent != null) {
             activeVFX.transform.SetParent(parent.transform, false);
             activeVFX.transform.localPosition = Vector3.zero;

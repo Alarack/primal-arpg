@@ -16,7 +16,21 @@ public static class StatAdjustmentManager {
         data.Stats.RemoveModifier(mod.TargetStat, mod);
     }
 
-    public static void AddEffectModifier(Effect effect, StatModifier mod) {
+    public static void AddEffectModifier(Effect effect, StatModifier mod, bool addMissingStat) {
+
+
+        if (effect.Stats.Contains(mod.TargetStat) == false) {
+
+            if (addMissingStat == false) {
+                Debug.LogWarning(effect.Data.effectName + " does not have " + mod.TargetStat + " whem adding.");
+                return;
+            }
+
+            SimpleStat newStat = new SimpleStat(mod.TargetStat, 0f);
+            effect.Stats.AddStat(newStat);
+        }
+
+
         effect.Stats.AddModifier(mod.TargetStat, mod);
 
         SendEffectStatChangeEvent(mod.TargetStat, effect, mod.Value);
@@ -28,7 +42,20 @@ public static class StatAdjustmentManager {
         SendEffectStatChangeEvent(mod.TargetStat, effect, mod.Value);
     }
 
-    public static void AddAbilityModifier(Ability ability, StatModifier mod) {
+    public static void AddAbilityModifier(Ability ability, StatModifier mod, bool addMissingStat) {
+
+        if (ability.Stats.Contains(mod.TargetStat) == false) {
+
+            if (addMissingStat == false) {
+                Debug.LogWarning(ability.Data.abilityName + " does not have " + mod.TargetStat + " whem adding.");
+                return;
+            }
+
+            SimpleStat newStat = new SimpleStat(mod.TargetStat, 0f);
+            ability.Stats.AddStat(newStat);
+        }
+
+
         ability.Stats.AddModifier(mod.TargetStat, mod);
 
         SendAbilityStatChangeEvent(mod.TargetStat, ability, mod.Value);

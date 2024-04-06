@@ -344,26 +344,37 @@ public class EffectZone : Entity {
     }
 
 
-    protected virtual void CreateApplyVFX(Vector2 location, bool variance = true) {
+    //protected virtual void CreateApplyVFX(Vector2 location, bool variance = true) {
 
+    //    if (applyVFX == null) {
+    //        Debug.LogWarning("an effect zone: " + EntityName + " has no apply vfx");
+    //        return;
+    //    }
+
+    //    //Debug.Log("Creating an Apply VFX: " + applyVFX.gameObject.name);
+
+    //    Vector2 loc = location;
+    //    if (variance)
+    //        loc = new Vector2(location.x + Random.Range(-0.5f, 0.5f), location.y + Random.Range(-0.5f, 0.5f));
+
+
+    //    GameObject activeVFX = Instantiate(applyVFX, loc, Quaternion.identity);
+
+    //    float scale = zoneInfo.applyOnInterval == true ? 1f : 1f;
+
+    //    activeVFX.transform.localScale = new Vector3(scale, scale, scale);
+
+    //    Destroy(activeVFX, 2f);
+
+    //}
+
+    private void CreateApplyVFX(Vector2 location, bool variance = true) {
         if (applyVFX == null) {
-            //Debug.LogWarning("an effect zone: " + gameObject.name + " has no apply vfx");
+            Debug.LogWarning("an effect zone: " + EntityName + " has no apply vfx");
             return;
         }
 
-        Vector2 loc = location;
-        if (variance)
-            loc = new Vector2(location.x + Random.Range(-0.5f, 0.5f), location.y + Random.Range(-0.5f, 0.5f));
-
-
-        GameObject activeVFX = Instantiate(applyVFX, loc, Quaternion.identity);
-
-        float scale = zoneInfo.applyOnInterval == true ? 1f : effectSize;
-
-        activeVFX.transform.localScale = new Vector3(scale, scale, scale);
-
-        Destroy(activeVFX, 2f);
-
+        VFXUtility.SpawnVFX(applyVFX, location, Quaternion.identity, null, 2f, 1f, variance);
     }
 
 

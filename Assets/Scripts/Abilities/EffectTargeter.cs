@@ -567,6 +567,7 @@ public class EffectTargeter {
             projectile.Setup(parentEffect.Source, parentEffect, parentEffect.Data.projectileHitMask, parentEffect.Data.maskTargeting);
 
             projectile.Stats.AddMissingStats(parentEffect.Stats);
+            projectile.Stats.AddMissingStats(parentEffect.ParentAbility.Stats);
 
             float sourceInaccuracy = (1f - parentEffect.Source.Stats[StatName.Accuracy]) * 360f;
             float projectileInaccuracy = (1f - projectile.Stats[StatName.Accuracy]) * 360f;
@@ -587,11 +588,11 @@ public class EffectTargeter {
             effectZone.Stats.AddMissingStats(parentEffect.Stats, null, parentEffect.Data.effectName, effectZone.EntityName);
 
             Transform parentTransform = null;
-            if (parentEffect.Data.effectZoneInfo.parentToTarget == true)
+            if (parentEffect.ZoneInfo.parentToTarget == true)
                 parentTransform = ActivationInstance.TriggeringEntity.transform;
 
             
-            effectZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, parentTransform, null, parentEffect.Source.gameObject.layer, parentEffect.Data.maskTargeting);
+            effectZone.Setup(parentEffect, parentEffect.ZoneInfo, parentTransform, null, parentEffect.Source.gameObject.layer, parentEffect.Data.maskTargeting);
 
             if(effectZone.Stats.Contains(StatName.Accuracy) == true) {
                 float zoneInnaccuracy = (1f - effectZone.Stats[StatName.Accuracy]) * 360f;

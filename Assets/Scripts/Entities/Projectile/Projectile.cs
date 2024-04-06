@@ -100,6 +100,7 @@ public class Projectile : Entity {
         this.parentLayer = parentEffect.Source.gameObject.layer;
         this.ownerType = source.ownerType;
 
+        //Stats.SetParentCollection(parentEffect.ParentAbility.Stats);
         //SetupHitMask();
         projectileHitMask = LayerTools.SetupHitMask(projectileHitMask, source.gameObject.layer, maskTargeting);
 
@@ -217,12 +218,12 @@ public class Projectile : Entity {
             HandleProjectileChain(other);
             HandleProjectilePierce(other);
 
-            if (Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
+            if (/*Stats.Contains(StatName.ProjectilePierceCount) && */Stats[StatName.ProjectilePierceCount] > 0) {
                 //Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
                 return;
             }
 
-            if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
+            if (/*Stats.Contains(StatName.ProjectileChainCount) && */Stats[StatName.ProjectileChainCount] > 0) {
                 //Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
                 return;
             }
@@ -238,6 +239,7 @@ public class Projectile : Entity {
             if (otherEntity != null) {
                 bool applied = parentEffect.Apply(otherEntity);
                 if(applied == true) {
+                    CreateApplyVFX(otherEntity.transform.position, false);
                     parentEffect.SendEffectAppliedEvent();
                 }
             }
@@ -251,11 +253,11 @@ public class Projectile : Entity {
         if (parentEffect.EffectZonePrefab == null)
             return;
 
-        Debug.LogWarning("Creating effect zone: " + parentEffect.EffectZonePrefab.gameObject.name);
+        //Debug.LogWarning("Creating effect zone: " + parentEffect.EffectZonePrefab.gameObject.name);
 
         EffectZone activeZone = Instantiate(parentEffect.EffectZonePrefab, transform.position, Quaternion.identity);
         activeZone.Stats.AddMissingStats(parentEffect.Stats);
-        activeZone.Setup(parentEffect, parentEffect.Data.effectZoneInfo, null, this, parentLayer, parentEffect.Data.maskTargeting);
+        activeZone.Setup(parentEffect, parentEffect.ZoneInfo, null, this, parentLayer, parentEffect.Data.maskTargeting);
 
     }
 
@@ -263,7 +265,7 @@ public class Projectile : Entity {
     #region CHAIN, PIERCE, AND SPLIT
 
     private bool HandleProjectilePierce(Collider2D recentHit) {
-        if (Stats.Contains(StatName.ProjectilePierceCount) == false || Stats[StatName.ProjectilePierceCount] < 1f) {
+        if (/*Stats.Contains(StatName.ProjectilePierceCount) == false || */Stats[StatName.ProjectilePierceCount] < 1f) {
             return false;
         }
 
@@ -292,7 +294,7 @@ public class Projectile : Entity {
 
     private bool HandleProjectileSplit(Collider2D recentHit) {
 
-        if (Stats.Contains(StatName.ProjectileSplitCount) == false || Stats[StatName.ProjectileSplitCount] < 1f) {
+        if (/*Stats.Contains(StatName.ProjectileSplitCount) == false || */Stats[StatName.ProjectileSplitCount] < 1f) {
             //StartCleanUp();
             return false;
         }
@@ -315,7 +317,7 @@ public class Projectile : Entity {
     }
 
     private bool HandleProjectileChain(Collider2D recentHit) {
-        if (Stats.Contains(StatName.ProjectileChainCount) == false || Stats[StatName.ProjectileChainCount] < 1f) {
+        if (/*Stats.Contains(StatName.ProjectileChainCount) == false ||*/ Stats[StatName.ProjectileChainCount] < 1f) {
             return false;
         }
 
@@ -388,6 +390,15 @@ public class Projectile : Entity {
         Destroy(gameObject, 0.05f);
 
         //new Task(CleanUpNextFrame(deployZone));
+    }
+
+    private void CreateApplyVFX(Vector2 location, bool variance = true) {
+        if (parentEffect.ZoneInfo.applyVFX == null) {
+            //Debug.LogWarning("a projectile: " + EntityName + " has no apply vfx");
+            return;
+        }
+
+        VFXUtility.SpawnVFX(parentEffect.ZoneInfo.applyVFX, location, Quaternion.identity, null, 2f, 1f, variance);
     }
 
     private IEnumerator CleanUpNextFrame(bool deployZone) {

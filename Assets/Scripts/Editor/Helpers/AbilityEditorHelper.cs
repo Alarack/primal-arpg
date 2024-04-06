@@ -626,7 +626,8 @@ public static class AbilityEditorHelper {
                 break;
 
             case EffectType.ChangeEffectZone:
-                entry.newEffectZonePrefab = EditorHelper.ObjectField("Effect Zone Prefab", entry.newEffectZonePrefab);
+                //entry.newEffectZonePrefab = EditorHelper.ObjectField("Effect Zone Prefab", entry.newEffectZonePrefab);
+                EditorGUILayout.LabelField("Use Zone Info Above", EditorStyles.boldLabel);
                 break;
 
             case EffectType.ForceStatusTick:

@@ -108,6 +108,10 @@ public class StatCollection {
         }
     }
 
+    public void SetParentCollection(StatCollection parentCollection) {
+        this.parentCollection = parentCollection;
+    }
+
     public void AddMissingStats(StatCollection stats, List<StatName> exceptions = null, string parent = "", string child = "") {
         foreach (var item in stats.statDictionary) {
 
@@ -269,6 +273,12 @@ public class StatCollection {
         }
 
         SimpleStat targetStat = GetStat<SimpleStat>(name);
+
+        if(targetStat == null) {
+            Debug.LogError(name + " Not found");
+
+        }
+
         targetStat.SetStatValue(value, source);
     }
 
@@ -455,6 +465,9 @@ public class StatCollection {
     #region HELPERS
 
     public bool Contains(StatName name) {
+        //if(parentCollection != null)
+        //    return parentCollection.Contains(name);
+        
         return statDictionary.ContainsKey(name);
     }
 

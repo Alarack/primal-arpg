@@ -26,7 +26,8 @@ public abstract class Effect {
     public Entity LastTarget { get; protected set; }
 
     public Entity PayloadPrefab { get; set; }
-    public EffectZone EffectZonePrefab { get; set; }
+    public EffectZone EffectZonePrefab { get { return ZoneInfo.effectZonePrefab != null ? ZoneInfo.effectZonePrefab : null; } }
+    public EffectZoneInfo ZoneInfo { get; set; }
 
     public bool Suppressed { get; set; } = false;
 
@@ -53,7 +54,8 @@ public abstract class Effect {
         this.Targeting = data.targeting;
         this.Source = source;
         this.PayloadPrefab = data.payloadPrefab;
-        this.EffectZonePrefab = data.effectZoneInfo.effectZonePrefab;
+        //this.EffectZonePrefab = data.effectZoneInfo.effectZonePrefab;
+        this.ZoneInfo = data.effectZoneInfo;
         SetupStats();
         SetupTargetConstraints();
         SetupRiderEffects();
@@ -62,7 +64,7 @@ public abstract class Effect {
 
     protected void SetupStats() {
         StatCollection parentStats = ParentAbility != null ? ParentAbility.Stats : null;
-        
+        //Debug.LogWarning("Setting up stats for: " + Data.effectName);
         Stats = new StatCollection(this, Data.payloadStatData, parentStats);
         //Stats.AddMissingStats(Data.stat)
 
@@ -714,7 +716,7 @@ public class EffectChangePayaload : Effect {
 public class EffectChangeEffectZpme : Effect {
     public override EffectType Type => EffectType.ChangeEffectZone;
 
-    private Dictionary<Effect, EffectZone> trackedEffectZones = new Dictionary<Effect, EffectZone>();
+    private Dictionary<Effect, EffectZoneInfo> trackedEffectZones = new Dictionary<Effect, EffectZoneInfo>();
 
 
     public EffectChangeEffectZpme(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
@@ -746,7 +748,7 @@ public class EffectChangeEffectZpme : Effect {
 
 
         if (TrackChangedEffectZone(target) == true) {
-            target.EffectZonePrefab = Data.newEffectZonePrefab;
+            target.ZoneInfo = Data.effectZoneInfo;
         }
 
 
@@ -756,14 +758,14 @@ public class EffectChangeEffectZpme : Effect {
     public override void RemoveFromEffect(Effect target) {
         base.RemoveFromEffect(target);
 
-        if (trackedEffectZones.TryGetValue(target, out EffectZone effectZone) == true) {
+        if (trackedEffectZones.TryGetValue(target, out EffectZoneInfo effectZone) == true) {
 
-            if (target.EffectZonePrefab == effectZone) {
+            if (target.EffectZonePrefab == effectZone.effectZonePrefab) {
                 Debug.LogError(target.Data.effectName + " already has the effect zone tracked by " + Data.effectName);
                 return;
             }
 
-            target.EffectZonePrefab = effectZone;
+            target.ZoneInfo = effectZone;
             trackedEffectZones.Remove(target);
         }
         else {
@@ -775,17 +777,17 @@ public class EffectChangeEffectZpme : Effect {
 
 
     private bool TrackChangedEffectZone(Effect target) {
-        if (trackedEffectZones.TryGetValue(target, out EffectZone trackedEffectZone) == true) {
-            if (trackedEffectZone == Data.newEffectZonePrefab) {
+        if (trackedEffectZones.TryGetValue(target, out EffectZoneInfo trackedEffectZone) == true) {
+            if (trackedEffectZone.effectZonePrefab == Data.effectZoneInfo.effectZonePrefab) {
                 Debug.LogError("Trying to reapply the same changed effect zone to: " + target.Data.effectName);
                 return false;
             }
 
-            trackedEffectZones[target] = target.EffectZonePrefab;
+            trackedEffectZones[target] = target.ZoneInfo;
 
         }
         else {
-            trackedEffectZones.Add(target, target.EffectZonePrefab);
+            trackedEffectZones.Add(target, target.ZoneInfo);
         }
 
         return true;
@@ -3173,7 +3175,7 @@ public class StatAdjustmentEffect : Effect {
             if (activeMod.VariantTarget != StatModifierData.StatVariantTarget.RangeCurrent) {
                 TrackAbilityStatAdjustment(target, activeMod);
             }
-            StatAdjustmentManager.AddAbilityModifier(target, activeMod);
+            StatAdjustmentManager.AddAbilityModifier(target, activeMod, Data.addMissingStatIfNotPresent);
             //Debug.Log("Applying a : " + modData[i].targetStat + " mod to " + target.Data.abilityName);
         }
 
@@ -3217,7 +3219,7 @@ public class StatAdjustmentEffect : Effect {
 
             switch (Data.subTarget) {
                 case EffectSubTarget.Effect:
-                    StatAdjustmentManager.AddEffectModifier(target, activeMod);
+                    StatAdjustmentManager.AddEffectModifier(target, activeMod, Data.addMissingStatIfNotPresent);
                     break;
                 case EffectSubTarget.StatModifier:
                     StatAdjustmentEffect adj = target as StatAdjustmentEffect;
@@ -3451,7 +3453,7 @@ public class StatAdjustmentEffect : Effect {
 
         //Debug.Log("Showing a Tooltip for: " + Data.effectName);
 
-        if(Data.effectZoneInfo.applyOnInterval == true) {
+        if(ZoneInfo.applyOnInterval == true) {
             return GetDamageOverTimeTooltip();
         }
 

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Change Accelerate EffectZone
+  m_Name: E_Add Chain Count
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Accelerate Change Effect Zone
+    effectName: Add Chain Count Effect
     effectDescription: 
-    type: 23
-    targeting: 9
-    subTarget: 2
+    type: 1
+    targeting: 8
+    subTarget: 4
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
     otherEffectName: 
     targetAbilityForLastPayload: 
     targetConstraints:
-    - type: 19
+    - type: 18
       inverse: 0
       statChangeTarget: 0
       changeDirection: 0
@@ -63,8 +63,8 @@ MonoBehaviour:
       stateEntered: 
       stateExited: 
       targetAbilityTag: 0
-      targetAbiltyName: 
-      targetEffectName: Accelerate Gather
+      targetAbiltyName: Accelerate
+      targetEffectName: 
       effectDesigantion: 0
       targetEffectType: 0
       targetStatus: 0
@@ -75,7 +75,12 @@ MonoBehaviour:
     payloadPrefab: {fileID: 0}
     payloadCount: 1
     shotDelay: 0.2
-    payloadStatData: []
+    payloadStatData:
+    - variant: 0
+      statName: 34
+      value: 3
+      maxValue: 0
+      minValue: 0
     spawnLocation: 0
     spawnLocationStart: 0
     spawnLocationEnd: 0
@@ -85,18 +90,31 @@ MonoBehaviour:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
       parentToTarget: 0
-      applyOncePerTarget: 1
+      applyOncePerTarget: 0
       applyOnInterval: 0
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
-      applyVFX: {fileID: 177804, guid: 658fc6655c1c78e45a80243a241f1b1e, type: 3}
+      applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
-      effectZonePrefab: {fileID: 1690712098760257972, guid: 49d30e1d66b541448a9649d10b0e5c79, type: 3}
+      effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData: []
+    modData:
+    - targetStat: 34
+      value: 3
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -158,7 +176,7 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
-    addMissingStatIfNotPresent: 0
+    addMissingStatIfNotPresent: 1
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
@@ -195,4 +213,4 @@ MonoBehaviour:
     tagsToAdd: 
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
-    newEffectZonePrefab: {fileID: 1690712098760257972, guid: 49d30e1d66b541448a9649d10b0e5c79, type: 3}
+    newEffectZonePrefab: {fileID: 0}
