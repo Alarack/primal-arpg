@@ -148,6 +148,8 @@ public class Projectile : Entity {
         //    //Debug.Log("Updating projectile size by: " + inheritedAbilitySize);
         //}
 
+        //Debug.Log(projectileSize + " is the size of: " + EntityName);
+
         if (projectileSize <= 0)
             projectileSize = 1f;
 

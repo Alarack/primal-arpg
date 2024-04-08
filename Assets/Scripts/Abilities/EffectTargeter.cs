@@ -521,10 +521,10 @@ public class EffectTargeter {
 
         if (parentEffect.ParentAbility.Tags.Contains(AbilityTag.Projectile)) {
             int ownerShotCount = (int)parentEffect.Source.Stats[StatName.ShotCount];
-            int abilityShotCount = (int)parentEffect.ParentAbility.Stats[StatName.ShotCount];
+            //int abilityShotCount = (int)parentEffect.ParentAbility.Stats[StatName.ShotCount];
 
             totalShots += ownerShotCount;
-            totalShots += abilityShotCount;
+            //totalShots += abilityShotCount;
         }
 
 
@@ -564,10 +564,12 @@ public class EffectTargeter {
 
         Projectile projectile = delivery as Projectile;
         if (projectile != null) {
-            projectile.Setup(parentEffect.Source, parentEffect, parentEffect.Data.projectileHitMask, parentEffect.Data.maskTargeting);
+            //projectile.Stats.SetParentCollection(parentEffect.Stats); removed because it messes up pierce / chain / split counts
 
             projectile.Stats.AddMissingStats(parentEffect.Stats);
             projectile.Stats.AddMissingStats(parentEffect.ParentAbility.Stats);
+
+            projectile.Setup(parentEffect.Source, parentEffect, parentEffect.Data.projectileHitMask, parentEffect.Data.maskTargeting);
 
             float sourceInaccuracy = (1f - parentEffect.Source.Stats[StatName.Accuracy]) * 360f;
             float projectileInaccuracy = (1f - projectile.Stats[StatName.Accuracy]) * 360f;

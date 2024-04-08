@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3222622102623114974}
   - component: {fileID: 8082491268811703276}
   m_Layer: 9
-  m_Name: Arcane Missile Seeking
+  m_Name: Arcane Missile Drunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,17 +178,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9670d1d7faba6414ab0b12e338ef9f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementBehavior: 1
+  movementBehavior: 2
   seekTarget: {fileID: 0}
   targetLayers:
     serializedVersion: 2
     m_Bits: 256
   seekRadius: 3
-  seekForwardWithoutTarget: 1
+  seekForwardWithoutTarget: 0
   seekDuration: 2
   forwardPointDistance: 8
-  drunkInterval: 0
-  drunkVariance: 0
+  drunkInterval: 0.25
+  drunkVariance: 180
 --- !u!1001 &3287301288478278205
 PrefabInstance:
   m_ObjectHideFlags: 0
