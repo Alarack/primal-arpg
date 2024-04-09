@@ -3038,6 +3038,9 @@ public class StatAdjustmentEffect : Effect {
 
         }
 
+        //Debug.LogWarning("applying a stat adjustment: " + activeMod.Value + " from " + ParentAbility.Data.abilityName);
+
+
         float vulnerabilityMod = GetVulnerabilityModifier(target, activeMod.Value );
 
         float incommingDamage = activeMod.Value * vulnerabilityMod * globalDamageMultiplier;
@@ -3111,16 +3114,19 @@ public class StatAdjustmentEffect : Effect {
         if (incomingDamage > 0f)
             return 1f;
 
-
         List<StatName> vulnerabilities = AbilityUtilities.ConvertTagsToStats(ParentAbility);
+
+        //Debug.LogWarning(ParentAbility.Data.abilityName + " is an ability checking for vulnerabilities");
 
         float totalVlunerability = 0f;
         for (int i = 0; i < vulnerabilities.Count; i++) {
             float value = target.Stats[vulnerabilities[i]];
 
-            //if(value > 0f) {
-            //    Debug.LogWarning(target.EntityName + " is weak to: " + vulnerabilities[i] + " by: " + value);
-            //}
+            //Debug.LogWarning(target.EntityName + " is weak to: " + vulnerabilities[i] + " by: " + value);
+
+            if (value > 0f) {
+                Debug.LogWarning(target.EntityName + " is weak to: " + vulnerabilities[i] + " by: " + value);
+            }
 
             totalVlunerability += value;
         }
@@ -3362,6 +3368,11 @@ public class StatAdjustmentEffect : Effect {
                     AbilityTag.Poison => Source.Stats[StatName.PoisonDamageModifier],
                     AbilityTag.Healing => 0f,
                     AbilityTag.Melee => Source.Stats[StatName.MeleeDamageModifier],
+                    AbilityTag.Time => Source.Stats[StatName.TimeDamageModifier],
+                    AbilityTag.Arcane => Source.Stats[StatName.ArcaneDamageModifier],
+                    AbilityTag.Space => Source.Stats[StatName.SpatialDamageModifier],
+                    AbilityTag.Void => Source.Stats[StatName.VoidDamageModifier],
+
                     _ => 0f,
                 };
 

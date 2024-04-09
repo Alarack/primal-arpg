@@ -84,7 +84,10 @@ public enum StatName
     VulnerableArcane,
     VulnerableVoid,
     VulnerableTime,
-    VulnerableSpace
+    VulnerableSpace,
+    TimeDamageModifier,
+
+
 }
 
 

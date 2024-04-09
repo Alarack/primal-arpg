@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Arcane Missiles
+  m_Name: A_Missile Storm Proc Ability
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
-    abilityName: Arcane Missiles
-    abilityDescription: Whnever you use a non-Weapon Skill, fire {SC} Arcane Missiles
-      which seek forward.
-    resourceCost: 35
+    category: 5
+    abilityIcon: {fileID: 0}
+    abilityName: Cascading Missiles
+    abilityDescription: Whenever Arcane Missles causes damage, it has a {PR} chance
+      to trigger another Arcane Missile.
+    resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 1
+    autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
@@ -29,22 +29,22 @@ MonoBehaviour:
     recastOnChannelCost: 0
     runeAbilityTarget: 
     childAbilities: []
-    tags: 1600000008000000
+    tags: 
     activationTriggerData:
-    - type: 11
+    - type: 1
       procChance: 1
-      riderAbilityName: 
-      riderEffectName: 
+      riderAbilityName: Test Fireball
+      riderEffectName: Fireball Damage
       triggerTimerDuration: 0
       delay1Frame: 0
       autoActivateTimer: 0
       allConstraints:
       - focus: 1
         constraintData:
-        - type: 4
+        - type: 0
           inverse: 0
           statChangeTarget: 0
-          changeDirection: 0
+          changeDirection: 1
           minStatChangeRequired: 0
           statChangeDelta: 0
           minRange: 0
@@ -79,10 +79,48 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
-      - focus: 4
+        - type: 4
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 1
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+      - focus: 5
         constraintData:
         - type: 18
-          inverse: 1
+          inverse: 0
           statChangeTarget: 0
           changeDirection: 0
           minStatChangeRequired: 0
@@ -112,82 +150,6 @@ MonoBehaviour:
           stateExited: 
           targetAbilityTag: 0
           targetAbiltyName: Arcane Missiles
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-        - type: 17
-          inverse: 1
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 21
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-        - type: 29
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
           targetEffectType: 0
@@ -227,30 +189,15 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: fa10c0124945d8b4999d5fc79bf9ef42, type: 2}
+    - {fileID: 11400000, guid: 214f720bdfa82d74e80e9c60a874d9b0, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
+    windupVFX: {fileID: 0}
     abilityStatData:
     - variant: 0
-      statName: 46
-      value: 0
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 44
-      value: 1.5
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 14
-      value: 2
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 15
-      value: 0
+      statName: 65
+      value: 0.15
       maxValue: 0
       minValue: 0
     recoveryData: []

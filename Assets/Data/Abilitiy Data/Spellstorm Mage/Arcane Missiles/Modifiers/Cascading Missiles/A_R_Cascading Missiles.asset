@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_R_Missile Storm
+  m_Name: A_R_Cascading Missiles
   m_EditorClassIdentifier: 
   AbilityData:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
-    abilityName: Missile Storm Rune
-    abilityDescription: Arcane Missiles fires 2 extra projecitles, but causes less
-      damage.
+    abilityName: Cascading Missiles Rune
+    abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -79,8 +78,7 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: c360fbad337da3c47b435143d4dba512, type: 2}
-    - {fileID: 11400000, guid: 2fb40da0c067c7a4a881a99dab7439b3, type: 2}
+    - {fileID: 11400000, guid: a4b644f55d6804a4a925877af860334a, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

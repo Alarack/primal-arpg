@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Missile Storm Proc Ability
+  m_Name: A_Apply Buffed Damage
   m_EditorClassIdentifier: 
   AbilityData:
     category: 5
     abilityIcon: {fileID: 0}
-    abilityName: Missile Storm Rune
-    abilityDescription: Whenever Arcane Missles causes damage, it has a {PR} chance
-      to trigger another Arcane Missile.
+    abilityName: Altered Timeline - Buff Damage
+    abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -26,29 +25,31 @@ MonoBehaviour:
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
+    recastOnChannelCost: 0
     runeAbilityTarget: 
     childAbilities: []
     tags: 
     activationTriggerData:
     - type: 1
       procChance: 1
-      riderAbilityName: Test Fireball
-      riderEffectName: Fireball Damage
+      riderAbilityName: 
+      riderEffectName: 
       triggerTimerDuration: 0
       delay1Frame: 0
+      autoActivateTimer: 0
       allConstraints:
       - focus: 1
         constraintData:
-        - type: 0
+        - type: 4
           inverse: 0
           statChangeTarget: 0
-          changeDirection: 1
+          changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
-          ownerTarget: 0
+          ownerTarget: 1
           mostStatTarget: 0
           mostStatEffectName: 
           mostStatAbilityName: 
@@ -57,6 +58,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -77,16 +79,16 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
-        - type: 4
+        - type: 0
           inverse: 0
           statChangeTarget: 0
-          changeDirection: 0
+          changeDirection: 1
           minStatChangeRequired: 0
           statChangeDelta: 0
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
-          ownerTarget: 1
+          ownerTarget: 0
           mostStatTarget: 0
           mostStatEffectName: 
           mostStatAbilityName: 
@@ -95,6 +97,46 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+        - type: 5
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 78
+          minStatValue: 0
+          nonZero: 1
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -118,6 +160,45 @@ MonoBehaviour:
       - focus: 5
         constraintData:
         - type: 18
+          inverse: 1
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: Steal Time
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+        - type: 4
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -135,6 +216,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -147,7 +229,46 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: Arcane Missiles
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+        - type: 17
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 24
+          targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
           targetEffectType: 0
@@ -165,6 +286,7 @@ MonoBehaviour:
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -179,21 +301,27 @@ MonoBehaviour:
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 214f720bdfa82d74e80e9c60a874d9b0, type: 2}
+    - {fileID: 11400000, guid: e8bb2a0085df5f447a24311482954c18, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     windupVFX: {fileID: 0}
     abilityStatData:
     - variant: 0
-      statName: 65
-      value: 0.15
+      statName: 70
+      value: 5
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 71
+      value: 0
       maxValue: 0
       minValue: 0
     recoveryData: []

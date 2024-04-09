@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_R_Missile Storm
+  m_Name: A_R_Altered Timeline
   m_EditorClassIdentifier: 
   AbilityData:
     category: 3
-    abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
-    abilityName: Missile Storm Rune
-    abilityDescription: Arcane Missiles fires 2 extra projecitles, but causes less
-      damage.
+    abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
+    abilityName: Altered Timeline Rune
+    abilityDescription: Steal Time causes enemies to become Vulnerable to Time damage
+      permanently. When any other Time Skill causes damage to an Enemy affected by
+      Time Vulnerability, increase your Void and Arcane Damage for a short time.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -27,9 +28,9 @@ MonoBehaviour:
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
-    runeAbilityTarget: Arcane Missiles
+    runeAbilityTarget: Steal Time
     childAbilities: []
-    tags: 
+    tags: 18000000
     activationTriggerData:
     - type: 17
       procChance: 1
@@ -38,7 +39,9 @@ MonoBehaviour:
       triggerTimerDuration: 0
       delay1Frame: 0
       autoActivateTimer: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 0
+        constraintData: []
     endTriggerData:
     - type: 18
       procChance: 1
@@ -47,7 +50,9 @@ MonoBehaviour:
       triggerTimerDuration: 0
       delay1Frame: 0
       autoActivateTimer: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 0
+        constraintData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -79,8 +84,7 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: c360fbad337da3c47b435143d4dba512, type: 2}
-    - {fileID: 11400000, guid: 2fb40da0c067c7a4a881a99dab7439b3, type: 2}
+    - {fileID: 11400000, guid: f2892791180cb7f4c9bc7bc7cdb034df, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

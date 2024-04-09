@@ -101,6 +101,7 @@ public class ConstraintData
     //Stat Minimum
     public StatName minStatTarget;
     public float minStatValue;
+    public bool nonZero;
 
     //Stat Maximum
     public StatName maxStatTarget;

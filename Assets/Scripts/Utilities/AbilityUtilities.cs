@@ -279,6 +279,7 @@ public static class AbilityUtilities {
                 AbilityTag.Arcane => StatName.VulnerableArcane,
                 AbilityTag.Void => StatName.VulnerableVoid,
                 AbilityTag.Time => StatName.VulnerableTime,
+                AbilityTag.Space => StatName.VulnerableSpace,
                 _ => StatName.Armor,
             };
 

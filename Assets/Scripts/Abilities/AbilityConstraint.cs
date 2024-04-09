@@ -215,6 +215,48 @@ public class StatRatioConstraint : AbilityConstraint {
     }
 }
 
+public class StatMinimumConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.StatMinimum;
+
+    public StatMinimumConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        BaseStat targetStat = target.Stats.GetStat<BaseStat>(data.statRatioTarget);
+
+        if (targetStat == null) {
+            Debug.LogError("A stat min constraint tried to get a stat and it was null: " + data.statRatioTarget);
+            return false;
+        }
+
+        bool result = targetStat.ModifiedValue >= data.minStatValue;
+
+
+        if (data.nonZero == true) {
+            result = targetStat.ModifiedValue > 0f;
+        }
+
+
+     
+
+        return inverse == false ? result : !result;
+    }
+
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+
+        bool result = ability == triggerInstance.SourceAbility;
+
+        //Debug.Log("Testing: " + ability.Data.abilityName + " against " + triggerInstance.sourceAbility.Data.abilityName + ". Result: " + result);
+
+        return inverse == false ? result : !result;
+
+    }
+}
+
 
 public class SourceOnlyConstraint : AbilityConstraint {
 

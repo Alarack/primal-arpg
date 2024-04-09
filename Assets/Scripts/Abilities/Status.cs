@@ -25,7 +25,8 @@ public class Status {
         Enraged,
         Armored,
         Vulnerable,
-        StealTime
+        StealTime,
+        AlteredTimelineBuff
     }
 
     #endregion

@@ -69,7 +69,7 @@ public static class AbilityFactory {
             ConstraintType.ParentAbilityTag => throw new NotImplementedException(),
             ConstraintType.Collision => throw new NotImplementedException(),
             ConstraintType.Range => new RangeConstraint(data, source, parentAbility),
-            ConstraintType.StatMinimum => throw new NotImplementedException(),
+            ConstraintType.StatMinimum => new StatMinimumConstraint(data, source, parentAbility),
             ConstraintType.StatMaximum => throw new NotImplementedException(),
             ConstraintType.EntityName => new EntityNameConstraint(data, source, parentAbility),
             ConstraintType.HasStatus => new HasStatusConstraint(data, source, parentAbility),

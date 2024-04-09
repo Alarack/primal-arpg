@@ -273,7 +273,11 @@ public static class AbilityEditorHelper {
                 break;
             case ConstraintType.StatMinimum:
                 entry.minStatTarget = EditorHelper.EnumPopup("Stat Name", entry.minStatTarget);
-                entry.minStatValue = EditorGUILayout.FloatField("Min Value", entry.minStatValue);
+                entry.nonZero = EditorGUILayout.Toggle("Greater than 0", entry.nonZero);
+
+                if(entry.nonZero == false)
+                    entry.minStatValue = EditorGUILayout.FloatField("Min Value", entry.minStatValue);
+                
                 break;
             case ConstraintType.StatMaximum:
                 entry.maxStatTarget = EditorHelper.EnumPopup("Stat Name", entry.maxStatTarget);
