@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Time Vulnerable Status
+  m_Name: E_Buff Damage Status
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Apply Time  Vulnerable Status
+    effectName: Altered Timeline Buffed Damage
     effectDescription: 
     type: 3
-    targeting: 2
+    targeting: 1
     subTarget: 1
     maskTargeting: 0
     hideFloatingText: 0
@@ -122,15 +122,15 @@ MonoBehaviour:
     effectDesignation: 0
     addMissingStatIfNotPresent: 0
     statusToAdd:
-    - statusName: 10
+    - statusName: 12
       stackMethod: 0
       maxStacks: 3
       initialStackCount: 1
       duration: 0
       interval: 0
-      VFXPrefab: {fileID: 106386, guid: 831c85159903ac84399ac3c3e1d5c5ad, type: 3}
-      vfxScaleModifier: 0.33
-      statusEffectDef: {fileID: 11400000, guid: d17b9984352ef444fbe100f1bf14d6a6, type: 2}
+      VFXPrefab: {fileID: 189378, guid: 6419d3d589b2c4249a00a738ba8a870f, type: 3}
+      vfxScaleModifier: 0.5
+      statusEffectDef: {fileID: 11400000, guid: d059f607d4132314bbfe6e5d309bfe0b, type: 2}
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0

@@ -2232,6 +2232,13 @@ public class AddStatusEffect : Effect {
 
                     builder.AppendLine(activeStatusEffects[i].GetTooltip());
 
+                    float duration = GetModifiedStatusDuration();
+
+                    if (duration > 0) {
+                        builder.AppendLine();
+                        builder.AppendLine("Duration: " + TextHelper.ColorizeText(duration.ToString(), Color.yellow) + " seconds");
+                    }
+
                     float maxStacks = Stats.GetStatRangeMaxValue(StatName.StackCount);
 
                     if(maxStacks < float.MaxValue && Data.statusToAdd[0].stackMethod != StackMethod.None) {
@@ -2245,7 +2252,7 @@ public class AddStatusEffect : Effect {
                         builder.Append("Doesn't Stack");
                     }
 
-
+                   
 
 
                     break;
@@ -3124,9 +3131,9 @@ public class StatAdjustmentEffect : Effect {
 
             //Debug.LogWarning(target.EntityName + " is weak to: " + vulnerabilities[i] + " by: " + value);
 
-            if (value > 0f) {
-                Debug.LogWarning(target.EntityName + " is weak to: " + vulnerabilities[i] + " by: " + value);
-            }
+            //if (value > 0f) {
+            //    Debug.LogWarning(target.EntityName + " is weak to: " + vulnerabilities[i] + " by: " + value);
+            //}
 
             totalVlunerability += value;
         }

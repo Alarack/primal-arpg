@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Altered Timeline Rune
+  m_Name: Hack History Rune
   m_EditorClassIdentifier: 
   devItem: 0
   itemData:
     Type: 2
     entityClass: 0
-    itemName: Altered Timeline Rune
+    itemName: Hack History
     itemDescription: 
     itemValue: 200
     runeAbilityTarget: Steal Time
@@ -29,5 +29,5 @@ MonoBehaviour:
     maxDamage: 0
     statModifierData: []
     abilityDefinitions:
-    - {fileID: 11400000, guid: 6feb67480b02e714cbb69b712df217d4, type: 2}
+    - {fileID: 11400000, guid: 1527f06b7bf26214e9f72b8818eb9403, type: 2}
     learnableAbilities: []

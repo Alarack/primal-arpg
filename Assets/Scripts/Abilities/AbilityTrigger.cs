@@ -685,6 +685,10 @@ public class OverloadTrigger : AbilityTrigger {
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
         triggerInstance.TriggeringAbility = triggeringAbility;
         triggerInstance.TriggeringEffect = triggeringEffect;
+        triggerInstance.SourceAbility = ParentAbility;
+
+
+        //Debug.Log(triggeringAbility.Data.abilityName + " is overloading on " + target.EntityName);
 
         TryActivateTrigger(triggerInstance);
     }

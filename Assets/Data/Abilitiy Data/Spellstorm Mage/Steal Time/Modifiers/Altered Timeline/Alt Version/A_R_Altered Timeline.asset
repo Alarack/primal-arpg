@@ -16,9 +16,9 @@ MonoBehaviour:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
     abilityName: Altered Timeline Rune
-    abilityDescription: Steal Time causes enemies to become Vulnerable to Time damage
-      permanently. When any other Time Skill causes damage to an Enemy affected by
-      Time Vulnerability, increase your Void and Arcane Damage for a short time.
+    abilityDescription: Whenever a Time Skill other than Steal Time causes damage
+      to a Time Vulnerable Enemy, increase your Void and Arcane Damage for a short
+      time.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: f2892791180cb7f4c9bc7bc7cdb034df, type: 2}
+    - {fileID: 11400000, guid: 3e7b2fa4b2f607d47a4639877c18b706, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

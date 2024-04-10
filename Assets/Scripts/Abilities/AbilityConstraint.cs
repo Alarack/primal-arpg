@@ -228,7 +228,7 @@ public class StatMinimumConstraint : AbilityConstraint {
         BaseStat targetStat = target.Stats.GetStat<BaseStat>(data.minStatTarget);
 
         if (targetStat == null) {
-            Debug.LogWarning("A stat min constraint tried to get a stat and it was null: " + data.minStatTarget);
+            //Debug.LogWarning("A stat min constraint tried to get a stat and it was null: " + data.minStatTarget);
             return false;
         }
 

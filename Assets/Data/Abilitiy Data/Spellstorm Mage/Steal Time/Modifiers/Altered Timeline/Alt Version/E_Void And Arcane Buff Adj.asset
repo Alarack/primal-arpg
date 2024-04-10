@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Time Vulnerable Status
+  m_Name: E_Void And Arcane Buff Adj
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Apply Time  Vulnerable Status
-    effectDescription: 
-    type: 3
-    targeting: 2
-    subTarget: 1
+    effectName: Buff Void and Arcane Damage
+    effectDescription: Increase Arcane and Void Damage by {}
+    type: 1
+    targeting: 0
+    subTarget: 0
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
-    onlyShowTooltipInRune: 0
+    onlyShowTooltipInRune: 1
     showRiderTooltip: 0
     showScalers: 0
     inheritStatsFromParentAbility: 1
@@ -58,7 +58,33 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData: []
+    modData:
+    - targetStat: 73
+      value: 0.25
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
+    - targetStat: 74
+      value: 0.25
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -120,17 +146,8 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
-    addMissingStatIfNotPresent: 0
-    statusToAdd:
-    - statusName: 10
-      stackMethod: 0
-      maxStacks: 3
-      initialStackCount: 1
-      duration: 0
-      interval: 0
-      VFXPrefab: {fileID: 106386, guid: 831c85159903ac84399ac3c3e1d5c5ad, type: 3}
-      vfxScaleModifier: 0.33
-      statusEffectDef: {fileID: 11400000, guid: d17b9984352ef444fbe100f1bf14d6a6, type: 2}
+    addMissingStatIfNotPresent: 1
+    statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
