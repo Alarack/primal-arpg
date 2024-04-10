@@ -370,7 +370,7 @@ public class EffectZone : Entity {
 
     private void CreateApplyVFX(Vector2 location, bool variance = true) {
         if (applyVFX == null) {
-            Debug.LogWarning("an effect zone: " + EntityName + " has no apply vfx");
+            //Debug.LogWarning("an effect zone: " + EntityName + " has no apply vfx");
             return;
         }
 

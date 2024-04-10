@@ -201,11 +201,11 @@ public static class StatAdjustmentManager {
         //    Debug.LogWarning(sourceAbility.Data.abilityName + " is changing health ");
         //}
 
-        if (targetStat == StatName.VulnerableTime) {
-            Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
-            //Debug.Log("Applying: " + targetStat);
-            Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
-        }
+        //if (targetStat == StatName.VulnerableTime) {
+        //    Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
+        //    //Debug.Log("Applying: " + targetStat);
+        //    Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
+        //}
 
         try {
             SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value);

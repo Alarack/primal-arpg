@@ -225,10 +225,10 @@ public class StatMinimumConstraint : AbilityConstraint {
 
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
 
-        BaseStat targetStat = target.Stats.GetStat<BaseStat>(data.statRatioTarget);
+        BaseStat targetStat = target.Stats.GetStat<BaseStat>(data.minStatTarget);
 
         if (targetStat == null) {
-            Debug.LogError("A stat min constraint tried to get a stat and it was null: " + data.statRatioTarget);
+            Debug.LogWarning("A stat min constraint tried to get a stat and it was null: " + data.minStatTarget);
             return false;
         }
 
@@ -239,8 +239,9 @@ public class StatMinimumConstraint : AbilityConstraint {
             result = targetStat.ModifiedValue > 0f;
         }
 
+        //Debug.Log("Stat: " + targetStat.Name + " :: " + targetStat.ModifiedValue);
 
-     
+        //Debug.LogWarning("Result for non 0 stat: " + result + " :: " + parentAbility.Data.abilityName + "  target: " + target.EntityName);
 
         return inverse == false ? result : !result;
     }

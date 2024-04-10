@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Buff Void and Arcane Damage
-    effectDescription: 
+    effectDescription: Increase Arcane and Void Damage by {}
     type: 1
     targeting: 0
     subTarget: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
     canOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
-    onlyShowTooltipInRune: 0
+    onlyShowTooltipInRune: 1
     showRiderTooltip: 0
     showScalers: 0
     inheritStatsFromParentAbility: 1

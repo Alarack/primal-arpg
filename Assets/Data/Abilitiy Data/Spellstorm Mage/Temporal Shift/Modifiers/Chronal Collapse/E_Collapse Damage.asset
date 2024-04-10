@@ -23,7 +23,11 @@ MonoBehaviour:
     deliveryPayloadToTarget: 0
     canOverload: 1
     canAffectDeadTargets: 0
+    nonStacking: 0
     onlyShowTooltipInRune: 0
+    showRiderTooltip: 0
+    showScalers: 0
+    inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
@@ -69,7 +73,7 @@ MonoBehaviour:
       deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
-      invertDerivedValue: 0
+      invertDerivedValue: 1
       otherTargetAbility: 
       otherTagetEffect: 
       scalers:
@@ -137,6 +141,7 @@ MonoBehaviour:
       m_NumColorKeys: 3
       m_NumAlphaKeys: 3
     effectDesignation: 1
+    addMissingStatIfNotPresent: 0
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
@@ -155,6 +160,10 @@ MonoBehaviour:
     abilitiesToAdd: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    ridersToAdd: []
+    ridersToRemove: []
+    effectsToRemove: []
+    targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
@@ -166,3 +175,7 @@ MonoBehaviour:
     spawnType: 0
     nameOfAbilityToActivate: 
     targetStateName: 
+    tagsToAdd: 
+    tagsToRemove: 
+    newPayloadPrefab: {fileID: 0}
+    newEffectZonePrefab: {fileID: 0}
