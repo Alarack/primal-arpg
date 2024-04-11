@@ -906,22 +906,12 @@ public class Ability {
             //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
             builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).AppendLine(runes[i].Data.abilityName);
 
-            //if(i != runes.Count - 1) {
-            //    builder.AppendLine();
+            //for (int j = 0; j < runes[i].effects.Count; j++) {
+            //    string effectTooltip = runes[i].effects[j].GetTooltip();
+
+            //    if(string.IsNullOrEmpty(effectTooltip) == false)
+            //        builder.Append(effectTooltip).AppendLine();
             //}
-
-            //builder.Append(runes[i].GetTooltip());
-            for (int j = 0; j < runes[i].effects.Count; j++) {
-
-                string effectTooltip = runes[i].effects[j].GetTooltip();
-
-                if(string.IsNullOrEmpty(effectTooltip) == false)
-                    builder.Append(effectTooltip).AppendLine();
-
-                //if(j != runes[i].effects.Count - 1) {
-                //    builder.AppendLine();
-                //}
-            }
         }
 
         return builder.ToString();

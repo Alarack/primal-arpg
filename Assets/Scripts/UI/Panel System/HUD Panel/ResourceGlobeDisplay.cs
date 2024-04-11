@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System;
 
 public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -59,7 +60,7 @@ public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
 
     private void UpdateStatText() {
         if (resourceStatText != null) {
-            resourceStatText.text = AssosiatedStat.ModifiedValue + "/" + AssosiatedStat.MaxValueStat.ModifiedValue;
+            resourceStatText.text = MathF.Round( AssosiatedStat.ModifiedValue, 1) + "/" + MathF.Round(AssosiatedStat.MaxValueStat.ModifiedValue, 1);
         }
     }
 

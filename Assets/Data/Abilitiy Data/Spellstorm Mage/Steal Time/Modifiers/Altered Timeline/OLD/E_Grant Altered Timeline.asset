@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Steal Time Status
+  m_Name: E_Grant Altered Timeline
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Steal Time Add Status
+    effectName: 
     effectDescription: 
-    type: 3
-    targeting: 5
-    subTarget: 1
+    type: 6
+    targeting: 8
+    subTarget: 4
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -32,9 +32,48 @@ MonoBehaviour:
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
-    targetConstraints: []
+    targetConstraints:
+    - type: 18
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: Steal Time
+      targetEffectName: 
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
     riderEffects: []
-    payloadPrefab: {fileID: 6030037519985548846, guid: 2b35fa8dedab29a41a9a03d925290ebf, type: 3}
+    payloadPrefab: {fileID: 0}
     payloadCount: 1
     shotDelay: 0.2
     payloadStatData: []
@@ -119,18 +158,9 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    effectDesignation: 1
+    effectDesignation: 0
     addMissingStatIfNotPresent: 0
-    statusToAdd:
-    - statusName: 11
-      stackMethod: 0
-      maxStacks: 1
-      initialStackCount: 1
-      duration: 0
-      interval: 0
-      VFXPrefab: {fileID: 121954, guid: c849c99816049e5458f41c3e3ccf118c, type: 3}
-      vfxScaleModifier: 1
-      statusEffectDef: {fileID: 11400000, guid: 4c2e8fbefc12cd84e92e85770b6c042b, type: 2}
+    statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
@@ -145,7 +175,9 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
-    abilitiesToAdd: []
+    abilitiesToAdd:
+    - {fileID: 11400000, guid: 558c50e45a066a645a47dee8747b6ff8, type: 2}
+    - {fileID: 11400000, guid: 098dfe36e07d80444ad99b32db0fedd9, type: 2}
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
     ridersToAdd: []

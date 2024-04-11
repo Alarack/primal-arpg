@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Steal Time Status
+  m_Name: E_Buff Damage Status
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Steal Time Add Status
+    effectName: Altered Timeline Buffed Damage
     effectDescription: 
     type: 3
-    targeting: 5
+    targeting: 1
     subTarget: 1
     maskTargeting: 0
     hideFloatingText: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
     targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
-    payloadPrefab: {fileID: 6030037519985548846, guid: 2b35fa8dedab29a41a9a03d925290ebf, type: 3}
+    payloadPrefab: {fileID: 0}
     payloadCount: 1
     shotDelay: 0.2
     payloadStatData: []
@@ -119,18 +119,18 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    effectDesignation: 1
+    effectDesignation: 0
     addMissingStatIfNotPresent: 0
     statusToAdd:
-    - statusName: 11
+    - statusName: 12
       stackMethod: 0
-      maxStacks: 1
+      maxStacks: 3
       initialStackCount: 1
       duration: 0
       interval: 0
-      VFXPrefab: {fileID: 121954, guid: c849c99816049e5458f41c3e3ccf118c, type: 3}
-      vfxScaleModifier: 1
-      statusEffectDef: {fileID: 11400000, guid: 4c2e8fbefc12cd84e92e85770b6c042b, type: 2}
+      VFXPrefab: {fileID: 189378, guid: 6419d3d589b2c4249a00a738ba8a870f, type: 3}
+      vfxScaleModifier: 0.5
+      statusEffectDef: {fileID: 11400000, guid: 3c9fde6176091184185b409aa800b421, type: 2}
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0

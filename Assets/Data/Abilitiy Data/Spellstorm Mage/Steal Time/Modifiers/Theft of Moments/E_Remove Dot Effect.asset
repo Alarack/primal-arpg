@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Grant Altered Timeline
+  m_Name: E_Remove Dot Effect
   m_EditorClassIdentifier: 
   effectData:
-    effectName: 
+    effectName: Remove Dots - Theft of Moments
     effectDescription: 
-    type: 6
+    type: 19
     targeting: 8
     subTarget: 4
     maskTargeting: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
       stateExited: 
       targetAbilityTag: 0
       targetAbiltyName: Steal Time
-      targetEffectName: 
+      targetEffectName: Fracture Bolt
       effectDesigantion: 0
       targetEffectType: 0
       targetStatus: 0
@@ -175,13 +175,13 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
-    abilitiesToAdd:
-    - {fileID: 11400000, guid: 0fe7c8f2039119e4cbe41b7c681343b0, type: 2}
+    abilitiesToAdd: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
     ridersToAdd: []
     ridersToRemove: []
-    effectsToRemove: []
+    effectsToRemove:
+    - Steal Time Add Status
     targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 

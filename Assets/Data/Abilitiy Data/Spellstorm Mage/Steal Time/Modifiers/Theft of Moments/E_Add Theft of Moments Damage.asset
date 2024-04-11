@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Buff Damage Status
+  m_Name: E_Add Theft of Moments Damage
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Altered Timeline Buffed Damage
+    effectName: Add Theft of Moments Damage
     effectDescription: 
-    type: 3
-    targeting: 1
-    subTarget: 1
+    type: 15
+    targeting: 8
+    subTarget: 4
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -32,7 +32,46 @@ MonoBehaviour:
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
-    targetConstraints: []
+    targetConstraints:
+    - type: 18
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: Steal Time
+      targetEffectName: 
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadCount: 1
@@ -121,16 +160,7 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     effectDesignation: 0
     addMissingStatIfNotPresent: 0
-    statusToAdd:
-    - statusName: 12
-      stackMethod: 0
-      maxStacks: 3
-      initialStackCount: 1
-      duration: 0
-      interval: 0
-      VFXPrefab: {fileID: 189378, guid: 6419d3d589b2c4249a00a738ba8a870f, type: 3}
-      vfxScaleModifier: 0.5
-      statusEffectDef: {fileID: 11400000, guid: d059f607d4132314bbfe6e5d309bfe0b, type: 2}
+    statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
@@ -146,7 +176,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
-    effectsToAdd: []
+    effectsToAdd:
+    - {fileID: 11400000, guid: a6ad9e9e349d5bf47932353a2008bf0b, type: 2}
     targetAbilityToAddEffectsTo: 
     ridersToAdd: []
     ridersToRemove: []

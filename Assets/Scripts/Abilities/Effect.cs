@@ -2214,6 +2214,26 @@ public class AddStatusEffect : Effect {
         //}
     }
 
+
+    public string GetStatusStackingTooltip() {
+        StringBuilder builder = new StringBuilder();
+        
+        float maxStacks = Stats.GetStatRangeMaxValue(StatName.StackCount);
+
+        if (maxStacks < float.MaxValue && Data.statusToAdd[0].stackMethod != StackMethod.None) {
+            builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
+        }
+        if (Data.statusToAdd[0].stackMethod == StackMethod.Infinite) {
+            builder.Append("Stacks Infinitely");
+        }
+
+        if (Data.statusToAdd[0].stackMethod == StackMethod.None) {
+            builder.Append("Doesn't Stack");
+        }
+
+        return builder.ToString();
+    }
+
     public override string GetTooltip() {
         //return base.GetTooltip();
 
@@ -2239,18 +2259,22 @@ public class AddStatusEffect : Effect {
                         builder.AppendLine("Duration: " + TextHelper.ColorizeText(duration.ToString(), Color.yellow) + " seconds");
                     }
 
-                    float maxStacks = Stats.GetStatRangeMaxValue(StatName.StackCount);
 
-                    if(maxStacks < float.MaxValue && Data.statusToAdd[0].stackMethod != StackMethod.None) {
-                        builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
-                    }
-                    if(Data.statusToAdd[0].stackMethod == StackMethod.Infinite) {
-                        builder.Append("Stacks Infinitely");
-                    }
+                    builder.Append(GetStatusStackingTooltip());
 
-                    if (Data.statusToAdd[0].stackMethod == StackMethod.None) {
-                        builder.Append("Doesn't Stack");
-                    }
+
+                    //float maxStacks = Stats.GetStatRangeMaxValue(StatName.StackCount);
+
+                    //if(maxStacks < float.MaxValue && Data.statusToAdd[0].stackMethod != StackMethod.None) {
+                    //    builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
+                    //}
+                    //if(Data.statusToAdd[0].stackMethod == StackMethod.Infinite) {
+                    //    builder.Append("Stacks Infinitely");
+                    //}
+
+                    //if (Data.statusToAdd[0].stackMethod == StackMethod.None) {
+                    //    builder.Append("Doesn't Stack");
+                    //}
 
                    
 
@@ -2284,6 +2308,14 @@ public class AddStatusEffect : Effect {
                         builder.Append(activeStatusEffects[i].GetTooltip() + "for " + durationText);
                     }
 
+
+                    if (Data.statusToAdd[0].maxStacks > 0) {
+                        builder.AppendLine();
+                        builder.Append(GetStatusStackingTooltip());
+                        builder.AppendLine();
+                        //builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
+                    }
+
                     if (activeStatusEffects[i].Data.canOverload == true) {
                         float overloadChance = ParentAbility != null ? ParentAbility.GetAbilityOverloadChance() : Source.Stats[StatName.OverloadChance];
 
@@ -2293,10 +2325,7 @@ public class AddStatusEffect : Effect {
 
 
 
-                    if (Data.statusToAdd[0].maxStacks > 0) {
-                        builder.AppendLine().AppendLine();
-                        builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
-                    }
+                   
 
                     string projectileStats = GetProjectileStatsTooltip();
                     if (string.IsNullOrEmpty(projectileStats) == false) {

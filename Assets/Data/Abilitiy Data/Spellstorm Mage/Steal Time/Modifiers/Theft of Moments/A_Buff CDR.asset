@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Apply Buffed Damage
+  m_Name: A_Buff CDR
   m_EditorClassIdentifier: 
   AbilityData:
     category: 5
     abilityIcon: {fileID: 0}
-    abilityName: Altered Timeline - Buff Damage
+    abilityName: Regen Essence on Damage
     abilityDescription: 
     resourceCost: 0
     toBestow: 0
@@ -40,45 +40,6 @@ MonoBehaviour:
       allConstraints:
       - focus: 1
         constraintData:
-        - type: 4
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 1
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
         - type: 0
           inverse: 0
           statChangeTarget: 0
@@ -118,7 +79,7 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
-        - type: 5
+        - type: 4
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -127,16 +88,16 @@ MonoBehaviour:
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
-          ownerTarget: 0
+          ownerTarget: 1
           mostStatTarget: 0
           mostStatEffectName: 
           mostStatAbilityName: 
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
-          minStatTarget: 78
+          minStatTarget: 0
           minStatValue: 0
-          nonZero: 1
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -160,7 +121,7 @@ MonoBehaviour:
       - focus: 5
         constraintData:
         - type: 18
-          inverse: 1
+          inverse: 0
           statChangeTarget: 0
           changeDirection: 0
           minStatChangeRequired: 0
@@ -191,84 +152,6 @@ MonoBehaviour:
           stateExited: 
           targetAbilityTag: 0
           targetAbiltyName: Steal Time
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-        - type: 4
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-        - type: 17
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 24
-          targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
           targetEffectType: 0
@@ -308,7 +191,7 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 872631a9939f5764cb4c3058ebd4a3ec, type: 2}
+    - {fileID: 11400000, guid: 1478460bd5e3f9b4e93291c536c2ee2d, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

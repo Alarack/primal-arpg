@@ -23,9 +23,15 @@ MonoBehaviour:
     deliveryPayloadToTarget: 0
     canOverload: 1
     canAffectDeadTargets: 0
+    nonStacking: 0
+    onlyShowTooltipInRune: 0
+    showRiderTooltip: 0
+    showScalers: 0
+    inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
+    targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
     payloadPrefab: {fileID: 3864289242898322510, guid: 4fd5fa317fdd1c0489c79893e05d0a32, type: 3}
@@ -45,8 +51,10 @@ MonoBehaviour:
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 1
+      parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 1
+      affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
@@ -71,7 +79,7 @@ MonoBehaviour:
       scalers:
       - targetStat: 28
         deriveTarget: 15
-        statScaleBaseValue: 0.5
+        statScaleBaseValue: 1.25
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 0.6077585, b: 0, a: 1}
@@ -133,12 +141,13 @@ MonoBehaviour:
       m_NumColorKeys: 3
       m_NumAlphaKeys: 3
     effectDesignation: 1
+    addMissingStatIfNotPresent: 0
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
+    resetMovement: 0
     targetDestination: 0
-    moveForce: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0
@@ -149,6 +158,12 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    effectsToAdd: []
+    targetAbilityToAddEffectsTo: 
+    ridersToAdd: []
+    ridersToRemove: []
+    effectsToRemove: []
+    targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
@@ -156,4 +171,11 @@ MonoBehaviour:
     entityPrefab: {fileID: 0}
     percentOfPlayerDamage: 1
     destroyPreviousSummonAtCap: 0
+    inheritParentLayer: 1
     spawnType: 0
+    nameOfAbilityToActivate: 
+    targetStateName: 
+    tagsToAdd: 
+    tagsToRemove: 
+    newPayloadPrefab: {fileID: 0}
+    newEffectZonePrefab: {fileID: 0}

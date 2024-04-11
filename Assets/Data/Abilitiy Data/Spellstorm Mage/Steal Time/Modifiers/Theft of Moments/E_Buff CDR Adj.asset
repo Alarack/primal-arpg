@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Steal Time Status
+  m_Name: E_Buff CDR Adj
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Steal Time Add Status
-    effectDescription: 
-    type: 3
-    targeting: 5
-    subTarget: 1
+    effectName: Buff CDR - adj
+    effectDescription: Increase Cooldown Reduction by {}
+    type: 1
+    targeting: 0
+    subTarget: 0
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
-    onlyShowTooltipInRune: 0
+    onlyShowTooltipInRune: 1
     showRiderTooltip: 0
     showScalers: 0
     inheritStatsFromParentAbility: 1
@@ -34,7 +34,7 @@ MonoBehaviour:
     targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
-    payloadPrefab: {fileID: 6030037519985548846, guid: 2b35fa8dedab29a41a9a03d925290ebf, type: 3}
+    payloadPrefab: {fileID: 0}
     payloadCount: 1
     shotDelay: 0.2
     payloadStatData: []
@@ -58,7 +58,20 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData: []
+    modData:
+    - targetStat: 21
+      value: 0.25
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -119,18 +132,9 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    effectDesignation: 1
-    addMissingStatIfNotPresent: 0
-    statusToAdd:
-    - statusName: 11
-      stackMethod: 0
-      maxStacks: 1
-      initialStackCount: 1
-      duration: 0
-      interval: 0
-      VFXPrefab: {fileID: 121954, guid: c849c99816049e5458f41c3e3ccf118c, type: 3}
-      vfxScaleModifier: 1
-      statusEffectDef: {fileID: 11400000, guid: 4c2e8fbefc12cd84e92e85770b6c042b, type: 2}
+    effectDesignation: 0
+    addMissingStatIfNotPresent: 1
+    statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
