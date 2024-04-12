@@ -588,6 +588,7 @@ public class EffectTargeter {
         EffectZone effectZone = delivery as EffectZone;
         if (effectZone != null) {
             effectZone.Stats.AddMissingStats(parentEffect.Stats, null, parentEffect.Data.effectName, effectZone.EntityName);
+            effectZone.Stats.AddMissingStats(parentEffect.ParentAbility.Stats);
 
             Transform parentTransform = null;
             if (parentEffect.ZoneInfo.parentToTarget == true)

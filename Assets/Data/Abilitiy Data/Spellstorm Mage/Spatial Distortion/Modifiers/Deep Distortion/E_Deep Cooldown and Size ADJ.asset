@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Adjust Missle Stats
+  m_Name: E_Deep Cooldown and Size ADJ
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Heavy Missiles Stat ADJ Effect
-    effectDescription: 
+    effectName: 
+    effectDescription: Increase Effect Size by {}
     type: 1
     targeting: 8
     subTarget: 4
@@ -64,7 +64,7 @@ MonoBehaviour:
       stateEntered: 
       stateExited: 
       targetAbilityTag: 0
-      targetAbiltyName: Arcane Missiles
+      targetAbiltyName: Spatial Distortion
       targetEffectName: 
       effectDesigantion: 0
       targetEffectType: 0
@@ -98,9 +98,9 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 46
-      value: 1.25
-      modifierType: 0
+    - targetStat: 41
+      value: 1
+      modifierType: 1
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 1
@@ -111,8 +111,8 @@ MonoBehaviour:
       otherTargetAbility: 
       otherTagetEffect: 
       scalers: []
-    - targetStat: 44
-      value: 1
+    - targetStat: 13
+      value: 0.99
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -201,8 +201,7 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
-    abilitiesToAdd:
-    - {fileID: 11400000, guid: 655501ff749af5246ad9c9357ff407bc, type: 2}
+    abilitiesToAdd: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
     ridersToAdd: []

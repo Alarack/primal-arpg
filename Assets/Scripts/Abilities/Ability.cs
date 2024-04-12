@@ -871,7 +871,7 @@ public class Ability {
         }
 
 
-        if (cooldown > 0f) {
+        if (cooldown > 0.01f) {
             builder.Append("Cooldown: " + TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(cooldown, 2), Color.yellow)).Append(" Seconds").AppendLine();
         }
 
@@ -959,6 +959,9 @@ public class Ability {
     }
 
     public int GetMaxTargets() {
+        if(effects.Count == 0) 
+            return 0;
+
         return (int)effects[0].Stats[StatName.EffectMaxTargets]; ;
     }
 
@@ -1117,7 +1120,7 @@ public class Ability {
             //Debug.Log("Cost: " + Stats[StatName.EssenceCost]);
 
             if (EntityManager.ActivePlayer.TrySpendEssence(Stats[StatName.EssenceCost]) == false) {
-                //Debug.LogWarning("Not enough essence");
+                //Debug.LogWarning("Not enough essence for " + Data.abilityName);
                 return false;
             }
         }

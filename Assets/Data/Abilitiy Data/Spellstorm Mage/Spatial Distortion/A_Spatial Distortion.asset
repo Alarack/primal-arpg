@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Temporal Shift
+  m_Name: A_Spatial Distortion
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 1
-    abilityIcon: {fileID: 21300000, guid: b09367d8b3c807e42bba097bf11b6ec1, type: 3}
-    abilityName: Temporal Shift
-    abilityDescription: Slow time in an area, reducing Enemy movement speed and attack
-      speed
+    category: 6
+    abilityIcon: {fileID: 21300000, guid: 78bb2dd9430288540ac40c8fb0943b11, type: 3}
+    abilityName: Spatial Distortion
+    abilityDescription: Whenever one of your Projectiles Pierces an enemy, cause
+      an explosion of Spatial energy around the target.
     resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 1
+    autoFire: 0
     ignoreOtherCasting: 0
-    includeEffectsInTooltip: 1
+    includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
     runeAbilityTarget: 
     childAbilities: []
-    tags: 0600000018000000
+    tags: 0e000000
     activationTriggerData:
-    - type: 6
+    - type: 24
       procChance: 1
       riderAbilityName: 
       riderEffectName: 
@@ -41,48 +41,7 @@ MonoBehaviour:
       allConstraints:
       - focus: 1
         constraintData:
-        - type: 7
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-      - focus: 4
-        constraintData:
-        - type: 7
+        - type: 4
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -153,7 +112,7 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: a46a5bc98fe21c848b288dcdd8e1a754, type: 2}
+    - {fileID: 11400000, guid: 94083c68675e4804f85859359d118101, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
@@ -161,17 +120,12 @@ MonoBehaviour:
     abilityStatData:
     - variant: 0
       statName: 11
-      value: 4
+      value: 0.1
       maxValue: 0
       minValue: 0
     - variant: 0
       statName: 41
-      value: 4
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 46
-      value: 3
+      value: 1
       maxValue: 0
       minValue: 0
     recoveryData:
@@ -192,4 +146,4 @@ MonoBehaviour:
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         minTriggerCount: 0
-      cooldown: 5
+      cooldown: 0.01

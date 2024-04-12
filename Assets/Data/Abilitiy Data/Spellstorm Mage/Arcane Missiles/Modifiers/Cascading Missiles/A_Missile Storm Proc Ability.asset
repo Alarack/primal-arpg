@@ -59,6 +59,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -97,6 +98,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -137,6 +139,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -197,7 +200,25 @@ MonoBehaviour:
     abilityStatData:
     - variant: 0
       statName: 65
-      value: 0.15
+      value: 0.1
       maxValue: 0
       minValue: 0
-    recoveryData: []
+    recoveryData:
+    - type: 0
+      recoveryTriggers: []
+      counterData:
+        useCustomRefreshTrigger: 0
+        customRefreshTriggerData:
+          type: 0
+          procChance: 1
+          riderAbilityName: 
+          riderEffectName: 
+          triggerTimerDuration: 0
+          delay1Frame: 0
+          autoActivateTimer: 0
+          allConstraints: []
+        limitedNumberOfTriggers: 0
+        maxTriggerCount: 0
+        requireMultipleTriggers: 0
+        minTriggerCount: 0
+      cooldown: 0.1
