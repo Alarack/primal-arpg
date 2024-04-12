@@ -145,6 +145,18 @@ public class StatChangedConstraint : AbilityConstraint {
             return false;
         }
 
+        if(data.constrainByDelivery == true) {
+            if (trigger.delivery == null) {
+                //Debug.LogError("A delivery constraint has a null delivery");
+                return false;
+            }
+
+            if(trigger.delivery.EntityName != data.deliveryConstraint.EntityName) {
+                //Debug.LogError("Delivery is the wrong kind: " + trigger.delivery.EntityName + " :: " + data.deliveryConstraint.EntityName);
+                return false;
+            }
+        }
+
         //Debug.Log(trigger.changeValue + " is the change value");
 
 

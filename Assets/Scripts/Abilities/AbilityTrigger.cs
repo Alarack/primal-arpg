@@ -1065,6 +1065,7 @@ public class StatChangedTrigger : AbilityTrigger {
         StatName targetStat = (StatName)data.GetInt("Stat");
         Entity affectedTarget = data.GetEntity("Target");
         Entity causeOfChange = data.GetEntity("Source");
+        Entity delivery = data.GetEntity("Delivery");
         float changeValue = data.GetFloat("Value");
         Ability ability = data.GetAbility("Ability");
 
@@ -1083,7 +1084,7 @@ public class StatChangedTrigger : AbilityTrigger {
 
 
 
-        StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, targetStat, changeValue, CauseOfAbilityTrigger);
+        StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, targetStat, changeValue, CauseOfAbilityTrigger, delivery);
         triggerInstance.CausingAbility = CauseOfAbilityTrigger;
         triggerInstance.SourceAbility = ParentAbility;
         triggerInstance.TriggeringAbility = ParentAbility;
@@ -1095,11 +1096,13 @@ public class StatChangedTrigger : AbilityTrigger {
         public StatName targetStat;
         public float changeValue;
         public Ability causingAbility;
+        public Entity delivery;
 
-        public StatChangeTriggerInstance(Entity trigger, Entity cause, TriggerType type, StatName targetStat, float changeValue, Ability causingAbility) : base(trigger, cause, type) {
+        public StatChangeTriggerInstance(Entity trigger, Entity cause, TriggerType type, StatName targetStat, float changeValue, Ability causingAbility, Entity delivery) : base(trigger, cause, type) {
             this.targetStat = targetStat;
             this.changeValue = changeValue;
             this.causingAbility = causingAbility;
+            this.delivery = delivery;
         }
 
     }

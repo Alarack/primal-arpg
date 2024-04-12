@@ -2967,20 +2967,20 @@ public class StatAdjustmentEffect : Effect {
 
     }
 
-    private float GetProjectileStatContrabution(StatName stat, float scalerMultiplier) {
+    //private float GetProjectileStatContrabution(StatName stat, float scalerMultiplier) {
 
-        if (activeDelivery != null) {
-            float projectileStatValue = activeDelivery.Stats[stat] * scalerMultiplier;
+    //    if (activeDelivery != null) {
+    //        float projectileStatValue = activeDelivery.Stats[stat] * scalerMultiplier;
 
-            if (Stats.Contains(stat) == true) {
-                projectileStatValue -= (Stats[stat] * scalerMultiplier); //Hack to prevent double dipping on projectile stats on both effect and projectile
-            }
+    //        if (Stats.Contains(stat) == true) {
+    //            projectileStatValue -= (Stats[stat] * scalerMultiplier); //Hack to prevent double dipping on projectile stats on both effect and projectile
+    //        }
 
-            return projectileStatValue;
-        }
+    //        return projectileStatValue;
+    //    }
 
-        return 0f;
-    }
+    //    return 0f;
+    //}
 
     private float GetTotalDerivedValue(Entity entityTarget, Effect effectTarget, Ability abilityTarget, StatModifierData modData) {
         float totalDerivedValue = 0f;
@@ -3002,14 +3002,10 @@ public class StatAdjustmentEffect : Effect {
                 StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats[entry.Value.targetStat],
                 StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats[entry.Value.targetStat],
                 StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[entry.Value.targetStat],
-                StatModifierData.DeriveFromWhom.WeaponDamage when Source is EntityPlayer => EntityManager.ActivePlayer.CurrentDamageRoll /** modData.Stats[StatName.AbilityWeaponCoefficicent]*/,
+                StatModifierData.DeriveFromWhom.WeaponDamage when Source is EntityPlayer => EntityManager.ActivePlayer.CurrentDamageRoll /* modData.Stats[StatName.AbilityWeaponCoefficicent]*/,
                 StatModifierData.DeriveFromWhom.WeaponDamage when Source is NPC => Source.Stats[StatName.AbilityWeaponCoefficicent],
                 _ => 0f,
             };
-
-
-
-
 
             result *= entry.Value.scalerStat.ModifiedValue;
 
@@ -3020,8 +3016,6 @@ public class StatAdjustmentEffect : Effect {
 
             //    Debug.Log(result + " is the after scaler value for: " + entry.Value.targetStat);
             //}
-
-
 
             totalDerivedValue += result;
 
@@ -3069,7 +3063,7 @@ public class StatAdjustmentEffect : Effect {
         float globalDamageMultiplier = GetDamageModifier(activeMod, target);
 
         if (activeMod.TargetStat != StatName.Health) {
-            StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier, Data.addMissingStatIfNotPresent);
+            StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier, Data.addMissingStatIfNotPresent, activeDelivery);
             return;
 
         }
@@ -3094,7 +3088,7 @@ public class StatAdjustmentEffect : Effect {
 
         activeMod.UpdateModValue(damageAfterManaShield);
 
-        float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, 1f);
+        float modValueResult = StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, 1f, false, activeDelivery);
 
         ShowFloatingtext(activeMod, modValueResult, target.transform.position);
     }

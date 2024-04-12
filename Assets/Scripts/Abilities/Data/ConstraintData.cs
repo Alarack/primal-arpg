@@ -75,6 +75,8 @@ public class ConstraintData
     public GainedOrLost changeDirection;
     public bool minStatChangeRequired;
     public float statChangeDelta = 0f;
+    public bool constrainByDelivery;
+    public Entity deliveryConstraint;
 
     //Parent Ability Tag
     //public AbilityTag targetTag;

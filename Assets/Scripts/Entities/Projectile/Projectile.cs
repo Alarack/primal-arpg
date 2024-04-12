@@ -403,22 +403,22 @@ public class Projectile : Entity {
         VFXUtility.SpawnVFX(parentEffect.ZoneInfo.applyVFX, location, Quaternion.identity, null, 2f, 1f, variance);
     }
 
-    private IEnumerator CleanUpNextFrame(bool deployZone) {
-        yield return new WaitForSeconds(0.05f);
+    //private IEnumerator CleanUpNextFrame(bool deployZone) {
+    //    yield return new WaitForSeconds(0.05f);
 
 
-        if (killTimer.Running == true)
-            killTimer.Stop();
+    //    if (killTimer.Running == true)
+    //        killTimer.Stop();
 
-        if (deployZone == true) {
-            DeployZoneEffect(null);
-            SpawnDeathVFX();
-        }
+    //    if (deployZone == true) {
+    //        DeployZoneEffect(null);
+    //        SpawnDeathVFX();
+    //    }
 
 
-        Destroy(gameObject);
+    //    Destroy(gameObject);
 
-    }
+    //}
 
     #region DEPRECATED
 

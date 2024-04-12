@@ -290,6 +290,10 @@ public static class AbilityEditorHelper {
                 //case ConstraintType.UnitStatIncreased:
                 entry.statChangeTarget = EditorHelper.EnumPopup("Target Stat", entry.statChangeTarget);
                 entry.changeDirection = EditorHelper.EnumPopup("Change Direction", entry.changeDirection);
+                entry.constrainByDelivery = EditorGUILayout.Toggle("Delivery Constraint", entry.constrainByDelivery);
+                if(entry.constrainByDelivery == true) {
+                    entry.deliveryConstraint = EditorHelper.ObjectField("Carrier", entry.deliveryConstraint);
+                }
 
                 break;
             case ConstraintType.Range:

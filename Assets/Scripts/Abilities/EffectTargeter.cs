@@ -565,7 +565,7 @@ public class EffectTargeter {
         Projectile projectile = delivery as Projectile;
         if (projectile != null) {
             //projectile.Stats.SetParentCollection(parentEffect.Stats); removed because it messes up pierce / chain / split counts
-
+            parentEffect.TrackActiveDelivery(projectile);
             projectile.Stats.AddMissingStats(parentEffect.Stats);
             projectile.Stats.AddMissingStats(parentEffect.ParentAbility.Stats);
 

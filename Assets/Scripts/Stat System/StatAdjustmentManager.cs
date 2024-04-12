@@ -160,17 +160,17 @@ public static class StatAdjustmentManager {
         return ApplyStatAdjustment(target, mod, targetStat, statVariant, sourceAbility, multiplier);
     }
 
-    public static float DealDamageOrHeal(Entity target, float value, object source, Ability sourceAbility, float multiplier = 1f) {
-        StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.Health, source, StatModifierData.StatVariantTarget.RangeCurrent);
-        return ApplyStatAdjustment(target, mod, StatName.Health, StatModifierData.StatVariantTarget.RangeCurrent, sourceAbility, multiplier);
-    }
+    //public static float DealDamageOrHeal(Entity target, float value, object source, Ability sourceAbility, float multiplier = 1f) {
+    //    StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.Health, source, StatModifierData.StatVariantTarget.RangeCurrent);
+    //    return ApplyStatAdjustment(target, mod, StatName.Health, StatModifierData.StatVariantTarget.RangeCurrent, sourceAbility, multiplier);
+    //}
 
     public static float AdjustCDR(Entity target, float value, object source, Ability sourceAbility, float multiplier = 1f) {
         StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.CooldownReduction, source, StatModifierData.StatVariantTarget.Simple);
         return ApplyStatAdjustment(target, mod, StatName.CooldownReduction, StatModifierData.StatVariantTarget.RangeCurrent, sourceAbility, multiplier);
     }
 
-    public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, Ability sourceAbility, float multiplier = 1f, bool addMissingStat = false) {
+    public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, Ability sourceAbility, float multiplier = 1f, bool addMissingStat = false, Entity delivery = null) {
 
         if (target.Stats.Contains(mod.TargetStat) == false) {
 
@@ -208,7 +208,7 @@ public static class StatAdjustmentManager {
         //}
 
         try {
-            SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value);
+            SendStatChangeEvent(targetStat, target, (Entity)mod.Source, sourceAbility, mod.Value, false, delivery);
             //string name = ((Entity)mod.Source).EntityName;
             //Debug.Log("Source: " +  name);
         }
@@ -243,10 +243,11 @@ public static class StatAdjustmentManager {
         EventManager.SendEvent(GameEvent.EffectStatAdjusted, data);
     }
 
-    private static void SendStatChangeEvent(StatName targetStat, Entity target, Entity source, Ability sourceAbility, float changeValue, bool isRemoveal = false) {
+    private static void SendStatChangeEvent(StatName targetStat, Entity target, Entity source, Ability sourceAbility, float changeValue, bool isRemoveal = false, Entity delivery = null) {
         EventData eventData = new EventData();
         eventData.AddEntity("Target", target);
         eventData.AddEntity("Source", source);
+        eventData.AddEntity("Delivery", delivery);
         eventData.AddAbility("Ability", sourceAbility);
         eventData.AddFloat("Value", changeValue);
         eventData.AddInt("Stat", (int)targetStat);
