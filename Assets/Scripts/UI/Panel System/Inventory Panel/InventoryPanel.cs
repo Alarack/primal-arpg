@@ -10,6 +10,8 @@ public class InventoryPanel : BasePanel {
     public List<InventoryItemEntry> paperDollEntries = new List<InventoryItemEntry>();
     private List<InventoryItemEntry> inventoryEntries = new List<InventoryItemEntry>();
 
+    public InventoryItemEntry forgeSlot;
+
     [Header("Template")]
     public int slotCount = 60;
     public Transform inventoryHolder;
@@ -217,6 +219,17 @@ public class InventoryPanel : BasePanel {
     private void ClearInventory() {
         for (int i = 0; i < inventoryEntries.Count; i++) {
             inventoryEntries[i].Remove();
+        }
+    }
+
+    public void OnForgeClicked() {
+        if (forgeSlot.MyItem == null)
+            return;
+
+        List<ItemData> affixData = ItemSpawner.CreateItemAffixSet(5);
+
+        for (int i = 0; i < affixData.Count; i++) {
+            Debug.Log("Created an Affix: " + affixData[i].affixStatTarget + " " + TextHelper.FormatStat(affixData[i].affixStatTarget, affixData[i].statModifierData[0].value) + " Tier: " + affixData[i].tier);
         }
     }
 

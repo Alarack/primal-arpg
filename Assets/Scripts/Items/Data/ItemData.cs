@@ -19,7 +19,8 @@ public enum ItemSlot {
     Head,
     Inventory,
     RuneSlot,
-    Class
+    Class,
+    ForgeSlot
 }
 
 public enum ItemType { 
@@ -39,6 +40,7 @@ public enum ItemType {
 public class ItemData 
 {
     public ItemType Type;
+    public StatName affixStatTarget = StatName.Vitality;
     public Entity.EntityClass entityClass;
     public string itemName;
     public string itemDescription;
@@ -49,6 +51,7 @@ public class ItemData
     public Sprite itemIcon;
     public Sprite pickupIcon;
     public bool pickupOnCollision;
+    public int tier;
 
     public float minDamage;
     public float maxDamage;
@@ -58,19 +61,44 @@ public class ItemData
     public List<AbilityDefinition> learnableAbilities = new List<AbilityDefinition>();
     //public List<AbilityData> abilityData = new List<AbilityData>();
 
+    //[System.NonSerialized]
+    //[HideInInspector]
+    //public List<ItemData> itemAffixes = new List<ItemData>();
+
     public ItemData() {
 
     }
 
-    public ItemData (StatName stat, float value) {
+
+    public ItemData (StatName stat, float value, int tier = 1) {
         Type = ItemType.StatBooster;
+        affixStatTarget = stat;
+        this.tier = tier;
         itemName = stat.ToString() + " Booster";
         StatModifierData modData = StatModifierData.CreateBaseStatBooster(stat, value);
         statModifierData.Add(modData);
     }
 
+    //public void AddAffix(ItemData affixData) {
+    //    itemAffixes.Add(affixData);
+    //    //statModifierData.AddRange(affixData.statModifierData);
+    //}
+
+    //public void ClearAffixes() {
+    //    itemAffixes.Clear();
+    //}
+
     public Item GetDisplayItem() {
         return ItemFactory.CreateItem(this, EntityManager.ActivePlayer);
+    }
+
+    public List<StatModifier> CreateStatModifiers(object source) {
+        List<StatModifier> results = new List<StatModifier>();
+        for (int i = 0; i < statModifierData.Count; i++) {
+            StatModifier mod = new StatModifier(statModifierData[i], source);
+            results.Add(mod);
+        }
+        return results;
     }
 
     public string GetItemInfo() {

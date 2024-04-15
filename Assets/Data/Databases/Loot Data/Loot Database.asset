@@ -1,0 +1,1135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f12da2e5e7d9f045a03e622ce91dfe0, type: 3}
+  m_Name: Loot Database
+  m_EditorClassIdentifier: 
+  itemStatAffixes:
+  - stat: 0
+    baseValue: 1
+    tierIncrament: 0.5
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 0
+      entityClass: 0
+      itemName: Health Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 0
+        value: 1
+        modifierType: 0
+        variantTarget: 3
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 61
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 61
+      entityClass: 0
+      itemName: GlobalMoveSpeedModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 61
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 23
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 23
+      entityClass: 0
+      itemName: GlobalEffectDurationModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 23
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 14
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 14
+      entityClass: 0
+      itemName: ShotCount Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 14
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 21
+    baseValue: 0.05
+    tierIncrament: 0.05
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 21
+      entityClass: 0
+      itemName: CooldownReduction Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 21
+        value: 0.05
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 22
+    baseValue: 0.1
+    tierIncrament: 0.1
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 22
+      entityClass: 0
+      itemName: GlobalDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 22
+        value: 0.1
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 24
+    baseValue: 0.1
+    tierIncrament: 0.1
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 24
+      entityClass: 0
+      itemName: MeleeDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 24
+        value: 0.1
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 25
+    baseValue: 0.05
+    tierIncrament: 0.05
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 25
+      entityClass: 0
+      itemName: OverloadChance Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 25
+        value: 0.05
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 26
+    baseValue: 0.25
+    tierIncrament: 0.25
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 26
+      entityClass: 0
+      itemName: OverloadDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 26
+        value: 0.25
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 29
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 29
+      entityClass: 0
+      itemName: ProjectilePierceCount Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 29
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 32
+    baseValue: -0.1
+    tierIncrament: -0.1
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 32
+      entityClass: 0
+      itemName: GlobalEffectIntervalModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 32
+        value: -0.1
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 33
+    baseValue: 0.1
+    tierIncrament: 0.1
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 33
+      entityClass: 0
+      itemName: DashCooldown Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 33
+        value: 0.1
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 34
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 34
+      entityClass: 0
+      itemName: ProjectileChainCount Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 34
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 35
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 35
+      entityClass: 0
+      itemName: ProjectileSplitCount Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 35
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 39
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 39
+      entityClass: 0
+      itemName: GlobalEffectSizeModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 39
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 43
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 43
+      entityClass: 0
+      itemName: GlobalProjectileSizeModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 43
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 48
+    baseValue: 0.1
+    tierIncrament: 0.1
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 48
+      entityClass: 0
+      itemName: EssenceRegenerationRate Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 48
+        value: 0.1
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 49
+    baseValue: 0.01
+    tierIncrament: 0.01
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 49
+      entityClass: 0
+      itemName: EssenceRegenerationValue Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 49
+        value: 0.01
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 52
+    baseValue: 0.1
+    tierIncrament: 0.1
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 52
+      entityClass: 0
+      itemName: CastSpeedModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 52
+        value: 0.1
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 53
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 53
+      entityClass: 0
+      itemName: MaxMinionCount Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 53
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 55
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 55
+      entityClass: 0
+      itemName: MinionDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 55
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 56
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 56
+      entityClass: 0
+      itemName: FireDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 56
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 57
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 57
+      entityClass: 0
+      itemName: WaterDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 57
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 58
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 58
+      entityClass: 0
+      itemName: AirDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 58
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 59
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 59
+      entityClass: 0
+      itemName: ForceDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 59
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 60
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 60
+      entityClass: 0
+      itemName: PoisonDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 60
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 73
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 73
+      entityClass: 0
+      itemName: ArcaneDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 73
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 74
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 74
+      entityClass: 0
+      itemName: VoidDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 74
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 80
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 80
+      entityClass: 0
+      itemName: TimeDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 80
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 75
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 75
+      entityClass: 0
+      itemName: SpatialDamageModifier Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 75
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 10
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 10
+      entityClass: 0
+      itemName: ProjectileLifetime Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 10
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+  - stat: 47
+    baseValue: 1
+    tierIncrament: 0.5
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 47
+      entityClass: 0
+      itemName: Essence Booster
+      itemDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      itemIcon: {fileID: 0}
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 47
+        value: 1
+        modifierType: 0
+        variantTarget: 3
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []

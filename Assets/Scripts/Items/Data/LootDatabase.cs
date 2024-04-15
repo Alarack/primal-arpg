@@ -17,6 +17,9 @@ public class LootDatabase : ScriptableObject {
     private ItemDefinition[] allItems;
     private AbilityTag[] allTags; 
 
+    public List<ItemStatAffixData> itemStatAffixes = new List<ItemStatAffixData>();
+
+    public Dictionary<StatName, ItemStatAffixData> itemAffixes = new Dictionary<StatName, ItemStatAffixData>();
 
 
     private ItemDefinition GetRandomEquipment<TKey>(Dictionary<TKey, List<ItemDefinition>> dict, TKey key, List<ItemDefinition> exclusions) where TKey : struct {
@@ -271,9 +274,22 @@ public class LootDatabase : ScriptableObject {
 
         statBoosters.Clear();
         CreateBaseStatBoosters();
+        CreateStatAffixItems();
     }
 
 
+    private void CreateStatAffixItems() {
+
+        //Debug.Log("Creating base Stat Affixes: " + itemStatAffixes.Count);
+
+        foreach (ItemStatAffixData affixData in itemStatAffixes) {
+           
+            ItemData statAffixItem = new ItemData(affixData.stat, affixData.baseValue);
+            affixData.baseAffixItem = statAffixItem;
+            itemAffixes.Add(affixData.stat, affixData);
+            //Debug.Log("Adding: " +  affixData.stat);
+        }
+    }
 
     private void CreateBaseStatBoosters() {
         StatName[] allStats = System.Enum.GetValues(typeof(StatName)) as StatName[];
@@ -304,7 +320,7 @@ public class LootDatabase : ScriptableObject {
                 StatName.GlobalEffectSizeModifier => new ItemData(stat, 0.2f),
                 //StatName.GlobalEffectRangeModifier => throw new System.NotImplementedException(),
                 StatName.GlobalProjectileSizeModifier => new ItemData(stat, 0.2f),
-                StatName.Essence => new ItemData(stat, 20f),
+                StatName.Essence => new ItemData(stat, 2f),
                 StatName.EssenceRegenerationRate => new ItemData(stat, 1f),
                 StatName.EssenceRegenerationValue => new ItemData(stat, 0.1f),
                 //StatName.OverloadRecieveChance => new ItemData(stat, 0.1f),
@@ -337,6 +353,17 @@ public class LootDatabase : ScriptableObject {
         public ItemData statModItem;
     }
 
+    [System.Serializable]
+    public class ItemStatAffixData {
+        public StatName stat;
+        public float baseValue;
+        public float tierIncrament;
+        public ItemData baseAffixItem;
+
+        public float GetTierValue(int tier) {
+            return baseValue + (tierIncrament * (tier -1));
+        }
+    }
 
     //[System.Serializable]
     //public class LootDataEntry {

@@ -2,6 +2,7 @@ using LL.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -17,11 +18,20 @@ public class Item
     protected List<StatModifier> activeMods = new List<StatModifier>();
     protected List<StatModifierData> modData = new List<StatModifierData>();
 
+    protected List<ItemData> itemAffixData = new List<ItemData>();
+    protected List<StatModifier> affixModifiers = new List<StatModifier>();
+
+    protected Dictionary<ItemData, List<StatModifier>> affixDict = new Dictionary<ItemData, List<StatModifier>>();
+
     public Item(ItemData data, Entity owner, bool display = false) {
         this.Data = data;
         this.Owner = owner;
 
         modData = new List<StatModifierData>(data.statModifierData);
+
+        //for (int i = 0; i < data.itemAffixes.Count; i++) {
+        //    modData.AddRange(data.itemAffixes[i].statModifierData);
+        //}
 
         for (int i = 0; i < modData.Count; i++) {
             modData[i].SetupStats();
@@ -74,6 +84,55 @@ public class Item
         }
     }
 
+    #region AFFIXES
+
+    public void AddAffix(ItemData affixData) {
+        if(affixDict.ContainsKey(affixData) == true) {
+            affixDict[affixData].AddRange(affixData.CreateStatModifiers(this));
+        }
+        else {
+            affixDict.Add(affixData, affixData.CreateStatModifiers(this));
+        }
+
+        if (Equipped == true) {
+            ApplyAffixMods(affixDict[affixData]);
+        }
+    }
+
+    public void RemoveAffix(ItemData affixData) {
+        if(affixDict.ContainsKey(affixData) == true) {
+            if(Equipped == true) {
+                RemoveAffixMods(affixDict[affixData]);
+            }
+            affixDict.Remove(affixData);
+        }
+    }
+
+    protected void ApplyAllAffixMods() {
+        foreach (var affix in affixDict) {
+            ApplyAffixMods(affixDict[affix.Key]);
+        }
+    }
+
+    protected void RemoveAllAffixMods() {
+        foreach (var affix in affixDict) {
+            RemoveAffixMods(affixDict[affix.Key]);
+        }
+    }
+
+    protected void ApplyAffixMods(List<StatModifier> affixMods) {
+        foreach (StatModifier mod in affixMods) {
+            StatAdjustmentManager.ApplyStatAdjustment(Owner, mod, mod.TargetStat, mod.VariantTarget, null, 1, true);
+        }
+    }
+
+    protected void RemoveAffixMods(List<StatModifier> affixMods) {
+        foreach (StatModifier mod in affixMods) {
+            StatAdjustmentManager.RemoveStatAdjustment(Owner, mod, mod.VariantTarget, Owner, null);
+        }
+    }
+
+    #endregion
 
     public void Equip(ItemSlot slot) {
 
@@ -93,6 +152,8 @@ public class Item
         for (int i = 0; i < activeMods.Count; i++) {
             StatAdjustmentManager.ApplyStatAdjustment(Owner, activeMods[i], activeMods[i].VariantTarget, Owner, null);
         }
+
+        ApplyAllAffixMods();
 
         EventData data = new EventData();
         data.AddItem("Item", this);
@@ -130,6 +191,8 @@ public class Item
             StatAdjustmentManager.RemoveStatAdjustment(Owner, activeMods[i], activeMods[i].VariantTarget, Owner, null, true);
         }
 
+        RemoveAllAffixMods();
+
         EventData data = new EventData();
         data.AddItem("Item", this);
         EventManager.SendEvent(GameEvent.ItemUnequipped, data);
@@ -155,6 +218,18 @@ public class Item
             StatModifierData modData = Data.statModifierData[i]; 
             
             builder.Append(modData.targetStat.ToString().SplitCamelCase()).Append(": ").Append(TextHelper.FormatStat(modData.targetStat, modData.value)).AppendLine();
+        }
+
+        if(affixDict.Count > 0) {
+            builder.AppendLine("Affixes: ");
+        }
+        foreach (var affix in affixDict) {
+            for (int i = 0; i < affix.Value.Count; i++) {
+                builder.Append(affix.Value[i].TargetStat.ToString().SplitCamelCase())
+                    .Append(": ")
+                    .Append(TextHelper.FormatStat(affix.Value[i].TargetStat, affix.Value[i].Value))
+                    .AppendLine();
+            }
         }
 
         for (int i = 0; i < Abilities.Count; i++) {

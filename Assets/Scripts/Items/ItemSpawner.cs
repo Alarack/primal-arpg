@@ -146,6 +146,66 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
     }
 
+
+    public static List<ItemData> CreateItemAffixSet(int count) {
+        List<StatName> usedStats = new List<StatName>();
+        //List<ItemData> baseAffixItems = new List<ItemData>();
+
+        List<LootDatabase.ItemStatAffixData> affixList = new List<LootDatabase.ItemStatAffixData>();
+        List<StatName> allStats = Instance.lootDatabase.statBoosters.Keys.ToList();
+        Instance.FilterStats(allStats, ref usedStats);
+        allStats.Shuffle();
+
+        for (int i = 0; i < allStats.Count; i++) {
+            if (usedStats.Contains(allStats[i]))
+                continue;
+
+            //baseAffixItems.Add(Instance.lootDatabase.itemAffixes[allStats[i]].baseAffixItem);
+            affixList.Add(Instance.lootDatabase.itemAffixes[allStats[i]]);
+            usedStats.Add(allStats[i]);
+
+
+            if (affixList.Count >= count) {
+                break;
+            }
+
+        }
+
+        List<ItemData> results = new List<ItemData>();
+
+        for (int i = 0; i < affixList.Count; i++) {
+            results.Add(Instance.RollAffixTier(affixList[i], 1));
+        }
+
+
+
+        return results;
+    }
+
+    private ItemData RollAffixTier(LootDatabase.ItemStatAffixData data, int currentTier) {
+        float roll = Random.Range(0f, 1f);
+
+        float chance = currentTier switch {
+            1 => 0.3f,
+            2 => 0.3f,
+            3 => 0.2f,
+            4 => 0.2f,
+            5 => 0.2f,
+            _ => 0.2f,
+        };
+
+        if(currentTier < 5) {
+            if(roll < chance) {
+                return RollAffixTier(data, currentTier + 1);
+            }
+            else {
+                return new ItemData(data.stat, data.GetTierValue(currentTier), currentTier);
+            }
+        }
+
+        return new ItemData(data.stat, data.GetTierValue(currentTier), currentTier);
+    }
+
     public static List<ItemData> CreateStatBoosterSet(int count) {
         List<StatName> usedStats = new List<StatName>();
 

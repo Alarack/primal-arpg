@@ -23,6 +23,11 @@ public class InventoryBaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     protected virtual void Awake() {
         canvas = GetComponent<Canvas>();
+        
+        if(slot == ItemSlot.ForgeSlot) {
+            return;
+        }
+        
         baseOrder = canvas.sortingOrder;
         canvas.overrideSorting = false;
     }

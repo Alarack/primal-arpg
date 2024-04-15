@@ -165,10 +165,10 @@ public static class StatAdjustmentManager {
     //    return ApplyStatAdjustment(target, mod, StatName.Health, StatModifierData.StatVariantTarget.RangeCurrent, sourceAbility, multiplier);
     //}
 
-    public static float AdjustCDR(Entity target, float value, object source, Ability sourceAbility, float multiplier = 1f) {
-        StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.CooldownReduction, source, StatModifierData.StatVariantTarget.Simple);
-        return ApplyStatAdjustment(target, mod, StatName.CooldownReduction, StatModifierData.StatVariantTarget.RangeCurrent, sourceAbility, multiplier);
-    }
+    //public static float AdjustCDR(Entity target, float value, object source, Ability sourceAbility, float multiplier = 1f) {
+    //    StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.CooldownReduction, source, StatModifierData.StatVariantTarget.Simple);
+    //    return ApplyStatAdjustment(target, mod, StatName.CooldownReduction, StatModifierData.StatVariantTarget.RangeCurrent, sourceAbility, multiplier);
+    //}
 
     public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, Ability sourceAbility, float multiplier = 1f, bool addMissingStat = false, Entity delivery = null) {
 

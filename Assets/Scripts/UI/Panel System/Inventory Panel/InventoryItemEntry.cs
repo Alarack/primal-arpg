@@ -87,6 +87,9 @@ public class InventoryItemEntry : InventoryBaseEntry {
     #region UI CALLBACKS
 
     public override void OnBeginDrag(PointerEventData eventData) {
+        if (slot == ItemSlot.ForgeSlot)
+            return;
+        
         DraggedInventoryItem = this;
 
         //DraggedInventoryItem.canvas.sortingOrder = 100;
@@ -101,6 +104,13 @@ public class InventoryItemEntry : InventoryBaseEntry {
 
         Item draggedItem = DraggedInventoryItem.MyItem;
         
+        if(slot == ItemSlot.ForgeSlot) {
+            Debug.Log("Forging: " + draggedItem.Data.itemName);
+            Add(draggedItem);
+            return;
+        }
+
+
         if (slot == ItemSlot.Inventory) {
             
             if(draggedItem.Equipped == true) {
@@ -142,6 +152,9 @@ public class InventoryItemEntry : InventoryBaseEntry {
     }
 
     public override void OnEndDrag(PointerEventData eventData) {
+        if (slot == ItemSlot.ForgeSlot)
+            return;
+
         base.OnEndDrag(eventData);
         parentPanel.HideAllHighlights();
         parentPanel.dropZone.SetActive(false);
@@ -151,6 +164,12 @@ public class InventoryItemEntry : InventoryBaseEntry {
         if (eventData.button == PointerEventData.InputButton.Right) {
             if (MyItem == null)
                 return;
+
+            if (slot == ItemSlot.ForgeSlot) {
+                Remove();
+                return;
+            }
+
 
             if (MyItem.Equipped == true) {
                 //parentPanel.AddToFirstEmptySlot(MyItem);
