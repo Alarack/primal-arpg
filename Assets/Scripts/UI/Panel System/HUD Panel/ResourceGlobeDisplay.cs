@@ -23,12 +23,14 @@ public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
     public void Setup(StatRange stat) {
         AssosiatedStat = stat;
         AssosiatedStat.onValueChanged += OnStatValueChanged;
+        AssosiatedStat.MaxValueStat.onValueChanged += OnStatValueChanged;
 
         UpdateStatText();
     }
 
     private void OnDisable() {
         AssosiatedStat.onValueChanged -= OnStatValueChanged;
+        AssosiatedStat.MaxValueStat.onValueChanged -= OnStatValueChanged;
     }
 
 

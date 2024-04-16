@@ -3062,7 +3062,9 @@ public class StatAdjustmentEffect : Effect {
 
         float globalDamageMultiplier = GetDamageModifier(activeMod, target);
 
-        if (activeMod.TargetStat != StatName.Health) {
+        bool maxHealthAdj = activeMod.TargetStat == StatName.Health && activeMod.VariantTarget == StatModifierData.StatVariantTarget.RangeMax;
+
+        if (activeMod.TargetStat != StatName.Health || maxHealthAdj) {
             StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier, Data.addMissingStatIfNotPresent, activeDelivery);
             return;
 

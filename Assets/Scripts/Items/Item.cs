@@ -88,10 +88,10 @@ public class Item
 
     public void AddAffix(ItemData affixData) {
         if(affixDict.ContainsKey(affixData) == true) {
-            affixDict[affixData].AddRange(affixData.CreateStatModifiers(this));
+            affixDict[affixData].AddRange(affixData.CreateStatModifiers(Owner));
         }
         else {
-            affixDict.Add(affixData, affixData.CreateStatModifiers(this));
+            affixDict.Add(affixData, affixData.CreateStatModifiers(Owner));
         }
 
         if (Equipped == true) {
@@ -224,12 +224,24 @@ public class Item
             builder.AppendLine("Affixes: ");
         }
         foreach (var affix in affixDict) {
-            for (int i = 0; i < affix.Value.Count; i++) {
-                builder.Append(affix.Value[i].TargetStat.ToString().SplitCamelCase())
-                    .Append(": ")
-                    .Append(TextHelper.FormatStat(affix.Value[i].TargetStat, affix.Value[i].Value))
-                    .AppendLine();
-            }
+            builder.Append(affix.Key.GetAffixTooltip());
+            
+            
+            //for (int i = 0; i < affix.Value.Count; i++) {
+            //    //builder.Append(affix.Value[i].TargetStat.ToString().SplitCamelCase())
+            //    //    .Append(": ")
+            //    //    .Append(TextHelper.FormatStat(affix.Value[i].TargetStat, affix.Value[i].Value))
+            //    //    .Append(" - ").Append(affix.Key.GetTier())
+            //    //    .AppendLine();
+
+            //    builder.Append(TextHelper.ColorizeText("Tier - ", affix.Key.GetTierColor(affix.Key.tier))).Append(affix.Key.GetTier())
+            //    .Append(" ")
+            //    .Append(affix.Value[i].TargetStat.ToString().SplitCamelCase())
+            //    .Append(": ")
+            //    .Append(TextHelper.FormatStat(affix.Value[i].TargetStat, affix.Value[i].Value))
+
+            //    .AppendLine();
+            //}
         }
 
         for (int i = 0; i < Abilities.Count; i++) {

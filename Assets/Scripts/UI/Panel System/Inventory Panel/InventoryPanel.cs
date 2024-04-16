@@ -10,7 +10,13 @@ public class InventoryPanel : BasePanel {
     public List<InventoryItemEntry> paperDollEntries = new List<InventoryItemEntry>();
     private List<InventoryItemEntry> inventoryEntries = new List<InventoryItemEntry>();
 
+
+    [Header("Affix Template")]
     public InventoryItemEntry forgeSlot;
+    public ItemAffixEntry affixTemplate;
+    public Transform affixHolder;
+
+    private List<ItemAffixEntry> itemAffixEntries = new List<ItemAffixEntry>();
 
     [Header("Template")]
     public int slotCount = 60;
@@ -29,6 +35,7 @@ public class InventoryPanel : BasePanel {
         
 
         inventoryEntryTemplate.gameObject.SetActive(false);
+        affixTemplate.gameObject.SetActive(false);
     }
 
     protected override void OnEnable() {
@@ -228,9 +235,23 @@ public class InventoryPanel : BasePanel {
 
         List<ItemData> affixData = ItemSpawner.CreateItemAffixSet(5);
 
-        for (int i = 0; i < affixData.Count; i++) {
-            Debug.Log("Created an Affix: " + affixData[i].affixStatTarget + " " + TextHelper.FormatStat(affixData[i].affixStatTarget, affixData[i].statModifierData[0].value) + " Tier: " + affixData[i].tier);
+        itemAffixEntries.PopulateList(affixData.Count, affixTemplate, affixHolder, true);
+
+        for (int i = 0; i < itemAffixEntries.Count; i++) {
+            itemAffixEntries[i].Setup(this, forgeSlot.MyItem, affixData[i]);
+            //Debug.Log("Created an Affix: " + affixData[i].affixStatTarget + " " + TextHelper.FormatStat(affixData[i].affixStatTarget, affixData[i].statModifierData[0].value) + " Tier: " + affixData[i].tier);
         }
+
+    }
+
+    public void OnAffixSelected(ItemData affixdata) {
+        if(forgeSlot.MyItem == null) {
+            itemAffixEntries.ClearList();
+            return;
+        }
+
+        forgeSlot.MyItem.AddAffix(affixdata);
+        itemAffixEntries.ClearList();
     }
 
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 
@@ -99,6 +100,53 @@ public class ItemData
             results.Add(mod);
         }
         return results;
+    }
+
+    public string GetTier() {
+        if (tier == 0)
+            return "";
+
+        string result = tier switch {
+            1 => TextHelper.ColorizeText("I", Color.white),
+            2 => TextHelper.ColorizeText("II", Color.green),
+            3 => TextHelper.ColorizeText("III", Color.blue),
+            4 => TextHelper.ColorizeText("IV", Color.magenta),
+            5 => TextHelper.ColorizeText("V", Color.red),
+            _ => "",
+        };
+
+        return result;
+    }
+
+    public string GetAffixTooltip() {
+        StringBuilder builder = new StringBuilder();
+        
+        builder.Append(TextHelper.ColorizeText("Tier - ", GetTierColor(tier))).Append(GetTier())
+               .Append(" ")
+               .Append(statModifierData[0].targetStat.ToString().SplitCamelCase())
+               .Append(": ")
+               .Append(TextHelper.FormatStat(statModifierData[0].targetStat, statModifierData[0].value))
+
+               .AppendLine();
+
+
+        return builder.ToString();
+    }
+
+    public Color GetTierColor(int tier) {
+        if (tier == 0)
+            return Color.white;
+
+        Color result = tier switch {
+            1 => Color.white,
+            2 => Color.green,
+            3 => Color.blue,
+            4 => Color.magenta,
+            5 => Color.red,
+            _ => Color.white,
+        };
+
+        return result;
     }
 
     public string GetItemInfo() {

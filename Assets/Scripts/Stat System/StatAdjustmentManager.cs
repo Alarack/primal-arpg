@@ -197,8 +197,13 @@ public static class StatAdjustmentManager {
 
         statModAction?.Invoke(targetStat, mod);
 
-        //if(targetStat == StatName.Health && sourceAbility != null) {
-        //    Debug.LogWarning(sourceAbility.Data.abilityName + " is changing health ");
+        //if (targetStat == StatName.Health && mod.VariantTarget == StatModifierData.StatVariantTarget.RangeMax) {
+        //    Debug.LogWarning("Max health changed");
+        //    Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
+
+        //    StatRange heathRange = target.Stats.GetStat<StatRange>(StatName.Health);
+        //    Debug.Log("Max " + heathRange.MaxValueStat.ModifiedValue);
+
         //}
 
         //if (targetStat == StatName.VulnerableTime) {
