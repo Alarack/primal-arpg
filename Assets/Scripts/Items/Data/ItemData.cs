@@ -53,6 +53,7 @@ public class ItemData
     public Sprite pickupIcon;
     public bool pickupOnCollision;
     public int tier;
+    public int baseAffixSlots = 2;
 
     public float minDamage;
     public float maxDamage;
@@ -116,6 +117,17 @@ public class ItemData
         };
 
         return result;
+    }
+
+    public string GetShortTooltip() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.Append(TextHelper.ColorizeText(statModifierData[0].targetStat.ToString().SplitCamelCase(), GetTierColor(tier)))
+            .Append(TextHelper.ColorizeText(" ", GetTierColor(tier))).Append(GetTier());
+
+
+
+        return builder.ToString();
     }
 
     public string GetAffixTooltip() {

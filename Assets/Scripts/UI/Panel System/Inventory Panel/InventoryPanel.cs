@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using LL.Events;
 using TMPro;
+using System.Linq;
 
 public class InventoryPanel : BasePanel {
 
@@ -17,6 +18,15 @@ public class InventoryPanel : BasePanel {
     public Transform affixHolder;
 
     private List<ItemAffixEntry> itemAffixEntries = new List<ItemAffixEntry>();
+
+    [Header("Affix Slot Template")]
+    public ItemAffixSlotEntry affixSlotTemplate;
+    public Transform affixSlotHolder;
+
+    private List<ItemAffixSlotEntry> itemAffixSlots = new List<ItemAffixSlotEntry>();
+    private ItemAffixSlotEntry selectedSlot;
+
+
 
     [Header("Template")]
     public int slotCount = 60;
@@ -36,6 +46,8 @@ public class InventoryPanel : BasePanel {
 
         inventoryEntryTemplate.gameObject.SetActive(false);
         affixTemplate.gameObject.SetActive(false);
+        affixSlotTemplate.gameObject.SetActive(false);
+        forgeSlot.Setup(null, this);
     }
 
     protected override void OnEnable() {
@@ -161,11 +173,6 @@ public class InventoryPanel : BasePanel {
         }
     }
 
-
-    private void OnItemDropped(EventData data) {
-
-    }
-
     private InventoryItemEntry GetEmptyInventorySlot() {
         for (int i = 0; i < inventoryEntries.Count; i++) {
             if (inventoryEntries[i].MyItem == null) {
@@ -229,6 +236,51 @@ public class InventoryPanel : BasePanel {
         }
     }
 
+
+
+    public void SetupItemAffixSlots() {
+        if (forgeSlot.MyItem == null)
+            return;
+
+        itemAffixSlots.PopulateList(forgeSlot.MyItem.AffixSlots, affixSlotTemplate, affixSlotHolder, true);
+
+        for (int i = 0; i < itemAffixSlots.Count; i++) {
+            itemAffixSlots[i].Setup(this, forgeSlot.MyItem, null);
+
+            UpdateAffixSlot(itemAffixSlots[i]);
+
+            //int activeAffixCount = forgeSlot.MyItem.Affixes.Count;
+
+            //if(i < activeAffixCount) {
+            //    itemAffixSlots[i].UpdateAffix(forgeSlot.MyItem.Affixes.Keys.ElementAt(i));
+            //}
+
+        }
+
+        OnAffixSlotSelected(itemAffixSlots[0]);
+
+        //for (int i = 0; i < forgeSlot.MyItem.Affixes.Keys.Count; i++) {
+        //    ItemData affixData = forgeSlot.MyItem.Affixes.Keys.ElementAt(i);
+
+        //    itemAffixSlots[i].UpdateAffix(affixData);
+        //}
+    }
+
+    public void UpdateAffixSlot(ItemAffixSlotEntry slot) {
+
+        int index = itemAffixSlots.IndexOf(slot);
+
+        if(index < forgeSlot.MyItem.Affixes.Count) {
+            slot.UpdateAffix(forgeSlot.MyItem.Affixes.Keys.ElementAt(index));
+        }
+    }
+
+    public void UpdateAllAffixSlots() {
+        for (int i = 0; i < itemAffixSlots.Count; i++) {
+            UpdateAffixSlot(itemAffixSlots[i]);
+        }
+    }
+
     public void OnForgeClicked() {
         if (forgeSlot.MyItem == null)
             return;
@@ -250,8 +302,30 @@ public class InventoryPanel : BasePanel {
             return;
         }
 
-        forgeSlot.MyItem.AddAffix(affixdata);
+        if(selectedSlot == null) {
+            Debug.LogError("No item affix slot is selected");
+        }
+
+        if(selectedSlot.AffixData == null) {
+            forgeSlot.MyItem.AddAffix(affixdata);
+        }
+        else {
+            forgeSlot.MyItem.ReplaceAffix(selectedSlot.AffixData, affixdata);
+        }
+
+       
         itemAffixEntries.ClearList();
+        selectedSlot.UpdateAffix(affixdata);
+    }
+
+    public void OnAffixSlotSelected(ItemAffixSlotEntry slotEntry) {
+        selectedSlot = slotEntry;
+        selectedSlot.Select();
+        for (int i = 0; i < itemAffixSlots.Count; i++) {
+            if (itemAffixSlots[i] != selectedSlot) {
+                itemAffixSlots[i].Deselect();
+            }
+        }
     }
 
 

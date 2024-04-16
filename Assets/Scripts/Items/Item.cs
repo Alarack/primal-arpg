@@ -14,18 +14,21 @@ public class Item
     public bool Equipped { get; protected set; }
     public Entity Owner { get; set; }
 
+    public int AffixSlots { get; set; }
+
     public List<Ability> Abilities { get; protected set;} = new List<Ability>();
     protected List<StatModifier> activeMods = new List<StatModifier>();
     protected List<StatModifierData> modData = new List<StatModifierData>();
 
-    protected List<ItemData> itemAffixData = new List<ItemData>();
-    protected List<StatModifier> affixModifiers = new List<StatModifier>();
+    //protected List<ItemData> itemAffixData = new List<ItemData>();
+    //protected List<StatModifier> affixModifiers = new List<StatModifier>();
 
-    protected Dictionary<ItemData, List<StatModifier>> affixDict = new Dictionary<ItemData, List<StatModifier>>();
+    public Dictionary<ItemData, List<StatModifier>> Affixes { get; protected set; } = new Dictionary<ItemData, List<StatModifier>>();
 
     public Item(ItemData data, Entity owner, bool display = false) {
         this.Data = data;
         this.Owner = owner;
+        AffixSlots = data.baseAffixSlots;
 
         modData = new List<StatModifierData>(data.statModifierData);
 
@@ -87,36 +90,43 @@ public class Item
     #region AFFIXES
 
     public void AddAffix(ItemData affixData) {
-        if(affixDict.ContainsKey(affixData) == true) {
-            affixDict[affixData].AddRange(affixData.CreateStatModifiers(Owner));
+        if(Affixes.ContainsKey(affixData) == true) {
+            Affixes[affixData].AddRange(affixData.CreateStatModifiers(Owner));
         }
         else {
-            affixDict.Add(affixData, affixData.CreateStatModifiers(Owner));
+            Affixes.Add(affixData, affixData.CreateStatModifiers(Owner));
         }
 
         if (Equipped == true) {
-            ApplyAffixMods(affixDict[affixData]);
+            ApplyAffixMods(Affixes[affixData]);
         }
     }
 
     public void RemoveAffix(ItemData affixData) {
-        if(affixDict.ContainsKey(affixData) == true) {
+        if(Affixes.ContainsKey(affixData) == true) {
             if(Equipped == true) {
-                RemoveAffixMods(affixDict[affixData]);
+                RemoveAffixMods(Affixes[affixData]);
             }
-            affixDict.Remove(affixData);
+            Affixes.Remove(affixData);
+        }
+    }
+
+    public void ReplaceAffix(ItemData oldAffix, ItemData newAffix) {
+        if (Affixes.ContainsKey(oldAffix) == true) {
+            RemoveAffix(oldAffix);
+            AddAffix(newAffix);
         }
     }
 
     protected void ApplyAllAffixMods() {
-        foreach (var affix in affixDict) {
-            ApplyAffixMods(affixDict[affix.Key]);
+        foreach (var affix in Affixes) {
+            ApplyAffixMods(Affixes[affix.Key]);
         }
     }
 
     protected void RemoveAllAffixMods() {
-        foreach (var affix in affixDict) {
-            RemoveAffixMods(affixDict[affix.Key]);
+        foreach (var affix in Affixes) {
+            RemoveAffixMods(Affixes[affix.Key]);
         }
     }
 
@@ -220,10 +230,10 @@ public class Item
             builder.Append(modData.targetStat.ToString().SplitCamelCase()).Append(": ").Append(TextHelper.FormatStat(modData.targetStat, modData.value)).AppendLine();
         }
 
-        if(affixDict.Count > 0) {
+        if(Affixes.Count > 0) {
             builder.AppendLine("Affixes: ");
         }
-        foreach (var affix in affixDict) {
+        foreach (var affix in Affixes) {
             builder.Append(affix.Key.GetAffixTooltip());
             
             

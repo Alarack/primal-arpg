@@ -107,6 +107,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
         if(slot == ItemSlot.ForgeSlot) {
             Debug.Log("Forging: " + draggedItem.Data.itemName);
             Add(draggedItem);
+            parentPanel.SetupItemAffixSlots();
             return;
         }
 
