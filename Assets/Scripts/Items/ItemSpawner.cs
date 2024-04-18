@@ -188,9 +188,9 @@ public class ItemSpawner : Singleton<ItemSpawner>
         float chance = currentTier switch {
             1 => 0.3f,
             2 => 0.3f,
-            3 => 0.2f,
-            4 => 0.2f,
-            5 => 0.2f,
+            3 => 0.3f,
+            4 => 0.3f,
+            5 => 0.3f,
             _ => 0.2f,
         };
 

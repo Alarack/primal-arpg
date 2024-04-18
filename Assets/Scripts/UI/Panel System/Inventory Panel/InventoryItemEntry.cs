@@ -38,7 +38,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
             Remove();
         }
 
-        if(MyItem != null && slot != ItemSlot.Inventory) {
+        if(MyItem != null && slot != ItemSlot.Inventory && slot != ItemSlot.ForgeSlot) {
             parentPanel.CheckForDupeEquips(this);
         }
     }
@@ -100,9 +100,19 @@ public class InventoryItemEntry : InventoryBaseEntry {
         parentPanel.dropZone.SetActive(true);
     }
 
+    public override void OnDrag(PointerEventData eventData) {
+        if (slot == ItemSlot.ForgeSlot)
+            return;
+
+        base.OnDrag(eventData);
+    }
+
     public override void OnDrop(PointerEventData eventData) {
 
         Item draggedItem = DraggedInventoryItem.MyItem;
+
+        if(draggedItem == null) 
+            return;
         
         if(slot == ItemSlot.ForgeSlot) {
             Debug.Log("Forging: " + draggedItem.Data.itemName);
@@ -145,7 +155,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
             }
 
         }
-        else {
+        else if(slot != ItemSlot.ForgeSlot) {
             if (draggedItem.Data.validSlots.Contains(slot)) {
                 EntityManager.ActivePlayer.Inventory.EquipItemToSlot(draggedItem, slot);
             }

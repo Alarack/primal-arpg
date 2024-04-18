@@ -5,6 +5,7 @@ using UnityEngine;
 using LL.Events;
 using static UnityEngine.EventSystems.EventTrigger;
 using System;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour {
 
@@ -141,38 +142,53 @@ public class Inventory : MonoBehaviour {
         }
 
 
-        SendCurrencyChangedEvent(item.Data.itemValue, item.Data.itemName, null);
+        SendCurrencyChangedEvent(item.Data.itemValue, item.Data.itemName);
     }
 
     public bool TryBuyItem(Item item) {
         float cost = item.Data.itemValue;
 
-        if(currencyDictionary.TryGetValue("Coin", out float count) == true) {
+        return TrySpendCoins(cost, item.Data.itemName);
+
+        //if(currencyDictionary.TryGetValue("Coin", out float count) == true) {
+        //    float difference = count - cost;
+
+        //    if(difference < 0) {
+        //        Debug.LogWarning("Not enough coins to buy: " + item.Data.itemName);
+        //        return false;
+        //    }
+
+        //    currencyDictionary["Coin"] -= cost;
+
+        //    SendCurrencyChangedEvent(count, "Coin", item);
+        //    return true;
+        //}
+        //return false;
+    }
+
+    public bool TrySpendCoins(float cost, string purchase = "") {
+        if (currencyDictionary.TryGetValue("Coin", out float count) == true) {
             float difference = count - cost;
 
-            if(difference < 0) {
-                Debug.LogWarning("Not enough coins to buy: " + item.Data.itemName);
+            if (difference < 0) {
+                Debug.LogWarning("Not enough coins to buy: " + purchase);
                 return false;
             }
 
             currencyDictionary["Coin"] -= cost;
 
-            SendCurrencyChangedEvent(count, "Coin", item);
+            SendCurrencyChangedEvent(count, "Coin");
             return true;
         }
-
-
-        
         return false;
-
     }
 
-    private void SendCurrencyChangedEvent(float value, string currencyType, Item purchase) {
+    private void SendCurrencyChangedEvent(float value, string currencyType) {
         EventData data = new EventData();
         data.AddFloat("Value", value);
         data.AddFloat("Current Balance", currencyDictionary[currencyType]);
         data.AddString("Currency Name", currencyType);
-        data.AddItem("Item Purchased", purchase);
+        //data.AddItem("Item Purchased", purchase);
 
 
         EventManager.SendEvent(GameEvent.CurrencyChanged, data);

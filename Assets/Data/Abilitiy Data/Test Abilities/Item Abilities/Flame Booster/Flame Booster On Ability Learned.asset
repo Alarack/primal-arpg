@@ -17,21 +17,30 @@ MonoBehaviour:
     abilityIcon: {fileID: 21300000, guid: 64087bb75c96aae499e80bd522f73e27, type: 3}
     abilityName: Flame Bosster on ability learned
     abilityDescription: 
+    resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
+    ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
+    showChildAbilitiesInTooltip: 0
     ignoreTooltip: 1
+    recastOnChannelCost: 0
     runeAbilityTarget: 
     childAbilities: []
     tags: 
     activationTriggerData:
     - type: 19
+      procChance: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      delay1Frame: 0
+      autoActivateTimer: 0
       allConstraints:
       - focus: 1
+        constraintData: []
+      - focus: 4
         constraintData:
         - type: 17
           inverse: 0
@@ -39,7 +48,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
-          targetTag: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -52,6 +62,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -67,20 +78,30 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetEffectType: 0
           targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
     endTriggerData:
     - type: 18
+      procChance: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      delay1Frame: 0
+      autoActivateTimer: 0
       allConstraints: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -90,9 +111,12 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -103,4 +127,6 @@ MonoBehaviour:
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
+    windupVFX: {fileID: 0}
+    abilityStatData: []
     recoveryData: []

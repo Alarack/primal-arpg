@@ -135,6 +135,7 @@ public class InventoryPanel : BasePanel {
             }
 
             if (paperDollEntries[i].MyItem == entry.MyItem) {
+                Debug.Log("Duplicate Equip Detected: " + entry.MyItem.Data.itemName);
                 paperDollEntries[i].Remove();
             }
         }
@@ -202,11 +203,14 @@ public class InventoryPanel : BasePanel {
     }
 
     public void HighlightValidSLots() {
-        if (InventoryItemEntry.DraggedInventoryItem == null)
+        if (InventoryBaseEntry.DraggedInventoryItem == null)
             return;
 
         for (int i = 0; i < paperDollEntries.Count; i++) {
-            if (InventoryItemEntry.DraggedInventoryItem.MyItem.Data.validSlots.Contains(paperDollEntries[i].slot)) {
+            if (InventoryBaseEntry.DraggedInventoryItem.MyItem == null)
+                continue;
+            
+            if (InventoryBaseEntry.DraggedInventoryItem.MyItem.Data.validSlots.Contains(paperDollEntries[i].slot)) {
                 paperDollEntries[i].ShowHighlight();
             }
             else {
@@ -284,6 +288,11 @@ public class InventoryPanel : BasePanel {
     public void OnForgeClicked() {
         if (forgeSlot.MyItem == null)
             return;
+
+        if(EntityManager.ActivePlayer.Inventory.TrySpendCoins(25f, "Forge") == false) {
+            Debug.Log("Not enough money");
+            return;
+        }
 
         List<ItemData> affixData = ItemSpawner.CreateItemAffixSet(5);
 

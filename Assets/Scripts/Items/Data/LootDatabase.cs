@@ -15,7 +15,9 @@ public class LootDatabase : ScriptableObject {
 
 
     private ItemDefinition[] allItems;
-    private AbilityTag[] allTags; 
+    private AbilityTag[] allTags;
+
+    public float baseEnchantingCost = 25f;
 
     public List<ItemStatAffixData> itemStatAffixes = new List<ItemStatAffixData>();
 

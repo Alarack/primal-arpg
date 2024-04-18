@@ -110,7 +110,7 @@ public class ItemData
         string result = tier switch {
             1 => TextHelper.ColorizeText("I", Color.white),
             2 => TextHelper.ColorizeText("II", Color.green),
-            3 => TextHelper.ColorizeText("III", Color.blue),
+            3 => TextHelper.ColorizeText("III", Color.cyan),
             4 => TextHelper.ColorizeText("IV", Color.magenta),
             5 => TextHelper.ColorizeText("V", Color.red),
             _ => "",
@@ -152,7 +152,7 @@ public class ItemData
         Color result = tier switch {
             1 => Color.white,
             2 => Color.green,
-            3 => Color.blue,
+            3 => Color.cyan,
             4 => Color.magenta,
             5 => Color.red,
             _ => Color.white,
