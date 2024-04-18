@@ -45,6 +45,7 @@ public static class AbilityEditorHelper {
         entry.showChildAbilitiesInTooltip = EditorGUILayout.Toggle("Include Child Abilities", entry.showChildAbilitiesInTooltip);
         entry.ignoreTooltip = EditorGUILayout.Toggle("Ignore Tooltip", entry.ignoreTooltip);
         entry.autoFire = EditorGUILayout.Toggle("Autofire", entry.autoFire);
+        entry.normalizedProcRate = EditorGUILayout.Toggle("Normalize Proc", entry.normalizedProcRate);
         entry.recastOnChannelCost = EditorGUILayout.Toggle("Recast On Channel", entry.recastOnChannelCost);
         entry.ignoreOtherCasting = EditorGUILayout.Toggle("Ignore Other Casting", entry.ignoreOtherCasting);
 

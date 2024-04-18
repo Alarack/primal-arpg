@@ -39,6 +39,8 @@ MonoBehaviour:
       changeDirection: 0
       minStatChangeRequired: 0
       statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
       minRange: 0
       maxRange: 0
       rangeToWhat: 0
@@ -99,7 +101,7 @@ MonoBehaviour:
       m_Bits: 0
     modData:
     - targetStat: 46
-      value: 1.25
+      value: 3.5
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0

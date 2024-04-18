@@ -136,6 +136,7 @@ public class AbilityData
     public bool showChildAbilitiesInTooltip;
     public bool ignoreTooltip;
     public bool recastOnChannelCost;
+    public bool normalizedProcRate;
     public string runeAbilityTarget;
 
     public List<AbilityDefinition> childAbilities = new List<AbilityDefinition>();

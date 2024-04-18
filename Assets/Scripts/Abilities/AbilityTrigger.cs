@@ -299,7 +299,7 @@ public abstract class AbilityTrigger {
             return;
         }
 
-        if (RollProc() == false) {
+        if (RollProc(activationInstance) == false) {
             return;
         }
       
@@ -308,11 +308,30 @@ public abstract class AbilityTrigger {
         ActivationCallback?.Invoke(activationInstance);
     }
 
-    protected bool RollProc() {
+    protected bool RollProc(TriggerInstance activationInstance) {
 
         if (ParentAbility != null) {
             if (ParentAbility.Stats.Contains(StatName.ProcChance) == false)
                 return true;
+
+
+            if(ParentAbility.Data.normalizedProcRate == true) {
+                if(activationInstance.TriggeringAbility != null) {
+                    float cooldown = activationInstance.TriggeringAbility.Stats[StatName.Cooldown];
+
+                    //Debug.LogWarning("Normalizing a proc from: " + activationInstance.TriggeringAbility.Data.abilityName);
+
+                    if(cooldown <= 0f) {
+                        return UnityEngine.Random.Range(0f, 1f) < 0.05f;
+                    }
+
+                    if(cooldown >= 2f) {
+                        return true;
+                    }
+
+                    return UnityEngine.Random.Range(0f, 1f) < cooldown /2f;
+                }
+            }
 
             float proc = ParentAbility.Stats[StatName.ProcChance];
             float roll = UnityEngine.Random.Range(0f, 1f);

@@ -120,17 +120,6 @@ public class Ability {
             StatRange charges = new StatRange(StatName.AbilityCharge, 0, Data.startingRecoveryCharges, Data.startingRecoveryCharges);
             Stats.AddStat(charges);
         }
-
-        //if(Stats.Contains(StatName.EssenceCost) == false) {
-
-        //}
-
-
-        //if(Data.resourceCost > 0) {
-        //    SimpleStat essenceCost = new SimpleStat(StatName.EssenceCost, Data.resourceCost);
-        //    Stats.AddStat(essenceCost);
-        //}
-
     }
 
     private void SetupChildAbilities() {

@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 6
     abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
     abilityName: Arcane Missiles
-    abilityDescription: Whnever you use a non-Weapon Skill, fire {SC} Arcane Missiles
-      which seek forward.
+    abilityDescription: Whnever you use an Active Skill, you have a chance based
+      on the Cooldown of that Skill to fire {SC} Arcane Missiles which seek forward.
     resourceCost: 35
     toBestow: 0
     suspend: 0
@@ -27,6 +27,7 @@ MonoBehaviour:
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
+    normalizedProcRate: 1
     runeAbilityTarget: 
     childAbilities: []
     tags: 1600000008000000
@@ -47,6 +48,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -59,6 +62,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -87,6 +91,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -99,6 +105,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -119,50 +126,14 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
-        - type: 17
-          inverse: 1
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 21
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
         - type: 29
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -175,6 +146,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -251,6 +223,11 @@ MonoBehaviour:
     - variant: 0
       statName: 15
       value: 0
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 65
+      value: 1
       maxValue: 0
       minValue: 0
     recoveryData: []
