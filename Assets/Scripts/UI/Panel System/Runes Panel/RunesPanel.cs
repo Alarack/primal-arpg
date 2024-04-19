@@ -16,6 +16,8 @@ public class RunesPanel : BasePanel {
 
     [Header("Text Fields")]
     public TextMeshProUGUI skillNameText;
+    public TextMeshProUGUI skillLevelText;
+    public TextMeshProUGUI availableSkillPointsText;
 
     [Header("Skill Entry Display")]
     public SkillEntry skillEntry;
@@ -45,6 +47,7 @@ public class RunesPanel : BasePanel {
         this.CurrentAbility = ability;
         skillEntry.Setup(ability, SkillEntry.SkillEntryLocation.RunePanel, false);
         skillNameText.text = CurrentAbility.Data.abilityName;
+        UpdateTextFields();
         SetupRuneSlots();
         PopulateInventory();
         CreateRuneGroups();
@@ -68,6 +71,23 @@ public class RunesPanel : BasePanel {
                 inventoryEntries[i].Setup(currentSkillRunes[i], this, ItemSlot.Inventory);
             }
             //CreateSkillRuneSlot(currentSkillRunes[i], inventoryHolder, inventoryEntries, ItemSlot.Inventory);
+        }
+    }
+
+    private void UpdateTextFields() {
+        string levelText = CurrentAbility.AbilityLevel < 3 ? "Level - " + CurrentAbility.AbilityLevel.ToString() : "Level - MAX";
+
+
+        skillLevelText.text = levelText;
+        availableSkillPointsText.text = "Available Skill Point: " + EntityManager.ActivePlayer.Stats[StatName.SkillPoint];
+
+    }
+
+    private void OnSkillLevelUp() {
+        UpdateTextFields();
+        
+        for (int i = 0; i < runeGroupEntries.Count; i++) {
+            runeGroupEntries[i].UpdateLockout();
         }
     }
 
@@ -131,6 +151,25 @@ public class RunesPanel : BasePanel {
         entry.gameObject.SetActive(true);
         entry.Setup(item, this, slot);
         list.Add(entry);
+    }
+
+
+
+    public void OnLevelUpClicked() {
+        
+        if(CurrentAbility.AbilityLevel == 3) {
+            return;
+        }
+        
+        float skillPoints = EntityManager.ActivePlayer.Stats[StatName.SkillPoint];
+        if(skillPoints < 1f) {
+            return;
+        }
+        StatAdjustmentManager.AdjustSkillPoints(EntityManager.ActivePlayer, -1f);
+
+        CurrentAbility.LevelUp();
+        OnSkillLevelUp();
+
     }
 
 }

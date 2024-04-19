@@ -25,8 +25,20 @@ MonoBehaviour:
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
+    recastOnChannelCost: 0
+    normalizedProcRate: 0
     runeAbilityTarget: 
     childAbilities: []
+    runeGroupData:
+    - runes:
+      - {fileID: 11400000, guid: f3a84b0ee105bbc428f0c9ed7393c714, type: 2}
+      tier: 1
+    - runes:
+      - {fileID: 11400000, guid: e6335cee18128734499d0384103d1dde, type: 2}
+      tier: 2
+    - runes:
+      - {fileID: 11400000, guid: c3263ef78edcf314892bf77f103092c7, type: 2}
+      tier: 3
     tags: 0e0000000f000000
     activationTriggerData:
     - type: 6
@@ -35,6 +47,7 @@ MonoBehaviour:
       riderEffectName: 
       triggerTimerDuration: 0
       delay1Frame: 0
+      autoActivateTimer: 0
       allConstraints:
       - focus: 4
         constraintData:
@@ -44,6 +57,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -56,6 +71,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -86,6 +102,7 @@ MonoBehaviour:
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -100,6 +117,7 @@ MonoBehaviour:
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -129,6 +147,7 @@ MonoBehaviour:
           riderEffectName: 
           triggerTimerDuration: 0
           delay1Frame: 0
+          autoActivateTimer: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0

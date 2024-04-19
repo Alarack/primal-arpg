@@ -29,6 +29,8 @@ public class Ability {
     public int MaxCharges { get { return Mathf.FloorToInt(Stats.GetStatRangeMaxValue(StatName.AbilityCharge)); } }
     public int RuneSlots { get { return Mathf.FloorToInt(Stats[StatName.AbilityRuneSlots]); } }
 
+    public int AbilityLevel { get; protected set; } = 1;
+
     public List<Item> equippedRunes = new List<Item>();
     public Dictionary<int, List<Item>> runeItemsByTier = new Dictionary<int, List<Item>>();
 
@@ -600,6 +602,14 @@ public class Ability {
     }
 
 
+
+    #endregion
+
+    #region LEVELING
+
+    public void LevelUp() {
+        AbilityLevel++;
+    }
 
     #endregion
 

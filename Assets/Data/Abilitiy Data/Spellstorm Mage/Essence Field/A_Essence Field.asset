@@ -26,8 +26,14 @@ MonoBehaviour:
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
+    normalizedProcRate: 0
     runeAbilityTarget: 
     childAbilities: []
+    runeGroupData:
+    - runes:
+      - {fileID: 11400000, guid: 58689ea7ec91a394582f809691954106, type: 2}
+      - {fileID: 11400000, guid: 32ccbfe181b222d46bba6e71f408c1d5, type: 2}
+      tier: 1
     tags: 16000000
     activationTriggerData:
     - type: 17
@@ -46,6 +52,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -58,6 +66,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -95,6 +104,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -107,6 +118,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 

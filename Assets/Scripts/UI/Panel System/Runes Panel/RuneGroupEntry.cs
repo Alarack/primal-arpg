@@ -12,6 +12,7 @@ public class RuneGroupEntry : MonoBehaviour
 
     [Header("Other UI Bits")]
     public TextMeshProUGUI tierText;
+    public GameObject dimmer;
 
     private RuneChoiceEntry currentChoice;
 
@@ -51,8 +52,15 @@ public class RuneGroupEntry : MonoBehaviour
         }
 
         tierText.text = RuneGroupData.tier.ToString();
+
+       UpdateLockout();
     }
 
+    public void UpdateLockout() {
+        bool unlocked = runesPanel.CurrentAbility.AbilityLevel >= RuneGroupData.tier;
+
+        dimmer.SetActive(!unlocked);
+    }
 
     public void OnChoiceSelected(RuneChoiceEntry choice) {
         currentChoice = choice;

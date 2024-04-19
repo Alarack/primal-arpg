@@ -155,9 +155,14 @@ public static class StatAdjustmentManager {
         return ApplyStatAdjustment(EntityManager.ActivePlayer, mod, mod.TargetStat, mod.VariantTarget, null);
     }
 
-    public static float ApplyStatAdjustment(Entity target, float value, StatName targetStat, StatModType modType, StatModifierData.StatVariantTarget statVariant, object source, Ability sourceAbility, float multiplier = 1f) {
+    public static float ApplyStatAdjustment(Entity target, float value, StatName targetStat, StatModType modType, StatModifierData.StatVariantTarget statVariant, object source, Ability sourceAbility, float multiplier = 1f, bool addMissingStat = false, Entity delivery = null) {
         StatModifier mod = new StatModifier(value, modType, targetStat, source, statVariant);
-        return ApplyStatAdjustment(target, mod, targetStat, statVariant, sourceAbility, multiplier);
+        return ApplyStatAdjustment(target, mod, targetStat, statVariant, sourceAbility, multiplier, addMissingStat, delivery);
+    }
+
+    public static float AdjustSkillPoints(Entity target, float value) {
+        StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.SkillPoint, target, StatModifierData.StatVariantTarget.Simple);
+        return ApplyStatAdjustment(target, mod,StatName.SkillPoint, StatModifierData.StatVariantTarget.Simple, null, 1f, true, null);
     }
 
     //public static float DealDamageOrHeal(Entity target, float value, object source, Ability sourceAbility, float multiplier = 1f) {

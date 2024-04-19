@@ -1663,7 +1663,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5652509068282687571, guid: 91e2d638678590743a750a57fff09de1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6221008126277992790, guid: 91e2d638678590743a750a57fff09de1, type: 3}
       propertyPath: m_RootOrder
@@ -11844,7 +11844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5652509068282687571, guid: 91e2d638678590743a750a57fff09de1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6221008126277992790, guid: 91e2d638678590743a750a57fff09de1, type: 3}
       propertyPath: m_RootOrder
@@ -12498,7 +12498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5652509068282687571, guid: 91e2d638678590743a750a57fff09de1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6221008126277992790, guid: 91e2d638678590743a750a57fff09de1, type: 3}
       propertyPath: m_RootOrder
@@ -12748,31 +12748,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 887f025240c0f0c4085260a445586676, type: 2}
   - {fileID: 11400000, guid: 46324e51e9dcc1245bc2cbfd8b59bf8d, type: 2}
   testItems:
-  - {fileID: 11400000, guid: 15e6ae281eca3f94dbb7c908772d4cb4, type: 2}
-  - {fileID: 11400000, guid: 5d19eaf6d6186874db2cd1b53fd0e805, type: 2}
   - {fileID: 11400000, guid: 42b787de66fa5084291f03179b586b74, type: 2}
-  - {fileID: 11400000, guid: 505ca33a6cac1b148ad0763c73755801, type: 2}
-  - {fileID: 11400000, guid: 036412feb2b66e54f9d3de6de746b1f0, type: 2}
-  - {fileID: 11400000, guid: 191228c6e992aef47930feb799d9db94, type: 2}
-  - {fileID: 11400000, guid: 57cefa56d064d89409788bc970dffa6d, type: 2}
-  - {fileID: 11400000, guid: 26836a83844a60545a4bc7ef0f4a9814, type: 2}
-  - {fileID: 11400000, guid: 27b8d88f9542a88448394836562b4148, type: 2}
-  - {fileID: 11400000, guid: c3263ef78edcf314892bf77f103092c7, type: 2}
-  - {fileID: 11400000, guid: d0b4a4641958f8e4a925bdc19eecb26f, type: 2}
-  - {fileID: 11400000, guid: e6335cee18128734499d0384103d1dde, type: 2}
-  - {fileID: 11400000, guid: 4578c6cb3b8c4884d94f33ff389709ee, type: 2}
-  - {fileID: 11400000, guid: 65d8acedbbd178c41b761da96c899afc, type: 2}
-  - {fileID: 11400000, guid: 712379830daed21459a3b2e920e83219, type: 2}
-  - {fileID: 11400000, guid: e602cdcf4eec5204da6ea0e88677e9ac, type: 2}
-  - {fileID: 11400000, guid: 5f2ab723f084e7b4e851941b22a880a3, type: 2}
-  - {fileID: 11400000, guid: e5475fac560ba144989315e55878dcca, type: 2}
-  - {fileID: 11400000, guid: 753751ab228ecfc4ea579c0567e699b9, type: 2}
-  - {fileID: 11400000, guid: f1d4592c905804c4cac90cbdfdd544df, type: 2}
-  - {fileID: 11400000, guid: 3427d8af92180ab4d829e2c2f232bd7b, type: 2}
-  - {fileID: 11400000, guid: 007564d23963b034193d0fbf23c892d7, type: 2}
-  - {fileID: 11400000, guid: cd212a1c7a2bb1046a3485ccc2652a0e, type: 2}
-  - {fileID: 11400000, guid: 513ea4df4ac71b64d9b4a18ddc37883d, type: 2}
-  - {fileID: 11400000, guid: 491c52192d824e8418b897335f62dcb3, type: 2}
   pickupPrefab: {fileID: 777966188710461411, guid: 8809ef3536d1e574e9eccf68d35e5f08, type: 3}
   coinPickupPrefab: {fileID: 4481293274202257508, guid: 4886ae56ae035f949839f56ebc45901d, type: 3}
   expPickupPrefab: {fileID: 2448004172980267282, guid: 41e4ab46877027447b2437fd7bcd0084, type: 3}
@@ -13147,6 +13123,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2793336054376379122, guid: ef2b9f03d50204a4da96456d272a8d60, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3343870433488739085, guid: ef2b9f03d50204a4da96456d272a8d60, type: 3}
       propertyPath: m_Name
       value: Runes Panel
@@ -13154,6 +13134,10 @@ PrefabInstance:
     - target: {fileID: 3343870433488739085, guid: ef2b9f03d50204a4da96456d272a8d60, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505241057744869375, guid: ef2b9f03d50204a4da96456d272a8d60, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -554.04004
       objectReference: {fileID: 0}
     - target: {fileID: 6139457846627175005, guid: ef2b9f03d50204a4da96456d272a8d60, type: 3}
       propertyPath: m_AnchoredPosition.x

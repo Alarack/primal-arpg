@@ -67,6 +67,19 @@ public class Inventory : MonoBehaviour {
         return results;
     }
 
+    public List<Item> GetGenericRunes() {
+        List<Item> results = new List<Item>();
+        List<Item> allRunes = GetItems(ItemType.Rune, false);
+
+        for (int i = 0; i < allRunes.Count; i++) {
+            if (string.IsNullOrEmpty( allRunes[i].Data.runeAbilityTarget) == true) {
+                results.Add(allRunes[i]);
+            }
+        }
+
+        return results;
+    }
+
     public bool ItemOwned(Item item) {
         return ownedItems.Contains(item);
     }

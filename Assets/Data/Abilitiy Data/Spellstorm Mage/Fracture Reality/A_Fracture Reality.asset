@@ -27,8 +27,17 @@ MonoBehaviour:
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 1
+    normalizedProcRate: 0
     runeAbilityTarget: 
     childAbilities: []
+    runeGroupData:
+    - runes:
+      - {fileID: 11400000, guid: 15e6ae281eca3f94dbb7c908772d4cb4, type: 2}
+      - {fileID: 11400000, guid: 5d19eaf6d6186874db2cd1b53fd0e805, type: 2}
+      tier: 1
+    - runes:
+      - {fileID: 11400000, guid: 27b8d88f9542a88448394836562b4148, type: 2}
+      tier: 2
     tags: 170000000800000012000000
     activationTriggerData:
     - type: 6

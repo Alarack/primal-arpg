@@ -333,6 +333,7 @@ public abstract class Entity : MonoBehaviour {
         levelsStored++;
         Stats.AddMaxValueModifier(StatName.Experience, 0.1f, StatModType.PercentMult, this);
         Stats.EmptyStatRange(StatName.Experience, this);
+        StatAdjustmentManager.AdjustSkillPoints(this, 1f);
 
         EventData data = new EventData();
         data.AddEntity("Target", this);
