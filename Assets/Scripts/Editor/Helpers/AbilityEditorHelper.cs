@@ -62,6 +62,12 @@ public static class AbilityEditorHelper {
 
         EditorGUILayout.EndVertical();
 
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("Rune Groups: ", EditorStyles.boldLabel);
+
+        entry.runeGroupData = EditorHelper.DrawExtendedList(entry.runeGroupData, "Group", DrawRuneGroupData);
+
+        EditorGUILayout.EndVertical();
 
         EditorGUILayout.BeginVertical(GUI.skin.box);
         GUILayout.Label("Activation Triggers: ", EditorStyles.boldLabel);
@@ -123,6 +129,20 @@ public static class AbilityEditorHelper {
         AbilityDefinition result = EditorHelper.ObjectField(list[index]);
 
         return result;
+    }
+
+    public static ItemDefinition DrawItemDefinitionList(List<ItemDefinition> list, int index) {
+        ItemDefinition result = EditorHelper.ObjectField(list[index]);
+        return result;
+    }
+
+    public static AbilityRuneGroupData DrawRuneGroupData(AbilityRuneGroupData entry) {
+        entry.tier = EditorGUILayout.IntField("Tier", entry.tier);
+        entry.runes = EditorHelper.DrawList("Runes", entry.runes, null, DrawItemDefinitionList);
+
+
+
+        return entry;
     }
 
     public static TriggerData DrawTriggerData(TriggerData entry) {

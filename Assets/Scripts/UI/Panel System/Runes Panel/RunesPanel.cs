@@ -10,6 +10,10 @@ public class RunesPanel : BasePanel {
     public Transform inventoryHolder;
     public Transform runeSlotHolder;
 
+    [Header("Rune Group Template")]
+    public RuneGroupEntry runeGrouptemplate;
+    public Transform runeGroupHolder;
+
     [Header("Text Fields")]
     public TextMeshProUGUI skillNameText;
 
@@ -20,6 +24,7 @@ public class RunesPanel : BasePanel {
 
     private List<SkillRuneEntry> inventoryEntries = new List<SkillRuneEntry>();
     private List<SkillRuneEntry> skillRuneEntries = new List<SkillRuneEntry>();
+    private List<RuneGroupEntry> runeGroupEntries = new List<RuneGroupEntry>();
 
 
     private List<Item> currentSkillRunes = new List<Item>();
@@ -27,6 +32,7 @@ public class RunesPanel : BasePanel {
     protected override void Awake() {
         base.Awake();
         inventoryEntryTemplate.gameObject.SetActive(false);
+        runeGrouptemplate.gameObject.SetActive(false);
         //CreateEmptySlots();
     }
 
@@ -41,6 +47,7 @@ public class RunesPanel : BasePanel {
         skillNameText.text = CurrentAbility.Data.abilityName;
         SetupRuneSlots();
         PopulateInventory();
+        CreateRuneGroups();
     }
 
     private void CreateEmptySlots() {
@@ -61,6 +68,15 @@ public class RunesPanel : BasePanel {
                 inventoryEntries[i].Setup(currentSkillRunes[i], this, ItemSlot.Inventory);
             }
             //CreateSkillRuneSlot(currentSkillRunes[i], inventoryHolder, inventoryEntries, ItemSlot.Inventory);
+        }
+    }
+
+    private void CreateRuneGroups() {
+
+        runeGroupEntries.PopulateList(CurrentAbility.Data.runeGroupData.Count,  runeGrouptemplate, runeGroupHolder, true);
+        
+        for (int i = 0; i < runeGroupEntries.Count; i++) {
+            runeGroupEntries[i].Setup(this, CurrentAbility.Data.runeGroupData[i]);
         }
     }
 

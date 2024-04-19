@@ -140,6 +140,7 @@ public class AbilityData
     public string runeAbilityTarget;
 
     public List<AbilityDefinition> childAbilities = new List<AbilityDefinition>();
+    public List<AbilityRuneGroupData> runeGroupData = new List<AbilityRuneGroupData>();
 
     public List<AbilityTag> tags = new List<AbilityTag>();
 

@@ -30,6 +30,8 @@ public class Ability {
     public int RuneSlots { get { return Mathf.FloorToInt(Stats[StatName.AbilityRuneSlots]); } }
 
     public List<Item> equippedRunes = new List<Item>();
+    public Dictionary<int, List<Item>> runeItemsByTier = new Dictionary<int, List<Item>>();
+
 
     protected List<AbilityTrigger> activationTriggers = new List<AbilityTrigger>();
     protected List<AbilityTrigger> endTriggers = new List<AbilityTrigger>();
@@ -71,6 +73,7 @@ public class Ability {
         SetupEffects();
 
         SetupChildAbilities();
+        SetupRuneItems();
 
         SetupIgnoreCasting();
         SetupChannelTimer();
@@ -125,6 +128,21 @@ public class Ability {
     private void SetupChildAbilities() {
         for (int i = 0; i < Data.childAbilities.Count; i++) {
             AddChildAbility(Data.childAbilities[i]);
+        }
+    }
+
+    private void SetupRuneItems() {
+        foreach (AbilityRuneGroupData runeDataGroup in Data.runeGroupData) {
+            foreach (ItemDefinition runedata in runeDataGroup.runes) {
+                Item runeItem = ItemFactory.CreateItem(runedata.itemData, EntityManager.ActivePlayer);
+
+                if(runeItemsByTier.TryGetValue(runeDataGroup.tier, out List<Item> runeItems) == true) {
+                    runeItemsByTier[runeDataGroup.tier].Add(runeItem);
+                }
+                else {
+                    runeItemsByTier.Add(runeDataGroup.tier, new List<Item> { runeItem });
+                }
+            }
         }
     }
 
