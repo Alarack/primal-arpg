@@ -54,7 +54,14 @@ public class RuneChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
     #region UI CALLBACKS
 
     public void OnPointerClick(PointerEventData eventData) {
-        parentGroup.OnChoiceSelected(this);
+       
+        if(eventData.button == PointerEventData.InputButton.Left) {
+            parentGroup.OnChoiceSelected(this);
+        }
+
+        if(eventData.button == PointerEventData.InputButton.Right) {
+            Deselect();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData) {

@@ -15,6 +15,7 @@ MonoBehaviour:
   devItem: 0
   itemData:
     Type: 2
+    affixStatTarget: 1
     entityClass: 0
     itemName: Piercing Star Rune
     itemDescription: 
@@ -22,9 +23,11 @@ MonoBehaviour:
     runeAbilityTarget: Arcane Missiles
     validSlots: 0e000000
     abilityTags: 
-    itemIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
-    pickupIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
+    itemIcon: {fileID: 21300000, guid: 065a64940d8e6bf498e40caeb780ba0b, type: 3}
+    pickupIcon: {fileID: 21300000, guid: 065a64940d8e6bf498e40caeb780ba0b, type: 3}
     pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
     statModifierData: []
