@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
 using TMPro;
-using static UnityEditor.Progress;
 using UnityEngine.UI;
 
 public class HUDPanel : BasePanel
@@ -16,6 +15,7 @@ public class HUDPanel : BasePanel
     public TextMeshProUGUI currentXPText;
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI stockPileText;
+    public GameObject levelUpButton;
 
     [Header("Globes")]
     public ResourceGlobeDisplay healthGlobe;
@@ -86,9 +86,11 @@ public class HUDPanel : BasePanel
     public void UpdateStockpile() {
         if (EntityManager.ActivePlayer.levelsStored > 0) {
             stockPileText.text = "Stockpile: " + EntityManager.ActivePlayer.levelsStored;
+            levelUpButton.SetActive(true);
         }
         else {
             stockPileText.text = "";
+            levelUpButton.SetActive(false);
         }
     }
 
@@ -108,6 +110,22 @@ public class HUDPanel : BasePanel
 
 
         currentXPText.text = currentEXP + "/" + maxEXP;
+    }
+
+
+
+    public void OnLevelUpClicked() {
+        if(EntityManager.ActivePlayer.levelsStored > 0) {
+            PanelManager.OpenPanel<LevelUpPanel>();
+        }
+    }
+
+    public void OnSkillsClicked() {
+        PanelManager.TogglePanel<SkillsPanel>();
+    }
+
+    public void OnInventoryClicked() {
+        PanelManager.TogglePanel<InventoryPanel>();
     }
 
 }

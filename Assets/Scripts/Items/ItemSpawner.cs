@@ -57,7 +57,14 @@ public class ItemSpawner : Singleton<ItemSpawner>
             int threat = (int)NPCDataManager.GetThreatLevel(target.EntityName);
 
             SpawnCoins(threat, target.transform.position, threat, threat * 3);
-            SpawnEXP(threat, target.transform.position, 1f, 1f);
+
+            float expValue = threat / 1.5f;
+            //Debug.Log("EXP from: " +  target.EntityName + " : "  + expValue);
+
+            if(expValue > 0f) {
+                SpawnEXP(threat, target.transform.position, 1f, Mathf.Min(1f, expValue));
+            }
+
         }
     }
 

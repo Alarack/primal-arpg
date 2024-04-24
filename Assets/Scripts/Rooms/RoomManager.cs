@@ -51,8 +51,15 @@ public class RoomManager : Singleton<RoomManager> {
             
             AdjustDifficulty(1f);
 
+            //CheckLevelUp();
         }
 
+    }
+
+    public static void CheckLevelUp() {
+        if(EntityManager.ActivePlayer.levelsStored > 0) {
+            Debug.Log("Show Level Up panel");
+        }
     }
 
     public static void AdjustDifficulty(float difficulty) {
@@ -67,7 +74,7 @@ public class RoomManager : Singleton<RoomManager> {
         PanelManager.OpenPanel<TextDisplayPanel>().Setup("Choose a Room");
 
 
-        List<ItemType> rewardTypes = new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Rune };
+        List<ItemType> rewardTypes = new List<ItemType> { ItemType.Skill, ItemType.Equipment/*, ItemType.Rune*/ };
 
         rewardTypes.Shuffle();
 
@@ -290,6 +297,8 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     public static void CreateRewards(List<ItemDefinition> rewardItems, string displayText, bool multiReward = false, bool shopMode = false) {
+        CheckLevelUp();
+        
         MultiReward = multiReward;
 
         PanelManager.OpenPanel<TextDisplayPanel>().Setup(displayText);
