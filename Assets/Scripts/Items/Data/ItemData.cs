@@ -45,6 +45,7 @@ public class ItemData
     public Entity.EntityClass entityClass;
     public string itemName;
     public string itemDescription;
+    public string secondaryDescription;
     public float itemValue;
     public string runeAbilityTarget;
     public List<ItemSlot> validSlots = new List<ItemSlot>();
@@ -61,6 +62,7 @@ public class ItemData
     public List<StatModifierData> statModifierData = new List<StatModifierData>();
     public List<AbilityDefinition> abilityDefinitions = new List<AbilityDefinition>();
     public List<AbilityDefinition> learnableAbilities = new List<AbilityDefinition>();
+    public List<AbilityDefinition> classPreviewAbilities = new List<AbilityDefinition>();
     //public List<AbilityData> abilityData = new List<AbilityData>();
 
     //[System.NonSerialized]

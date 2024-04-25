@@ -10,6 +10,7 @@ public class MainMenuPanel : BasePanel
 
     public void OnStartGameClicked() {
         EntityManager.Instance.CreatePlayer();
+        
         Close();
     }
 

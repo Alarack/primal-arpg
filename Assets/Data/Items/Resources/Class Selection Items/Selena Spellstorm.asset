@@ -10,15 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Soellstorm Mage
+  m_Name: Selena Spellstorm
   m_EditorClassIdentifier: 
   devItem: 0
   itemData:
     Type: 5
+    affixStatTarget: 1
     entityClass: 2
-    itemName: Spellstorm Mage
-    itemDescription: <i>Through sheer magical mastery and arcane elegance, I shall
-      prevail!</b>
+    itemName: Selena
+    itemDescription: Wielding the very essence of magic with deftness and finnese,
+      Selena is a Spellstorm Mage, a maven of the Arcane Arts.
+    secondaryDescription: '- Fast Spells<br>- Medium Complexity<br>- Arcane, Time,
+      Space, and Void Magic'
     itemValue: 0
     runeAbilityTarget: 
     validSlots: 0f000000
@@ -26,9 +29,16 @@ MonoBehaviour:
     itemIcon: {fileID: 21300000, guid: 60d9a35f459ded94b963aed12390f07e, type: 3}
     pickupIcon: {fileID: 21300000, guid: 60d9a35f459ded94b963aed12390f07e, type: 3}
     pickupOnCollision: 0
+    tier: 0
+    baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
     statModifierData: []
     abilityDefinitions:
     - {fileID: 11400000, guid: d64321cba43052b4e82289a80c780a59, type: 2}
     learnableAbilities: []
+    classPreviewAbilities:
+    - {fileID: 11400000, guid: 7f691484a546f384081e5e10d5009018, type: 2}
+    - {fileID: 11400000, guid: 8ab2ea3a2b6fc0143a95ffe4cdd5dc71, type: 2}
+    - {fileID: 11400000, guid: 5d61b22b053d1b346b92ea05c07d8773, type: 2}
+    - {fileID: 11400000, guid: 527a6817eaf912c4ea468999013b9bf7, type: 2}

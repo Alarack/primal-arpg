@@ -176,6 +176,7 @@ public class EntityManager : Singleton<EntityManager> {
         if (ActivePlayer == null)
             Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
 
+        PanelManager.OpenPanel<CharacterSelectPanel>();
 
         new Task(OpenDefaultPanels());
     }
@@ -183,10 +184,13 @@ public class EntityManager : Singleton<EntityManager> {
     private IEnumerator OpenDefaultPanels() {
         yield return new WaitForEndOfFrame();
 
+
+        
         PanelManager.ClosePanel<InventoryPanel>();
         PanelManager.ClosePanel<SkillsPanel>();
         PanelManager.OpenPanel<HotbarPanel>();
         PanelManager.OpenPanel<HUDPanel>();
+        
 
         //RoomManager.CreateRewards(RoomManager.Instance.testRewardItems);
 
@@ -196,8 +200,10 @@ public class EntityManager : Singleton<EntityManager> {
 
     private void TestingProcGenThings() {
 
-        Room startingRoom = RoomManager.CreateRoom(Room.RoomType.StartRoom, 0f);
-        RoomManager.Instance.OnPortalEntered(startingRoom);
+        //Room startingRoom = RoomManager.CreateRoom(Room.RoomType.StartRoom, 0f);
+        //RoomManager.Instance.OnPortalEntered(startingRoom);
+
+        
 
 
         //List<ItemDefinition> results = new List<ItemDefinition>();

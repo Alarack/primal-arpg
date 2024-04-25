@@ -127,10 +127,10 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     private Room.RoomType GetRoomType() {
-        if (Instance.currentRoomIndex % 2 == 0)
+        if (Instance.currentRoomIndex % 2 == 0 && Instance.currentRoomIndex != 0)
             return Room.RoomType.ItemShop;
 
-        if (Instance.currentRoomIndex % 5 == 0)
+        if (Instance.currentRoomIndex % 5 == 0 && Instance.currentRoomIndex != 0)
             return Room.RoomType.BossRoom;
 
         return Room.RoomType.EliminationCombat;
@@ -163,46 +163,46 @@ public class RoomManager : Singleton<RoomManager> {
 
 
 
-    public static Room GenerateRoom(ItemType rewardType = ItemType.None, AbilityTag rewardTag = AbilityTag.None, ItemSlot rewardSlot = ItemSlot.None, float difficultyMod = 0f) {
+    //public static Room GenerateRoom(ItemType rewardType = ItemType.None, AbilityTag rewardTag = AbilityTag.None, ItemSlot rewardSlot = ItemSlot.None, float difficultyMod = 0f) {
 
 
-        Room room = Instance.currentRoomIndex switch {
-            0 => CreateRoom(Room.RoomType.StartRoom, rewardType, rewardTag, rewardSlot, difficultyMod),
-            5 => CreateRoom(Room.RoomType.MiniBossRoom, rewardType, rewardTag, rewardSlot, difficultyMod),
-            10 => CreateRoom(Room.RoomType.BossRoom, rewardType, rewardTag, rewardSlot, difficultyMod),
+    //    Room room = Instance.currentRoomIndex switch {
+    //        0 => CreateRoom(Room.RoomType.StartRoom, rewardType, rewardTag, rewardSlot, difficultyMod),
+    //        5 => CreateRoom(Room.RoomType.MiniBossRoom, rewardType, rewardTag, rewardSlot, difficultyMod),
+    //        10 => CreateRoom(Room.RoomType.BossRoom, rewardType, rewardTag, rewardSlot, difficultyMod),
 
-            _ => CreateRandomRoom(rewardType, rewardTag, rewardSlot, difficultyMod),
-        };
+    //        _ => CreateRandomRoom(rewardType, rewardTag, rewardSlot, difficultyMod),
+    //    };
 
-        return room;
-    }
+    //    return room;
+    //}
 
-    public static Room CreateRandomRoom(ItemType rewardType = ItemType.None, AbilityTag rewardTag = AbilityTag.None, ItemSlot rewardSlot = ItemSlot.None, float difficultyMod = 0f) {
+    //public static Room CreateRandomRoom(ItemType rewardType = ItemType.None, AbilityTag rewardTag = AbilityTag.None, ItemSlot rewardSlot = ItemSlot.None, float difficultyMod = 0f) {
 
-        Room.RoomType[] allTypes = System.Enum.GetValues(typeof(Room.RoomType)) as Room.RoomType[];
+    //    Room.RoomType[] allTypes = System.Enum.GetValues(typeof(Room.RoomType)) as Room.RoomType[];
 
-        List<Room.RoomType> excludedTypes = new List<Room.RoomType> {
-            Room.RoomType.StartRoom,
-            Room.RoomType.BossRoom,
-            Room.RoomType.MiniBossRoom,
-            Room.RoomType.SecretRoom
-        };
+    //    List<Room.RoomType> excludedTypes = new List<Room.RoomType> {
+    //        Room.RoomType.StartRoom,
+    //        Room.RoomType.BossRoom,
+    //        Room.RoomType.MiniBossRoom,
+    //        Room.RoomType.SecretRoom
+    //    };
 
-        List<Room.RoomType> validTypes = new List<Room.RoomType>();
+    //    List<Room.RoomType> validTypes = new List<Room.RoomType>();
 
-        for (int i = 0; i < allTypes.Length; i++) {
-            if (excludedTypes.Contains(allTypes[i])) {
-                continue;
-            }
+    //    for (int i = 0; i < allTypes.Length; i++) {
+    //        if (excludedTypes.Contains(allTypes[i])) {
+    //            continue;
+    //        }
 
-            validTypes.Add(allTypes[i]);
-        }
+    //        validTypes.Add(allTypes[i]);
+    //    }
 
-        int randomIndex = Random.Range(0, validTypes.Count);
+    //    int randomIndex = Random.Range(0, validTypes.Count);
 
-        return CreateRoom(validTypes[randomIndex], rewardType, rewardTag, rewardSlot, difficultyMod);
+    //    return CreateRoom(validTypes[randomIndex], rewardType, rewardTag, rewardSlot, difficultyMod);
 
-    }
+    //}
 
     public static Room CreateRoom(Room.RoomType roomType, ItemType rewardType = ItemType.None, AbilityTag rewardTag = AbilityTag.None, ItemSlot rewardSlot = ItemSlot.None, float difficultyModifier = 0f) {
 
