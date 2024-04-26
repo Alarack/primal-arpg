@@ -36,6 +36,7 @@ public class CharacterSelectPanel : BasePanel
 
     public void OnClassSelected(CharacterChoiceEntry entry) {
         ItemSpawner.SpawnItem(entry.ClassItem, transform.position, true);
+        ItemSpawner.SpawnItem(entry.ChosenItem, transform.position, true);
         Close();
 
         RoomManager.SpawnRoomPortals();

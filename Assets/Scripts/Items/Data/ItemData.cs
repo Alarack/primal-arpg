@@ -63,6 +63,7 @@ public class ItemData
     public List<AbilityDefinition> abilityDefinitions = new List<AbilityDefinition>();
     public List<AbilityDefinition> learnableAbilities = new List<AbilityDefinition>();
     public List<AbilityDefinition> classPreviewAbilities = new List<AbilityDefinition>();
+    public List<ItemDefinition> startingItemOptions = new List<ItemDefinition>();
     //public List<AbilityData> abilityData = new List<AbilityData>();
 
     //[System.NonSerialized]
