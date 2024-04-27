@@ -1,0 +1,1425 @@
+fileFormatVersion: 2
+guid: 4da9c700b90cfc644af54f1ceb11ebef
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DGTSet_Bot_Wall
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 924
+        width: 127
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 605f714f89ba26e41b27d4d8a0e2d796
+      internalID: -144748503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Bot_CornerSmall
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 926
+        width: 65
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62de3baef84e9cf48b4a0da43f70c535
+      internalID: 1110834338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Side_WallNotch
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 760
+        width: 63
+        height: 164
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3ed5624af6b4bf49849e7baf5f59e90
+      internalID: -1727525292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Bot_Corner
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 775
+        width: 127
+        height: 147
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a71514f028713f04fbd135395766090d
+      internalID: 424863990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_TopCorner
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 609
+        width: 128
+        height: 164
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 102215ef8fefe1d41b33cb596bd53853
+      internalID: 1442461558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Side_Wall
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 574
+        width: 33
+        height: 181
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00e6ae76c25264d4f8e64fb12dbf1d58
+      internalID: 36781381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Top_Wall
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 536
+        width: 127
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88c0fba98a2b0e2458b063f1d6163bc0
+      internalID: 1896711404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Top_Door
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 500
+        width: 64
+        height: 71
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 573b658628ea0d24185b90fd1ae1d92f
+      internalID: -427966721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Side_Door
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 427
+        width: 33
+        height: 105
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f892ae05b9d4cd344ba8e8ab4c756728
+      internalID: -1369969000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Top_Notch
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 427
+        width: 65
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63d151a0e9a281642aacd21f6055480c
+      internalID: 797983004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Bot_Door
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 427
+        width: 64
+        height: 71
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dd67979bbedd50428bb9830bc7daf9b
+      internalID: -938553651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Stonepile1
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 978
+        width: 88
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efe89828a23893c48a7dad62fc0788c5
+      internalID: -424968789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Stonepile3
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 946
+        width: 76
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a156dec58a4cf9469a5ff0d538799b5
+      internalID: 1031905236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Stonepile2
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 990
+        width: 82
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28cb794b55135c5468a70d274a804e5c
+      internalID: -1629767195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Stonepile4
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 927
+        width: 66
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e8bbe68bf7ca0b49b8c7c405b0dd3ee
+      internalID: -429346994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Stonepile5
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 897
+        width: 70
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d46abcb3f7dac04bb85d5d347db5ef3
+      internalID: -571588235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Pillar_Large1
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 887
+        width: 98
+        height: 135
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcb92bbd4cd77fb4fb45adb22403ee03
+      internalID: -1927283278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Pillar_Large2
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 887
+        width: 98
+        height: 135
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bbc14684360538419f1d3fc7e0c04ba
+      internalID: -417997014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Pillar_Large3
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 887
+        width: 99
+        height: 135
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 280b2341a4bd31140a1b2cced25c2610
+      internalID: -677169571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Pillar_Small1
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 873
+        width: 50
+        height: 148
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c26e555043f04d4188c2169cf65f273
+      internalID: 640527438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Pillar_Small2
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 874
+        width: 50
+        height: 148
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbaa523bc52ecf14abe7b8e8ea1ed846
+      internalID: 1081101687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Pillar_Small3
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 874
+        width: 50
+        height: 148
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46db5938f5624c44bbdb7dac942758f5
+      internalID: -245402835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_MagicCircle1
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 715
+        width: 193
+        height: 157
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5f0281cc865b6749b600eb0d2c5d6be
+      internalID: 691641758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_GrateHorizontal
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 652
+        width: 64
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30cd18f5287b4734daa6c8c764e8e129
+      internalID: 34384922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTile
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 598
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a80846ff22f9ba14a994a7ac15b5faa5
+      internalID: 1764222883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_Pillar_CornerShadow
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 0
+        width: 407
+        height: 252
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03fb2858e4ad5634fb4455ba08bdac90
+      internalID: 11197381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_MagicCircleLit1
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 760
+        width: 151
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e97719173158279469a4aa31af4773d3
+      internalID: -1657713375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal2
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 492
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74088743c3f32b841a472672d2f251de
+      internalID: 93598783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal1
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 544
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0a5370b23aa5f647a2940f195163e94
+      internalID: -299675982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal3
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 544
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9c18b381ef12754da87f402ac11dd98
+      internalID: 1315196273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal4
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 492
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 698fddda01a03c84c90f7bdfc153370b
+      internalID: 676817086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal5
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 544
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 243b31768410cb940a5dec64b4cd38e5
+      internalID: 1319510153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal7
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 544
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: decba3ce6e7830b4abe22fceda24f647
+      internalID: 528255464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal6
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 492
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e07260007d5d5584398ee824b4a736e2
+      internalID: -1663760723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal8
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 492
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74dd39d5cad78854699d9cf0fef1b0f1
+      internalID: -1520407594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal10
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 492
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06b769b3f77bb374db628514deeaf8fe
+      internalID: 1908190651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal9
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 544
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c14fec76ddd63e34fbafd8a379e10446
+      internalID: 228013133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal11
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 544
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc35cf785408839429a9c185b4ec9277
+      internalID: 424705831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal12
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 492
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b2b2de376e59894fb6614c4e640ad8e
+      internalID: 735971303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal14
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 492
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4fe9707a41c0274882f21ce7725e6fd
+      internalID: 687338307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_FloorTileDecal13
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 544
+        width: 64
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 733d5b3666a2f3c4a9935ae61d0b07f7
+      internalID: -750046618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_UnlitCrackDecal5
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 252
+        width: 32
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7405ff29c632304cba7f170048f94ed
+      internalID: -1735538151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_UnlitCrackDecal1
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 254
+        width: 22
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bca780d1e4c3fe842af3f72082316d81
+      internalID: -1366599349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_UnlitCrackDecal2
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 254
+        width: 39
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9ce6b1b5c9f02d4faa6c926063302a1
+      internalID: -669437624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_UnlitCrackDecal3
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 255
+        width: 32
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c57c38792c4bd5045b1a082345ab1b32
+      internalID: 1458006547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_UnlitCrackDecal4
+      rect:
+        serializedVersion: 2
+        x: 951
+        y: 255
+        width: 37
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c58df3fc9971e6448dfc1991fa416b6
+      internalID: -1294523695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_SideCrackDecal1
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 405
+        width: 29
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bca40afe07eb0149b0107aa14a08a57
+      internalID: 604887449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_SideCrackDecal2
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 347
+        width: 28
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0cfda62ea7cfc4429bcf9f4a9ac2ead
+      internalID: -1108989143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_SideCrackDecal3
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 306
+        width: 35
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68f85c2e3e9ca2b478db85838534e677
+      internalID: 1573961390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_LitCrackWallDecal5
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 306
+        width: 31
+        height: 71
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e28b4e9e138c0e428d81f534113f2b5
+      internalID: -302320162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_LitCrackWallDecal4
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 307
+        width: 27
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9cb210c85baf6f41807a18d33c3a1a3
+      internalID: -1260335596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_LitCrackWallDecal3
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 371
+        width: 37
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ba9f38c3e2c9f445b916d68fac82f93
+      internalID: 575818552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_LitCrackWallDecal2
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 306
+        width: 46
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5c1713aa7e6d5f4c92b8c7a41f0c8c1
+      internalID: -1219022770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_LitCrackWallDecal1
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 306
+        width: 34
+        height: 71
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cfa891ab6062404799b1b438ea1f1b0
+      internalID: 1930894346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ARPG_dungeontileset_27
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 383
+        width: 60
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c5ade0630c55cd46bdd71e19fadd525
+      internalID: 609936581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_UnlitCornerDecal
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 408
+        width: 32
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61e87d0fdf5e2c741a70019ffb7de46c
+      internalID: 1677832401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_GrateCorner
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 652
+        width: 64
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a19d83b145b77164eb9e209c960f0fa3
+      internalID: -569124263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_GrateVertical
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 652
+        width: 64
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79f0e7b8237c14747b0789dc5a9c6a13
+      internalID: 70123887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DGTSet_GrateCorner2
+      rect:
+        serializedVersion: 2
+        x: 767
+        y: 652
+        width: 64
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9148a9a555888df42a329045119a17b1
+      internalID: -848547749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5edf71720929eea48a20c3c94072ea43
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      ARPG_dungeontileset_27: 609936581
+      DGTSet_Bot_Corner: 424863990
+      DGTSet_Bot_CornerSmall: 1110834338
+      DGTSet_Bot_Door: -938553651
+      DGTSet_Bot_Wall: -144748503
+      DGTSet_FloorTile: 1764222883
+      DGTSet_FloorTileDecal1: -299675982
+      DGTSet_FloorTileDecal10: 1908190651
+      DGTSet_FloorTileDecal11: 424705831
+      DGTSet_FloorTileDecal12: 735971303
+      DGTSet_FloorTileDecal13: -750046618
+      DGTSet_FloorTileDecal14: 687338307
+      DGTSet_FloorTileDecal2: 93598783
+      DGTSet_FloorTileDecal3: 1315196273
+      DGTSet_FloorTileDecal4: 676817086
+      DGTSet_FloorTileDecal5: 1319510153
+      DGTSet_FloorTileDecal6: -1663760723
+      DGTSet_FloorTileDecal7: 528255464
+      DGTSet_FloorTileDecal8: -1520407594
+      DGTSet_FloorTileDecal9: 228013133
+      DGTSet_GrateCorner: -569124263
+      DGTSet_GrateCorner2: -848547749
+      DGTSet_GrateHorizontal: 34384922
+      DGTSet_GrateVertical: 70123887
+      DGTSet_LitCrackWallDecal1: 1930894346
+      DGTSet_LitCrackWallDecal2: -1219022770
+      DGTSet_LitCrackWallDecal3: 575818552
+      DGTSet_LitCrackWallDecal4: -1260335596
+      DGTSet_LitCrackWallDecal5: -302320162
+      DGTSet_MagicCircle1: 691641758
+      DGTSet_MagicCircleLit1: -98351108
+      DGTSet_Pillar_CornerShadow: 11197381
+      DGTSet_Pillar_Large1: -1927283278
+      DGTSet_Pillar_Large2: -417997014
+      DGTSet_Pillar_Large3: -677169571
+      DGTSet_Pillar_Small1: 640527438
+      DGTSet_Pillar_Small2: 1081101687
+      DGTSet_Pillar_Small3: -245402835
+      DGTSet_SideCrackDecal1: 604887449
+      DGTSet_SideCrackDecal2: -1108989143
+      DGTSet_SideCrackDecal3: 1573961390
+      DGTSet_Side_Door: -1369969000
+      DGTSet_Side_Wall: 36781381
+      DGTSet_Side_WallNotch: -1727525292
+      DGTSet_Stonepile1: -424968789
+      DGTSet_Stonepile2: -1629767195
+      DGTSet_Stonepile3: 1031905236
+      DGTSet_Stonepile4: -429346994
+      DGTSet_Stonepile5: -571588235
+      DGTSet_TopCorner: 1442461558
+      DGTSet_Top_Door: -427966721
+      DGTSet_Top_Notch: 797983004
+      DGTSet_Top_Wall: 1896711404
+      DGTSet_UnlitCornerDecal: 1677832401
+      DGTSet_UnlitCrackDecal1: -1366599349
+      DGTSet_UnlitCrackDecal2: -669437624
+      DGTSet_UnlitCrackDecal3: 1458006547
+      DGTSet_UnlitCrackDecal4: -1294523695
+      DGTSet_UnlitCrackDecal5: -1735538151
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
