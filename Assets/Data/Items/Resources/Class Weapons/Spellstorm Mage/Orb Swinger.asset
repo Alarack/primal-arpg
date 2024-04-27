@@ -15,9 +15,11 @@ MonoBehaviour:
   devItem: 0
   itemData:
     Type: 1
+    affixStatTarget: 1
     entityClass: 0
     itemName: Orb Launcher
-    itemDescription: Launch one of your Arcane Orbitals towrd your cursor.
+    itemDescription: 
+    secondaryDescription: 
     itemValue: 150
     runeAbilityTarget: 
     validSlots: 01000000
@@ -25,9 +27,14 @@ MonoBehaviour:
     itemIcon: {fileID: 21300000, guid: f022cd9e00bbeb1499a7de79555704e1, type: 3}
     pickupIcon: {fileID: 21300000, guid: f022cd9e00bbeb1499a7de79555704e1, type: 3}
     pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
     minDamage: 8
     maxDamage: 10
     statModifierData: []
-    abilityDefinitions: []
-    learnableAbilities:
-    - {fileID: 11400000, guid: 3000214ada31b174d8785ef4f58d07ac, type: 2}
+    abilityDefinitions:
+    - {fileID: 11400000, guid: d64321cba43052b4e82289a80c780a59, type: 2}
+    - {fileID: 11400000, guid: 108016501920aa649bdb10508963924b, type: 2}
+    learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

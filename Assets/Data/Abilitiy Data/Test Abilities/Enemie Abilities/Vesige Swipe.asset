@@ -10,30 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Swing Orb
+  m_Name: Vesige Swipe
   m_EditorClassIdentifier: 
   AbilityData:
     category: 1
-    abilityIcon: {fileID: 21300000, guid: abccb104d2334d64293d8c5e1fa9644a, type: 3}
-    abilityName: Swing Orb Manual
-    abilityDescription: 'Swing one of your Arcane Orbs towards your cursor. '
+    abilityIcon: {fileID: 21300000, guid: 30a055dcfd74c764ebb87cb9029fc952, type: 3}
+    abilityName: Vestige Attack
+    abilityDescription: Slash from beyond
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 1
-    ignoreOtherCasting: 0
+    ignoreOtherCasting: 1
     includeEffectsInTooltip: 0
-    showChildAbilitiesInTooltip: 1
+    showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
     runeAbilityTarget: 
-    childAbilities:
-    - {fileID: 11400000, guid: d595e9a9d083dab42bafd843795d01dd, type: 2}
+    childAbilities: []
     runeGroupData: []
-    tags: 14000000
+    tags: 040000000600000009000000
     activationTriggerData:
-    - type: 6
+    - type: 31
       procChance: 1
       riderAbilityName: 
       riderEffectName: 
@@ -41,9 +40,9 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       allConstraints:
-      - focus: 1
+      - focus: 0
         constraintData:
-        - type: 7
+        - type: 3
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -52,8 +51,8 @@ MonoBehaviour:
           constrainByDelivery: 0
           deliveryConstraint: {fileID: 0}
           minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
+          maxRange: 3
+          rangeToWhat: 11
           ownerTarget: 0
           mostStatTarget: 0
           mostStatEffectName: 
@@ -84,58 +83,7 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
-      - focus: 4
-        constraintData:
-        - type: 7
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-    endTriggerData:
-    - type: 7
-      procChance: 1.5
-      riderAbilityName: 
-      riderEffectName: 
-      triggerTimerDuration: 1
-      delay1Frame: 0
-      autoActivateTimer: 0
-      allConstraints: []
+    endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -167,12 +115,27 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 148245ad2847cae47909cb31dc7647f5, type: 2}
+    - {fileID: 11400000, guid: 5b5708d9e324f02418c6fda82272c73f, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    windupVFX: {fileID: 0}
-    abilityStatData: []
+    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
+    abilityStatData:
+    - variant: 0
+      statName: 42
+      value: 3
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 50
+      value: 0.5
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 41
+      value: 3
+      maxValue: 0
+      minValue: 0
     recoveryData:
     - type: 0
       recoveryTriggers: []
@@ -191,4 +154,4 @@ MonoBehaviour:
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         minTriggerCount: 0
-      cooldown: 0.25
+      cooldown: 0.5
