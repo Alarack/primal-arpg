@@ -26,6 +26,7 @@ public class Bouncer : MonoBehaviour {
 
     [Header("Landing Event")]
     public UnityEvent onGroundHitUnityEvent;
+    public UnityEvent onStickToGround;
 
     private Rigidbody2D rb;
     private Rigidbody2D[] myBodies;
@@ -127,7 +128,10 @@ public class Bouncer : MonoBehaviour {
         IsGrounded = true;
         spriteRenderer.sortingOrder = initalOrder;
 
-        myCollider.enabled = true;
+        if(myCollider != null ) {
+            myCollider.enabled = true;
+            onStickToGround?.Invoke();
+        }
 
     }
 

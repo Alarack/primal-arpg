@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
 
+    public TileDatabase tileDatabase;
 
     public static bool AllowDuiplicatSkills { get { return CheckDuplicateAllowance(); } }
 

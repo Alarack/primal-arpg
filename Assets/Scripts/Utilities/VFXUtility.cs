@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class VFXUtility 
+public class VFXUtility : Singleton<VFXUtility> 
 {
 
-
+    public Debris debrisTemplate;
 
     public static void DesaturateSprite(SpriteRenderer spriteRender, float amount) {
 
@@ -55,5 +55,11 @@ public static class VFXUtility
         return SpawnVFX(prefab, parent.position, parent.rotation, parent, destroyTiemr, scaleModifier);
     }
 
+
+    public static void SpawnDebirs(int count, Vector2 location) {
+        for (int i = 0; i < count; i++) {
+            Instantiate(Instance.debrisTemplate, location, Quaternion.identity);
+        }
+    }
 
 }

@@ -404,6 +404,10 @@ public abstract class Entity : MonoBehaviour {
 
         IsDead = true;
 
+        if (subtypes.Contains(EntitySubtype.Obstical)) {
+            VFXUtility.SpawnDebirs(UnityEngine.Random.Range(8, 15), transform.position);
+        }
+
         EventData data = new EventData();
         data.AddEntity("Victim", this);
         data.AddEntity("Killer", source);
