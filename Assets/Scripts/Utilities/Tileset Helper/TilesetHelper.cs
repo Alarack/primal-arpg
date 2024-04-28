@@ -20,15 +20,15 @@ public class TilesetHelper : MonoBehaviour
         GameObject floorTile = new GameObject();
         SpriteRenderer renderer = floorTile.AddComponent<SpriteRenderer>();
         renderer.sprite = tileDatabase.baseFloorTile;
-        floorTile.layer = spriteOrderInLayer;
+        renderer.sortingOrder = spriteOrderInLayer;
 
         GameObject decal = new GameObject();
         decal.transform.SetParent(floorTile.transform);
         decal.transform.localPosition = Vector2.zero;
-        decal.layer = spriteOrderInLayer;
 
         SpriteRenderer floorDecal = decal.AddComponent<SpriteRenderer>();
         floorDecal.sprite = tileDatabase.GetRandomDecal();
+        floorDecal.sortingOrder = spriteOrderInLayer;
 
         return floorTile;
     }

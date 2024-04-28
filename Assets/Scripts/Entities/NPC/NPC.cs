@@ -92,7 +92,8 @@ public class NPC : Entity
 
         base.Die(source, sourceAbility);
 
-        Brain.TearDownAbilities();
+        if(Brain != null) 
+            Brain.TearDownAbilities();
 
         EntityManager.RemoveEntity(this);
         //EffectManager.RemoveTarget(this);

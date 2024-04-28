@@ -3,6 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AYellowpaper.SerializedCollections;
+using static UnityEditor.Progress;
+
 
 public abstract class Entity : MonoBehaviour {
 
@@ -22,7 +25,8 @@ public abstract class Entity : MonoBehaviour {
         Elite,
         Boss,
         MiniBoss,
-        Orbital
+        Orbital,
+        Obstical
     }
 
     public enum EntityClass {
@@ -49,8 +53,12 @@ public abstract class Entity : MonoBehaviour {
     public StatDataGroup statDefinitions;
 
     [Header("VFX")]
+    public float vfxScalar = 1f;
     public GameObject deathEffectPrefab;
     public GameObject spawnEffectPrefab;
+
+    [SerializedDictionary("Health", "Sprite")]
+    public SerializedDictionary<float, Sprite> spriteProgression = new SerializedDictionary<float, Sprite>();
 
     public EntityMovement Movement { get; private set; }
     public float IsMoving { get { return Movement.IsMoving(); } }
@@ -91,7 +99,10 @@ public abstract class Entity : MonoBehaviour {
     }
 
     protected virtual void Start() {
-        if (entityType != EntityType.Projectile && entityType != EntityType.EffectZone) {
+        if (entityType != EntityType.Projectile 
+            && entityType != EntityType.EffectZone
+            && subtypes.Contains(EntitySubtype.Obstical) == false) {
+            
             EntityManager.RegisterEntity(this);
         }
 
@@ -290,18 +301,58 @@ public abstract class Entity : MonoBehaviour {
         Ability sourceAbility = data.GetAbility("Ability");
         Entity cause = data.GetEntity("Source");
 
+        HandleHealthSpriteChange();
+
         if (Stats[StatName.Health] <= 0) {
             Die(cause, sourceAbility);
         }
-
-
     }
 
-    //protected virtual void OnHealthChanged(BaseStat stat, object source, float value) {
-    //    //if (stat.ModifiedValue <= 0f) {
-    //    //    Die();
-    //    //}
-    //}
+    private void HandleHealthSpriteChange() {
+        if (spriteProgression.Count == 0 || innerSprite == null)
+            return;
+
+        float currentHealthRatio = Stats.GetStatRangeRatio(StatName.Health);
+
+        Sprite target = null;
+        if (currentHealthRatio < 0.75f && currentHealthRatio > 0.5f) {
+            target = spriteProgression[0.75f];
+        }
+
+        if (currentHealthRatio < 0.5f && currentHealthRatio > 0.25f) {
+            target = spriteProgression[0.5f];
+        }
+
+        if (currentHealthRatio < 0.25f) {
+            target = spriteProgression[0.25f];
+        }
+
+        if(innerSprite.sprite != target && target != null) {
+            SpawnDeathVFX();
+            innerSprite.sprite = target;
+        }
+
+
+
+        //float highestThreshold = .75f;
+        //foreach (var item in spriteProgression) {
+        //    if(currentHealthRatio < item.Key) {
+                
+        //        if(highestThreshold > item.Key)
+        //            highestThreshold = item.Key;
+
+
+        //        if (innerSprite.sprite != target) {
+        //            Debug.Log("Heath: " + currentHealthRatio + " threshold: " + highestThreshold);
+
+        //            SpawnDeathVFX();
+        //            innerSprite.sprite = target;
+        //        }
+
+        //    }
+        //}
+
+    }
 
     #endregion
 
@@ -367,16 +418,27 @@ public abstract class Entity : MonoBehaviour {
     #region VFX
 
     protected void SpawnDeathVFX(float scale = 1f) {
-        VFXUtility.SpawnVFX(deathEffectPrefab, transform.position, Quaternion.identity, null, 2f, scale);
+        float desiredScale = vfxScalar;
+
+        if(scale != 1f) {
+            desiredScale = scale;
+        }
+
+        VFXUtility.SpawnVFX(deathEffectPrefab, transform.position, Quaternion.identity, null, 2f, desiredScale);
     }
 
     protected void SpawnEntranceEffect(float scale = 1f) {
-        
+        float desiredScale = vfxScalar;
+
+        if (scale != 1f) {
+            desiredScale = scale;
+        }
+
         //if(spawnEffectPrefab != null)
         //    Debug.LogWarning("Spawing Entrance Effect for: " + EntityName + " : " + spawnEffectPrefab.name);
-        
-        
-        VFXUtility.SpawnVFX(spawnEffectPrefab, transform.position, Quaternion.identity, null, 2f, scale);
+
+
+        VFXUtility.SpawnVFX(spawnEffectPrefab, transform.position, Quaternion.identity, null, 2f, desiredScale);
     }
 
 

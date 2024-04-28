@@ -62,8 +62,11 @@ public class EntityManager : Singleton<EntityManager> {
 
     public static void RemoveEntity(Entity target) {
         if (ActiveEntities.TryGetValue(target.entityType, out List<Entity> results) == true) {
-            results.Remove(target);
+            if(results.RemoveIfContains(target) == false) {
+                return;
+            }
         }
+
 
         //if (ActiveEntities[Entity.EntityType.Enemy].Count == 0) {
         if (Instance.enemiesClearedCheck == null) {
