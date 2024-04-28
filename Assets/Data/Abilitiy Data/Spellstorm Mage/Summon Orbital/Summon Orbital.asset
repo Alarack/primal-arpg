@@ -25,9 +25,12 @@ MonoBehaviour:
     includeEffectsInTooltip: 1
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
+    recastOnChannelCost: 0
+    normalizedProcRate: 0
     runeAbilityTarget: 
     childAbilities: []
-    tags: 0c00000013000000
+    runeGroupData: []
+    tags: 0c000000
     activationTriggerData:
     - type: 7
       procChance: 1
@@ -35,6 +38,7 @@ MonoBehaviour:
       riderEffectName: 
       triggerTimerDuration: 0.5
       delay1Frame: 0
+      autoActivateTimer: 0
       allConstraints:
       - focus: 1
         constraintData: []
@@ -50,6 +54,7 @@ MonoBehaviour:
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -64,6 +69,7 @@ MonoBehaviour:
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0

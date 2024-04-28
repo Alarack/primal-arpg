@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Summon Vestige
+  m_Name: Vestige Damage
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Spawn Vestige
-    effectDescription: Inherits {P} of your Weapon's average damage.
-    type: 10
-    targeting: 0
+    effectName: Vestige Damage
+    effectDescription: 
+    type: 1
+    targeting: 5
     subTarget: 0
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
-    canOverload: 0
+    canOverload: 1
     canAffectDeadTargets: 0
     nonStacking: 0
     onlyShowTooltipInRune: 0
@@ -34,44 +34,65 @@ MonoBehaviour:
     targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
-    payloadPrefab: {fileID: 0}
+    payloadPrefab: {fileID: 5357787465864582416, guid: d503327d1e829df40b60be4a53262018, type: 3}
     payloadCount: 1
     shotDelay: 0.2
-    payloadStatData: []
-    spawnLocation: 1
+    payloadStatData:
+    - variant: 0
+      statName: 41
+      value: 2
+      maxValue: 0
+      minValue: 0
+    spawnLocation: 0
     spawnLocationStart: 0
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
     effectZoneInfo:
       removeEffectOnExit: 0
-      parentEffectToOrigin: 0
+      parentEffectToOrigin: 1
       parentToTarget: 0
-      applyOncePerTarget: 0
+      applyOncePerTarget: 1
       applyOnInterval: 0
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
-      applyVFX: {fileID: 0}
+      applyVFX: {fileID: 5591243758346380215, guid: ca9c94ff75e9802488778534d6dabe07, type: 3}
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData: []
+    modData:
+    - targetStat: 0
+      value: -10
+      modifierType: 0
+      variantTarget: 1
+      modValueSetMethod: 6
+      weaponDamagePercent: 0.75
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 1
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers:
+      - targetStat: 28
+        deriveTarget: 15
+        statScaleBaseValue: 0.75
     floatingTextColor:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 0.6077585, b: 0, a: 1}
+      key1: {r: 1, g: 0.2105867, b: 0, a: 1}
+      key2: {r: 0.4245283, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
+      ctime1: 33924
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0
@@ -79,7 +100,7 @@ MonoBehaviour:
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 0
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -87,39 +108,39 @@ MonoBehaviour:
       atime7: 0
       m_Mode: 0
       m_ColorSpace: -1
-      m_NumColorKeys: 2
+      m_NumColorKeys: 3
       m_NumAlphaKeys: 2
     overloadFloatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
+      key1: {r: 1, g: 0.54377365, b: 0, a: 1}
+      key2: {r: 0.2924528, g: 0, b: 0, a: 0}
+      key3: {r: 0.3647059, g: 0.454902, b: 0.64705884, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
+      ctime1: 32768
+      ctime2: 61295
+      ctime3: 65535
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 55705
+      atime2: 65342
       atime3: 0
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    effectDesignation: 0
+      m_ColorSpace: 0
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
+    effectDesignation: 1
     addMissingStatIfNotPresent: 0
     statusToAdd: []
     statusToRemove: 
@@ -147,8 +168,8 @@ MonoBehaviour:
     targetOtherEffectName: 
     applyTriggeringEffect: 0
     statScalersToAdd: []
-    entityPrefab: {fileID: 2255447116764801849, guid: c92f322fb79c1604e8b4cdba0e4b535e, type: 3}
-    percentOfPlayerDamage: 0.5
+    entityPrefab: {fileID: 0}
+    percentOfPlayerDamage: 1
     destroyPreviousSummonAtCap: 0
     inheritParentLayer: 1
     spawnType: 0

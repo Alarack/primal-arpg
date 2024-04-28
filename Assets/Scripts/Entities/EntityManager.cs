@@ -69,12 +69,12 @@ public class EntityManager : Singleton<EntityManager> {
         if (Instance.enemiesClearedCheck == null) {
             Instance.enemiesClearedCheck = new Task(Instance.DelayedCheckForEnemies());
         }
-        else if(Instance.enemiesClearedCheck.Running == false) {
+        else if (Instance.enemiesClearedCheck.Running == false) {
             Instance.enemiesClearedCheck = new Task(Instance.DelayedCheckForEnemies());
         }
 
 
-       
+
 
         //}
         //if (ActiveEntities[Entity.EntityType.Enemy].Count == 0) {
@@ -120,7 +120,7 @@ public class EntityManager : Singleton<EntityManager> {
                     return results[i] as EntityPlayer;
                 }
             }
-            
+
             //return results[0] as EntityPlayer;
         }
 
@@ -172,11 +172,11 @@ public class EntityManager : Singleton<EntityManager> {
 
 
     public void CreatePlayer() {
+        if (ActivePlayer != null)
+            return;
 
-        if (ActivePlayer == null)
-            Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
+        Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
 
-        PanelManager.OpenPanel<CharacterSelectPanel>();
 
         new Task(OpenDefaultPanels());
     }
@@ -184,10 +184,11 @@ public class EntityManager : Singleton<EntityManager> {
     private IEnumerator OpenDefaultPanels() {
         yield return new WaitForEndOfFrame();
 
-
-        
+        PanelManager.ClosePanel<MainMenuPanel>();
+       
         PanelManager.ClosePanel<InventoryPanel>();
         PanelManager.ClosePanel<SkillsPanel>();
+        PanelManager.OpenPanel<CharacterSelectPanel>();
         PanelManager.OpenPanel<HotbarPanel>();
         PanelManager.OpenPanel<HUDPanel>();
         
@@ -203,7 +204,7 @@ public class EntityManager : Singleton<EntityManager> {
         //Room startingRoom = RoomManager.CreateRoom(Room.RoomType.StartRoom, 0f);
         //RoomManager.Instance.OnPortalEntered(startingRoom);
 
-        
+
 
 
         //List<ItemDefinition> results = new List<ItemDefinition>();

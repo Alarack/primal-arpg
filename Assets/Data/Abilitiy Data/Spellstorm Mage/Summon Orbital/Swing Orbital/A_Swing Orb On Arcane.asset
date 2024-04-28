@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Living Void
+  m_Name: A_Swing Orb On Arcane
   m_EditorClassIdentifier: 
   AbilityData:
     category: 6
-    abilityIcon: {fileID: 21300000, guid: f0547fc416075a04a87eefc43b21b996, type: 3}
-    abilityName: Living Void
-    abilityDescription: Whenever a Friendly Void Bolt causes damage, it has a {PR}
-      chance to summon an Amorphous Vestige Minion
+    abilityIcon: {fileID: 21300000, guid: abccb104d2334d64293d8c5e1fa9644a, type: 3}
+    abilityName: Swing Orb
+    abilityDescription: Whenever you use an Arcane Skill, launch one of your Orbs
+      forward
     resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 0
+    autoFire: 1
     ignoreOtherCasting: 0
-    includeEffectsInTooltip: 1
+    includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
@@ -31,9 +31,9 @@ MonoBehaviour:
     runeAbilityTarget: 
     childAbilities: []
     runeGroupData: []
-    tags: 0c000000
+    tags: 14000000
     activationTriggerData:
-    - type: 1
+    - type: 11
       procChance: 1
       riderAbilityName: 
       riderEffectName: 
@@ -43,14 +43,14 @@ MonoBehaviour:
       allConstraints:
       - focus: 1
         constraintData:
-        - type: 0
+        - type: 4
           inverse: 0
           statChangeTarget: 0
-          changeDirection: 1
+          changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
-          constrainByDelivery: 1
-          deliveryConstraint: {fileID: 2110540755119051525, guid: d04327aff5edaa348acb76e3f331968a, type: 3}
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -84,50 +84,50 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
-        - type: 4
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 1
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-      - focus: 2
+      - focus: 4
         constraintData:
-        - type: 4
+        - type: 17
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 22
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+        - type: 29
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -168,7 +168,15 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
-    endTriggerData: []
+    endTriggerData:
+    - type: 7
+      procChance: 1.5
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 1
+      delay1Frame: 0
+      autoActivateTimer: 0
+      allConstraints: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -200,15 +208,28 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 08329530144d1e140a1dc2741c14b8b4, type: 2}
+    - {fileID: 11400000, guid: 148245ad2847cae47909cb31dc7647f5, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     windupVFX: {fileID: 0}
-    abilityStatData:
-    - variant: 0
-      statName: 65
-      value: 0.25
-      maxValue: 0
-      minValue: 0
-    recoveryData: []
+    abilityStatData: []
+    recoveryData:
+    - type: 0
+      recoveryTriggers: []
+      counterData:
+        useCustomRefreshTrigger: 0
+        customRefreshTriggerData:
+          type: 0
+          procChance: 1
+          riderAbilityName: 
+          riderEffectName: 
+          triggerTimerDuration: 0
+          delay1Frame: 0
+          autoActivateTimer: 0
+          allConstraints: []
+        limitedNumberOfTriggers: 0
+        maxTriggerCount: 0
+        requireMultipleTriggers: 0
+        minTriggerCount: 0
+      cooldown: 0.25
