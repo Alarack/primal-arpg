@@ -943,8 +943,11 @@ MonoBehaviour:
   subtypes: 
   innerSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: f46f2c7ebd78c1f4dbc1477c9fd6bfe8, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 0}
   spawnEffectPrefab: {fileID: 0}
+  spriteProgression:
+    _serializedList: []
   debugGodMode: 1
   vacumCollider: {fileID: 6472614406299476528}
 --- !u!114 &958971093242999228
@@ -1066,6 +1069,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 677d5ed05aa4c2d428a1aa5db2966198, type: 2}
   - {fileID: 11400000, guid: a54bddcbc7448c545bb1c241950a59ea, type: 2}
   - {fileID: 11400000, guid: 4d1110b17ba63b048936be84847ed346, type: 2}
+  - {fileID: 11400000, guid: 9d32d7d30c649474ba0a1748463a5ef7, type: 2}
 --- !u!1 &7734377141901768824
 GameObject:
   m_ObjectHideFlags: 0

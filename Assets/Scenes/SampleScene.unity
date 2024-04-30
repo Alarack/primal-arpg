@@ -4037,6 +4037,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2034454643}
   - {fileID: 5451384}
   - {fileID: 1613734633}
   - {fileID: 1963740970}
@@ -4045,7 +4046,6 @@ Transform:
   - {fileID: 2008307439}
   - {fileID: 673208116}
   - {fileID: 1663997555}
-  - {fileID: 2034454643}
   - {fileID: 1442609203}
   - {fileID: 1407454846}
   - {fileID: 1931659586}
@@ -16369,7 +16369,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8629ddd18a937e14baa161b583ac5c6b, type: 2}
   - {fileID: 11400000, guid: 887f025240c0f0c4085260a445586676, type: 2}
   - {fileID: 11400000, guid: 46324e51e9dcc1245bc2cbfd8b59bf8d, type: 2}
-  testItems: []
+  testItems:
+  - {fileID: 11400000, guid: 32a9008a51b7d6c419093460b81a4236, type: 2}
   pickupPrefab: {fileID: 777966188710461411, guid: 8809ef3536d1e574e9eccf68d35e5f08, type: 3}
   coinPickupPrefab: {fileID: 4481293274202257508, guid: 4886ae56ae035f949839f56ebc45901d, type: 3}
   expPickupPrefab: {fileID: 2448004172980267282, guid: 41e4ab46877027447b2437fd7bcd0084, type: 3}

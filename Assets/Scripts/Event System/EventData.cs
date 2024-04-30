@@ -31,6 +31,7 @@ namespace LL.Events {
         private IDictionary<string, Weapon> _weapons;
         private IDictionary<string, AbilityTrigger> _triggers;
         private IDictionary<string, Item> _items;
+        private IDictionary<string, Status> _status;
 
 
 
@@ -135,6 +136,13 @@ namespace LL.Events {
                 _items = new Dictionary<string, Item>();
 
             _items.Add(key, value);
+        }
+
+        public void AddStatus(string key, Status value) {
+            if (_status == null)
+                _status = new Dictionary<string, Status>();
+
+            _status.Add(key, value);
         }
 
         public void AddTrigger(string key, AbilityTrigger value) {
@@ -251,6 +259,14 @@ namespace LL.Events {
             }
 
             return item;
+        }
+
+        public Status GetStatus(string key) {
+            if (_status == null || !_status.TryGetValue(key, out Status status)) {
+                return null;
+            }
+
+            return status;
         }
 
         public AbilityTrigger GetTrigger(string key) {

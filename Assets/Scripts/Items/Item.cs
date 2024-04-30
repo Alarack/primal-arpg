@@ -215,7 +215,7 @@ public class Item
         StringBuilder builder = new StringBuilder();
 
         if(string.IsNullOrEmpty( Data.itemDescription) == false) {
-            builder.Append(Data.itemDescription).AppendLine();
+            builder.Append(Data.itemDescription).AppendLine().AppendLine();
         } 
 
 

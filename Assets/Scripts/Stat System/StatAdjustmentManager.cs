@@ -180,7 +180,7 @@ public static class StatAdjustmentManager {
         if (target.Stats.Contains(mod.TargetStat) == false) {
 
             if (addMissingStat == false) {
-                Debug.LogWarning(target.EntityName + " does not have " + mod.TargetStat + " whem adding.");
+                //Debug.LogWarning(target.EntityName + " does not have " + mod.TargetStat + " whem adding.");
                 return 0f;
             }
 
@@ -264,6 +264,10 @@ public static class StatAdjustmentManager {
         eventData.AddBool("Removal", isRemoveal);
 
         EventManager.SendEvent(GameEvent.UnitStatAdjusted, eventData);
+
+        //if(sourceAbility != null && target.ownerType == OwnerConstraintType.Enemy && targetStat == StatName.Health) {
+        //    Debug.Log("Adjusting Health Value: " + changeValue + " target: " + target.gameObject.name + " from: " + sourceAbility.Data.abilityName);
+        //}
 
         //if(target is EntityPlayer)
         //    Debug.Log("Adjusting a stat: " + targetStat + " Value: " + changeValue + " target: " + target.gameObject.name);

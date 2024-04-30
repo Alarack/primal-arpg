@@ -67,6 +67,9 @@ public class EntityManager : Singleton<EntityManager> {
             }
         }
 
+        if(target.ownerType == OwnerConstraintType.Friendly) {
+            return;
+        }
 
         //if (ActiveEntities[Entity.EntityType.Enemy].Count == 0) {
         if (Instance.enemiesClearedCheck == null) {

@@ -71,6 +71,17 @@ public class Status {
         TimerManager.AddTimerAction(ManagedUpdate);
 
         FirstApply();
+
+        EventData statusEventData = new EventData();
+        statusEventData.AddEntity("Target", target);
+        statusEventData.AddEntity("Cause", source);
+        statusEventData.AddStatus("Status", this);
+        statusEventData.AddAbility("Causing Ability", ParentEffect.ParentAbility);
+        statusEventData.AddEffect("Causing Effect", ParentEffect);
+
+        EventManager.SendEvent(GameEvent.StatusApplied, statusEventData);
+
+        //Debug.Log("Status Class: " + data.statusName + " applied to: " + target.EntityName + " from " + source.EntityName);
     }
 
     private void RegisterEvents() {

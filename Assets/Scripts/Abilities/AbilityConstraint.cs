@@ -99,7 +99,7 @@ public class IsMovingConstraint : AbilityConstraint {
 
 public class HasTargetConstraint : AbilityConstraint {
 
-    public override ConstraintType Type => ConstraintType.HasStatus;
+    public override ConstraintType Type => ConstraintType.HasTarget;
 
     public HasTargetConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
@@ -145,6 +145,9 @@ public class StatChangedConstraint : AbilityConstraint {
             return false;
         }
 
+        if (trigger.removal == true)
+            return false;
+
         if(data.constrainByDelivery == true) {
             if (trigger.delivery == null) {
                 //Debug.LogError("A delivery constraint has a null delivery");
@@ -176,7 +179,7 @@ public class StatChangedConstraint : AbilityConstraint {
             result = false;
 
 
-        //if(parentAbility != null) 
+        //if (parentAbility != null)
         //    Debug.LogWarning("Result for Unit Stat Changed on: " + parentAbility.Data.abilityName + " " + result);
         //else
         //    Debug.LogWarning("Result for Unit Stat Changed againt: " + target.EntityName + " " + result);
@@ -508,7 +511,7 @@ public class HasStatusConstraint : AbilityConstraint {
 
         bool result = target.HasStatus(data.targetStatus);
 
-        //Debug.Log(target.EntityName + " has " + data.targetStatus + ": " + result);
+        Debug.Log(target.EntityName + " has " + data.targetStatus + ": " + result);
 
 
         return inverse == false ? result : !result;

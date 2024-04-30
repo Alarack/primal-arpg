@@ -659,6 +659,47 @@ public class AbilityInitiatedTrigger : AbilityTrigger {
     }
 }
 
+public class StatusAppliedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.StatusApplied;
+    public override GameEvent TargetEvent => GameEvent.StatusApplied;
+    public override Action<EventData> EventReceiver => OnStatusApplied;
+
+    public StatusAppliedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnStatusApplied(EventData data) {
+
+        Entity target = data.GetEntity("Target");
+        Entity cause = data.GetEntity("Cause");
+        Ability causingAbility = data.GetAbility("Causing Ability");
+        Effect causingEffect = data.GetEffect("Causing Effect");
+        Status status = data.GetStatus("Status");
+
+        TriggeringEntity = target;
+        CauseOfTrigger = cause;
+
+
+        //Debug.Log("Status Trigger: " + status.Data.statusName + " applied to: " + target.EntityName + " from " + cause.EntityName);
+
+        StatusAppliedTriggerInstance triggerInstance = new StatusAppliedTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, status);
+        triggerInstance.CausingAbility = causingAbility;
+        triggerInstance.CausingEffect = causingEffect;
+        triggerInstance.SourceAbility = ParentAbility;
+        TryActivateTrigger(triggerInstance);
+    }
+
+
+    public class StatusAppliedTriggerInstance : TriggerInstance {
+        public Status statusApplied;
+
+        public StatusAppliedTriggerInstance(Entity trigger, Entity cause, TriggerType type, Status statusApplied) : base(trigger, cause, type) {
+            this.statusApplied = statusApplied;
+        }
+    }
+}
+
 public class DashStartedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.DashStarted;
@@ -776,7 +817,6 @@ public class ProjectileChainedTrigger : AbilityTrigger {
         TryActivateTrigger(triggerInstance);
     }
 }
-
 
 public class RuneEquippedTrigger : AbilityTrigger {
 
@@ -1087,6 +1127,7 @@ public class StatChangedTrigger : AbilityTrigger {
         Entity delivery = data.GetEntity("Delivery");
         float changeValue = data.GetFloat("Value");
         Ability ability = data.GetAbility("Ability");
+        bool isRemoval = data.GetBool("Removal");
 
         TriggeringEntity = affectedTarget;
         CauseOfTrigger = causeOfChange;
@@ -1103,7 +1144,7 @@ public class StatChangedTrigger : AbilityTrigger {
 
 
 
-        StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, targetStat, changeValue, CauseOfAbilityTrigger, delivery);
+        StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, targetStat, changeValue, CauseOfAbilityTrigger, delivery, isRemoval);
         triggerInstance.CausingAbility = CauseOfAbilityTrigger;
         triggerInstance.SourceAbility = ParentAbility;
         triggerInstance.TriggeringAbility = ParentAbility;
@@ -1116,12 +1157,14 @@ public class StatChangedTrigger : AbilityTrigger {
         public float changeValue;
         public Ability causingAbility;
         public Entity delivery;
+        public bool removal;
 
-        public StatChangeTriggerInstance(Entity trigger, Entity cause, TriggerType type, StatName targetStat, float changeValue, Ability causingAbility, Entity delivery) : base(trigger, cause, type) {
+        public StatChangeTriggerInstance(Entity trigger, Entity cause, TriggerType type, StatName targetStat, float changeValue, Ability causingAbility, Entity delivery, bool removal) : base(trigger, cause, type) {
             this.targetStat = targetStat;
             this.changeValue = changeValue;
             this.causingAbility = causingAbility;
             this.delivery = delivery;
+            this.removal = removal;
         }
 
     }
