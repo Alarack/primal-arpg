@@ -48,7 +48,14 @@ public class Item
 
         EventManager.RegisterListener(GameEvent.ItemAquired, OnItemAquired);
         EventManager.RegisterListener(GameEvent.ItemDropped, OnItemDropped);
+
+
+
+       
+
     }
+
+
 
     private void OnItemAquired(EventData data) {
         Item item = data.GetItem("Item");
@@ -61,6 +68,24 @@ public class Item
         if(Data.Type == ItemType.ClassSelection) {
             Owner.SetEntityClass(Data.entityClass);
             Equip(ItemSlot.Class);
+        }
+
+        RollInitialAffixes();
+    }
+
+    private void RollInitialAffixes() {
+
+        if (Data.Type != ItemType.Equipment)
+            return;
+
+        float affixRoll = UnityEngine.Random.Range(0f, 1f);
+
+        if (affixRoll < 0.5f && affixRoll > 0.25f) {
+            AddAffix(ItemSpawner.CreateItemAffixSet(1)[0]);
+        }
+        else if (affixRoll < 0.25f) {
+            AddAffix(ItemSpawner.CreateItemAffixSet(1)[0]);
+            AddAffix(ItemSpawner.CreateItemAffixSet(1)[0]);
         }
     }
 

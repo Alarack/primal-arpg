@@ -179,7 +179,7 @@ public class Ability {
             ChildAbilities[i].Equip();
         }
 
-        if(Data.category == AbilityCategory.PassiveSkill)
+        if(Data.category == AbilityCategory.PassiveSkill || Data.category == AbilityCategory.Item)
             IsActive = true;
 
         if (IsChanneled == true)

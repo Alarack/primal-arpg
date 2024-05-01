@@ -34,6 +34,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.E)) {
             SpawnEXP(25, EntityManager.ActivePlayer.transform.position);
+            SpawnCoins(25, EntityManager.ActivePlayer.transform.position, 5f, 10f);
         }
 #endif
     }

@@ -60,9 +60,15 @@ public class PlayerMovement : EntityMovement
     {
         RotateTowardMouse();
 
-        Vector2 moveForce = new Vector2(direction.x, direction.y) * Owner.Stats[StatName.MoveSpeed] * Time.fixedDeltaTime;
+        float baseSpeed = Owner.Stats[StatName.MoveSpeed];
+
+        float modifiedSpeed = baseSpeed * (1 + Owner.Stats[StatName.GlobalMoveSpeedModifier]);
+
+        Vector2 moveForce = new Vector2(direction.x, direction.y) * modifiedSpeed * Time.fixedDeltaTime;
 
         MyBody.AddForce(moveForce, ForceMode2D.Force);
+
+        //Debug.Log("Speed: " + modifiedSpeed);
     }
 
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Summon Arcane Orb Effect
-    effectDescription: Summon up to {} Arcabe Orbs. Minions inherit {P} of your Weapon's
+    effectDescription: Summon up to {} Arcabe Orbs. They inherit {P} of your Weapon's
       Average Damage.
     type: 10
     targeting: 0
@@ -24,9 +24,15 @@ MonoBehaviour:
     deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
+    nonStacking: 0
+    onlyShowTooltipInRune: 0
+    showRiderTooltip: 0
+    showScalers: 0
+    inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
+    targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
     payloadPrefab: {fileID: 0}
@@ -51,8 +57,10 @@ MonoBehaviour:
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
+      parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 0
+      affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
@@ -123,12 +131,13 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
+    addMissingStatIfNotPresent: 0
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
+    resetMovement: 0
     targetDestination: 0
-    moveForce: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0
@@ -139,6 +148,12 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    effectsToAdd: []
+    targetAbilityToAddEffectsTo: 
+    ridersToAdd: []
+    ridersToRemove: []
+    effectsToRemove: []
+    targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
@@ -150,3 +165,7 @@ MonoBehaviour:
     spawnType: 0
     nameOfAbilityToActivate: 
     targetStateName: 
+    tagsToAdd: 
+    tagsToRemove: 
+    newPayloadPrefab: {fileID: 0}
+    newEffectZonePrefab: {fileID: 0}

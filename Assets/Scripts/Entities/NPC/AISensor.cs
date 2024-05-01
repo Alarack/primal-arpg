@@ -13,6 +13,7 @@ public class AISensor : MonoBehaviour {
     public CircleCollider2D myCollider;
     public LayerMask detectionMask;
     public bool detectOnDamageTaken;
+    public bool ignoreMinions;
     public MaskTargeting maskTargeting;
     public float forgetDistance;
 
@@ -148,6 +149,10 @@ public class AISensor : MonoBehaviour {
             return null;
 
         Entity detectedTarget = other.gameObject.GetComponent<Entity>();
+
+
+        if (ignoreMinions == true && detectedTarget.subtypes.Contains(Entity.EntitySubtype.Minion) == true)
+            return null;
 
         return detectedTarget;
     }

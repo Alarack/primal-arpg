@@ -10001,6 +10001,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectOnDamageTaken: 1
+  ignoreMinions: 0
   maskTargeting: 0
   forgetDistance: -1
 --- !u!58 &8492428170949423575
@@ -19853,7 +19854,7 @@ Transform:
   - {fileID: 1231429113279047643}
   - {fileID: 350014953860338907}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1807019065738036619
 Rigidbody2D:
@@ -19947,8 +19948,11 @@ MonoBehaviour:
   subtypes: 
   innerSprite: {fileID: 7591836464380366512}
   statDefinitions: {fileID: 11400000, guid: 3145c591c3a86e1459c2a990a2baca37, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 150606, guid: 625165fb93553b14f8ed057807ed752a, type: 3}
   spawnEffectPrefab: {fileID: 7624612741357570336, guid: ef86985cce99ffa4dbdde299ff7b3bf7, type: 3}
+  spriteProgression:
+    _serializedList: []
   spawnDelayTime: 0.4
   currentEliteAffixes: []
   active: 0

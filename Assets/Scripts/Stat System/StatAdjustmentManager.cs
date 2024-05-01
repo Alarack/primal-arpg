@@ -202,6 +202,10 @@ public static class StatAdjustmentManager {
 
         statModAction?.Invoke(targetStat, mod);
 
+
+        //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
+
+
         //if (targetStat == StatName.Health && mod.VariantTarget == StatModifierData.StatVariantTarget.RangeMax) {
         //    Debug.LogWarning("Max health changed");
         //    Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
