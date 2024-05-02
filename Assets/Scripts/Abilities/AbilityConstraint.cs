@@ -511,7 +511,7 @@ public class HasStatusConstraint : AbilityConstraint {
 
         bool result = target.HasStatus(data.targetStatus);
 
-        Debug.Log(target.EntityName + " has " + data.targetStatus + ": " + result);
+        //Debug.Log(target.EntityName + " has " + data.targetStatus + ": " + result);
 
 
         return inverse == false ? result : !result;

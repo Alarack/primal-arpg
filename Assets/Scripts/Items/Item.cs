@@ -258,27 +258,14 @@ public class Item
 
         if(Affixes.Count > 0) {
             builder.AppendLine("Affixes: ");
-        }
-        foreach (var affix in Affixes) {
-            builder.Append(affix.Key.GetAffixTooltip());
-            
-            
-            //for (int i = 0; i < affix.Value.Count; i++) {
-            //    //builder.Append(affix.Value[i].TargetStat.ToString().SplitCamelCase())
-            //    //    .Append(": ")
-            //    //    .Append(TextHelper.FormatStat(affix.Value[i].TargetStat, affix.Value[i].Value))
-            //    //    .Append(" - ").Append(affix.Key.GetTier())
-            //    //    .AppendLine();
 
-            //    builder.Append(TextHelper.ColorizeText("Tier - ", affix.Key.GetTierColor(affix.Key.tier))).Append(affix.Key.GetTier())
-            //    .Append(" ")
-            //    .Append(affix.Value[i].TargetStat.ToString().SplitCamelCase())
-            //    .Append(": ")
-            //    .Append(TextHelper.FormatStat(affix.Value[i].TargetStat, affix.Value[i].Value))
+            foreach (var affix in Affixes) {
+                builder.Append(affix.Key.GetAffixTooltip());
+            }
 
-            //    .AppendLine();
-            //}
+            builder.AppendLine();
         }
+       
 
         for (int i = 0; i < Abilities.Count; i++) {
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
 using static UnityEngine.GraphicsBuffer;
+using static UnityEditor.UIElements.ToolbarMenu;
 
 public static class StatAdjustmentManager {
 
@@ -55,8 +56,21 @@ public static class StatAdjustmentManager {
             ability.Stats.AddStat(newStat);
         }
 
+        Debug.Log("Ability stat change: " + ability.Data.abilityName);
+        Debug.Log("Target Stat: " + mod.TargetStat);
 
-        ability.Stats.AddModifier(mod.TargetStat, mod);
+
+        Action<StatName, StatModifier> statModAction = mod.VariantTarget switch {
+            StatModifierData.StatVariantTarget.Simple => ability.Stats.AddModifier,
+            StatModifierData.StatVariantTarget.RangeCurrent => ability.Stats.AdjustStatRangeCurrentValue,
+            StatModifierData.StatVariantTarget.RangeMin => ability.Stats.AddMinValueModifier,
+            StatModifierData.StatVariantTarget.RangeMax => ability.Stats.AddMaxValueModifier,
+            _ => null,
+        };
+
+        statModAction?.Invoke(mod.TargetStat, mod);
+
+        //ability.Stats.AddModifier(mod.TargetStat, mod);
 
         SendAbilityStatChangeEvent(mod.TargetStat, ability, mod.Value);
     }
@@ -118,7 +132,7 @@ public static class StatAdjustmentManager {
     public static float RemoveStatAdjustment(Entity target, StatModifier mod, StatModifierData.StatVariantTarget variant, Entity source, Ability sourceAbility, bool removeRangeAdjsument = false) {
 
         if (target.Stats.Contains(mod.TargetStat) == false) {
-            Debug.LogWarning(target.EntityName + " does not have " + mod.TargetStat + " whem removing.");
+            //Debug.LogWarning(target.EntityName + " does not have " + mod.TargetStat + " whem removing.");
             return 0f;
         }
 

@@ -41,7 +41,7 @@ public static class TextHelper
             StatName.DashDuration => $"<color=#{bonusColor}>" + (value * 100) + "% </color>",
             StatName.EffectInterval when value < 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.EffectInterval when value > 0 => $"<color=#{penaltyColor}>+" + (value * 100) + "% </color>",
-            StatName.AbilityCharge => throw new System.NotImplementedException(),
+            StatName.AbilityCharge => "",
             //StatName.CooldownReduction when value > 0 => builder.Append("Cooldown Reduction").Append("-").Append( (value * 100) + "%").ToString(),
             StatName.CooldownReduction when value > 0 => $"<color=#{bonusColor}>" +(value * 100) + "% </color>",
             StatName.CooldownReduction when value <= 0 => "+" + (value * 100) + "%",
