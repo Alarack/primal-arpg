@@ -18,6 +18,9 @@ public class WeaponSelectionEntry : MonoBehaviour, IPointerClickHandler, IPointe
         this.MyItem = itemDef;
         this.parentCharacter = parentCharacter;
         displayItem = itemDef.itemData.GetDisplayItem();
+        weaponIcon.sprite = itemDef.itemData.itemIcon;
+
+        //Debug.Log("Setting up display for: " + itemDef.itemData.itemName);
     }
 
 

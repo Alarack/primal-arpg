@@ -26,7 +26,8 @@ public class Status {
         Armored,
         Vulnerable,
         StealTime,
-        AlteredTimelineBuff
+        AlteredTimelineBuff,
+        EssenceSiphonCDR
     }
 
     #endregion

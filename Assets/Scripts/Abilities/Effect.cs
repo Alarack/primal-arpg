@@ -2095,10 +2095,12 @@ public class AddStatusEffect : Effect {
         //Stats.AddStat(durationStat);
         //Stats.AddStat(intervalStat);
 
-
+        //Debug.Log("creating an add status effect for " + parentAbility.Data.abilityName);
         for (int i = 0; i < data.statusToAdd.Count; i++) {
             Effect statusEffect = AbilityFactory.CreateEffect(data.statusToAdd[i].statusEffectDef.effectData, source, ParentAbility);
             activeStatusEffects.Add(statusEffect as StatAdjustmentEffect);
+
+            //Debug.Log("Creating status adj effect for a status: " + ((StatAdjustmentEffect)statusEffect).GetTooltip());
         }
     }
 
@@ -2697,6 +2699,8 @@ public class StatAdjustmentEffect : Effect {
         for (int i = 0; i < modData.Count; i++) {
             modData[i].SetupEffectStats();
         }
+
+        
 
     }
 
@@ -3494,7 +3498,7 @@ public class StatAdjustmentEffect : Effect {
 
     public override string GetTooltip() {
 
-        //Debug.Log("Showing a Tooltip for: " + Data.effectName);
+        //Debug.Log("Showing a Tooltip for: " + Data.effectName + " on " + ParentAbility.Data.abilityName);
 
         if(ZoneInfo.applyOnInterval == true) {
             return GetDamageOverTimeTooltip();

@@ -101,6 +101,7 @@ public class Item
     protected void SetupAbilities(bool autoEquip = false, bool registerWithPlayer = false) {
         Abilities.Clear();
         AbilityUtilities.SetupAbilities(Data.abilityDefinitions, Abilities, Owner, autoEquip, registerWithPlayer);
+        //Debug.Log("Setting up abilities for: " + Data.itemName);
     }
 
     protected void SetupStatModifiers() {
