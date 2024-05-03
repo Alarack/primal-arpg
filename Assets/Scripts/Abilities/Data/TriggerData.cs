@@ -39,7 +39,9 @@ public enum TriggerType {
     AIActivated,
     UserCancelled,
     EntitySpawned,
-    AbilityEnded
+    AbilityEnded,
+    TeleportInitiated,
+    TeleportConcluded
 }
 
 

@@ -1058,6 +1058,7 @@ public class TeleportEffect : Effect {
         data.AddEntity("Target", target);
         data.AddEffect("Effect", this);
         data.AddAbility("Ability", ParentAbility);
+        data.AddVector3("Position", target.transform.position);
 
         EventManager.SendEvent(GameEvent.TeleportInitiated, data);
     }
@@ -1067,6 +1068,7 @@ public class TeleportEffect : Effect {
         data.AddEntity("Target", target);
         data.AddEffect("Effect", this);
         data.AddAbility("Ability", ParentAbility);
+        data.AddVector3("Position", target.transform.position);
 
         EventManager.SendEvent(GameEvent.TeleportConcluded, data);
     }
@@ -3140,7 +3142,7 @@ public class StatAdjustmentEffect : Effect {
 
         float result = incomingDamage * armorModifier;
 
-        Debug.Log("Armor is modifing " + incomingDamage + " damage to: " + (armorModifier * 100) + "% . Resulting Damage: " + result);
+        //Debug.Log("Armor is modifing " + incomingDamage + " damage to: " + (armorModifier * 100) + "% . Resulting Damage: " + result);
 
         return result;
     }

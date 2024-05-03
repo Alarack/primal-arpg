@@ -56,8 +56,8 @@ public static class StatAdjustmentManager {
             ability.Stats.AddStat(newStat);
         }
 
-        Debug.Log("Ability stat change: " + ability.Data.abilityName);
-        Debug.Log("Target Stat: " + mod.TargetStat);
+        //Debug.Log("Ability stat change: " + ability.Data.abilityName);
+        //Debug.Log("Target Stat: " + mod.TargetStat);
 
 
         Action<StatName, StatModifier> statModAction = mod.VariantTarget switch {

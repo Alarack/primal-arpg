@@ -659,6 +659,67 @@ public class AbilityInitiatedTrigger : AbilityTrigger {
     }
 }
 
+public class TeleportInitiatedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.TeleportInitiated;
+    public override GameEvent TargetEvent => GameEvent.TeleportInitiated;
+    public override Action<EventData> EventReceiver => OnTeleportInitiated;
+
+    public TeleportInitiatedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnTeleportInitiated(EventData data) {
+
+        Entity trigger = data.GetEntity("Target");
+        Ability causingAbility = data.GetAbility("Ability");
+        Vector3 position = data.GetVector3("Position");
+        //Effect causingEffect = data.GetEffect("Effect");
+
+        //Debug.Log("Teleport detected: " + trigger.transform.position);
+
+        TriggeringEntity = trigger;
+        CauseOfTrigger = trigger;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        //triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.CausingAbility = causingAbility;
+        triggerInstance.SourceAbility = ParentAbility;
+        triggerInstance.SavedLocation = position;
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
+public class TeleportConcludedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.TeleportConcluded;
+    public override GameEvent TargetEvent => GameEvent.TeleportConcluded;
+    public override Action<EventData> EventReceiver => OnTeleportConcluded;
+
+    public TeleportConcludedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnTeleportConcluded(EventData data) {
+
+        Entity trigger = data.GetEntity("Target");
+        Ability causingAbility = data.GetAbility("Ability");
+        //Effect causingEffect = data.GetEffect("Effect");
+
+
+        TriggeringEntity = trigger;
+        CauseOfTrigger = trigger;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        //triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.CausingAbility = causingAbility;
+        triggerInstance.SourceAbility = ParentAbility;
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
 public class StatusAppliedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.StatusApplied;

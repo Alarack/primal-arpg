@@ -45,6 +45,8 @@ public static class AbilityFactory {
             TriggerType.EntitySpawned => new EntitySpawnedTrigger(data, source, parentAbility),
             TriggerType.AbilityEnded => new AbilityEndedTrigger(data, source, parentAbility),
             TriggerType.StatusApplied => new StatusAppliedTrigger(data, source, parentAbility),
+            TriggerType.TeleportInitiated => new TeleportInitiatedTrigger(data, source, parentAbility),
+            TriggerType.TeleportConcluded => new TeleportConcludedTrigger(data, source, parentAbility),
             _ => null,
         };
 

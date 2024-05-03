@@ -605,6 +605,7 @@ public class EffectTargeter {
 
 
             //Debug.LogWarning("Creating an effect zone payload delivery for: " + parentEffect.Data.effectName);
+            //Debug.LogWarning("Location: " + parentEffect.Source.transform.position);
             //Debug.Log(effectZone.gameObject.name);
             parentEffect.ActiveEffectZones.Add(effectZone);
 
