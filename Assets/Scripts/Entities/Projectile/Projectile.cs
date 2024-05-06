@@ -351,7 +351,15 @@ public class Projectile : Entity {
     #endregion
 
     private IEnumerator KillAfterLifetime() {
-        WaitForSeconds waiter = new WaitForSeconds(Stats[StatName.ProjectileLifetime]);
+
+        float baseLifetime = Stats[StatName.ProjectileLifetime];
+        float globalModifier = Source != null ? Source.Stats[StatName.GlobalProjectileLifetimeModifier] : 0f;
+
+        float lifeTimer = baseLifetime * (1 + globalModifier);
+
+        //Debug.Log(baseLifetime + " " + globalModifier + " " + lifeTimer);  
+        
+        WaitForSeconds waiter = new WaitForSeconds(lifeTimer);
         yield return waiter;
 
         CleanUp(true);

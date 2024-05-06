@@ -127,9 +127,9 @@ public class EffectData
 
     //Payload Delivery
     public Entity payloadPrefab;
-    public int payloadCount = 1;
+    //public int payloadCount = 1;
     //public int projectilePierceCount = 0;
-    public float shotDelay = 0.2f;
+    //public float shotDelay = 0.0f;
     public List<StatData> payloadStatData = new List<StatData>();
     public DeliverySpawnLocation spawnLocation;
     public WorldPositionConstant spawnLocationStart;
@@ -268,7 +268,7 @@ public class EffectData
                 return payloadStatData[i].value;
         }
 
-        return 0f;
+        return -1f;
     }
 
 }

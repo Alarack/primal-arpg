@@ -70,13 +70,16 @@ public abstract class Effect {
 
 
 
-        if (Data.HasStat(StatName.ShotCount) == 0f) {
-            SimpleStat effectShotCount = new SimpleStat(StatName.ShotCount, Data.payloadCount);
+        if (Data.HasStat(StatName.ShotCount) == -1f) {
+            SimpleStat effectShotCount = new SimpleStat(StatName.ShotCount, 1f);
             Stats.AddStat(effectShotCount);
         }
 
-        if (Data.HasStat(StatName.FireDelay) == 0f) {
-            SimpleStat shotDelay = new SimpleStat(StatName.FireDelay, Data.shotDelay);
+
+
+
+        if (Data.HasStat(StatName.FireDelay) == -1f) {
+            SimpleStat shotDelay = new SimpleStat(StatName.FireDelay, 0f);
             Stats.AddStat(shotDelay);
         }
 

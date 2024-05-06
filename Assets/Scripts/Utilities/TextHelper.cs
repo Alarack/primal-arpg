@@ -36,7 +36,8 @@ public static class TextHelper
             StatName.Cooldown when value >= 0 => $"<color=#{penaltyColor}>+" + (value * 100) + "% </color>",
             StatName.ShotCount => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.FireDelay => $"<color=#{bonusColor}>" + (value * 100) + "% </color>",
-            StatName.Accuracy => throw new System.NotImplementedException(),
+            StatName.Accuracy when value >= 0 => $"<color=#{bonusColor}>" + (value * 100) + "% </color>",
+            StatName.Accuracy when value < 0 => $"<color=#{penaltyColor}>" + (value * 100) + "% </color>",
             StatName.DashSpeed => throw new System.NotImplementedException(),
             StatName.DashDuration => $"<color=#{bonusColor}>" + (value * 100) + "% </color>",
             StatName.EffectInterval when value < 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
@@ -101,6 +102,9 @@ public static class TextHelper
             StatName.VulnerableSpace => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.VulnerableTime => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.VulnerableVoid => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalProjectileLifetimeModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalProjectileLifetimeModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+
             _ => "No Entry For: " + stat,
         };
 

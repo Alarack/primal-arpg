@@ -826,9 +826,12 @@ public class Ability {
                     //Debug.LogWarning("No scalers on: " + Data.abilityName);
                     
                     if(string.IsNullOrEmpty(Data.abilityDescription) == false || addLine == true) {
+                        Debug.LogWarning("Instering 2 blank lines for: " + Data.abilityName);
                         builder.AppendLine().AppendLine();
                     }
-                    
+
+                    Debug.LogWarning("Instering another blank lines for: " + adj.Data.effectName);
+
                     builder.AppendLine(adj.GetTooltip());
                 }
                 else {

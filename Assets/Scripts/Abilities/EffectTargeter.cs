@@ -438,7 +438,7 @@ public class EffectTargeter {
             DeliverySpawnLocation.Source => parentEffect.Source.transform.position,
             DeliverySpawnLocation.Trigger => ActivationInstance.TriggeringEntity.transform.position,
             DeliverySpawnLocation.Cause => ActivationInstance.CauseOfTrigger.transform.position,
-            DeliverySpawnLocation.MousePointer => Camera.main.ScreenToWorldPoint(Input.mousePosition),
+            DeliverySpawnLocation.MousePointer => GetMouseLocationWithInaccuracy(),
             DeliverySpawnLocation.AITarget => GetAITargetPosition(),
             DeliverySpawnLocation.RandomViewportPosition => GetRandomViewportPosition(),
             DeliverySpawnLocation.AbilityLastPayloadLocation => GetLastAbilityPayloadLocation(),
@@ -447,6 +447,20 @@ public class EffectTargeter {
         };
 
         return targetLocation;
+    }
+
+    private Vector2 GetMouseLocationWithInaccuracy() {
+        Vector2 basePointerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+
+        float maxOffset = (1f - parentEffect.Source.Stats[StatName.Accuracy]) * 25f;
+
+        Debug.Log("Owner Accuracy:  " + parentEffect.Source.Stats[StatName.Accuracy] + " Max offset: " + maxOffset);
+        
+        Vector2 modifiedPosiiton = basePointerPos + Random.insideUnitCircle* Random.Range(0, maxOffset);
+
+
+        return modifiedPosiiton;
     }
 
     public List<Vector2> GetPayloadSpawnlocationSequence(int count) {
@@ -524,12 +538,13 @@ public class EffectTargeter {
             //int abilityShotCount = (int)parentEffect.ParentAbility.Stats[StatName.ShotCount];
 
             totalShots += ownerShotCount;
+
             //totalShots += abilityShotCount;
         }
 
 
 
-        if(parentEffect.Data.spawnLocation == DeliverySpawnLocation.WorldPositionSequence) {
+        if (parentEffect.Data.spawnLocation == DeliverySpawnLocation.WorldPositionSequence) {
 
             List<Vector2> deliveryPoints = GetPayloadSpawnlocationSequence(totalShots);
 
@@ -541,6 +556,7 @@ public class EffectTargeter {
 
             yield break;
         }
+
 
 
         for (int i = 0; i < totalShots; i++) {
@@ -582,7 +598,7 @@ public class EffectTargeter {
 
             projectile.transform.eulerAngles += new Vector3(0f, 0f, UnityEngine.Random.Range(-totalInaccuracy, totalInaccuracy));
 
-
+            Debug.LogWarning("Creating: " + projectile.EntityName);
         }
 
         EffectZone effectZone = delivery as EffectZone;

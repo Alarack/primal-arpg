@@ -480,8 +480,8 @@ public static class AbilityEditorHelper {
             EditorGUILayout.LabelField("Payload: ", EditorStyles.boldLabel);
             entry.projectileHitMask = EditorHelper.LayerMaskField("Hit Mask", entry.projectileHitMask);
             entry.payloadPrefab = EditorHelper.ObjectField("Payload Prefab", entry.payloadPrefab);
-            entry.payloadCount = EditorGUILayout.IntField("Shot Count", entry.payloadCount);
-            entry.shotDelay = EditorGUILayout.FloatField("Shot Delay", entry.shotDelay);
+            //entry.payloadCount = EditorGUILayout.IntField("Shot Count", entry.payloadCount);
+            //entry.shotDelay = EditorGUILayout.FloatField("Shot Delay", entry.shotDelay);
         }
 
         entry.spawnLocation = EditorHelper.EnumPopup("Spawn Location", entry.spawnLocation);
