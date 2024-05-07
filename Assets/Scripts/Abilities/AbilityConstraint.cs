@@ -573,17 +573,6 @@ public class EffectAppliedToConstraint : AbilityConstraint {
             }
         }
 
-        //result = effect.EntityTargets.Contains(targetEntity);
-
-
-        //Effect otherEffect = AbilityUtilities.GetEffectByName(parentEffect.Data.otherEffectName, parentEffect.Data.otherAbilityName, parentEffect.Source, AbilityCategory.Any);
-        //for (int i = 0; i < effect.EntityTargets.Count; i++) {
-        //    if (otherEffect.EntityTargets.Contains(effect.EntityTargets[i])) {
-        //        result = true;
-        //        break;
-        //    }
-        //}
- 
 
         return inverse == false ? result : !result;
     }

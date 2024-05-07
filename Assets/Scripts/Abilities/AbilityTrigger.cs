@@ -1626,7 +1626,7 @@ public class RiderTrigger : AbilityTrigger {
 
         CauseOfTrigger = targetEffect.Source;
 
-        Debug.Log("A rider ability: " + ParentAbility.Data.abilityName + " is trying to trigger");
+        //Debug.Log("A rider ability: " + ParentAbility.Data.abilityName + " is trying to trigger");
 
 
         RiderTriggerInstance triggerInstance = new RiderTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, ridereffectTargets);

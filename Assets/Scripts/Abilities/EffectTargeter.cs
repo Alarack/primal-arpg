@@ -598,7 +598,7 @@ public class EffectTargeter {
 
             projectile.transform.eulerAngles += new Vector3(0f, 0f, UnityEngine.Random.Range(-totalInaccuracy, totalInaccuracy));
 
-            Debug.LogWarning("Creating: " + projectile.EntityName);
+            //Debug.LogWarning("Creating: " + projectile.EntityName);
         }
 
         EffectZone effectZone = delivery as EffectZone;
