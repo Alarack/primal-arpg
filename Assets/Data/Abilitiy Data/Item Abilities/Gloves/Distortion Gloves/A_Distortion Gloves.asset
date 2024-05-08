@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Time Drag
+  m_Name: A_Distortion Gloves
   m_EditorClassIdentifier: 
   AbilityData:
     category: 2
-    abilityIcon: {fileID: 21300000, guid: 0e3410d18b5e34f439a997d07357b59a, type: 3}
-    abilityName: Time Drag
-    abilityDescription: Your Slow effects also cause damage when applied.
+    abilityIcon: {fileID: 0}
+    abilityName: Distortion Push
+    abilityDescription: Your Spatial Damage causes Knockback
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -30,143 +30,8 @@ MonoBehaviour:
     runeAbilityTarget: 
     childAbilities: []
     runeGroupData: []
-    tags: 18000000
+    tags: 
     activationTriggerData:
-    - type: 3
-      procChance: 1
-      riderAbilityName: 
-      riderEffectName: 
-      triggerTimerDuration: 0
-      delay1Frame: 0
-      autoActivateTimer: 0
-      allConstraints:
-      - focus: 1
-        constraintData:
-        - type: 4
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 1
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-        - type: 11
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 2
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-      - focus: 2
-        constraintData:
-        - type: 4
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
     - type: 1
       procChance: 1
       riderAbilityName: 
@@ -179,7 +44,7 @@ MonoBehaviour:
         constraintData:
         - type: 0
           inverse: 0
-          statChangeTarget: 2
+          statChangeTarget: 0
           changeDirection: 1
           minStatChangeRequired: 0
           statChangeDelta: 0
@@ -259,48 +124,7 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
-        - type: 9
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 1
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-      - focus: 2
+      - focus: 5
         constraintData:
         - type: 4
           inverse: 0
@@ -343,6 +167,47 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+        - type: 17
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 14
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -375,28 +240,10 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 7425f8c6b0db3a64ba515dcde283aa7d, type: 2}
+    - {fileID: 11400000, guid: deb2554e7cc498c488a13e1105063b54, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     windupVFX: {fileID: 0}
     abilityStatData: []
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          procChance: 1
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          delay1Frame: 0
-          autoActivateTimer: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        minTriggerCount: 0
-      cooldown: 0.1
+    recoveryData: []

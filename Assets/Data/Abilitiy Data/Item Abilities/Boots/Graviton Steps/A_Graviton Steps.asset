@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Spacerip Bomb
+  m_Name: A_Graviton Steps
   m_EditorClassIdentifier: 
   AbilityData:
     category: 2
     abilityIcon: {fileID: 0}
-    abilityName: Spacerip Bomb
-    abilityDescription: 'Whenever you Teleport, leave a spatial distortion bomb behind. '
+    abilityName: Graviton Steps
+    abilityDescription: 'When you dash, release a Pulse of Force causing damage and
+      pushing enemies away. '
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     ignoreOtherCasting: 0
-    includeEffectsInTooltip: 0
+    includeEffectsInTooltip: 1
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
@@ -30,9 +31,9 @@ MonoBehaviour:
     runeAbilityTarget: 
     childAbilities: []
     runeGroupData: []
-    tags: 0e000000
+    tags: 
     activationTriggerData:
-    - type: 35
+    - type: 23
       procChance: 1
       riderAbilityName: 
       riderEffectName: 
@@ -115,10 +116,15 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 947b06601ee968840915d60ed3a5f762, type: 2}
+    - {fileID: 11400000, guid: f047d4b46f7225e4a9673ea4d3ccf765, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     windupVFX: {fileID: 0}
-    abilityStatData: []
+    abilityStatData:
+    - variant: 0
+      statName: 41
+      value: 3
+      maxValue: 0
+      minValue: 0
     recoveryData: []

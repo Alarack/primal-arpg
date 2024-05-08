@@ -89,9 +89,12 @@ MonoBehaviour:
   subtypes: 
   innerSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: f2a4e559b0ca96f4e861fe29c0a614f6, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 0}
   spawnEffectPrefab: {fileID: 0}
-  vfxParticles: {fileID: 0}
+  spriteProgression:
+    _serializedList: []
+  vfxParticles: {fileID: 907013692500745052}
   particleSpeed: 1
   windupFinishedVFX: {fileID: 0}
   effectTelegraph: {fileID: 0}
@@ -166,6 +169,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f22b44ec7df41a49adb3c3269118434, type: 3}
+--- !u!198 &907013692500745052 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198290842651589160, guid: 0f22b44ec7df41a49adb3c3269118434, type: 3}
+  m_PrefabInstance: {fileID: 1033053147814814068}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1028650379353777018 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4684249154847246, guid: 0f22b44ec7df41a49adb3c3269118434, type: 3}

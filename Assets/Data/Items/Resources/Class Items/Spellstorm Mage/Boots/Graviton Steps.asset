@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Graviton Steps
+  m_EditorClassIdentifier: 
+  devItem: 0
+  itemData:
+    Type: 1
+    affixStatTarget: 1
+    entityClass: 0
+    itemName: Graviton Steps
+    itemDescription: 'A set of futuristic boots covered in blinking purple lights,
+      wire coils, and other less identifiable bits of arcane technology. '
+    secondaryDescription: 
+    itemValue: 250
+    runeAbilityTarget: 
+    validSlots: 08000000
+    abilityTags: 
+    itemIcon: {fileID: 21300000, guid: ded7d246ae3948342b7251118f909e04, type: 3}
+    pickupIcon: {fileID: 21300000, guid: ded7d246ae3948342b7251118f909e04, type: 3}
+    pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
+    minDamage: 0
+    maxDamage: 0
+    statModifierData:
+    - targetStat: 33
+      value: -0.2
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 0
+      deriveStatMultiplier: 0
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
+    abilityDefinitions:
+    - {fileID: 11400000, guid: 3ecfe3c76ef2f1f439ac65fa2d128b2d, type: 2}
+    learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

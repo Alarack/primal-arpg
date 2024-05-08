@@ -135,6 +135,12 @@ public abstract class Effect {
 
     protected void SetupRiderEffects() {
         for (int i = 0; i < Data.riderEffects.Count; i++) {
+
+            if (Data.riderEffects[i] == null) {
+                Debug.LogError("Null Rider in effect data: " + Data.effectName);
+                continue;
+            }
+            
             Effect rider = AbilityFactory.CreateEffect(Data.riderEffects[i].effectData, Source, ParentAbility);
             rider.parentEffect = this;
             RiderEffects.Add(rider);
