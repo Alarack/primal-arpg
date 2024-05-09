@@ -455,7 +455,7 @@ public class EffectTargeter {
 
         float maxOffset = (1f - parentEffect.Source.Stats[StatName.Accuracy]) * 25f;
 
-        Debug.Log("Owner Accuracy:  " + parentEffect.Source.Stats[StatName.Accuracy] + " Max offset: " + maxOffset);
+        //Debug.Log("Owner Accuracy:  " + parentEffect.Source.Stats[StatName.Accuracy] + " Max offset: " + maxOffset);
         
         Vector2 modifiedPosiiton = basePointerPos + Random.insideUnitCircle* Random.Range(0, maxOffset);
 

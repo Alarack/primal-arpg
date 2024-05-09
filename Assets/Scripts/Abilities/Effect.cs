@@ -2818,43 +2818,11 @@ public class StatAdjustmentEffect : Effect {
         }
     }
 
-    //public void AddScaler(Effect target, StatScaler scaler) {
-    //    if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
-
-    //        for (int i = 0; i < list.Count; i++) {
-    //            if (list[i].targetStat == scaler.targetStat) {
-    //                Debug.LogError("Duplicate stat scaler: " + scaler.targetStat + ". this is not supported");
-    //                return;
-    //            }
-    //        }
-
-    //        list.Add(scaler);
-    //    }
-    //    else {
-    //        trackedScalers.Add(target, new List<StatScaler> { scaler });
-    //    }
-    //}
-
-    //public void RemoveScaler(Effect target, StatScaler scaler) {
-    //    if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
-    //        list.Remove(scaler);
-
-    //        if (list.Count == 0)
-    //            trackedScalers.Remove(target);
-    //    }
-
-    //}
-
+  
 
     public void AddScalerMod(StatName targetStat, StatModifier mod) {
         for (int i = 0; i < modData.Count; i++) {
             modData[i].AddScalerMod(targetStat, mod);
-
-            //for (int j = 0; j < modData[i].scalers.Count; j++) {
-            //    if (modData[i].scalers[j].targetStat == targetStat) {
-            //        modData[i].scalers[j].AddScalerMod(mod);
-            //    }
-            //}
         }
 
     }
@@ -2862,12 +2830,6 @@ public class StatAdjustmentEffect : Effect {
     public void RemoveScalerMod(StatName targetStat, StatModifier mod) {
         for (int i = 0; i < modData.Count; i++) {
             modData[i].RemoveScalerMod(targetStat, mod);
-
-            //for (int j = 0; j < modData[i].scalers.Count; j++) {
-            //    if (modData[i].scalers[j].targetStat == targetStat) {
-            //        modData[i].scalers[j].RemoveScalerMod(mod);
-            //    }
-            //}
         }
     }
 
@@ -2880,15 +2842,6 @@ public class StatAdjustmentEffect : Effect {
         return 0f;
     }
 
-    //public float GetBaseWeaponPercent() {
-    //    for (int i = 0; i < modData.Count; i++) {
-    //        if (modData[i].modValueSetMethod == StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage) {
-    //            return modData[i].Stats[StatName.AbilityWeaponCoefficicent];
-    //        }
-    //    }
-    //    return -1f;
-    //}
-
     public float GetWeaponScaler() {
 
         float result = -1f;
@@ -2900,13 +2853,6 @@ public class StatAdjustmentEffect : Effect {
             if (result > 0) {
                 return result;
             }
-
-
-            //for (int j = 0; j < modData[i].scalers.Count; j++) {
-            //    if (modData[i].scalers[j].deriveTarget == StatModifierData.DeriveFromWhom.WeaponDamage) {
-            //        return modData[i].scalers[j].scalerStat.ModifiedValue;
-            //    }
-            //}
         }
 
         return result;
@@ -2922,12 +2868,6 @@ public class StatAdjustmentEffect : Effect {
             foreach (var entry in values) {
                 results.Add(entry.Key, entry.Value);
             }
-
-            //results.AddRange(modData[i].GetAllScalerValues());
-
-            //for (int j = 0; j < modData[i].scalers.Count; j++) {
-            //    results.Add(modData[i].scalers[j].targetStat, modData[i].scalers[j].scalerStat.ModifiedValue);
-            //}
         }
 
         return results;

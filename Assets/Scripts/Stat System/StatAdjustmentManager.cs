@@ -219,6 +219,9 @@ public static class StatAdjustmentManager {
 
         //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
 
+        //if(sourceAbility != null) {
+        //    Debug.Log("From " + sourceAbility.Data.abilityName);
+        //}
 
         //if (targetStat == StatName.Health && mod.VariantTarget == StatModifierData.StatVariantTarget.RangeMax) {
         //    Debug.LogWarning("Max health changed");

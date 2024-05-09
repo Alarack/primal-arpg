@@ -776,7 +776,9 @@ public class Ability {
 
             string radiusReplacement = replacement.Replace("{ES}", TextHelper.ColorizeText(size.ToString(), Color.green));
 
-            float lifetime = effects[0].Stats[StatName.ProjectileLifetime];
+            //Debug.Log("Global projectile life: " + Source.EntityName + " :: " + Source.Stats[StatName.GlobalProjectileLifetimeModifier]);
+
+            float lifetime = effects[0].Stats[StatName.ProjectileLifetime] * (1f + Source.Stats[StatName.GlobalProjectileLifetimeModifier]);
 
             string durationReplacment = radiusReplacement.Replace("{D}", TextHelper.ColorizeText(lifetime.ToString(), Color.yellow));
 
