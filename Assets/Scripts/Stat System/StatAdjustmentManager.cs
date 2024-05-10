@@ -217,6 +217,11 @@ public static class StatAdjustmentManager {
         statModAction?.Invoke(targetStat, mod);
 
 
+        //if(targetStat == StatName.GlobalDamageModifier) {
+        //    Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
+        //    Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
+        //}
+
         //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
 
         //if(sourceAbility != null) {
@@ -229,13 +234,6 @@ public static class StatAdjustmentManager {
 
         //    StatRange heathRange = target.Stats.GetStat<StatRange>(StatName.Health);
         //    Debug.Log("Max " + heathRange.MaxValueStat.ModifiedValue);
-
-        //}
-
-        //if (targetStat == StatName.VulnerableTime) {
-        //    Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
-        //    //Debug.Log("Applying: " + targetStat);
-        //    Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
         //}
 
         try {
