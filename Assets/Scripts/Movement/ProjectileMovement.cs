@@ -33,28 +33,51 @@ public class ProjectileMovement : EntityMovement
 
     private Quaternion lastDrunkRotation;
 
+    private Entity projectileSource;
+    private Projectile projectileOwner;
+
     protected override void Awake()
     {
         base.Awake();
 
-        if (movementBehavior == MovementBehavior.Drunk)
-        {
+        SetupBehaviors(seekDuration, drunkInterval);
+
+    }
+
+    private void SetupBehaviors(float seekDuration = -1, float drunkInterval = 0.5f) {
+        if (movementBehavior == MovementBehavior.Drunk) {
             RandomizeDirection(null);
             drunkTimer = new Timer(drunkInterval, RandomizeDirection, true);
         }
 
-        if(movementBehavior == MovementBehavior.Seeking && seekDuration > 0f) {
+        if (movementBehavior == MovementBehavior.Seeking && seekDuration > 0f) {
             seekTimer = new Timer(seekDuration, OnSeekTimerFinished);
         }
+    }
 
+    public void ChangeBehaviour(MovementBehavior newBehavior, float seektimer = -1, float drunkTimer = 0.5f) {
+        
+        if (movementBehavior == newBehavior) {
+            Debug.LogWarning("A projectile was told to change behavior to: " + newBehavior + " but it already was");
+            return;
+        }
 
+        movementBehavior = newBehavior;
+
+        SetupBehaviors(seektimer, drunkTimer);
     }
 
     private void Start() {
 
+
+
+        projectileOwner = Owner as Projectile;
+        projectileSource = projectileOwner != null ? projectileOwner.Source : null;
+
         if (seekForwardWithoutTarget == true)
             SetSeekPoint();
-        
+
+
     }
 
     private void OnEnable() {
@@ -103,14 +126,14 @@ public class ProjectileMovement : EntityMovement
     }
 
     private void SetSeekPoint() {
-        Entity source = (Owner as Projectile) != null ? (Owner as Projectile).Source : null;
+        //Entity source = (Owner as Projectile) != null ? (Owner as Projectile).Source : null;
 
-        if (source == null) {
-            Debug.LogError("A projectile: " + gameObject.name + " has a null source entity");
+        if (projectileSource == null) {
+            Debug.LogError("A projectile: " + Owner.EntityName + " has a null source entity");
             return;
         }
 
-        Ray2D ray = new Ray2D(source.transform.position, source.transform.up);
+        Ray2D ray = new Ray2D(projectileSource.transform.position, projectileSource.transform.up);
 
         seekPoint = ray.GetPoint(forwardPointDistance);
     }
@@ -152,7 +175,12 @@ public class ProjectileMovement : EntityMovement
 
     private void MoveStraight()
     {
-        MyBody.AddForce(transform.up * Owner.Stats[StatName.MoveSpeed] * Time.fixedDeltaTime, ForceMode2D.Force);
+        float globalProjectileSpeed = 1f + (projectileSource != null ? projectileSource.Stats[StatName.GlobalProjectileSpeedModifier] : 0);
+
+        //Debug.Log("Global Projectile Speed Modifier: " + globalProjectileSpeed);
+        //Debug.Log("Projectile Source is Null: " + projectileSource);
+
+        MyBody.AddForce(transform.up * Owner.Stats[StatName.MoveSpeed] * globalProjectileSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
     }
 
     private void MoveSeeking()
@@ -225,7 +253,11 @@ public class ProjectileMovement : EntityMovement
         if (CanMove == false)
             return;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, seekRadius, targetLayers);
+        if(projectileOwner == null) {
+            Debug.LogError("Projectile owner is null on: " + Owner.EntityName);
+        }
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, seekRadius, projectileOwner.projectileHitMask);
 
         if (colliders != null && colliders.Length > 0)
         {

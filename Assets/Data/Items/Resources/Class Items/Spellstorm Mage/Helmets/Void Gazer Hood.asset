@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Void Gazer Hood
+  m_EditorClassIdentifier: 
+  devItem: 0
+  itemData:
+    Type: 1
+    affixStatTarget: 1
+    entityClass: 0
+    itemName: "Void Gazer\u2019s Hood"
+    itemDescription: 'The material of this void-black hood is always cold to the
+      touch, and the very sight of it causes a growing unease to blossom in your
+      soul. '
+    secondaryDescription: 
+    itemValue: 0
+    runeAbilityTarget: 
+    validSlots: 0c000000
+    abilityTags: 17000000
+    itemIcon: {fileID: 21300000, guid: ef9f06aab0ecd8244acc76f65a9da237, type: 3}
+    pickupIcon: {fileID: 21300000, guid: ef9f06aab0ecd8244acc76f65a9da237, type: 3}
+    pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
+    minDamage: 0
+    maxDamage: 0
+    statModifierData: []
+    abilityDefinitions:
+    - {fileID: 11400000, guid: 741881d89f4dd26469d9ce9037fcd8f6, type: 2}
+    learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

@@ -87,7 +87,8 @@ public enum StatName
     VulnerableSpace,
     TimeDamageModifier,
     SkillPoint,
-    GlobalProjectileLifetimeModifier
+    GlobalProjectileLifetimeModifier,
+    GlobalProjectileSpeedModifier
 
 
 }

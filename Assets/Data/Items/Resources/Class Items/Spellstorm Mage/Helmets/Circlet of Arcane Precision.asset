@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Circlet of Arcane Precision
+  m_EditorClassIdentifier: 
+  devItem: 0
+  itemData:
+    Type: 1
+    affixStatTarget: 1
+    entityClass: 0
+    itemName: Circlet of Arcane Precision
+    itemDescription: 'A silver circlet adorned with a set of seven shimmering sapphires. '
+    secondaryDescription: 
+    itemValue: 0
+    runeAbilityTarget: 
+    validSlots: 0c000000
+    abilityTags: 16000000
+    itemIcon: {fileID: 21300000, guid: 2acefea4179245c408b71c035a80c821, type: 3}
+    pickupIcon: {fileID: 21300000, guid: 2acefea4179245c408b71c035a80c821, type: 3}
+    pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
+    minDamage: 0
+    maxDamage: 0
+    statModifierData:
+    - targetStat: 83
+      value: 0.5
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 0
+      deriveStatMultiplier: 0
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
+    abilityDefinitions:
+    - {fileID: 11400000, guid: d1d52d62a76eb274aa422608811f15de, type: 2}
+    learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

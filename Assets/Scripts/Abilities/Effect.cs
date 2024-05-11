@@ -1371,6 +1371,43 @@ public class ApplyOtherEffect : Effect {
     }
 }
 
+public class ModifyProjectileEffect : Effect {
+
+    public override EffectType Type => EffectType.ModifyProjectile;
+
+
+
+
+    public ModifyProjectileEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+       Projectile projectile = target as Projectile;
+        if (projectile == null) {
+            Debug.LogError("A Modify Projectile Effect is targeting a non Projectile: " + target.EntityName);
+            return false;
+        }
+
+
+        ProjectileMovement movement = projectile.Movement as ProjectileMovement;
+
+        movement.ChangeBehaviour(Data.modifiedMovementBehavior, Data.modifiedSeekDuration, Data.modifiedDrunkInterval);
+
+
+        return true;
+    }
+
+
+    public override void Remove(Entity target) {
+        base.Remove(target);
+
+        Debug.LogError("Removing Projectile Modifications is not yet supported");
+    }
+}
+
 
 public class AddRiderEffect : Effect {
 
@@ -1595,7 +1632,6 @@ public class RemoveRiderEffect : Effect {
         
     }
 }
-
 
 public class AddEffectEffect : Effect {
 
@@ -1846,7 +1882,6 @@ public class RemoveEffectEffect : Effect {
     }
 }
 
-
 public class AddAbilityEffect : Effect {
 
     public override EffectType Type => EffectType.AddAbility;
@@ -1929,7 +1964,6 @@ public class AddAbilityEffect : Effect {
         return builder.ToString();
     }
 }
-
 
 public class AddChildAbilityEffect : Effect {
 

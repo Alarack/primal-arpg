@@ -28,7 +28,8 @@ public enum EffectType {
     AddRider,
     RemoveRider,
     ChangePayload,
-    ChangeEffectZone
+    ChangeEffectZone,
+    ModifyProjectile
 }
 
 public enum EffectTarget {
@@ -221,6 +222,11 @@ public class EffectData
 
     //Change Effect Zone
     public EffectZone newEffectZonePrefab;
+
+    //Modify Projectile;
+    public ProjectileMovement.MovementBehavior modifiedMovementBehavior;
+    public float modifiedSeekDuration = -1;
+    public float modifiedDrunkInterval = 0.2f;
 
 
 

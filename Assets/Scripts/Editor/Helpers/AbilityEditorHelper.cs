@@ -653,6 +653,19 @@ public static class AbilityEditorHelper {
             case EffectType.ChangePayload:
                 entry.newPayloadPrefab = EditorHelper.ObjectField("Payload Prefab", entry.newPayloadPrefab);
                 break;
+            case EffectType.ModifyProjectile:
+                entry.modifiedMovementBehavior = EditorHelper.EnumPopup("Behavior", entry.modifiedMovementBehavior);
+
+                switch (entry.modifiedMovementBehavior) {
+                    case ProjectileMovement.MovementBehavior.Seeking:
+                        entry.modifiedSeekDuration = EditorGUILayout.FloatField("Seek Duration", entry.modifiedSeekDuration);
+                        break;
+                    case ProjectileMovement.MovementBehavior.Drunk:
+                        entry.modifiedDrunkInterval = EditorGUILayout.FloatField("Drunk Interval", entry.modifiedDrunkInterval);
+                        break;
+                }
+
+                break;
 
             case EffectType.ChangeEffectZone:
                 //entry.newEffectZonePrefab = EditorHelper.ObjectField("Effect Zone Prefab", entry.newEffectZonePrefab);
