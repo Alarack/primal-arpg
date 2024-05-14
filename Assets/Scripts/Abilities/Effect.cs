@@ -2251,7 +2251,7 @@ public class AddStatusEffect : Effect {
 
         if (activeStatusDict.TryGetValue(target, out List<Status> statusList)) {
             for (int i = 0; i < statusList.Count; i++) {
-                statusList[i].Remove();
+                statusList[i].Remove(true);
             }
 
             activeStatusDict.Remove(target);

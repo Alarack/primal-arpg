@@ -824,6 +824,7 @@ public static class AbilityEditorHelper {
         entry.interval = EditorGUILayout.FloatField("Interval", entry.interval);
 
         entry.VFXPrefab = EditorHelper.ObjectField("VFX Prefab", entry.VFXPrefab);
+        entry.statusSprite = EditorHelper.ObjectField("Status Icon", entry.statusSprite);
         entry.vfxScaleModifier = EditorGUILayout.FloatField("VFX Scale", entry.vfxScaleModifier);
 
 

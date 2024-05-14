@@ -16,6 +16,7 @@ public class StatusData
     public float interval;
 
     public GameObject VFXPrefab;
+    public Sprite statusSprite;
     public float vfxScaleModifier = 1f;
 
     public EffectDefinition statusEffectDef;

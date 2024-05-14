@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using static Unity.VisualScripting.Member;
+using static UnityEngine.GraphicsBuffer;
 
 public class Status {
     #region ENUMS
@@ -45,6 +47,7 @@ public class Status {
     protected Timer durationTimer;
     protected Timer intervalTimer;
     protected GameObject activeVFX;
+    private bool sendRemoveEvent;
 
     public StatusData Data { get; protected set; }
     public Effect ActiveEffect { get; protected set; }
@@ -108,8 +111,12 @@ public class Status {
 
         //Debug.Log("Total duration of a status " + Data.statusName + " on " + ParentEffect.Data.effectName + " is " + totalDuration);
 
-        if (totalDuration > 0f)
+
+
+        if (totalDuration > 0f) {
+            sendRemoveEvent = true;
             durationTimer = new Timer(totalDuration, CleanUp, false);
+        }
 
         if (totalInterval > 0f)
             intervalTimer = new Timer(totalInterval, Tick, true);
@@ -184,11 +191,31 @@ public class Status {
     //    ForceTick();
     //}
 
-    public virtual void Remove() {
+    public virtual void Remove(bool sendRemoveEvent = false) {
+        this.sendRemoveEvent = sendRemoveEvent;
+
+        
         CleanUp(null);
     }
 
+    private void SendStatusRemovedEvent() {
+        EventData statusEventData = new EventData();
+        statusEventData.AddEntity("Target", Target);
+        statusEventData.AddEntity("Cause", Source);
+        statusEventData.AddStatus("Status", this);
+        statusEventData.AddAbility("Causing Ability", ParentEffect.ParentAbility);
+        statusEventData.AddEffect("Causing Effect", ParentEffect);
+
+        EventManager.SendEvent(GameEvent.StatusRemoved, statusEventData);
+    }
+
     protected virtual void CleanUp(EventData timerEventData) {
+        
+        if(sendRemoveEvent == true) {
+            SendStatusRemovedEvent();
+        }
+        
+        
         TimerManager.RemoveTimerAction(ManagedUpdate);
         ParentEffect.CleanUp(Target, ActiveEffect);
 

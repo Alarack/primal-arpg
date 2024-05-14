@@ -21,6 +21,18 @@ public class HUDPanel : BasePanel
     public ResourceGlobeDisplay healthGlobe;
     public ResourceGlobeDisplay essenceGlobe;
 
+    [Header("Status Bar")]
+    public Transform buffHolder;
+    public Transform debuffHolder;
+    public StatusIndicatorEntry statusTemplate;
+
+    private List<StatusIndicatorEntry> statusIndicators = new List<StatusIndicatorEntry>();
+
+    protected override void Awake() {
+        base.Awake();
+
+        statusTemplate.gameObject.SetActive(false);
+    }
 
     protected override void Start() {
         base.Start();
@@ -31,6 +43,8 @@ public class HUDPanel : BasePanel
         EventManager.RegisterListener(GameEvent.CurrencyChanged, OnCurrencyChanged);
         EventManager.RegisterListener(GameEvent.UnitStatAdjusted, OnStatAdjusted);
         EventManager.RegisterListener(GameEvent.EntityLeveled, OnEntityLeveled);
+        EventManager.RegisterListener(GameEvent.StatusApplied, OnStatusApplied);
+        EventManager.RegisterListener(GameEvent.StatusRemoved, OnStatusRemoved);
     }
 
     protected override void OnDisable() {
@@ -49,6 +63,38 @@ public class HUDPanel : BasePanel
         UpdateStockpile();
     }
 
+
+    private void OnStatusApplied(EventData data) {
+        Status status = data.GetStatus("Status");
+        Entity target = data.GetEntity("Target");
+
+        if (target != EntityManager.ActivePlayer)
+            return;
+
+        StatusIndicatorEntry newStatus = Instantiate(statusTemplate, buffHolder);
+        newStatus.gameObject.SetActive(true);
+        newStatus.Setup(status);
+        statusIndicators.Add(newStatus);
+
+    }
+
+    private void OnStatusRemoved(EventData data) {
+        Status status = data.GetStatus("Status");
+        Entity target = data.GetEntity("Target");
+
+        if (target != EntityManager.ActivePlayer)
+            return;
+
+        for (int i = statusIndicators.Count -1; i >=0; i--) {
+            if (statusIndicators[i].activeStatus == status) {
+                Destroy(statusIndicators[i].gameObject);
+                statusIndicators.RemoveAt(i);
+            }
+            else {
+                Debug.Log(statusIndicators[i].activeStatus.Data.statusName + " is not " + status.Data.statusName);
+            }
+        }
+    }
 
     private void OnCurrencyChanged(EventData data) {
         float value = data.GetFloat("Value");
