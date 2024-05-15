@@ -88,7 +88,9 @@ public enum StatName
     TimeDamageModifier,
     SkillPoint,
     GlobalProjectileLifetimeModifier,
-    GlobalProjectileSpeedModifier
+    GlobalProjectileSpeedModifier,
+    GlobalStatusDurationModifier,
+    GlobalStatusIntervalModifier
 
 
 }

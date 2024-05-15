@@ -2150,13 +2150,13 @@ public class AddStatusEffect : Effect {
     }
 
     public float GetModifiedStatusDuration() {
-        float effectDurationModifier = 1 + Source.Stats[StatName.GlobalEffectDurationModifier];
+        float effectDurationModifier = 1 + Source.Stats[StatName.GlobalStatusDurationModifier];
 
         return Stats[StatName.StatusLifetime] * effectDurationModifier;
     }
 
     public float GetModifiedIntervalDuration() {
-        float effectIntervalModifier = 1 + Source.Stats[StatName.GlobalEffectIntervalModifier];
+        float effectIntervalModifier = 1 + Source.Stats[StatName.GlobalStatusIntervalModifier];
 
         return Stats[StatName.StatusInterval] * effectIntervalModifier;
     }
@@ -2344,11 +2344,13 @@ public class AddStatusEffect : Effect {
                     string durationText = TextHelper.ColorizeText(GetModifiedStatusDuration().ToString(), Color.yellow) + " seconds";
                     string intervalText = TextHelper.ColorizeText(GetModifiedIntervalDuration().ToString(), Color.yellow) + " seconds";
 
+                    string durationReplacement = GetModifiedStatusDuration() > 0f ? durationText : TextHelper.ColorizeText("Eternity", Color.yellow);
+
 
                     if (damageRatio > 0) {
                         builder.Append("Causes " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", Color.green)
                        + " of Weapon Damage every " + intervalText + " for "
-                       + durationText);
+                       + durationReplacement);
 
                     }
                     else {

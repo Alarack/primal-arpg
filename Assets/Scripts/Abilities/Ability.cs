@@ -796,8 +796,10 @@ public class Ability {
 
             string procReplacement = chainCountReplacement.Replace("{PR}", TextHelper.FormatStat(StatName.ProcChance, procChance));
 
+            float statusDuration = Stats[StatName.StatusLifetime] * (1 + Source.Stats[StatName.GlobalStatusDurationModifier]);
+
             float statusLife = Stats[StatName.StatusLifetime] > 0f ? Stats[StatName.StatusLifetime] : -1f;
-            string statusLifeText = statusLife > 0 ? TextHelper.ColorizeText(statusLife.ToString(), Color.yellow) : TextHelper.ColorizeText( "Infintie", Color.yellow);
+            string statusLifeText = statusDuration > 0 ? TextHelper.ColorizeText(statusDuration.ToString(), Color.yellow) : TextHelper.ColorizeText( "Infintie", Color.yellow);
             string statusLifeReplacement = procReplacement.Replace("{SL}", statusLifeText);
 
             builder.Append(statusLifeReplacement);
