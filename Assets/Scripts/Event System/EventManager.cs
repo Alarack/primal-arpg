@@ -163,6 +163,7 @@ namespace LL.Events {
         AbilityEnded,
         TagAdded,
         TagRemoved,
+        StatusStacked
 
     }
 

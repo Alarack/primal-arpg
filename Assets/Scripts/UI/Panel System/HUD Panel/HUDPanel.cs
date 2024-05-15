@@ -45,6 +45,7 @@ public class HUDPanel : BasePanel
         EventManager.RegisterListener(GameEvent.EntityLeveled, OnEntityLeveled);
         EventManager.RegisterListener(GameEvent.StatusApplied, OnStatusApplied);
         EventManager.RegisterListener(GameEvent.StatusRemoved, OnStatusRemoved);
+        EventManager.RegisterListener(GameEvent.StatusStacked, OnStatusStacked); 
     }
 
     protected override void OnDisable() {
@@ -78,6 +79,23 @@ public class HUDPanel : BasePanel
 
     }
 
+    private void OnStatusStacked(EventData data) {
+        Status status = data.GetStatus("Status");
+        Entity target = data.GetEntity("Target");
+
+        if (target != EntityManager.ActivePlayer)
+            return;
+
+        if (status.Data.stackMethod == Status.StackMethod.None)
+            return;
+
+        StatusIndicatorEntry targetStatus = GetStatusIndicator(status);
+
+        if(targetStatus != null) {
+            targetStatus.UpdateStackCount();
+        }
+    }
+
     private void OnStatusRemoved(EventData data) {
         Status status = data.GetStatus("Status");
         Entity target = data.GetEntity("Target");
@@ -85,15 +103,36 @@ public class HUDPanel : BasePanel
         if (target != EntityManager.ActivePlayer)
             return;
 
-        for (int i = statusIndicators.Count -1; i >=0; i--) {
+        StatusIndicatorEntry targetStatus = GetStatusIndicator(status);
+
+        if(targetStatus != null) {
+            statusIndicators.Remove(targetStatus);
+            Destroy(targetStatus.gameObject);
+        }
+        else {
+            Debug.LogError("Couldn't find a status: " + status.Data.statusName + " in the indicators");
+        }
+
+
+        //for (int i = statusIndicators.Count -1; i >=0; i--) {
+        //    if (statusIndicators[i].activeStatus == status) {
+        //        Destroy(statusIndicators[i].gameObject);
+        //        statusIndicators.RemoveAt(i);
+        //    }
+        //    else {
+        //        Debug.Log(statusIndicators[i].activeStatus.Data.statusName + " is not " + status.Data.statusName);
+        //    }
+        //}
+    }
+
+    private StatusIndicatorEntry GetStatusIndicator(Status status) {
+        for (int i = 0; i < statusIndicators.Count; i++) {
             if (statusIndicators[i].activeStatus == status) {
-                Destroy(statusIndicators[i].gameObject);
-                statusIndicators.RemoveAt(i);
-            }
-            else {
-                Debug.Log(statusIndicators[i].activeStatus.Data.statusName + " is not " + status.Data.statusName);
+                return statusIndicators[i];
             }
         }
+
+        return null;
     }
 
     private void OnCurrencyChanged(EventData data) {

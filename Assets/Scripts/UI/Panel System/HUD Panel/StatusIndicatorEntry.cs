@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class StatusIndicatorEntry : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public Image statusIconImage;
     public Status activeStatus;
+    public TextMeshProUGUI stackCountText;
 
 
 
@@ -21,10 +23,20 @@ public class StatusIndicatorEntry : MonoBehaviour, IPointerEnterHandler, IPointe
     
     private void SetupDisplay() {
         statusIconImage.sprite = activeStatus.Data.statusSprite;
+
+        if(activeStatus.Data.stackMethod == Status.StackMethod.None) {
+            stackCountText.gameObject.SetActive(false);
+        }
+        else {
+            stackCountText.gameObject.SetActive(true); 
+            UpdateStackCount();
+        }
     }
     
     
-    
+    public void UpdateStackCount() {
+        stackCountText.text = activeStatus.StackCount.ToString();
+    }
     
     
     
