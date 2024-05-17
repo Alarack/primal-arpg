@@ -58,6 +58,7 @@ public class TriggerData
     public float triggerTimerDuration;
     public bool delay1Frame;
     public bool autoActivateTimer;
+    public bool resetTimerOnParentAbilityEnd;
 
     public List<ConstraintDataFocus> allConstraints = new List<ConstraintDataFocus>();
 

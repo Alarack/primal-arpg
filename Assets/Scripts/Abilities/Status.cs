@@ -29,7 +29,8 @@ public class Status {
         Vulnerable,
         StealTime,
         AlteredTimelineBuff,
-        EssenceSiphonCDR
+        EssenceSiphonCDR,
+        RisingTide
     }
 
     #endregion
@@ -219,7 +220,9 @@ public class Status {
     }
 
     protected virtual void CleanUp(EventData timerEventData) {
-        
+
+        //Debug.LogWarning("Cleaning up: " + Data.statusName + " event: " + sendRemoveEvent);
+
         if(sendRemoveEvent == true) {
             SendStatusRemovedEvent();
         }

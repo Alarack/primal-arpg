@@ -58,7 +58,7 @@ public class ProjectileMovement : EntityMovement
     public void ChangeBehaviour(MovementBehavior newBehavior, float seektimer = -1, float drunkTimer = 0.5f) {
         
         if (movementBehavior == newBehavior) {
-            Debug.LogWarning("A projectile was told to change behavior to: " + newBehavior + " but it already was");
+            //Debug.LogWarning("A projectile was told to change behavior to: " + newBehavior + " but it already was");
             return;
         }
 

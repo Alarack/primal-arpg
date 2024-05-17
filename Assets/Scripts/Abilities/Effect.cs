@@ -283,39 +283,17 @@ public abstract class Effect {
         if (CheckNonStacking(target) == true)
             return false;
 
-        //if (Data.nonStacking == true) {
-        //    if (EntityTargets.Contains(target) == true) {
-        //        //Debug.LogWarning("Add a psudo stack to " + Data.effectName);
-
-        //        if (PsudoStacks.TryGetValue(target, out int count) == true) {
-        //            count++;
-        //            Debug.LogWarning("Incementing a count for : " + Data.effectName + " on " + target.EntityName + " :: " + count);
-
-        //        }
-        //        else {
-        //            Debug.LogWarning("Starting a Psudo Stack for: " + Data.effectName + " on " + target.EntityName);
-        //            PsudoStacks.Add(target, 1);
-        //        }
-
-        //        return false;
-        //    }
-        //}
-
-
         if (EntityTargets.Contains(target) == false) {
             EntityTargets.Add(target);
         }
-        //else {
-        //    Debug.LogError(target.EntityName + " was already in the list of targets for an effect: " + Data.effectName + " on the source: " + Source.EntityName);
-        //}
 
         LastTarget = target;
-
 
         if (Data.canOverload == true) {
             if (CheckOverload(target) == true) {
 
                 isOverloading = true;
+                //Debug.Log("Overload: " + Data.effectName);
                 SendOverloadEvent(target);
             }
             else {

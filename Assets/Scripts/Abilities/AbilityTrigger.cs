@@ -810,6 +810,8 @@ public class OverloadTrigger : AbilityTrigger {
 
 
         //Debug.Log(triggeringAbility.Data.abilityName + " is overloading on " + target.EntityName);
+        //Debug.Log("Triggering Ability: " + triggeringAbility.Data.abilityName);
+        //Debug.Log("Triggeing Effect: " + triggeringEffect.Data.effectName);
 
         TryActivateTrigger(triggerInstance);
     }
@@ -1442,6 +1444,8 @@ public class TimedTrigger : AbilityTrigger {
 
     public override Action<EventData> EventReceiver => OnTriggerTimerCompleted;
 
+    public float TriggerInterval { get { return myTimer.Duration; } }
+    
     private Timer myTimer;
 
     private NPC aiOwner;
@@ -1460,6 +1464,7 @@ public class TimedTrigger : AbilityTrigger {
         base.TearDown();
 
         TimerManager.RemoveTimerAction(UpdateClock);
+        EventManager.RemoveMyListeners(this);
     }
 
 
@@ -1480,10 +1485,12 @@ public class TimedTrigger : AbilityTrigger {
         data.AddTrigger("Trigger", this);
         data.AddEntity("Owner", SourceEntity);
 
-
-
         myTimer = new Timer(Data.triggerTimerDuration, OnTriggerTimerCompleted, true, data);
         TimerManager.AddTimerAction(UpdateClock);
+
+        if(Data.resetTimerOnParentAbilityEnd == true) {
+            EventManager.RegisterListener(GameEvent.AbilityEnded, OnParentAbilityEnded);
+        }
     }
 
     public void ResetClock() {
@@ -1491,6 +1498,16 @@ public class TimedTrigger : AbilityTrigger {
         //Debug.Log("Resetting clock for state: " + AIState);
 
         myTimer.ResetTimer();
+    }
+
+    private void OnParentAbilityEnded(EventData data) {
+        Ability parent = data.GetAbility("Ability");
+
+        if (parent != ParentAbility)
+            return;
+
+        ResetClock();
+        ParentAbility.SetActive(true);
     }
 
 

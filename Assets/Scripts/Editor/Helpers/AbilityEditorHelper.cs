@@ -163,6 +163,7 @@ public static class AbilityEditorHelper {
         if (entry.type == TriggerType.Timed) {
             entry.triggerTimerDuration = EditorGUILayout.FloatField("Duration", entry.triggerTimerDuration);
             entry.autoActivateTimer = EditorGUILayout.Toggle("Auto Start", entry.autoActivateTimer);
+            entry.resetTimerOnParentAbilityEnd = EditorGUILayout.Toggle("Auto Reset", entry.resetTimerOnParentAbilityEnd);
         }
 
         EditorGUILayout.LabelField("Constraints", EditorStyles.boldLabel);

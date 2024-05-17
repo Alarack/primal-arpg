@@ -802,7 +802,13 @@ public class Ability {
             string statusLifeText = statusDuration > 0 ? TextHelper.ColorizeText(statusDuration.ToString(), Color.yellow) : TextHelper.ColorizeText( "Infintie", Color.yellow);
             string statusLifeReplacement = procReplacement.Replace("{SL}", statusLifeText);
 
-            builder.Append(statusLifeReplacement);
+
+            float timerInterval = GetTimerTriggerInterval();
+
+            string timerInteralText = TextHelper.ColorizeText(timerInterval.ToString(), Color.yellow);
+            string timerIntervalReplacment = statusLifeReplacement.Replace("{TI}", timerInteralText);
+
+            builder.Append(timerIntervalReplacment);
 
             if(Data.showChildAbilitiesInTooltip == false) {
                 builder.AppendLine();
@@ -978,6 +984,17 @@ public class Ability {
         //if (cooldown != null) {
         //    return cooldown.Cooldown;
         //}
+
+        return -1f;
+    }
+
+    public float GetTimerTriggerInterval() {
+        foreach (AbilityTrigger trigger in activationTriggers) {
+            if(trigger is TimedTrigger) {
+                TimedTrigger timer = trigger as TimedTrigger;
+                return timer.TriggerInterval;
+            }
+        }
 
         return -1f;
     }
