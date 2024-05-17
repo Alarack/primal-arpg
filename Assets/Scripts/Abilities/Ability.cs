@@ -798,7 +798,7 @@ public class Ability {
 
             float statusDuration = Stats[StatName.StatusLifetime] * (1 + Source.Stats[StatName.GlobalStatusDurationModifier]);
 
-            float statusLife = Stats[StatName.StatusLifetime] > 0f ? Stats[StatName.StatusLifetime] : -1f;
+            //float statusLife = Stats[StatName.StatusLifetime] > 0f ? Stats[StatName.StatusLifetime] : -1f;
             string statusLifeText = statusDuration > 0 ? TextHelper.ColorizeText(statusDuration.ToString(), Color.yellow) : TextHelper.ColorizeText( "Infintie", Color.yellow);
             string statusLifeReplacement = procReplacement.Replace("{SL}", statusLifeText);
 
