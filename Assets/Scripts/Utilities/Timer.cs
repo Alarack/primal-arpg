@@ -38,16 +38,27 @@ public class Timer
 
             if(timeElapsed >= Duration)
             {
-                if (onCompleteCallback != null)
-                    onCompleteCallback(callbackData);
-
-                //Debug.Log("Time Elapsed. Duration: " + Duration);
-
-                if(resetTimerOnComplete == true)
-                {
-                    ResetTimer();
-                }
+                CompleteTimer();
             }
+        }
+    }
+
+    private void CompleteTimer() {
+        if (onCompleteCallback != null)
+            onCompleteCallback(callbackData);
+
+        //Debug.Log("Time Elapsed. Duration: " + Duration);
+
+        if (resetTimerOnComplete == true) {
+            ResetTimer();
+        }
+    }
+
+    public void ModifyTimeElapsed(float mod) {
+        timeElapsed += mod;
+
+        if(timeElapsed >= Duration) {
+            CompleteTimer();
         }
     }
 

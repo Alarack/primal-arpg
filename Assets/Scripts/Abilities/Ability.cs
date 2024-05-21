@@ -686,6 +686,14 @@ public class Ability {
         return null;
     }
 
+    public void ModifyCooldownElasped(float amount) {
+        AbilityRecoveryCooldown cooldownRecovery = GetCooldownRecovery();
+        if(cooldownRecovery == null) 
+            return;
+
+        cooldownRecovery.ModifiyCooldownElapsed(amount);
+    }
+
     public float GetCooldownRatio() {
         AbilityRecoveryCooldown cooldown = GetCooldownRecovery();
         if (cooldown != null) {

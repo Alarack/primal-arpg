@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 2
     abilityIcon: {fileID: 0}
     abilityName: Chronal Amplifier
-    abilityDescription: Whenever you score an Overload with a Time Skill, reset your
-      Cooldowns.
+    abilityDescription: Whenever you score an Overload with a Time Skill, advance
+      your Cooldowns by 1 Second.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -40,6 +40,7 @@ MonoBehaviour:
       triggerTimerDuration: 0
       delay1Frame: 0
       autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 4
         constraintData:
@@ -136,6 +137,7 @@ MonoBehaviour:
         triggerTimerDuration: 0
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -151,13 +153,14 @@ MonoBehaviour:
         triggerTimerDuration: 0
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 30b3f8254e2ce7c4d8ac6c75e7afdce6, type: 2}
+    - {fileID: 11400000, guid: c2f99a07acaf4554cb6a218b8514401a, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

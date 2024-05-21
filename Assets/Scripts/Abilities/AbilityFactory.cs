@@ -137,6 +137,7 @@ public static class AbilityFactory {
             EffectType.ChangePayload => new EffectChangePayaload(data, source, parentAbility),
             EffectType.ChangeEffectZone => new EffectChangeEffectZpme(data, source, parentAbility),
             EffectType.ModifyProjectile => new ModifyProjectileEffect(data, source, parentAbility),
+            EffectType.ModifyElapsedCooldown => new ModifiyElapsedCooldownEffect(data, source, parentAbility),
             _ => null,
         };
 

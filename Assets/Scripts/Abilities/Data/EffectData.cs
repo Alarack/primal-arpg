@@ -29,7 +29,8 @@ public enum EffectType {
     RemoveRider,
     ChangePayload,
     ChangeEffectZone,
-    ModifyProjectile
+    ModifyProjectile,
+    ModifyElapsedCooldown
 }
 
 public enum EffectTarget {
@@ -227,6 +228,9 @@ public class EffectData
     public ProjectileMovement.MovementBehavior modifiedMovementBehavior;
     public float modifiedSeekDuration = -1;
     public float modifiedDrunkInterval = 0.2f;
+
+    //Modifiy Cooldown Elapsed
+    public float cooldownElapsedModifier;
 
 
 

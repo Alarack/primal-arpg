@@ -681,6 +681,11 @@ public static class AbilityEditorHelper {
 
                 break;
 
+            case EffectType.ModifyElapsedCooldown:
+                entry.cooldownElapsedModifier = EditorGUILayout.FloatField("Amount", entry.cooldownElapsedModifier);
+
+                break;
+
             default:
                 break;
         }

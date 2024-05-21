@@ -619,6 +619,49 @@ public class EmptyEffect : Effect {
     }
 }
 
+public class ModifiyElapsedCooldownEffect : Effect {
+    public override EffectType Type => EffectType.ModifyElapsedCooldown;
+
+    public ModifiyElapsedCooldownEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        if (target is EntityPlayer) {
+            List<Ability> allAbilities = target.AbilityManager.GetAllAbilities();
+
+            for (int i = 0; i < allAbilities.Count; i++) {
+                allAbilities[i].ModifyCooldownElasped(Data.cooldownElapsedModifier);
+            }
+        }
+        else {
+            Debug.LogError("Elasped cooldown mod is not yet supported for NPCs");
+            return false;
+        }
+
+        return true;
+    }
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+        target.ModifyCooldownElasped(Data.cooldownElapsedModifier);
+
+
+        return true;
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+
+        Debug.LogError("Tried to modify the cooldown of an effect: " + target.Data.effectName + " this is not supported");
+        return false;
+    }
+}
+
 public class EffectChangePayaload : Effect {
     public override EffectType Type => EffectType.ChangePayload;
 
