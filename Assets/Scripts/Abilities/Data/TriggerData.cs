@@ -41,7 +41,8 @@ public enum TriggerType {
     EntitySpawned,
     AbilityEnded,
     TeleportInitiated,
-    TeleportConcluded
+    TeleportConcluded,
+    StatusStacked
 }
 
 

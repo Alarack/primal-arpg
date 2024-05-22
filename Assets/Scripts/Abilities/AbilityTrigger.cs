@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using LL.Events;
 using DG.Tweening;
+using static Unity.VisualScripting.Member;
+using static UnityEngine.GraphicsBuffer;
 
 public abstract class AbilityTrigger {
     public abstract TriggerType Type { get; }
@@ -756,6 +758,47 @@ public class StatusAppliedTrigger : AbilityTrigger {
         public Status statusApplied;
 
         public StatusAppliedTriggerInstance(Entity trigger, Entity cause, TriggerType type, Status statusApplied) : base(trigger, cause, type) {
+            this.statusApplied = statusApplied;
+        }
+    }
+}
+
+public class StatusStackedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.StatusStacked;
+    public override GameEvent TargetEvent => GameEvent.StatusStacked;
+    public override Action<EventData> EventReceiver => OnStatusStacked;
+
+    public StatusStackedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnStatusStacked(EventData data) {
+
+        Entity target = data.GetEntity("Target");
+        Entity cause = data.GetEntity("Cause");
+        Ability causingAbility = data.GetAbility("Causing Ability");
+        Effect causingEffect = data.GetEffect("Causing Effect");
+        Status status = data.GetStatus("Status");
+
+        TriggeringEntity = target;
+        CauseOfTrigger = cause;
+
+
+        //Debug.Log("Status Trigger: " + status.Data.statusName + " stacked on: " + target.EntityName + " from " + cause.EntityName);
+
+        StatusStackedTriggerInstance triggerInstance = new StatusStackedTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, status);
+        triggerInstance.CausingAbility = causingAbility;
+        triggerInstance.CausingEffect = causingEffect;
+        triggerInstance.SourceAbility = ParentAbility;
+        TryActivateTrigger(triggerInstance);
+    }
+
+
+    public class StatusStackedTriggerInstance : TriggerInstance {
+        public Status statusApplied;
+
+        public StatusStackedTriggerInstance(Entity trigger, Entity cause, TriggerType type, Status statusApplied) : base(trigger, cause, type) {
             this.statusApplied = statusApplied;
         }
     }

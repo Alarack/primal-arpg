@@ -177,8 +177,6 @@ public class Status {
         StackCount++;
         ActiveEffect.Stack(this);
 
-
-
         //Debug.Log("Stacking: " + ActiveEffect.Data.effectName + " Count: " + StackCount);
         EventData statusEventData = new EventData();
         statusEventData.AddEntity("Target", Target);
