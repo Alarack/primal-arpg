@@ -30,7 +30,8 @@ public class Status {
         StealTime,
         AlteredTimelineBuff,
         EssenceSiphonCDR,
-        RisingTide
+        RisingTide,
+        EssenceGreed
     }
 
     #endregion

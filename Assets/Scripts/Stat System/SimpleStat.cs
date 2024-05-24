@@ -90,7 +90,8 @@ public enum StatName
     GlobalProjectileLifetimeModifier,
     GlobalProjectileSpeedModifier,
     GlobalStatusDurationModifier,
-    GlobalStatusIntervalModifier
+    GlobalStatusIntervalModifier,
+    GlobalEssenceCostModifier
 
 
 }

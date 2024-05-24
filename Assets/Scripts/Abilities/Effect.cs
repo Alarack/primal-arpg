@@ -2288,7 +2288,9 @@ public class AddStatusEffect : Effect {
         
         float maxStacks = Stats.GetStatRangeMaxValue(StatName.StackCount);
 
-        if (maxStacks < float.MaxValue && Data.statusToAdd[0].stackMethod != StackMethod.None) {
+        if (maxStacks < float.MaxValue && 
+            Data.statusToAdd[0].stackMethod != StackMethod.None && 
+            Data.statusToAdd[0].stackMethod != StackMethod.Infinite) {
             builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
         }
         if (Data.statusToAdd[0].stackMethod == StackMethod.Infinite) {

@@ -703,6 +703,19 @@ public class Ability {
         return 0f;
     }
 
+    public float GetTotalEssenceCost() {
+        if(Stats.Contains(StatName.EssenceCost) == false) 
+            return 0f;
+
+        if (Stats[StatName.EssenceCost] < 0f) {
+            return Stats[StatName.EssenceCost]; 
+        }
+
+        float cost = Stats[StatName.EssenceCost] * (1f + Source.Stats[StatName.GlobalEssenceCostModifier]);
+
+        return cost;
+    }
+
     public bool CheckReady() {
         if (HasRecovery == false)
             return true;
@@ -899,11 +912,13 @@ public class Ability {
 
         if (Stats.Contains(StatName.EssenceCost)) {
 
-            if (Stats[StatName.EssenceCost] > 0) {
-                builder.AppendLine("Cost: " + TextHelper.ColorizeText(Stats[StatName.EssenceCost].ToString(), Color.cyan) + " Essence");
+            float totalCost = GetTotalEssenceCost();
+
+            if (totalCost > 0) {
+                builder.AppendLine("Cost: " + TextHelper.ColorizeText(totalCost.ToString(), Color.cyan) + " Essence");
             }
-            else if (Stats[StatName.EssenceCost] < 0){
-                builder.AppendLine("Generates: " + TextHelper.ColorizeText(Mathf.Abs(Stats[StatName.EssenceCost]).ToString(), Color.cyan) + " Essence");
+            else if (totalCost < 0){
+                builder.AppendLine("Generates: " + TextHelper.ColorizeText(Mathf.Abs(totalCost).ToString(), Color.cyan) + " Essence");
 
             }
         }
@@ -1167,8 +1182,7 @@ public class Ability {
     private bool CheckCost() {
         if (Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] != 0f) {
             //Debug.Log("Cost: " + Stats[StatName.EssenceCost]);
-
-            if (EntityManager.ActivePlayer.TrySpendEssence(Stats[StatName.EssenceCost]) == false) {
+            if (EntityManager.ActivePlayer.TrySpendEssence(GetTotalEssenceCost()) == false) {
                 //Debug.LogWarning("Not enough essence for " + Data.abilityName);
                 return false;
             }
