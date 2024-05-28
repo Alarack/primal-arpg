@@ -13,8 +13,8 @@ public static class TextHelper
     public static string FormatStat(StatName stat, float value) {
 
         //StringBuilder builder = new StringBuilder();
-        string bonusColor = ColorUtility.ToHtmlStringRGB(Color.green);
-        string penaltyColor = ColorUtility.ToHtmlStringRGB(Color.red);
+        string bonusColor = ColorUtility.ToHtmlStringRGB(new Color(.439f, .839f, 0.11f));
+        string penaltyColor = ColorUtility.ToHtmlStringRGB(new Color(0.839f, 0.235f, 0.11f));
 
         string result = stat switch {
             StatName.Health => $"<color=#{bonusColor}>+" + value + "</color>",
@@ -92,7 +92,8 @@ public static class TextHelper
             StatName.CastSpeedModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.CastSpeedModifier when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "% </color>",
             StatName.DashCooldown => $"<color=#{bonusColor}>-" + (value) * 100 + "% </color>",
-            StatName.GlobalMoveSpeedModifier => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
+            StatName.GlobalMoveSpeedModifier when value >= 0f => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
+            StatName.GlobalMoveSpeedModifier when value < 0f => $"<color=#{penaltyColor}>" + (value) * 100 + "% </color>",
             StatName.EssenceRegenerationRate when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "% </color>",
             StatName.EssenceShield when value > 0 => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.ProcChance when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
