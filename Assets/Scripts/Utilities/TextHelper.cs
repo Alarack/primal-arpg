@@ -44,11 +44,11 @@ public static class TextHelper
             StatName.EffectInterval when value > 0 => $"<color=#{penaltyColor}>+" + (value * 100) + "% </color>",
             StatName.AbilityCharge => "",
             //StatName.CooldownReduction when value > 0 => builder.Append("Cooldown Reduction").Append("-").Append( (value * 100) + "%").ToString(),
-            StatName.CooldownReduction when value > 0 => $"<color=#{bonusColor}>" +(value * 100) + "% </color>",
-            StatName.CooldownReduction when value <= 0 => "+" + (value * 100) + "%",
-            StatName.GlobalDamageModifier when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
+            StatName.CooldownReduction when value >= 0 => $"<color=#{bonusColor}>" +(value * 100) + "% </color>",
+            StatName.CooldownReduction when value < 0 => $"<color=#{penaltyColor}>" + (value * 100) + "% </color>",
+            StatName.GlobalDamageModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.GlobalDamageModifier when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "% </color>",
-            StatName.GlobalEffectDurationModifier when value > 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
+            StatName.GlobalEffectDurationModifier when value >= 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.GlobalEffectDurationModifier when value < 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.MeleeDamageModifier when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.MeleeDamageModifier when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "% </color>",
@@ -86,15 +86,15 @@ public static class TextHelper
             StatName.ArcaneDamageModifier => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.VoidDamageModifier => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.SpatialDamageModifier => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
-            StatName.EssenceRegenerationRate when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
-            StatName.EssenceRegenerationValue when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
+            //StatName.EssenceRegenerationRate when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
+            //StatName.EssenceRegenerationValue when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.MaxMinionCount => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.CastSpeedModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.CastSpeedModifier when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "% </color>",
-            StatName.DashCooldown => $"<color=#{bonusColor}>-" + (value) * 100 + "% </color>",
+            StatName.DashCooldown => $"<color=#{bonusColor}>-" + (value) + "</color>",
             StatName.GlobalMoveSpeedModifier when value >= 0f => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.GlobalMoveSpeedModifier when value < 0f => $"<color=#{penaltyColor}>" + (value) * 100 + "% </color>",
-            StatName.EssenceRegenerationRate when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "% </color>",
+            //StatName.EssenceRegenerationRate when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "% </color>",
             StatName.EssenceShield when value > 0 => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.ProcChance when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.Armor when value > 0 => $"<color=#{bonusColor}>+" + (value) * 100 + "%</color>",
@@ -109,7 +109,30 @@ public static class TextHelper
             StatName.GlobalProjectileSpeedModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalEssenceCostModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalEssenceCostModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
-
+            StatName.MeleeDamageModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.MeleeDamageModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalEffectIntervalModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalEffectIntervalModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalEffectSizeModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalEffectSizeModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalProjectileSizeModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalProjectileSizeModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.EssenceRegenerationRate when value >= 0 => $"<color=#{bonusColor}>" + (value) + "</color>",
+            StatName.EssenceRegenerationRate when value < 0 => $"<color=#{penaltyColor}>" + (value) + "</color>",
+            StatName.EssenceRegenerationValue when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.EssenceRegenerationValue when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.Armor when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.Armor when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalProjectileLifetimeModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalProjectileLifetimeModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalProjectileSpeedModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalProjectileSpeedModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalStatusDurationModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalStatusDurationModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalStatusIntervalModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalStatusIntervalModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalEssenceCostModifier when value >= 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalEssenceCostModifier when value < 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
 
             _ => "No Entry For: " + stat,
         };
@@ -120,6 +143,9 @@ public static class TextHelper
         return "<b>" + result + "</b>";
 
     }
+
+
+
 
     public static string PretifyStatName(StatName stat) {
         string result = stat switch {
@@ -173,15 +199,22 @@ public static class TextHelper
             StatName.WaterDamageModifier => "Water Damage",
             StatName.FireDamageModifier => "Fire Damage",
             StatName.MinionDamageModifier => "Minion Damage",
-            StatName.EssenceRegenerationRate => stat.ToString().SplitCamelCase(),
-            StatName.EssenceRegenerationValue => "Essence Regeneration Amount",
+            StatName.EssenceRegenerationRate => "Essence Regen Rate",
+            StatName.EssenceRegenerationValue => "Essence Regen Amount",
             StatName.AirDamageModifier => "Air Damage",
             StatName.PoisonDamageModifier => "Poison Damage",
             StatName.MaxMinionCount => "Max Minions",
             StatName.CastSpeedModifier => "Cast Speed",
             StatName.Essence => stat.ToString(),
             StatName.GlobalMoveSpeedModifier => "Move Speed",
-            _ => "Stat not found: " + stat,
+            StatName.GlobalProjectileLifetimeModifier => "Global Projectile Lifetime",
+            StatName.GlobalProjectileSpeedModifier => "Global Projectile Speed",
+            StatName.GlobalEssenceCostModifier => "Global Essence Cost",
+            StatName.GlobalStatusDurationModifier => "Global Status Duration",
+            StatName.GlobalStatusIntervalModifier => "Global Status Interval",
+
+  
+            _ => stat.ToString().SplitCamelCase(),
         };
 
         return result;

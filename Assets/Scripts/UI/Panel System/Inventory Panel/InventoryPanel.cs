@@ -35,15 +35,21 @@ public class InventoryPanel : BasePanel {
 
     public GameObject dropZone;
 
-    [Header("Testing Debug Things")]
-    public TextMeshProUGUI cdrText;
+    [Header("Stat Display")]
+    public StatDisplayEntry statDisplayTemplate;
+    public Transform statDisplayHolder;
+
+    private List<StatDisplayEntry> statDisplayEntries = new List<StatDisplayEntry>();
+
+    //[Header("Testing Debug Things")]
+    //public TextMeshProUGUI cdrText;
 
     protected override void Awake() {
         base.Awake();
         CreateEmptySlots();
         SetupPaperDollSlots();
         
-
+        statDisplayTemplate.gameObject.SetActive(false);
         inventoryEntryTemplate.gameObject.SetActive(false);
         affixTemplate.gameObject.SetActive(false);
         affixSlotTemplate.gameObject.SetActive(false);
@@ -86,20 +92,52 @@ public class InventoryPanel : BasePanel {
         if (target != EntityManager.ActivePlayer)
             return;
 
-       
-        if(stat == StatName.CooldownReduction) {
-            SetStatValues();
-        }
+
+        SetStatValues(stat);
+
+        //if(stat == StatName.CooldownReduction) {
+        //    SetStatValues();
+        //}
 
     }
 
-    private void SetStatValues() {
+    private void SetStatValues(StatName stat = StatName.Vitality) {
 
         if(EntityManager.ActivePlayer == null) {
             return;
         }
 
-        cdrText.text = "Cooldown Reduction: " + TextHelper.FormatStat(StatName.CooldownReduction, EntityManager.ActivePlayer.Stats[StatName.CooldownReduction]);
+        List<StatName> exceptions = new List<StatName> {
+            StatName.DashSpeed,
+            StatName.DashDuration,
+            StatName.MoveSpeed,
+            StatName.Health,
+            StatName.Essence,
+            StatName.Experience,
+            StatName.StatReroll,
+            StatName.EssenceShield,
+
+
+
+        };
+
+        if(exceptions.Contains(stat)) {
+            return;
+        }
+
+        Dictionary<string, string> allStatDisplays = EntityManager.ActivePlayer.Stats.GetStatDisplays(exceptions);
+
+        statDisplayEntries.PopulateList(allStatDisplays.Count, statDisplayTemplate, statDisplayHolder, true);
+
+        int count = 0;
+        foreach (var statDisplay in allStatDisplays) {
+            string displayText = statDisplay.Key + ": " + statDisplay.Value;
+            statDisplayEntries[count].Setup(displayText);
+            count++;
+        }
+
+
+        //cdrText.text = "Cooldown Reduction: " + TextHelper.FormatStat(StatName.CooldownReduction, EntityManager.ActivePlayer.Stats[StatName.CooldownReduction]);
 
     }
 

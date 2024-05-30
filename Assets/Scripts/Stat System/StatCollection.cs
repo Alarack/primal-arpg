@@ -196,6 +196,25 @@ public class StatCollection {
 
     #endregion
 
+
+    public Dictionary<string, string> GetStatDisplays(List<StatName> exceptions = null) {
+        Dictionary<string, string> results = new Dictionary<string, string>();
+
+        foreach (var entry in statDictionary) {
+            if (exceptions != null && exceptions.Contains(entry.Key))
+                continue;
+
+            string name = TextHelper.PretifyStatName(entry.Key);
+            string value = TextHelper.FormatStat(entry.Key, entry.Value.ModifiedValue);
+
+            results.Add(name, value);
+        }
+
+
+
+        return results;
+    }
+
     #region GET STAT VALUES
 
     public TStat GetStat<TStat>(StatName name) where TStat : BaseStat {
