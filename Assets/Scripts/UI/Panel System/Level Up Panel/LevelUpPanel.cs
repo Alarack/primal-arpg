@@ -7,40 +7,76 @@ using TMPro;
 public class LevelUpPanel : BasePanel
 {
 
-    [Header("Template")]
-    public StatBoostEntry template;
-    public Transform holder;
+    [Header("Stat Boost Template")]
+    public StatBoostEntry statBoostTemplate;
+    public Transform statBoostHolder;
+
+    [Header("Ability Template")]
+    public AbilityChoiceEntry abilityTemplate;
+    public Transform abilityHolder;
 
     [Header("Rerolls")]
     public TextMeshProUGUI rerollText;
 
-    private List<StatBoostEntry> entries = new List<StatBoostEntry>();
+    private List<StatBoostEntry> statBoostEntries = new List<StatBoostEntry>();
+    private List<AbilityChoiceEntry> abilityChoiceEntries = new List<AbilityChoiceEntry>();
 
     protected override void Awake() {
         base.Awake();
 
-        template.gameObject.SetActive(false);
+        statBoostTemplate.gameObject.SetActive(false);
+        abilityTemplate.gameObject.SetActive(false);
     }
 
     public override void Open() {
         base.Open();
 
-        if(entries == null || entries.Count == 0)
+        if(statBoostEntries == null || statBoostEntries.Count == 0)
             SetupStatChoices();
 
+        if(abilityChoiceEntries == null || abilityChoiceEntries.Count == 0)
+            SetupAbilityChoices();
+        
         UpdateRerollText();
     }
 
+    private void SetupAbilityChoices() {
+        List<Ability> lockedAbilities = EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.KnownSkill);
+        List<Ability> choices = new List<Ability>();
+
+        for (int i = 0; i < 5; i++) {
+            lockedAbilities.Shuffle();
+            
+            if(lockedAbilities.Count > 0) {
+                choices.Add(lockedAbilities[0]);
+                lockedAbilities.RemoveAt(0);
+            }
+
+        }
+
+        if(choices.Count == 0) {
+            Debug.LogWarning("No Locked abilities left");
+            return;
+        }
+
+        abilityChoiceEntries.PopulateList(choices.Count, abilityTemplate, abilityHolder, true);
+        for (int i = 0; i < choices.Count; i++) {
+            abilityChoiceEntries[i].Setup(choices[i], this);
+        }
+
+
+    }
+
     private void SetupStatChoices() {
-        entries.ClearList();
+        statBoostEntries.ClearList();
 
         List<ItemData> statBoosterItems = ItemSpawner.CreateStatBoosterSet(5);
 
-        entries.PopulateList(statBoosterItems.Count, template, holder, true);
+        statBoostEntries.PopulateList(statBoosterItems.Count, statBoostTemplate, statBoostHolder, true);
 
 
-        for (int i = 0; i < entries.Count; i++) {
-            entries[i].Setup(this, statBoosterItems[i]);
+        for (int i = 0; i < statBoostEntries.Count; i++) {
+            statBoostEntries[i].Setup(this, statBoosterItems[i]);
         }
     }
 
@@ -72,12 +108,18 @@ public class LevelUpPanel : BasePanel
         EntityManager.ActivePlayer.levelsStored--;
         PanelManager.GetPanel<HUDPanel>().UpdateStockpile();
 
-        if(EntityManager.ActivePlayer.levelsStored == 0) {
+        if (EntityManager.ActivePlayer.levelsStored == 0) {
             Close();
         }
         else {
-           SetupStatChoices();
+            SetupStatChoices();
         }
+    }
+
+    public void OnAbilitySelected(AbilityChoiceEntry entry) {
+        entry.AbilityChoice.Locked = false;
+        abilityChoiceEntries.ClearList();
+        Close();
     }
 
 

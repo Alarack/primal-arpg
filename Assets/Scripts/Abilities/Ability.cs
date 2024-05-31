@@ -18,6 +18,7 @@ public class Ability {
     public bool IsChanneled { get { return Tags.Contains(AbilityTag.Channeled); } }
     public bool IsEquipped { get; protected set; }
     public bool IgnoreOtherCasting { get; protected set; }
+    public bool Locked { get; set; }
 
     public Vector2 LastPayloadLocation { get; set; } = Vector2.zero;
 
@@ -69,6 +70,14 @@ public class Ability {
         //for (int i = 0; i < Tags.Count; i++) {
         //    Debug.Log(data.abilityName + " has a " + Tags[i] + " tag");
         //}
+
+        if(data.category == AbilityCategory.KnownSkill || data.category == AbilityCategory.PassiveSkill) {
+            Locked = true;
+        }
+
+        if(data.startingAbility == true) {
+            Locked = false;
+        }
 
         SetupStats();
         SetupRecoveries();

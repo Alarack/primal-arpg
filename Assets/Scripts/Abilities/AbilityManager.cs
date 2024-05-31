@@ -262,6 +262,19 @@ public class AbilityManager : MonoBehaviour {
         return results;
     }
 
+    public List<Ability> GetLockedAbilities(AbilityCategory category) {
+        List<Ability> targetAbilities = GetAbilitiesByCategory(category);
+
+        List<Ability> results = new List<Ability>();
+
+        for (int i = 0; i < targetAbilities.Count; i++) {
+            if (targetAbilities[i].Locked == true)
+                results.Add(targetAbilities[i]);
+        }
+
+        return results;
+    }
+
     public List<Ability> GetClassFeatures() {
         List<Ability> results = new List<Ability>();
 

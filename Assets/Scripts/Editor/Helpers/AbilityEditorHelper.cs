@@ -40,7 +40,7 @@ public static class AbilityEditorHelper {
             entry.windupVFX = EditorHelper.ObjectField("WindupVFX", entry.windupVFX);
         }
 
-
+        entry.startingAbility = EditorGUILayout.Toggle("Starting Ability", entry.startingAbility);
         entry.includeEffectsInTooltip = EditorGUILayout.Toggle("Include Effect Toolip", entry.includeEffectsInTooltip);
         entry.showChildAbilitiesInTooltip = EditorGUILayout.Toggle("Include Child Abilities", entry.showChildAbilitiesInTooltip);
         entry.ignoreTooltip = EditorGUILayout.Toggle("Ignore Tooltip", entry.ignoreTooltip);

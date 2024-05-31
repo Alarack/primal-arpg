@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class StatBoostEntry : MonoBehaviour,IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class StatBoostEntry : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
 
     public Image statIcon;

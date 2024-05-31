@@ -25,7 +25,7 @@ public static class AbilityUtilities {
             Ability newAbility = AbilityFactory.CreateAbility(abilityData[i].AbilityData, source);
             abilities.Add(newAbility);
 
-            if(source != null && registerWithPlayer == true && newAbility.Data.category != AbilityCategory.Rune) {
+            if (source != null && registerWithPlayer == true && newAbility.Data.category != AbilityCategory.Rune) {
 
                 if (source.AbilityManager.AbilitiesByName.ContainsKey(newAbility.Data.abilityName) == false) {
                     source.AbilityManager.AbilitiesByName.Add(newAbility.Data.abilityName, newAbility);
@@ -99,34 +99,31 @@ public static class AbilityUtilities {
 
 
 
-        if(location == SkillEntryLocation.KnownPassive || location == SkillEntryLocation.ActivePassive) {
+        if (location == SkillEntryLocation.KnownPassive || location == SkillEntryLocation.ActivePassive) {
             for (int i = 0; i < abilities.Count; i++) {
                 //if (abilities[i].Tags.Contains(AbilityTag.ClassFeature) == true)
                 //    return;
-                
+                if (abilities[i].Locked == true)
+                    continue;
+
+
                 list.Add(CreatePassiveSkillEntry(abilities[i], prefab, holder, location));
             }
         }
         else {
             for (int i = 0; i < abilities.Count; i++) {
+
+                if (abilities[i].Locked == true)
+                    continue;
+
                 list.Add(CreateSkillEntry(abilities[i], prefab, holder, location));
             }
         }
 
 
-            //if (location != SkillEntryLocation.ActivePassive) {
-            //    for (int i = 0; i < abilities.Count; i++) {
-            //        list.Add(CreateSkillEntry(abilities[i], prefab, holder, location));
-            //    }
-            //}
-            //else {
-            //    for (int i = 0; i < abilities.Count; i++) {
-            //        list.Add(CreatePassiveSkillEntry(abilities[i], prefab, holder));
-            //    }
-            //}
 
 
-        }
+    }
 
     public static SkillEntry GetSkillEntryByAbility(List<SkillEntry> list, Ability ability) {
         for (int i = 0; i < list.Count; i++) {
@@ -155,12 +152,12 @@ public static class AbilityUtilities {
     }
 
     public static Ability GetAbilityByName(string name, Entity source) {
-        
-        if(source.AbilityManager.AbilitiesByName.ContainsKey(name) == false) {
-            Debug.LogError("Ability: " + name + " not found in dict. Source: " + source.EntityName); 
+
+        if (source.AbilityManager.AbilitiesByName.ContainsKey(name) == false) {
+            Debug.LogError("Ability: " + name + " not found in dict. Source: " + source.EntityName);
             return null;
         }
-        
+
         return source.AbilityManager.AbilitiesByName[name];
     }
 
@@ -176,8 +173,8 @@ public static class AbilityUtilities {
 
     public static Tuple<Ability, Effect> GetAbilityAndEffectByName(string abilityName, string effectName, Entity source, AbilityCategory category) {
         Ability targetAbility = GetAbilityByName(abilityName, source);//GetAbilityByName(abilityName, source, category);
-        
-        
+
+
         Effect targetEffect = GetEffectByName(effectName, targetAbility);
 
         Tuple<Ability, Effect> target = new Tuple<Ability, Effect>(targetAbility, targetEffect);
@@ -283,9 +280,9 @@ public static class AbilityUtilities {
                 _ => StatName.Armor,
             };
 
-            if(stat != StatName.Armor)
+            if (stat != StatName.Armor)
                 results.Add(stat);
-            
+
         }
 
 

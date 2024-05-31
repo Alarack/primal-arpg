@@ -91,7 +91,7 @@ public static class TextHelper
             StatName.MaxMinionCount => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.CastSpeedModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.CastSpeedModifier when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "% </color>",
-            StatName.DashCooldown => $"<color=#{bonusColor}>-" + (value) + "</color>",
+            StatName.DashCooldown => $"<color=#{bonusColor}>" + (value) + "</color>",
             StatName.GlobalMoveSpeedModifier when value >= 0f => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.GlobalMoveSpeedModifier when value < 0f => $"<color=#{penaltyColor}>" + (value) * 100 + "% </color>",
             //StatName.EssenceRegenerationRate when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "% </color>",
