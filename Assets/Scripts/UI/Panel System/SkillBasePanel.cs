@@ -57,7 +57,7 @@ public class SkillBasePanel : BasePanel
     public Ability GetActiveAbilityBySlot(int index) {
         
         if(index >= activeSkillEntries.Count) {
-            Debug.LogError("Index out of range. Tried to get the " + index + "item, but there are only " + activeSkillEntries.Count);
+            Debug.LogError("Index out of range. Tried to get the " + index + " item, but there are only " + activeSkillEntries.Count);
             return null;
         }
         

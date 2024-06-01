@@ -134,9 +134,25 @@ public class AbilityManager : MonoBehaviour {
     //}
 
     private void SetupPreloadedAbilities() {
-        AbilityUtilities.SetupAbilities(preloadedAbilities, KnownAbilities, Owner);
+        AbilityUtilities.SetupAbilities(preloadedAbilities, KnownAbilities, Owner, false, true);
 
-        AbilityUtilities.SetupAbilities(preloadedPassives, PassiveAbilities, Owner);
+        AbilityUtilities.SetupAbilities(preloadedPassives, PassiveAbilities, Owner, false, true);
+
+        new Task(AutoEquipStartingSkill());
+    }
+
+    private IEnumerator AutoEquipStartingSkill() {
+
+        yield return new WaitForSeconds(0.5f);
+
+        for (int i = 0; i < KnownAbilities.Count; i++) {
+            if (KnownAbilities[i].Data.startingAbility == true) {
+                AutoEquipAbilityToHotbar(KnownAbilities[i], 4);
+                break;
+            }
+        }
+
+
     }
 
 
@@ -160,6 +176,8 @@ public class AbilityManager : MonoBehaviour {
         //    }
 
         //}
+
+        ability.Locked = false;
 
         EventData data = new EventData();
         data.AddAbility("Ability", ability);
@@ -222,6 +240,14 @@ public class AbilityManager : MonoBehaviour {
 
         if (currentWeaponAbility == null) {
             EquipAbility(ability, 4);
+        }
+    }
+
+    public void AutoEquipAbilityToHotbar(Ability ability, int slot) {
+        Ability existingAbility = PanelManager.GetPanel<HotbarPanel>().GetActiveAbilityBySlot(slot);
+
+        if (existingAbility == null) {
+            EquipAbility(ability, slot);
         }
     }
 

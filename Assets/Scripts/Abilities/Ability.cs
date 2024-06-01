@@ -722,6 +722,8 @@ public class Ability {
 
         float cost = Stats[StatName.EssenceCost] * (1f + Source.Stats[StatName.GlobalEssenceCostModifier]);
 
+        //Debug.Log("Total cost for: " + Data.abilityName + " : " + cost);
+
         return cost;
     }
 

@@ -45,14 +45,8 @@ public class Item
             SetupAbilities();
         }
 
-
         EventManager.RegisterListener(GameEvent.ItemAquired, OnItemAquired);
         EventManager.RegisterListener(GameEvent.ItemDropped, OnItemDropped);
-
-
-
-       
-
     }
 
 

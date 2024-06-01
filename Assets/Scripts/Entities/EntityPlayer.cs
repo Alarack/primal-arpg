@@ -22,6 +22,8 @@ public class EntityPlayer : Entity {
 
     protected override void Start() {
         base.Start();
+
+        Inventory.AddEXP(25f);
     }
 
     protected override void OnEnable() {

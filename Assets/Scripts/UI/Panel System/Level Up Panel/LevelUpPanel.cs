@@ -89,6 +89,7 @@ public class LevelUpPanel : BasePanel
         if(availableRolls > 0) {
             StatAdjustmentManager.AdjustStatRerolls(-1);
             SetupStatChoices();
+            SetupAbilityChoices();
             UpdateRerollText();
         }
     }
@@ -117,9 +118,20 @@ public class LevelUpPanel : BasePanel
     }
 
     public void OnAbilitySelected(AbilityChoiceEntry entry) {
+
+        EntityManager.ActivePlayer.levelsStored--;
+        PanelManager.GetPanel<HUDPanel>().UpdateStockpile();
+
         entry.AbilityChoice.Locked = false;
-        abilityChoiceEntries.ClearList();
-        Close();
+
+        //EntityManager.ActivePlayer.AbilityManager.AutoEquipAbilityToHotbar(entry.AbilityChoice, 4);
+
+        if (EntityManager.ActivePlayer.levelsStored == 0) {
+            Close();
+        }
+        else {
+            SetupAbilityChoices();
+        }
     }
 
 

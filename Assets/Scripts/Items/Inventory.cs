@@ -130,18 +130,21 @@ public class Inventory : MonoBehaviour {
 
     private void AddExp(Item item) {
 
-
         StatAdjustmentManager.ApplyStatAdjustment(Owner, item.Data.itemValue, StatName.Experience, StatModType.Flat, StatModifierData.StatVariantTarget.RangeCurrent, Owner, null);
-
-        //Owner.Stats.AdjustStatRangeCurrentValue(StatName.Experience, item.Data.itemValue, StatModType.Flat, Owner);
-
-
 
         if(Owner.Stats.GetStatRangeRatio(StatName.Experience) >= 1) {
             Owner.LevelUp();
         }
 
 
+    }
+
+    public void AddEXP(float value) {
+        StatAdjustmentManager.ApplyStatAdjustment(Owner, value, StatName.Experience, StatModType.Flat, StatModifierData.StatVariantTarget.RangeCurrent, Owner, null);
+
+        if (Owner.Stats.GetStatRangeRatio(StatName.Experience) >= 1) {
+            Owner.LevelUp();
+        }
     }
 
 
