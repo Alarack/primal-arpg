@@ -42,6 +42,19 @@ public class AbilityManager : MonoBehaviour {
         SetupPreloadedAbilities();
     }
 
+    public void ResetAbilities() {
+        foreach (var entry in Abilities) {
+            for (int i = 0; i < entry.Value.Count; i++) {
+                entry.Value[i].ResetLevel();
+
+                if (entry.Value[i].Data.startingAbility == false)
+                    entry.Value[i].Locked = true;
+            }
+        }
+
+        PanelManager.GetPanel<RunesPanel>().ResetRunes();
+    }
+
     private void OnEnable() {
         EventManager.RegisterListener(GameEvent.ItemAquired, OnItemAquired);
         EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnAbilityStatChanged);

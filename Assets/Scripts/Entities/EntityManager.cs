@@ -40,11 +40,15 @@ public class EntityManager : Singleton<EntityManager> {
 
 
     private void Update() {
+#if UNITY_ENGINE
+
         if (Input.GetKeyDown(KeyCode.P)) {
             //SpawnWave();
 
             SpawnGeneratedWave();
         }
+
+#endif
     }
 
 
@@ -71,31 +75,12 @@ public class EntityManager : Singleton<EntityManager> {
             return;
         }
 
-        //if (ActiveEntities[Entity.EntityType.Enemy].Count == 0) {
         if (Instance.enemiesClearedCheck == null) {
             Instance.enemiesClearedCheck = new Task(Instance.DelayedCheckForEnemies());
         }
         else if (Instance.enemiesClearedCheck.Running == false) {
             Instance.enemiesClearedCheck = new Task(Instance.DelayedCheckForEnemies());
         }
-
-
-
-
-        //}
-        //if (ActiveEntities[Entity.EntityType.Enemy].Count == 0) {
-        //    //SpawnWave();
-        //    //SpawnGeneratedWave();
-        //    //Debug.LogWarning("Spawning Next Wave");
-
-        //    if(RoomManager.CurrentRoom != null) {
-        //       RoomManager.CurrentRoom.OnAllEnemiesKilled();
-
-        //    }
-
-
-
-        //}
     }
 
     private IEnumerator DelayedCheckForEnemies() {
@@ -176,10 +161,39 @@ public class EntityManager : Singleton<EntityManager> {
     }
 
 
+    public static void GameOver() {
+
+        ActivePlayer.Stats.Refresh(StatName.Health);
+        ActivePlayer.Stats.Refresh(StatName.Essence);
+        ActivePlayer.IsDead = false;
+        ActivePlayer.AbilityManager.ResetAbilities();
+
+ 
+        if(ActiveEntities.TryGetValue(Entity.EntityType.Enemy, out List<Entity> enemies)){
+            for (int i = 0; i < enemies.Count; i++) {
+                enemies[i].EndGameCleanUp();
+            }
+
+            enemies.Clear();
+        }
+
+       
+        
+        RoomManager.ClearRooms();
+        RoomManager.SetDifficulty(5f);
+    }
+
 
     public void CreatePlayer() {
-        if (ActivePlayer != null)
+        if (ActivePlayer != null) {
+
+            ActivePlayer.transform.position = Vector3.zero;
+            ActivePlayer.gameObject.SetActive(true);
+            PanelManager.ClosePanel<MainMenuPanel>();
+            PanelManager.OpenPanel<CharacterSelectPanel>();
             return;
+
+        }
 
         Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
 
@@ -201,56 +215,8 @@ public class EntityManager : Singleton<EntityManager> {
 
         //RoomManager.CreateRewards(RoomManager.Instance.testRewardItems);
 
-        TestingProcGenThings();
+        //TestingProcGenThings();
     }
-
-
-    private void TestingProcGenThings() {
-
-        //Room startingRoom = RoomManager.CreateRoom(Room.RoomType.StartRoom, 0f);
-        //RoomManager.Instance.OnPortalEntered(startingRoom);
-
-
-
-
-        //List<ItemDefinition> results = new List<ItemDefinition>();
-
-        //for (int i = 0; i < 5; i++) {
-        //    ItemDefinition item = ItemSpawner.Instance.lootDatabase.GetItem(ItemType.ClassSelection, results);
-
-        //    if(item != null) {
-        //        results.Add(item);
-        //        Debug.Log(item.itemData.itemName + " has been added");
-        //    }
-
-        //}
-
-
-
-    }
-
-    //public void CreateEnemy(Vector2 spawnLocation) {
-    //    Entity newEnemy = Instantiate(testEnemyPrefab, spawnLocation, Quaternion.identity);
-
-    //}
-
-    //public void SpawnWave() {
-
-    //    if (spawnPoints.Length < 1) {
-    //        Debug.LogWarning("No spawn points in entity manager. Cannot spawn wave");
-    //        return;
-    //    }
-
-    //    for (int i = 0; i < enemiesPerWave; i++) {
-    //        int randomIndex = Random.Range(0, spawnPoints.Length);
-    //        Transform targetPoint = spawnPoints[randomIndex];
-
-    //        CreateEnemy(targetPoint.position);
-
-    //    }
-
-    //}
-
 
     public static Wave GenerateBossWave(string biome) {
         Wave bossWave = new Wave();
@@ -277,6 +243,10 @@ public class EntityManager : Singleton<EntityManager> {
             float waveIncrement = 1 + (i / 2f);
 
             List<NPC> waveMobs = NPCDataManager.GetSpawnList(biome, totalThreat * waveIncrement, minSingleThreat, maxSingleThreat);
+
+            if(waveMobs.Count == 0) {
+                Debug.LogError("No enemies found when forming a wave. Check difficulty");
+            }
 
             Wave newWave = new Wave();
             newWave.spanwDelay = 0.1f;
@@ -307,6 +277,8 @@ public class EntityManager : Singleton<EntityManager> {
 
         public IEnumerator SpawnWaveOnDelay() {
             WaitForSeconds waiter = new WaitForSeconds(spanwDelay);
+
+            Debug.LogWarning("Spawning a wave: " + entries.Count + " entries found");
 
             foreach (var entry in entries) {
                 for (int i = 0; i < entry.count; i++) {

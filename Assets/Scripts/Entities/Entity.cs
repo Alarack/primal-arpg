@@ -67,7 +67,7 @@ public abstract class Entity : MonoBehaviour {
 
     public List<Status> ActiveStatuses { get; private set; } = new List<Status>();
 
-    public bool IsDead { get; protected set; }
+    public bool IsDead { get; set; }
 
     public Ability ActivelyCastingAbility { get; set; }
 
@@ -392,6 +392,11 @@ public abstract class Entity : MonoBehaviour {
 
         EventManager.SendEvent(GameEvent.EntityLeveled, data);
 
+    }
+
+    public virtual void EndGameCleanUp() {
+        SpawnDeathVFX();
+        Destroy(gameObject);
     }
 
     public virtual void ForceDie(Entity source, Ability sourceAbility = null) {

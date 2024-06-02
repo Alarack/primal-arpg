@@ -173,6 +173,8 @@ public class EliminitionCombatRoom : Room {
     public EliminitionCombatRoom(ItemType rewardType, AbilityTag rewardTag, ItemSlot rewardSlot) : base() {
         //waves = EntityManager.GenerateWaves()
 
+        Debug.Log("Creating a combat room");
+
         GenerateRewards(3, rewardType, rewardTag, rewardSlot);
 
         waves = EntityManager.GenerateWaves(3, RoomManager.CurrentBiome, RoomManager.CurrentDifficulty, RoomManager.CurrentDifficulty / 5, RoomManager.CurrentDifficulty);

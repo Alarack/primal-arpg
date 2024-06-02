@@ -53,6 +53,12 @@ public class RunesPanel : BasePanel {
         CreateRuneGroups();
     }
 
+    public void ResetRunes() {
+        for (int i = 0; i < runeGroupEntries.Count; i++) {
+            runeGroupEntries[i].ResetEntries();
+        }
+    }
+
     private void CreateEmptySlots() {
         inventoryEntries.PopulateList(16, inventoryEntryTemplate, inventoryHolder, true);
         for (int i = 0; i < inventoryEntries.Count; i++) {

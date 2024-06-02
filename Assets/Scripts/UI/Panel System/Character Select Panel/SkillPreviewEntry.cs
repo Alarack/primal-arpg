@@ -39,6 +39,9 @@ public class SkillPreviewEntry : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 
     public void OnPointerEnter(PointerEventData eventData) {
+        if (displayAbility == null)
+            return;
+        
         TooltipManager.Show(displayAbility.GetTooltip(), displayAbility.Data.abilityName);
     }
 

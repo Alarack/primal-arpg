@@ -15,4 +15,11 @@ public class GameManager : Singleton<GameManager>
 
         return dupeSkills == 1;
     }
+
+
+
+    public static void StartGame() {
+        //EntityManager.Instance.CreatePlayer();
+
+    }
 }

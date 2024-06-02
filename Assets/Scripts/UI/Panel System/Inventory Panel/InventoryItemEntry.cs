@@ -57,6 +57,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
 
     private void OnItemDropped(EventData data) {
         Item item = data.GetItem("Item");
+        bool drop = data.GetBool("Drop");
 
         Debug.Log("Inventory Entry sees a dropped item: " + item.Data.itemName);
 
@@ -65,7 +66,8 @@ public class InventoryItemEntry : InventoryBaseEntry {
 
             Remove();
 
-            ItemSpawner.SpawnItem(item, Vector2.zero);
+            if(drop == true)
+                ItemSpawner.SpawnItem(item, Vector2.zero);
         }
     }
 

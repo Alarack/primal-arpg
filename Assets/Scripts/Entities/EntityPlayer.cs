@@ -42,6 +42,14 @@ public class EntityPlayer : Entity {
             essenceRegenTimer.UpdateClock();
         }
 
+
+#if UNITY_EDITOR
+        if(Input.GetKeyDown(KeyCode.K)) {
+            Die(this);
+        }
+
+#endif
+
     }
 
     public float GetDamgeRoll() {
@@ -93,6 +101,8 @@ public class EntityPlayer : Entity {
         //panel.Open();
 
         gameObject.SetActive(false);
+        EntityManager.GameOver();
+        PanelManager.OpenPanel<GameOverPanel>();
 
         //Destroy(gameObject);
     }

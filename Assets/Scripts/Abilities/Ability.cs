@@ -620,6 +620,10 @@ public class Ability {
         AbilityLevel++;
     }
 
+    public void ResetLevel() {
+        AbilityLevel = 1;
+    }
+
     #endregion
 
     #region HELPERS
@@ -1193,6 +1197,12 @@ public class Ability {
     private bool CheckCost() {
         if (Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] != 0f) {
             //Debug.Log("Cost: " + Stats[StatName.EssenceCost]);
+            
+            if(EntityManager.ActivePlayer == null) {
+                Debug.LogError("Null Active Player: " + Data.abilityName);
+                return false;
+            }
+            
             if (EntityManager.ActivePlayer.TrySpendEssence(GetTotalEssenceCost()) == false) {
                 //Debug.LogWarning("Not enough essence for " + Data.abilityName);
                 return false;

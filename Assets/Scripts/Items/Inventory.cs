@@ -41,8 +41,8 @@ public class Inventory : MonoBehaviour {
     public List<Item> GetInventoryItems() {
 
         return GetItems(ItemType.Equipment);
-        
-        
+
+
         //List<Item> results = new List<Item>();    
         //for (int i = 0; i < ownedItems.Count; i++) {
         //    if (ownedItems[i].Equipped == false && ownedItems[i].Data.Type == ItemType.Equipment)
@@ -52,14 +52,32 @@ public class Inventory : MonoBehaviour {
         //return results;
     }
 
+    public void ClearInventory() {
+
+        for (int i = ownedItems.Count -1; i >= 0; i--) {
+            Remove(ownedItems[i], false);
+        }
+
+        //for (int i = equippedRunes.Count -1; i >=0; i--) {
+        //    //UnEquipRune(equippedRunes[i])
+        //}
+
+        //ownedItems.Clear();
+
+        //equippedItems.Clear();
+        //equippedRunes.Clear();
+        //SetupDictionary();
+
+    }
+
     public List<Item> GetItems(ItemType type, bool unequippedOnly = true) {
         List<Item> results = new List<Item>();
         for (int i = 0; i < ownedItems.Count; i++) {
 
-            if(unequippedOnly == true && ownedItems[i].Equipped == true) {
+            if (unequippedOnly == true && ownedItems[i].Equipped == true) {
                 continue;
             }
-            
+
             if (ownedItems[i].Data.Type == type)
                 results.Add(ownedItems[i]);
         }
@@ -72,7 +90,7 @@ public class Inventory : MonoBehaviour {
         List<Item> allRunes = GetItems(ItemType.Rune, false);
 
         for (int i = 0; i < allRunes.Count; i++) {
-            if (string.IsNullOrEmpty( allRunes[i].Data.runeAbilityTarget) == true) {
+            if (string.IsNullOrEmpty(allRunes[i].Data.runeAbilityTarget) == true) {
                 results.Add(allRunes[i]);
             }
         }
@@ -95,17 +113,17 @@ public class Inventory : MonoBehaviour {
     }
 
     public void Add(Item item) {
-        
-        if(item.Data.Type == ItemType.Currency) {
+
+        if (item.Data.Type == ItemType.Currency) {
             AdjustCurrency(item);
             return;
         }
 
-        if(item.Data.Type == ItemType.Experience) {
+        if (item.Data.Type == ItemType.Experience) {
             AddExp(item);
             return;
         }
-        
+
         if (ownedItems.AddUnique(item) == false) {
             Debug.LogWarning("An item: " + item.Data.itemName + " was added to " + Owner.EntityName + "'s inventory, but it was already there");
             return;
@@ -118,7 +136,7 @@ public class Inventory : MonoBehaviour {
         EventManager.SendEvent(GameEvent.ItemAquired, data);
 
 
-        if(item.Data.Type == ItemType.Equipment) {
+        if (item.Data.Type == ItemType.Equipment) {
             Item existingItem = GetItemInSlot(item.Data.validSlots[0]);
 
             if (existingItem == null) {
@@ -132,7 +150,7 @@ public class Inventory : MonoBehaviour {
 
         StatAdjustmentManager.ApplyStatAdjustment(Owner, item.Data.itemValue, StatName.Experience, StatModType.Flat, StatModifierData.StatVariantTarget.RangeCurrent, Owner, null);
 
-        if(Owner.Stats.GetStatRangeRatio(StatName.Experience) >= 1) {
+        if (Owner.Stats.GetStatRangeRatio(StatName.Experience) >= 1) {
             Owner.LevelUp();
         }
 
@@ -150,7 +168,7 @@ public class Inventory : MonoBehaviour {
 
     private void AdjustCurrency(Item item) {
 
-        if(currencyDictionary.TryGetValue(item.Data.itemName, out float count) == true) {
+        if (currencyDictionary.TryGetValue(item.Data.itemName, out float count) == true) {
             currencyDictionary[item.Data.itemName] += item.Data.itemValue;
         }
         else {
@@ -210,20 +228,21 @@ public class Inventory : MonoBehaviour {
         EventManager.SendEvent(GameEvent.CurrencyChanged, data);
     }
 
-    public void Remove(Item item) {
+    public void Remove(Item item, bool drop = true) {
         if (ownedItems.RemoveIfContains(item) == true) {
             EventData data = new EventData();
             data.AddItem("Item", item);
-
+            data.AddBool("Drop", drop);
+            
             EventManager.SendEvent(GameEvent.ItemDropped, data);
 
-           
-            if(equippedItems.TryGetValue(item.CurrentSlot, out Item equippedItem)) {
+
+            if (equippedItems.TryGetValue(item.CurrentSlot, out Item equippedItem)) {
                 //if(equippedItem != null)
-                    UnEquipItem(equippedItem); 
+                UnEquipItem(equippedItem);
             }
-            
-            if(equippedRunes.RemoveIfContains(item) == true) {
+
+            if (equippedRunes.RemoveIfContains(item) == true) {
                 item.UnEquip();
             }
 
@@ -232,7 +251,7 @@ public class Inventory : MonoBehaviour {
     }
 
     public void EquipRune(Item item, Ability targetAbility) {
-        if(equippedRunes.AddUnique(item) == true) {
+        if (equippedRunes.AddUnique(item) == true) {
             item.Equip(ItemSlot.RuneSlot);
 
             EventData data = new EventData();
@@ -250,7 +269,7 @@ public class Inventory : MonoBehaviour {
     }
 
     public void UnEquipRune(Item item, Ability targetAbility) {
-        if(equippedRunes.RemoveIfContains(item) == true) {
+        if (equippedRunes.RemoveIfContains(item) == true) {
             item.UnEquip();
 
             EventData data = new EventData();
@@ -268,12 +287,12 @@ public class Inventory : MonoBehaviour {
     }
 
     public void EquipItemToSlot(Item item, ItemSlot slot) {
-        
-        if(item.Equipped == true) {
+
+        if (item.Equipped == true) {
             UnEquipItem(item);
         }
-        
-        
+
+
         Item existingItem = GetItemInSlot(slot);
 
         if (existingItem != null && existingItem != item) {
@@ -300,7 +319,7 @@ public class Inventory : MonoBehaviour {
 
 
         foreach (var entry in existingItems) {
-            if(entry.Value == null) {
+            if (entry.Value == null) {
                 equippedItems[entry.Key] = item;
                 item.Equip(entry.Key);
                 equipSucessful = true;
@@ -309,7 +328,7 @@ public class Inventory : MonoBehaviour {
             }
         }
 
-        if(equipSucessful == false) {
+        if (equipSucessful == false) {
             ItemSlot firstSlot = item.Data.validSlots[0];
 
             Item replacedItem = existingItems[firstSlot];
@@ -327,21 +346,24 @@ public class Inventory : MonoBehaviour {
 
     public void UnEquipItem(Item item) {
 
+        if(item == null) {
+            return;
+        }
 
-        if(item.CurrentSlot == ItemSlot.None) {
+        if (item.CurrentSlot == ItemSlot.None) {
             Debug.LogError("Tired to unequip an item: " + item.Data.itemName + ", but it had no Current Slot");
         }
 
         equippedItems[item.CurrentSlot] = null;
 
         item.UnEquip();
-      
+
     }
 
     private Item GetItemInSlot(ItemSlot slot) {
         if (equippedItems.TryGetValue(slot, out Item item) == true) {
-            
-            if(item != null) {
+
+            if (item != null) {
                 //Debug.Log("Found: " + item.Data.itemName + " in slot: " + slot);
                 return item;
             }
@@ -390,7 +412,7 @@ public class Inventory : MonoBehaviour {
 
     public Tuple<float, float> GetDamageRange() {
         Tuple<float, float> result = new Tuple<float, float>(5f, 5f);
-        
+
         if (CurrentWeapon != null) {
             result = new Tuple<float, float>(CurrentWeapon.minDamage, CurrentWeapon.maxDamage);
         }

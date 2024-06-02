@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class RuneGroupEntry : MonoBehaviour
-{
+public class RuneGroupEntry : MonoBehaviour {
 
     [Header("Template")]
     public RuneChoiceEntry runeChoiceTemplate;
@@ -37,8 +36,8 @@ public class RuneGroupEntry : MonoBehaviour
 
     private void SetupDisplay() {
         entries.PopulateList(RuneGroupData.runes.Count, runeChoiceTemplate, runeChoiceHolder, true);
-        
-        if(runesPanel.CurrentAbility.runeItemsByTier.TryGetValue(RuneGroupData.tier, out List<Item> runeItems) == true) {
+
+        if (runesPanel.CurrentAbility.runeItemsByTier.TryGetValue(RuneGroupData.tier, out List<Item> runeItems) == true) {
             for (int i = 0; i < entries.Count; i++) {
                 entries[i].Setup(runeItems[i], this, runesPanel);
 
@@ -53,7 +52,7 @@ public class RuneGroupEntry : MonoBehaviour
 
         tierText.text = RuneGroupData.tier.ToString();
 
-       UpdateLockout();
+        UpdateLockout();
     }
 
     public void UpdateLockout() {
@@ -72,6 +71,16 @@ public class RuneGroupEntry : MonoBehaviour
         }
 
         currentChoice.Select();
+    }
+
+    public void ResetEntries() {
+        for (int i = 0; i < entries.Count; i++) {
+
+            entries[i].Deselect();
+
+        }
+
+        UpdateLockout();
     }
 
 

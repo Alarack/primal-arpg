@@ -34,7 +34,7 @@ public class RoomManager : Singleton<RoomManager> {
 
     public static void EnterRoom(Room room) {
         Instance.currentRoomIndex++;
-
+        Debug.Log("Starting a room: " + room.Type.ToString());
         room.StartRoom();
     }
 
@@ -66,10 +66,20 @@ public class RoomManager : Singleton<RoomManager> {
         CurrentDifficulty += difficulty;
     }
 
+    public static void SetDifficulty(float difficulty) {
+        CurrentDifficulty = difficulty;
+    }
+
+    public static void ClearRooms() {
+        Instance.CleanUpRoomPortals();
+        Instance.CleanUpRewardPedestals();
+        Instance.currentRoomIndex = 0;
+    }
+
     public static void SpawnRoomPortals(int portalCount = 2, List<Vector2> portalLocations = null) {
         //Debug.Log("Choose and spawn X Rooms");
 
-        //Debug.Log("Room Index: " + Instance.currentRoomIndex);
+        Debug.Log("Room Index: " + Instance.currentRoomIndex);
 
         PanelManager.OpenPanel<TextDisplayPanel>().Setup("Choose a Room");
 
@@ -225,9 +235,12 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     public static void OnRoomSelected(Room room) {
-        //Debug.Log("Room Selected: " + room.Type);
-        if (Instance.createPortalsTask != null && Instance.createPortalsTask.Running == true)
+        Debug.Log("Room Selected: " + room.Type);
+        if (Instance.createPortalsTask != null && Instance.createPortalsTask.Running == true) {
+            Debug.LogWarning("Portal creation task is running");
+            
             return;
+        }
 
 
         Instance.OnPortalEntered(room);
