@@ -395,14 +395,28 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public virtual void EndGameCleanUp() {
+        //entityLevel = 0;
+        //levelsStored = 0;
+        //Stats.GetStat<StatRange>(StatName.Experience).RemoveAllMaxModifiersFromSource(this);
+        //Stats.EmptyStatRange(StatName.Experience, this);
+        //Stats.RemoveAllModifiersFromSource(StatName.SkillPoint, this);
+
+        SpawnDeathVFX();
+        Destroy(gameObject);
+    }
+
+    public virtual void ResetLevel() {
         entityLevel = 0;
         levelsStored = 0;
         Stats.GetStat<StatRange>(StatName.Experience).RemoveAllMaxModifiersFromSource(this);
         Stats.EmptyStatRange(StatName.Experience, this);
         Stats.RemoveAllModifiersFromSource(StatName.SkillPoint, this);
 
-        SpawnDeathVFX();
-        Destroy(gameObject);
+        EventData data = new EventData();
+        data.AddEntity("Target", this);
+        data.AddInt("Level", entityLevel);
+
+        EventManager.SendEvent(GameEvent.EntityLeveled, data);
     }
 
     public virtual void ForceDie(Entity source, Ability sourceAbility = null) {
