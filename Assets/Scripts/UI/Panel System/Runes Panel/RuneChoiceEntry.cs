@@ -34,7 +34,7 @@ public class RuneChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         if(RuneItem.Equipped == false) {
             EntityManager.ActivePlayer.Inventory.EquipRune(RuneItem, runesPanel.CurrentAbility);
-            runesPanel.CurrentAbility.equippedRunes.Add(RuneItem);
+            //runesPanel.CurrentAbility.equippedRunes.Add(RuneItem);
         }
 
     }
@@ -45,7 +45,9 @@ public class RuneChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         if(RuneItem.Equipped == true) {
             EntityManager.ActivePlayer.Inventory.UnEquipRune(RuneItem, runesPanel.CurrentAbility);
-            runesPanel.CurrentAbility.equippedRunes.Remove(RuneItem);
+            //runesPanel.CurrentAbility.equippedRunes.Remove(RuneItem);
+
+            Debug.Log("Unequipping: " + RuneItem.Data.itemName);
         }
 
     }

@@ -79,7 +79,7 @@ public class RoomManager : Singleton<RoomManager> {
     public static void SpawnRoomPortals(int portalCount = 2, List<Vector2> portalLocations = null) {
         //Debug.Log("Choose and spawn X Rooms");
 
-        Debug.Log("Room Index: " + Instance.currentRoomIndex);
+        //Debug.Log("Room Index: " + Instance.currentRoomIndex);
 
         PanelManager.OpenPanel<TextDisplayPanel>().Setup("Choose a Room");
 

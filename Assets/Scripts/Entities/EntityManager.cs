@@ -165,6 +165,7 @@ public class EntityManager : Singleton<EntityManager> {
 
         ActivePlayer.Stats.Refresh(StatName.Health);
         ActivePlayer.Stats.Refresh(StatName.Essence);
+        ActivePlayer.Stats.Refresh(StatName.Experience);
         ActivePlayer.IsDead = false;
         ActivePlayer.AbilityManager.ResetAbilities();
 

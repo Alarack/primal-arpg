@@ -624,6 +624,15 @@ public class Ability {
         AbilityLevel = 1;
     }
 
+    public void ResetRunes() {
+        foreach (var entry in runeItemsByTier) {
+            for (int i = 0; i < entry.Value.Count; i++) {
+                Item rune = entry.Value[i];
+                EntityManager.ActivePlayer.Inventory.UnEquipRune(rune, this);
+            }
+        }
+    }
+
     #endregion
 
     #region HELPERS

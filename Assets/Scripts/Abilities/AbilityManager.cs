@@ -43,16 +43,35 @@ public class AbilityManager : MonoBehaviour {
     }
 
     public void ResetAbilities() {
+        
         foreach (var entry in Abilities) {
             for (int i = 0; i < entry.Value.Count; i++) {
                 entry.Value[i].ResetLevel();
+                entry.Value[i].ResetRunes();
 
                 if (entry.Value[i].Data.startingAbility == false)
                     entry.Value[i].Locked = true;
             }
         }
 
-        PanelManager.GetPanel<RunesPanel>().ResetRunes();
+        //PanelManager.GetPanel<RunesPanel>().ResetRunes();
+
+        //List<Ability> actives = ActiveAbilities;
+
+        //Debug.Log("Count of Actives: " + ActiveAbilities.Count);
+
+        for (int i = ActiveAbilities.Count -1; i >= 0; i--) {
+            int currentSlot = PanelManager.GetPanel<HotbarPanel>().GetAbilitySlotIndex(ActiveAbilities[i]);
+
+            //Debug.Log("Slot for: " + ActiveAbilities[i].Data.abilityName + " :: " + currentSlot);
+
+            if(currentSlot > -1) {
+                UnequipAbility(ActiveAbilities[i], currentSlot);
+            }
+        }
+
+        new Task( AutoEquipStartingSkill());
+
     }
 
     private void OnEnable() {
@@ -268,7 +287,7 @@ public class AbilityManager : MonoBehaviour {
         if (ActiveAbilities.RemoveIfContains(ability) == true) {
             ability.Uneqeuip();
             onAbilityUnequipped?.Invoke(ability, index);
-            //Debug.Log("Unequipping: " + ability.Data.abilityName);
+            Debug.Log("Unequipping: " + ability.Data.abilityName);
         }
         else
             Debug.LogError(ability.Data.abilityName + " is not equipped, so we can't unequip it");

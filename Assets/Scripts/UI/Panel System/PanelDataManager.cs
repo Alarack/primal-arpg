@@ -22,8 +22,6 @@ public class PanelDataManager : Singleton<PanelDataManager>
 
     private void Update() {
 
-#if UNITY_EDITOR
-
         if (Input.GetKeyDown(KeyCode.C)) {
             PanelManager.TogglePanel<InventoryPanel>();
         }
@@ -32,12 +30,21 @@ public class PanelDataManager : Singleton<PanelDataManager>
             PanelManager.TogglePanel<SkillsPanel>();
         }
 
+        if(Input.GetKeyDown(KeyCode.Escape)) {
+            PanelManager.OpenPanel<MainMenuPanel>();
+        }
+
+
+#if UNITY_EDITOR
+
+
+
         //if(Input.GetKeyDown(KeyCode.L)) {
         //    PanelManager.OpenPanel<LevelUpPanel>();
         //}
 #endif
 
-        if(EntityManager.ActivePlayer != null && EntityManager.ActivePlayer.levelsStored > 0 && Input.GetKeyDown(KeyCode.L)) {
+        if (EntityManager.ActivePlayer != null && EntityManager.ActivePlayer.levelsStored > 0 && Input.GetKeyDown(KeyCode.L)) {
             PanelManager.OpenPanel<LevelUpPanel>();
         }
 

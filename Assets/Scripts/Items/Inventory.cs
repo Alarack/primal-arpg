@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using LL.Events;
-using static UnityEngine.EventSystems.EventTrigger;
 using System;
-using static UnityEditor.Progress;
+
 
 public class Inventory : MonoBehaviour {
 
@@ -253,6 +252,7 @@ public class Inventory : MonoBehaviour {
     public void EquipRune(Item item, Ability targetAbility) {
         if (equippedRunes.AddUnique(item) == true) {
             item.Equip(ItemSlot.RuneSlot);
+            targetAbility.equippedRunes.Add(item);
 
             EventData data = new EventData();
             data.AddItem("Item", item);
@@ -271,6 +271,7 @@ public class Inventory : MonoBehaviour {
     public void UnEquipRune(Item item, Ability targetAbility) {
         if (equippedRunes.RemoveIfContains(item) == true) {
             item.UnEquip();
+            targetAbility.equippedRunes.RemoveIfContains(item);
 
             EventData data = new EventData();
             data.AddItem("Item", item);
@@ -281,7 +282,7 @@ public class Inventory : MonoBehaviour {
 
         }
         else {
-            Debug.LogError("Tried to Unequip a rune: " + item.Data.itemName + " but it wasn't equipped");
+            Debug.LogWarning("Tried to Unequip a rune: " + item.Data.itemName + " but it wasn't equipped");
 
         }
     }

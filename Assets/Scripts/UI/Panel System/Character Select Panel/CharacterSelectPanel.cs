@@ -40,6 +40,8 @@ public class CharacterSelectPanel : BasePanel
         Close();
 
         RoomManager.SpawnRoomPortals();
+
+        EntityManager.ActivePlayer.Inventory.AddEXP(25f);
     }
 
 

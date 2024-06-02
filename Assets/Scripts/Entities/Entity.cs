@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
-using static UnityEditor.Progress;
+
 
 
 public abstract class Entity : MonoBehaviour {
@@ -395,6 +395,12 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public virtual void EndGameCleanUp() {
+        entityLevel = 0;
+        levelsStored = 0;
+        Stats.GetStat<StatRange>(StatName.Experience).RemoveAllMaxModifiersFromSource(this);
+        Stats.EmptyStatRange(StatName.Experience, this);
+        Stats.RemoveAllModifiersFromSource(StatName.SkillPoint, this);
+
         SpawnDeathVFX();
         Destroy(gameObject);
     }

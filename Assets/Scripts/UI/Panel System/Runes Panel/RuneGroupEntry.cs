@@ -77,7 +77,7 @@ public class RuneGroupEntry : MonoBehaviour {
         for (int i = 0; i < entries.Count; i++) {
 
             entries[i].Deselect();
-
+            Debug.Log("Resetting a rune group entry: " + entries[i].RuneItem.Data.itemName);
         }
 
         UpdateLockout();
