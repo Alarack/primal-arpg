@@ -31,7 +31,7 @@ public class PanelDataManager : Singleton<PanelDataManager>
         }
 
         if(Input.GetKeyDown(KeyCode.Escape)) {
-            PanelManager.OpenPanel<MainMenuPanel>();
+            PanelManager.TogglePanel<PausePanel>();
         }
 
 

@@ -167,8 +167,10 @@ public class EntityManager : Singleton<EntityManager> {
         ActivePlayer.Stats.Refresh(StatName.Essence);
         ActivePlayer.Stats.Refresh(StatName.Experience);
         ActivePlayer.IsDead = false;
+        ActivePlayer.RemoveAllStatuses();
         ActivePlayer.AbilityManager.ResetAbilities();
         ActivePlayer.ResetLevel();
+        
 
  
         if(ActiveEntities.TryGetValue(Entity.EntityType.Enemy, out List<Entity> enemies)){

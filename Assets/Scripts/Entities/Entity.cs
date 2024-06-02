@@ -419,6 +419,13 @@ public abstract class Entity : MonoBehaviour {
         EventManager.SendEvent(GameEvent.EntityLeveled, data);
     }
 
+    public virtual void RemoveAllStatuses() {
+
+        for (int i = ActiveStatuses.Count -1; i >=0; i--) {
+            ActiveStatuses[i].Remove(true);
+        }
+    }
+
     public virtual void ForceDie(Entity source, Ability sourceAbility = null) {
         Die(source, sourceAbility);
     }

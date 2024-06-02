@@ -128,6 +128,7 @@ public class LevelUpPanel : BasePanel
 
         if (EntityManager.ActivePlayer.levelsStored == 0) {
             Close();
+            TooltipManager.Hide();
         }
         else {
             SetupAbilityChoices();
