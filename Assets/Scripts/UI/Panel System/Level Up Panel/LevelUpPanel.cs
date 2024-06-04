@@ -123,10 +123,12 @@ public class LevelUpPanel : BasePanel
         PanelManager.GetPanel<HUDPanel>().UpdateStockpile();
 
         entry.AbilityChoice.Locked = false;
+        
 
         //EntityManager.ActivePlayer.AbilityManager.AutoEquipAbilityToHotbar(entry.AbilityChoice, 4);
 
         if (EntityManager.ActivePlayer.levelsStored == 0) {
+            abilityChoiceEntries.ClearList();
             Close();
             TooltipManager.Hide();
         }

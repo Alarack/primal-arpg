@@ -105,7 +105,7 @@ public static class PanelManager
         }
 
         BasePanel activePanel = GameObject.Instantiate(targetPanel.panelPrefab, canvasRoot) as BasePanel;
-        activePanel.Initialize(targetPanel.panelID);
+        activePanel.Initialize(targetPanel.panelID, targetPanel.closeOnEscape);
         currentPanels.Add(targetPanel.panelID, activePanel);
 
         return activePanel as T;
@@ -135,6 +135,19 @@ public static class PanelManager
         {
             if (panel.Value != null && panel.Value.IsOpen)
                 return true;
+        }
+
+        return false;
+    }
+
+    public static bool IsEscapeClosingPanelOpen() {
+        foreach (var panel in currentPanels) {
+            if (panel.Value != null && panel.Value.IsOpen == true && panel.Value.CloseOnEscape == true) {
+
+                Debug.Log(panel.Key + " is open");
+                
+                return true;
+            }
         }
 
         return false;

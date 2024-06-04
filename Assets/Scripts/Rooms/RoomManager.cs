@@ -58,7 +58,7 @@ public class RoomManager : Singleton<RoomManager> {
 
     public static void CheckLevelUp() {
         if(EntityManager.ActivePlayer.levelsStored > 0) {
-            Debug.LogWarning("Show Level Up panel");
+            PanelManager.OpenPanel<LevelUpPanel>();
         }
     }
 

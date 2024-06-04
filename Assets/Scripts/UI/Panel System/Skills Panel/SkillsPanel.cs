@@ -21,6 +21,7 @@ public class SkillsPanel : SkillBasePanel {
     private List<SkillEntry> activePassiveSkillEntries = new List<SkillEntry>();
     private List<SkillEntry> knownPassiveSkillEntries = new List<SkillEntry>();
 
+
     public override void Open() {
         base.Open();
 
@@ -28,9 +29,12 @@ public class SkillsPanel : SkillBasePanel {
             return;
         }
 
+        PanelManager.ClosePanel<InventoryPanel>();
+
         AbilityUtilities.PopulateSkillEntryList(ref knownSkillEntries, skillEntryTemplate, knownSkillsHolder, SkillEntry.SkillEntryLocation.KnownSkill);
         AbilityUtilities.PopulateSkillEntryList(ref knownPassiveSkillEntries, skillEntryTemplate, knownPassiveSkillsHolder, SkillEntry.SkillEntryLocation.KnownPassive);
         AbilityUtilities.PopulateSkillEntryList(ref classFeatureEntries, skillEntryTemplate, classFeatureSkillHolder, SkillEntry.SkillEntryLocation.ClassFeatureSkill);
+
 
     }
 

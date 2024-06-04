@@ -42,6 +42,7 @@ public class CharacterSelectPanel : BasePanel
         RoomManager.SpawnRoomPortals();
 
         EntityManager.ActivePlayer.Inventory.AddEXP(25f);
+        PanelManager.OpenPanel<LevelUpPanel>();
     }
 
 

@@ -63,6 +63,7 @@ public class InventoryPanel : BasePanel {
         EventManager.RegisterListener(GameEvent.ItemEquipped, OnItemEquipped);
         EventManager.RegisterListener(GameEvent.UnitStatAdjusted, OnStatChanged);
     }
+
     protected override void OnDisable() {
         base.OnDisable();
 
@@ -74,6 +75,9 @@ public class InventoryPanel : BasePanel {
 
         if (EntityManager.ActivePlayer == null)
             return;
+
+        PanelManager.ClosePanel<SkillsPanel>();
+        PanelManager.ClosePanel<RunesPanel>();
 
         PopulateInventory();
         SetStatValues();
