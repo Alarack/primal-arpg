@@ -381,7 +381,8 @@ public class AbilityManager : MonoBehaviour {
 
         for (int i = 0; i < KnownAbilities.Count; i++) {
             for (int j = 0; j < KnownAbilities[i].Tags.Count; j++) {
-                results.AddUnique(KnownAbilities[i].Tags[j]);
+                if (KnownAbilities[i].Locked == false)
+                    results.AddUnique(KnownAbilities[i].Tags[j]);
             }
         }
 

@@ -100,6 +100,9 @@ public class RoomManager : Singleton<RoomManager> {
             if (i >= rewardTypes.Count) {
                 Debug.LogWarning("Reset count since i is creater than possible reward types");
                 i = 0;
+
+                if (chosenTypes.Count > 0)
+                    break;
             }
 
             if (chosenTypes.Count >= rewardTypes.Count) {
@@ -122,13 +125,13 @@ public class RoomManager : Singleton<RoomManager> {
         }
 
 
-        if (Instance.currentRoomIndex <= 5) {
-            //Debug.Log("Current Room: " + Instance.currentRoomIndex);
-            if (chosenTypes.Contains(ItemType.Skill) == false) {
-                //Debug.LogWarning("Adding a skill room since there wasn't one");
-                choices[0] = CreateRoom(Instance.GetRoomType(), ItemType.Skill);
-            }
-        }
+        //if (Instance.currentRoomIndex <= 5) {
+        //    //Debug.Log("Current Room: " + Instance.currentRoomIndex);
+        //    if (chosenTypes.Contains(ItemType.Skill) == false) {
+        //        //Debug.LogWarning("Adding a skill room since there wasn't one");
+        //        choices[0] = CreateRoom(Instance.GetRoomType(), ItemType.Skill);
+        //    }
+        //}
 
 
         EntityManager.ActivePlayer.DeactivateBigVacum();

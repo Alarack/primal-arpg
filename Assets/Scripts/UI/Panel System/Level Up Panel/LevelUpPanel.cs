@@ -42,6 +42,8 @@ public class LevelUpPanel : BasePanel
 
     private void SetupAbilityChoices() {
         List<Ability> lockedAbilities = EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.KnownSkill);
+        lockedAbilities.AddRange(EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.PassiveSkill));
+        
         List<Ability> choices = new List<Ability>();
 
         for (int i = 0; i < 5; i++) {

@@ -31,6 +31,10 @@ public class LootDatabase : ScriptableObject {
         allPossibleItems.Shuffle();
 
         for (int i = 0; i < allPossibleItems.Count; i++) {
+            if (allPossibleItems[i].devItem == true)
+                continue;
+            
+            
             if (exclusions.Contains(allPossibleItems[i])) {
                 //Debug.Log(allPossibleItems[i].itemData.itemName + " is a dupe");
                 continue;
@@ -50,6 +54,8 @@ public class LootDatabase : ScriptableObject {
 
                 if (CheckForInvalidItemTag(allPossibleItems[i]) == true) 
                     continue;
+
+                
             }
 
             if (allPossibleItems[i].itemData.Type == ItemType.Rune) {

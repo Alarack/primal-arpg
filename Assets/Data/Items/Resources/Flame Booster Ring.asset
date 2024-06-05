@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
   m_Name: Flame Booster Ring
   m_EditorClassIdentifier: 
-  devItem: 0
+  devItem: 1
   itemData:
     Type: 1
+    affixStatTarget: 1
     entityClass: 0
     itemName: Flame Booster
     itemDescription: 
+    secondaryDescription: 
     itemValue: 250
     runeAbilityTarget: 
     validSlots: 0400000005000000
@@ -25,6 +27,8 @@ MonoBehaviour:
     itemIcon: {fileID: 21300000, guid: 64087bb75c96aae499e80bd522f73e27, type: 3}
     pickupIcon: {fileID: 21300000, guid: 64087bb75c96aae499e80bd522f73e27, type: 3}
     pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
     statModifierData: []
@@ -32,3 +36,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a8569ee874e31424e9c18274a6b325ab, type: 2}
     - {fileID: 11400000, guid: 1cd30e32b431ba04c9a803a51f3d2750, type: 2}
     learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

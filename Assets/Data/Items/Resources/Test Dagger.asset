@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
   m_Name: Test Dagger
   m_EditorClassIdentifier: 
-  devItem: 0
+  devItem: 1
   itemData:
     Type: 1
+    affixStatTarget: 1
     entityClass: 0
     itemName: Slick Stabber
     itemDescription: yeah it's my stabber, wanna fight about it?
+    secondaryDescription: 
     itemValue: 150
     runeAbilityTarget: 
     validSlots: 01000000
@@ -25,6 +27,8 @@ MonoBehaviour:
     itemIcon: {fileID: 21300000, guid: ad707d068f921cf4fa9a434485190873, type: 3}
     pickupIcon: {fileID: 21300000, guid: ad707d068f921cf4fa9a434485190873, type: 3}
     pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
     minDamage: 5
     maxDamage: 7
     statModifierData:
@@ -44,3 +48,5 @@ MonoBehaviour:
     abilityDefinitions: []
     learnableAbilities:
     - {fileID: 11400000, guid: 6d1433a22de77014da18fac88cec570b, type: 2}
+    classPreviewAbilities: []
+    startingItemOptions: []
