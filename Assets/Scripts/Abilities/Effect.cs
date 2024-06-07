@@ -1926,6 +1926,11 @@ public class AddAbilityEffect : Effect {
 
         for (int i = 0; i < Data.abilitiesToAdd.Count; i++) {
             Ability newChild = target.AbilityManager.LearnAbility(Data.abilitiesToAdd[i].AbilityData, true);
+            
+            if(newChild == null) {
+                Debug.LogError("Alrady leared an ability, just unlock it: " + Data.abilitiesToAdd[i].AbilityData.abilityName);
+            }
+            
             TrackAbilties(target, newChild);
 
             Debug.Log("Adding new ability: " + newChild.Data.abilityName);

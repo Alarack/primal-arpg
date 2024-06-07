@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static StatModifierData;
 using TMPro;
+using LL.Events;
 
 public class LevelUpPanel : BasePanel
 {
@@ -125,9 +126,12 @@ public class LevelUpPanel : BasePanel
         PanelManager.GetPanel<HUDPanel>().UpdateStockpile();
 
         entry.AbilityChoice.Locked = false;
+        EntityManager.ActivePlayer.AbilityManager.UnlockAbility(entry.AbilityChoice.Data.abilityName);
         
 
-        //EntityManager.ActivePlayer.AbilityManager.AutoEquipAbilityToHotbar(entry.AbilityChoice, 4);
+        EventData data = new EventData();
+        data.AddAbility("Ability", entry.AbilityChoice);
+        EventManager.SendEvent(GameEvent.LevelUpAbilitySelected, data);
 
         if (EntityManager.ActivePlayer.levelsStored == 0) {
             abilityChoiceEntries.ClearList();

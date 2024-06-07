@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Essence Hungering Tome
   m_EditorClassIdentifier: 
   devItem: 0
+  startingItem: 1
   itemData:
     Type: 1
     affixStatTarget: 1
@@ -25,6 +26,7 @@ MonoBehaviour:
     runeAbilityTarget: 
     validSlots: 01000000
     abilityTags: 
+    targetedAbilityName: 
     itemIcon: {fileID: 21300000, guid: 3fd62a3f32936b744b82635747975867, type: 3}
     pickupIcon: {fileID: 21300000, guid: 3fd62a3f32936b744b82635747975867, type: 3}
     pickupOnCollision: 1

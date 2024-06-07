@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
+using LL.Events;
 
 public class RoomManager : Singleton<RoomManager> {
 
@@ -38,6 +38,14 @@ public class RoomManager : Singleton<RoomManager> {
         room.StartRoom();
     }
 
+    private void OnEnable() {
+        EventManager.RegisterListener(GameEvent.LevelUpAbilitySelected, OnLevelAbilitySelected);
+    }
+
+    private void OnDisable() {
+        EventManager.RemoveMyListeners(this);
+    }
+
     public void OnPortalEntered(Room room) {
         CurrentRoom = room;
         EnterRoom(room);
@@ -54,6 +62,12 @@ public class RoomManager : Singleton<RoomManager> {
             //CheckLevelUp();
         }
 
+    }
+
+    private void OnLevelAbilitySelected(EventData data) {
+        //if(CurrentRoom != null) {
+        //    CurrentRoom.RegenerateReward();
+        //}
     }
 
     public static void CheckLevelUp() {

@@ -10,44 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Fast Tick Ring
+  m_Name: Fracture Reality Scroll
   m_EditorClassIdentifier: 
-  devItem: 1
+  devItem: 0
   startingItem: 0
   itemData:
-    Type: 1
+    Type: 4
     affixStatTarget: 1
     entityClass: 0
-    itemName: Fast Tick Ring
+    itemName: Fracture Reality
     itemDescription: 
     secondaryDescription: 
-    itemValue: 200
+    itemValue: 50
     runeAbilityTarget: 
-    validSlots: 0400000005000000
-    abilityTags: 0a000000
+    validSlots: 
+    abilityTags: 
     targetedAbilityName: 
-    itemIcon: {fileID: 21300000, guid: ef03cd7b5bd0ff1419c537158301697e, type: 3}
-    pickupIcon: {fileID: 21300000, guid: ef03cd7b5bd0ff1419c537158301697e, type: 3}
+    itemIcon: {fileID: 21300000, guid: 7f043036a149568428143c68bfb26561, type: 3}
+    pickupIcon: {fileID: 21300000, guid: 7f043036a149568428143c68bfb26561, type: 3}
     pickupOnCollision: 1
     tier: 0
     baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
-    statModifierData:
-    - targetStat: 32
-      value: -0.25
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 0
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
+    statModifierData: []
     abilityDefinitions: []
-    learnableAbilities: []
+    learnableAbilities:
+    - {fileID: 11400000, guid: 527a6817eaf912c4ea468999013b9bf7, type: 2}
     classPreviewAbilities: []
     startingItemOptions: []

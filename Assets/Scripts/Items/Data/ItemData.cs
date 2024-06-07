@@ -50,6 +50,7 @@ public class ItemData
     public string runeAbilityTarget;
     public List<ItemSlot> validSlots = new List<ItemSlot>();
     public List<AbilityTag> abilityTags = new List<AbilityTag>();
+    public string targetedAbilityName;
     public Sprite itemIcon;
     public Sprite pickupIcon;
     public bool pickupOnCollision;

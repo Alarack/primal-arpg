@@ -6,6 +6,7 @@ using UnityEngine;
 public class ItemDefinition : ScriptableObject
 {
     public bool devItem;
+    public bool startingItem;
     public ItemData itemData;
 
     private Item displayItem;

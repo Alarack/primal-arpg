@@ -33,7 +33,7 @@ public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         builder.AppendLine();
 
-        builder.AppendLine(room.rewards[0].rewardDescription/*items[0].itemData.GetItemInfo()*/);
+        builder.AppendLine(room.DisplayReward.rewardDescription/*items[0].itemData.GetItemInfo()*/);
 
         TooltipManager.Show(builder.ToString());
 

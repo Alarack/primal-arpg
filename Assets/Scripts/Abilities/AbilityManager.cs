@@ -101,7 +101,11 @@ public class AbilityManager : MonoBehaviour {
         List<Ability> newItemAbilities = new List<Ability>();
 
         for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
-            newItemAbilities.Add(LearnAbility(item.Data.learnableAbilities[i].AbilityData));
+            Ability learnedAbility = LearnAbility(item.Data.learnableAbilities[i].AbilityData);
+
+            if(learnedAbility != null) {
+                newItemAbilities.Add(learnedAbility);
+            }
         }
 
         learnedAbilities.AddRange(newItemAbilities);
@@ -217,6 +221,13 @@ public class AbilityManager : MonoBehaviour {
     }
 
     public Ability LearnAbility(AbilityData abilityData, bool autoEquip = false) {
+        Ability existingAbility = GetAbilityByName(abilityData.abilityName, AbilityCategory.Any);
+        if(existingAbility != null) {
+            existingAbility.Locked = false;
+            return null;
+        }
+        
+        
         Ability newAbility = AbilityFactory.CreateAbility(abilityData, Owner);
         LearnAbility(newAbility, abilityData.category, autoEquip);
 
@@ -333,6 +344,21 @@ public class AbilityManager : MonoBehaviour {
         return results;
     }
 
+    public void UnlockAbility(AbilityDefinition ability) {
+        UnlockAbility(ability.AbilityData.abilityName);
+    }
+
+    public void UnlockAbility(string abilityName) {
+        Ability target = GetAbilityByName(abilityName, AbilityCategory.Any);
+
+        if(target != null) {
+            target.Locked = false;
+        }
+        else {
+            Debug.LogWarning("Null ability when unlocking: " + abilityName);
+        }
+    }
+
     public List<Ability> GetClassFeatures() {
         List<Ability> results = new List<Ability>();
 
@@ -443,13 +469,25 @@ public class AbilityManager : MonoBehaviour {
     public bool HasAbility(AbilityDefinition ability) {
         Ability target = GetAbilityByName(ability.AbilityData.abilityName, AbilityCategory.Any);
 
-        return target != null;
+        //if (target != null && target.Locked == false) {
+        //    Debug.Log(target.Data.abilityName + " is not locked");
+        //}
+
+        //if(target != null  && target.Locked == true) {
+        //    Debug.Log(target.Data.abilityName + " is locked");
+        //}
+
+        //if(target == null) {
+        //    Debug.Log(ability.AbilityData.abilityName + " is not found");
+        //}
+
+        return target != null && target.Locked == false;
     }
 
     public bool HasAbility(string abilityName) {
         Ability target = GetAbilityByName(abilityName, AbilityCategory.Any);
 
-        return target != null;
+        return target != null && target.Locked == false;
     }
 
     public bool IsAbilityOnHotbar(Ability ability) {

@@ -12,21 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
   m_Name: Blazing Star Scroll
   m_EditorClassIdentifier: 
-  devItem: 0
+  devItem: 1
+  startingItem: 0
   itemData:
     Type: 4
+    affixStatTarget: 1
     entityClass: 0
     itemName: Blazing Star
     itemDescription: 
+    secondaryDescription: 
     itemValue: 50
     runeAbilityTarget: 
     validSlots: 
+    abilityTags: 
+    targetedAbilityName: 
     itemIcon: {fileID: 21300000, guid: 74a5be9c5f59e2e40ab6a0b7285ef351, type: 3}
     pickupIcon: {fileID: 21300000, guid: 74a5be9c5f59e2e40ab6a0b7285ef351, type: 3}
     pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
     statModifierData: []
     abilityDefinitions: []
     learnableAbilities:
     - {fileID: 11400000, guid: d507288fded2a9949a43dec64879b9fd, type: 2}
+    classPreviewAbilities: []
+    startingItemOptions: []
