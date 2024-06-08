@@ -40,6 +40,15 @@ public class LevelUpPanel : BasePanel
         
         UpdateRerollText();
     }
+    public override void Close() {
+        base.Close();
+
+        int showControls = PlayerPrefs.GetInt("ShowBasicControls");
+
+        if(showControls == 0) {
+            PanelManager.OpenPanel<BasicControlsTutorial>();
+        }
+    }
 
     private void SetupAbilityChoices() {
         List<Ability> lockedAbilities = EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.KnownSkill);

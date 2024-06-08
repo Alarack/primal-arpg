@@ -15,6 +15,9 @@ public class SkillsPanel : SkillBasePanel {
     [Header("Passive Collection Sub Panel")]
     public PassiveSkillPanel passiveCollectionPanel;
 
+    [Header("Tutorial Overlay")]
+    public GameObject tutorialOverlay;
+
     private List<SkillEntry> knownSkillEntries = new List<SkillEntry>();
     private List<SkillEntry> classFeatureEntries = new List<SkillEntry>();
 
@@ -35,7 +38,7 @@ public class SkillsPanel : SkillBasePanel {
         AbilityUtilities.PopulateSkillEntryList(ref knownPassiveSkillEntries, skillEntryTemplate, knownPassiveSkillsHolder, SkillEntry.SkillEntryLocation.KnownPassive);
         AbilityUtilities.PopulateSkillEntryList(ref classFeatureEntries, skillEntryTemplate, classFeatureSkillHolder, SkillEntry.SkillEntryLocation.ClassFeatureSkill);
 
-
+        ShowTutorial();
     }
 
     public override void Close() {
@@ -97,6 +100,21 @@ public class SkillsPanel : SkillBasePanel {
         }
 
         return null;
+    }
+
+
+
+    private void ShowTutorial() {
+        int show = PlayerPrefs.GetInt("ShowSkillTutorial");
+
+        if (show == 0) {
+            tutorialOverlay.SetActive(true);
+        }
+    }
+
+    public void OnTutoralOkayClicked() {
+        PlayerPrefs.SetInt("ShowSkillTutorial", 1);
+        tutorialOverlay.SetActive(false);
     }
 
 }
