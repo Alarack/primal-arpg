@@ -69,6 +69,8 @@ public abstract class Entity : MonoBehaviour {
 
     public bool IsDead { get; set; }
 
+    public bool Invincible { get; protected set; }
+
     public Ability ActivelyCastingAbility { get; set; }
 
     public Ability SpawningAbility { get; set; }

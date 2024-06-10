@@ -189,6 +189,11 @@ public static class StatAdjustmentManager {
 
     public static float ApplyStatAdjustment(Entity target, StatModifier mod, StatName targetStat, StatModifierData.StatVariantTarget statVarient, Ability sourceAbility, float multiplier = 1f, bool addMissingStat = false, Entity delivery = null) {
 
+        if(target.Invincible == true && targetStat == StatName.Health && mod.Value < 0f && statVarient == StatModifierData.StatVariantTarget.RangeCurrent) {
+            return 0f;
+        }
+
+
         if (target.Stats.Contains(mod.TargetStat) == false) {
 
             if (addMissingStat == false) {

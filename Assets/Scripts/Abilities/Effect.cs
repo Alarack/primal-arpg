@@ -3207,7 +3207,7 @@ public class StatAdjustmentEffect : Effect {
     }
 
     private void ShowFloatingtext(StatModifier activeMod, float modValueResult, Vector2 position) {
-        if (activeMod.TargetStat == StatName.Health && Data.hideFloatingText == false) {
+        if (activeMod.TargetStat == StatName.Health && Data.hideFloatingText == false && modValueResult != 0f) {
             //Debug.LogWarning("Damage dealt: " + modValueResult + " : " + Data.effectName);
 
             FloatingText text = FloatingTextManager.SpawnFloatingText(position, modValueResult.ToString(), 0.75f, isOverloading);
