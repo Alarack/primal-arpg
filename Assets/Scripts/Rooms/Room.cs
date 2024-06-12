@@ -93,7 +93,7 @@ public abstract class Room {
 
             if (item != null) {
                 results.Add(item);
-                Debug.Log(item.itemData.itemName + " has been added as a reward");
+                //Debug.Log(item.itemData.itemName + " has been added as a reward");
             }
         }
 

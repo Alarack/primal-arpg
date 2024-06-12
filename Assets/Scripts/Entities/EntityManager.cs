@@ -283,7 +283,7 @@ public class EntityManager : Singleton<EntityManager> {
         public IEnumerator SpawnWaveOnDelay() {
             WaitForSeconds waiter = new WaitForSeconds(spanwDelay);
 
-            Debug.LogWarning("Spawning a wave: " + entries.Count + " entries found");
+            //Debug.LogWarning("Spawning a wave: " + entries.Count + " entries found");
 
             foreach (var entry in entries) {
                 for (int i = 0; i < entry.count; i++) {

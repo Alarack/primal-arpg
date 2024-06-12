@@ -225,6 +225,13 @@ public class AbilityManager : MonoBehaviour {
         Ability existingAbility = GetAbilityByName(abilityData.abilityName, AbilityCategory.Any);
         if(existingAbility != null) {
             existingAbility.Locked = false;
+            
+            if(abilityData.category == AbilityCategory.KnownSkill)
+                AutoEquipToFirstEmptySlot(existingAbility);
+            if (abilityData.category == AbilityCategory.PassiveSkill)
+                PanelManager.GetPanel<SkillsPanel>().AutoEquipPassiveToFirstEmptySlot(existingAbility);
+
+
             return null;
         }
         

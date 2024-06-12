@@ -24,7 +24,7 @@ public class PanelDataManager : Singleton<PanelDataManager>
 
     private void Update() {
 
-        if (Input.GetKeyDown(KeyCode.C)) {
+        if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.I)) {
             PanelManager.TogglePanel<InventoryPanel>();
         }
 

@@ -414,6 +414,31 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
 
+    public static List<string> GetSKillRewardNames() {
+        List<string> results = new List<string>();
+        
+        if (CurrentRoom == null)
+            return results;
+
+        if(CurrentRoom.rewards == null || CurrentRoom.rewards.Count == 0) 
+            return results;
+
+        for (int i = 0; i < CurrentRoom.rewards.Count; i++) {
+            if (CurrentRoom.rewards[i].itemCategory == ItemType.Skill) {
+                Room.RoomReward reward = CurrentRoom.rewards[i];
+
+                for (int j = 0; j < reward.items.Count; j++) {
+                    results.Add(reward.items[j].itemData.itemName);
+                    //Debug.Log("A skill: " + reward.items[j].itemData.itemName + " is in the rewards selection");
+                }
+
+
+            }
+        }
+
+        return results;
+    }
+
     #endregion
 
 }
