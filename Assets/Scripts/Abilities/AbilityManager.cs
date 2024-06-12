@@ -105,6 +105,7 @@ public class AbilityManager : MonoBehaviour {
 
             if(learnedAbility != null) {
                 newItemAbilities.Add(learnedAbility);
+                AutoEquipToFirstEmptySlot(learnedAbility);
             }
         }
 
@@ -286,6 +287,14 @@ public class AbilityManager : MonoBehaviour {
         }
     }
 
+    public void AutoEquipToFirstEmptySlot(Ability ability) {
+        int firstEmptySlot = PanelManager.GetPanel<HotbarPanel>().GetFirstEmptySlot();
+
+        if(firstEmptySlot > -1) {
+            EquipAbility(ability, firstEmptySlot);
+        }
+    }
+
     public void AutoEquipAbilityToHotbar(Ability ability, int slot) {
         Ability existingAbility = PanelManager.GetPanel<HotbarPanel>().GetActiveAbilityBySlot(slot);
 
@@ -353,6 +362,11 @@ public class AbilityManager : MonoBehaviour {
 
         if(target != null) {
             target.Locked = false;
+            if(target.Data.category == AbilityCategory.KnownSkill)
+                AutoEquipToFirstEmptySlot(target);
+            if(target.Data.category == AbilityCategory.PassiveSkill) {
+                PanelManager.GetPanel<SkillsPanel>().AutoEquipPassiveToFirstEmptySlot(target);
+            }
         }
         else {
             Debug.LogWarning("Null ability when unlocking: " + abilityName);

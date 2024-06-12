@@ -31,7 +31,7 @@ public class WallHelper : MonoBehaviour {
                 transform.localScale = new Vector3(screenWidthScale, 1f, 1f);
                 break;
             case WallDirection.SOUTH:
-                point = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.15f, dist));
+                point = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.2f, dist));
                 //transform.localScale = new Vector3(screenWidthScale, 1f, 1f);
                 sprite.size = new Vector2(screenWidthScale * 0.98f, 2f);
                 myCollider.size = new Vector2(screenWidthScale, 2f);

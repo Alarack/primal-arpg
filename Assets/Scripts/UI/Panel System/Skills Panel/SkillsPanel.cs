@@ -68,6 +68,25 @@ public class SkillsPanel : SkillBasePanel {
         SetPassiveHighlights(entry);
     }
 
+    public int GetFirstEmptyPassiveSlot() {
+        for (int i = 0; i < activePassiveSkillEntries.Count; i++) {
+            if (activePassiveSkillEntries[i].Ability == null) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public void AutoEquipPassiveToFirstEmptySlot(Ability ability) {
+        int firstEmpty = GetFirstEmptyPassiveSlot();
+
+        if(firstEmpty > -1) {
+            activePassiveSkillEntries[firstEmpty].AssignNewAbility(ability);
+            ability.Equip();
+        }
+    }
+
     public void SetPassiveHighlights(SkillEntry entry) {
         for (int i = 0; i < knownPassiveSkillEntries.Count; i++) {
             if (knownPassiveSkillEntries[i] == entry) {
