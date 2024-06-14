@@ -435,7 +435,7 @@ public class EffectTargeter {
         }
 
         Vector2 targetLocation = parentEffect.Data.spawnLocation switch {
-            DeliverySpawnLocation.Source => parentEffect.Source.transform.position,
+            DeliverySpawnLocation.Source => parentEffect.Source.GetOriginPoint().position,
             DeliverySpawnLocation.Trigger => ActivationInstance.TriggeringEntity.transform.position,
             DeliverySpawnLocation.Cause => ActivationInstance.CauseOfTrigger.transform.position,
             DeliverySpawnLocation.MousePointer => GetMouseLocationWithInaccuracy(),
@@ -576,7 +576,7 @@ public class EffectTargeter {
             return;
         }
         
-        Entity delivery = GameObject.Instantiate(parentEffect.PayloadPrefab, payloadLocation, parentEffect.Source.transform.rotation);
+        Entity delivery = GameObject.Instantiate(parentEffect.PayloadPrefab, payloadLocation, parentEffect.Source.FacingRotation);
 
         Projectile projectile = delivery as Projectile;
         if (projectile != null) {

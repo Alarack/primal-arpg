@@ -133,7 +133,7 @@ public class ProjectileMovement : EntityMovement
             return;
         }
 
-        Ray2D ray = new Ray2D(projectileSource.transform.position, projectileSource.transform.up);
+        Ray2D ray = new Ray2D(projectileSource.GetOriginPoint().position, projectileSource.GetOriginPoint().up);
 
         seekPoint = ray.GetPoint(forwardPointDistance);
     }
