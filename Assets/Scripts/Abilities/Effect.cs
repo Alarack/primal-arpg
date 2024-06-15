@@ -3096,10 +3096,10 @@ public class StatAdjustmentEffect : Effect {
 
         float incommingDamage = activeMod.Value * vulnerabilityMod * globalDamageMultiplier;
 
-        //if(target is NPC) {
-            //Debug.Log("Raw Incoming Damage: " + MathF.Round( activeMod.Value, 1));
-            //Debug.Log("Vulnerability Mod: " + vulnerabilityMod);
-            //Debug.Log("Total: " + MathF.Round( incommingDamage, 1));
+        //if (target is NPC) {
+        //    Debug.Log("Raw Incoming Damage: " + MathF.Round(activeMod.Value, 1));
+        //    Debug.Log("Vulnerability Mod: " + vulnerabilityMod);
+        //    Debug.Log("Total: " + MathF.Round(incommingDamage, 1));
         //}
 
 
