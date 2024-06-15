@@ -48,6 +48,7 @@ public abstract class Entity : MonoBehaviour {
     public OwnerConstraintType ownerType;
     public List<EntitySubtype> subtypes = new List<EntitySubtype>();
     public SpriteRenderer innerSprite;
+    public SpriteRenderer mainSprite;
 
     [Header("Stat Definitions")]
     public StatDataGroup statDefinitions;
@@ -56,12 +57,14 @@ public abstract class Entity : MonoBehaviour {
     public float vfxScalar = 1f;
     public GameObject deathEffectPrefab;
     public GameObject spawnEffectPrefab;
+    public GameObject facingIndicator;
 
     [SerializedDictionary("Health", "Sprite")]
     public SerializedDictionary<float, Sprite> spriteProgression = new SerializedDictionary<float, Sprite>();
 
     public EntityMovement Movement { get; private set; }
     public float IsMoving { get { return Movement.IsMoving(); } }
+    public Quaternion FacingRotation { get { return GetFacingRotation(); } }
     public AbilityManager AbilityManager { get; private set; }
     public StatCollection Stats { get; private set; }
 
@@ -69,9 +72,13 @@ public abstract class Entity : MonoBehaviour {
 
     public bool IsDead { get; set; }
 
+    public bool Invincible { get; protected set; }
+
     public Ability ActivelyCastingAbility { get; set; }
 
     public Ability SpawningAbility { get; set; }
+
+    public AnimHelper AnimHelper { get; protected set; }
 
     protected Timer essenceRegenTimer;
 
@@ -90,6 +97,7 @@ public abstract class Entity : MonoBehaviour {
 
         Movement = GetComponent<EntityMovement>();
         AbilityManager = GetComponent<AbilityManager>();
+        AnimHelper = GetComponentInChildren<AnimHelper>();
 
         //if (entityType != EntityType.Projectile && entityType != EntityType.EffectZone) {
         //    EntityManager.RegisterEntity(this);
@@ -449,7 +457,17 @@ public abstract class Entity : MonoBehaviour {
         EventManager.SendEvent(GameEvent.UnitDied, data);
     }
 
+    #region HELPERS
 
+    protected Quaternion GetFacingRotation() {
+        return facingIndicator == null ? transform.rotation : facingIndicator.transform.rotation;
+    }
+
+    public Transform GetOriginPoint() {
+        return facingIndicator == null ? transform : facingIndicator.transform;
+    }
+
+    #endregion
 
     #region VFX
 

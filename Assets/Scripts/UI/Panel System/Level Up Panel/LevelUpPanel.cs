@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static StatModifierData;
 using TMPro;
+using LL.Events;
 
 public class LevelUpPanel : BasePanel
 {
@@ -39,17 +40,41 @@ public class LevelUpPanel : BasePanel
         
         UpdateRerollText();
     }
+    public override void Close() {
+        base.Close();
+
+        int showControls = PlayerPrefs.GetInt("ShowBasicControls");
+
+        if(showControls == 0) {
+            PanelManager.OpenPanel<BasicControlsTutorial>();
+        }
+    }
 
     private void SetupAbilityChoices() {
         List<Ability> lockedAbilities = EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.KnownSkill);
+        lockedAbilities.AddRange(EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.PassiveSkill));
+        
         List<Ability> choices = new List<Ability>();
 
-        for (int i = 0; i < 5; i++) {
+        List<string> currentRewardSkills = RoomManager.GetSKillRewardNames();
+
+
+        int safetyCounter = 0;
+        for (int i = 4; i >=0 ; i--) {
             lockedAbilities.Shuffle();
             
             if(lockedAbilities.Count > 0) {
-                choices.Add(lockedAbilities[0]);
-                lockedAbilities.RemoveAt(0);
+                if (currentRewardSkills.Contains(lockedAbilities[i].Data.abilityName)) {
+                    //Debug.LogWarning("A skill: " + lockedAbilities[i].Data.abilityName + " would be a dupilicate");
+                    safetyCounter++;
+                    if(safetyCounter < 50)
+                        i++;
+                    continue;
+                } 
+                    
+                
+                choices.Add(lockedAbilities[i]);
+                lockedAbilities.RemoveAt(i);
             }
 
         }
@@ -123,10 +148,15 @@ public class LevelUpPanel : BasePanel
         PanelManager.GetPanel<HUDPanel>().UpdateStockpile();
 
         entry.AbilityChoice.Locked = false;
+        EntityManager.ActivePlayer.AbilityManager.UnlockAbility(entry.AbilityChoice.Data.abilityName);
+        
 
-        //EntityManager.ActivePlayer.AbilityManager.AutoEquipAbilityToHotbar(entry.AbilityChoice, 4);
+        EventData data = new EventData();
+        data.AddAbility("Ability", entry.AbilityChoice);
+        EventManager.SendEvent(GameEvent.LevelUpAbilitySelected, data);
 
         if (EntityManager.ActivePlayer.levelsStored == 0) {
+            abilityChoiceEntries.ClearList();
             Close();
             TooltipManager.Hide();
         }

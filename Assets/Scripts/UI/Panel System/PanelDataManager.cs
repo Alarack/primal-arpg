@@ -8,6 +8,7 @@ public class PanelDataManager : Singleton<PanelDataManager>
     public Transform canvasRoot;
 
     public static List<string> blockingPanels = new List<string>();
+    public static List<string> closeOnEscapePanels = new List<string>();
 
 
     private void Start() {
@@ -18,11 +19,12 @@ public class PanelDataManager : Singleton<PanelDataManager>
         }
 
         blockingPanels = panelMapData.GetBlockingPanels();
+        closeOnEscapePanels = panelMapData.GetEscapeClosingPanels();
     }
 
     private void Update() {
 
-        if (Input.GetKeyDown(KeyCode.C)) {
+        if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.I)) {
             PanelManager.TogglePanel<InventoryPanel>();
         }
 
@@ -31,6 +33,9 @@ public class PanelDataManager : Singleton<PanelDataManager>
         }
 
         if(Input.GetKeyDown(KeyCode.Escape)) {
+            if (PanelManager.IsEscapeClosingPanelOpen() == true)
+                return;
+            
             PanelManager.TogglePanel<PausePanel>();
         }
 
@@ -47,6 +52,17 @@ public class PanelDataManager : Singleton<PanelDataManager>
         if (EntityManager.ActivePlayer != null && EntityManager.ActivePlayer.levelsStored > 0 && Input.GetKeyDown(KeyCode.L)) {
             PanelManager.OpenPanel<LevelUpPanel>();
         }
+
+    }
+
+
+    private bool ClosePanelsOnEscape() {
+        bool closed = false;
+
+
+
+
+        return closed;
 
     }
 

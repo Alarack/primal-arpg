@@ -166,6 +166,7 @@ public class EntityManager : Singleton<EntityManager> {
         ActivePlayer.Stats.Refresh(StatName.Health);
         ActivePlayer.Stats.Refresh(StatName.Essence);
         ActivePlayer.Stats.Refresh(StatName.Experience);
+        ActivePlayer.Stats.SetStatValue(StatName.StatReroll, 3f, ActivePlayer);
         ActivePlayer.IsDead = false;
         ActivePlayer.RemoveAllStatuses();
         ActivePlayer.AbilityManager.ResetAbilities();
@@ -282,7 +283,7 @@ public class EntityManager : Singleton<EntityManager> {
         public IEnumerator SpawnWaveOnDelay() {
             WaitForSeconds waiter = new WaitForSeconds(spanwDelay);
 
-            Debug.LogWarning("Spawning a wave: " + entries.Count + " entries found");
+            //Debug.LogWarning("Spawning a wave: " + entries.Count + " entries found");
 
             foreach (var entry in entries) {
                 for (int i = 0; i < entry.count; i++) {

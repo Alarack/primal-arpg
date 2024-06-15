@@ -1926,6 +1926,11 @@ public class AddAbilityEffect : Effect {
 
         for (int i = 0; i < Data.abilitiesToAdd.Count; i++) {
             Ability newChild = target.AbilityManager.LearnAbility(Data.abilitiesToAdd[i].AbilityData, true);
+            
+            if(newChild == null) {
+                Debug.LogError("Alrady leared an ability, just unlock it: " + Data.abilitiesToAdd[i].AbilityData.abilityName);
+            }
+            
             TrackAbilties(target, newChild);
 
             Debug.Log("Adding new ability: " + newChild.Data.abilityName);
@@ -3202,7 +3207,7 @@ public class StatAdjustmentEffect : Effect {
     }
 
     private void ShowFloatingtext(StatModifier activeMod, float modValueResult, Vector2 position) {
-        if (activeMod.TargetStat == StatName.Health && Data.hideFloatingText == false) {
+        if (activeMod.TargetStat == StatName.Health && Data.hideFloatingText == false && modValueResult != 0f) {
             //Debug.LogWarning("Damage dealt: " + modValueResult + " : " + Data.effectName);
 
             FloatingText text = FloatingTextManager.SpawnFloatingText(position, modValueResult.ToString(), 0.75f, isOverloading);

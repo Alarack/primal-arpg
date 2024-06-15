@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,9 @@ public abstract class Room {
 
     public List<RoomReward> rewards = new List<RoomReward>();
 
+    protected Tuple<int, ItemType, AbilityTag, ItemSlot> rewardinfo;
+    public RoomReward DisplayReward { get; protected set; }
+
     public abstract RoomType Type { get; }
 
     public Room() {
@@ -34,7 +38,11 @@ public abstract class Room {
         Data = data;
     }
 
-    public abstract void StartRoom();
+    public virtual void StartRoom() {
+        if(rewardinfo != null) {
+            GenerateRewards(rewardinfo.Item1, rewardinfo.Item2, rewardinfo.Item3, rewardinfo.Item4);
+        }
+    }
 
     public virtual void EndRoom() {
         RoomManager.OnRoomEnded(this);
@@ -66,6 +74,15 @@ public abstract class Room {
         return results;
     }
 
+    protected void SetRewardInfo(int count, ItemType type, AbilityTag tag = AbilityTag.None, ItemSlot slot = ItemSlot.None) {
+        rewardinfo = new Tuple<int, ItemType, AbilityTag, ItemSlot>( count,type, tag, slot);
+
+        DisplayReward = new RoomReward();
+        DisplayReward.itemCategory = type;
+        
+        SetRewardDescriptons(DisplayReward, type, tag, slot );
+    }
+
     protected void GenerateRewards(int count, ItemType type, AbilityTag tag = AbilityTag.None, ItemSlot slot = ItemSlot.None) {
 
 
@@ -76,7 +93,7 @@ public abstract class Room {
 
             if (item != null) {
                 results.Add(item);
-                //Debug.Log(item.itemData.itemName + " has been added");
+                //Debug.Log(item.itemData.itemName + " has been added as a reward");
             }
         }
 
@@ -88,6 +105,19 @@ public abstract class Room {
 
         rewards.Add(reward);
 
+    }
+
+    public void RegenerateReward() {
+        if(rewards.Count < 1) {
+            return;
+        }
+
+        int count = rewards.Count;
+        ItemType itemType = rewards[0].itemCategory;
+
+        rewards.Clear();
+        GenerateRewards(count, itemType);
+        
     }
 
     private void SetRewardDescriptons(RoomReward reward, ItemType type, AbilityTag tag, ItemSlot slot) {
@@ -150,12 +180,13 @@ public class StartingRoom : Room {
 
     public StartingRoom() {
 
+        //SetRewardInfo(ItemType.ClassSelection);
         GenerateRewards(3, ItemType.ClassSelection);
 
     }
 
     public override void StartRoom() {
-        
+        base.StartRoom();
 
         SpawnRewards("Choose a Class");
     }
@@ -174,14 +205,16 @@ public class EliminitionCombatRoom : Room {
         //waves = EntityManager.GenerateWaves()
 
         //Debug.Log("Creating a combat room");
+        SetRewardInfo(3, rewardType, rewardTag, rewardSlot);
 
-        GenerateRewards(3, rewardType, rewardTag, rewardSlot);
+        //GenerateRewards(3, rewardType, rewardTag, rewardSlot);
 
         waves = EntityManager.GenerateWaves(3, RoomManager.CurrentBiome, RoomManager.CurrentDifficulty, RoomManager.CurrentDifficulty / 5, RoomManager.CurrentDifficulty);
     }
 
     public override void StartRoom() {
         //Debug.LogWarning("Wave Starting: " + (waveIndex + 1));
+        base.StartRoom();
 
         SpawnWave();
     }
@@ -226,13 +259,16 @@ public class BossRoom : Room {
 
     public BossRoom(ItemType rewardType, AbilityTag rewardTag, ItemSlot rewardSlot) : base() {
         
-        GenerateRewards(2, rewardType, rewardTag, rewardSlot);
+        SetRewardInfo(2, rewardType, rewardTag, rewardSlot);
+        //GenerateRewards(2, rewardType, rewardTag, rewardSlot);
         
         bossWave = EntityManager.GenerateBossWave(RoomManager.CurrentBiome);
     
     }
 
     public override void StartRoom() {
+        base.StartRoom();
+
         new Task(bossWave.SpawnWaveOnDelay());
     }
 
@@ -248,11 +284,14 @@ public class ShopRoom : Room {
     public override RoomType Type => RoomType.ItemShop;
 
     public ShopRoom(ItemType rewardType, AbilityTag rewardTag, ItemSlot rewardSlot) : base() {
-        GenerateRewards(5, rewardType, rewardTag, rewardSlot);
+        SetRewardInfo(5, rewardType, rewardTag, rewardSlot);
+        //GenerateRewards(5, rewardType, rewardTag, rewardSlot);
     }
 
 
     public override void StartRoom() {
+        base.StartRoom();
+        
         SpawnRewards("Shop!", true, true);
 
         List<Vector2> portalLocations = TargetHelper.GetUpperCenterRow(2);

@@ -101,7 +101,12 @@ public class AbilityManager : MonoBehaviour {
         List<Ability> newItemAbilities = new List<Ability>();
 
         for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
-            newItemAbilities.Add(LearnAbility(item.Data.learnableAbilities[i].AbilityData));
+            Ability learnedAbility = LearnAbility(item.Data.learnableAbilities[i].AbilityData);
+
+            if(learnedAbility != null) {
+                newItemAbilities.Add(learnedAbility);
+                AutoEquipToFirstEmptySlot(learnedAbility);
+            }
         }
 
         learnedAbilities.AddRange(newItemAbilities);
@@ -217,6 +222,20 @@ public class AbilityManager : MonoBehaviour {
     }
 
     public Ability LearnAbility(AbilityData abilityData, bool autoEquip = false) {
+        Ability existingAbility = GetAbilityByName(abilityData.abilityName, AbilityCategory.Any);
+        if(existingAbility != null) {
+            existingAbility.Locked = false;
+            
+            if(abilityData.category == AbilityCategory.KnownSkill)
+                AutoEquipToFirstEmptySlot(existingAbility);
+            if (abilityData.category == AbilityCategory.PassiveSkill)
+                PanelManager.GetPanel<SkillsPanel>().AutoEquipPassiveToFirstEmptySlot(existingAbility);
+
+
+            return null;
+        }
+        
+        
         Ability newAbility = AbilityFactory.CreateAbility(abilityData, Owner);
         LearnAbility(newAbility, abilityData.category, autoEquip);
 
@@ -272,6 +291,14 @@ public class AbilityManager : MonoBehaviour {
 
         if (currentWeaponAbility == null) {
             EquipAbility(ability, 4);
+        }
+    }
+
+    public void AutoEquipToFirstEmptySlot(Ability ability) {
+        int firstEmptySlot = PanelManager.GetPanel<HotbarPanel>().GetFirstEmptySlot();
+
+        if(firstEmptySlot > -1) {
+            EquipAbility(ability, firstEmptySlot);
         }
     }
 
@@ -333,6 +360,26 @@ public class AbilityManager : MonoBehaviour {
         return results;
     }
 
+    public void UnlockAbility(AbilityDefinition ability) {
+        UnlockAbility(ability.AbilityData.abilityName);
+    }
+
+    public void UnlockAbility(string abilityName) {
+        Ability target = GetAbilityByName(abilityName, AbilityCategory.Any);
+
+        if(target != null) {
+            target.Locked = false;
+            if(target.Data.category == AbilityCategory.KnownSkill)
+                AutoEquipToFirstEmptySlot(target);
+            if(target.Data.category == AbilityCategory.PassiveSkill) {
+                PanelManager.GetPanel<SkillsPanel>().AutoEquipPassiveToFirstEmptySlot(target);
+            }
+        }
+        else {
+            Debug.LogWarning("Null ability when unlocking: " + abilityName);
+        }
+    }
+
     public List<Ability> GetClassFeatures() {
         List<Ability> results = new List<Ability>();
 
@@ -381,7 +428,8 @@ public class AbilityManager : MonoBehaviour {
 
         for (int i = 0; i < KnownAbilities.Count; i++) {
             for (int j = 0; j < KnownAbilities[i].Tags.Count; j++) {
-                results.AddUnique(KnownAbilities[i].Tags[j]);
+                if (KnownAbilities[i].Locked == false)
+                    results.AddUnique(KnownAbilities[i].Tags[j]);
             }
         }
 
@@ -442,13 +490,25 @@ public class AbilityManager : MonoBehaviour {
     public bool HasAbility(AbilityDefinition ability) {
         Ability target = GetAbilityByName(ability.AbilityData.abilityName, AbilityCategory.Any);
 
-        return target != null;
+        //if (target != null && target.Locked == false) {
+        //    Debug.Log(target.Data.abilityName + " is not locked");
+        //}
+
+        //if(target != null  && target.Locked == true) {
+        //    Debug.Log(target.Data.abilityName + " is locked");
+        //}
+
+        //if(target == null) {
+        //    Debug.Log(ability.AbilityData.abilityName + " is not found");
+        //}
+
+        return target != null && target.Locked == false;
     }
 
     public bool HasAbility(string abilityName) {
         Ability target = GetAbilityByName(abilityName, AbilityCategory.Any);
 
-        return target != null;
+        return target != null && target.Locked == false;
     }
 
     public bool IsAbilityOnHotbar(Ability ability) {

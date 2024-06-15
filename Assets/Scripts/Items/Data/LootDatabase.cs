@@ -31,6 +31,10 @@ public class LootDatabase : ScriptableObject {
         allPossibleItems.Shuffle();
 
         for (int i = 0; i < allPossibleItems.Count; i++) {
+            if (allPossibleItems[i].devItem == true || allPossibleItems[i].startingItem == true)
+                continue;
+            
+            
             if (exclusions.Contains(allPossibleItems[i])) {
                 //Debug.Log(allPossibleItems[i].itemData.itemName + " is a dupe");
                 continue;
@@ -50,6 +54,11 @@ public class LootDatabase : ScriptableObject {
 
                 if (CheckForInvalidItemTag(allPossibleItems[i]) == true) 
                     continue;
+
+                if (CheckForTargetAbility(allPossibleItems[i]) == false)
+                    continue;
+
+                
             }
 
             if (allPossibleItems[i].itemData.Type == ItemType.Rune) {
@@ -74,7 +83,7 @@ public class LootDatabase : ScriptableObject {
         if (item.itemData.learnableAbilities.Count > 0) {
             if (EntityManager.ActivePlayer.AbilityManager.HasAbility(item.itemData.learnableAbilities[0]) == true) {
 
-                //Debug.LogWarning("Duplicate Skill Detect: " + item.itemData.learnableAbilities[0].AbilityData.abilityName);
+                //Debug.LogWarning("Duplicate Skill Detected: " + item.itemData.learnableAbilities[0].AbilityData.abilityName);
 
                 return true;
             }
@@ -109,6 +118,18 @@ public class LootDatabase : ScriptableObject {
 
     private bool CheckForDupeEquipment(ItemDefinition item) {
         return EntityManager.ActivePlayer.Inventory.ItemOwned(item);
+    }
+
+    private bool CheckForTargetAbility(ItemDefinition item) {
+        
+        if(string.IsNullOrEmpty(item.itemData.targetedAbilityName) == true) 
+            return true;
+
+        bool hasAbility = EntityManager.ActivePlayer.AbilityManager.HasAbility(item.itemData.targetedAbilityName);
+
+
+
+        return hasAbility;
     }
 
     private bool CheckForInvalidItemTag(ItemDefinition item) {

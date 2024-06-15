@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
+using LL.Events;
 
 public class RoomManager : Singleton<RoomManager> {
 
@@ -38,6 +38,14 @@ public class RoomManager : Singleton<RoomManager> {
         room.StartRoom();
     }
 
+    private void OnEnable() {
+        EventManager.RegisterListener(GameEvent.LevelUpAbilitySelected, OnLevelAbilitySelected);
+    }
+
+    private void OnDisable() {
+        EventManager.RemoveMyListeners(this);
+    }
+
     public void OnPortalEntered(Room room) {
         CurrentRoom = room;
         EnterRoom(room);
@@ -56,9 +64,15 @@ public class RoomManager : Singleton<RoomManager> {
 
     }
 
+    private void OnLevelAbilitySelected(EventData data) {
+        //if(CurrentRoom != null) {
+        //    CurrentRoom.RegenerateReward();
+        //}
+    }
+
     public static void CheckLevelUp() {
         if(EntityManager.ActivePlayer.levelsStored > 0) {
-            Debug.LogWarning("Show Level Up panel");
+            PanelManager.OpenPanel<LevelUpPanel>();
         }
     }
 
@@ -100,6 +114,9 @@ public class RoomManager : Singleton<RoomManager> {
             if (i >= rewardTypes.Count) {
                 Debug.LogWarning("Reset count since i is creater than possible reward types");
                 i = 0;
+
+                if (chosenTypes.Count > 0)
+                    break;
             }
 
             if (chosenTypes.Count >= rewardTypes.Count) {
@@ -122,13 +139,13 @@ public class RoomManager : Singleton<RoomManager> {
         }
 
 
-        if (Instance.currentRoomIndex <= 5) {
-            //Debug.Log("Current Room: " + Instance.currentRoomIndex);
-            if (chosenTypes.Contains(ItemType.Skill) == false) {
-                //Debug.LogWarning("Adding a skill room since there wasn't one");
-                choices[0] = CreateRoom(Instance.GetRoomType(), ItemType.Skill);
-            }
-        }
+        //if (Instance.currentRoomIndex <= 5) {
+        //    //Debug.Log("Current Room: " + Instance.currentRoomIndex);
+        //    if (chosenTypes.Contains(ItemType.Skill) == false) {
+        //        //Debug.LogWarning("Adding a skill room since there wasn't one");
+        //        choices[0] = CreateRoom(Instance.GetRoomType(), ItemType.Skill);
+        //    }
+        //}
 
 
         EntityManager.ActivePlayer.DeactivateBigVacum();
@@ -396,6 +413,31 @@ public class RoomManager : Singleton<RoomManager> {
         currentRewards.Clear();
     }
 
+
+    public static List<string> GetSKillRewardNames() {
+        List<string> results = new List<string>();
+        
+        if (CurrentRoom == null)
+            return results;
+
+        if(CurrentRoom.rewards == null || CurrentRoom.rewards.Count == 0) 
+            return results;
+
+        for (int i = 0; i < CurrentRoom.rewards.Count; i++) {
+            if (CurrentRoom.rewards[i].itemCategory == ItemType.Skill) {
+                Room.RoomReward reward = CurrentRoom.rewards[i];
+
+                for (int j = 0; j < reward.items.Count; j++) {
+                    results.Add(reward.items[j].itemData.itemName);
+                    //Debug.Log("A skill: " + reward.items[j].itemData.itemName + " is in the rewards selection");
+                }
+
+
+            }
+        }
+
+        return results;
+    }
 
     #endregion
 

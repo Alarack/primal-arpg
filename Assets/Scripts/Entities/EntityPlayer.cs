@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using AllIn1VfxToolkit.Demo.Scripts;
 
 public class EntityPlayer : Entity {
 
@@ -10,6 +11,8 @@ public class EntityPlayer : Entity {
     public CircleCollider2D vacumCollider;
     public Inventory Inventory { get; private set; }
 
+
+    private Task iFrameTask;
 
     public float CurrentDamageRoll { get { return GetDamgeRoll(); } }
 
@@ -70,6 +73,15 @@ public class EntityPlayer : Entity {
         vacumCollider.radius = 6f;
     }
 
+    private IEnumerator OnDamageInvincible() {
+        Invincible = true;
+
+        yield return new WaitForSeconds(0.2f);
+
+        iFrameTask = null;
+        Invincible = false;
+    }
+
     #region EVENTS
 
     public override bool HasAbilityOfTag(AbilityTag tag) {
@@ -82,6 +94,29 @@ public class EntityPlayer : Entity {
     }
 
 
+    protected override void OnStatChanged(EventData data) {
+        base.OnStatChanged(data);
+
+        StatName stat = (StatName)data.GetInt("Stat");
+        float value = data.GetFloat("Value");
+        Entity target = data.GetEntity("Target");
+
+        if (target != this)
+            return;
+
+        if (stat != StatName.Health)
+            return;
+
+        if (value >= 0f) {
+            return;
+        }
+
+        if(iFrameTask == null) {
+            iFrameTask = new Task(OnDamageInvincible());
+        }
+
+        AllIn1Shaker.i.DoCameraShake(0.05f);
+    }
 
     #endregion
 
@@ -95,6 +130,8 @@ public class EntityPlayer : Entity {
 
         base.Die(source, sourceAbility);
 
+        Invincible = false;
+        iFrameTask = null;
         //EntityManager.RemoveEntity(this);
         SpawnDeathVFX();
 

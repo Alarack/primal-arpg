@@ -15,11 +15,15 @@ public class SkillsPanel : SkillBasePanel {
     [Header("Passive Collection Sub Panel")]
     public PassiveSkillPanel passiveCollectionPanel;
 
+    [Header("Tutorial Overlay")]
+    public GameObject tutorialOverlay;
+
     private List<SkillEntry> knownSkillEntries = new List<SkillEntry>();
     private List<SkillEntry> classFeatureEntries = new List<SkillEntry>();
 
     private List<SkillEntry> activePassiveSkillEntries = new List<SkillEntry>();
     private List<SkillEntry> knownPassiveSkillEntries = new List<SkillEntry>();
+
 
     public override void Open() {
         base.Open();
@@ -28,10 +32,13 @@ public class SkillsPanel : SkillBasePanel {
             return;
         }
 
+        PanelManager.ClosePanel<InventoryPanel>();
+
         AbilityUtilities.PopulateSkillEntryList(ref knownSkillEntries, skillEntryTemplate, knownSkillsHolder, SkillEntry.SkillEntryLocation.KnownSkill);
         AbilityUtilities.PopulateSkillEntryList(ref knownPassiveSkillEntries, skillEntryTemplate, knownPassiveSkillsHolder, SkillEntry.SkillEntryLocation.KnownPassive);
         AbilityUtilities.PopulateSkillEntryList(ref classFeatureEntries, skillEntryTemplate, classFeatureSkillHolder, SkillEntry.SkillEntryLocation.ClassFeatureSkill);
 
+        ShowTutorial();
     }
 
     public override void Close() {
@@ -59,6 +66,25 @@ public class SkillsPanel : SkillBasePanel {
         passiveCollectionPanel.OnKnownEntryClicked(entry);
 
         SetPassiveHighlights(entry);
+    }
+
+    public int GetFirstEmptyPassiveSlot() {
+        for (int i = 0; i < activePassiveSkillEntries.Count; i++) {
+            if (activePassiveSkillEntries[i].Ability == null) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public void AutoEquipPassiveToFirstEmptySlot(Ability ability) {
+        int firstEmpty = GetFirstEmptyPassiveSlot();
+
+        if(firstEmpty > -1) {
+            activePassiveSkillEntries[firstEmpty].AssignNewAbility(ability);
+            ability.Equip();
+        }
     }
 
     public void SetPassiveHighlights(SkillEntry entry) {
@@ -93,6 +119,21 @@ public class SkillsPanel : SkillBasePanel {
         }
 
         return null;
+    }
+
+
+
+    private void ShowTutorial() {
+        int show = PlayerPrefs.GetInt("ShowSkillTutorial");
+
+        if (show == 0) {
+            tutorialOverlay.SetActive(true);
+        }
+    }
+
+    public void OnTutoralOkayClicked() {
+        PlayerPrefs.SetInt("ShowSkillTutorial", 1);
+        tutorialOverlay.SetActive(false);
     }
 
 }

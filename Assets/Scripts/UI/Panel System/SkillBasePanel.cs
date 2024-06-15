@@ -64,6 +64,16 @@ public class SkillBasePanel : BasePanel
         return activeSkillEntries[index].Ability;
     }
 
+    public int GetFirstEmptySlot() {
+        for (int i = 0; i < activeSkillEntries.Count; i++) {
+            if (activeSkillEntries[i].Ability == null) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
     public int GetAbilitySlotIndex(Ability ability) {
 
         //Debug.Log("Checking: " + ability.Data.abilityName);

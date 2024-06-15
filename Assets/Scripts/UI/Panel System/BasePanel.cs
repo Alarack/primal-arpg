@@ -13,6 +13,7 @@ public enum BasePanelState
 public class BasePanel : MonoBehaviour
 {
     public bool IsOpen { get; private set; }
+    public bool CloseOnEscape { get; private set; }
 
     public string PanelID { get; protected set; }
 
@@ -51,6 +52,12 @@ public class BasePanel : MonoBehaviour
         }
     }
 
+    protected virtual void Update() {
+        if(CloseOnEscape == true && Input.GetKey(KeyCode.Escape)) {
+            Close();
+        }
+    }
+
     private void GetView()
     {
         try
@@ -78,9 +85,10 @@ public class BasePanel : MonoBehaviour
         }
     }
 
-    public void Initialize(string id)
+    public void Initialize(string id, bool closeOnEscape = false)
     {
         PanelID = id;
+        this.CloseOnEscape = closeOnEscape;
 
         if (view.activeInHierarchy == true)
             IsOpen = true;

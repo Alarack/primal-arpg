@@ -69,8 +69,21 @@ public class PlayerMovement : EntityMovement
         MyBody.AddForce(moveForce, ForceMode2D.Force);
 
         //Debug.Log("Speed: " + modifiedSpeed);
+        SetMoveAnim(moveForce);
     }
 
+
+    private void SetMoveAnim(Vector2 moveForce) {
+        if(Owner.AnimHelper == null) {
+            return;
+        }
+
+        bool moving = moveForce.magnitude > 0;
+
+
+        Owner.AnimHelper.SetBool("Run", moving);
+        
+    }
 
     public void GetInput()
     {
@@ -141,8 +154,15 @@ public class PlayerMovement : EntityMovement
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); //New Input System
         //Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //OLD Input System
 
-        transform.rotation = TargetUtilities.GetRotationTowardTarget(mousePos, transform.position);
+        Owner.facingIndicator.transform.rotation = TargetUtilities.GetRotationTowardTarget(mousePos, Owner.facingIndicator.transform.position);
 
+        //transform.rotation = TargetUtilities.GetRotationTowardTarget(mousePos, transform.position);
+
+        if(Owner.mainSprite != null) {
+            bool mouseLeft = mousePos.x < transform.position.x;
+
+            Owner.mainSprite.flipX = mouseLeft;
+        }
 
         //This is for analog stick
         //Vector2 lookVector = playerInputActions.Player.Look.ReadValue<Vector2>();

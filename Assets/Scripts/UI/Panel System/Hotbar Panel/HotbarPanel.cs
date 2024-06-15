@@ -68,8 +68,8 @@ public class HotbarPanel : SkillBasePanel {
         playerInputActions.Player.Skill4.canceled -= OnSkill4Canceled;
     }
 
-    protected void Update() {
-
+    protected override  void Update() {
+        base.Update();
         if(PanelManager.IsBlockingPanelOpen() == true) {
             //Debug.Log("Blocked");
             return;
