@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
+using UnityEditor.Playables;
 
-public class AnimHelper : MonoBehaviour
-{
+public class AnimHelper : MonoBehaviour {
 
     public Animator animator;
 
@@ -15,9 +15,13 @@ public class AnimHelper : MonoBehaviour
     }
 
     private void OnEnable() {
-        
-        if(owner != null && owner.entityType == Entity.EntityType.Player) {
+
+        if (owner != null && owner is EntityPlayer) {
             EventManager.RegisterListener(GameEvent.UserActivatedAbility, OnAbilityActivated);
+        }
+
+        if (owner != null && owner is NPC) {
+            EventManager.RegisterListener(GameEvent.AIActivated, OnAIAbilityActivated);
         }
 
     }
@@ -30,9 +34,11 @@ public class AnimHelper : MonoBehaviour
 
     public void SetBool(string name, bool value) {
         animator.SetBool(name, value);
+
+        //Debug.Log("Anim: " + name + " value: " + value + " Owner: " + owner.EntityName);
     }
 
-    
+
     public void SetTrigger(string name) {
         animator.SetTrigger(name);
     }
@@ -41,7 +47,40 @@ public class AnimHelper : MonoBehaviour
     private void OnAbilityActivated(EventData data) {
         Ability ability = data.GetAbility("Ability");
 
-        if(string.IsNullOrEmpty( ability.Data.animationString) == true) {
+        if (string.IsNullOrEmpty(ability.Data.animationString) == true) {
+            Debug.Log("No animation for: " + ability.Data.abilityName);
+            return;
+        }
+
+        SetAttackAnim(ability);
+
+        //if (animator.GetCurrentAnimatorStateInfo(0).IsName(ability.Data.animationString)) {
+        //    return;
+        //}
+
+        //if (ability.IsReady == false)
+        //    return;
+
+        //Debug.Log("Recieving activation for: " + ability.Data.abilityName);
+
+        //SetTrigger(ability.Data.animationString);
+    }
+
+    private void OnAIAbilityActivated(EventData data) {
+        NPC npc = data.GetEntity("NPC") as NPC;
+
+        if (npc == null || owner != npc) {
+            return;
+        }
+
+        Ability ability = data.GetAbility("Ability");
+
+        SetAttackAnim(ability);
+
+    }
+
+    private void SetAttackAnim(Ability ability) {
+        if (string.IsNullOrEmpty(ability.Data.animationString) == true) {
             Debug.Log("No animation for: " + ability.Data.abilityName);
             return;
         }

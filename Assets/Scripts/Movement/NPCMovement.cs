@@ -87,13 +87,21 @@ public class NPCMovement : EntityMovement
     }
 
     public void RotateTowardPoint(Vector2 location) {
-        TargetUtilities.RotateSmoothlyTowardTarget(location, Owner.transform, Owner.Stats[StatName.RotationSpeed]);
+        TargetUtilities.RotateSmoothlyTowardTarget(location, Owner.GetOriginPoint(), Owner.Stats[StatName.RotationSpeed]);
 
     }
 
     private Vector2 BasicMovement(Vector2 location) {
         Vector2 direction = location - (Vector2)transform.position;
         Vector2 moveForce = direction.normalized * Owner.Stats[StatName.MoveSpeed] * Time.fixedDeltaTime;
+
+        bool animMove = moveForce.magnitude > 0f;
+
+        if(Owner.AnimHelper != null) {
+            Owner.AnimHelper.SetBool("Run", animMove);
+        }
+
+        
 
         return moveForce;
     }

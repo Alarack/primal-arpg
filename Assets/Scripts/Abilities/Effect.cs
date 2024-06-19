@@ -976,7 +976,7 @@ public class ForcedMovementEffect : Effect {
     }
 
     private void ApplySourceForward(Entity target) {
-        Vector2 force = target.transform.up.normalized * Stats[StatName.Knockback];
+        Vector2 force = target.GetOriginPoint().up.normalized * Stats[StatName.Knockback];
 
         Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
 
