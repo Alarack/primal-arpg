@@ -15,7 +15,7 @@ public class MainMenuPanel : BasePanel
     }
 
     public void OnOptionsClicked() {
-
+        PanelManager.OpenPanel<OptionsPanel>();
     }
 
     public void OnQuitClicked() {

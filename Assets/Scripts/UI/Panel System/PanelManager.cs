@@ -144,7 +144,7 @@ public static class PanelManager
         foreach (var panel in currentPanels) {
             if (panel.Value != null && panel.Value.IsOpen == true && panel.Value.CloseOnEscape == true) {
 
-                Debug.Log(panel.Key + " is open");
+                //Debug.Log(panel.Key + " is open");
                 
                 return true;
             }
