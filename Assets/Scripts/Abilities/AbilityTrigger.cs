@@ -520,7 +520,7 @@ public class AIActivatedTrigger : AbilityTrigger {
 
 
 
-        //if(triggeringAbility.Data.abilityName == "Test Sword Swipe") {
+        //if(triggeringAbility.Data.abilityName == "Sword Guy Attack!") {
         //    Debug.Log("Swipe activation recieved");
         //}
 

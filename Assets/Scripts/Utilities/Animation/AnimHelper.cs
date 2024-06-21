@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
 using UnityEditor.Playables;
+using Unity.VisualScripting;
 
 public class AnimHelper : MonoBehaviour {
 
@@ -21,7 +22,7 @@ public class AnimHelper : MonoBehaviour {
         }
 
         if (owner != null && owner is NPC) {
-            EventManager.RegisterListener(GameEvent.AIActivated, OnAIAbilityActivated);
+            EventManager.RegisterListener(GameEvent.AbilityInitiated, OnAIAbilityActivated);
         }
 
     }
@@ -52,7 +53,7 @@ public class AnimHelper : MonoBehaviour {
             return;
         }
 
-        SetAttackAnim(ability);
+        SetAttackAnim(ability, true);
 
         //if (animator.GetCurrentAnimatorStateInfo(0).IsName(ability.Data.animationString)) {
         //    return;
@@ -67,7 +68,10 @@ public class AnimHelper : MonoBehaviour {
     }
 
     private void OnAIAbilityActivated(EventData data) {
-        NPC npc = data.GetEntity("NPC") as NPC;
+
+        //Debug.Log("Ability Initiated: " + data.GetAbility("Ability").Data.abilityName);
+        
+        NPC npc = data.GetEntity("Source") as NPC;
 
         if (npc == null || owner != npc) {
             return;
@@ -79,9 +83,9 @@ public class AnimHelper : MonoBehaviour {
 
     }
 
-    private void SetAttackAnim(Ability ability) {
+    private void SetAttackAnim(Ability ability, bool readyCheck = false) {
         if (string.IsNullOrEmpty(ability.Data.animationString) == true) {
-            Debug.Log("No animation for: " + ability.Data.abilityName);
+            //Debug.Log("No animation for: " + ability.Data.abilityName);
             return;
         }
 
@@ -89,7 +93,7 @@ public class AnimHelper : MonoBehaviour {
             return;
         }
 
-        if (ability.IsReady == false)
+        if (readyCheck == true && ability.IsReady == false)
             return;
 
         Debug.Log("Recieving activation for: " + ability.Data.abilityName);

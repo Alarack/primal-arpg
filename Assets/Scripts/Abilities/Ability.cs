@@ -1081,6 +1081,9 @@ public class Ability {
 
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
+        //if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
+        //    Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is trying to start. Source: " + Source.EntityName, Color.green));
+
         if (IsChanneled == true && IsActive == true) {
             return;
         }
@@ -1141,8 +1144,8 @@ public class Ability {
             return;
         }
 
-        //if (Source != null && Source.ownerType == OwnerConstraintType.Friendly && Source.subtypes.Contains(Entity.EntitySubtype.Orbital))
-        //    Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is starting. Source: " + Source.gameObject.name, Color.green));
+        if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
+            Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is resolving. Source: " + Source.EntityName, Color.green));
 
 
         IsActive = true;
@@ -1246,6 +1249,8 @@ public class Ability {
 
 
         IsActive = true;
+
+        SendAbilityInitiatedEvent(activationInstance);
 
         //new Task(TriggerAllEffectsWithDelay(activationInstance));
         TriggerAllEffectsInstantly(activationInstance);
