@@ -29,7 +29,9 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
+    startingAbility: 0
     runeAbilityTarget: 
+    animationString: Attack
     childAbilities:
     - {fileID: 11400000, guid: 800c64fa08d2f58489cca4fa269bb6e5, type: 2}
     runeGroupData:
@@ -49,6 +51,7 @@ MonoBehaviour:
       triggerTimerDuration: 0
       delay1Frame: 0
       autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -147,6 +150,7 @@ MonoBehaviour:
         triggerTimerDuration: 0
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -162,6 +166,7 @@ MonoBehaviour:
         triggerTimerDuration: 0
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -189,6 +194,11 @@ MonoBehaviour:
       value: 1
       maxValue: 0
       minValue: 0
+    - variant: 0
+      statName: 50
+      value: 0.22
+      maxValue: 0
+      minValue: 0
     recoveryData:
     - type: 0
       recoveryTriggers: []
@@ -202,6 +212,7 @@ MonoBehaviour:
           triggerTimerDuration: 0
           delay1Frame: 0
           autoActivateTimer: 0
+          resetTimerOnParentAbilityEnd: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0

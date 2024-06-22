@@ -39,4 +39,9 @@ public class EntityMovement : MonoBehaviour
         return 0f;
     }
 
+    public void StopMovement() {
+        MyBody.velocity = Vector3.zero;
+        CanMove = false;
+    }
+
 }

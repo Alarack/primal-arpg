@@ -139,6 +139,7 @@ public class AbilityData
     public bool normalizedProcRate;
     public bool startingAbility;
     public string runeAbilityTarget;
+    public string animationString;
 
     public List<AbilityDefinition> childAbilities = new List<AbilityDefinition>();
     public List<AbilityRuneGroupData> runeGroupData = new List<AbilityRuneGroupData>();

@@ -65,6 +65,18 @@ public class AIBrain : MonoBehaviour {
         //}
     }
 
+    private void UpdateFacing() {
+        if (Sensor.LatestTarget == null)
+            return;
+
+        if(Owner.mainSprite == null) 
+            return;
+
+        bool faceLeft = Sensor.LatestTarget.transform.position.x < Owner.GetOriginPoint().position.x;
+        
+        Owner.mainSprite.flipX = faceLeft;
+    }
+
     private void CreateAbilities() {
         for (int i = 0; i < abilityDefinitions.Count; i++) {
             AddAbility(abilityDefinitions[i]);
@@ -136,6 +148,7 @@ public class AIBrain : MonoBehaviour {
             return;
         
         fsm.ManagedUpdate();
+        UpdateFacing();
     }
 
     private void FixedUpdate() {

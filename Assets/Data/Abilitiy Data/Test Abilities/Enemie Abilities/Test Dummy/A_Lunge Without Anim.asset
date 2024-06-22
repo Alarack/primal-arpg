@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
+  m_Name: A_Lunge Without Anim
+  m_EditorClassIdentifier: 
+  AbilityData:
+    category: 1
+    abilityIcon: {fileID: 0}
+    abilityName: Lunge
+    abilityDescription: 
+    resourceCost: 0
+    toBestow: 0
+    suspend: 0
+    autoFire: 0
+    ignoreOtherCasting: 1
+    includeEffectsInTooltip: 0
+    showChildAbilitiesInTooltip: 0
+    ignoreTooltip: 0
+    recastOnChannelCost: 0
+    normalizedProcRate: 0
+    startingAbility: 0
+    runeAbilityTarget: 
+    animationString: 
+    childAbilities: []
+    runeGroupData: []
+    tags: 
+    activationTriggerData:
+    - type: 31
+      procChance: 1
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
+      allConstraints: []
+    endTriggerData: []
+    counterData:
+      useCustomRefreshTrigger: 0
+      customRefreshTriggerData:
+        type: 0
+        procChance: 1
+        riderAbilityName: 
+        riderEffectName: 
+        triggerTimerDuration: 0
+        delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
+        allConstraints: []
+      limitedNumberOfTriggers: 0
+      maxTriggerCount: 0
+      requireMultipleTriggers: 0
+      minTriggerCount: 0
+    endCounterData:
+      useCustomRefreshTrigger: 0
+      customRefreshTriggerData:
+        type: 0
+        procChance: 1
+        riderAbilityName: 
+        riderEffectName: 
+        triggerTimerDuration: 0
+        delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
+        allConstraints: []
+      limitedNumberOfTriggers: 0
+      maxTriggerCount: 0
+      requireMultipleTriggers: 0
+      minTriggerCount: 0
+    effectDefinitions:
+    - {fileID: 11400000, guid: d69a7d35f4d3f7f48ba6c012d6a0fbab, type: 2}
+    - {fileID: 11400000, guid: 9f594f4d0da41f84bb1d0f6bb2702eee, type: 2}
+    effectData: []
+    startingRecoveryCharges: 1
+    baseRuneSlots: 2
+    windupVFX: {fileID: 3228593226293199667, guid: 504f63bf7a9b90a4cac1d01977cfae03, type: 3}
+    abilityStatData:
+    - variant: 0
+      statName: 50
+      value: 0.5
+      maxValue: 0
+      minValue: 0
+    recoveryData:
+    - type: 0
+      recoveryTriggers: []
+      counterData:
+        useCustomRefreshTrigger: 0
+        customRefreshTriggerData:
+          type: 0
+          procChance: 1
+          riderAbilityName: 
+          riderEffectName: 
+          triggerTimerDuration: 0
+          delay1Frame: 0
+          autoActivateTimer: 0
+          resetTimerOnParentAbilityEnd: 0
+          allConstraints: []
+        limitedNumberOfTriggers: 0
+        maxTriggerCount: 0
+        requireMultipleTriggers: 0
+        minTriggerCount: 0
+      cooldown: 2

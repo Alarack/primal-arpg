@@ -15,12 +15,19 @@ MonoBehaviour:
   mode: 2
   behavourType: 8
   chaseDistance: 0
+  chaseMouse: 0
+  accelerateViaDistance: 0
   fleeDistance: 0
+  fleeMouse: 0
+  rotationSpeedModifier: 1
   wanderIdleTime: 0
   wanderMaxDistance: 0
+  leashToOrigin: 0
   waitTime: 0
   spawn: {fileID: 0}
   spawnOffset: {x: 0, y: 0}
   minFlockDistance: 0
   abilities:
-  - {fileID: 11400000, guid: ed66313dd83fc3e44a38fb4629d87bf3, type: 2}
+  - {fileID: 11400000, guid: 29a08e944d1937144bf481a0d9c672e1, type: 2}
+  newMaskTargeting: 0
+  reverseTargeting: 0

@@ -30,6 +30,7 @@ MonoBehaviour:
     normalizedProcRate: 0
     startingAbility: 1
     runeAbilityTarget: 
+    animationString: Attack
     childAbilities: []
     runeGroupData:
     - runes:
@@ -184,6 +185,11 @@ MonoBehaviour:
     - variant: 0
       statName: 70
       value: 3
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 50
+      value: 0.22
       maxValue: 0
       minValue: 0
     recoveryData:

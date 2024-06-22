@@ -1081,6 +1081,9 @@ public class Ability {
 
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
+        //if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
+        //    Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is trying to start. Source: " + Source.EntityName, Color.green));
+
         if (IsChanneled == true && IsActive == true) {
             return;
         }
@@ -1141,8 +1144,8 @@ public class Ability {
             return;
         }
 
-        //if (Source != null && Source.ownerType == OwnerConstraintType.Friendly && Source.subtypes.Contains(Entity.EntitySubtype.Orbital))
-        //    Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is starting. Source: " + Source.gameObject.name, Color.green));
+        //if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
+        //    Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is resolving. Source: " + Source.EntityName, Color.green));
 
 
         IsActive = true;
@@ -1227,6 +1230,7 @@ public class Ability {
             //Debug.LogWarning("The Source of an Ability: " + Data.abilityName + " is dead or null when resolving a cast time.");
             currentWindup = null;
             Source.ActivelyCastingAbility = null;
+            Source.Movement.CanMove = true;
             return;
         }
 
@@ -1234,6 +1238,7 @@ public class Ability {
         if (TrySpendCharge(1) == false) {
             currentWindup = null;
             Source.ActivelyCastingAbility = null;
+            Source.Movement.CanMove = true;
             return;
         }
 
@@ -1245,9 +1250,11 @@ public class Ability {
 
         IsActive = true;
 
+        SendAbilityInitiatedEvent(activationInstance);
+
         //new Task(TriggerAllEffectsWithDelay(activationInstance));
         TriggerAllEffectsInstantly(activationInstance);
-        
+        Source.Movement.CanMove = true;
         currentWindup = null;
         Source.ActivelyCastingAbility = null;
     }
@@ -1260,6 +1267,7 @@ public class Ability {
 
             currentWindup = null;
             Source.ActivelyCastingAbility = null;
+            Source.Movement.CanMove = true;
         }
     }
 
@@ -1283,9 +1291,13 @@ public class Ability {
         if(Source == null)
             yield break;
 
-        currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.transform);
-        currentWindupVFX.transform.localPosition = Vector3.zero;
-        GameObject.Destroy(currentWindupVFX, 3f);
+        if(Data.windupVFX != null) {
+            currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.GetOriginPoint());
+            currentWindupVFX.transform.localPosition = Vector3.zero;
+            GameObject.Destroy(currentWindupVFX, 3f);
+        }
+
+        Source.Movement.StopMovement();
 
         yield return waiter;
 
