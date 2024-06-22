@@ -1144,8 +1144,8 @@ public class Ability {
             return;
         }
 
-        if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
-            Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is resolving. Source: " + Source.EntityName, Color.green));
+        //if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
+        //    Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is resolving. Source: " + Source.EntityName, Color.green));
 
 
         IsActive = true;

@@ -96,7 +96,7 @@ public class AnimHelper : MonoBehaviour {
         if (readyCheck == true && ability.IsReady == false)
             return;
 
-        Debug.Log("Recieving activation for: " + ability.Data.abilityName);
+        //Debug.Log("Recieving activation for: " + ability.Data.abilityName);
 
         SetTrigger(ability.Data.animationString);
     }
