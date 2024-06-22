@@ -70,13 +70,13 @@ public class CustomCursor : MonoBehaviour
         {
             colorLerpCoroutine = new Task(PulseOrPride());
         }
-
+        
         //If something causes the mode to change this needs to be here to halt the coroutine from starting again.
         if (IsColorLerpRunning() == true && currentCursorMode == CursorMode.Standard)
         {
             UpdateDefaultEdgeColor();
-
         }
+
 
 #if UNITY_EDITOR
 
@@ -234,19 +234,19 @@ public class CustomCursor : MonoBehaviour
         switch (currentEdgeThickness)
         {
             case CursorEdgeThickness.Small:
-                cursorEdgeSmall.enabled = true;
-                cursorEdgeMedium.enabled = false;
-                cursorEdgeLarge.enabled = false;
+                cursorEdgeSmall.gameObject.SetActive(true);
+                cursorEdgeMedium.gameObject.SetActive(false);
+                cursorEdgeLarge.gameObject.SetActive(false);
                 break;
             case CursorEdgeThickness.Medium:
-                cursorEdgeSmall.enabled = false;
-                cursorEdgeMedium.enabled = true;
-                cursorEdgeLarge.enabled = false;
+                cursorEdgeSmall.gameObject.SetActive(false);
+                cursorEdgeMedium.gameObject.SetActive(true);
+                cursorEdgeLarge.gameObject.SetActive(false);
                 break;
             case CursorEdgeThickness.Large:
-                cursorEdgeSmall.enabled = false;
-                cursorEdgeMedium.enabled = false;
-                cursorEdgeLarge.enabled = true;
+                cursorEdgeSmall.gameObject.SetActive(false);
+                cursorEdgeMedium.gameObject.SetActive(false);
+                cursorEdgeLarge.gameObject.SetActive(true);
                 break;
         }
 
