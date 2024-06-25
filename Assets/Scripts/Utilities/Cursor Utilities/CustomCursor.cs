@@ -32,7 +32,7 @@ public class CustomCursor : MonoBehaviour
     public SpriteRenderer cursorEdgeLarge;
 
     [Header("Cursor Settings")]
-    //The speed at which the color scrolling occurs. Shouldn't allow negative values. Probably needs to be a range.
+    //The speed at which the color scrolling occurs. Bounded Range should be .2f to 3f
     public float colorScrollSpeed = .5f;
     //Enables the cursors pulse or color changing to only do so while the cursor is in motion. Assuming I can even get this to work.
     public bool motionOnlyScroll;
@@ -48,59 +48,61 @@ public class CustomCursor : MonoBehaviour
     public Color edgeColorTwo = Color.blue;
     public List<Color> prideColorList = new List<Color>();
 
-    public float lerpTime = 1;
 
-    public float lerpTimeModifier;
-    private bool isCoroutineActive = false;
-    private int currentColorIndex = 0;
-    private int targetColorIndex = 1;
-    private float targetPoint;
-    private Color startColor;
     private Color endColor;
-    //private bool lerpInProgress = false;
+    private Task colorLerpCoroutine;
 
-
-    private float lerpColorFloat = 0f;
 
     private void Start()
     {
-        startColor = edgeColorOne;
         endColor = edgeColorTwo;
+
+        if (Cursor.visible == true)
+        {
+            Cursor.visible = false;
+        }
     }
 
     private void Update()
     {
-        targetPoint += Time.deltaTime / lerpTimeModifier;
 
-        Debug.Log("isCoroutineActive is set to: " + isCoroutineActive);
-
-        //cursorEdgeMedium.color = Color.Lerp(startColor, endColor, Mathf.PingPong(Time.time, 1));
-
-        //Mathf.Lerp
-
-        //lerpedColor = Color.Lerp(startColor, endColor, testColorFloat);
-        //lerpedColor = Color.Lerp(startColor, endColor, Mathf.PingPong(Time.time, 1));
-        //cursorEdgeMedium.color = lerpedColor;
-        //Debug.Log("testColorFloat is: " + testColorFloat);
-
-        //do I just need to call the respective 
-
-        //This is called a Extension method, which allows you to call it from the Color struct directly.
-
-
-        if (isCoroutineActive == false && currentCursorMode != CursorMode.Standard)
+        if (IsColorLerpRunning() == false && currentCursorMode != CursorMode.Standard)
         {
-            Debug.Log("Starting coroutine and setting isCoroutineActive to True");
-            isCoroutineActive = true;
-            StartCoroutine(PulseOrPride());
+            colorLerpCoroutine = new Task(PulseOrPride());
         }
-
+        
         //If something causes the mode to change this needs to be here to halt the coroutine from starting again.
-        if (isCoroutineActive == true && currentCursorMode == CursorMode.Standard)
+        if (IsColorLerpRunning() == true && currentCursorMode == CursorMode.Standard)
         {
-            Debug.Log("Cursor mode was changed to Standard, setting coroutine activity to false.");
-            isCoroutineActive = false;
+            UpdateDefaultEdgeColor();
         }
+
+
+#if UNITY_EDITOR
+
+        if (Cursor.visible == true)
+        {
+            Cursor.visible = false;
+        }
+#endif
+
+        FollowCursor();
+    }
+
+    private void FollowCursor()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = mousePosition;
+    }
+
+    private bool IsColorLerpRunning()
+    {
+        if (colorLerpCoroutine == null)
+        {
+            return false;
+        }
+
+        return colorLerpCoroutine.Running;
     }
 
     public void CursorModeControl()
@@ -119,183 +121,96 @@ public class CustomCursor : MonoBehaviour
     }
 
     //Coroutine that checks which cursor mode is enabled and which edge to target with the effect.
-    public IEnumerator PulseOrPride()
+    private IEnumerator PulseOrPride()
     {
+        SpriteRenderer targetEdge = GetEdge();
 
-
-
-
-        //I might need to use a timer to get this lerp to smooth out over a specific duration unless I can delay a while loop on a fixed interval
-
-        while (lerpColorFloat <= 1f)
+        if (currentCursorMode == CursorMode.Pulse && IsColorLerpRunning() == true)
         {
-            
 
-            if (currentCursorMode == CursorMode.Pulse && isCoroutineActive == true)
+            while (targetEdge.color != endColor)
             {
-
-                switch (currentEdgeThickness)
-                {
-                    case CursorEdgeThickness.Small:
-                        PulseLerp(cursorEdgeSmall, targetPoint);
-                        break;
-                    case CursorEdgeThickness.Medium:
-                        Debug.Log("Starting Pulse Lerp");
-                        PulseLerp(cursorEdgeMedium, targetPoint);
-                        break;
-                    case CursorEdgeThickness.Large:
-                        PulseLerp(cursorEdgeLarge, targetPoint);
-                        break;
-                }
-
-                yield return new WaitForSeconds(colorScrollSpeed);
+                targetEdge.color = targetEdge.color.MoveTowards(endColor, colorScrollSpeed);
+                yield return new WaitForEndOfFrame();
             }
 
-            if (currentCursorMode == CursorMode.Pride && isCoroutineActive == true)
-            {
-
-                targetPoint += Time.deltaTime;
-
-                switch (currentEdgeThickness)
-                {
-                    case CursorEdgeThickness.Small:
-                        RainbowEdgeLerp(cursorEdgeSmall, targetPoint);
-                        break;
-                    case CursorEdgeThickness.Medium:
-                        RainbowEdgeLerp(cursorEdgeMedium, targetPoint);
-                        break;
-                    case CursorEdgeThickness.Large:
-                        RainbowEdgeLerp(cursorEdgeLarge, targetPoint);
-                        break;
-                }
-
-                yield return new WaitForSeconds(colorScrollSpeed);
-            }
-
-
+            SwapPulseColor();
 
         }
 
-        if (lerpColorFloat >= 1)
+        if (currentCursorMode == CursorMode.Pride && IsColorLerpRunning() == true)
         {
-            Debug.Log("Resetting lerpColorFloat value to 0 and isCoroutineActive to false");
-            lerpColorFloat = 0;
-            isCoroutineActive = false;
+
+            Color targetColor = GetTargetPrideColorListColor(targetEdge.color);
+            endColor = targetColor;
+
+            while (targetEdge.color != endColor)
+            {
+                targetEdge.color = targetEdge.color.MoveTowards(endColor, colorScrollSpeed);
+                yield return new WaitForEndOfFrame();
+            }
         }
 
+        colorLerpCoroutine = null;
+        //consider colorLerpCoroutine.Stop();
 
-        //yield return new WaitForSeconds(3);
-
-        //yield return new WaitForEndOfFrame();
-
-
-
-        //if (currentCursorMode != CursorMode.Standard)
-        //{
-        //    StartCoroutine(PulseOrPride());
-        //}
     }
 
-    //Switches the cursor edge color back and forth between the two specified colors.
-    public void PulseLerp(SpriteRenderer targetEdge, float targetPoint)
+    private Color GetTargetPrideColorListColor(Color currentEdgeColor)
     {
-        //float floatFadeValue = 0;
 
-        //if (alternatePulseColor == false)
-        //{
-        //    startColor = edgeColorOne;
-        //    endColor = edgeColorTwo;
-        //    alternatePulseColor = true;
-        //}
-        //else
-        //{
-        //    startColor = edgeColorTwo;
-        //    endColor = edgeColorOne;
-        //    alternatePulseColor = false;
-        //}
+        Color selectedColor;
 
-        lerpColorFloat += 0.01f;
+        if (prideColorList.Contains(currentEdgeColor))
+        {
+            int currentColorIndex = prideColorList.IndexOf(currentEdgeColor);
+            int nextColorIndex = currentColorIndex + 1;
+            if (nextColorIndex >= prideColorList.Count)
+            {
+                nextColorIndex = 0;
+            }
 
-        targetEdge.color = Color.Lerp(startColor, endColor, lerpColorFloat);
-        Debug.Log("color is: " + targetEdge.color);
+            selectedColor = prideColorList[nextColorIndex];
+        }
+        else
+        {
+            selectedColor = prideColorList[0];
+        }
 
+        return selectedColor;
+    }
+
+    private void SwapPulseColor()
+    {
         if (endColor == edgeColorTwo && currentCursorMode == CursorMode.Pulse)
         {
-            startColor = edgeColorTwo;
             endColor = edgeColorOne;
         }
         else if (endColor == edgeColorOne && currentCursorMode == CursorMode.Pulse)
         {
-            startColor = edgeColorOne;
             endColor = edgeColorTwo;
         }
-
-        Debug.Log("lerpColorFloat is equal to: " + lerpColorFloat);
-
-        //if (targetPoint >= 1f)
-        //{
-        //    targetPoint = 0f;
-        //}
-
-        //startColor = edgeColorOne;
-        //endColor = edgeColorTwo;
-
-        //targetEdge.color = Color.Lerp(startColor, endColor, Mathf.PingPong(Time.time, 1));
-
-
-        //I think T in the the color.Lerp method is actually the amount of gradiation between the two?
-        //This needs a for loop wrapped around a check to see if the target point fractionally isn't 1 yet, and if it is one it continues to the end point
-
-
     }
 
+    private void UpdateDefaultEdgeColor()
+    {
+        SpriteRenderer targetEdge = GetEdge();
+        targetEdge.color = edgeColorOne;
+    }
 
-    //Iterates through the Pride Color list and changes the cursor edge color.
-    public void RainbowEdgeLerp(SpriteRenderer targetEdge, float lerpTime)
+    private SpriteRenderer GetEdge()
     {
 
-        //lerp returns a single color, so I need to lerp based on a split number of seconds instead of based on the number of colors in the list?
-
-        for (int i = 0; i < prideColorList.Count; i++)
+        SpriteRenderer edge = currentEdgeThickness switch
         {
-            targetEdge.color = Color.Lerp(prideColorList[currentColorIndex], prideColorList[targetColorIndex], lerpTime);
+            CursorEdgeThickness.Small => cursorEdgeSmall,
+            CursorEdgeThickness.Medium => cursorEdgeMedium,
+            CursorEdgeThickness.Large => cursorEdgeLarge,
+            _ => null,
+        };
 
-            if (targetPoint >= 1f)
-            {
-                targetPoint = 0f;
-
-                currentColorIndex = targetColorIndex;
-                targetColorIndex++;
-
-                if (targetColorIndex == prideColorList.Count)
-                {
-                    targetColorIndex = 0;
-                }
-            }
-        }
-
-        //float lerpProgress = 0f;
-
-        //while (lerpProgress <= 1)
-        //{
-        //    Color.Lerp(startColor, endColor, (lerpProgress + .01f * colorScrollSpeed));
-
-        //    lerpProgress += .01f;
-
-        //    //Expose the incremental variable for lerp progress 
-
-        //    if (lerpProgress >= 1)
-        //    {
-        //        lerpProgress = 0;
-        //        //Swap start and end colors 
-
-        //    }
-        //}
-
-
-
+        return edge;
     }
-
 
     #region CURSOR MODE UTILITIES
 
@@ -303,6 +218,11 @@ public class CustomCursor : MonoBehaviour
     public void ChangeCursorMode(CursorMode targetMode)
     {
         currentCursorMode = targetMode;
+
+        if (currentCursorMode == CursorMode.Pulse)
+        {
+            endColor = edgeColorTwo;
+        }
     }
 
 
@@ -314,20 +234,25 @@ public class CustomCursor : MonoBehaviour
         switch (currentEdgeThickness)
         {
             case CursorEdgeThickness.Small:
-                cursorEdgeSmall.enabled = true;
-                cursorEdgeMedium.enabled = false;
-                cursorEdgeLarge.enabled = false;
+                cursorEdgeSmall.gameObject.SetActive(true);
+                cursorEdgeMedium.gameObject.SetActive(false);
+                cursorEdgeLarge.gameObject.SetActive(false);
                 break;
             case CursorEdgeThickness.Medium:
-                cursorEdgeSmall.enabled = false;
-                cursorEdgeMedium.enabled = true;
-                cursorEdgeLarge.enabled = false;
+                cursorEdgeSmall.gameObject.SetActive(false);
+                cursorEdgeMedium.gameObject.SetActive(true);
+                cursorEdgeLarge.gameObject.SetActive(false);
                 break;
             case CursorEdgeThickness.Large:
-                cursorEdgeSmall.enabled = false;
-                cursorEdgeMedium.enabled = false;
-                cursorEdgeLarge.enabled = true;
+                cursorEdgeSmall.gameObject.SetActive(false);
+                cursorEdgeMedium.gameObject.SetActive(false);
+                cursorEdgeLarge.gameObject.SetActive(true);
                 break;
+        }
+
+        if (currentCursorMode == CursorMode.Standard)
+        {
+            UpdateDefaultEdgeColor();
         }
     }
 
@@ -349,6 +274,33 @@ public class CustomCursor : MonoBehaviour
     {
         cursorSprite.color = targetColor;
     }
+
+    //Changes the default base edge color around the cursor
+    public void ChangeEdgeColorOne(Color targetColor)
+    {
+        edgeColorOne = targetColor;
+
+        if (currentCursorMode == CursorMode.Standard)
+        {
+            UpdateDefaultEdgeColor();
+        }
+    }
+
+    //Changes the secondary color for the edge around the cursor. This only works if Pulse mode is enabled.
+    public void ChangeEdgeColorTwo(Color targetColor)
+    {
+        edgeColorTwo = targetColor;
+        endColor = edgeColorTwo;
+    }
+
+
+    //Updates the scroll speed of the cursor's edge if its Pulse or Pride mode to the provided value.
+    public void ChangeCursorScrollSpeed(float targetValue)
+    {
+        colorScrollSpeed = targetValue;
+    }
+
+
 
     #endregion
 

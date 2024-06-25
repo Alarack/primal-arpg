@@ -250,13 +250,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 830618249316128034}
   m_HandleRect: {fileID: 157354761719706505}
   m_Direction: 0
-  m_MinValue: 1
-  m_MaxValue: 3
+  m_MinValue: 0
+  m_MaxValue: 2
   m_WholeNumbers: 1
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 861506982007259260}
+        m_TargetAssemblyTypeName: OptionsPanel, Assembly-CSharp
+        m_MethodName: OnCursorThicknessChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &591286169645388732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2121,6 +2133,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   tabmanager: {fileID: 1164277235395120583}
+  cursorThicknessSlider: {fileID: 55480571621693602}
+  cursorModeDropdown: {fileID: 4345013945280497743}
 --- !u!1 &2428629497367066883
 GameObject:
   m_ObjectHideFlags: 0
@@ -7691,7 +7705,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 861506982007259260}
+        m_TargetAssemblyTypeName: OptionsPanel, Assembly-CSharp
+        m_MethodName: OnCursorModeChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!1 &8505748902006937554
 GameObject:
