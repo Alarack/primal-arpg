@@ -21,27 +21,40 @@ MonoBehaviour:
     toBestow: 0
     suspend: 0
     autoFire: 0
+    ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
+    showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
+    recastOnChannelCost: 0
+    normalizedProcRate: 0
+    startingAbility: 0
     runeAbilityTarget: 
+    animationString: Attack
     childAbilities: []
+    runeGroupData: []
     tags: 01000000
     activationTriggerData:
     - type: 31
+      procChance: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
       delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints: []
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -51,10 +64,13 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -79,10 +95,13 @@ MonoBehaviour:
         useCustomRefreshTrigger: 0
         customRefreshTriggerData:
           type: 0
+          procChance: 1
           riderAbilityName: 
           riderEffectName: 
           triggerTimerDuration: 0
           delay1Frame: 0
+          autoActivateTimer: 0
+          resetTimerOnParentAbilityEnd: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0

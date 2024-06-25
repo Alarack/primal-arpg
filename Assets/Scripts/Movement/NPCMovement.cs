@@ -111,6 +111,13 @@ public class NPCMovement : EntityMovement
         Vector2 perp = Vector2.Perpendicular(direction);
         Vector2 moveForce = perp.normalized * Owner.Stats[StatName.MoveSpeed] * Time.fixedDeltaTime;
 
+        bool animMove = moveForce.magnitude > 0f;
+
+        if (Owner.AnimHelper != null) {
+            Owner.AnimHelper.SetBool("Run", animMove);
+        }
+
+
         return moveForce;
     }
 

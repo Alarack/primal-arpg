@@ -1250,7 +1250,6 @@ public class Ability {
 
         IsActive = true;
 
-        SendAbilityInitiatedEvent(activationInstance);
 
         //new Task(TriggerAllEffectsWithDelay(activationInstance));
         TriggerAllEffectsInstantly(activationInstance);
@@ -1272,6 +1271,9 @@ public class Ability {
     }
 
     public IEnumerator StartAbilityWindup(TriggerInstance activationInstance) {
+
+        SendAbilityInitiatedEvent(activationInstance);
+
 
         float windupTime = Stats[StatName.AbilityWindupTime];
         float ownerCastSpeed = Source.Stats[StatName.CastSpeedModifier] > 0f ? Source.Stats[StatName.CastSpeedModifier] : 1f;
