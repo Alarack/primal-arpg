@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TriggerInstance = AbilityTrigger.TriggerInstance;
 
 namespace LL.Events {
     public class EventData {
@@ -30,8 +31,10 @@ namespace LL.Events {
         private IDictionary<string, Entity> _entities;
         private IDictionary<string, Weapon> _weapons;
         private IDictionary<string, AbilityTrigger> _triggers;
+        private IDictionary<string, TriggerInstance> _triggerInstances;
         private IDictionary<string, Item> _items;
         private IDictionary<string, Status> _status;
+
 
 
 
@@ -150,6 +153,13 @@ namespace LL.Events {
                 _triggers = new Dictionary<string, AbilityTrigger>();
 
             _triggers.Add(key, value);
+        }
+
+        public void AddTriggerInstance(string key, TriggerInstance value) {
+            if (_triggerInstances == null)
+                _triggerInstances = new Dictionary<string, TriggerInstance>();
+
+            _triggerInstances.Add(key, value);
         }
 
 
@@ -275,6 +285,14 @@ namespace LL.Events {
             }
 
             return trigger;
+        }
+
+        public TriggerInstance GetTriggerInstance(string key) {
+            if (_triggerInstances == null || !_triggerInstances.TryGetValue(key, out TriggerInstance triggerInstance)) {
+                return null;
+            }
+
+            return triggerInstance;
         }
 
 

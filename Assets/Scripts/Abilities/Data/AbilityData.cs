@@ -140,6 +140,7 @@ public class AbilityData
     public bool startingAbility;
     public string runeAbilityTarget;
     public string animationString;
+    public bool waitForAnimToResolve;
 
     public List<AbilityDefinition> childAbilities = new List<AbilityDefinition>();
     public List<AbilityRuneGroupData> runeGroupData = new List<AbilityRuneGroupData>();

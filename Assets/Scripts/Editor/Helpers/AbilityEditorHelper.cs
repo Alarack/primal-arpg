@@ -29,6 +29,11 @@ public static class AbilityEditorHelper {
         entry.abilityName = EditorGUILayout.TextField("Ability Name", entry.abilityName);
         entry.abilityDescription = EditorGUILayout.TextField("Description", entry.abilityDescription);
         entry.animationString = EditorGUILayout.TextField("Anim String", entry.animationString);
+
+        if(string.IsNullOrEmpty(entry.animationString) == false) {
+            entry.waitForAnimToResolve = EditorGUILayout.Toggle("Wait For Anim", entry.waitForAnimToResolve);
+        }
+
         //entry.resourceCost = EditorGUILayout.FloatField("Resource Cost", entry.resourceCost);
         //entry.baseRuneSlots = EditorGUILayout.IntField("Rune Slots", entry.baseRuneSlots);
 

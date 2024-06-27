@@ -22,6 +22,8 @@ public class Ability {
 
     public Vector2 LastPayloadLocation { get; set; } = Vector2.zero;
 
+    public TriggerInstance LastTriggerInstance { get; protected set; }
+
     //Recovery Stuff
     public bool IsReady { get { return CheckReady(); } }
     public bool IsCasting { get { return currentWindup != null; } }
@@ -172,6 +174,12 @@ public class Ability {
         SetupChannelTimer();
         //SetupRecoveries();
         RegisterAbility();
+
+
+        if(Data.waitForAnimToResolve == true) {
+            EventManager.RegisterListener(GameEvent.AbilityAnimReceived, OnAnimEventRecieved);
+        }
+
         IsEquipped = true;
 
 
@@ -1113,21 +1121,25 @@ public class Ability {
 
 
 
-        if(Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
-
-            if (CheckCost() == false)
-                return;
-
-            if (currentWindup == null) {
-                currentWindup = new Task(StartAbilityWindup(activationInstance));
-                Source.ActivelyCastingAbility = this;
-                return;
-            }
-            else {
-                //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
-                return;
-            }
+        if(CheckForWindup(activationInstance) == true) {
+            return;
         }
+
+        //if(Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
+
+        //    if (CheckCost() == false)
+        //        return;
+
+        //    if (currentWindup == null) {
+        //        currentWindup = new Task(StartAbilityWindup(activationInstance));
+        //        Source.ActivelyCastingAbility = this;
+        //        return;
+        //    }
+        //    else {
+        //        //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
+        //        return;
+        //    }
+        //}
 
         if (TrySpendCharge(1) == false) {
             //Debug.LogWarning("Not enough charges on: " + Data.abilityName);
@@ -1159,6 +1171,51 @@ public class Ability {
         //new Task(TriggerAllEffectsWithDelay(activationInstance));
 
     }
+
+    protected bool CheckForWindup(TriggerInstance activationInstance) {
+
+        if (CheckCost() == false)
+            return true;
+
+
+        if (string.IsNullOrEmpty(Data.animationString) == false && Data.waitForAnimToResolve == true) {
+            Source.ActivelyCastingAbility = this;
+            SendAbilityInitiatedEvent(activationInstance);
+
+
+            if (Source == null)
+                return true;
+
+            if (Data.windupVFX != null) {
+                currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.GetOriginPoint());
+                currentWindupVFX.transform.localPosition = Vector3.zero;
+                GameObject.Destroy(currentWindupVFX, 3f);
+            }
+
+            Source.Movement.StopMovement();
+
+            return true;
+        }
+        
+        
+        if (Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
+
+            if (currentWindup == null) {
+                currentWindup = new Task(StartAbilityWindup(activationInstance));
+                Source.ActivelyCastingAbility = this;
+                return true;
+            }
+            else {
+                //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
+                return true;
+            }
+        }
+
+
+
+        return false;
+    }
+
 
     protected void ApplyCost(EventData data) {
 
@@ -1202,6 +1259,7 @@ public class Ability {
         EventData data = new EventData();
         data.AddAbility("Ability", this);
         data.AddEntity("Source", Source);
+        data.AddTriggerInstance("Instance", triggerInstance);
 
         EventManager.SendEvent(GameEvent.AbilityInitiated, data);
     }
@@ -1222,6 +1280,16 @@ public class Ability {
         }
 
         return true;
+    }
+
+    private void OnAnimEventRecieved(EventData data) {
+        Ability ability = data.GetAbility("Ability");
+        TriggerInstance instance = data.GetTriggerInstance("Instance");
+
+        if (ability == null || ability != this)
+            return;
+
+        ResumeActivation(instance);
     }
 
     private void ResumeActivation(TriggerInstance activationInstance) {

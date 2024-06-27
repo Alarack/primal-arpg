@@ -11,6 +11,9 @@ public class AnimHelper : MonoBehaviour {
 
     private Entity owner;
 
+    private Ability currentAbility;
+    private AbilityTrigger.TriggerInstance currentTriggerInstance;
+
     private void Awake() {
         owner = GetComponentInParent<Entity>();
     }
@@ -42,6 +45,14 @@ public class AnimHelper : MonoBehaviour {
 
     public void SetTrigger(string name) {
         animator.SetTrigger(name);
+    }
+
+    public void ReceiveAnimEvent(string name) {
+        EventData data = new EventData();
+        data.AddAbility("Ability", currentAbility);
+        data.AddTriggerInstance("Instance", currentTriggerInstance);
+        
+        EventManager.SendEvent(GameEvent.AbilityAnimReceived, data);
     }
 
 
@@ -78,6 +89,10 @@ public class AnimHelper : MonoBehaviour {
         }
 
         Ability ability = data.GetAbility("Ability");
+        AbilityTrigger.TriggerInstance triggerInstance = data.GetTriggerInstance("Instance");
+
+        currentAbility = ability;
+        currentTriggerInstance = triggerInstance;
 
         SetAttackAnim(ability);
 
