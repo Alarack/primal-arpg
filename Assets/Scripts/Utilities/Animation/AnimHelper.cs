@@ -20,13 +20,18 @@ public class AnimHelper : MonoBehaviour {
 
     private void OnEnable() {
 
-        if (owner != null && owner is EntityPlayer) {
-            EventManager.RegisterListener(GameEvent.UserActivatedAbility, OnAbilityActivated);
+        if (owner != null) {
+            EventManager.RegisterListener(GameEvent.AbilityInitiated, OnAbilityInitiated);
         }
 
-        if (owner != null && owner is NPC) {
-            EventManager.RegisterListener(GameEvent.AbilityInitiated, OnAIAbilityActivated);
-        }
+
+        //if (owner != null && owner is EntityPlayer) {
+        //    EventManager.RegisterListener(GameEvent.UserActivatedAbility, OnAbilityActivated);
+        //}
+
+        //if (owner != null && owner is NPC) {
+        //    EventManager.RegisterListener(GameEvent.AbilityInitiated, OnAIAbilityActivated);
+        //}
 
     }
 
@@ -78,13 +83,13 @@ public class AnimHelper : MonoBehaviour {
         //SetTrigger(ability.Data.animationString);
     }
 
-    private void OnAIAbilityActivated(EventData data) {
+    private void OnAbilityInitiated(EventData data) {
 
         //Debug.Log("Ability Initiated: " + data.GetAbility("Ability").Data.abilityName);
         
-        NPC npc = data.GetEntity("Source") as NPC;
+        Entity entity = data.GetEntity("Source");
 
-        if (npc == null || owner != npc) {
+        if (entity == null || owner != entity) {
             return;
         }
 
@@ -94,7 +99,9 @@ public class AnimHelper : MonoBehaviour {
         currentAbility = ability;
         currentTriggerInstance = triggerInstance;
 
-        SetAttackAnim(ability);
+        bool readyCheck = entity is EntityPlayer;
+
+        SetAttackAnim(ability, readyCheck);
 
     }
 

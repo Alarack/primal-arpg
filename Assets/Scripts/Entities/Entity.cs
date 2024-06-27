@@ -58,6 +58,7 @@ public abstract class Entity : MonoBehaviour {
     public GameObject deathEffectPrefab;
     public GameObject spawnEffectPrefab;
     public GameObject facingIndicator;
+    public Transform castingVFXPosition;
 
     [SerializedDictionary("Health", "Sprite")]
     public SerializedDictionary<float, Sprite> spriteProgression = new SerializedDictionary<float, Sprite>();
@@ -465,6 +466,10 @@ public abstract class Entity : MonoBehaviour {
 
     public Transform GetOriginPoint() {
         return facingIndicator == null ? transform : facingIndicator.transform;
+    }
+
+    public Transform GetCastingVFXPosition() {
+        return castingVFXPosition == null ? transform : castingVFXPosition.transform;
     }
 
     #endregion
