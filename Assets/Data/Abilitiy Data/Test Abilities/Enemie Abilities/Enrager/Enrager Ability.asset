@@ -30,6 +30,7 @@ MonoBehaviour:
     startingAbility: 0
     runeAbilityTarget: 
     animationString: Attack
+    waitForAnimToResolve: 0
     childAbilities: []
     runeGroupData: []
     tags: 
@@ -81,7 +82,7 @@ MonoBehaviour:
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
+    windupVFX: {fileID: 2850867436185079738, guid: 52be30c71c09bb24abcf2463b1eeceb6, type: 3}
     abilityStatData:
     - variant: 0
       statName: 50

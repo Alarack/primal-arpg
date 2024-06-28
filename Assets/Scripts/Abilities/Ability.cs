@@ -1362,7 +1362,7 @@ public class Ability {
             yield break;
 
         if(Data.windupVFX != null) {
-            currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.GetOriginPoint());
+            currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.GetCastingVFXPosition());
             currentWindupVFX.transform.localPosition = Vector3.zero;
             GameObject.Destroy(currentWindupVFX, 3f);
         }
