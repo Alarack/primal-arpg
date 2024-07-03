@@ -60,6 +60,11 @@ public abstract class Entity : MonoBehaviour {
     public GameObject facingIndicator;
     public Transform castingVFXPosition;
 
+    [Header("SFX")]
+    public List<AudioClip> spawnSFX = new List<AudioClip>();
+    public List<AudioClip> hurtSFX = new List<AudioClip>();
+    public List<AudioClip> deathSFX = new List<AudioClip>();
+
     [SerializedDictionary("Health", "Sprite")]
     public SerializedDictionary<float, Sprite> spriteProgression = new SerializedDictionary<float, Sprite>();
 
@@ -483,6 +488,8 @@ public abstract class Entity : MonoBehaviour {
             desiredScale = scale;
         }
 
+        AudioManager.PlayRandomClip(deathSFX, transform.position, 1f);
+
         VFXUtility.SpawnVFX(deathEffectPrefab, transform.position, Quaternion.identity, null, 2f, desiredScale);
     }
 
@@ -495,7 +502,7 @@ public abstract class Entity : MonoBehaviour {
 
         //if(spawnEffectPrefab != null)
         //    Debug.LogWarning("Spawing Entrance Effect for: " + EntityName + " : " + spawnEffectPrefab.name);
-
+        AudioManager.PlayRandomClip(spawnSFX, transform.position, 1f);
 
         VFXUtility.SpawnVFX(spawnEffectPrefab, transform.position, Quaternion.identity, null, 2f, desiredScale);
     }

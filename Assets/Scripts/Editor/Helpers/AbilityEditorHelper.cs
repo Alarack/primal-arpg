@@ -58,6 +58,19 @@ public static class AbilityEditorHelper {
         entry.suspend = EditorGUILayout.Toggle("Suspend?", entry.suspend);
 
 
+        EditorGUILayout.Separator();
+
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("Sounds: ", EditorStyles.boldLabel);
+
+        entry.initiationSounds = EditorHelper.DrawList("Init Sounds", entry.initiationSounds, null, DrawAudioClipList);
+
+        if(entry.tags.Contains(AbilityTag.Channeled) == true) {
+            entry.channeledSounds = EditorHelper.DrawList("Channeled Sounds", entry.channeledSounds, null, DrawAudioClipList);
+        }
+
+        EditorGUILayout.EndVertical();
+
 
         EditorGUILayout.Separator();
 
@@ -133,6 +146,12 @@ public static class AbilityEditorHelper {
 
     public static AbilityDefinition DrawAbilityDefinitionList(List<AbilityDefinition> list, int index) {
         AbilityDefinition result = EditorHelper.ObjectField(list[index]);
+
+        return result;
+    }
+
+    public static AudioClip DrawAudioClipList(List<AudioClip> list, int index) {
+        AudioClip result = EditorHelper.ObjectField(list[index]);
 
         return result;
     }

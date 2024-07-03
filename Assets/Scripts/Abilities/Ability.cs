@@ -1256,6 +1256,15 @@ public class Ability {
     }
 
     protected void SendAbilityInitiatedEvent(TriggerInstance triggerInstance) {
+        
+        if(Data.initiationSounds != null && Data.initiationSounds.Count > 0) {
+            AudioManager.PlayRandomClip(Data.initiationSounds, Source.transform.position, 1f);
+        }
+        else {
+            Debug.LogWarning(Data.abilityName + " has no sounds");
+        }
+        
+        
         EventData data = new EventData();
         data.AddAbility("Ability", this);
         data.AddEntity("Source", Source);

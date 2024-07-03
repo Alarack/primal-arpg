@@ -23,7 +23,10 @@ MonoBehaviour:
     deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
+    nonStacking: 0
     onlyShowTooltipInRune: 0
+    showRiderTooltip: 0
+    showScalers: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
@@ -32,8 +35,6 @@ MonoBehaviour:
     targetConstraints: []
     riderEffects: []
     payloadPrefab: {fileID: 0}
-    payloadCount: 1
-    shotDelay: 0.2
     payloadStatData: []
     spawnLocation: 0
     spawnLocationStart: 0
@@ -117,6 +118,7 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
+    addMissingStatIfNotPresent: 0
     statusToAdd:
     - statusName: 9
       stackMethod: 1
@@ -125,6 +127,7 @@ MonoBehaviour:
       duration: 2
       interval: 0
       VFXPrefab: {fileID: 134560, guid: 4f491700992cb06488116943d3b5c9b8, type: 3}
+      statusSprite: {fileID: 21300000, guid: 29a27975be3c5df47bff268b7a57e607, type: 3}
       vfxScaleModifier: 1
       statusEffectDef: {fileID: 11400000, guid: 517354d126d8aa04c88ffd750f07b86b, type: 2}
     statusToRemove: 
@@ -144,6 +147,8 @@ MonoBehaviour:
     abilitiesToAdd: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    ridersToAdd: []
+    ridersToRemove: []
     effectsToRemove: []
     targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
@@ -159,3 +164,9 @@ MonoBehaviour:
     targetStateName: 
     tagsToAdd: 
     tagsToRemove: 
+    newPayloadPrefab: {fileID: 0}
+    newEffectZonePrefab: {fileID: 0}
+    modifiedMovementBehavior: 0
+    modifiedSeekDuration: -1
+    modifiedDrunkInterval: 0.2
+    cooldownElapsedModifier: 0

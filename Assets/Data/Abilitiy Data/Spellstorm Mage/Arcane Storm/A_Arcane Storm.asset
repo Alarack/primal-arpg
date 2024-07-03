@@ -31,6 +31,10 @@ MonoBehaviour:
     startingAbility: 1
     runeAbilityTarget: 
     animationString: Attack
+    waitForAnimToResolve: 0
+    initiationSounds:
+    - {fileID: 8300000, guid: 7fb954e1c1961644d85f884b946f53b0, type: 3}
+    channeledSounds: []
     childAbilities: []
     runeGroupData:
     - runes:

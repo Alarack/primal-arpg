@@ -9,6 +9,11 @@ public class OptionsPanel : BasePanel
 
     public TabManager tabmanager;
 
+    [Header("Audio Stuff")]
+    public Slider masterVolumeSlider;
+    public Slider soundEffectsVolumeSlider;
+    public Slider musicVolumeSlider;
+
     [Header("Cursor Stuff")]
     public Slider cursorThicknessSlider;
     public TMP_Dropdown cursorModeDropdown;
@@ -31,6 +36,20 @@ public class OptionsPanel : BasePanel
         base.Open();
 
         tabmanager.OnTabSelected(tabmanager.selectedTab);
+
+
+        float master = PlayerPrefs.GetFloat("masterVolume");
+        float sfx = PlayerPrefs.GetFloat("soundEffectsVolume");
+        float music = PlayerPrefs.GetFloat("musicVolume");
+
+        if(master != 0f) 
+            masterVolumeSlider.value = master;
+        
+        if(sfx != 0f)
+            soundEffectsVolumeSlider.value = sfx;
+
+        if(music != 0f)
+            musicVolumeSlider.value = music;
     }
 
     #region Cursor Methods
@@ -56,5 +75,20 @@ public class OptionsPanel : BasePanel
 
     #endregion
 
+    #region Audio Methods
 
+    public void OnMasterVolumeChanged(float value) {
+        AudioManager.SetMasterVolume(value);
+    }
+
+    public void OnSoundEffectsVolumeChanged(float value) {
+        AudioManager.SetSoundEffectsVolume(value);
+    }
+
+    public void OnMusicVolumeChanged(float value) {
+        AudioManager.SetMusicVolume(value);
+    }
+
+
+    #endregion
 }
