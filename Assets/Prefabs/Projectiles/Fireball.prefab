@@ -55,9 +55,20 @@ MonoBehaviour:
   ownerType: 0
   subtypes: 
   innerSprite: {fileID: 0}
+  mainSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: 3e74270a47e8b2f408876aaaa5983d30, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
   spawnEffectPrefab: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
+  facingIndicator: {fileID: 0}
+  castingVFXPosition: {fileID: 0}
+  spawnSFX:
+  - {fileID: 8300000, guid: 561b6a4e69f38a745939dfa7fd2befab, type: 3}
+  hurtSFX: []
+  deathSFX:
+  - {fileID: 8300000, guid: 5cd691c7632755d499fbbb55bc1f0fac, type: 3}
+  spriteProgression:
+    _serializedList: []
   textColorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}

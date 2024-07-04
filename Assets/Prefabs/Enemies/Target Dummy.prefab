@@ -465,13 +465,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Target Dummy
   entityType: 1
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 1
   subtypes: 
   innerSprite: {fileID: 2146266704881190955}
+  mainSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: aa78b7e92d501d14883c0e4726301d06, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 150606, guid: 625165fb93553b14f8ed057807ed752a, type: 3}
   spawnEffectPrefab: {fileID: 7624612741357570336, guid: ef86985cce99ffa4dbdde299ff7b3bf7, type: 3}
+  facingIndicator: {fileID: 0}
+  castingVFXPosition: {fileID: 0}
+  spawnSFX:
+  - {fileID: 8300000, guid: fdea1ce9fc68b9c4a8a9b3f247dd955f, type: 3}
+  hurtSFX: []
+  deathSFX: []
+  spriteProgression:
+    _serializedList: []
   spawnDelayTime: 0.4
+  currentEliteAffixes: []
   active: 0
 --- !u!114 &2487008959131217113
 MonoBehaviour:
@@ -503,10 +516,13 @@ MonoBehaviour:
     toStateData: {fileID: 11400000, guid: 60717dbad13e9aa4bb661747b979ada2, type: 2}
     triggerData:
     - type: 1
+      procChance: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
       delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -516,6 +532,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -528,6 +546,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -554,6 +573,8 @@ MonoBehaviour:
           changeDirection: 1
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -566,6 +587,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -592,6 +614,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -604,6 +628,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -628,6 +653,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c205de598f162c74aa2dc468146733aa, type: 2}
   - {fileID: 11400000, guid: 60717dbad13e9aa4bb661747b979ada2, type: 2}
   abilityDefinitions: []
+  debugCurrentState: 
+  debugPreviousState: 
 --- !u!1 &5676999176552088963
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,6 +705,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectOnDamageTaken: 1
+  ignoreMinions: 0
   maskTargeting: 0
   forgetDistance: -1
 --- !u!58 &1040189697156526401

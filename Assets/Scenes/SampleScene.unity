@@ -3155,11 +3155,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4508094857686119200, guid: ffca342351792e24388aee833f50fbea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.11
+      value: -10.07
       objectReference: {fileID: 0}
     - target: {fileID: 4508094857686119200, guid: ffca342351792e24388aee833f50fbea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.51
+      value: 4.56
       objectReference: {fileID: 0}
     - target: {fileID: 4508094857686119200, guid: ffca342351792e24388aee833f50fbea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3258,6 +3258,9 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  spawnSFX: []
+  hurtSFX: []
+  deathSFX: []
   spriteProgression:
     _serializedList:
     - Key: 0.75
@@ -4387,6 +4390,9 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  spawnSFX: []
+  hurtSFX: []
+  deathSFX: []
   spriteProgression:
     _serializedList:
     - Key: 0.75
@@ -5202,6 +5208,9 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  spawnSFX: []
+  hurtSFX: []
+  deathSFX: []
   spriteProgression:
     _serializedList:
     - Key: 0.75
@@ -5801,6 +5810,9 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  spawnSFX: []
+  hurtSFX: []
+  deathSFX: []
   spriteProgression:
     _serializedList:
     - Key: 0.75
