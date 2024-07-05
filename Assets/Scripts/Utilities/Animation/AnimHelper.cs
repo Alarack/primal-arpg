@@ -59,27 +59,27 @@ public class AnimHelper : MonoBehaviour {
     }
 
 
-    private void OnAbilityActivated(EventData data) {
-        Ability ability = data.GetAbility("Ability");
+    //private void OnAbilityActivated(EventData data) {
+    //    Ability ability = data.GetAbility("Ability");
 
-        if (string.IsNullOrEmpty(ability.Data.animationString) == true) {
-            Debug.Log("No animation for: " + ability.Data.abilityName);
-            return;
-        }
+    //    if (string.IsNullOrEmpty(ability.Data.animationString) == true) {
+    //        Debug.Log("No animation for: " + ability.Data.abilityName);
+    //        return;
+    //    }
 
-        SetAttackAnim(ability, true);
+    //    SetAttackAnim(ability, true);
 
-        //if (animator.GetCurrentAnimatorStateInfo(0).IsName(ability.Data.animationString)) {
-        //    return;
-        //}
+    //    //if (animator.GetCurrentAnimatorStateInfo(0).IsName(ability.Data.animationString)) {
+    //    //    return;
+    //    //}
 
-        //if (ability.IsReady == false)
-        //    return;
+    //    //if (ability.IsReady == false)
+    //    //    return;
 
-        //Debug.Log("Recieving activation for: " + ability.Data.abilityName);
+    //    //Debug.Log("Recieving activation for: " + ability.Data.abilityName);
 
-        //SetTrigger(ability.Data.animationString);
-    }
+    //    //SetTrigger(ability.Data.animationString);
+    //}
 
     private void OnAbilityInitiated(EventData data) {
 
@@ -116,7 +116,7 @@ public class AnimHelper : MonoBehaviour {
         if (readyCheck == true && ability.IsReady == false)
             return;
 
-        //Debug.Log("Recieving activation for: " + ability.Data.abilityName);
+        Debug.Log("Recieving activation for: " + ability.Data.abilityName);
 
         SetTrigger(ability.Data.animationString);
     }

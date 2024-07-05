@@ -62,10 +62,11 @@ public static class AbilityEditorHelper {
 
         EditorGUILayout.BeginVertical(GUI.skin.box);
         GUILayout.Label("Sounds: ", EditorStyles.boldLabel);
-
+        entry.initSFXVolume = EditorGUILayout.FloatField("Volume", entry.initSFXVolume);
         entry.initiationSounds = EditorHelper.DrawList("Init Sounds", entry.initiationSounds, null, DrawAudioClipList);
 
         if(entry.tags.Contains(AbilityTag.Channeled) == true) {
+            entry.channelSFXVolume = EditorGUILayout.FloatField("Volume", entry.channelSFXVolume);
             entry.channeledSounds = EditorHelper.DrawList("Channeled Sounds", entry.channeledSounds, null, DrawAudioClipList);
         }
 

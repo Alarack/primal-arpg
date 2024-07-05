@@ -268,6 +268,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 1
   audioMixer: {fileID: 24100000, guid: 0f1f1df148611e64e99c32714f058e7c, type: 2}
   SFXTemplate: {fileID: 2106059233}
+  sfxSource: {fileID: 2106059233}
 --- !u!1 &12270243
 GameObject:
   m_ObjectHideFlags: 0
@@ -3258,8 +3259,11 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  spawnSFXVolume: 1
   spawnSFX: []
+  hurtSFXVolume: 1
   hurtSFX: []
+  deathSFXVolume: 1
   deathSFX: []
   spriteProgression:
     _serializedList:
@@ -4390,8 +4394,11 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  spawnSFXVolume: 1
   spawnSFX: []
+  hurtSFXVolume: 1
   hurtSFX: []
+  deathSFXVolume: 1
   deathSFX: []
   spriteProgression:
     _serializedList:
@@ -5208,8 +5215,11 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  spawnSFXVolume: 1
   spawnSFX: []
+  hurtSFXVolume: 1
   hurtSFX: []
+  deathSFXVolume: 1
   deathSFX: []
   spriteProgression:
     _serializedList:
@@ -5810,8 +5820,11 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  spawnSFXVolume: 1
   spawnSFX: []
+  hurtSFXVolume: 1
   hurtSFX: []
+  deathSFXVolume: 1
   deathSFX: []
   spriteProgression:
     _serializedList:

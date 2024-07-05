@@ -67,7 +67,9 @@ public class AbilityData
     public string animationString;
     public bool waitForAnimToResolve;
 
+    public float initSFXVolume = 1f;
     public List<AudioClip> initiationSounds = new List<AudioClip>();
+    public float channelSFXVolume = 1f;
     public List<AudioClip> channeledSounds = new List<AudioClip>();
 
     public List<AbilityDefinition> childAbilities = new List<AbilityDefinition>();

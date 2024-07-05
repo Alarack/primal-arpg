@@ -61,8 +61,11 @@ public abstract class Entity : MonoBehaviour {
     public Transform castingVFXPosition;
 
     [Header("SFX")]
+    public float spawnSFXVolume = 1f;
     public List<AudioClip> spawnSFX = new List<AudioClip>();
+    public float hurtSFXVolume = 1f;
     public List<AudioClip> hurtSFX = new List<AudioClip>();
+    public float deathSFXVolume = 1f;
     public List<AudioClip> deathSFX = new List<AudioClip>();
 
     [SerializedDictionary("Health", "Sprite")]
@@ -174,6 +177,15 @@ public abstract class Entity : MonoBehaviour {
 
         Stats.AdjustStatRangeCurrentValue(StatName.Essence, -value, StatModType.Flat, this);
         SendEssenceChangedEvent(-value);
+
+        return true;
+    }
+
+    public bool HasEnoughEssence(float value) {
+        float difference = Stats[StatName.Essence] - value;
+
+        if (difference < 0)
+            return false;
 
         return true;
     }
@@ -488,7 +500,7 @@ public abstract class Entity : MonoBehaviour {
             desiredScale = scale;
         }
 
-        AudioManager.PlayRandomClip(deathSFX, transform.position, 1f);
+        AudioManager.PlayRandomClip(deathSFX, transform.position, deathSFXVolume);
 
         VFXUtility.SpawnVFX(deathEffectPrefab, transform.position, Quaternion.identity, null, 2f, desiredScale);
     }
@@ -502,7 +514,7 @@ public abstract class Entity : MonoBehaviour {
 
         //if(spawnEffectPrefab != null)
         //    Debug.LogWarning("Spawing Entrance Effect for: " + EntityName + " : " + spawnEffectPrefab.name);
-        AudioManager.PlayRandomClip(spawnSFX, transform.position, 1f);
+        AudioManager.PlayRandomClip(spawnSFX, transform.position, spawnSFXVolume);
 
         VFXUtility.SpawnVFX(spawnEffectPrefab, transform.position, Quaternion.identity, null, 2f, desiredScale);
     }

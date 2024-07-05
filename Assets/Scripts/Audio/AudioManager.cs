@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using static Unity.VisualScripting.Member;
 
 public class AudioManager : Singleton<AudioManager>
 {
     public AudioMixer audioMixer;
     public AudioSource SFXTemplate;
 
+    public AudioSource sfxSource;
 
+
+    private Dictionary<AudioClip, List< AudioSource>> activeSources = new Dictionary<AudioClip, List<AudioSource>>();
 
     private void Start() {
         SetMasterVolume(PlayerPrefs.GetFloat("masterVolume"));
@@ -49,14 +54,52 @@ public class AudioManager : Singleton<AudioManager>
 
     public static void PlaySoundClip(AudioClip clip, Vector2 position, float volume, float pitchVariance = 1f) {
 
-        AudioSource activeAudio = Instantiate(Instance.SFXTemplate, Instance.transform, true);
+        AudioSource activeAudio = Instantiate(Instance.SFXTemplate, Instance.transform);
+        activeAudio.transform.localPosition = position;
 
+
+        TrackAudioClip(clip, activeAudio);
+
+        
         activeAudio.clip = clip;
-        activeAudio.volume = volume;
+        activeAudio.volume = volume *  (1 / GetCountOfClip(clip));
         activeAudio.Play();
 
-        Destroy(activeAudio.gameObject, clip.length);
+        new Task(Instance.ResolveSound(clip, activeAudio));
 
+        //Destroy(activeAudio.gameObject, clip.length);
+
+    }
+
+
+
+    private IEnumerator ResolveSound(AudioClip clip, AudioSource source) {
+        WaitForSeconds waiter = new WaitForSeconds( clip.length);
+
+        yield return waiter;
+
+        if(activeSources.ContainsKey(clip) == true) {
+            activeSources.Remove(clip);
+        }
+
+        Destroy(source.gameObject);
+    }
+
+    private static int GetCountOfClip(AudioClip clip) {
+        if (Instance.activeSources.TryGetValue(clip, out List<AudioSource> list)) {
+            return list.Count;
+        }
+
+        return 0;
+    }
+
+    private static void TrackAudioClip(AudioClip clip, AudioSource source) {
+        if(Instance.activeSources.TryGetValue(clip, out List<AudioSource> list)) {
+            list.Add(source);
+        }
+        else {
+            Instance.activeSources.Add(clip, new List<AudioSource> { source });
+        }
     }
 
     public static void PlayRandomClip(List<AudioClip> clips, Vector2 position, float volume, float pitchVariance = 1f) {

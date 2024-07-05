@@ -1118,10 +1118,12 @@ public class Ability {
             }
         }
 
+        if (CheckCost() == false)
+            return;
 
 
 
-        if(CheckForWindup(activationInstance) == true) {
+        if (CheckForWindup(activationInstance) == true) {
             return;
         }
 
@@ -1147,8 +1149,7 @@ public class Ability {
         }
 
 
-        if (CheckCost() == false)
-            return;
+
 
 
         if (activationCounter != null && activationCounter.Evaluate() == false) {
@@ -1174,7 +1175,7 @@ public class Ability {
 
     protected bool CheckForWindup(TriggerInstance activationInstance) {
 
-        if (CheckCost() == false)
+        if (CheckCostWithoutSpending() == false)
             return true;
 
 
@@ -1258,7 +1259,7 @@ public class Ability {
     protected void SendAbilityInitiatedEvent(TriggerInstance triggerInstance) {
         
         if(Data.initiationSounds != null && Data.initiationSounds.Count > 0) {
-            AudioManager.PlayRandomClip(Data.initiationSounds, Source.transform.position, 1f);
+            AudioManager.PlayRandomClip(Data.initiationSounds, Source.transform.position, Data.initSFXVolume);
         }
         else {
             Debug.LogWarning(Data.abilityName + " has no sounds");
@@ -1286,6 +1287,15 @@ public class Ability {
                 //Debug.LogWarning("Not enough essence for " + Data.abilityName);
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    private bool CheckCostWithoutSpending() {
+        if (EntityManager.ActivePlayer.HasEnoughEssence(GetTotalEssenceCost()) == false) {
+            //Debug.LogWarning("Not enough essence for " + Data.abilityName);
+            return false;
         }
 
         return true;
