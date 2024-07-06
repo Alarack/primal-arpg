@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
+using UnityEditor.Playables;
 
 public class AnimHelper : MonoBehaviour {
 
@@ -54,7 +55,7 @@ public class AnimHelper : MonoBehaviour {
         EventData data = new EventData();
         data.AddAbility("Ability", currentAbility);
         data.AddTriggerInstance("Instance", currentTriggerInstance);
-        
+
         EventManager.SendEvent(GameEvent.AbilityAnimReceived, data);
     }
 
@@ -84,7 +85,7 @@ public class AnimHelper : MonoBehaviour {
     private void OnAbilityInitiated(EventData data) {
 
         //Debug.Log("Ability Initiated: " + data.GetAbility("Ability").Data.abilityName);
-        
+
         Entity entity = data.GetEntity("Source");
 
         if (entity == null || owner != entity) {
@@ -92,7 +93,14 @@ public class AnimHelper : MonoBehaviour {
         }
 
         Ability ability = data.GetAbility("Ability");
+
+        if (string.IsNullOrEmpty(ability.Data.animationString) == true) {
+            return;
+        }
+
         AbilityTrigger.TriggerInstance triggerInstance = data.GetTriggerInstance("Instance");
+
+
 
         currentAbility = ability;
         currentTriggerInstance = triggerInstance;
@@ -109,7 +117,7 @@ public class AnimHelper : MonoBehaviour {
             return;
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName(ability.Data.animationString)) {
+        if (IsAnimRunning(ability.Data.animationString)) {
             return;
         }
 
@@ -119,6 +127,10 @@ public class AnimHelper : MonoBehaviour {
         Debug.Log("Recieving activation for: " + ability.Data.abilityName);
 
         SetTrigger(ability.Data.animationString);
+    }
+
+    public bool IsAnimRunning(string animName) {
+        return animator.GetCurrentAnimatorStateInfo(0).IsName(animName);
     }
 
 }

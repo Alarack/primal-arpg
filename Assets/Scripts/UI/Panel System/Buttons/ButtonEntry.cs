@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using System;
+using UnityEngine.Events;
 
-public class ButtonEntry : MonoBehaviour, IPointerClickHandler {
-
+public class ButtonEntry : Button, IPointerEnterHandler {
 
     public TextMeshProUGUI buttonText;
     public bool closeParentPanelOnClick;
@@ -28,15 +28,23 @@ public class ButtonEntry : MonoBehaviour, IPointerClickHandler {
     
     
     
-    public void OnPointerClick(PointerEventData eventData) {
-
-        if (data.buttonDataType == ButtonData.ButtonDataType.Informational)
+    public override void OnPointerClick(PointerEventData eventData) {
+        base.OnPointerClick(eventData);
+        
+        if (data != null && data.buttonDataType == ButtonData.ButtonDataType.Informational)
             return;
 
         clickCallback?.Invoke();
-
-        if (closeParentPanelOnClick == true)
+        if (parentPanel != null && closeParentPanelOnClick == true)
             parentPanel.Close();
 
+        AudioManager.PlayButtonPressed();
+
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData) {
+        base.OnPointerEnter(eventData);
+
+        AudioManager.PlayButtonHover();
     }
 }

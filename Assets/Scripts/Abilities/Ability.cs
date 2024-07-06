@@ -1113,7 +1113,7 @@ public class Ability {
             Ability castingAbility = Source.ActivelyCastingAbility;
 
             if(castingAbility != null) {
-                //Debug.LogWarning("Another ability is casting at the moment: " + castingAbility.Data.abilityName);
+                Debug.LogWarning("Another ability is casting at the moment: " + castingAbility.Data.abilityName);
                 return;
             }
         }
@@ -1180,6 +1180,13 @@ public class Ability {
 
 
         if (string.IsNullOrEmpty(Data.animationString) == false && Data.waitForAnimToResolve == true) {
+
+            if (Source.AnimHelper.IsAnimRunning(Data.animationString) == true) {
+                Debug.LogWarning(Data.abilityName + " is mid animation and cannot trigger again");
+                return true;
+            }
+            
+            
             Source.ActivelyCastingAbility = this;
             SendAbilityInitiatedEvent(activationInstance);
 
@@ -1261,9 +1268,9 @@ public class Ability {
         if(Data.initiationSounds != null && Data.initiationSounds.Count > 0) {
             AudioManager.PlayRandomClip(Data.initiationSounds, Source.transform.position, Data.initSFXVolume);
         }
-        else {
-            Debug.LogWarning(Data.abilityName + " has no sounds");
-        }
+        //else {
+        //    Debug.LogWarning(Data.abilityName + " has no sounds");
+        //}
         
         
         EventData data = new EventData();
@@ -1343,6 +1350,8 @@ public class Ability {
         Source.Movement.CanMove = true;
         currentWindup = null;
         Source.ActivelyCastingAbility = null;
+
+        Debug.Log("Resuming: " + Data.abilityName);
     }
 
     public void AbortAbilityWindup() {

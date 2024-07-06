@@ -13,6 +13,9 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource sfxSource;
 
 
+    public AudioClip basicButtonHover;
+    public AudioClip basicButtonPressed;
+
     private Dictionary<AudioClip, List< AudioSource>> activeSources = new Dictionary<AudioClip, List<AudioSource>>();
 
     private void Start() {
@@ -52,6 +55,14 @@ public class AudioManager : Singleton<AudioManager>
     }
 
 
+    public static void PlayButtonHover() {
+        PlaySoundClip(Instance.basicButtonHover, Instance.transform.position, 1f);
+    }
+
+    public static void PlayButtonPressed() {
+        PlaySoundClip(Instance.basicButtonPressed, Instance.transform.position, 1f);
+    }
+
     public static void PlaySoundClip(AudioClip clip, Vector2 position, float volume, float pitchVariance = 1f) {
 
         AudioSource activeAudio = Instantiate(Instance.SFXTemplate, Instance.transform);
@@ -62,7 +73,11 @@ public class AudioManager : Singleton<AudioManager>
 
         
         activeAudio.clip = clip;
-        activeAudio.volume = volume *  (1 / GetCountOfClip(clip));
+        
+        int countOfActiveClips = GetCountOfClip(clip);
+        float modifier = countOfActiveClips > 1 ? countOfActiveClips / 2 : 1;
+        
+        activeAudio.volume = volume *  (1 / modifier);
         activeAudio.Play();
 
         new Task(Instance.ResolveSound(clip, activeAudio));

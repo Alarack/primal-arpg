@@ -17,6 +17,10 @@ public class ItemPickup : MonoBehaviour
     public GameObject spawnVFX;
     public float vfxScale = 1f;
 
+    [Header("SFX")]
+    public float soundVolume = 1f;
+    public List<AudioClip> collectSounds = new List<AudioClip>();
+
     [Header("Lifetime")]
     public float lifetime;
 
@@ -90,6 +94,7 @@ public class ItemPickup : MonoBehaviour
             return;
 
         VFXUtility.SpawnVFX(collectVFX, transform.position, Quaternion.identity, null, 2f, vfxScale);
+        AudioManager.PlayRandomClip(collectSounds, transform.position, soundVolume);
 
         EntityManager.ActivePlayer.Inventory.Add(Item);
         Destroy(gameObject);

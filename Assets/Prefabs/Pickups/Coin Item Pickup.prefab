@@ -558,6 +558,12 @@ MonoBehaviour:
   collectVFX: {fileID: 1765137710588814, guid: 6bea1543e5b3fca40a6c415bb1ecabe3, type: 3}
   spawnVFX: {fileID: 0}
   vfxScale: 0.5
+  soundVolume: 1
+  collectSounds:
+  - {fileID: 8300000, guid: f00f2af878be82441a5f69e231085f14, type: 3}
+  - {fileID: 8300000, guid: 6b09579793d57f049b8da2d9cf13aa89, type: 3}
+  - {fileID: 8300000, guid: c98005b6b53cfd545bbece0eab67aaf8, type: 3}
+  - {fileID: 8300000, guid: 96c01ab7697cfad4aa3cf6d39905f995, type: 3}
   lifetime: 15
 --- !u!50 &6140693590618656232
 Rigidbody2D:
