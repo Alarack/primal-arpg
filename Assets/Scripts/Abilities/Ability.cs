@@ -1118,14 +1118,27 @@ public class Ability {
             }
         }
 
+        if (CheckCostWithoutSpending() == false)
+            return;
+
         if (CheckCost() == false)
             return;
 
-
-
-        if (CheckForWindup(activationInstance) == true) {
-            return;
+        if(HasWindup() == true) {
+            
+            if (CheckForWindup(activationInstance) == true) {
+                return;
+            }
         }
+        //else {
+        //    if (CheckCost() == false)
+        //        return;
+        //}
+
+
+
+
+
 
         //if(Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
 
@@ -1173,10 +1186,17 @@ public class Ability {
 
     }
 
+    protected bool HasWindup() {
+        bool animatedWindup = string.IsNullOrEmpty(Data.animationString) == false && Data.waitForAnimToResolve == true;
+        bool timeWindup = Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f;
+
+        return animatedWindup == true || timeWindup == false;
+    }
+
     protected bool CheckForWindup(TriggerInstance activationInstance) {
 
-        if (CheckCostWithoutSpending() == false)
-            return true;
+        //if (CheckCostWithoutSpending() == false)
+        //    return true;
 
 
         if (string.IsNullOrEmpty(Data.animationString) == false && Data.waitForAnimToResolve == true) {

@@ -31,6 +31,11 @@ MonoBehaviour:
     startingAbility: 0
     runeAbilityTarget: 
     animationString: Attack
+    waitForAnimToResolve: 1
+    initSFXVolume: 1
+    initiationSounds: []
+    channelSFXVolume: 1
+    channeledSounds: []
     childAbilities:
     - {fileID: 11400000, guid: a40e6591c1e4e2943ae3e4154d18c624, type: 2}
     runeGroupData:
@@ -173,7 +178,7 @@ MonoBehaviour:
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    windupVFX: {fileID: 0}
+    windupVFX: {fileID: 2850867436185079738, guid: 3d083b7a5bb635a439cf31a0cf85784f, type: 3}
     abilityStatData:
     - variant: 0
       statName: 46
@@ -188,6 +193,11 @@ MonoBehaviour:
     - variant: 0
       statName: 41
       value: 4.5
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 50
+      value: 0.22
       maxValue: 0
       minValue: 0
     recoveryData:
