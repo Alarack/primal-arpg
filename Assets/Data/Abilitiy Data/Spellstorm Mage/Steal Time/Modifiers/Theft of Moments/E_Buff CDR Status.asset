@@ -35,8 +35,6 @@ MonoBehaviour:
     targetConstraints: []
     riderEffects: []
     payloadPrefab: {fileID: 0}
-    payloadCount: 1
-    shotDelay: 0.2
     payloadStatData: []
     spawnLocation: 0
     spawnLocationStart: 0
@@ -129,6 +127,7 @@ MonoBehaviour:
       duration: 0
       interval: 0
       VFXPrefab: {fileID: 110446, guid: f6322404d6e3b914aa01ac044fb9415e, type: 3}
+      statusSprite: {fileID: 21300000, guid: 2b32f571b069d9e45837b451bb8a9f96, type: 3}
       vfxScaleModifier: 0.5
       statusEffectDef: {fileID: 11400000, guid: e7071a7fa7747d84196c7b196b2a0910, type: 2}
     statusToRemove: 
@@ -167,3 +166,7 @@ MonoBehaviour:
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
     newEffectZonePrefab: {fileID: 0}
+    modifiedMovementBehavior: 0
+    modifiedSeekDuration: -1
+    modifiedDrunkInterval: 0.2
+    cooldownElapsedModifier: 0
