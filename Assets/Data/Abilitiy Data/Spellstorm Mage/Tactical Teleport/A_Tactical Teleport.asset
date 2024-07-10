@@ -27,7 +27,15 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
+    startingAbility: 0
     runeAbilityTarget: 
+    animationString: 
+    waitForAnimToResolve: 0
+    initSFXVolume: 0.5
+    initiationSounds:
+    - {fileID: 8300000, guid: 9fb2085538d1bfe41abcb2b5c317517f, type: 3}
+    channelSFXVolume: 1
+    channeledSounds: []
     childAbilities: []
     runeGroupData:
     - runes:
@@ -48,6 +56,7 @@ MonoBehaviour:
       triggerTimerDuration: 0
       delay1Frame: 0
       autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 4
         constraintData:
@@ -103,6 +112,7 @@ MonoBehaviour:
         triggerTimerDuration: 0
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -118,6 +128,7 @@ MonoBehaviour:
         triggerTimerDuration: 0
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -148,6 +159,7 @@ MonoBehaviour:
           triggerTimerDuration: 0
           delay1Frame: 0
           autoActivateTimer: 0
+          resetTimerOnParentAbilityEnd: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0
