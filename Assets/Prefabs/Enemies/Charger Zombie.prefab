@@ -161,6 +161,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectOnDamageTaken: 1
+  ignoreMinions: 0
   maskTargeting: 0
   forgetDistance: -1
 --- !u!58 &5773089343024401896
@@ -724,13 +725,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Basic Zombie
   entityType: 1
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 1
   subtypes: 
   innerSprite: {fileID: 3937267052388188185}
+  mainSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: d168a6743fe254a468e5d338285fb1c7, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 150606, guid: 625165fb93553b14f8ed057807ed752a, type: 3}
   spawnEffectPrefab: {fileID: 7624612741357570336, guid: ef86985cce99ffa4dbdde299ff7b3bf7, type: 3}
+  facingIndicator: {fileID: 0}
+  castingVFXPosition: {fileID: 0}
+  spawnSFX:
+  - {fileID: 8300000, guid: fdea1ce9fc68b9c4a8a9b3f247dd955f, type: 3}
+  hurtSFX: []
+  deathSFX: []
+  spriteProgression:
+    _serializedList: []
   spawnDelayTime: 0.4
+  currentEliteAffixes: []
   active: 0
 --- !u!114 &4979640630744414595
 MonoBehaviour:
@@ -761,3 +775,5 @@ MonoBehaviour:
   stateData:
   - {fileID: 11400000, guid: 60717dbad13e9aa4bb661747b979ada2, type: 2}
   abilityDefinitions: []
+  debugCurrentState: 
+  debugPreviousState: 

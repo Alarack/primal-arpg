@@ -23,26 +23,39 @@ MonoBehaviour:
     autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
+    showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
+    recastOnChannelCost: 0
+    normalizedProcRate: 0
+    startingAbility: 0
     runeAbilityTarget: 
+    animationString: Attack
+    waitForAnimToResolve: 0
     childAbilities: []
+    runeGroupData: []
     tags: 
     activationTriggerData:
     - type: 31
+      procChance: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
       delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints: []
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -52,10 +65,13 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -66,7 +82,7 @@ MonoBehaviour:
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
+    windupVFX: {fileID: 2850867436185079738, guid: 52be30c71c09bb24abcf2463b1eeceb6, type: 3}
     abilityStatData:
     - variant: 0
       statName: 50
@@ -80,10 +96,13 @@ MonoBehaviour:
         useCustomRefreshTrigger: 0
         customRefreshTriggerData:
           type: 0
+          procChance: 1
           riderAbilityName: 
           riderEffectName: 
           triggerTimerDuration: 0
           delay1Frame: 0
+          autoActivateTimer: 0
+          resetTimerOnParentAbilityEnd: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0

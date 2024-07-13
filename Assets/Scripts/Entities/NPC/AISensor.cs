@@ -154,6 +154,9 @@ public class AISensor : MonoBehaviour {
         if (ignoreMinions == true && detectedTarget.subtypes.Contains(Entity.EntitySubtype.Minion) == true)
             return null;
 
+        if (detectedTarget.subtypes.Contains(Entity.EntitySubtype.Obstical) == true)
+            return null;
+
         return detectedTarget;
     }
 

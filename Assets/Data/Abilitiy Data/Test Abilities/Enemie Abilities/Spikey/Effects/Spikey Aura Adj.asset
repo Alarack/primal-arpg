@@ -18,16 +18,24 @@ MonoBehaviour:
     type: 1
     targeting: 5
     subTarget: 0
+    maskTargeting: 0
+    hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
+    canAffectDeadTargets: 0
+    nonStacking: 0
+    onlyShowTooltipInRune: 0
+    showRiderTooltip: 0
+    showScalers: 0
+    inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
+    targetAbilityForLastPayload: 
     targetConstraints: []
-    riderEffects: []
-    payloadPrefab: {fileID: 5268179857032388948, guid: 3cc6bccb8f5ded040ae089a3be6c6ec9, type: 3}
-    payloadCount: 1
-    shotDelay: 0.2
+    riderEffects:
+    - {fileID: 11400000, guid: 4e10f93f926118d4e987c62c91c61806, type: 2}
+    payloadPrefab: {fileID: 42722143587223829, guid: fd804971931de544e9d9004aef60c17f, type: 3}
     payloadStatData:
     - variant: 0
       statName: 19
@@ -35,11 +43,17 @@ MonoBehaviour:
       maxValue: 0
       minValue: 0
     spawnLocation: 0
+    spawnLocationStart: 0
+    spawnLocationEnd: 0
+    minViewportValues: {x: 0, y: 0}
+    maxViewportValues: {x: 0, y: 0}
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 1
+      parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 1
+      affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
@@ -126,12 +140,16 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 1
+    addMissingStatIfNotPresent: 0
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
+    resetMovement: 0
     targetDestination: 0
-    moveForce: 0
+    teleportDestination: 0
+    teleportVFX: {fileID: 0}
+    forwardDistance: 0
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -139,7 +157,28 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    effectsToAdd: []
+    targetAbilityToAddEffectsTo: 
+    ridersToAdd: []
+    ridersToRemove: []
+    effectsToRemove: []
+    targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
     statScalersToAdd: []
+    entityPrefab: {fileID: 0}
+    percentOfPlayerDamage: 1
+    destroyPreviousSummonAtCap: 0
+    inheritParentLayer: 1
+    spawnType: 0
+    nameOfAbilityToActivate: 
+    targetStateName: 
+    tagsToAdd: 
+    tagsToRemove: 
+    newPayloadPrefab: {fileID: 0}
+    newEffectZonePrefab: {fileID: 0}
+    modifiedMovementBehavior: 0
+    modifiedSeekDuration: -1
+    modifiedDrunkInterval: 0.2
+    cooldownElapsedModifier: 0

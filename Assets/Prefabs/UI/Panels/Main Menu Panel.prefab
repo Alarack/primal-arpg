@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 9220385120942164969}
   - component: {fileID: 1499427616851763928}
   - component: {fileID: 396386135750384006}
-  - component: {fileID: 5997803810365565756}
+  - component: {fileID: 6345613411568496624}
   m_Layer: 5
   m_Name: Options Button
   m_TagString: Untagged
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5997803810365565756
+--- !u!114 &6345613411568496624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 237058265336007766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 2bf94c0259d265e4d80b2db445aa0381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -192,6 +192,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  buttonText: {fileID: 0}
+  closeParentPanelOnClick: 0
 --- !u!1 &450570330246529732
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +205,7 @@ GameObject:
   - component: {fileID: 8041320678714598276}
   - component: {fileID: 7142453298180763658}
   - component: {fileID: 5620034061196761919}
-  - component: {fileID: 6390296850000553598}
+  - component: {fileID: 6616763655407795899}
   m_Layer: 5
   m_Name: Start Game Button
   m_TagString: Untagged
@@ -270,7 +272,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6390296850000553598
+--- !u!114 &6616763655407795899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,7 +281,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 450570330246529732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 2bf94c0259d265e4d80b2db445aa0381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -326,6 +328,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  buttonText: {fileID: 0}
+  closeParentPanelOnClick: 0
 --- !u!1 &907775533250090802
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,7 +919,7 @@ GameObject:
   - component: {fileID: 1724648249479876992}
   - component: {fileID: 1296959966892877213}
   - component: {fileID: 1172477036626082573}
-  - component: {fileID: 3902507981107938131}
+  - component: {fileID: 3362974537796277322}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -982,7 +986,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3902507981107938131
+--- !u!114 &3362974537796277322
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -991,7 +995,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6446745297709331910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 2bf94c0259d265e4d80b2db445aa0381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -1038,6 +1042,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  buttonText: {fileID: 0}
+  closeParentPanelOnClick: 0
 --- !u!1 &6668443609265808713
 GameObject:
   m_ObjectHideFlags: 0

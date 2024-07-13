@@ -108,6 +108,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onStickToGround:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2448004172980267282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +131,10 @@ MonoBehaviour:
   collectVFX: {fileID: 1773673519030548, guid: 6e3db7afa59301e48bc3999ec41f1410, type: 3}
   spawnVFX: {fileID: 0}
   vfxScale: 0.5
+  soundVolume: 0.33
+  collectSounds:
+  - {fileID: 8300000, guid: c7b97381c704b8c4a80c5521e324bebd, type: 3}
+  - {fileID: 8300000, guid: f5ddd170f87603a42b516295c52e0fcf, type: 3}
   lifetime: 15
 --- !u!50 &344234291679367170
 Rigidbody2D:

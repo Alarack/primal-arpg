@@ -58,6 +58,15 @@ public abstract class Entity : MonoBehaviour {
     public GameObject deathEffectPrefab;
     public GameObject spawnEffectPrefab;
     public GameObject facingIndicator;
+    public Transform castingVFXPosition;
+
+    [Header("SFX")]
+    public float spawnSFXVolume = 1f;
+    public List<AudioClip> spawnSFX = new List<AudioClip>();
+    public float hurtSFXVolume = 1f;
+    public List<AudioClip> hurtSFX = new List<AudioClip>();
+    public float deathSFXVolume = 1f;
+    public List<AudioClip> deathSFX = new List<AudioClip>();
 
     [SerializedDictionary("Health", "Sprite")]
     public SerializedDictionary<float, Sprite> spriteProgression = new SerializedDictionary<float, Sprite>();
@@ -168,6 +177,15 @@ public abstract class Entity : MonoBehaviour {
 
         Stats.AdjustStatRangeCurrentValue(StatName.Essence, -value, StatModType.Flat, this);
         SendEssenceChangedEvent(-value);
+
+        return true;
+    }
+
+    public bool HasEnoughEssence(float value) {
+        float difference = Stats[StatName.Essence] - value;
+
+        if (difference < 0)
+            return false;
 
         return true;
     }
@@ -467,6 +485,10 @@ public abstract class Entity : MonoBehaviour {
         return facingIndicator == null ? transform : facingIndicator.transform;
     }
 
+    public Transform GetCastingVFXPosition() {
+        return castingVFXPosition == null ? transform : castingVFXPosition.transform;
+    }
+
     #endregion
 
     #region VFX
@@ -477,6 +499,8 @@ public abstract class Entity : MonoBehaviour {
         if(scale != 1f) {
             desiredScale = scale;
         }
+
+        AudioManager.PlayRandomClip(deathSFX, transform.position, deathSFXVolume);
 
         VFXUtility.SpawnVFX(deathEffectPrefab, transform.position, Quaternion.identity, null, 2f, desiredScale);
     }
@@ -490,7 +514,7 @@ public abstract class Entity : MonoBehaviour {
 
         //if(spawnEffectPrefab != null)
         //    Debug.LogWarning("Spawing Entrance Effect for: " + EntityName + " : " + spawnEffectPrefab.name);
-
+        AudioManager.PlayRandomClip(spawnSFX, transform.position, spawnSFXVolume);
 
         VFXUtility.SpawnVFX(spawnEffectPrefab, transform.position, Quaternion.identity, null, 2f, desiredScale);
     }

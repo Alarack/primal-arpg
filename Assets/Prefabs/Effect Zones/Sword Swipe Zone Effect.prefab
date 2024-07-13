@@ -88,9 +88,19 @@ MonoBehaviour:
   ownerType: 0
   subtypes: 
   innerSprite: {fileID: 0}
+  mainSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: 90ef2f6c196f98549a7b395956e83fba, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 0}
   spawnEffectPrefab: {fileID: 0}
+  facingIndicator: {fileID: 0}
+  castingVFXPosition: {fileID: 0}
+  spawnSFX:
+  - {fileID: 8300000, guid: 44284cecbc2b59149ba11548a3bd5c6d, type: 3}
+  hurtSFX: []
+  deathSFX: []
+  spriteProgression:
+    _serializedList: []
   vfxParticles: {fileID: 0}
   particleSpeed: 1
   windupFinishedVFX: {fileID: 0}

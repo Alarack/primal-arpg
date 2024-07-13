@@ -156,7 +156,7 @@ public class Status {
         if (Data.VFXPrefab == null)
             return;
         //Debug.Log("Spawing VFX for Status: " +  Data.VFXPrefab.name);
-        activeVFX = VFXUtility.SpawnVFX(Data.VFXPrefab, Target.GetOriginPoint(), 0f, Data.vfxScaleModifier);
+        activeVFX = VFXUtility.SpawnVFX(Data.VFXPrefab, Target.GetCastingVFXPosition(), 0f, Data.vfxScaleModifier);
 
         //activeVFX = GameObject.Instantiate(Data.VFXPrefab, Target.transform);
         //activeVFX.transform.localPosition = Vector3.zero;

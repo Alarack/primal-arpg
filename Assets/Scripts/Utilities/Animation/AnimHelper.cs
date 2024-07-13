@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
 using UnityEditor.Playables;
-using Unity.VisualScripting;
 
 public class AnimHelper : MonoBehaviour {
 
@@ -11,19 +10,27 @@ public class AnimHelper : MonoBehaviour {
 
     private Entity owner;
 
+    private Ability currentAbility;
+    private AbilityTrigger.TriggerInstance currentTriggerInstance;
+
     private void Awake() {
         owner = GetComponentInParent<Entity>();
     }
 
     private void OnEnable() {
 
-        if (owner != null && owner is EntityPlayer) {
-            EventManager.RegisterListener(GameEvent.UserActivatedAbility, OnAbilityActivated);
+        if (owner != null) {
+            EventManager.RegisterListener(GameEvent.AbilityInitiated, OnAbilityInitiated);
         }
 
-        if (owner != null && owner is NPC) {
-            EventManager.RegisterListener(GameEvent.AbilityInitiated, OnAIAbilityActivated);
-        }
+
+        //if (owner != null && owner is EntityPlayer) {
+        //    EventManager.RegisterListener(GameEvent.UserActivatedAbility, OnAbilityActivated);
+        //}
+
+        //if (owner != null && owner is NPC) {
+        //    EventManager.RegisterListener(GameEvent.AbilityInitiated, OnAIAbilityActivated);
+        //}
 
     }
 
@@ -44,42 +51,63 @@ public class AnimHelper : MonoBehaviour {
         animator.SetTrigger(name);
     }
 
+    public void ReceiveAnimEvent(string name) {
+        EventData data = new EventData();
+        data.AddAbility("Ability", currentAbility);
+        data.AddTriggerInstance("Instance", currentTriggerInstance);
 
-    private void OnAbilityActivated(EventData data) {
+        EventManager.SendEvent(GameEvent.AbilityAnimReceived, data);
+    }
+
+
+    //private void OnAbilityActivated(EventData data) {
+    //    Ability ability = data.GetAbility("Ability");
+
+    //    if (string.IsNullOrEmpty(ability.Data.animationString) == true) {
+    //        Debug.Log("No animation for: " + ability.Data.abilityName);
+    //        return;
+    //    }
+
+    //    SetAttackAnim(ability, true);
+
+    //    //if (animator.GetCurrentAnimatorStateInfo(0).IsName(ability.Data.animationString)) {
+    //    //    return;
+    //    //}
+
+    //    //if (ability.IsReady == false)
+    //    //    return;
+
+    //    //Debug.Log("Recieving activation for: " + ability.Data.abilityName);
+
+    //    //SetTrigger(ability.Data.animationString);
+    //}
+
+    private void OnAbilityInitiated(EventData data) {
+
+        //Debug.Log("Ability Initiated: " + data.GetAbility("Ability").Data.abilityName);
+
+        Entity entity = data.GetEntity("Source");
+
+        if (entity == null || owner != entity) {
+            return;
+        }
+
         Ability ability = data.GetAbility("Ability");
 
         if (string.IsNullOrEmpty(ability.Data.animationString) == true) {
-            Debug.Log("No animation for: " + ability.Data.abilityName);
             return;
         }
 
-        SetAttackAnim(ability, true);
+        AbilityTrigger.TriggerInstance triggerInstance = data.GetTriggerInstance("Instance");
 
-        //if (animator.GetCurrentAnimatorStateInfo(0).IsName(ability.Data.animationString)) {
-        //    return;
-        //}
 
-        //if (ability.IsReady == false)
-        //    return;
 
-        //Debug.Log("Recieving activation for: " + ability.Data.abilityName);
+        currentAbility = ability;
+        currentTriggerInstance = triggerInstance;
 
-        //SetTrigger(ability.Data.animationString);
-    }
+        bool readyCheck = entity is EntityPlayer;
 
-    private void OnAIAbilityActivated(EventData data) {
-
-        //Debug.Log("Ability Initiated: " + data.GetAbility("Ability").Data.abilityName);
-        
-        NPC npc = data.GetEntity("Source") as NPC;
-
-        if (npc == null || owner != npc) {
-            return;
-        }
-
-        Ability ability = data.GetAbility("Ability");
-
-        SetAttackAnim(ability);
+        SetAttackAnim(ability, readyCheck);
 
     }
 
@@ -89,16 +117,20 @@ public class AnimHelper : MonoBehaviour {
             return;
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName(ability.Data.animationString)) {
+        if (IsAnimRunning(ability.Data.animationString)) {
             return;
         }
 
         if (readyCheck == true && ability.IsReady == false)
             return;
 
-        //Debug.Log("Recieving activation for: " + ability.Data.abilityName);
+        Debug.Log("Recieving activation for: " + ability.Data.abilityName);
 
         SetTrigger(ability.Data.animationString);
+    }
+
+    public bool IsAnimRunning(string animName) {
+        return animator.GetCurrentAnimatorStateInfo(0).IsName(animName);
     }
 
 }

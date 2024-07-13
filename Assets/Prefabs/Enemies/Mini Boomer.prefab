@@ -355,12 +355,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Mini Boomer
   entityType: 1
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 1
   subtypes: 
   innerSprite: {fileID: 8060669174546978051}
+  mainSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: f5732e7b9caab1c43879227cf065a50b, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 150606, guid: 625165fb93553b14f8ed057807ed752a, type: 3}
   spawnEffectPrefab: {fileID: 1197010802093610, guid: 9512773bce5218343a8e521647e7865f, type: 3}
+  facingIndicator: {fileID: 0}
+  castingVFXPosition: {fileID: 0}
+  spawnSFX:
+  - {fileID: 8300000, guid: fdea1ce9fc68b9c4a8a9b3f247dd955f, type: 3}
+  hurtSFX: []
+  deathSFX: []
+  spriteProgression:
+    _serializedList: []
   spawnDelayTime: 0.4
   currentEliteAffixes: []
   active: 0
@@ -393,6 +405,8 @@ MonoBehaviour:
   stateData:
   - {fileID: 11400000, guid: 605fa763834937d4faef4f62310664b4, type: 2}
   abilityDefinitions: []
+  debugCurrentState: 
+  debugPreviousState: 
 --- !u!1 &4819220770851006156
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,6 +820,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectOnDamageTaken: 1
+  ignoreMinions: 0
   maskTargeting: 0
   forgetDistance: -1
 --- !u!58 &8418540182654426181

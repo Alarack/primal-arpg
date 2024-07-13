@@ -26,8 +26,13 @@ MonoBehaviour:
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
+    normalizedProcRate: 0
+    startingAbility: 0
     runeAbilityTarget: 
+    animationString: 
+    waitForAnimToResolve: 0
     childAbilities: []
+    runeGroupData: []
     tags: 0e000000
     activationTriggerData:
     - type: 5
@@ -37,6 +42,7 @@ MonoBehaviour:
       triggerTimerDuration: 0
       delay1Frame: 0
       autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints: []
     endTriggerData: []
     counterData:
@@ -49,6 +55,7 @@ MonoBehaviour:
         triggerTimerDuration: 0
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -64,6 +71,7 @@ MonoBehaviour:
         triggerTimerDuration: 0
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -75,5 +83,10 @@ MonoBehaviour:
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     windupVFX: {fileID: 0}
-    abilityStatData: []
+    abilityStatData:
+    - variant: 0
+      statName: 70
+      value: 2
+      maxValue: 0
+      minValue: 0
     recoveryData: []

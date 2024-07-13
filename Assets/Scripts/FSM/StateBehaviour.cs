@@ -44,8 +44,8 @@ namespace LL.FSM {
             //}
         }
 
-        public virtual void OnExit() { 
-        
+        public virtual void OnExit() {
+
         }
 
         public abstract void Execute();
@@ -77,17 +77,17 @@ namespace LL.FSM {
                 //Debug.Log("Nothing nearby");
                 return;
             }
-              
+
 
             for (int i = 0; i < nearbyEntities.Length; i++) {
 
                 if (nearbyEntities[i] == null) {
                     continue;
                 }
-                
+
                 float distance = Vector2.Distance(brain.Owner.transform.position, nearbyEntities[i].transform.position);
 
-                if(distance < Data.minFlockDistance) {
+                if (distance < Data.minFlockDistance) {
                     brain.Movement.MoveAwayFromPoint(nearbyEntities[i].transform.position, 0.5f);
                 }
 
@@ -113,11 +113,15 @@ namespace LL.FSM {
 
         public override void Execute() {
 
+            if (brain.Movement.CanMove == false)
+                return;
+
+
             if (hasTarget == false)
                 return;
 
-            
-                brain.Movement.StrafeTarget(Data.rotationSpeedModifier);
+
+            brain.Movement.StrafeTarget(Data.rotationSpeedModifier);
         }
     }
 
@@ -147,6 +151,9 @@ namespace LL.FSM {
             if (distance < 0f)
                 return;
 
+            if (brain.Movement.CanMove == false)
+                return;
+
             if (distance < Data.fleeDistance)
                 brain.Movement.MoveAwayFromTarget();
         }
@@ -162,7 +169,7 @@ namespace LL.FSM {
 
         public ChaseBehaviour(StateBehaviourData data, AIBrain brain, AISensor seonsor) : base(data, brain, seonsor) {
 
-            if(data.chaseMouse == true || data.fleeMouse == true)
+            if (data.chaseMouse == true || data.fleeMouse == true)
                 cam = Camera.main;
         }
 
@@ -174,11 +181,15 @@ namespace LL.FSM {
 
         public override void Execute() {
 
-            if(Data.chaseMouse == true) {
+            if (brain.Movement.CanMove == false)
+                return;
+
+
+            if (Data.chaseMouse == true) {
                 Vector2 mousPos = cam.ScreenToWorldPoint(Input.mousePosition);
                 float distanceToMouse = Vector2.Distance(brain.Owner.transform.position, mousPos);
 
-                if(distanceToMouse < 0f) {
+                if (distanceToMouse < 0f) {
                     return;
                 }
 
@@ -186,11 +197,11 @@ namespace LL.FSM {
 
                     float modifier = 1f;
 
-                    if(Data.accelerateViaDistance == true) {
+                    if (Data.accelerateViaDistance == true) {
                         modifier += distanceToMouse * 2f;
                     }
-                    
-                    
+
+
                     brain.Movement.MoveTowardPoint(mousPos, modifier);
 
                 }
@@ -254,8 +265,8 @@ namespace LL.FSM {
         }
 
         public override void Execute() {
-            
-            if(Data.reverseTargeting == false) {
+
+            if (Data.reverseTargeting == false) {
                 brain.Sensor.UpdateTargeting(Data.newMaskTargeting);
             }
             else {
@@ -305,7 +316,7 @@ namespace LL.FSM {
                 //if (brain.Owner.subtypes.Contains(Entity.EntitySubtype.Orbital)) {
                 //    Debug.LogWarning("No target for orbital ability");
                 //}
-                
+
                 return;
             }
 
@@ -342,7 +353,7 @@ namespace LL.FSM {
             EventData timerEventData = new EventData();
             timerEventData.AddEntity("Owner", brain.Owner);
             waitTimer = new Timer(data.waitTime, OnTimerComplete, true, timerEventData);
-        
+
         }
 
         public override void ManagedUpdate() {
@@ -397,10 +408,10 @@ namespace LL.FSM {
             float distance = Vector2.Distance(brain.transform.position, wanderPoint);
 
             if (distance > 0.1f) {
-               
-                if(hasTarget == false)
+
+                if (hasTarget == false)
                     brain.Movement.RotateTowardPoint(wanderPoint);
-                 
+
                 brain.Movement.MoveTowardPoint(wanderPoint);
             }
             else {
@@ -410,9 +421,9 @@ namespace LL.FSM {
         }
 
         private void PickDirection() {
-            
+
             Vector2 startPoint = Data.leashToOrigin == false ? (Vector2)brain.transform.position : Vector2.zero;
-            
+
             wanderPoint = startPoint + (Random.insideUnitCircle * Data.wanderMaxDistance);
             wandering = true;
         }

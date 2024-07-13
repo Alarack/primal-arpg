@@ -29,6 +29,11 @@ public static class AbilityEditorHelper {
         entry.abilityName = EditorGUILayout.TextField("Ability Name", entry.abilityName);
         entry.abilityDescription = EditorGUILayout.TextField("Description", entry.abilityDescription);
         entry.animationString = EditorGUILayout.TextField("Anim String", entry.animationString);
+
+        if(string.IsNullOrEmpty(entry.animationString) == false) {
+            entry.waitForAnimToResolve = EditorGUILayout.Toggle("Wait For Anim", entry.waitForAnimToResolve);
+        }
+
         //entry.resourceCost = EditorGUILayout.FloatField("Resource Cost", entry.resourceCost);
         //entry.baseRuneSlots = EditorGUILayout.IntField("Rune Slots", entry.baseRuneSlots);
 
@@ -52,6 +57,20 @@ public static class AbilityEditorHelper {
 
         entry.suspend = EditorGUILayout.Toggle("Suspend?", entry.suspend);
 
+
+        EditorGUILayout.Separator();
+
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("Sounds: ", EditorStyles.boldLabel);
+        entry.initSFXVolume = EditorGUILayout.FloatField("Volume", entry.initSFXVolume);
+        entry.initiationSounds = EditorHelper.DrawList("Init Sounds", entry.initiationSounds, null, DrawAudioClipList);
+
+        if(entry.tags.Contains(AbilityTag.Channeled) == true) {
+            entry.channelSFXVolume = EditorGUILayout.FloatField("Volume", entry.channelSFXVolume);
+            entry.channeledSounds = EditorHelper.DrawList("Channeled Sounds", entry.channeledSounds, null, DrawAudioClipList);
+        }
+
+        EditorGUILayout.EndVertical();
 
 
         EditorGUILayout.Separator();
@@ -128,6 +147,12 @@ public static class AbilityEditorHelper {
 
     public static AbilityDefinition DrawAbilityDefinitionList(List<AbilityDefinition> list, int index) {
         AbilityDefinition result = EditorHelper.ObjectField(list[index]);
+
+        return result;
+    }
+
+    public static AudioClip DrawAudioClipList(List<AudioClip> list, int index) {
+        AudioClip result = EditorHelper.ObjectField(list[index]);
 
         return result;
     }

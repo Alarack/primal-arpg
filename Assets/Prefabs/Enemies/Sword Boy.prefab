@@ -131,13 +131,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Sword Boy
   entityType: 1
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 1
   subtypes: 
   innerSprite: {fileID: 5717780534246480490}
+  mainSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: 81cc5d720b7baca4da20e8bf3f43e2ce, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 150606, guid: 625165fb93553b14f8ed057807ed752a, type: 3}
   spawnEffectPrefab: {fileID: 7624612741357570336, guid: ef86985cce99ffa4dbdde299ff7b3bf7, type: 3}
+  facingIndicator: {fileID: 0}
+  castingVFXPosition: {fileID: 0}
+  spawnSFX:
+  - {fileID: 8300000, guid: fdea1ce9fc68b9c4a8a9b3f247dd955f, type: 3}
+  hurtSFX: []
+  deathSFX: []
+  spriteProgression:
+    _serializedList: []
   spawnDelayTime: 0.4
+  currentEliteAffixes: []
   active: 0
 --- !u!114 &1392351683977763388
 MonoBehaviour:
@@ -168,6 +181,8 @@ MonoBehaviour:
   stateData:
   - {fileID: 11400000, guid: 4563be72dddd89f45974b53aeb0a5a4e, type: 2}
   abilityDefinitions: []
+  debugCurrentState: 
+  debugPreviousState: 
 --- !u!1 &2267391864133394222
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +233,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectOnDamageTaken: 1
+  ignoreMinions: 0
   maskTargeting: 0
   forgetDistance: -1
 --- !u!58 &1957919341487564286

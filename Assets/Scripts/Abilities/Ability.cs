@@ -22,6 +22,8 @@ public class Ability {
 
     public Vector2 LastPayloadLocation { get; set; } = Vector2.zero;
 
+    public TriggerInstance LastTriggerInstance { get; protected set; }
+
     //Recovery Stuff
     public bool IsReady { get { return CheckReady(); } }
     public bool IsCasting { get { return currentWindup != null; } }
@@ -172,6 +174,12 @@ public class Ability {
         SetupChannelTimer();
         //SetupRecoveries();
         RegisterAbility();
+
+
+        if(Data.waitForAnimToResolve == true) {
+            EventManager.RegisterListener(GameEvent.AbilityAnimReceived, OnAnimEventRecieved);
+        }
+
         IsEquipped = true;
 
 
@@ -1105,29 +1113,48 @@ public class Ability {
             Ability castingAbility = Source.ActivelyCastingAbility;
 
             if(castingAbility != null) {
-                //Debug.LogWarning("Another ability is casting at the moment: " + castingAbility.Data.abilityName);
+                Debug.LogWarning("Another ability is casting at the moment: " + castingAbility.Data.abilityName);
                 return;
             }
         }
 
+        if (CheckCostWithoutSpending() == false)
+            return;
 
+        if (CheckCost() == false)
+            return;
 
-
-        if(Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
-
-            if (CheckCost() == false)
-                return;
-
-            if (currentWindup == null) {
-                currentWindup = new Task(StartAbilityWindup(activationInstance));
-                Source.ActivelyCastingAbility = this;
-                return;
-            }
-            else {
-                //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
+        if(HasWindup() == true) {
+            
+            if (CheckForWindup(activationInstance) == true) {
                 return;
             }
         }
+        //else {
+        //    if (CheckCost() == false)
+        //        return;
+        //}
+
+
+
+
+
+
+        //if(Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
+
+        //    if (CheckCost() == false)
+        //        return;
+
+        //    if (currentWindup == null) {
+        //        currentWindup = new Task(StartAbilityWindup(activationInstance));
+        //        Source.ActivelyCastingAbility = this;
+        //        return;
+        //    }
+        //    else {
+        //        //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
+        //        return;
+        //    }
+        //}
 
         if (TrySpendCharge(1) == false) {
             //Debug.LogWarning("Not enough charges on: " + Data.abilityName);
@@ -1135,8 +1162,7 @@ public class Ability {
         }
 
 
-        if (CheckCost() == false)
-            return;
+
 
 
         if (activationCounter != null && activationCounter.Evaluate() == false) {
@@ -1159,6 +1185,65 @@ public class Ability {
         //new Task(TriggerAllEffectsWithDelay(activationInstance));
 
     }
+
+    protected bool HasWindup() {
+        bool animatedWindup = string.IsNullOrEmpty(Data.animationString) == false && Data.waitForAnimToResolve == true;
+        bool timeWindup = Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f;
+
+        return animatedWindup == true || timeWindup == false;
+    }
+
+    protected bool CheckForWindup(TriggerInstance activationInstance) {
+
+        //if (CheckCostWithoutSpending() == false)
+        //    return true;
+
+
+        if (string.IsNullOrEmpty(Data.animationString) == false && Data.waitForAnimToResolve == true) {
+
+            if (Source.AnimHelper.IsAnimRunning(Data.animationString) == true) {
+                Debug.LogWarning(Data.abilityName + " is mid animation and cannot trigger again");
+                return true;
+            }
+            
+            
+            Source.ActivelyCastingAbility = this;
+            SendAbilityInitiatedEvent(activationInstance);
+
+
+            if (Source == null)
+                return true;
+
+            if (Data.windupVFX != null) {
+                currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.GetCastingVFXPosition());
+                currentWindupVFX.transform.localPosition = Vector3.zero;
+                GameObject.Destroy(currentWindupVFX, 3f);
+            }
+
+            Source.Movement.StopMovement();
+
+            return true;
+        }
+        
+        
+        if (Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
+
+            if (currentWindup == null) {
+                currentWindup = new Task(StartAbilityWindup(activationInstance));
+                Source.ActivelyCastingAbility = this;
+                return true;
+            }
+            else {
+                //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
+                return true;
+            }
+        }
+
+
+
+        return false;
+    }
+
 
     protected void ApplyCost(EventData data) {
 
@@ -1199,9 +1284,19 @@ public class Ability {
     }
 
     protected void SendAbilityInitiatedEvent(TriggerInstance triggerInstance) {
+        
+        if(Data.initiationSounds != null && Data.initiationSounds.Count > 0) {
+            AudioManager.PlayRandomClip(Data.initiationSounds, Source.transform.position, Data.initSFXVolume);
+        }
+        //else {
+        //    Debug.LogWarning(Data.abilityName + " has no sounds");
+        //}
+        
+        
         EventData data = new EventData();
         data.AddAbility("Ability", this);
         data.AddEntity("Source", Source);
+        data.AddTriggerInstance("Instance", triggerInstance);
 
         EventManager.SendEvent(GameEvent.AbilityInitiated, data);
     }
@@ -1222,6 +1317,25 @@ public class Ability {
         }
 
         return true;
+    }
+
+    private bool CheckCostWithoutSpending() {
+        if (EntityManager.ActivePlayer.HasEnoughEssence(GetTotalEssenceCost()) == false) {
+            //Debug.LogWarning("Not enough essence for " + Data.abilityName);
+            return false;
+        }
+
+        return true;
+    }
+
+    private void OnAnimEventRecieved(EventData data) {
+        Ability ability = data.GetAbility("Ability");
+        TriggerInstance instance = data.GetTriggerInstance("Instance");
+
+        if (ability == null || ability != this)
+            return;
+
+        ResumeActivation(instance);
     }
 
     private void ResumeActivation(TriggerInstance activationInstance) {
@@ -1250,13 +1364,14 @@ public class Ability {
 
         IsActive = true;
 
-        SendAbilityInitiatedEvent(activationInstance);
 
         //new Task(TriggerAllEffectsWithDelay(activationInstance));
         TriggerAllEffectsInstantly(activationInstance);
         Source.Movement.CanMove = true;
         currentWindup = null;
         Source.ActivelyCastingAbility = null;
+
+        Debug.Log("Resuming: " + Data.abilityName);
     }
 
     public void AbortAbilityWindup() {
@@ -1272,6 +1387,9 @@ public class Ability {
     }
 
     public IEnumerator StartAbilityWindup(TriggerInstance activationInstance) {
+
+        SendAbilityInitiatedEvent(activationInstance);
+
 
         float windupTime = Stats[StatName.AbilityWindupTime];
         float ownerCastSpeed = Source.Stats[StatName.CastSpeedModifier] > 0f ? Source.Stats[StatName.CastSpeedModifier] : 1f;
@@ -1292,7 +1410,7 @@ public class Ability {
             yield break;
 
         if(Data.windupVFX != null) {
-            currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.GetOriginPoint());
+            currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.GetCastingVFXPosition());
             currentWindupVFX.transform.localPosition = Vector3.zero;
             GameObject.Destroy(currentWindupVFX, 3f);
         }
