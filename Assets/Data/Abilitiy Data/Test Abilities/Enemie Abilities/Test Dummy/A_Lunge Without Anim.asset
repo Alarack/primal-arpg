@@ -31,6 +31,10 @@ MonoBehaviour:
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
+    initSFXVolume: 1
+    initiationSounds: []
+    channelSFXVolume: 1
+    channeledSounds: []
     childAbilities: []
     runeGroupData: []
     tags: 
@@ -43,7 +47,9 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 0
+        constraintData: []
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0

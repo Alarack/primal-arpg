@@ -1190,13 +1190,16 @@ public class Ability {
         bool animatedWindup = string.IsNullOrEmpty(Data.animationString) == false && Data.waitForAnimToResolve == true;
         bool timeWindup = Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f;
 
-        return animatedWindup == true || timeWindup == false;
+
+        return animatedWindup == true || timeWindup == true;
     }
 
     protected bool CheckForWindup(TriggerInstance activationInstance) {
 
         //if (CheckCostWithoutSpending() == false)
         //    return true;
+
+        //Debug.Log("Checking windup for: " + Data.abilityName);
 
 
         if (string.IsNullOrEmpty(Data.animationString) == false && Data.waitForAnimToResolve == true) {
@@ -1229,6 +1232,7 @@ public class Ability {
         if (Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
 
             if (currentWindup == null) {
+                //Debug.LogWarning("Starting windup for: " + Data.abilityName);
                 currentWindup = new Task(StartAbilityWindup(activationInstance));
                 Source.ActivelyCastingAbility = this;
                 return true;
@@ -1331,6 +1335,10 @@ public class Ability {
     private void OnAnimEventRecieved(EventData data) {
         Ability ability = data.GetAbility("Ability");
         TriggerInstance instance = data.GetTriggerInstance("Instance");
+
+        //if(ability != null) {
+        //    Debug.Log("Seeing: " + ability.Data.abilityName + ". and waiting for: " + Data.abilityName);
+        //}
 
         if (ability == null || ability != this)
             return;

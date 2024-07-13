@@ -62,9 +62,12 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  spawnSFXVolume: 0.33
   spawnSFX:
   - {fileID: 8300000, guid: 561b6a4e69f38a745939dfa7fd2befab, type: 3}
+  hurtSFXVolume: 1
   hurtSFX: []
+  deathSFXVolume: 0.5
   deathSFX:
   - {fileID: 8300000, guid: 5cd691c7632755d499fbbb55bc1f0fac, type: 3}
   spriteProgression:

@@ -6,6 +6,8 @@ public class EntitySpawnIndicator : MonoBehaviour
 {
 
     public float spawnTime;
+    public float spawnAudioVolume = 1f;
+    public List<AudioClip> spawnInSFX = new List<AudioClip>();
     
     private Entity entityToSpawn;
 
@@ -15,6 +17,7 @@ public class EntitySpawnIndicator : MonoBehaviour
         spawnTime = timeToSpawn;
         GameObject activeSpawnVFX = Instantiate(spawnVFX, transform);
         activeSpawnVFX.transform.localPosition = Vector3.zero;
+        AudioManager.PlayRandomClip(spawnInSFX, transform.position, spawnAudioVolume);
 
         new Task(SpawnEntity());
     }

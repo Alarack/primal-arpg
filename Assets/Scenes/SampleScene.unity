@@ -16399,7 +16399,14 @@ MonoBehaviour:
       spawnVFX: {fileID: 1667068002841223574, guid: 05e7bb509aa119d46a51ae8b544cea27, type: 3}
       count: 3
       vfxDelay: 0.4
-  genearatedWaves: []
+  genearatedWaves:
+  - spanwDelay: 0.15
+    entries:
+    - npcPrefab: {fileID: 4289164631287538691, guid: ffca342351792e24388aee833f50fbea, type: 3}
+      spawnIndicator: {fileID: 1360093681894129072, guid: 963e79628eb092a49b4015fffdb02c5a, type: 3}
+      spawnVFX: {fileID: 1667068002841223574, guid: 05e7bb509aa119d46a51ae8b544cea27, type: 3}
+      count: 3
+      vfxDelay: 0.4
   infiniteMode: 1
 --- !u!1 &1996681464
 GameObject:

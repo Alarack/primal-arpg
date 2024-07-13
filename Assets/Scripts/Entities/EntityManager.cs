@@ -40,7 +40,7 @@ public class EntityManager : Singleton<EntityManager> {
 
 
     private void Update() {
-#if UNITY_ENGINE
+#if UNITY_EDITOR
 
         if (Input.GetKeyDown(KeyCode.P)) {
             //SpawnWave();

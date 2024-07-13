@@ -63,7 +63,7 @@ public class LevelUpPanel : BasePanel
         for (int i = 4; i >=0 ; i--) {
             lockedAbilities.Shuffle();
             
-            if(lockedAbilities.Count > 0) {
+            if(lockedAbilities.Count > i) {
                 if (currentRewardSkills.Contains(lockedAbilities[i].Data.abilityName)) {
                     //Debug.LogWarning("A skill: " + lockedAbilities[i].Data.abilityName + " would be a dupilicate");
                     safetyCounter++;
@@ -81,6 +81,7 @@ public class LevelUpPanel : BasePanel
 
         if(choices.Count == 0) {
             Debug.LogWarning("No Locked abilities left");
+            Close();
             return;
         }
 
