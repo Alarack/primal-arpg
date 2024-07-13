@@ -14,10 +14,21 @@ public class OptionsPanel : BasePanel
     public TMP_Dropdown cursorModeDropdown;
     private CustomCursor customCursor;
 
+    public ColorSwatchHelper edgeColorOneSwatch;
+    public ColorSwatchHelper edgeColorTwoSwatch;
+
+    private ColorPickerSubPanel colorPickerSubPanel;
+
+
+
+    //[HideInInspector]
+    private ColorSwatchHelper selectedSwatch;
 
     protected override void Awake()
     {
         base.Awake();
+
+        colorPickerSubPanel = GetComponentInChildren<ColorPickerSubPanel>();
 
         customCursor = GameObject.FindObjectOfType<CustomCursor>();
 
@@ -27,11 +38,68 @@ public class OptionsPanel : BasePanel
         }
     }
 
+    protected override void Start()
+    {
+        base.Start();
+
+        SetupDefaultCursorEdgeColors();
+    }
+
+
     public override void Open() {
         base.Open();
 
         tabmanager.OnTabSelected(tabmanager.selectedTab);
     }
+
+    private void SetupDefaultCursorEdgeColors()
+    {
+        Color defaultEdgeColorOne;
+        float defaultRed = PlayerPrefs.GetFloat("Default Cursor Edge One Red Value");
+        float defaultGreen = PlayerPrefs.GetFloat("Default Cursor Edge One Green Value");
+        float defaultBlue = PlayerPrefs.GetFloat("Default Cursor Edge One Blue Value");
+
+        if (defaultRed == 0 && defaultGreen == 0 && defaultBlue == 0)
+        {
+            defaultEdgeColorOne = Color.white;
+        }
+        else
+        {
+            defaultEdgeColorOne = new Color(defaultRed, defaultGreen, defaultBlue, 1f);
+        }
+
+        CustomCursor.Instance.ChangeEdgeColorOne(defaultEdgeColorOne);
+        edgeColorOneSwatch.swatchImage.color = defaultEdgeColorOne;
+
+        Color defaultEdgeColorTwo;
+        float defaultEnemyRed = PlayerPrefs.GetFloat("Default Cursor Edge Two Red Value");
+        float defaultEnemyGreen = PlayerPrefs.GetFloat("Default Cursor Edge Two Green Value");
+        float defaultEnemyBlue = PlayerPrefs.GetFloat("Default Cursor Edge Two Blue Value");
+
+        if (defaultEnemyRed == 0 && defaultEnemyGreen == 0 && defaultEnemyBlue == 0)
+        {
+            defaultEdgeColorTwo = Color.blue;
+        }
+        else
+        {
+            defaultEdgeColorTwo = new Color(defaultEnemyRed, defaultEnemyGreen, defaultEnemyBlue, 1f);
+        }
+
+        CustomCursor.Instance.ChangeEdgeColorTwo(defaultEdgeColorTwo);
+        edgeColorTwoSwatch.swatchImage.color = defaultEdgeColorTwo;
+
+    }
+
+    #region UI Callbacks
+
+    public void OnEdgeSwatchClicked(ColorSwatchHelper swatchHelper)
+    {
+        selectedSwatch = swatchHelper;
+        colorPickerSubPanel.Open();
+    }
+
+    #endregion
+
 
     #region Cursor Methods
 
@@ -50,6 +118,32 @@ public class OptionsPanel : BasePanel
         CursorMode selectedMode = (CursorMode)cursorModeDropdown.value;
 
         customCursor.ChangeCursorMode(selectedMode);
+
+    }
+
+    public void OnColorChosen(Color targetColor)
+    {
+
+        colorPickerSubPanel.Close();
+        selectedSwatch.OnColorSelected(targetColor);
+
+        switch (selectedSwatch.colorSwatchDesignation)
+        {
+            case ColorSwatchHelper.ColorSwatchDesignation.EdgeOne:
+
+                PlayerPrefs.SetFloat("Default Cursor Edge One Red Value", targetColor.r);
+                PlayerPrefs.SetFloat("Default Cursor Edge One Green Value", targetColor.g);
+                PlayerPrefs.SetFloat("Default Cursor Edge One Blue Value", targetColor.b);
+                customCursor.ChangeEdgeColorOne(targetColor);
+                break;
+            case ColorSwatchHelper.ColorSwatchDesignation.EdgeTwo:
+
+                PlayerPrefs.SetFloat("Default Cursor Edge Two Red Value", targetColor.r);
+                PlayerPrefs.SetFloat("Default Cursor Edge Two Green Value", targetColor.g);
+                PlayerPrefs.SetFloat("Default Cursor Edge Two Blue Value", targetColor.b);
+                customCursor.ChangeEdgeColorTwo(targetColor);
+                break;
+        }
 
     }
 
