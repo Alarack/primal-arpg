@@ -17,7 +17,7 @@ public enum CursorEdgeThickness
     Large
 }
 
-public class CustomCursor : MonoBehaviour
+public class CustomCursor : Singleton<CustomCursor>
 {
     /// <summary>
     /// Standard Mode Cursor only has a single outline stroke.

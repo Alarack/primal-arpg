@@ -13335,7 +13335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4505241057744869375, guid: ef2b9f03d50204a4da96456d272a8d60, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -554.04
+      value: -554.04004
       objectReference: {fileID: 0}
     - target: {fileID: 6139457846627175005, guid: ef2b9f03d50204a4da96456d272a8d60, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -13347,7 +13347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6727547351307187667, guid: ef2b9f03d50204a4da96456d272a8d60, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -201.59985
+      value: -201.59982
       objectReference: {fileID: 0}
     - target: {fileID: 8008782528066645207, guid: ef2b9f03d50204a4da96456d272a8d60, type: 3}
       propertyPath: m_AnchorMax.y
@@ -13679,7 +13679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8485841284385799426, guid: e90311f972f56a443a954f68a1fb7bdd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -342.58984
+      value: -342.5898
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14015,7 +14015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3379676291349145198, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -399.78003
+      value: -399.78
       objectReference: {fileID: 0}
     - target: {fileID: 3940398973686752301, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
       propertyPath: m_Name
@@ -14027,7 +14027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4325081849182783640, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -201.59985
+      value: -201.59982
       objectReference: {fileID: 0}
     - target: {fileID: 5847164516408562323, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -14632,9 +14632,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3356923613490961544, guid: abe39036d59347445933467909ed4874, type: 3}
+      propertyPath: currentCursorMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4538176886658263520, guid: abe39036d59347445933467909ed4874, type: 3}
       propertyPath: m_Name
       value: Custom Cursor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538176886658263520, guid: abe39036d59347445933467909ed4874, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
