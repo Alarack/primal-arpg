@@ -22,6 +22,9 @@ public class LevelUpPanel : BasePanel
     private List<StatBoostEntry> statBoostEntries = new List<StatBoostEntry>();
     private List<AbilityChoiceEntry> abilityChoiceEntries = new List<AbilityChoiceEntry>();
 
+
+    private Task loadingChoicesTask;
+
     protected override void Awake() {
         base.Awake();
 
@@ -36,7 +39,7 @@ public class LevelUpPanel : BasePanel
             SetupStatChoices();
 
         if(abilityChoiceEntries == null || abilityChoiceEntries.Count == 0)
-            SetupAbilityChoices();
+            StartLoadingChoicesTask();
         
         UpdateRerollText();
     }
@@ -50,7 +53,13 @@ public class LevelUpPanel : BasePanel
         }
     }
 
-    private void SetupAbilityChoices() {
+    private void StartLoadingChoicesTask() {
+        loadingChoicesTask = new Task(SetupAbilityChoices());
+    }
+
+    private IEnumerator SetupAbilityChoices() {
+        WaitForSeconds waiter = new WaitForSeconds(0.3f);
+        
         List<Ability> lockedAbilities = EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.KnownSkill);
         lockedAbilities.AddRange(EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.PassiveSkill));
         
@@ -76,18 +85,20 @@ public class LevelUpPanel : BasePanel
                 choices.Add(lockedAbilities[i]);
                 lockedAbilities.RemoveAt(i);
             }
-
+            
         }
 
         if(choices.Count == 0) {
             Debug.LogWarning("No Locked abilities left");
             Close();
-            return;
+            yield break;
         }
 
-        abilityChoiceEntries.PopulateList(choices.Count, abilityTemplate, abilityHolder, true);
+        abilityChoiceEntries.PopulateList(choices.Count, abilityTemplate, abilityHolder, false);
         for (int i = 0; i < choices.Count; i++) {
             abilityChoiceEntries[i].Setup(choices[i], this);
+            abilityChoiceEntries[i].gameObject.SetActive(true);
+            yield return waiter;
         }
 
 
@@ -115,7 +126,7 @@ public class LevelUpPanel : BasePanel
         if(availableRolls > 0) {
             StatAdjustmentManager.AdjustStatRerolls(-1);
             SetupStatChoices();
-            SetupAbilityChoices();
+            StartLoadingChoicesTask();
             UpdateRerollText();
         }
     }
@@ -145,6 +156,10 @@ public class LevelUpPanel : BasePanel
 
     public void OnAbilitySelected(AbilityChoiceEntry entry) {
 
+        if (loadingChoicesTask != null && loadingChoicesTask.Running == true)
+            return;
+
+
         EntityManager.ActivePlayer.levelsStored--;
         PanelManager.GetPanel<HUDPanel>().UpdateStockpile();
 
@@ -162,7 +177,7 @@ public class LevelUpPanel : BasePanel
             TooltipManager.Hide();
         }
         else {
-            SetupAbilityChoices();
+            StartLoadingChoicesTask();
         }
     }
 
