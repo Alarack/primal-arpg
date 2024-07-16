@@ -25,8 +25,16 @@ public class PausePanel : BasePanel
         Close();
     }
 
-    public void OnQuitClicked() {
-        Application.Quit();
+    public void OnOptionsClicked() {
+        PanelManager.OpenPanel<OptionsPanel>();
     }
 
+    public void OnQuitClicked() {
+        PanelManager.OpenPanel<PopupPanel>().Setup("Quit Game?", "Are you sure you want to quit?", OnQuitConfirm);
+    }
+
+
+    private void OnQuitConfirm() {
+        Application.Quit();
+    }
 }
