@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class RuneGroupEntry : MonoBehaviour {
 
@@ -13,11 +14,16 @@ public class RuneGroupEntry : MonoBehaviour {
     public TextMeshProUGUI tierText;
     public GameObject dimmer;
 
+    [Header("VFX")]
+    public GameObject shimmer;
+    public CanvasGroup blockerFade;
+
     private RuneChoiceEntry currentChoice;
 
     private List<RuneChoiceEntry> entries = new List<RuneChoiceEntry>();
 
     private RunesPanel runesPanel;
+    private bool revealed;
 
     public AbilityRuneGroupData RuneGroupData { get; private set; }
 
@@ -57,6 +63,18 @@ public class RuneGroupEntry : MonoBehaviour {
 
     public void UpdateLockout() {
         bool unlocked = runesPanel.CurrentAbility.AbilityLevel >= RuneGroupData.tier;
+
+        if(unlocked == true && revealed == false) {
+            Tween fadeout = blockerFade.DOFade(0f, 0.25f);
+            fadeout.onComplete = () => {
+                dimmer.SetActive(false);
+                revealed = true;
+            };
+
+            shimmer.transform.DOLocalMove(new Vector2(525f, 0f), 1f);
+
+            return;
+        }
 
         dimmer.SetActive(!unlocked);
     }
