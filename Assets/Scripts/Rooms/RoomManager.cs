@@ -46,6 +46,17 @@ public class RoomManager : Singleton<RoomManager> {
         EventManager.RemoveMyListeners(this);
     }
 
+    private void Update() {
+
+#if UNITY_EDITOR
+        if(Input.GetKeyDown(KeyCode.R) &&  CurrentRoom.Type == Room.RoomType.ItemShop ) {
+            ShopRoom shop = CurrentRoom as ShopRoom;
+            shop.RerollShop();
+        }
+
+#endif
+    }
+
     public void OnPortalEntered(Room room) {
         CurrentRoom = room;
         EnterRoom(room);
@@ -324,6 +335,12 @@ public class RoomManager : Singleton<RoomManager> {
         //}
 
         return results;
+    }
+
+
+    public static void RerollRewards(List<ItemDefinition> rewardItems, string displayText, bool multiReward = false, bool shopMode = false) {
+        Instance.CleanUpRewardPedestals();
+        CreateRewards(rewardItems, displayText, multiReward, shopMode);
     }
 
     public static void CreateRewards(List<ItemDefinition> rewardItems, string displayText, bool multiReward = false, bool shopMode = false) {

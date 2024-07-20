@@ -1051,6 +1051,12 @@ public class Ability {
             }
         }
 
+        foreach (TriggerData triggerData in Data.activationTriggerData) {
+            if(triggerData.type == TriggerType.Timed) {
+                return triggerData.triggerTimerDuration;
+            }
+        }
+
         return -1f;
     }
 

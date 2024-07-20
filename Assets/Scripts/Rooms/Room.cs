@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Timeline.AnimationPlayableAsset;
 
 [System.Serializable]
 public abstract class Room {
@@ -61,6 +62,15 @@ public abstract class Room {
         }
 
         RoomManager.CreateRewards(GetAllItemRewards(), displayText, multiReward, shopMode);
+    }
+
+    public virtual void RerollRewards(string displayText, bool multiReward = false, bool shopMode = false) {
+        if (rewards.Count < 1) {
+            EndRoom();
+            return;
+        }
+
+        RoomManager.RerollRewards(GetAllItemRewards(), displayText, multiReward, shopMode);
     }
 
 
@@ -297,6 +307,10 @@ public class ShopRoom : Room {
         List<Vector2> portalLocations = TargetHelper.GetUpperCenterRow(2);
 
         RoomManager.SpawnRoomPortals(2, portalLocations);
+    }
+
+    public void RerollShop() {
+        base.RerollRewards("Shop!", true, true);
     }
 
     public override void EndRoom() {
