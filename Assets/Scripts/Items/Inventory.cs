@@ -57,6 +57,9 @@ public class Inventory : MonoBehaviour {
             Remove(ownedItems[i], false);
         }
 
+        ResetCurrency();
+
+        PanelManager.GetPanel<InventoryPanel>().RemoveAllItems();
         //for (int i = equippedRunes.Count -1; i >=0; i--) {
         //    //UnEquipRune(equippedRunes[i])
         //}
@@ -216,10 +219,23 @@ public class Inventory : MonoBehaviour {
         return false;
     }
 
+    public void ResetCurrency() {
+        currencyDictionary.Clear();
+        SendCurrencyChangedEvent(0, "Coin");
+    }
+
     private void SendCurrencyChangedEvent(float value, string currencyType) {
         EventData data = new EventData();
         data.AddFloat("Value", value);
-        data.AddFloat("Current Balance", currencyDictionary[currencyType]);
+        
+        if(currencyDictionary.ContainsKey(currencyType) == true) {
+            data.AddFloat("Current Balance", currencyDictionary[currencyType]);
+        }
+        else {
+            data.AddFloat("Current Balance", 0f);
+        }
+        
+        
         data.AddString("Currency Name", currencyType);
         //data.AddItem("Item Purchased", purchase);
 
@@ -245,6 +261,7 @@ public class Inventory : MonoBehaviour {
                 item.UnEquip();
             }
 
+            
 
         }
     }

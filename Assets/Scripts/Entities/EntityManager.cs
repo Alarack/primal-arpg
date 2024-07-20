@@ -194,8 +194,9 @@ public class EntityManager : Singleton<EntityManager> {
 
             ActivePlayer.transform.position = Vector3.zero;
             ActivePlayer.gameObject.SetActive(true);
-            PanelManager.ClosePanel<MainMenuPanel>();
             PanelManager.OpenPanel<CharacterSelectPanel>();
+            PanelManager.ClosePanel<MainMenuPanel>();
+            
             return;
 
         }
@@ -211,8 +212,8 @@ public class EntityManager : Singleton<EntityManager> {
 
         PanelManager.ClosePanel<MainMenuPanel>();
        
-        PanelManager.ClosePanel<InventoryPanel>();
-        PanelManager.ClosePanel<SkillsPanel>();
+        PanelManager.OpenPanel<InventoryPanel>();
+        PanelManager.OpenPanel<SkillsPanel>();
         PanelManager.OpenPanel<CharacterSelectPanel>();
         PanelManager.OpenPanel<HotbarPanel>();
         PanelManager.OpenPanel<HUDPanel>();

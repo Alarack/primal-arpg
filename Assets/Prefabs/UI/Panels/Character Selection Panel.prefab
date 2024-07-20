@@ -2166,6 +2166,7 @@ GameObject:
   - component: {fileID: 4412236975112207947}
   - component: {fileID: 8812264161601870058}
   - component: {fileID: 317373049243429334}
+  - component: {fileID: 589562735752349838}
   m_Layer: 5
   m_Name: Character Selection Panel
   m_TagString: Untagged
@@ -2206,6 +2207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2473b1f18a1b14085b76850869442b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeTime: 0.25
   defaultState: 0
   OnOpenEvent:
     m_PersistentCalls:
@@ -2257,6 +2259,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &589562735752349838
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7895540394154911512}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8549438681431945466
 GameObject:
   m_ObjectHideFlags: 0

@@ -2474,6 +2474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7523969879677373229}
   - component: {fileID: 8074562369377549870}
+  - component: {fileID: 6166518823401047866}
   m_Layer: 5
   m_Name: Skills Panel
   m_TagString: Untagged
@@ -2514,7 +2515,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad86879dd69faa49b2b62f614496f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultState: 0
+  fadeTime: 0.25
+  defaultState: 1
   OnOpenEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -2530,6 +2532,18 @@ MonoBehaviour:
   classFeatureSkillHolder: {fileID: 6403368924681028269}
   passiveCollectionPanel: {fileID: 670623932105841670}
   tutorialOverlay: {fileID: 8917513014861904077}
+--- !u!225 &6166518823401047866
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940398973686752301}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3954349138639113962
 GameObject:
   m_ObjectHideFlags: 0
@@ -3665,6 +3679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92b02c63b9db27b4ba4b3f94c1b47786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeTime: 0.25
   defaultState: 1
   OnOpenEvent:
     m_PersistentCalls:

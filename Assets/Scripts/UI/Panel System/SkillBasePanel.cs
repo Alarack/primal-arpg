@@ -105,6 +105,8 @@ public class SkillBasePanel : BasePanel
         activeSkillEntries[index].AssignNewAbility(null);
     }
 
+
+
     protected virtual void OnAbilitySwapped(Ability first, int firstIndex, Ability second, int secondIndex) {
         //activeSkillEntries[firstIndex].AssignNewAbility(null);
         //activeSkillEntries[secondIndex].AssignNewAbility(null);

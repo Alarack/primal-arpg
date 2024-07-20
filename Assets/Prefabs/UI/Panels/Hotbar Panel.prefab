@@ -87,7 +87,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21288f7634bef840af12dd11fd81836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultState: 0
+  fadeTime: 0.25
+  defaultState: 1
   OnOpenEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -411,6 +412,10 @@ PrefabInstance:
     - target: {fileID: 7567580759874174016, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
       propertyPath: m_Name
       value: Skill Entry
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336651999167102617, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
+      propertyPath: m_fontSize
+      value: 27.7
       objectReference: {fileID: 0}
     - target: {fileID: 8561135467425607160, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
       propertyPath: m_Pivot.x

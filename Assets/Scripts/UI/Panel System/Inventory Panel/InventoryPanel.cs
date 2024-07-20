@@ -379,5 +379,13 @@ public class InventoryPanel : BasePanel {
         }
     }
 
+    public void RemoveAllItems() {
+        for (int i = 0; i < paperDollEntries.Count; i++) {
+            paperDollEntries[i].Remove();
+        }
+        for (int i = 0; i < inventoryEntries.Count; i++) {
+            inventoryEntries[i].Remove();
+        }
+    }
 
 }

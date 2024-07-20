@@ -58,7 +58,7 @@ public class LevelUpPanel : BasePanel
     }
 
     private IEnumerator SetupAbilityChoices() {
-        WaitForSeconds waiter = new WaitForSeconds(0.3f);
+        WaitForSeconds waiter = new WaitForSeconds(0.2f);
         
         List<Ability> lockedAbilities = EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.KnownSkill);
         lockedAbilities.AddRange(EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.PassiveSkill));

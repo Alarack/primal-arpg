@@ -70,6 +70,11 @@ public class AbilityManager : MonoBehaviour {
             }
         }
 
+        for (int i = PassiveAbilities.Count - 1; i >= 0; i--) {
+            if (PassiveAbilities[i].IsEquipped == true)
+                PassiveAbilities[i].Uneqeuip();
+        }
+
         new Task( AutoEquipStartingSkill());
 
     }

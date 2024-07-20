@@ -29,6 +29,10 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
         fader.DOFade(1f, 0.3f);
     }
 
+    private void OnDisable() {
+        DOTween.Kill(shimmer.transform);
+    }
+
 
 
     #region UI CALLBACKS

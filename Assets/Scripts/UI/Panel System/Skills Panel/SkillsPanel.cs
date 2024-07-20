@@ -1,3 +1,4 @@
+using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +42,18 @@ public class SkillsPanel : SkillBasePanel {
         ShowTutorial();
     }
 
+    protected override void OnEnable() {
+        base.OnEnable();
+
+        EventManager.RegisterListener(GameEvent.AbilityUnequipped, OnPassiveAbilityUnequippped);
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        EventManager.RemoveMyListeners(this);
+    }
+
     public override void Close() {
         base.Close();
         TooltipManager.Hide();
@@ -76,6 +89,10 @@ public class SkillsPanel : SkillBasePanel {
         }
 
         return -1;
+    }
+
+    public void UnequipAllPassives() {
+
     }
 
     public void AutoEquipPassiveToFirstEmptySlot(Ability ability) {
@@ -134,6 +151,21 @@ public class SkillsPanel : SkillBasePanel {
     public void OnTutoralOkayClicked() {
         PlayerPrefs.SetInt("ShowSkillTutorial", 1);
         tutorialOverlay.SetActive(false);
+    }
+
+
+    protected virtual void OnPassiveAbilityUnequippped(EventData data) {
+        Ability ability = data.GetAbility("Ability");
+
+        if(ability.Data.category != AbilityCategory.PassiveSkill) {
+            return;
+        }
+
+        for (int i = 0; i < activePassiveSkillEntries.Count; i++) {
+            if (activePassiveSkillEntries[i].Ability == ability) {
+                activePassiveSkillEntries[i].AssignNewAbility(null);
+            }
+        }
     }
 
 }

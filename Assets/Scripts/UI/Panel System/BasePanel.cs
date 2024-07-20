@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
 
 public enum BasePanelState
@@ -17,7 +18,10 @@ public class BasePanel : MonoBehaviour
 
     public string PanelID { get; protected set; }
 
+    public float fadeTime = 0.25f;
+
     public BasePanelState defaultState;
+    private CanvasGroup panelFader;
 
     protected virtual void OnEnable() { }
     protected virtual void OnDisable() { }
@@ -38,6 +42,7 @@ public class BasePanel : MonoBehaviour
     protected virtual void Awake()
     {
         GetView();
+        panelFader = GetComponent<CanvasGroup>();
     }
 
     protected virtual void Start()
@@ -118,6 +123,11 @@ public class BasePanel : MonoBehaviour
     {
         if (view != null)
         {
+
+            if(panelFader != null) {
+                FadeIn();
+            }
+
             view.SetActive(true);
             transform.SetAsLastSibling();
             IsOpen = true;
@@ -126,11 +136,28 @@ public class BasePanel : MonoBehaviour
         }
     }
 
+    protected virtual void FadeIn() {
+        panelFader.alpha = 0f;
+        Tween fadeIn = panelFader.DOFade(1f, fadeTime);
+        fadeIn.onComplete += OnFadeInComplete;
+    }
+
+    protected virtual void OnFadeInComplete() {
+
+    }
+
     public virtual void Close()
     {
         if (view != null)
         {
-            view.SetActive(false);
+
+            if(panelFader != null) {
+                FadeOut();
+            }
+            else {
+                view.SetActive(false);
+            }
+
             //Debug.LogWarning("Closing: " + GetType());
 
             // Only send the close events if we actually closed
@@ -144,6 +171,15 @@ public class BasePanel : MonoBehaviour
                 IsOpen = false;
             }
         }
+    }
+
+    protected virtual void FadeOut() {
+        Tween fadeOut = panelFader.DOFade(0f, fadeTime);
+        fadeOut.onComplete += OnFadeOutComplete;
+    }
+
+    protected virtual void OnFadeOutComplete() {
+        view.SetActive(false);
     }
 
     public virtual void Hide()
