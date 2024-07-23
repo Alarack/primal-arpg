@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Skill Point Def
+  m_EditorClassIdentifier: 
+  devItem: 0
+  startingItem: 0
+  itemData:
+    Type: 8
+    affixStatTarget: 1
+    entityClass: 0
+    itemName: Skill Point
+    itemDescription: Level up a Skill
+    secondaryDescription: 
+    itemValue: 250
+    runeAbilityTarget: 
+    validSlots: 
+    abilityTags: 
+    targetedAbilityName: 
+    itemIcon: {fileID: -1773633092, guid: 11f6fce95ba681b4f995c2dfc0683f7d, type: 3}
+    pickupIcon: {fileID: -1773633092, guid: 11f6fce95ba681b4f995c2dfc0683f7d, type: 3}
+    pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 0
+    minDamage: 0
+    maxDamage: 0
+    statModifierData: []
+    abilityDefinitions: []
+    learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

@@ -1385,7 +1385,7 @@ public class Ability {
         currentWindup = null;
         Source.ActivelyCastingAbility = null;
 
-        Debug.Log("Resuming: " + Data.abilityName);
+        //Debug.Log("Resuming: " + Data.abilityName);
     }
 
     public void AbortAbilityWindup() {

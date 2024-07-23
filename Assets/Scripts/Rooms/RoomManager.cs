@@ -107,9 +107,22 @@ public class RoomManager : Singleton<RoomManager> {
         //Debug.Log("Room Index: " + Instance.currentRoomIndex);
 
         PanelManager.OpenPanel<TextDisplayPanel>().Setup("Choose a Room");
+        Room.RoomType roomType = Instance.GetRoomType();
 
-
-        List<ItemType> rewardTypes = new List<ItemType> { ItemType.Skill, ItemType.Equipment/*, ItemType.Rune*/ };
+        //List<ItemType> rewardTypes = new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint };
+        List<ItemType> rewardTypes = roomType switch {
+            Room.RoomType.EliminationCombat => new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint },
+            Room.RoomType.ItemShop => new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.SkillPoint },
+            Room.RoomType.SkillShop => new List<ItemType> { ItemType.Skill, ItemType.SkillPoint },
+            Room.RoomType.RecoveryRoom => throw new System.NotImplementedException(),
+            Room.RoomType.SurvivalCombat => new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint },
+            Room.RoomType.BossRoom => new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint },
+            Room.RoomType.SecretRoom => new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint },
+            Room.RoomType.TreasureRoom => new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint },
+            Room.RoomType.MiniBossRoom => new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint },
+            Room.RoomType.EventRoom => new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint },
+            _ => new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint },
+        };
 
         rewardTypes.Shuffle();
 

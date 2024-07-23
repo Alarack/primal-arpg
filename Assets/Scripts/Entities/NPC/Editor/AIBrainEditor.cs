@@ -33,7 +33,8 @@ public class AIBrainEditor : Editor
         
         aiBrain = (AIBrain)target;
 
-
+        aiBrain.debugCurrentState = EditorGUILayout.TextField("Debug Current", aiBrain.debugCurrentState); 
+        aiBrain.debugPreviousState = EditorGUILayout.TextField("Debug Previous", aiBrain.debugPreviousState);
         EditorGUILayout.Separator();
         //EditorGUILayout.LabelField("State Data", EditorStyles.boldLabel);
         EditorGUILayout.LabelField("State Data", EditorHelper2.LoadStyle(AbilityEditorHelper.abilityHeader));

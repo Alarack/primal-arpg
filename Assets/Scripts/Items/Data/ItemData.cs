@@ -32,7 +32,8 @@ public enum ItemType {
     Skill,
     ClassSelection,
     StatBooster,
-    Experience
+    Experience,
+    SkillPoint
 
 }
 

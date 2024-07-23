@@ -59,10 +59,13 @@ public class AIBrain : MonoBehaviour {
         //if(RoomManager.CurrentDifficulty > 5) {
 
         //    float roll = Random.Range(0f, 1f);
-            
+
         //    if(roll >= 0.5f)
         //        Owner.BecomeElite(AffixDatabase.EliteAffixType.Overcharged);
         //}
+
+        debugCurrentState = fsm.CurrentState != null ? fsm.CurrentState.stateName : "No Current State";
+        debugPreviousState = fsm.PreviousState != null ? fsm.PreviousState.stateName : "No Previous State";
     }
 
     private void UpdateFacing() {
@@ -233,12 +236,12 @@ public class AIBrain : MonoBehaviour {
     public void ReceiveStateChange(string stateName, TriggerInstance triggerInstance) {
         LastStateTrigger = triggerInstance;
 
-        //Debug.LogWarning("Brain is recieveing a state change Trigger: " + triggerInstance.GetType());
+        //Debug.LogWarning("Brain is recieveing a state change Trigger: " + triggerInstance.Type);
 
         fsm.ChangeState(stateName);
 
-        //debugCurrentState = fsm.CurrentState != null ? fsm.CurrentState.stateName : "No Current State";
-        //debugPreviousState = fsm.PreviousState != null ?  fsm.PreviousState.stateName : "No Previous State";
+        debugCurrentState = fsm.CurrentState != null ? fsm.CurrentState.stateName : "No Current State";
+        debugPreviousState = fsm.PreviousState != null ?  fsm.PreviousState.stateName : "No Previous State";
     }
 
     public string ForceStateChange(string stateName) {

@@ -548,6 +548,8 @@ public class EffectTargeter {
 
             List<Vector2> deliveryPoints = GetPayloadSpawnlocationSequence(totalShots);
 
+            //Debug.Log("Creating a world position sequence for: " + parentEffect.Data.effectName + ". " + totalShots + " shots");
+
             for (int i = 0; i < deliveryPoints.Count; i++) {
                 CreateDeliveryPayload(target, deliveryPoints[i]);
                 yield return waiter;
@@ -644,6 +646,11 @@ public class EffectTargeter {
     //}
 
     public void Apply() {
+
+        //if(parentEffect.Source.entityType == Entity.EntityType.Enemy) {
+        //    Debug.Log("An effect: " + parentEffect.Data.effectName + " is being applied");
+        //}
+        
 
         Action applyAction = parentEffect.Targeting switch {
             EffectTarget.None => ApplyToSource,

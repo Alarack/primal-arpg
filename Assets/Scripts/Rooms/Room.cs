@@ -141,6 +141,7 @@ public abstract class Room {
             ItemType.Skill when tag != AbilityTag.None => tag + " Skill", //SetSkillRewardDescription(reward, tag),
             ItemType.Skill when tag == AbilityTag.None => "Random Skill",
             ItemType.ClassSelection => "",
+            ItemType.SkillPoint => "Skill Point",
             _ => throw new System.NotImplementedException(),
         };
 
@@ -172,7 +173,8 @@ public abstract class Room {
             Equipment,
             SkillRune,
             Currency,
-            ClassSelection
+            ClassSelection,
+            SkillPoints
         }
 
         public RewardCategory rewardCategory;

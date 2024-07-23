@@ -15,25 +15,39 @@ MonoBehaviour:
   AbilityData:
     category: 1
     abilityIcon: {fileID: 21300000, guid: 5161462e1be6c024fb1dda328a7d8e4f, type: 3}
-    abilityName: Thermal Mine
+    abilityName: Thermal Mine Center Row
     abilityDescription: Summon a Thermal Mine which explodes on after {WT} seconds
       in a {ES} meter Radius
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 1
-    ignoreOtherCasting: 0
+    ignoreOtherCasting: 1
     includeEffectsInTooltip: 0
+    showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
+    recastOnChannelCost: 0
+    normalizedProcRate: 0
+    startingAbility: 0
     runeAbilityTarget: 
+    animationString: 
+    waitForAnimToResolve: 0
+    initSFXVolume: 1
+    initiationSounds: []
+    channelSFXVolume: 1
+    channeledSounds: []
     childAbilities: []
+    runeGroupData: []
     tags: 0100000006000000
     activationTriggerData:
     - type: 31
+      procChance: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
       delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -43,6 +57,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -55,6 +71,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -83,6 +100,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -95,6 +114,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -120,10 +140,13 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -133,10 +156,13 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        procChance: 1
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
         delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -154,6 +180,16 @@ MonoBehaviour:
       value: 1
       maxValue: 0
       minValue: 0
+    - variant: 0
+      statName: 14
+      value: 5
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 15
+      value: 0.1
+      maxValue: 0
+      minValue: 0
     recoveryData:
     - type: 0
       recoveryTriggers: []
@@ -161,10 +197,13 @@ MonoBehaviour:
         useCustomRefreshTrigger: 0
         customRefreshTriggerData:
           type: 0
+          procChance: 1
           riderAbilityName: 
           riderEffectName: 
           triggerTimerDuration: 0
           delay1Frame: 0
+          autoActivateTimer: 0
+          resetTimerOnParentAbilityEnd: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0

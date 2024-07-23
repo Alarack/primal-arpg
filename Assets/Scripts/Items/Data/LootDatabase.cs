@@ -227,6 +227,14 @@ public class LootDatabase : ScriptableObject {
             return GetRandomEquipment(itemDict, ItemType.ClassSelection, exclusions);
         }
 
+        if(type == ItemType.Currency) {
+            return itemDict[ItemType.Currency][0];
+        }
+
+        if(type == ItemType.SkillPoint) {
+            return itemDict[ItemType.SkillPoint][0];
+        }
+
 
         return null;
     }

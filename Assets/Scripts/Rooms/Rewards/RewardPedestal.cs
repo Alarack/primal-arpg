@@ -31,7 +31,25 @@ public class RewardPedestal : MonoBehaviour
 
 
     public void DispenseReward() {
-        ItemSpawner.SpawnItem(rewardItem, transform.position, true);
+
+        switch (rewardItem.Type) {
+            case ItemType.None:
+                break;
+         
+            case ItemType.Currency:
+                ItemSpawner.SpawnCoins((int)(RoomManager.CurrentDifficulty * 15f), transform.position, 1f, 1f);
+                break;
+            case ItemType.SkillPoint:
+                StatAdjustmentManager.AdjustSkillPoints(EntityManager.ActivePlayer, 1f);
+                Debug.LogWarning("TODO: Show a fanfare effect here for when skill points are awareded");
+
+                break;
+            default:
+                ItemSpawner.SpawnItem(rewardItem, transform.position, true);
+                break;
+        }
+
+
     }
 
 }

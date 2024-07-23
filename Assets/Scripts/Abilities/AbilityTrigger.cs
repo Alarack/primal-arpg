@@ -1605,6 +1605,7 @@ public class TimedTrigger : AbilityTrigger {
 
         if (owner == null) {
             Debug.LogError("A null owner was passed to a Timer Trigger");
+            return;
         }
 
         TriggeringEntity = owner;
