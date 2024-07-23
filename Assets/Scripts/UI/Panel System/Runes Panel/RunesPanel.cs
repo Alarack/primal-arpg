@@ -43,6 +43,12 @@ public class RunesPanel : BasePanel {
 
     }
 
+    public override void Close() {
+        base.Close();
+
+        TooltipManager.Hide();
+    }
+
     public void Setup(Ability ability) {
         this.CurrentAbility = ability;
         skillEntry.Setup(ability, SkillEntry.SkillEntryLocation.RunePanel, false);

@@ -42,6 +42,12 @@ public class SkillsPanel : SkillBasePanel {
         ShowTutorial();
     }
 
+    public override void Show() {
+        base.Show();
+
+        TooltipManager.Hide();
+    }
+
     protected override void OnEnable() {
         base.OnEnable();
 

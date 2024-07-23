@@ -80,6 +80,9 @@ public class RuneGroupEntry : MonoBehaviour {
     }
 
     public void OnChoiceSelected(RuneChoiceEntry choice) {
+        if (revealed == false)
+            return;
+        
         currentChoice = choice;
 
         for (int i = 0; i < entries.Count; i++) {

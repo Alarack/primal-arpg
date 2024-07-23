@@ -120,6 +120,7 @@ public class InventoryPanel : BasePanel {
             StatName.Experience,
             StatName.StatReroll,
             StatName.EssenceShield,
+            StatName.SkillPoint,
 
 
 

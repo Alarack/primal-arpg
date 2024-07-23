@@ -28,6 +28,12 @@ public class CharacterSelectPanel : BasePanel
         }
     }
 
+    public override void Close() {
+        base.Close();
+
+        TooltipManager.Hide();
+    }
+
 
     public void OnBackClicked() {
         PanelManager.OpenPanel<MainMenuPanel>();
