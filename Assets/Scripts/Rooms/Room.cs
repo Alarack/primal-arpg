@@ -95,10 +95,15 @@ public abstract class Room {
 
     protected void GenerateRewards(int count, ItemType type, AbilityTag tag = AbilityTag.None, ItemSlot slot = ItemSlot.None) {
 
+        int countOverride = type == ItemType.Currency || type == ItemType.SkillPoint ? 1 : count;
+
+        if (this is ShopRoom) {
+            countOverride = count;
+        }
 
         List<ItemDefinition> results = new List<ItemDefinition>();
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < countOverride; i++) {
             ItemDefinition item = ItemSpawner.Instance.lootDatabase.GetItem(type, results, tag, slot);
 
             if (item != null) {

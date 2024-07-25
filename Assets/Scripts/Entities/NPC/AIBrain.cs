@@ -48,7 +48,7 @@ public class AIBrain : MonoBehaviour {
 
     private void Start() {
 
-        if(Sensor != null)
+        if (Sensor != null)
             Sensor.Initialize(Owner, this);
 
         fsm = new FSM(Owner, stateData);
@@ -69,21 +69,24 @@ public class AIBrain : MonoBehaviour {
     }
 
     private void UpdateFacing() {
+        if (Sensor == null)
+            return;
+
         if (Sensor.LatestTarget == null)
             return;
 
-        if(Owner.mainSprite == null) 
+        if (Owner.mainSprite == null)
             return;
 
         bool faceLeft = Sensor.LatestTarget.transform.position.x < Owner.GetOriginPoint().position.x;
-        
+
         Owner.mainSprite.flipX = faceLeft;
     }
 
     private void CreateAbilities() {
         for (int i = 0; i < abilityDefinitions.Count; i++) {
             AddAbility(abilityDefinitions[i]);
-            
+
             //Ability ability = AbilityFactory.CreateAbility(abilityDefinitions[i].AbilityData, Owner);
             //ability.Equip();
             //abilities.Add(ability);
@@ -110,7 +113,7 @@ public class AIBrain : MonoBehaviour {
 
     public void AddAbilitiesFromBehavior(List<AbilityDefinition> newAbilities, StateBehaviour behavior) {
         List<Ability> abiliitesToAdd = new List<Ability>();
-        
+
         for (int i = 0; i < newAbilities.Count; i++) {
             Ability ability = AbilityFactory.CreateAbility(newAbilities[i].AbilityData, Owner);
             //this.abilities.Add(ability);
@@ -121,7 +124,7 @@ public class AIBrain : MonoBehaviour {
     }
 
     private void UpdateBehaviorAbilityDictioanry(List<Ability> abilitiesToAdd, StateBehaviour behavior) {
-        if(stateBehaviorAbilities.ContainsKey(behavior) == true) {
+        if (stateBehaviorAbilities.ContainsKey(behavior) == true) {
             for (int i = 0; i < abilitiesToAdd.Count; i++) {
                 stateBehaviorAbilities[behavior].AddUnique(abilitiesToAdd[i]);
             }
@@ -147,9 +150,9 @@ public class AIBrain : MonoBehaviour {
     }
 
     private void Update() {
-        if(Owner.active == false) 
+        if (Owner.active == false)
             return;
-        
+
         fsm.ManagedUpdate();
         UpdateFacing();
     }
@@ -188,7 +191,7 @@ public class AIBrain : MonoBehaviour {
     }
 
     public void ActivateBehaviourAbilities(StateBehaviour behaviour) {
-        if(stateBehaviorAbilities.TryGetValue(behaviour, out List<Ability> behaviorAbilities) == true) {
+        if (stateBehaviorAbilities.TryGetValue(behaviour, out List<Ability> behaviorAbilities) == true) {
             for (int i = 0; i < behaviorAbilities.Count; i++) {
                 //behaviorAbilities[i].ForceActivate();
                 SendAIActivatedEvent(behaviorAbilities[i]);
@@ -241,12 +244,12 @@ public class AIBrain : MonoBehaviour {
         fsm.ChangeState(stateName);
 
         debugCurrentState = fsm.CurrentState != null ? fsm.CurrentState.stateName : "No Current State";
-        debugPreviousState = fsm.PreviousState != null ?  fsm.PreviousState.stateName : "No Previous State";
+        debugPreviousState = fsm.PreviousState != null ? fsm.PreviousState.stateName : "No Previous State";
     }
 
     public string ForceStateChange(string stateName) {
 
-      
+
         fsm.ChangeState(stateName);
 
         string previousState = fsm.PreviousState != null ? fsm.PreviousState.stateName : "";

@@ -15,6 +15,10 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
     public TextMeshProUGUI costTextField;
     public GameObject costArea;
 
+    [Header("Anim Presets")]
+    public GameObject goldAnim;
+    public GameObject skillPointAnim;
+
 
     private RewardPedestal pedestal;
     private Item displayItem;
@@ -39,7 +43,18 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
             displayAbility = displayItem.Data.learnableAbilities[0].FetchAbilityForDisplay(EntityManager.ActivePlayer);
         }
 
-        if(pedestal.enforceCost == true) {
+        if(displayItem.Data.Type == ItemType.Currency) {
+            goldAnim.SetActive(true);
+            rewardImage.gameObject.SetActive(false);
+        }
+
+        if (displayItem.Data.Type == ItemType.SkillPoint) {
+            skillPointAnim.SetActive(true);
+            rewardImage.gameObject.SetActive(false);
+        }
+
+
+        if (pedestal.enforceCost == true) {
             costArea.SetActive(true);
             costTextField.text = pedestal.rewardItem.itemValue.ToString();
         }
@@ -63,6 +78,7 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
                 TooltipManager.Show(displayItem.GetTooltip(), TextHelper.ColorizeText(displayItem.Data.itemName, Color.cyan));
                 break;
             case ItemType.Currency:
+                TooltipManager.Show("A pile of Gold");
                 break;
             case ItemType.Skill:
                 TooltipManager.Show(displayAbility.GetTooltip(), displayAbility.Data.abilityName);
@@ -71,6 +87,10 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
             case ItemType.ClassSelection:
                 TooltipManager.Show(displayItem.Data.itemDescription, TextHelper.ColorizeText(displayItem.Data.itemName, ColorDataManager.Instance[displayItem.Data.itemName]));
 
+                break;
+
+            case ItemType.SkillPoint:
+                TooltipManager.Show("Skill Point");
                 break;
             default:
                 break;
