@@ -95,7 +95,9 @@ public abstract class Room {
 
     protected void GenerateRewards(int count, ItemType type, AbilityTag tag = AbilityTag.None, ItemSlot slot = ItemSlot.None) {
 
-        int countOverride = type == ItemType.Currency || type == ItemType.SkillPoint ? 1 : count;
+        int countOverride = type == ItemType.Currency 
+            || type == ItemType.SkillPoint
+            || type == ItemType.HealthPotion ? 1 : count;
 
         if (this is ShopRoom) {
             countOverride = count;
@@ -112,9 +114,14 @@ public abstract class Room {
             }
         }
 
+        //Debug.Log("Creating rewards of type: " + type + " with a count of: " + countOverride);
+
         RoomReward reward = new RoomReward();
         reward.itemCategory = type;
         reward.items = results;
+
+        //Debug.Log("Reward Count: " + reward.items.Count);   
+
 
         SetRewardDescriptons(reward, type, tag, slot);
 
@@ -147,6 +154,7 @@ public abstract class Room {
             ItemType.Skill when tag == AbilityTag.None => "Random Skill",
             ItemType.ClassSelection => "",
             ItemType.SkillPoint => "Skill Point",
+            ItemType.HealthPotion => "Health Potion",
             _ => throw new System.NotImplementedException(),
         };
 

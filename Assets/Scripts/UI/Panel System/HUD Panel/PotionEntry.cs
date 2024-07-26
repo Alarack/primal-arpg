@@ -10,13 +10,18 @@ public class PotionEntry : MonoBehaviour {
     public Sprite fullSprite;
     public Sprite emptySprite;
 
+    public ParticleSystem fillVFX;
+    public ParticleSystem emptyVFX;
+
 
     public void Fill() {
         potionImage.sprite = fullSprite;
+        fillVFX.Play();
     }
 
     public void Empty() {
         potionImage.sprite = emptySprite;
+        emptyVFX.Play();
     }
 
 

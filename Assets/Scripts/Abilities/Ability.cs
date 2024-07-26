@@ -1119,7 +1119,7 @@ public class Ability {
             Ability castingAbility = Source.ActivelyCastingAbility;
 
             if(castingAbility != null) {
-                Debug.LogWarning("Another ability is casting at the moment: " + castingAbility.Data.abilityName);
+                //Debug.LogWarning("Another ability is casting at the moment: " + castingAbility.Data.abilityName);
                 return;
             }
         }

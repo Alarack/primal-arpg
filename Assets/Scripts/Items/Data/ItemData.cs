@@ -33,7 +33,8 @@ public enum ItemType {
     ClassSelection,
     StatBooster,
     Experience,
-    SkillPoint
+    SkillPoint,
+    HealthPotion
 
 }
 

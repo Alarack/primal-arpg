@@ -41,8 +41,11 @@ public class RewardPedestal : MonoBehaviour
                 break;
             case ItemType.SkillPoint:
                 StatAdjustmentManager.AdjustSkillPoints(EntityManager.ActivePlayer, 1f);
-                Debug.LogWarning("TODO: Show a fanfare effect here for when skill points are awareded");
+                Debug.LogWarning("TODO: Show a fanfare effect here for when skill points are awarded");
+                break;
 
+            case ItemType.HealthPotion:
+                StatAdjustmentManager.AdjustHealthPotions(EntityManager.ActivePlayer, 1f);
                 break;
             default:
                 ItemSpawner.SpawnItem(rewardItem, transform.position, true);

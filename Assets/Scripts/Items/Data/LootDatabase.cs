@@ -235,6 +235,10 @@ public class LootDatabase : ScriptableObject {
             return itemDict[ItemType.SkillPoint][0];
         }
 
+        if (type == ItemType.HealthPotion) {
+            return itemDict[ItemType.HealthPotion][0];
+        }
+
 
         return null;
     }

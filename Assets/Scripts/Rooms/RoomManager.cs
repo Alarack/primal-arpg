@@ -124,6 +124,10 @@ public class RoomManager : Singleton<RoomManager> {
             _ => new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint },
         };
 
+        if(EntityManager.ActivePlayer.Stats.GetStatRangeRatio(StatName.Health) <= 0.25f) {
+            rewardTypes.Add(ItemType.HealthPotion);
+        }
+
         rewardTypes.Shuffle();
 
         List<ItemType> chosenTypes = new List<ItemType>();

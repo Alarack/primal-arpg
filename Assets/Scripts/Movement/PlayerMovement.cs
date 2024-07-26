@@ -56,6 +56,11 @@ public class PlayerMovement : EntityMovement
     }
 
     private void OnPotion(InputAction.CallbackContext context) {
+
+        if (Owner.Stats.GetStatRangeRatio(StatName.Health) == 1)
+            return;
+        
+        
         if (Owner.Stats[StatName.HeathPotions] > 0) {
             StatAdjustmentManager.ApplyStatAdjustment(Owner, -1, StatName.HeathPotions, StatModType.Flat, StatModifierData.StatVariantTarget.RangeCurrent, Owner, null);
             Owner.Stats.AdjustStatRangeByPercentOfMaxValue(StatName.Health, 0.75f, Owner);

@@ -48,6 +48,13 @@ public class EntityManager : Singleton<EntityManager> {
             SpawnGeneratedWave();
         }
 
+
+        if (Input.GetKeyDown(KeyCode.Keypad0)) {
+            //SpawnWave();
+
+            KillEnemies();
+        }
+
 #endif
     }
 
@@ -137,6 +144,15 @@ public class EntityManager : Singleton<EntityManager> {
         new Task(Instance.waves[Instance.waveIndex].SpawnWaveOnDelay());
 
         Instance.waveIndex++;
+    }
+
+    public static void KillEnemies() {
+        if (ActiveEntities.ContainsKey(Entity.EntityType.Enemy) == false)
+            return;
+
+        for (int i = 0; i < ActiveEntities[Entity.EntityType.Enemy].Count; i++) {
+            ActiveEntities[Entity.EntityType.Enemy][i].ForceDie(ActivePlayer);
+        }
     }
 
     public static void SpawnGeneratedWave() {
