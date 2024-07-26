@@ -53,6 +53,10 @@ public class EntityPlayer : Entity {
             Die(this);
         }
 
+        if(Input.GetKeyDown(KeyCode.H)) {
+            StatAdjustmentManager.ApplyStatAdjustment(this, -1, StatName.Health, StatModType.Flat, StatModifierData.StatVariantTarget.RangeCurrent, this, null);
+        }
+
 #endif
 
     }

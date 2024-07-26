@@ -15,6 +15,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public AudioClip basicButtonHover;
     public AudioClip basicButtonPressed;
+    public AudioClip potionSound;
 
     private Dictionary<AudioClip, List< AudioSource>> activeSources = new Dictionary<AudioClip, List<AudioSource>>();
 
@@ -61,6 +62,10 @@ public class AudioManager : Singleton<AudioManager>
 
     public static void PlayButtonPressed() {
         PlaySoundClip(Instance.basicButtonPressed, Instance.transform.position, 1f);
+    }
+
+    public static void PlayPotionSound() {
+        PlaySoundClip(Instance.potionSound, Instance.transform.position, 1f);
     }
 
     public static void PlaySoundClip(AudioClip clip, Vector2 position, float volume, float pitchVariance = 1f) {

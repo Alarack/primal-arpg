@@ -21,6 +21,10 @@ public class HUDPanel : BasePanel
     public ResourceGlobeDisplay healthGlobe;
     public ResourceGlobeDisplay essenceGlobe;
 
+    [Header("Potion UI")]
+    public HealthPotionUIManager healthPotionUIManager;
+   
+
     [Header("Status Bar")]
     public Transform buffHolder;
     public Transform debuffHolder;
@@ -42,6 +46,7 @@ public class HUDPanel : BasePanel
         base.OnEnable();
         EventManager.RegisterListener(GameEvent.CurrencyChanged, OnCurrencyChanged);
         EventManager.RegisterListener(GameEvent.UnitStatAdjusted, OnStatAdjusted);
+        
         EventManager.RegisterListener(GameEvent.EntityLeveled, OnEntityLeveled);
         EventManager.RegisterListener(GameEvent.StatusApplied, OnStatusApplied);
         EventManager.RegisterListener(GameEvent.StatusRemoved, OnStatusRemoved);
@@ -62,6 +67,8 @@ public class HUDPanel : BasePanel
 
         UpdateEXPBar();
         UpdateStockpile();
+        healthPotionUIManager.Setup(EntityManager.ActivePlayer.Stats.GetStat<StatRange>(StatName.HeathPotions));
+
     }
 
 
@@ -157,6 +164,8 @@ public class HUDPanel : BasePanel
         UpdateEXPBar();
     }
 
+
+
     private void OnEntityLeveled(EventData data) {
         Entity target = data.GetEntity("Target");
         int level = data.GetInt("Level");
@@ -167,6 +176,8 @@ public class HUDPanel : BasePanel
 
         UpdateLevel(level);
     }
+
+
 
     public void UpdateStockpile() {
         if (EntityManager.ActivePlayer.levelsStored > 0) {

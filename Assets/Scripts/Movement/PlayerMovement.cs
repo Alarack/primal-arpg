@@ -31,6 +31,7 @@ public class PlayerMovement : EntityMovement
 
     private void OnEnable() {
         playerInputActions.Player.Dash.performed += OnDash;
+        playerInputActions.Player.Potion.performed += OnPotion;
         //playerInputActions.Player.Look.performed += OnLook;
         //playerInputActions.Player.Move.performed += OnMove;
         //playerInputActions.Player.Move.canceled += OnMoveRelease;
@@ -38,6 +39,7 @@ public class PlayerMovement : EntityMovement
 
     private void OnDisable() {
         playerInputActions.Player.Dash.performed -= OnDash;
+        playerInputActions.Player.Potion.performed -= OnPotion;
     }
 
     private void Update()
@@ -51,6 +53,14 @@ public class PlayerMovement : EntityMovement
 
     private void OnDash(InputAction.CallbackContext context) {
         Dash();
+    }
+
+    private void OnPotion(InputAction.CallbackContext context) {
+        if (Owner.Stats[StatName.HeathPotions] > 0) {
+            StatAdjustmentManager.ApplyStatAdjustment(Owner, -1, StatName.HeathPotions, StatModType.Flat, StatModifierData.StatVariantTarget.RangeCurrent, Owner, null);
+            Owner.Stats.AdjustStatRangeByPercentOfMaxValue(StatName.Health, 0.75f, Owner);
+            AudioManager.PlayPotionSound();
+        }
     }
 
 

@@ -91,7 +91,8 @@ public enum StatName
     GlobalProjectileSpeedModifier,
     GlobalStatusDurationModifier,
     GlobalStatusIntervalModifier,
-    GlobalEssenceCostModifier
+    GlobalEssenceCostModifier,
+    HeathPotions
 
 
 }
