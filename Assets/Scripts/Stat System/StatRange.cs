@@ -114,6 +114,13 @@ public class StatRange : BaseStat {
         RemoveAllMaxModifiersFromSource(source);
     }
 
+    public void HardReset(float currentValue = 0f) {
+        MinValueStat.HardReset();
+        MaxValueStat.HardReset();
+        this.currentValue = currentValue;
+        CheckBounds();
+    }
+
 
     #endregion
 

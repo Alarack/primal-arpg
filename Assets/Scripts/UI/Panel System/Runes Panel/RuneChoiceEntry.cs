@@ -12,6 +12,7 @@ public class RuneChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public Image selectionImage;
     public GameObject shimmer;
     public CanvasGroup imagefader;
+    public AudioClip selectSound;
     public Item RuneItem { get; private set; }
     public bool IsSelected { get; private set; }
 
@@ -40,6 +41,10 @@ public class RuneChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
         shimmer.transform.localPosition = shimmerStartPos;
         shimmer.transform.DOLocalMove(new Vector2(64f, -64f), 1f);
         imagefader.DOFade(1f, 1f);
+
+        if(selectSound != null) {
+            AudioManager.PlaySoundClip(selectSound, transform.position, 1f);
+        }
 
         if(RuneItem.Equipped == false) {
             EntityManager.ActivePlayer.Inventory.EquipRune(RuneItem, runesPanel.CurrentAbility);

@@ -3202,11 +3202,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffca342351792e24388aee833f50fbea, type: 3}
---- !u!4 &614629080 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1231663962481766579, guid: 253183a1dd1c7b841a4db247c64ec1c0, type: 3}
-  m_PrefabInstance: {fileID: 869138708}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &629972236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 409792, guid: c4e46d0b8ddbfe049ac8facbc1652648, type: 3}
@@ -3262,6 +3257,7 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  statusVFXPosition: {fileID: 0}
   spawnSFXVolume: 1
   spawnSFX: []
   hurtSFXVolume: 1
@@ -3664,7 +3660,7 @@ Transform:
   - {fileID: 3178640798166941785}
   - {fileID: 1470017568052256465}
   - {fileID: 414607169}
-  - {fileID: 614629080}
+  - {fileID: 715565734}
   - {fileID: 632411215}
   - {fileID: 1654114724}
   m_Father: {fileID: 0}
@@ -3715,6 +3711,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
+--- !u!4 &715565734 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5338578833090306291, guid: 253183a1dd1c7b841a4db247c64ec1c0, type: 3}
+  m_PrefabInstance: {fileID: 869138708}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &718832127
 GameObject:
   m_ObjectHideFlags: 0
@@ -4398,6 +4399,7 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  statusVFXPosition: {fileID: 0}
   spawnSFXVolume: 1
   spawnSFX: []
   hurtSFXVolume: 1
@@ -4688,6 +4690,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1231663962481766579, guid: 253183a1dd1c7b841a4db247c64ec1c0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464927602910158994, guid: 253183a1dd1c7b841a4db247c64ec1c0, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4628599014210644933, guid: 253183a1dd1c7b841a4db247c64ec1c0, type: 3}
@@ -5219,6 +5225,7 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  statusVFXPosition: {fileID: 0}
   spawnSFXVolume: 1
   spawnSFX: []
   hurtSFXVolume: 1
@@ -5824,6 +5831,7 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
+  statusVFXPosition: {fileID: 0}
   spawnSFXVolume: 1
   spawnSFX: []
   hurtSFXVolume: 1

@@ -59,6 +59,7 @@ public abstract class Entity : MonoBehaviour {
     public GameObject spawnEffectPrefab;
     public GameObject facingIndicator;
     public Transform castingVFXPosition;
+    public Transform statusVFXPosition;
 
     [Header("SFX")]
     public float spawnSFXVolume = 1f;
@@ -487,6 +488,10 @@ public abstract class Entity : MonoBehaviour {
 
     public Transform GetCastingVFXPosition() {
         return castingVFXPosition == null ? transform : castingVFXPosition.transform;
+    }
+
+    public Transform GetStatusVFXPosition() {
+        return statusVFXPosition == null ? transform : statusVFXPosition.transform;
     }
 
     #endregion

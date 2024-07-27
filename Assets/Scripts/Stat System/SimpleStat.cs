@@ -252,7 +252,7 @@ public class SimpleStat : BaseStat
         modDictionary.Clear();
         isDirty = true;
 
-        onValueChanged(this, null, 0f);
+        onValueChanged?.Invoke(this, null, 0f);
     }
 
 

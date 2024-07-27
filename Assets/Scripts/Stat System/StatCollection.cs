@@ -311,6 +311,16 @@ public class StatCollection {
         targetStat.Empty(source);
     }
 
+    public void HardResetStatRange(StatName name, object source, float newValue = 0f) {
+        if (Contains(name) == false) {
+            Debug.LogWarning("Stat: " + name + " was not found");
+            return;
+        }
+
+        StatRange targetStat = GetStat<StatRange>(name);
+        targetStat.HardReset(newValue);
+    }
+
     public void AddModifier(StatName name, StatModifier mod) {
         if (Contains(name) == false) {
             Debug.LogWarning("Stat: " + name + " was not found");
