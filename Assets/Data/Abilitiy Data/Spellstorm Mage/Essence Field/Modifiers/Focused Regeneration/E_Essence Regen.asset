@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Essence Regen Effect
-    effectDescription: Increase Essence Regen rate by {}
+    effectDescription: Reduce your Essence Regen time by {}%
     type: 1
     targeting: 1
     subTarget: 0
@@ -23,14 +23,18 @@ MonoBehaviour:
     deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
+    nonStacking: 0
+    onlyShowTooltipInRune: 0
+    showRiderTooltip: 0
+    showScalers: 0
+    inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     otherAbilityName: 
     otherEffectName: 
+    targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
     payloadPrefab: {fileID: 0}
-    payloadCount: 1
-    shotDelay: 0.2
     payloadStatData: []
     spawnLocation: 0
     spawnLocationStart: 0
@@ -43,6 +47,7 @@ MonoBehaviour:
       parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 0
+      affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
@@ -53,7 +58,7 @@ MonoBehaviour:
       m_Bits: 0
     modData:
     - targetStat: 48
-      value: -0.25
+      value: 0.25
       modifierType: 2
       variantTarget: 0
       modValueSetMethod: 0
@@ -126,10 +131,12 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
+    addMissingStatIfNotPresent: 0
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
+    resetMovement: 0
     targetDestination: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
@@ -141,6 +148,12 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    effectsToAdd: []
+    targetAbilityToAddEffectsTo: 
+    ridersToAdd: []
+    ridersToRemove: []
+    effectsToRemove: []
+    targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
@@ -152,3 +165,11 @@ MonoBehaviour:
     spawnType: 0
     nameOfAbilityToActivate: 
     targetStateName: 
+    tagsToAdd: 
+    tagsToRemove: 
+    newPayloadPrefab: {fileID: 0}
+    newEffectZonePrefab: {fileID: 0}
+    modifiedMovementBehavior: 0
+    modifiedSeekDuration: -1
+    modifiedDrunkInterval: 0.2
+    cooldownElapsedModifier: 0

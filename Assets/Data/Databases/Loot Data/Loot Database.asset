@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f12da2e5e7d9f045a03e622ce91dfe0, type: 3}
   m_Name: Loot Database
   m_EditorClassIdentifier: 
+  baseEnchantingCost: 25
   itemStatAffixes:
   - stat: 0
     baseValue: 1
@@ -22,14 +23,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: Health Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -48,6 +52,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 61
     baseValue: 0.2
     tierIncrament: 0.2
@@ -57,14 +63,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: GlobalMoveSpeedModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -83,6 +92,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 23
     baseValue: 0.2
     tierIncrament: 0.2
@@ -92,14 +103,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: GlobalEffectDurationModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -118,6 +132,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 14
     baseValue: 0.2
     tierIncrament: 0.2
@@ -127,14 +143,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: ShotCount Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -153,6 +172,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 21
     baseValue: 0.05
     tierIncrament: 0.05
@@ -162,14 +183,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: CooldownReduction Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -188,6 +212,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 22
     baseValue: 0.1
     tierIncrament: 0.1
@@ -197,14 +223,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: GlobalDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -223,6 +252,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 24
     baseValue: 0.1
     tierIncrament: 0.1
@@ -232,14 +263,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: MeleeDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -258,6 +292,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 25
     baseValue: 0.05
     tierIncrament: 0.05
@@ -267,14 +303,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: OverloadChance Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -293,6 +332,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 26
     baseValue: 0.25
     tierIncrament: 0.25
@@ -302,14 +343,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: OverloadDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -328,6 +372,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 29
     baseValue: 0.2
     tierIncrament: 0.2
@@ -337,14 +383,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: ProjectilePierceCount Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -363,6 +412,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 32
     baseValue: -0.1
     tierIncrament: -0.1
@@ -372,14 +423,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: GlobalEffectIntervalModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -398,6 +452,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 33
     baseValue: 0.1
     tierIncrament: 0.1
@@ -407,14 +463,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: DashCooldown Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -433,6 +492,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 34
     baseValue: 0.2
     tierIncrament: 0.2
@@ -442,14 +503,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: ProjectileChainCount Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -468,6 +532,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 35
     baseValue: 0.2
     tierIncrament: 0.2
@@ -477,14 +543,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: ProjectileSplitCount Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -503,6 +572,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 39
     baseValue: 0.2
     tierIncrament: 0.2
@@ -512,14 +583,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: GlobalEffectSizeModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -538,6 +612,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 43
     baseValue: 0.2
     tierIncrament: 0.2
@@ -547,14 +623,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: GlobalProjectileSizeModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -573,28 +652,33 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 48
-    baseValue: 0.1
-    tierIncrament: 0.1
+    baseValue: 2
+    tierIncrament: 2
     baseAffixItem:
       Type: 6
       affixStatTarget: 48
       entityClass: 0
       itemName: EssenceRegenerationRate Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
       - targetStat: 48
-        value: 0.1
+        value: 2
         modifierType: 0
         variantTarget: 0
         modValueSetMethod: 0
@@ -608,6 +692,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 49
     baseValue: 0.01
     tierIncrament: 0.01
@@ -617,14 +703,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: EssenceRegenerationValue Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -643,6 +732,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 52
     baseValue: 0.1
     tierIncrament: 0.1
@@ -652,14 +743,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: CastSpeedModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -678,6 +772,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 53
     baseValue: 0.2
     tierIncrament: 0.2
@@ -687,14 +783,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: MaxMinionCount Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -713,6 +812,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 55
     baseValue: 0.2
     tierIncrament: 0.2
@@ -722,14 +823,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: MinionDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -748,6 +852,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 56
     baseValue: 0.2
     tierIncrament: 0.2
@@ -757,14 +863,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: FireDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -783,6 +892,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 57
     baseValue: 0.2
     tierIncrament: 0.2
@@ -792,14 +903,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: WaterDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -818,6 +932,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 58
     baseValue: 0.2
     tierIncrament: 0.2
@@ -827,14 +943,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: AirDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -853,6 +972,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 59
     baseValue: 0.2
     tierIncrament: 0.2
@@ -862,14 +983,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: ForceDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -888,6 +1012,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 60
     baseValue: 0.2
     tierIncrament: 0.2
@@ -897,14 +1023,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: PoisonDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -923,6 +1052,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 73
     baseValue: 0.2
     tierIncrament: 0.2
@@ -932,14 +1063,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: ArcaneDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -958,6 +1092,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 74
     baseValue: 0.2
     tierIncrament: 0.2
@@ -967,14 +1103,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: VoidDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -993,6 +1132,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 80
     baseValue: 0.2
     tierIncrament: 0.2
@@ -1002,14 +1143,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: TimeDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -1028,6 +1172,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 75
     baseValue: 0.2
     tierIncrament: 0.2
@@ -1037,14 +1183,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: SpatialDamageModifier Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -1063,6 +1212,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 10
     baseValue: 0.2
     tierIncrament: 0.2
@@ -1072,14 +1223,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: ProjectileLifetime Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -1098,6 +1252,8 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
   - stat: 47
     baseValue: 1
     tierIncrament: 0.5
@@ -1107,14 +1263,17 @@ MonoBehaviour:
       entityClass: 0
       itemName: Essence Booster
       itemDescription: 
+      secondaryDescription: 
       itemValue: 0
       runeAbilityTarget: 
       validSlots: 
       abilityTags: 
+      targetedAbilityName: 
       itemIcon: {fileID: 0}
       pickupIcon: {fileID: 0}
       pickupOnCollision: 0
       tier: 1
+      baseAffixSlots: 2
       minDamage: 0
       maxDamage: 0
       statModifierData:
@@ -1133,3 +1292,5 @@ MonoBehaviour:
         scalers: []
       abilityDefinitions: []
       learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []

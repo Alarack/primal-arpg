@@ -128,7 +128,7 @@ public abstract class Entity : MonoBehaviour {
             AbilityManager.Setup();
 
         if(Stats.Contains(StatName.EssenceRegenerationRate) == true)
-            essenceRegenTimer = new Timer(Stats[StatName.EssenceRegenerationRate], RegenEssence, true);
+            essenceRegenTimer = new Timer(CalculateEssenceRegenRate(), RegenEssence, true);
 
 
         SendEntitySpawnEvent();
@@ -231,13 +231,21 @@ public abstract class Entity : MonoBehaviour {
 
     protected void OnEssenceRegenChanged(BaseStat stat, object source, float value) {
         //Debug.Log("Essence regen changed: " + value + " :: " + Stats[StatName.EssenceRegenerationRate]);
-        essenceRegenTimer.SetDuration(stat.ModifiedValue);
+        essenceRegenTimer.SetDuration(CalculateEssenceRegenRate());
     }
 
     protected void RegenEssence(EventData data) {
         //Debug.Log("Regening: " + Stats[StatName.EssenceRegenerationValue] + "% of max essence. CurrentValue: " + Stats[StatName.Essence]);
         Stats.AdjustStatRangeByPercentOfMaxValue(StatName.Essence, Stats[StatName.EssenceRegenerationValue], this);
         SendEssenceChangedEvent(Stats[StatName.EssenceRegenerationValue]);
+    }
+
+    public float CalculateEssenceRegenRate() {
+        float statValue = Stats[StatName.EssenceRegenerationRate];
+
+        float convertedValue = 1 / statValue;
+
+        return convertedValue;
     }
 
     #endregion
