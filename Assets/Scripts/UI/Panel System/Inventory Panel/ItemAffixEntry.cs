@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System.Text;
+using DG.Tweening;
 
 public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
 
@@ -12,6 +13,9 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
     public Image affixBG;
     public Image borderImage;
 
+    [Header("VFX")]
+    public CanvasGroup fader;
+    public GameObject shimmer;
 
 
     private Item currentItem;
@@ -26,6 +30,10 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
         this.affixData = affixData;
 
         SetupDisplay();
+
+        fader.alpha = 0f;
+        shimmer.transform.DOLocalMove(new Vector2(311f, 0f), 0.75f);
+        fader.DOFade(1f, 0.3f);
     }
 
 

@@ -41,6 +41,7 @@ public class InventoryPanel : BasePanel {
 
     private List<StatDisplayEntry> statDisplayEntries = new List<StatDisplayEntry>();
 
+    private Task createAffixTask;
     //[Header("Testing Debug Things")]
     //public TextMeshProUGUI cdrText;
 
@@ -337,15 +338,26 @@ public class InventoryPanel : BasePanel {
             return;
         }
 
+        if (createAffixTask != null && createAffixTask.Running == true)
+            return;
+
+        createAffixTask = new Task(CreateAffixEntries());
+
+    }
+
+    private IEnumerator CreateAffixEntries() {
+        WaitForSeconds waiter = new WaitForSeconds(0.2f);
+        
         List<ItemData> affixData = ItemSpawner.CreateItemAffixSet(5);
 
-        itemAffixEntries.PopulateList(affixData.Count, affixTemplate, affixHolder, true);
+        itemAffixEntries.PopulateList(affixData.Count, affixTemplate, affixHolder, false);
 
         for (int i = 0; i < itemAffixEntries.Count; i++) {
             itemAffixEntries[i].Setup(this, forgeSlot.MyItem, affixData[i]);
+            itemAffixEntries[i].gameObject.SetActive(true);
+            yield return waiter;
             //Debug.Log("Created an Affix: " + affixData[i].affixStatTarget + " " + TextHelper.FormatStat(affixData[i].affixStatTarget, affixData[i].statModifierData[0].value) + " Tier: " + affixData[i].tier);
         }
-
     }
 
     public void OnAffixSelected(ItemData affixdata) {
@@ -354,7 +366,10 @@ public class InventoryPanel : BasePanel {
             return;
         }
 
-        if(selectedSlot == null) {
+        if (createAffixTask != null && createAffixTask.Running == true)
+            return;
+
+        if (selectedSlot == null) {
             Debug.LogError("No item affix slot is selected");
         }
 

@@ -397,9 +397,9 @@ public class LootDatabase : ScriptableObject {
 
         public float GetTierValue(int tier) {
             
-            if(stat == StatName.EssenceRegenerationRate) {
-                Debug.LogWarning("Essence Regen Rate: " + baseValue + (tierIncrament * (tier - 1)));
-            }
+            //if(stat == StatName.EssenceRegenerationRate) {
+            //    Debug.LogWarning("Essence Regen Rate: " + baseValue + (tierIncrament * (tier - 1)));
+            //}
             
             return baseValue + (tierIncrament * (tier -1));
         }
