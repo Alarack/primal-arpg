@@ -188,7 +188,7 @@ public class EntityManager : Singleton<EntityManager> {
         ActivePlayer.RemoveAllStatuses();
         ActivePlayer.AbilityManager.ResetAbilities();
         ActivePlayer.ResetLevel();
-        
+        PanelManager.GetPanel<InventoryPanel>().ResetForge();
 
  
         if(ActiveEntities.TryGetValue(Entity.EntityType.Enemy, out List<Entity> enemies)){

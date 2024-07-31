@@ -99,7 +99,7 @@ public abstract class Room {
             || type == ItemType.SkillPoint
             || type == ItemType.HealthPotion ? 1 : count;
 
-        if (this is ShopRoom) {
+        if (this is ShopRoom || this is BossRoom) {
             countOverride = count;
         }
 

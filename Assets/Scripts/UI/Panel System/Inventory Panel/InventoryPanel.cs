@@ -122,7 +122,7 @@ public class InventoryPanel : BasePanel {
             StatName.StatReroll,
             StatName.EssenceShield,
             StatName.SkillPoint,
-
+            StatName.HeathPotions,
 
 
         };
@@ -323,10 +323,16 @@ public class InventoryPanel : BasePanel {
         }
     }
 
-    public void UpdateAllAffixSlots() {
-        for (int i = 0; i < itemAffixSlots.Count; i++) {
-            UpdateAffixSlot(itemAffixSlots[i]);
-        }
+    //public void UpdateAllAffixSlots() {
+    //    for (int i = 0; i < itemAffixSlots.Count; i++) {
+    //        UpdateAffixSlot(itemAffixSlots[i]);
+    //    }
+    //}
+
+    public void ResetForge() {
+        itemAffixEntries.ClearList();
+        itemAffixSlots.ClearList();
+        forgeSlot.Remove();
     }
 
     public void OnForgeClicked() {
