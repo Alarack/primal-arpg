@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum CursorMode
 {
@@ -26,10 +27,10 @@ public class CustomCursor : Singleton<CustomCursor>
     /// </summary>
 
     [Header("Cursor Sprites")]
-    public SpriteRenderer cursorSprite;
-    public SpriteRenderer cursorEdgeSmall;
-    public SpriteRenderer cursorEdgeMedium;
-    public SpriteRenderer cursorEdgeLarge;
+    public Image cursorSprite;
+    public Image cursorEdgeSmall;
+    public Image cursorEdgeMedium;
+    public Image cursorEdgeLarge;
 
     [Header("Cursor Settings")]
     //The speed at which the color scrolling occurs. Bounded Range should be .2f to 3f
@@ -91,7 +92,7 @@ public class CustomCursor : Singleton<CustomCursor>
 
     private void FollowCursor()
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = Input.mousePosition;
         transform.position = mousePosition;
     }
 
@@ -123,7 +124,7 @@ public class CustomCursor : Singleton<CustomCursor>
     //Coroutine that checks which cursor mode is enabled and which edge to target with the effect.
     private IEnumerator PulseOrPride()
     {
-        SpriteRenderer targetEdge = GetEdge();
+        Image targetEdge = GetEdge();
 
         if (currentCursorMode == CursorMode.Pulse && IsColorLerpRunning() == true)
         {
@@ -194,14 +195,14 @@ public class CustomCursor : Singleton<CustomCursor>
 
     private void UpdateDefaultEdgeColor()
     {
-        SpriteRenderer targetEdge = GetEdge();
+        Image targetEdge = GetEdge();
         targetEdge.color = edgeColorOne;
     }
 
-    private SpriteRenderer GetEdge()
+    private Image GetEdge()
     {
 
-        SpriteRenderer edge = currentEdgeThickness switch
+        Image edge = currentEdgeThickness switch
         {
             CursorEdgeThickness.Small => cursorEdgeSmall,
             CursorEdgeThickness.Medium => cursorEdgeMedium,
