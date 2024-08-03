@@ -27,6 +27,8 @@ public class Tooltip : MonoBehaviour
     private CanvasGroup canvasGroup;
     private Canvas canvas;
 
+    private Vector2 tempOffset;
+
     private void Awake() {
         view = transform.Find("View").gameObject;
         canvas = GetComponent<Canvas>();
@@ -37,13 +39,17 @@ public class Tooltip : MonoBehaviour
 
     }
 
-    public void Show() {
+    public void Show(float xOffset = 0f, float yOffset = 0f) {
         view.gameObject.SetActive(true);
+
+        tempOffset = new Vector2(xOffset, yOffset);
         //fadeInFeedback.PlayFeedbacks();
     }
 
     public void Hide() {
         view.gameObject.SetActive(false);
+
+        tempOffset = Vector2.zero;
         //fadeInFeedback.StopFeedbacks();
         //fadeOutFeedback.PlayFeedbacks();
 
@@ -73,7 +79,7 @@ public class Tooltip : MonoBehaviour
 
 
     private void SetTooltipPosition() {
-        Vector2 newPos = (Vector2)Input.mousePosition + offset;
+        Vector2 newPos = (Vector2)Input.mousePosition + offset + tempOffset;
         //newPos.z = 0f;
         float rightEdgeToScreenEdgeDistance = Screen.width - (newPos.x + rectTransform.rect.width * canvas.scaleFactor / 2) - padding;
         if (rightEdgeToScreenEdgeDistance < 0) {

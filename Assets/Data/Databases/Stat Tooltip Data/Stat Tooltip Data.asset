@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb066a032885e74c8493d7fcd1f277a, type: 3}
+  m_Name: Stat Tooltip Data
+  m_EditorClassIdentifier: 
+  tooltipData:
+  - stat: 21
+    decription: 'Reduces the time for skills to cooldown. '
+  - stat: 16
+    decription: Influnces the random rotation added to projectiles. 0% Accuracy impose
+      up to 360 degrees of random rotation.
+  - stat: 23
+    decription: Multiplier for the duration for Zone Effects.
+  - stat: 24
+    decription: Multiplier on all Melee damage.
+  - stat: 25
+    decription: Chance for any skill to Overload (Critical Hit) when dealing damage.
+  - stat: 32
+    decription: Multiplier on interval time for persistant Zone Effects which apply
+      an effect over time.
+  - stat: 33
+    decription: Cooldown for your Dash.
+  - stat: 39
+    decription: Multiplier on the size of Zone Effects and Area Effects.
+  - stat: 43
+    decription: Multiplier on Projectile Size. Can also affect Area Effects delivered
+      by projectiles.
+  - stat: 48
+    decription: The amount of times per second your Essence Regen Amount is applied.
+  - stat: 49
+    decription: The percentage of your maximum Essence regained.
+  - stat: 55
+    decription: Multiplier on all Minion damage.
+  - stat: 14
+    decription: The number of bonus projectiles created for all Skills that create
+      projectiles.
+  - stat: 61
+    decription: Multipler on your Move Speed.
+  - stat: 53
+    decription: A flat bonus to the maximum number of Minions you can create per
+      Skill.
+  - stat: 29
+    decription: The number of times your projectiles can pierce. Sacks with Skill
+      that produce naturally piercing projectiles.
+  - stat: 52
+    decription: Multiplier on your cast time for Skills with cast times.
+  - stat: 67
+    decription: Damage Reduction percentage from all damage.
+  - stat: 82
+    decription: Multiplier on the lifetime of all your projectiles.
+  - stat: 83
+    decription: Multiplier on the move speed of all your projectiles.
+  - stat: 84
+    decription: Multiplier on the duration of all Status Effects you create.
+  - stat: 85
+    decription: Multiplier on the interval time of all Status Effects you create.
+  - stat: 86
+    decription: Multiplier on all Essence Costs.
+  - stat: 26
+    decription: Multiplier on damage deal when Overloading
+  - stat: 22
+    decription: Multiplier on all damage dealt.

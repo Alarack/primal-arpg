@@ -210,9 +210,21 @@ public class StatCollection {
             results.Add(name, value);
         }
 
-
-
         return results;
+    }
+
+    public List<StatName> GetListOfStatNames(List<StatName> exceptions = null) {
+        List<StatName> stats = new List<StatName>();
+
+        foreach (var entry in statDictionary) {
+            if (exceptions != null && exceptions.Contains(entry.Key))
+                continue;
+
+            stats.Add(entry.Key);
+        }
+
+
+        return stats;
     }
 
     #region GET STAT VALUES

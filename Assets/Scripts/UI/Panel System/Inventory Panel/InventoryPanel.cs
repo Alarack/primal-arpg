@@ -132,13 +132,13 @@ public class InventoryPanel : BasePanel {
         }
 
         Dictionary<string, string> allStatDisplays = EntityManager.ActivePlayer.Stats.GetStatDisplays(exceptions);
-
+        List<StatName> relevantStats = EntityManager.ActivePlayer.Stats.GetListOfStatNames(exceptions);
         statDisplayEntries.PopulateList(allStatDisplays.Count, statDisplayTemplate, statDisplayHolder, true);
 
         int count = 0;
         foreach (var statDisplay in allStatDisplays) {
             string displayText = statDisplay.Key + ": " + statDisplay.Value;
-            statDisplayEntries[count].Setup(displayText);
+            statDisplayEntries[count].Setup(displayText, relevantStats[count]);
             count++;
         }
 
