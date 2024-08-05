@@ -16,7 +16,8 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
     [Header("VFX")]
     public CanvasGroup fader;
     public GameObject shimmer;
-
+    public ParticleSystem selectionEffect;
+    public CanvasGroup flashFader;
 
     private Item currentItem;
     private InventoryPanel inventoryPanel;
@@ -36,7 +37,10 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
         fader.DOFade(1f, 0.3f);
     }
 
-
+    public void ShowSelectionEffects() {
+        selectionEffect.Play();
+        flashFader.DOFade(0.8f, 0.5f);
+    }
 
     private void SetupDisplay() {
         StringBuilder builder = new StringBuilder();
@@ -62,7 +66,7 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
     #region UI CALLBACKS
 
     public void OnPointerClick(PointerEventData eventData) {
-        inventoryPanel.OnAffixSelected(affixData);
+        inventoryPanel.OnAffixSelected(affixData, this);
     }
 
     public void OnPointerEnter(PointerEventData eventData) {

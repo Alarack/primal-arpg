@@ -23,6 +23,9 @@ public class InventoryPanel : BasePanel {
     public ItemAffixSlotEntry affixSlotTemplate;
     public Transform affixSlotHolder;
 
+    [Header("VFX")]
+    public ParticleSystem forgeSelectionVFX;
+
     private List<ItemAffixSlotEntry> itemAffixSlots = new List<ItemAffixSlotEntry>();
     private ItemAffixSlotEntry selectedSlot;
 
@@ -42,6 +45,7 @@ public class InventoryPanel : BasePanel {
     private List<StatDisplayEntry> statDisplayEntries = new List<StatDisplayEntry>();
 
     private Task createAffixTask;
+    private Task selectAffixTask;
     //[Header("Testing Debug Things")]
     //public TextMeshProUGUI cdrText;
 
@@ -366,13 +370,16 @@ public class InventoryPanel : BasePanel {
         }
     }
 
-    public void OnAffixSelected(ItemData affixdata) {
+    public void OnAffixSelected(ItemData affixdata, ItemAffixEntry entry) {
         if(forgeSlot.MyItem == null) {
             itemAffixEntries.ClearList();
             return;
         }
 
         if (createAffixTask != null && createAffixTask.Running == true)
+            return;
+
+        if (selectAffixTask != null && selectAffixTask.Running == true)
             return;
 
         if (selectedSlot == null) {
@@ -386,10 +393,26 @@ public class InventoryPanel : BasePanel {
             forgeSlot.MyItem.ReplaceAffix(selectedSlot.AffixData, affixdata);
         }
 
-       
-        itemAffixEntries.ClearList();
         selectedSlot.UpdateAffix(affixdata);
+
+        selectAffixTask = new Task(ShowSelectionEffect(entry));
     }
+
+    private IEnumerator ShowSelectionEffect(ItemAffixEntry entry) {
+        WaitForEndOfFrame waiter = new WaitForEndOfFrame();
+
+        entry.ShowSelectionEffects();
+        forgeSelectionVFX.Play();
+
+        yield return waiter;    
+
+        while(entry.selectionEffect.particleCount > 0) {
+            yield return waiter;
+        }
+
+        itemAffixEntries.ClearList();
+    }
+
 
     public void OnAffixSlotSelected(ItemAffixSlotEntry slotEntry) {
         selectedSlot = slotEntry;
