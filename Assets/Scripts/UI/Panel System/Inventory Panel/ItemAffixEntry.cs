@@ -12,6 +12,7 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
     public TextMeshProUGUI affixText;
     public Image affixBG;
     public Image borderImage;
+    public Image statIcon;
 
     [Header("VFX")]
     public CanvasGroup fader;
@@ -43,23 +44,20 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
     }
 
     private void SetupDisplay() {
-        StringBuilder builder = new StringBuilder();
-
-        //for (int i = 0; i < affixData.statModifierData.Count; i++) {
-        //    StatModifierData affixMod = affixData.statModifierData[i];
-            
-
-
-        //    builder.Append(TextHelper.ColorizeText( "Tier - ", affixData.GetTierColor(affixData.tier))).Append(affixData.GetTier())
-        //         .Append(" ")
-        //         .Append(affixMod.targetStat.ToString().SplitCamelCase())
-        //         .Append(": ")
-        //         .Append(TextHelper.FormatStat(affixMod.targetStat, affixMod.value))
-                
-        //         .AppendLine();
-        //}
 
         affixText.text = affixData.GetAffixTooltip();
+
+        Sprite statIcon = affixData.GetAffixIcon();
+
+        if(statIcon != null) {
+            this.statIcon.gameObject.SetActive(true);
+            Color tierColor = affixData.GetTierColor(affixData.tier);
+            this.statIcon.sprite = statIcon;
+            this.statIcon.color = tierColor;
+        }
+        else {
+            this.statIcon.gameObject.SetActive(false);
+        }
     }
 
 

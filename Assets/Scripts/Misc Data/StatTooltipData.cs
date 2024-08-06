@@ -21,6 +21,17 @@ public class StatTooltipData : ScriptableObject
         return "";
     }
 
+    public Sprite GetStatIcon(StatName stat) {
+        for (int i = 0; i < tooltipData.Count; i++) {
+            if (stat == tooltipData[i].stat)
+                return tooltipData[i].icon;
+        }
+
+        //Debug.LogError("Stat not found in tooltip data: " + stat);
+
+        return null;
+    }
+
 
 
 
@@ -28,6 +39,7 @@ public class StatTooltipData : ScriptableObject
     public class StatTooltipEntry {
         public StatName stat;
         public string decription;
+        public Sprite icon;
 
 
     }

@@ -151,6 +151,12 @@ public class ItemData
         return builder.ToString();
     }
 
+    public Sprite GetAffixIcon() {
+        Sprite targetSprite = GameManager.Instance.tooltipData.GetStatIcon(statModifierData[0].targetStat);
+
+        return targetSprite;
+    }
+
     public Color GetTierColor(int tier) {
         if (tier == 0)
             return Color.white;
