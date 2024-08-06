@@ -39,7 +39,7 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
     public void ShowSelectionEffects() {
         selectionEffect.Play();
-        flashFader.DOFade(0.8f, 0.5f);
+        flashFader.DOFade(0.8f, 0.35f);
     }
 
     private void SetupDisplay() {
