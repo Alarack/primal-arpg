@@ -13,6 +13,7 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     public TextMeshProUGUI affixText;
     public Image affixBG;
     public Image borderImage;
+    public GameObject selectorArrow;
 
 
 
@@ -39,10 +40,12 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public void Select() {
         borderImage.color = Color.white;
+        selectorArrow.SetActive(true);
     }
 
     public void Deselect() {
-        borderImage.color = baseBorderColor;
+        borderImage.color = baseBorderColor; 
+        selectorArrow.SetActive(false);
     }
 
     private void SetupDisplay() {
