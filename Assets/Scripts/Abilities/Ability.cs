@@ -1330,6 +1330,12 @@ public class Ability {
     }
 
     private bool CheckCostWithoutSpending() {
+        
+        if(Source is EntityPlayer == false) {
+            //Debug.Log("Non player is checking cost of ability: " + Data.abilityName);
+            return true;
+        }
+        
         if (EntityManager.ActivePlayer.HasEnoughEssence(GetTotalEssenceCost()) == false) {
             //Debug.LogWarning("Not enough essence for " + Data.abilityName);
             return false;

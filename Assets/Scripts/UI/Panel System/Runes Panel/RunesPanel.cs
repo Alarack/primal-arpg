@@ -169,9 +169,11 @@ public class RunesPanel : BasePanel {
 
     public void OnLevelUpClicked() {
         
-        if(CurrentAbility.AbilityLevel == 3) {
+        if(CurrentAbility.AbilityLevel >= CurrentAbility.Data.runeGroupData.Count) {
             return;
         }
+
+
         
         float skillPoints = EntityManager.ActivePlayer.Stats[StatName.SkillPoint];
         if(skillPoints < 1f) {

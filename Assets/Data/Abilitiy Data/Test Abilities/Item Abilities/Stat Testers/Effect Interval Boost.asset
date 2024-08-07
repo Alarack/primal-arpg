@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Effect Interval Boost
+  m_EditorClassIdentifier: 
+  devItem: 0
+  startingItem: 0
+  itemData:
+    Type: 1
+    affixStatTarget: 1
+    entityClass: 0
+    itemName: Effect interval Boost
+    itemDescription: Makes your zones tick real fast
+    secondaryDescription: 
+    itemValue: 200
+    runeAbilityTarget: 
+    validSlots: 0400000005000000
+    abilityTags: 
+    targetedAbilityName: 
+    itemIcon: {fileID: 0}
+    pickupIcon: {fileID: 0}
+    pickupOnCollision: 0
+    tier: 0
+    baseAffixSlots: 2
+    minDamage: 0
+    maxDamage: 0
+    statModifierData:
+    - targetStat: 32
+      value: -0.5
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 0
+      deriveStatMultiplier: 0
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
+    abilityDefinitions: []
+    learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []
