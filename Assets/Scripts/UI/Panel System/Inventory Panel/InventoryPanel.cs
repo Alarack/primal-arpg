@@ -351,6 +351,8 @@ public class InventoryPanel : BasePanel {
         if (createAffixTask != null && createAffixTask.Running == true)
             return;
 
+        AudioManager.PlayForgeSound();
+
         createAffixTask = new Task(CreateAffixEntries());
 
     }
@@ -403,6 +405,7 @@ public class InventoryPanel : BasePanel {
 
         entry.ShowSelectionEffects();
         forgeSelectionVFX.Play();
+        AudioManager.PlayForgeSelect();
 
         yield return waiter;    
 
