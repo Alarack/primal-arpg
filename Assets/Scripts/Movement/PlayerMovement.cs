@@ -75,9 +75,18 @@ public class PlayerMovement : EntityMovement
     {
         RotateTowardMouse();
 
+        if (Owner.IsChanneling() == true)
+            return;
+
+
         float baseSpeed = Owner.Stats[StatName.MoveSpeed];
 
         float modifiedSpeed = baseSpeed * (1 + Owner.Stats[StatName.GlobalMoveSpeedModifier]);
+
+        if(Owner.IsCasting() == true) {
+            modifiedSpeed *= 1 + Owner.Stats[StatName.CastingMoveSpeedModifier];
+        }
+
 
         Vector2 moveForce = new Vector2(direction.x, direction.y) * modifiedSpeed * Time.fixedDeltaTime;
 

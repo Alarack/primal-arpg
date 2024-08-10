@@ -1181,7 +1181,10 @@ public class Ability {
 
 
         IsActive = true;
-        
+
+        if (IsChanneled == true)
+            Source.ActiveChannelingAbility = this;
+
         SendAbilityInitiatedEvent(activationInstance);
 
         TriggerAllEffectsInstantly(activationInstance);
@@ -1229,7 +1232,7 @@ public class Ability {
                 GameObject.Destroy(currentWindupVFX, 3f);
             }
 
-            Source.Movement.StopMovement();
+            //Source.Movement.StopMovement();
 
             return true;
         }
@@ -1364,7 +1367,9 @@ public class Ability {
             //Debug.LogWarning("The Source of an Ability: " + Data.abilityName + " is dead or null when resolving a cast time.");
             currentWindup = null;
             Source.ActivelyCastingAbility = null;
-            Source.Movement.CanMove = true;
+            if(IsChanneled == true)
+                Source.ActiveChannelingAbility = null;
+            //Source.Movement.CanMove = true;
             return;
         }
 
@@ -1372,7 +1377,9 @@ public class Ability {
         if (TrySpendCharge(1) == false) {
             currentWindup = null;
             Source.ActivelyCastingAbility = null;
-            Source.Movement.CanMove = true;
+            if (IsChanneled == true)
+                Source.ActiveChannelingAbility = null;
+            //Source.Movement.CanMove = true;
             return;
         }
 
@@ -1387,9 +1394,11 @@ public class Ability {
 
         //new Task(TriggerAllEffectsWithDelay(activationInstance));
         TriggerAllEffectsInstantly(activationInstance);
-        Source.Movement.CanMove = true;
+        //Source.Movement.CanMove = true;
         currentWindup = null;
         Source.ActivelyCastingAbility = null;
+        if (IsChanneled == true)
+            Source.ActiveChannelingAbility = this;
 
         //Debug.Log("Resuming: " + Data.abilityName);
     }
@@ -1402,7 +1411,9 @@ public class Ability {
 
             currentWindup = null;
             Source.ActivelyCastingAbility = null;
-            Source.Movement.CanMove = true;
+            if (IsChanneled == true)
+                Source.ActiveChannelingAbility = null;
+            //Source.Movement.CanMove = true;
         }
     }
 
@@ -1435,7 +1446,7 @@ public class Ability {
             GameObject.Destroy(currentWindupVFX, 3f);
         }
 
-        Source.Movement.StopMovement();
+        //Source.Movement.StopMovement();
 
         yield return waiter;
 
@@ -1456,8 +1467,9 @@ public class Ability {
         IsActive = false;
         //new Task(EndAllEffectsWithDelay(endInstance));
 
-        if(Tags.Contains(AbilityTag.Channeled) == true) {
+        if(IsChanneled == true) {
             channelingCostTimer.ResetTimer();
+            Source.ActiveChannelingAbility = null;
         }
 
         EndAllEffectsInstantly(endInstance);

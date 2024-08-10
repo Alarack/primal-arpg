@@ -24,29 +24,22 @@ public class EntityPlayer : Entity {
     }
 
     protected override void Start() {
-        base.Start();
-
-        
+        base.Start(); 
     }
 
     protected override void OnEnable() {
         base.OnEnable();
-
-        
-
     }
 
     protected override void OnDisable() {
         base.OnDisable();
     }
 
-
     protected override void Update() {
         base.Update();
         if (essenceRegenTimer != null) {
             essenceRegenTimer.UpdateClock();
         }
-
 
 #if UNITY_EDITOR
         if(Input.GetKeyDown(KeyCode.K)) {
@@ -60,9 +53,7 @@ public class EntityPlayer : Entity {
         if (Input.GetKeyDown(KeyCode.O)) {
             StatAdjustmentManager.ApplyStatAdjustment(this, 1, StatName.HeathPotions, StatModType.Flat, StatModifierData.StatVariantTarget.RangeCurrent, this, null);
         }
-
 #endif
-
     }
 
     public float GetDamgeRoll() {

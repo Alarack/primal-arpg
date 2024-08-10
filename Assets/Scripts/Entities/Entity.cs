@@ -85,6 +85,7 @@ public abstract class Entity : MonoBehaviour {
     public bool Invincible { get; protected set; }
 
     public Ability ActivelyCastingAbility { get; set; }
+    public Ability ActiveChannelingAbility { get; set; }
 
     public Ability SpawningAbility { get; set; }
 
@@ -103,6 +104,11 @@ public abstract class Entity : MonoBehaviour {
         if((entityType == EntityType.Enemy || entityType == EntityType.Player) && Stats.Contains(StatName.Armor) == false) {
             //Debug.Log("Adding base 0 armor to: " + EntityName);
             Stats.AddStat(new SimpleStat(StatName.Armor, 0f));
+        }
+
+        if ((entityType == EntityType.Enemy || entityType == EntityType.Player) && Stats.Contains(StatName.CastingMoveSpeedModifier) == false) {
+            //Debug.Log("Adding base 0 armor to: " + EntityName);
+            Stats.AddStat(new SimpleStat(StatName.CastingMoveSpeedModifier, -0.5f));
         }
 
         Movement = GetComponent<EntityMovement>();
@@ -282,6 +288,14 @@ public abstract class Entity : MonoBehaviour {
     //    Debug.LogError("Base Is Ability Active Casting. Overrwite this");
     //    return null;
     //}
+
+    public virtual bool IsCasting() {
+        return ActivelyCastingAbility != null;
+    }
+
+    public virtual bool IsChanneling() {
+        return ActiveChannelingAbility != null;
+    }
 
     #endregion
 

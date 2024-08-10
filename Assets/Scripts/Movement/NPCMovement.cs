@@ -93,7 +93,15 @@ public class NPCMovement : EntityMovement
 
     private Vector2 BasicMovement(Vector2 location) {
         Vector2 direction = location - (Vector2)transform.position;
-        Vector2 moveForce = direction.normalized * Owner.Stats[StatName.MoveSpeed] * Time.fixedDeltaTime;
+
+        float castingModifier = 1 + Owner.Stats[StatName.CastingMoveSpeedModifier];
+        float baseSpeed = Owner.Stats[StatName.MoveSpeed];
+
+        if(Owner.IsCasting() == true) {
+            baseSpeed *= castingModifier;
+        }
+        
+        Vector2 moveForce = direction.normalized * baseSpeed * Time.fixedDeltaTime;
 
         bool animMove = moveForce.magnitude > 0f;
 
@@ -109,7 +117,15 @@ public class NPCMovement : EntityMovement
     public Vector2 PerpendicularMovement(Vector2 location) {
         Vector2 direction = location - (Vector2)transform.position;
         Vector2 perp = Vector2.Perpendicular(direction);
-        Vector2 moveForce = perp.normalized * Owner.Stats[StatName.MoveSpeed] * Time.fixedDeltaTime;
+
+        float castingModifier = 1 + Owner.Stats[StatName.CastingMoveSpeedModifier];
+        float baseSpeed = Owner.Stats[StatName.MoveSpeed];
+
+        if (Owner.IsCasting() == true) {
+            baseSpeed *= castingModifier;
+        }
+
+        Vector2 moveForce = perp.normalized * baseSpeed * Time.fixedDeltaTime;
 
         bool animMove = moveForce.magnitude > 0f;
 

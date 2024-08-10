@@ -92,7 +92,9 @@ public enum StatName
     GlobalStatusDurationModifier,
     GlobalStatusIntervalModifier,
     GlobalEssenceCostModifier,
-    HeathPotions
+    HeathPotions,
+    ChannelingMoveSpeedModifier,
+    CastingMoveSpeedModifier
 
 
 }
