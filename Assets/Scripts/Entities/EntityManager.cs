@@ -185,6 +185,8 @@ public class EntityManager : Singleton<EntityManager> {
         ActivePlayer.Stats.SetStatValue(StatName.StatReroll, 3f, ActivePlayer);
         ActivePlayer.Stats.HardResetStatRange(StatName.HeathPotions, ActivePlayer, 1f);
         ActivePlayer.IsDead = false;
+        ActivePlayer.ActiveChannelingAbility = null;
+        ActivePlayer.ActivelyCastingAbility = null;
         ActivePlayer.RemoveAllStatuses();
         ActivePlayer.AbilityManager.ResetAbilities();
         ActivePlayer.ResetLevel();

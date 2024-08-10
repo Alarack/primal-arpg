@@ -124,7 +124,8 @@ public class RoomManager : Singleton<RoomManager> {
             _ => new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint },
         };
 
-        if(EntityManager.ActivePlayer.Stats.GetStatRangeRatio(StatName.Health) <= 0.25f) {
+        if(EntityManager.ActivePlayer.Stats.GetStatRangeRatio(StatName.Health) <= 0.25f 
+            || EntityManager.ActivePlayer.Stats.GetStatRangeRatio(StatName.HeathPotions) < 1f) {
             rewardTypes.Add(ItemType.HealthPotion);
         }
 
