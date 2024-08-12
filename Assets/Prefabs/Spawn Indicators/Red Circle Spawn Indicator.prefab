@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1360093681894129072
 MonoBehaviour:
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779b3746db68b0743a2de61b6831aa47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTime: 1
+  spawnTime: 2
   spawnAudioVolume: 0.5
   spawnInSFX:
   - {fileID: 8300000, guid: 3f59ed8105a05ee44b7eb1ef7608315d, type: 3}

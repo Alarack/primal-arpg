@@ -114,6 +114,7 @@ public class Projectile : Entity {
 
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
         SetupSize();
+        SetupProjectileStats();
 
         SendProjectileCreatedEvent();
     }
@@ -121,6 +122,29 @@ public class Projectile : Entity {
     private IEnumerator DelayEnvironmentMask() {
         yield return new WaitForSeconds(0.15f);
         projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Environment"));
+
+    }
+
+    private void SetupProjectileStats() {
+        if (Source == null)
+            return;
+
+        float ownerPierce = Source.Stats[StatName.ProjectilePierceCount];
+        float ownerChain = Source.Stats[StatName.ProjectileChainCount];
+        float ownerSplit = Source.Stats[StatName.ProjectileSplitCount];
+        float splitAmount = Source.Stats[StatName.ProjectileSplitQuantity];
+        if(ownerPierce > 0) 
+            Stats.AddModifier(StatName.ProjectilePierceCount, ownerPierce, StatModType.Flat, Source);
+        if (ownerChain > 0)
+            Stats.AddModifier(StatName.ProjectileChainCount, ownerChain, StatModType.Flat, Source);
+        if (ownerSplit > 0)
+            Stats.AddModifier(StatName.ProjectileSplitCount, ownerSplit, StatModType.Flat, Source);
+        if (splitAmount > 0)
+            Stats.AddModifier(StatName.ProjectileSplitQuantity, splitAmount, StatModType.Flat, Source);
+
+        if (Stats[StatName.ProjectileSplitCount] > 0 && Stats[StatName.ProjectileSplitQuantity] <=0)
+            Stats.AddModifier(StatName.ProjectileSplitQuantity, 1, StatModType.Flat, Source);
+
 
     }
 

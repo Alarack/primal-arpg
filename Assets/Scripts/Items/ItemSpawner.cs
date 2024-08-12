@@ -160,7 +160,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
         //List<ItemData> baseAffixItems = new List<ItemData>();
 
         List<LootDatabase.ItemStatAffixData> affixList = new List<LootDatabase.ItemStatAffixData>();
-        List<StatName> allStats = Instance.lootDatabase.statBoosters.Keys.ToList();
+        List<StatName> allStats = Instance.lootDatabase.itemAffixes.Keys.ToList();
         Instance.FilterStats(allStats, ref usedStats);
         allStats.Shuffle();
 
@@ -280,9 +280,14 @@ public class ItemSpawner : Singleton<ItemSpawner>
             StatName.ForceDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Force),
             StatName.PoisonDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Poison),
             StatName.ProjectileLifetime => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
+            StatName.ArcaneDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Arcane),
+            StatName.TimeDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Time),
+            StatName.VoidDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Void),
+            StatName.SpatialDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Space),
             _ => false,
         };
 
+        //Debug.Log(stat + " is relevant: " + result);
 
         return result;
     }

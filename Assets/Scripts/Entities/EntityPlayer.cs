@@ -86,10 +86,16 @@ public class EntityPlayer : Entity {
     public override bool HasAbilityOfTag(AbilityTag tag) {
 
         List<Ability> targetAbilities = AbilityManager.GetAbilitiesByTag(tag, AbilityCategory.KnownSkill);
+        bool unlocked = false;
+        foreach (Ability ability in targetAbilities) {
+            if(ability.Locked == false) {
+                unlocked = true;
+                break;
+            }
+        }
 
 
-
-        return false;
+        return unlocked;
     }
 
 

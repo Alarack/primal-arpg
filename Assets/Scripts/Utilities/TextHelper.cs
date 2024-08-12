@@ -133,7 +133,8 @@ public static class TextHelper
             StatName.GlobalStatusIntervalModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalEssenceCostModifier when value >= 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalEssenceCostModifier when value < 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
-
+            StatName.CastingMoveSpeedModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.CastingMoveSpeedModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             _ => "No Entry For: " + stat,
         };
 
@@ -212,6 +213,8 @@ public static class TextHelper
             StatName.GlobalEssenceCostModifier => "Essence Cost Modifier",
             StatName.GlobalStatusDurationModifier => "Status Duration Modifier",
             StatName.GlobalStatusIntervalModifier => "Status Interval Modifier",
+            StatName.CastingMoveSpeedModifier => "Casting Move Speed Modifier",
+            StatName.ChannelingMoveSpeedModifier => "Channeling Move Speed Modifier",
 
   
             _ => stat.ToString().SplitCamelCase(),
