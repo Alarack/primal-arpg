@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RewardPedestal : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class RewardPedestal : MonoBehaviour
     public RewardPedestalDisplay display;
     public GameObject blueAura;
     public GameObject shopAura;
+    public Mask passiveMask;
 
     public bool enforceCost;
 
@@ -20,6 +22,14 @@ public class RewardPedestal : MonoBehaviour
 
         blueAura.gameObject.SetActive(enforceCost == false);
         shopAura.gameObject.SetActive(enforceCost == true);
+        passiveMask.enabled = false;
+        if(rewardItem.Type == ItemType.Skill) {
+            if(rewardItem.learnableAbilities.Count > 0) {
+                if (rewardItem.learnableAbilities[0].AbilityData.category == AbilityCategory.PassiveSkill) {
+                    passiveMask.enabled = true;
+                }
+            }
+        }
 
     }
 

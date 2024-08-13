@@ -12,7 +12,12 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     public TextMeshProUGUI abilityNameText;
     public GameObject shimmer;
     public CanvasGroup fader;
-    
+
+    public Image borderImage;
+    public Sprite activeBorderSprite;
+    public Sprite passiveBordersprite;
+
+    public Mask passiveMask;
     public Ability AbilityChoice { get; private set; }
 
 
@@ -27,6 +32,15 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
         fader.alpha = 0f;
         shimmer.transform.DOLocalMove(new Vector2(-134f, -126f), 1f);
         fader.DOFade(1f, 0.3f);
+
+        if(ability.Data.category == AbilityCategory.PassiveSkill) {
+            passiveMask.enabled = true;
+            borderImage.sprite = passiveBordersprite;
+        }
+        else {
+            passiveMask.enabled = false;
+            borderImage.sprite = activeBorderSprite;
+        }
     }
 
     private void OnDisable() {

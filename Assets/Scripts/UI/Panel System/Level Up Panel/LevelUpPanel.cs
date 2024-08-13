@@ -35,6 +35,10 @@ public class LevelUpPanel : BasePanel
     public override void Open() {
         base.Open();
 
+        PanelManager.ClosePanel<SkillsPanel>();
+        PanelManager.ClosePanel<RunesPanel>();
+        PanelManager.ClosePanel<InventoryPanel>();
+
         if(statBoostEntries == null || statBoostEntries.Count == 0)
             SetupStatChoices();
 
