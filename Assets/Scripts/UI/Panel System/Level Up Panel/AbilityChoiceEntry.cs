@@ -18,6 +18,11 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     public Sprite passiveBordersprite;
 
     public Mask passiveMask;
+
+    [Header("VFX")]
+    public ParticleSystem selectionEffect;
+    public CanvasGroup flashFader;
+
     public Ability AbilityChoice { get; private set; }
 
 
@@ -47,6 +52,11 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
         DOTween.Kill(shimmer.transform);
     }
 
+
+    public void ShowSelectionEffect() {
+        selectionEffect.Play();
+        flashFader.DOFade(0.95f, 0.25f);
+    }
 
 
     #region UI CALLBACKS

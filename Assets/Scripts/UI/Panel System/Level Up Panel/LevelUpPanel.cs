@@ -24,6 +24,7 @@ public class LevelUpPanel : BasePanel
 
 
     private Task loadingChoicesTask;
+    private Task selectionVFXTask;
 
     protected override void Awake() {
         base.Awake();
@@ -163,6 +164,9 @@ public class LevelUpPanel : BasePanel
         if (loadingChoicesTask != null && loadingChoicesTask.Running == true)
             return;
 
+        if (selectionVFXTask != null && selectionVFXTask.Running == true)
+            return;
+
 
         EntityManager.ActivePlayer.levelsStored--;
         PanelManager.GetPanel<HUDPanel>().UpdateStockpile();
@@ -175,6 +179,32 @@ public class LevelUpPanel : BasePanel
         data.AddAbility("Ability", entry.AbilityChoice);
         EventManager.SendEvent(GameEvent.LevelUpAbilitySelected, data);
 
+        selectionVFXTask = new Task(ShowSelectionEffect(entry));
+
+        //if (EntityManager.ActivePlayer.levelsStored == 0) {
+        //    abilityChoiceEntries.ClearList();
+        //    Close();
+        //    TooltipManager.Hide();
+        //}
+        //else {
+        //    StartLoadingChoicesTask();
+        //}
+    }
+
+
+    private IEnumerator ShowSelectionEffect(AbilityChoiceEntry entry) {
+        WaitForEndOfFrame waiter = new WaitForEndOfFrame();
+
+        entry.ShowSelectionEffect();
+        AudioManager.PlayAbilitySelect();
+
+        yield return waiter;
+
+        while (entry.selectionEffect.particleCount > 0) {
+            yield return waiter;
+        }
+
+
         if (EntityManager.ActivePlayer.levelsStored == 0) {
             abilityChoiceEntries.ClearList();
             Close();
@@ -183,7 +213,10 @@ public class LevelUpPanel : BasePanel
         else {
             StartLoadingChoicesTask();
         }
+
     }
+
+
 
 
 }

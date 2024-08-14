@@ -18,6 +18,7 @@ public class AudioManager : Singleton<AudioManager>
     public AudioClip potionSound;
     public AudioClip forgeSound;
     public AudioClip forgeSelection;
+    public AudioClip abilitySelection;
 
     private Dictionary<AudioClip, List< AudioSource>> activeSources = new Dictionary<AudioClip, List<AudioSource>>();
 
@@ -76,6 +77,10 @@ public class AudioManager : Singleton<AudioManager>
 
     public static void PlayForgeSelect() {
         PlaySoundClip(Instance.forgeSelection, Instance.transform.position, 1f);
+    }
+
+    public static void PlayAbilitySelect() {
+        PlaySoundClip(Instance.abilitySelection, Instance.transform.position, 1f);
     }
 
     public static void PlaySoundClip(AudioClip clip, Vector2 position, float volume, float pitchVariance = 1f) {
