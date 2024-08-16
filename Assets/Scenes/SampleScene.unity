@@ -3156,6 +3156,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2617803404191611880, guid: ffca342351792e24388aee833f50fbea, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617803404191611880, guid: ffca342351792e24388aee833f50fbea, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4508094857686119200, guid: ffca342351792e24388aee833f50fbea, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -3199,6 +3207,18 @@ PrefabInstance:
     - target: {fileID: 4508094857686119200, guid: ffca342351792e24388aee833f50fbea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694889918983741598, guid: ffca342351792e24388aee833f50fbea, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694889918983741598, guid: ffca342351792e24388aee833f50fbea, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694889918983741598, guid: ffca342351792e24388aee833f50fbea, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3275,6 +3295,7 @@ MonoBehaviour:
       Value: {fileID: 1081101687, guid: 4da9c700b90cfc644af54f1ceb11ebef, type: 3}
     - Key: 0.25
       Value: {fileID: -245402835, guid: 4da9c700b90cfc644af54f1ceb11ebef, type: 3}
+  healthBar: {fileID: 0}
   spawnDelayTime: 0.5
   currentEliteAffixes: []
   active: 0
@@ -4418,6 +4439,7 @@ MonoBehaviour:
       Value: {fileID: 1081101687, guid: 4da9c700b90cfc644af54f1ceb11ebef, type: 3}
     - Key: 0.25
       Value: {fileID: -245402835, guid: 4da9c700b90cfc644af54f1ceb11ebef, type: 3}
+  healthBar: {fileID: 0}
   spawnDelayTime: 0.5
   currentEliteAffixes: []
   active: 0
@@ -5183,6 +5205,7 @@ MonoBehaviour:
       Value: {fileID: 1081101687, guid: 4da9c700b90cfc644af54f1ceb11ebef, type: 3}
     - Key: 0.25
       Value: {fileID: -245402835, guid: 4da9c700b90cfc644af54f1ceb11ebef, type: 3}
+  healthBar: {fileID: 0}
   spawnDelayTime: 0.5
   currentEliteAffixes: []
   active: 0
@@ -5789,6 +5812,7 @@ MonoBehaviour:
       Value: {fileID: 1081101687, guid: 4da9c700b90cfc644af54f1ceb11ebef, type: 3}
     - Key: 0.25
       Value: {fileID: -245402835, guid: 4da9c700b90cfc644af54f1ceb11ebef, type: 3}
+  healthBar: {fileID: 0}
   spawnDelayTime: 0.5
   currentEliteAffixes: []
   active: 0

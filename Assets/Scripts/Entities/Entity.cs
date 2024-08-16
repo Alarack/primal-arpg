@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
+using UnityEngine.UI;
 
 
 
@@ -72,6 +73,9 @@ public abstract class Entity : MonoBehaviour {
     [SerializedDictionary("Health", "Sprite")]
     public SerializedDictionary<float, Sprite> spriteProgression = new SerializedDictionary<float, Sprite>();
 
+    [Header("Health Bar")]
+    public Slider healthBar;
+
     public EntityMovement Movement { get; private set; }
     public float IsMoving { get { return Movement.IsMoving(); } }
     public Quaternion FacingRotation { get { return GetFacingRotation(); } }
@@ -114,6 +118,7 @@ public abstract class Entity : MonoBehaviour {
         Movement = GetComponent<EntityMovement>();
         AbilityManager = GetComponent<AbilityManager>();
         AnimHelper = GetComponentInChildren<AnimHelper>();
+        healthBar = GetComponentInChildren<Slider>();
 
         //if (entityType != EntityType.Projectile && entityType != EntityType.EffectZone) {
         //    EntityManager.RegisterEntity(this);
@@ -351,10 +356,18 @@ public abstract class Entity : MonoBehaviour {
         Entity cause = data.GetEntity("Source");
 
         HandleHealthSpriteChange();
+        UpdateHealthBar();
 
         if (Stats[StatName.Health] <= 0) {
             Die(cause, sourceAbility);
         }
+    }
+
+    protected virtual void UpdateHealthBar() {
+        if (healthBar == null)
+            return;
+
+        healthBar.value = Stats.GetStatRangeRatio(StatName.Health);
     }
 
     private void HandleHealthSpriteChange() {

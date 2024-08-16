@@ -12,6 +12,7 @@ public class RewardPedestal : MonoBehaviour
     public GameObject blueAura;
     public GameObject shopAura;
     public Mask passiveMask;
+    public Image maskImage;
 
     public bool enforceCost;
 
@@ -26,9 +27,14 @@ public class RewardPedestal : MonoBehaviour
         if(rewardItem.Type == ItemType.Skill) {
             if(rewardItem.learnableAbilities.Count > 0) {
                 if (rewardItem.learnableAbilities[0].AbilityData.category == AbilityCategory.PassiveSkill) {
+                    maskImage.enabled = true;
                     passiveMask.enabled = true;
                 }
             }
+        }
+        else {
+            maskImage.enabled = false;
+            passiveMask.enabled = false;
         }
 
     }
