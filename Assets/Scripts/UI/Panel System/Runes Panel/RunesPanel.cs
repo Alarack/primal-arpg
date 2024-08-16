@@ -183,6 +183,7 @@ public class RunesPanel : BasePanel {
 
         CurrentAbility.LevelUp();
         OnSkillLevelUp();
+        AudioManager.PlayAbilityLevelUp();
 
     }
 

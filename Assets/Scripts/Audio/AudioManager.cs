@@ -19,6 +19,7 @@ public class AudioManager : Singleton<AudioManager>
     public AudioClip forgeSound;
     public AudioClip forgeSelection;
     public AudioClip abilitySelection;
+    public AudioClip abilityLevelUp;
 
     private Dictionary<AudioClip, List< AudioSource>> activeSources = new Dictionary<AudioClip, List<AudioSource>>();
 
@@ -81,6 +82,10 @@ public class AudioManager : Singleton<AudioManager>
 
     public static void PlayAbilitySelect() {
         PlaySoundClip(Instance.abilitySelection, Instance.transform.position, 1f);
+    }
+
+    public static void PlayAbilityLevelUp() {
+        PlaySoundClip(Instance.abilityLevelUp, Instance.transform.position, 1f);
     }
 
     public static void PlaySoundClip(AudioClip clip, Vector2 position, float volume, float pitchVariance = 1f) {
