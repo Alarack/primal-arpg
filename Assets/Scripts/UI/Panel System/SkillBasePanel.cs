@@ -95,10 +95,13 @@ public class SkillBasePanel : BasePanel
         return -1;
     }
 
-    public SkillEntry GetSkillEntryByAbility(Ability ability) {
-        for(int i = 0;i < activeSkillEntries.Count; i++) {
-            if (activeSkillEntries[i].Ability == ability) {
-                return activeSkillEntries[i];
+    public virtual SkillEntry GetSkillEntryByAbility(Ability ability) {
+        
+        if(ability.Data.category == AbilityCategory.KnownSkill) {
+            for (int i = 0; i < activeSkillEntries.Count; i++) {
+                if (activeSkillEntries[i].Ability == ability) {
+                    return activeSkillEntries[i];
+                }
             }
         }
 

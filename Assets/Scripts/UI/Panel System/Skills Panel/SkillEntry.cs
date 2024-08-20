@@ -110,7 +110,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
     public void SetupRunePips() {
-        if (location != SkillEntryLocation.ActiveSkill) {
+        if (location != SkillEntryLocation.ActiveSkill && location != SkillEntryLocation.ActivePassive) {
             runePipEntries.ClearList();
             return;
         }

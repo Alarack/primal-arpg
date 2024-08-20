@@ -97,6 +97,29 @@ public class SkillsPanel : SkillBasePanel {
         return -1;
     }
 
+    public override SkillEntry GetSkillEntryByAbility(Ability ability) {
+
+        if (ability.Data.category == AbilityCategory.KnownSkill) {
+            for (int i = 0; i < activeSkillEntries.Count; i++) {
+                if (activeSkillEntries[i].Ability == ability) {
+                    return activeSkillEntries[i];
+                }
+            }
+        }
+
+
+        if (ability.Data.category == AbilityCategory.PassiveSkill) {
+            for (int i = 0; i < activePassiveSkillEntries.Count; i++) {
+                if (activePassiveSkillEntries[i].Ability == ability) {
+                    return activePassiveSkillEntries[i];
+                }
+            }
+        }
+
+
+        return null;
+    }
+
     public void UnequipAllPassives() {
 
     }
