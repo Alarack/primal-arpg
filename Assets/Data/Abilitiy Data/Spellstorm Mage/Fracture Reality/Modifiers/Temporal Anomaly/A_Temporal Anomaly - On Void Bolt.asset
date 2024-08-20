@@ -26,9 +26,18 @@ MonoBehaviour:
     showChildAbilitiesInTooltip: 1
     ignoreTooltip: 0
     recastOnChannelCost: 0
+    normalizedProcRate: 0
+    startingAbility: 0
     runeAbilityTarget: 
+    animationString: 
+    waitForAnimToResolve: 0
+    initSFXVolume: 1
+    initiationSounds: []
+    channelSFXVolume: 1
+    channeledSounds: []
     childAbilities:
     - {fileID: 11400000, guid: 96e89659cafedcc49a0c723f94a4ffe6, type: 2}
+    runeGroupData: []
     tags: 18000000
     activationTriggerData:
     - type: 29
@@ -38,6 +47,7 @@ MonoBehaviour:
       triggerTimerDuration: 0
       delay1Frame: 0
       autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -47,6 +57,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -59,6 +71,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
@@ -85,6 +98,8 @@ MonoBehaviour:
           changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -97,6 +112,7 @@ MonoBehaviour:
           leastStatAbilityName: 
           minStatTarget: 0
           minStatValue: 0
+          nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: Void Bolt
@@ -128,6 +144,7 @@ MonoBehaviour:
         triggerTimerDuration: 0
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -143,6 +160,7 @@ MonoBehaviour:
         triggerTimerDuration: 0
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -162,7 +180,7 @@ MonoBehaviour:
       minValue: 0
     - variant: 0
       statName: 44
-      value: 2
+      value: 1
       maxValue: 0
       minValue: 0
     recoveryData: []

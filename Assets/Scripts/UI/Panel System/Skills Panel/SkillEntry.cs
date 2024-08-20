@@ -39,6 +39,15 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [Header("Passive Variant")]
     public Image passiveIcon;
     public Image selecteFrame;
+
+    [Header("Rune Pips")]
+    public Color equippedColor;
+    public Color unequippedColor;
+    public Image runePipImageTemplate;
+    public Transform runePipHolder;
+
+    private List<Image> runePipEntries = new List<Image>();
+
     //public GameInput.GameButtonType keyBind;
 
     //[Header("Slot Elements")]
@@ -59,6 +68,8 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         canvas = GetComponent<Canvas>();
         baseLayer = canvas.sortingOrder;
         dimmer.fillAmount = 0f;
+
+        runePipImageTemplate.gameObject.SetActive(false);
     }
 
     private void OnDisable() {
@@ -95,6 +106,36 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             activeHolder.SetActive(true);
         }
 
+        SetupRunePips();
+    }
+
+    public void SetupRunePips() {
+        if (location != SkillEntryLocation.ActiveSkill) {
+            runePipEntries.ClearList();
+            return;
+        }
+            
+
+        if (Ability == null) {
+            runePipEntries.ClearList();
+            return;
+        }
+            
+
+        runePipEntries.PopulateList(Ability.GetMaxRunes(), runePipImageTemplate, runePipHolder, true);
+
+        for (int i = 0; i < Ability.GetEquippedRuneCount(); i++) {
+            runePipEntries[i].color = equippedColor;
+        }
+
+        for (int i = 0; i < runePipEntries.Count; i++) {
+            if (i < Ability.GetEquippedRuneCount()) {
+                runePipEntries[i].color = equippedColor;
+            }
+            else {
+                runePipEntries[i].color = unequippedColor;
+            }
+        }
     }
 
     private void SetupCharges() {
@@ -140,6 +181,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         this.Ability = ability;
         SetupAbilityIcon(ability);
         SetupCharges();
+        SetupRunePips();
     }
 
     private void ShowCooldownDimmer() {

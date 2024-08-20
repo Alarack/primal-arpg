@@ -95,6 +95,16 @@ public class SkillBasePanel : BasePanel
         return -1;
     }
 
+    public SkillEntry GetSkillEntryByAbility(Ability ability) {
+        for(int i = 0;i < activeSkillEntries.Count; i++) {
+            if (activeSkillEntries[i].Ability == ability) {
+                return activeSkillEntries[i];
+            }
+        }
+
+        return null;
+    }
+
     #region EVENTS
 
     protected virtual void OnAbilityEquipped(Ability ability, int index) {

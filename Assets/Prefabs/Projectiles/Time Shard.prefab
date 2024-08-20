@@ -9961,7 +9961,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5374223294775959194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.447396, y: 2.9371042, z: 0}
+  m_LocalPosition: {x: 4.447396, y: 2.965, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9969,7 +9969,7 @@ Transform:
   - {fileID: 3835481418992345765}
   - {fileID: 8858290562135060311}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &372144599926347477
 MonoBehaviour:
@@ -9990,9 +9990,23 @@ MonoBehaviour:
   ownerType: 0
   subtypes: 
   innerSprite: {fileID: 0}
+  mainSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: ad8a6de3ee69d3843ba2966b679f4ba6, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 1773673519030548, guid: 6e3db7afa59301e48bc3999ec41f1410, type: 3}
   spawnEffectPrefab: {fileID: 1773673519030548, guid: 6e3db7afa59301e48bc3999ec41f1410, type: 3}
+  facingIndicator: {fileID: 0}
+  castingVFXPosition: {fileID: 0}
+  statusVFXPosition: {fileID: 0}
+  spawnSFXVolume: 1
+  spawnSFX: []
+  hurtSFXVolume: 1
+  hurtSFX: []
+  deathSFXVolume: 1
+  deathSFX: []
+  spriteProgression:
+    _serializedList: []
+  healthBar: {fileID: 0}
   textColorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10113,7 +10127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9670d1d7faba6414ab0b12e338ef9f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementBehavior: 1
+  movementBehavior: 0
   seekTarget: {fileID: 0}
   targetLayers:
     serializedVersion: 2
@@ -10671,7 +10685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4985825594347044, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.344
       objectReference: {fileID: 0}
     - target: {fileID: 4985825594347044, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
       propertyPath: m_LocalPosition.z

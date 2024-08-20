@@ -5178,13 +5178,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1682100158659105418}
     m_Modifications:
+    - target: {fileID: 1965496100896498406, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965496100896498406, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965496100896498406, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965496100896498406, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965496100896498406, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965496100896498406, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7567580759874174016, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
       propertyPath: m_Name
       value: Skill Entry
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336651999167102617, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
-      propertyPath: m_fontSize
-      value: 71.1
       objectReference: {fileID: 0}
     - target: {fileID: 8561135467425607160, guid: 5195249a88db0ef49947d0319f7fe63c, type: 3}
       propertyPath: m_Pivot.x

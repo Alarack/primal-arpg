@@ -645,6 +645,15 @@ public class Ability {
 
     #region HELPERS
 
+    public int GetMaxRunes() {
+        return runeItemsByTier.Count;
+    }
+
+    public int GetEquippedRuneCount() {
+        return equippedRunes.Count;
+    }
+
+
     public Effect GetEffectByName(string name) {
         for (int i = 0; i < effects.Count; i++) {
             if (effects[i].Data.effectName == name)
