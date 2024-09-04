@@ -1,0 +1,224 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
+  m_Name: A_M_Arcane Anomaly
+  m_EditorClassIdentifier: 
+  AbilityData:
+    category: 6
+    abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
+    abilityName: Arcane Anomalies
+    abilityDescription: 'Whnever you use an Active Arcane Skill, essess Arcane Energy
+      summons an Arcane Anomaly Minion '
+    resourceCost: 35
+    toBestow: 0
+    suspend: 0
+    autoFire: 1
+    ignoreOtherCasting: 0
+    includeEffectsInTooltip: 0
+    showChildAbilitiesInTooltip: 0
+    ignoreTooltip: 0
+    recastOnChannelCost: 0
+    normalizedProcRate: 0
+    startingAbility: 0
+    runeAbilityTarget: 
+    animationString: 
+    waitForAnimToResolve: 0
+    initSFXVolume: 1
+    initiationSounds: []
+    channelSFXVolume: 1
+    channeledSounds: []
+    childAbilities: []
+    runeGroupData: []
+    tags: 160000001a0000000c000000
+    activationTriggerData:
+    - type: 11
+      procChance: 1
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
+      allConstraints:
+      - focus: 1
+        constraintData:
+        - type: 4
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+      - focus: 4
+        constraintData:
+        - type: 17
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 22
+          targetAbiltyName: Arcane Missiles
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+        - type: 29
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+    endTriggerData: []
+    counterData:
+      useCustomRefreshTrigger: 0
+      customRefreshTriggerData:
+        type: 0
+        procChance: 1
+        riderAbilityName: 
+        riderEffectName: 
+        triggerTimerDuration: 0
+        delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
+        allConstraints: []
+      limitedNumberOfTriggers: 0
+      maxTriggerCount: 0
+      requireMultipleTriggers: 0
+      minTriggerCount: 0
+    endCounterData:
+      useCustomRefreshTrigger: 0
+      customRefreshTriggerData:
+        type: 0
+        procChance: 1
+        riderAbilityName: 
+        riderEffectName: 
+        triggerTimerDuration: 0
+        delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
+        allConstraints: []
+      limitedNumberOfTriggers: 0
+      maxTriggerCount: 0
+      requireMultipleTriggers: 0
+      minTriggerCount: 0
+    effectDefinitions:
+    - {fileID: 11400000, guid: 8d5208f004774c648923c937be4ae9b3, type: 2}
+    effectData: []
+    startingRecoveryCharges: 1
+    baseRuneSlots: 2
+    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
+    abilityStatData:
+    - variant: 0
+      statName: 53
+      value: 4
+      maxValue: 0
+      minValue: 0
+    recoveryData: []

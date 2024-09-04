@@ -30,7 +30,8 @@ public enum AbilityTag {
     Arcane,
     Void,
     Time,
-    Passive
+    Passive,
+    Mastery
 }
 
 public enum AbilityCategory {
