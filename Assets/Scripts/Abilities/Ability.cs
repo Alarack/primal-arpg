@@ -628,6 +628,14 @@ public class Ability {
         AbilityLevel++;
     }
 
+    public void LevelDown() {
+        AbilityLevel--;
+    }
+
+    public void SetLevel(int level) {
+        AbilityLevel = level;
+    }
+
     public void ResetLevel() {
         AbilityLevel = 1;
     }

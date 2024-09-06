@@ -42,7 +42,7 @@ public enum AbilityCategory {
     Any,
     ChildAbility,
     PassiveSkill,
-    ClassFeatureSkill
+    ClassFeatureSkill,
 }
 
 

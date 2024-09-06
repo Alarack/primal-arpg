@@ -21,6 +21,8 @@ public class AbilityManager : MonoBehaviour {
 
     public Dictionary<string, Ability> AbilitiesByName { get; protected set; } = new Dictionary<string, Ability>();
 
+    public List<ElementMastery> Masteries { get; protected set; } = new List<ElementMastery>();
+
     public Action<Ability, int> onAbilityEquipped;
     public Action<Ability, int> onAbilityUnequipped;
     public Action<Ability> onAbilityLearned;
@@ -265,11 +267,8 @@ public class AbilityManager : MonoBehaviour {
 
                 AbilitiesByName.Remove(learnedAbilities[i].Data.abilityName);
                 learnedAbilities.Remove(learnedAbilities[i]);
-                
             }
         }
-
-
     }
 
     public void UnlearnAbility(Ability ability) {
