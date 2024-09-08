@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
 
     public TileDatabase tileDatabase;
     public StatTooltipData tooltipData;
+    public MasteryDefiniiton masteryDatabase;
 
     public static bool AllowDuiplicatSkills { get { return CheckDuplicateAllowance(); } }
 

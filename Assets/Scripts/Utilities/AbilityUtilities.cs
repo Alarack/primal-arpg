@@ -106,6 +106,9 @@ public static class AbilityUtilities {
                 if (abilities[i].Locked == true)
                     continue;
 
+                if (abilities[i].Tags.Contains(AbilityTag.Mastery) == true)
+                    continue;
+
 
                 list.Add(CreatePassiveSkillEntry(abilities[i], prefab, holder, location));
             }

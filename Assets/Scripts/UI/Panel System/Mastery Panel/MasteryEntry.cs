@@ -26,9 +26,15 @@ public class MasteryEntry : MonoBehaviour
 
     private MasteryData Data;
 
+
+    private void Awake() {
+        featureTemplate.gameObject.SetActive(false);
+        pathTemplate.gameObject.SetActive(false);
+    }
+
     public void Setup(MasteryData data) {
         this.Data = data;
-
+        masteryNameText.text = data.masteryName;
         SetupFeatures();
     }
 
@@ -38,6 +44,9 @@ public class MasteryEntry : MonoBehaviour
         for (int i = 0; i < featureEntries.Count; i++) {
             featureEntries[i].Setup(Data.features[i], this);
         }
+
+        if(featureEntries.Count > 0)
+            OnFeatureSelected(featureEntries[0]);
     }
 
 
@@ -53,10 +62,12 @@ public class MasteryEntry : MonoBehaviour
         currentFeatureNameText.text = selectedFeature.FeatureData.featureName;
     }
 
-    //private void ShowFeaturePaths() {
-    //    currentPathEntries.PopulateList(selectedFeature.FeatureData.featurePathAbilities.Count, pathTemplate, pathHolder, true);
-    //    for (int i = 0; i < currentPathEntries.Count; i++) {
-    //        currentPathEntries[i].Setup(selectedFeature.FeatureData.featurePathAbilities[i], this);
-    //    }
-    //}
+    public void OnLearnClicked() {
+        if (selectedFeature == null)
+            return;
+        
+        selectedFeature.OnLearnClicked();
+    }
+
+
 }

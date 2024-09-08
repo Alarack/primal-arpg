@@ -10,12 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a4e0700b18f0e34882e82fff129f96e, type: 3}
-  m_Name: Arcane Mastery
+  m_Name: Mastery Database
   m_EditorClassIdentifier: 
   masteryData:
   - masteryName: Arcane
     features:
     - featureName: Arcane Anomalies
       featureAbility: {fileID: 11400000, guid: 6eb06622156c68948b2ab9274c4c19db, type: 2}
+      featurePathAbilities: []
+  - masteryName: Void
+    features:
+    - featureName: Unstable Projections
+      featureAbility: {fileID: 11400000, guid: 0dadaa6cb57aad542b7b03e74f6d1c24, type: 2}
       featurePathAbilities:
-      - {fileID: 0}
+      - {fileID: 11400000, guid: 5192517fdd44fc44db404cb72516efc4, type: 2}

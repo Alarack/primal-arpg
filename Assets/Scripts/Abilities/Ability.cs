@@ -166,7 +166,7 @@ public class Ability {
             return;
         }
 
-        //Debug.Log("Equipping: " + Data.abilityName);
+        Debug.Log("Equipping: " + Data.abilityName);
 
         SetupActivationTriggers();
         SetupEndTriggers();
