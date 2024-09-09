@@ -7,8 +7,11 @@ using UnityEngine.UI;
 using TMPro;
 
 public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
+    
     public Image featureIcon;
     public TextMeshProUGUI learnButtonText;
+    public Image dimmer;
+    public Image selectedFrame;
 
     public MasteryData.MasteryFeatureData FeatureData { get; private set; }
 
@@ -36,10 +39,21 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
 
 
         SetupDisplay();
+        SetDimmer();
     }
 
     private void SetupDisplay() {
         featureIcon.sprite = FeatureData.featureAbility.AbilityData.abilityIcon;
+    }
+
+    private void SetDimmer() {
+        if(FeatureAbility == null || FeatureAbility.IsEquipped == false) {
+            dimmer.gameObject.SetActive(true);
+        }
+
+        if (FeatureAbility != null && FeatureAbility.IsEquipped == true) {
+            dimmer.gameObject.SetActive(false);
+        }
     }
 
 
@@ -54,11 +68,13 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
 
     public void Select() {
         Selected = true;
+        selectedFrame.gameObject.SetActive(true);
         ShowFeaturePaths();
     }
 
     public void Deselect() {
         Selected = false;
+        selectedFrame.gameObject.SetActive(false);
     }
 
     public void OnLearnClicked() {
@@ -74,8 +90,10 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         }
         else {
             FeatureAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(FeatureData.featureAbility.AbilityData, true);
+
         }
 
+        SetDimmer();
         UpdateButtonText();
     }
 
