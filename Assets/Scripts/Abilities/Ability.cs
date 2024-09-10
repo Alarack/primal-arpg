@@ -548,6 +548,13 @@ public class Ability {
 
     }
 
+    private void SendLevelChangedEvent() {
+        EventData data = new EventData();
+        data.AddAbility("Ability", this);
+
+        EventManager.SendEvent(GameEvent.AbilityLevelChanged, data);
+    }
+
     private void OnTagAdded(EventData data) {
         AbilityTag tag = (AbilityTag)data.GetInt("Tag");
     }
@@ -626,18 +633,22 @@ public class Ability {
 
     public void LevelUp() {
         AbilityLevel++;
+        SendLevelChangedEvent();
     }
 
     public void LevelDown() {
         AbilityLevel--;
+        SendLevelChangedEvent();
     }
 
     public void SetLevel(int level) {
         AbilityLevel = level;
+        SendLevelChangedEvent();
     }
 
     public void ResetLevel() {
         AbilityLevel = 1;
+        SendLevelChangedEvent();
     }
 
     public void ResetRunes() {

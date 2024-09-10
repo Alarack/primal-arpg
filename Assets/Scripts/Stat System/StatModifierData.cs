@@ -42,7 +42,8 @@ public class StatModifierData
         TriggerEffect,
         CauseAbility,
         CauseEffect,
-        WeaponDamage
+        WeaponDamage,
+        AbilityLevel
     }
 
     public enum StatModDesignation {
@@ -67,6 +68,8 @@ public class StatModifierData
     public DeriveFromWhom deriveTarget;
     public StatName derivedTargetStat;
     public bool invertDerivedValue;
+    public bool scaleFromAbilityLevel;
+    public float abilityLevelCoefficient = 1f;
 
     public string otherTargetAbility;
     public string otherTagetEffect;
@@ -188,6 +191,8 @@ public class StatModifierData
         this.otherTagetEffect = copy.otherTagetEffect;
         this.otherTargetAbility = copy.otherTargetAbility;
         this.weaponDamagePercent = copy.weaponDamagePercent;
+        this.scaleFromAbilityLevel = copy.scaleFromAbilityLevel;
+        this.abilityLevelCoefficient = copy.abilityLevelCoefficient;
         CloneStatScalers(copy);
     }
 

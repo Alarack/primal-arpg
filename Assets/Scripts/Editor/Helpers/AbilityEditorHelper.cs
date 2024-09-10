@@ -806,6 +806,11 @@ public static class AbilityEditorHelper {
 
         }
 
+        entry.scaleFromAbilityLevel = EditorGUILayout.Toggle("Scale from Ability?", entry.scaleFromAbilityLevel);
+        if(entry.scaleFromAbilityLevel == true) {
+            entry.abilityLevelCoefficient = EditorGUILayout.FloatField("Coefficient", entry.abilityLevelCoefficient);
+        }
+
         return entry;
     }
 

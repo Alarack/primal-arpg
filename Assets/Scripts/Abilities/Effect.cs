@@ -2775,8 +2775,6 @@ public class StatAdjustmentEffect : Effect {
             modData[i].SetupEffectStats();
         }
 
-        
-
     }
 
     public StatAdjustmentEffect(EffectData data, Entity source, StatAdjustmentEffect clone, Ability parentAbility = null) : base(data, source, parentAbility) {
@@ -2789,20 +2787,21 @@ public class StatAdjustmentEffect : Effect {
         }
     }
 
-    //public static StatAdjustmentEffect Clone(StatAdjustmentEffect clone) {
-    //    StatAdjustmentEffect effect = new StatAdjustmentEffect(clone.Data, clone.Source, clone.ParentAbility);
 
-    //    effect.modData.Clear();
+    public override void RegisterEvents() {
+        base.RegisterEvents();
+        EventManager.RegisterListener(GameEvent.AbilityLevelChanged, OnAbilityLevelChanged);
+        
+    }
 
-    //    for (int i = 0; i < clone.modData.Count; i++) {
-    //        StatModifierData clonedData = new StatModifierData(clone.modData[i]);
-    //        clonedData.CloneEffectStats(clone.modData[i]);
-    //        effect.modData.Add(clonedData);
-    //    }
+    private void OnAbilityLevelChanged(EventData data) {
+        Ability ability = data.GetAbility("Ability");
 
+        if (ability != ParentAbility)
+            return;
 
-    //    return effect;
-    //}
+        ResetApplicationToAbilities();
+    }
 
     public override void Stack(Status status) {
         for (int i = 0; i < modData.Count; i++) {
@@ -2854,7 +2853,6 @@ public class StatAdjustmentEffect : Effect {
         }
     }
 
-
     public void AddScaler(StatScaler scaler) {
         for (int i = 0; i < modData.Count; i++) {
 
@@ -2877,18 +2875,13 @@ public class StatAdjustmentEffect : Effect {
     public void RemoveScaler(StatScaler scaler) {
         for (int i = 0; i < modData.Count; i++) {
             modData[i].RemoveScaler(scaler);
-
-            //modData[i].scalers.RemoveIfContains(scaler);
         }
     }
-
-  
 
     public void AddScalerMod(StatName targetStat, StatModifier mod) {
         for (int i = 0; i < modData.Count; i++) {
             modData[i].AddScalerMod(targetStat, mod);
         }
-
     }
 
     public void RemoveScalerMod(StatName targetStat, StatModifier mod) {
@@ -2986,21 +2979,6 @@ public class StatAdjustmentEffect : Effect {
 
     }
 
-    //private float GetProjectileStatContrabution(StatName stat, float scalerMultiplier) {
-
-    //    if (activeDelivery != null) {
-    //        float projectileStatValue = activeDelivery.Stats[stat] * scalerMultiplier;
-
-    //        if (Stats.Contains(stat) == true) {
-    //            projectileStatValue -= (Stats[stat] * scalerMultiplier); //Hack to prevent double dipping on projectile stats on both effect and projectile
-    //        }
-
-    //        return projectileStatValue;
-    //    }
-
-    //    return 0f;
-    //}
-
     private float GetTotalDerivedValue(Entity entityTarget, Effect effectTarget, Ability abilityTarget, StatModifierData modData) {
         float totalDerivedValue = 0f;
         //float projectileStatContrabution = 0f;
@@ -3023,6 +3001,7 @@ public class StatAdjustmentEffect : Effect {
                 StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats[entry.Value.targetStat],
                 StatModifierData.DeriveFromWhom.WeaponDamage when Source is EntityPlayer => EntityManager.ActivePlayer.CurrentDamageRoll /* modData.Stats[StatName.AbilityWeaponCoefficicent]*/,
                 StatModifierData.DeriveFromWhom.WeaponDamage when Source is NPC => Source.Stats[StatName.AbilityWeaponCoefficicent],
+                StatModifierData.DeriveFromWhom.AbilityLevel => ParentAbility.AbilityLevel,
                 _ => 0f,
             };
 
@@ -3061,18 +3040,18 @@ public class StatAdjustmentEffect : Effect {
             _ => 0f,
         };
 
+        if(modData.scaleFromAbilityLevel == true) {
+            float levelModifier = ParentAbility.AbilityLevel * modData.abilityLevelCoefficient;
+            targetValue *= levelModifier;
+        }
+
         if (activeMod.TargetStat == StatName.Health) {
 
             if (activeDelivery != null) {
                 float projectileContrabution = 1f + activeDelivery.Stats[StatName.ProjectileEffectContrabution];
                 targetValue *= projectileContrabution;
             }
-
-            //Debug.Log("Target value: " + targetValue);
         }
-
-
-
 
         return modData.invertDerivedValue == false ? targetValue : -targetValue;
     }
@@ -3160,7 +3139,6 @@ public class StatAdjustmentEffect : Effect {
         return result;
     }
 
-
     private float GetVulnerabilityModifier(Entity target, float incomingDamage) {
         if (incomingDamage > 0f)
             return 1f;
@@ -3219,6 +3197,15 @@ public class StatAdjustmentEffect : Effect {
 
     private void RemoveFromEntity(Entity target, StatModifier activeMod) {
         StatAdjustmentManager.RemoveStatAdjustment(target, activeMod, activeMod.VariantTarget, Source, ParentAbility);
+    }
+
+    public void ResetApplicationToAbilities() {
+        for (int i = AbilityTargets.Count -1; i >= 0; i--) {
+            Ability target = AbilityTargets[i];
+
+            RemoveFromAbility(target);
+            ApplyToAbility(target);
+        }
     }
 
     public override bool ApplyToAbility(Ability target) {
@@ -3394,8 +3381,6 @@ public class StatAdjustmentEffect : Effect {
         return activeMod;
     }
 
-
-
     private float GetDamageModifier(StatModifier mod, Entity target) {
 
         if (mod.TargetStat != StatName.Health)
@@ -3486,7 +3471,6 @@ public class StatAdjustmentEffect : Effect {
 
     }
 
-
     public string ScalarTooltip() {
         Dictionary<StatName, float> scalers = GetAllScalerValues();
 
@@ -3508,8 +3492,6 @@ public class StatAdjustmentEffect : Effect {
 
         return builder.ToString();
     }
-
-
 
     public override string GetTooltip() {
 
@@ -3551,7 +3533,6 @@ public class StatAdjustmentEffect : Effect {
         builder.Append(replacement);
         return builder.ToString();
     }
-
 
     public string GetDamageOverTimeTooltip() {
         StringBuilder builder = new StringBuilder();
