@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Data/Loot Database", fileName = "Loot Database")]
@@ -20,8 +21,31 @@ public class LootDatabase : ScriptableObject {
     public float baseEnchantingCost = 25f;
 
     public List<ItemStatAffixData> itemStatAffixes = new List<ItemStatAffixData>();
+    public List<ItemIconData> itemIcons = new List<ItemIconData>();
 
     public Dictionary<StatName, ItemStatAffixData> itemAffixes = new Dictionary<StatName, ItemStatAffixData>();
+
+
+    public Sprite GetItemIconByType(ItemType type) {
+
+        Sprite target = itemIcons.Where(i => i.type == type).FirstOrDefault().icon;
+        
+        return target;
+        
+        //Sprite sprite = type switch {
+        //    ItemType.None => throw new System.NotImplementedException(),
+        //    ItemType.Equipment => throw new System.NotImplementedException(),
+        //    ItemType.Rune => throw new System.NotImplementedException(),
+        //    ItemType.Currency => throw new System.NotImplementedException(),
+        //    ItemType.Skill => throw new System.NotImplementedException(),
+        //    ItemType.ClassSelection => throw new System.NotImplementedException(),
+        //    ItemType.StatBooster => throw new System.NotImplementedException(),
+        //    ItemType.Experience => throw new System.NotImplementedException(),
+        //    ItemType.SkillPoint => throw new System.NotImplementedException(),
+        //    ItemType.HealthPotion => throw new System.NotImplementedException(),
+        //    _ => null
+        //};
+    }
 
 
     private ItemDefinition GetRandomEquipment<TKey>(Dictionary<TKey, List<ItemDefinition>> dict, TKey key, List<ItemDefinition> exclusions) where TKey : struct {
@@ -405,15 +429,11 @@ public class LootDatabase : ScriptableObject {
         }
     }
 
-    //[System.Serializable]
-    //public class LootDataEntry {
-    //    public ItemType Type;
-    //}
 
-    //[System.Serializable]
-    //public class StatBooserData {
-    //    public StatName stat;
-    //    public float value;
-    //    public StatModType modType;
-    //}
+
+    [System.Serializable]
+    public class ItemIconData {
+        public ItemType type;
+        public Sprite icon;
+    }
 }

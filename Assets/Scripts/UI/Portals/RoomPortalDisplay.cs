@@ -8,6 +8,13 @@ using UnityEngine.UI;
 public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
 
+    [Header("Icons")]
+    public Sprite combatIcon;
+    public Sprite shopIcon;
+    public Sprite bossIcon;
+
+
+
     public Image roomRewardIcon;
 
     private Room room;
@@ -18,6 +25,14 @@ public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
     }
 
     private void SetupDisplay() {
+
+        if (room.DisplayReward != null) {
+            Sprite rewardSprite = ItemSpawner.Instance.lootDatabase.GetItemIconByType(room.DisplayReward.itemCategory);
+            if (rewardSprite != null) {
+                roomRewardIcon.sprite = rewardSprite;
+            }
+        }
+
 
     }
 
