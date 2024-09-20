@@ -244,13 +244,11 @@ public class Projectile : Entity {
             HandleProjectileChain(other);
             HandleProjectilePierce(other);
 
-            if (/*Stats.Contains(StatName.ProjectilePierceCount) && */Stats[StatName.ProjectilePierceCount] > 0) {
-                //Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
+            if (Stats[StatName.ProjectilePierceCount] > 0) {
                 return;
             }
 
-            if (/*Stats.Contains(StatName.ProjectileChainCount) && */Stats[StatName.ProjectileChainCount] > 0) {
-                //Stats.AddModifier(StatName.ProjectileChainCount, -1, StatModType.Flat, this);
+            if (Stats[StatName.ProjectileChainCount] > 0) {
                 return;
             }
         }
@@ -320,8 +318,7 @@ public class Projectile : Entity {
 
     private bool HandleProjectileSplit(Collider2D recentHit) {
 
-        if (/*Stats.Contains(StatName.ProjectileSplitCount) == false || */Stats[StatName.ProjectileSplitCount] < 1f) {
-            //StartCleanUp();
+        if (Stats[StatName.ProjectileSplitCount] < 1f) {
             return false;
         }
 
@@ -343,7 +340,7 @@ public class Projectile : Entity {
     }
 
     private bool HandleProjectileChain(Collider2D recentHit) {
-        if (/*Stats.Contains(StatName.ProjectileChainCount) == false ||*/ Stats[StatName.ProjectileChainCount] < 1f) {
+        if (Stats[StatName.ProjectileChainCount] < 1f) {
             return false;
         }
 

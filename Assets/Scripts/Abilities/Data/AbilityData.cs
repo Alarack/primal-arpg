@@ -31,7 +31,8 @@ public enum AbilityTag {
     Void,
     Time,
     Passive,
-    Mastery
+    Mastery,
+    Lightning
 }
 
 public enum AbilityCategory {
