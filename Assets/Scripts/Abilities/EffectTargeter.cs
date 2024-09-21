@@ -589,6 +589,14 @@ public class EffectTargeter {
 
             projectile.Setup(parentEffect.Source, parentEffect, parentEffect.Data.projectileHitMask, parentEffect.Data.maskTargeting);
 
+            if (parentEffect.Data.spawnLocation == DeliverySpawnLocation.Trigger) {
+                Entity triggeringEntity = ActivationInstance.TriggeringEntity;
+                if (triggeringEntity != null) {
+                    projectile.IgnoreCollision(triggeringEntity);
+                }
+            }
+
+
             float sourceInaccuracy = (1f - parentEffect.Source.Stats[StatName.Accuracy]) * 360f;
             float projectileInaccuracy = (1f - projectile.Stats[StatName.Accuracy]) * 360f;
             float totalInaccuracy = (projectileInaccuracy + sourceInaccuracy) / 2f;

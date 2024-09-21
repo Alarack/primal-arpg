@@ -137,7 +137,7 @@ public static class TargetUtilities
 
     }
 
-    public static void RotateToRandomNearbyTarget(Collider2D initialTarget, Entity self, float radius, LayerMask mask, bool resetVelocity = true) {
+    public static bool RotateToRandomNearbyTarget(Collider2D initialTarget, Entity self, float radius, LayerMask mask, bool resetVelocity = true) {
         Entity randomNearby = GetRandomNearbyEntity(initialTarget, self.transform.position, radius, mask);
 
         if(randomNearby != null) {
@@ -146,7 +146,12 @@ public static class TargetUtilities
             if (resetVelocity == true) {
                 self.Movement.MyBody.velocity = Vector2.zero;
             }
+
+            return true;
         }
+
+
+        return false;
         //else {
         //    Debug.LogWarning("Nothing nearby in range");
         //}

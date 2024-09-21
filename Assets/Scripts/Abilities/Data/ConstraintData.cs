@@ -38,7 +38,9 @@ public enum ConstraintType {
     StatRatio,
     UnitIsMoving,
     AbilityOnHotbar,
-    EffectAppliedTo
+    EffectAppliedTo,
+    TriggerOnly,
+    CauseOnly
 }
 
 public enum GainedOrLost {

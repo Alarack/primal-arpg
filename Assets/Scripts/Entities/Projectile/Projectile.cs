@@ -241,8 +241,13 @@ public class Projectile : Entity {
         if (layer != "Environment") {
 
             HandleProjectileSplit(other);
-            HandleProjectileChain(other);
-            HandleProjectilePierce(other);
+            
+            bool successfulPierce = HandleProjectilePierce(other);
+            bool successfulChain = HandleProjectileChain(other);
+            if(successfulPierce == false && successfulChain == false) {
+                StartCleanUp();
+                return;
+            }
 
             if (Stats[StatName.ProjectilePierceCount] > 0) {
                 return;
@@ -344,7 +349,14 @@ public class Projectile : Entity {
             return false;
         }
 
-        TargetUtilities.RotateToRandomNearbyTarget(recentHit, this, chainRadius, chainMask, true);
+        float chainRadius = parentEffect.Stats[StatName.EffectRange] > 0 ? parentEffect.Stats[StatName.EffectRange] : this.chainRadius;
+
+        bool targetInRange = TargetUtilities.RotateToRandomNearbyTarget(recentHit, this, chainRadius, chainMask, true);
+
+        if (targetInRange == false)
+            return false;
+        
+        
         Entity otherEntity = recentHit.GetComponent<Entity>();
         new Task(SendChainEvent(otherEntity));
 

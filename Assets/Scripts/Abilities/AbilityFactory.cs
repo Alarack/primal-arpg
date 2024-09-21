@@ -89,6 +89,8 @@ public static class AbilityFactory {
             ConstraintType.UnitIsMoving => new IsMovingConstraint(data, source, parentAbility),
             ConstraintType.AbilityOnHotbar => new AbilityOnHotbarConstraint(data, source, parentAbility),
             ConstraintType.EffectAppliedTo => new EffectAppliedToConstraint(data, source, parentAbility),
+            ConstraintType.TriggerOnly => new TriggerOnlyConstraint(data, source, parentAbility),
+            ConstraintType.CauseOnly => new CauseOnlyConstraint(data, source, parentAbility),
             _ => null,
         };
 

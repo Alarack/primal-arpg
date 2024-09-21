@@ -502,6 +502,10 @@ public static class AbilityEditorHelper {
             entry.numberOfTargets = EditorGUILayout.IntField("Number of Targets", entry.numberOfTargets);
             entry.deliveryPayloadToTarget = EditorGUILayout.Toggle("Use Payload?", entry.deliveryPayloadToTarget);
 
+            if(entry.deliveryPayloadToTarget == true) {
+                entry.payloadPrefab = EditorHelper.ObjectField("Payload Prefab", entry.payloadPrefab);
+            }
+
         }
         else {
             EditorGUILayout.LabelField("Payload: ", EditorStyles.boldLabel);

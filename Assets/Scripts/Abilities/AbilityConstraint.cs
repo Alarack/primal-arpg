@@ -305,6 +305,46 @@ public class SourceOnlyConstraint : AbilityConstraint {
     }
 }
 
+public class TriggerOnlyConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.TriggerOnly;
+
+    public TriggerOnlyConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        bool result = target == triggerInstance.TriggeringEntity;
+        return inverse == false ? result : !result;
+    }
+
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+        bool result = ability == triggerInstance.TriggeringAbility;
+        return inverse == false ? result : !result;
+    }
+}
+
+public class CauseOnlyConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.CauseOnly;
+
+    public CauseOnlyConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        bool result = target == triggerInstance.CauseOfTrigger;
+        return inverse == false ? result : !result;
+    }
+
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+        bool result = ability == triggerInstance.CausingAbility;
+        return inverse == false ? result : !result;
+    }
+}
+
 public class AbilityOnHotbarConstraint : AbilityConstraint {
 
     public override ConstraintType Type => ConstraintType.AbilityOnHotbar;

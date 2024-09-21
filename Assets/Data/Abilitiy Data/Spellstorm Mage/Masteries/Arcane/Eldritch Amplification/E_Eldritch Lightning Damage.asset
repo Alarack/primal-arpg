@@ -83,8 +83,49 @@ MonoBehaviour:
       constrainByDelivery: 0
       deliveryConstraint: {fileID: 0}
       minRange: 0
-      maxRange: 3
+      maxRange: 5
       rangeToWhat: 2
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: 
+      targetEffectName: 
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+    - type: 31
+      inverse: 1
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
       ownerTarget: 0
       mostStatTarget: 0
       mostStatEffectName: 
@@ -117,7 +158,12 @@ MonoBehaviour:
       movementMagnitudeLimit: 0.1
     riderEffects: []
     payloadPrefab: {fileID: 3333646925797550982, guid: 9ea225ba0b4bd6a40a2571f8200ebc72, type: 3}
-    payloadStatData: []
+    payloadStatData:
+    - variant: 0
+      statName: 42
+      value: 5
+      maxValue: 0
+      minValue: 0
     spawnLocation: 1
     spawnLocationStart: 0
     spawnLocationEnd: 0
