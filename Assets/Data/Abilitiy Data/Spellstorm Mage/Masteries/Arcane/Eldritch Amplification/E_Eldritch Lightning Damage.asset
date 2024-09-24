@@ -20,7 +20,7 @@ MonoBehaviour:
     subTarget: 1
     maskTargeting: 0
     hideFloatingText: 0
-    deliveryPayloadToTarget: 1
+    deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
-      applyVFX: {fileID: 0}
+      applyVFX: {fileID: 3672609482111585436, guid: db5c6cf03a24d384587133b165f34c67, type: 3}
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     projectileHitMask:

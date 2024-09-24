@@ -301,6 +301,10 @@ public abstract class Effect {
             }
         }
 
+        if (Data.targeting != EffectTarget.PayloadDelivered && Data.deliveryPayloadToTarget == false) {
+            CreateVFX(target);
+        }
+
         return true;
     }
 
@@ -525,6 +529,25 @@ public abstract class Effect {
 
     public void CreateVFX(Entity currentTarget) {
 
+        if (ZoneInfo.applyVFX == null)
+            return;
+
+
+        Vector2 spawnLocation = Data.spawnLocation switch {
+            DeliverySpawnLocation.Source => Source.transform.position,
+            DeliverySpawnLocation.Trigger => targeter.ActivationInstance.TriggeringEntity.transform.position,
+            DeliverySpawnLocation.Cause => targeter.ActivationInstance.CauseOfTrigger.transform.position,
+            DeliverySpawnLocation.MousePointer => Input.mousePosition,
+            DeliverySpawnLocation.AITarget => throw new NotImplementedException(),
+            DeliverySpawnLocation.FixedLocations => throw new NotImplementedException(),
+            DeliverySpawnLocation.RandomViewportPosition => targeter.GetRandomViewportPosition(),
+            DeliverySpawnLocation.WorldPositionSequence => throw new NotImplementedException(),
+            DeliverySpawnLocation.AbilityLastPayloadLocation => targeter.GetLastAbilityPayloadLocation(),
+            DeliverySpawnLocation.LastEffectZoneLocation => targeter.ActivationInstance.SavedLocation,
+            _ => Vector2.zero
+        };
+
+        VFXUtility.SpawnVFX(ZoneInfo.applyVFX, spawnLocation, TargetUtilities.GetRotationTowardTarget(currentTarget.transform.position, spawnLocation));
     }
 
     public virtual void Stack(Status status) {

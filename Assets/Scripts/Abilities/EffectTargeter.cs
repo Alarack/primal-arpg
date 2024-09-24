@@ -475,7 +475,7 @@ public class EffectTargeter {
         return results;
     }
 
-    private Vector2 GetLastAbilityPayloadLocation() {
+    public Vector2 GetLastAbilityPayloadLocation() {
         Ability targetAbility = parentEffect.Source.GetAbilityByName(parentEffect.Data.targetAbilityForLastPayload, AbilityCategory.Any);
 
         return targetAbility.LastPayloadLocation;
@@ -484,7 +484,7 @@ public class EffectTargeter {
 
 
 
-    private Vector2 GetRandomViewportPosition() {
+    public Vector2 GetRandomViewportPosition() {
 
         float randomX = Random.Range(parentEffect.Data.minViewportValues.x, parentEffect.Data.maxViewportValues.x);
         float randomY = Random.Range(parentEffect.Data.minViewportValues.y, parentEffect.Data.maxViewportValues.y);
