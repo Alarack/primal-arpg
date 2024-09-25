@@ -446,7 +446,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.6
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -1006,7 +1006,7 @@ Transform:
   - {fileID: 910151847095465174}
   - {fileID: 5158980515420553304}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2648693693639585802
 MonoBehaviour:
@@ -1034,6 +1034,7 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 0}
   facingIndicator: {fileID: 8660682194446303956}
   castingVFXPosition: {fileID: 0}
+  statusVFXPosition: {fileID: 0}
   spawnSFXVolume: 1
   spawnSFX: []
   hurtSFXVolume: 1
@@ -1042,6 +1043,7 @@ MonoBehaviour:
   deathSFX: []
   spriteProgression:
     _serializedList: []
+  healthBar: {fileID: 0}
   debugGodMode: 0
   vacumCollider: {fileID: 6472614406299476528}
 --- !u!114 &958971093242999228
