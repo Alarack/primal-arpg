@@ -21,7 +21,7 @@ MonoBehaviour:
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
-    canOverload: 0
+    canOverload: 1
     canAffectDeadTargets: 0
     nonStacking: 0
     onlyShowTooltipInRune: 0
@@ -83,7 +83,7 @@ MonoBehaviour:
       constrainByDelivery: 0
       deliveryConstraint: {fileID: 0}
       minRange: 0
-      maxRange: 12
+      maxRange: 14
       rangeToWhat: 2
       ownerTarget: 0
       mostStatTarget: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
     payloadStatData:
     - variant: 0
       statName: 42
-      value: 12
+      value: 14
       maxValue: 0
       minValue: 0
     spawnLocation: 1
@@ -205,25 +205,25 @@ MonoBehaviour:
         statScaleBaseValue: 1
     floatingTextColor:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0, g: 1, b: 1, a: 1}
+      key1: {r: 0.09019608, g: 0.32941177, b: 0.654902, a: 1}
+      key2: {r: 0.2437284, g: 0.2717546, b: 0.33823532, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
+      ctime1: 21333
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 58982
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -231,29 +231,29 @@ MonoBehaviour:
       atime7: 0
       m_Mode: 0
       m_ColorSpace: -1
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
     overloadFloatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key1: {r: 0, g: 1, b: 0.9708953, a: 1}
+      key2: {r: 0, g: 0.0055216397, b: 0.42352942, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
+      ctime1: 33924
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 55705
+      atime2: 65342
       atime3: 0
       atime4: 0
       atime5: 0
@@ -261,8 +261,8 @@ MonoBehaviour:
       atime7: 0
       m_Mode: 0
       m_ColorSpace: -1
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
     effectDesignation: 1
     addMissingStatIfNotPresent: 0
     statusToAdd: []
