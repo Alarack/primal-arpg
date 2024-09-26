@@ -547,7 +547,19 @@ public abstract class Effect {
             _ => Vector2.zero
         };
 
-        VFXUtility.SpawnVFX(ZoneInfo.applyVFX, spawnLocation, TargetUtilities.GetRotationTowardTarget(currentTarget.transform.position, spawnLocation));
+
+
+        GameObject activeVFX = VFXUtility.SpawnVFX(ZoneInfo.applyVFX, spawnLocation, TargetUtilities.GetRotationTowardTarget(currentTarget.transform.position, spawnLocation), null, 1f);
+
+
+        ElectricArcEffect arc = activeVFX.GetComponent<ElectricArcEffect>();
+
+        if(arc != null) {
+            arc.SetPositions(spawnLocation, currentTarget.transform.position);
+        }
+
+
+
     }
 
     public virtual void Stack(Status status) {
