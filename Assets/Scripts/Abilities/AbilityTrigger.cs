@@ -1710,8 +1710,64 @@ public class RiderTrigger : AbilityTrigger {
             this.RiderEffectTargets = riderEffectTargets;
         }
     }
+}
 
 
+public class ChainTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.Chain;
+
+    public override GameEvent TargetEvent => GameEvent.EffectApplied;
+
+    public override Action<EventData> EventReceiver => OnEffectApplied;
+
+    private List<Entity> ridereffectTargets = new List<Entity>();
+
+    private int chainCount;
+
+    public ChainTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    private void OnEffectApplied(EventData data) {
+
+        if(chainCount >= ParentAbility.Stats[StatName.ProjectileChainCount]) {
+            chainCount = 0;
+            return;
+        }
+
+        Effect targetEffect = data.GetEffect("Effect");
+        Effect matchingEffect = ParentAbility.GetEffectByName(targetEffect.Data.effectName);
+
+        if (matchingEffect == null) {
+            //Debug.LogError("No effect named: " + targetEffect.Data.effectName + " was not found for " + ParentAbility.Data.abilityName + " On " + SourceEntity.EntityName);
+            return;
+        }
+
+        if(matchingEffect != targetEffect) {
+            Debug.LogError("Effects don't match: " + targetEffect.Data.effectName + " Ability: " + ParentAbility.Data.abilityName + " On " + SourceEntity.EntityName);
+            return;
+        }
+
+
+        TriggeringEntity = targetEffect.LastTarget;
+        CauseOfTrigger = targetEffect.Source;
+
+        TriggerInstance activationInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        activationInstance.TriggeringEffect = targetEffect;
+
+
+        new Task(ActivateOnDelay(activationInstance));
+    }
+
+    private IEnumerator ActivateOnDelay(TriggerInstance activationInstance) {
+        WaitForSeconds waiter = new WaitForSeconds( Data.chainTriggerDelay);
+        yield return waiter;
+        chainCount++;
+        TryActivateTrigger(activationInstance);
+    }
+
+    
 }
 
 

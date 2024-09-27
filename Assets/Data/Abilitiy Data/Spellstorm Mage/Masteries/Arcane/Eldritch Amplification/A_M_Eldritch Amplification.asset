@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityData:
     category: 6
-    abilityIcon: {fileID: 21300000, guid: 2502e47dcc46d554682969478b6b5721, type: 3}
+    abilityIcon: {fileID: 21300000, guid: 32dec6493e7c4f34583c777cb4831630, type: 3}
     abilityName: Eldritch Amplification
     abilityDescription: Dealing Aracne Damage causes the target to become carged
       with Eldritch Energy. Dealing further damage causes things to happen
@@ -45,6 +45,7 @@ MonoBehaviour:
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
@@ -217,6 +218,16 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+    - type: 38
+      procChance: 1
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
+      delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
+      allConstraints: []
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -226,6 +237,7 @@ MonoBehaviour:
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
@@ -242,6 +254,7 @@ MonoBehaviour:
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
@@ -256,5 +269,10 @@ MonoBehaviour:
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
-    abilityStatData: []
+    abilityStatData:
+    - variant: 0
+      statName: 34
+      value: 3
+      maxValue: 0
+      minValue: 0
     recoveryData: []

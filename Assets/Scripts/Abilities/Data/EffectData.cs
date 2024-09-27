@@ -120,6 +120,7 @@ public class EffectData
     public bool inheritStatsFromParentAbility = true;
 
     public int numberOfTargets = -1;
+    public float chainTargetDelay = 0.1f;
     public string otherAbilityName;
     public string otherEffectName;
     public string targetAbilityForLastPayload;

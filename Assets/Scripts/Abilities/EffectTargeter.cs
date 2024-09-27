@@ -23,7 +23,6 @@ public class EffectTargeter {
     private List<Effect> effectTargets;
     private List<Ability> abilityTargets;
     private int numberOfTargets = -1;
-    //private List<Entity> previewTargets;
 
     public EffectTargeter(Effect parentEffect) {
         this.parentEffect = parentEffect;

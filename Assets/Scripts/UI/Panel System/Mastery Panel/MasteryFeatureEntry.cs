@@ -40,6 +40,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
 
         SetupDisplay();
         SetDimmer();
+        UpdateButtonText();
     }
 
     private void SetupDisplay() {
@@ -70,11 +71,13 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         Selected = true;
         selectedFrame.gameObject.SetActive(true);
         ShowFeaturePaths();
+        UpdateButtonText();
     }
 
     public void Deselect() {
         Selected = false;
         selectedFrame.gameObject.SetActive(false);
+        UpdateButtonText();
     }
 
     public void OnLearnClicked() {
@@ -125,6 +128,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
 
     public void OnPointerClick(PointerEventData eventData) {
         parentEntry.OnFeatureSelected(this);
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData) {

@@ -186,6 +186,10 @@ public static class AbilityEditorHelper {
             entry.riderEffectName = EditorGUILayout.TextField("Target Effect", entry.riderEffectName);
         }
 
+        if(entry.type == TriggerType.Chain) {
+            entry.chainTriggerDelay = EditorGUILayout.FloatField("Chain Delay", entry.chainTriggerDelay);
+        }
+
         if (entry.type == TriggerType.Timed) {
             entry.triggerTimerDuration = EditorGUILayout.FloatField("Duration", entry.triggerTimerDuration);
             entry.autoActivateTimer = EditorGUILayout.Toggle("Auto Start", entry.autoActivateTimer);

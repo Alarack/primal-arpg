@@ -48,6 +48,7 @@ public static class AbilityFactory {
             TriggerType.TeleportInitiated => new TeleportInitiatedTrigger(data, source, parentAbility),
             TriggerType.TeleportConcluded => new TeleportConcludedTrigger(data, source, parentAbility),
             TriggerType.StatusStacked => new StatusStackedTrigger(data, source, parentAbility),
+            TriggerType.Chain => new ChainTrigger(data, source, parentAbility),
             _ => null,
         };
 

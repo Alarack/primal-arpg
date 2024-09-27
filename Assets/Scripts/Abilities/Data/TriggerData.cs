@@ -42,7 +42,8 @@ public enum TriggerType {
     AbilityEnded,
     TeleportInitiated,
     TeleportConcluded,
-    StatusStacked
+    StatusStacked,
+    Chain
 }
 
 
@@ -57,6 +58,7 @@ public class TriggerData
     public string riderEffectName;
 
     public float triggerTimerDuration;
+    public float chainTriggerDelay = 0.1f;
     public bool delay1Frame;
     public bool autoActivateTimer;
     public bool resetTimerOnParentAbilityEnd;
