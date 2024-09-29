@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_M_P_Widen The Gap
+  m_Name: A_M_P_Attuned Blast
   m_EditorClassIdentifier: 
   AbilityData:
     category: 6
-    abilityIcon: {fileID: 21300000, guid: de3ddc903e6150243868034473647c4a, type: 3}
-    abilityName: Widen The Gap
-    abilityDescription: Your Unstable Projections have an {PV} increased chance to
-      occur.
-    resourceCost: 0
+    abilityIcon: {fileID: 21300000, guid: 1f4a875cb2a96c74cadf6447df0a6f60, type: 3}
+    abilityName: Attuned Blast
+    abilityDescription: Eldritch Ligtning now counts as Arcane Damage in additona
+      to Lightning Damage.
+    resourceCost: 35
     toBestow: 0
     suspend: 0
-    autoFire: 0
+    autoFire: 1
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
@@ -100,11 +100,11 @@ MonoBehaviour:
       requireMultipleTriggers: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 39bc9919da4b31f499d10278d9552d47, type: 2}
+    - {fileID: 11400000, guid: 9790973e55c35e5469c042cbe7553ecb, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    maxRanks: 5
-    windupVFX: {fileID: 0}
+    maxRanks: 1
+    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
     abilityStatData: []
     recoveryData: []

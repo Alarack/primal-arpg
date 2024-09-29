@@ -42,6 +42,7 @@ MonoBehaviour:
     activationTriggerData:
     - type: 1
       procChance: 1
+      triggerDelay: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
@@ -220,10 +221,11 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
     - type: 38
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
-      chainTriggerDelay: 0.1
+      chainTriggerDelay: 0.2
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
@@ -234,6 +236,7 @@ MonoBehaviour:
       customRefreshTriggerData:
         type: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
@@ -251,6 +254,7 @@ MonoBehaviour:
       customRefreshTriggerData:
         type: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
@@ -268,7 +272,8 @@ MonoBehaviour:
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
+    maxRanks: -1
+    windupVFX: {fileID: 2850867436185079738, guid: 3d083b7a5bb635a439cf31a0cf85784f, type: 3}
     abilityStatData:
     - variant: 0
       statName: 34

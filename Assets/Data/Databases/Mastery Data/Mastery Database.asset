@@ -20,7 +20,8 @@ MonoBehaviour:
       featurePathAbilities: []
     - featureName: Eldritch Amplification
       featureAbility: {fileID: 11400000, guid: d6b67b7e7096cdc4986068a429cfbe48, type: 2}
-      featurePathAbilities: []
+      featurePathAbilities:
+      - {fileID: 11400000, guid: 9b7c50498eaee4e4d8761b7bd7724f2e, type: 2}
   - masteryName: Void
     features:
     - featureName: Unstable Projections

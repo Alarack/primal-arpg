@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
+
 public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Image pathIcon;
@@ -34,7 +35,27 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private void SetupDisplay() {
         pathIcon.sprite = PathAbilityDef.AbilityData.abilityIcon;
 
-        rankText.text = PathAbility != null ? PathAbility.AbilityLevel.ToString() : "0";
+        string text = "";
+        if(PathAbility != null) {
+            text = PathAbility.Data.maxRanks > 0 ? PathAbility.AbilityLevel.ToString() + "/" + PathAbility.Data.maxRanks.ToString() : PathAbility.AbilityLevel.ToString();
+            rankText.color = PathAbility.IsMaxRank() ? Color.green : Color.white;
+        }
+        else {
+            text = "0/" + PathAbilityDef.AbilityData.maxRanks;
+            rankText.color = Color.white;
+        }
+
+
+        rankText.text = text;
+
+        //rankText.text = PathAbility != null ? PathAbility.AbilityLevel.ToString() : "0";
+        
+        //if(PathAbility != null) {
+        //    rankText.color = PathAbility.IsMaxRank() ? Color.green : Color.white;
+        //}
+        //else {
+        //    rankText.color = Color.white;
+        //}
     }
 
     private void Invest() {
@@ -45,10 +66,15 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
             if (PathAbility.IsEquipped == false)
                 PathAbility.Equip();
             
+            if(PathAbility.IsMaxRank() == true) {
+                return;
+            }
+
             PathAbility.LevelUp();
         }
 
-        rankText.text = PathAbility.AbilityLevel.ToString();
+        UpdateRankText();
+        //rankText.text = PathAbility.AbilityLevel.ToString();
     }
 
     private void UnInvest() {
@@ -61,7 +87,18 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
         if (PathAbility.AbilityLevel <= 0)
             PathAbility.Uneqeuip();
 
-        rankText.text = PathAbility.AbilityLevel.ToString();
+        UpdateRankText();
+        //rankText.text = PathAbility.AbilityLevel.ToString();
+    }
+
+    private void UpdateRankText() {
+        
+        string text = PathAbility.Data.maxRanks > 0 ? PathAbility.AbilityLevel.ToString() + "/" + PathAbility.Data.maxRanks.ToString() : PathAbility.AbilityLevel.ToString();
+
+
+        rankText.text = text;
+        Color textColor = PathAbility.IsMaxRank() ? Color.green : Color.white;
+        rankText.color = textColor;
     }
 
     public void OnPointerClick(PointerEventData eventData) {

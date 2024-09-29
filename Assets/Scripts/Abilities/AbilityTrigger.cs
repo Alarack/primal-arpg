@@ -304,8 +304,12 @@ public abstract class AbilityTrigger {
         if (RollProc(activationInstance) == false) {
             return;
         }
-      
 
+        if (Data.triggerDelay > 0f) {
+            Debug.Log("Delaying trigger for: " + ParentAbility.Data.abilityName);
+            new Task(CustomDelay(activationInstance));
+            return;
+        }
 
         ActivationCallback?.Invoke(activationInstance);
     }
@@ -359,6 +363,15 @@ public abstract class AbilityTrigger {
         if (IsTriggerValid(activationInstance) == false) {
             yield break;
         }
+
+        ActivationCallback?.Invoke(activationInstance);
+    }
+
+    protected IEnumerator CustomDelay(TriggerInstance activationInstance) {
+        WaitForSeconds waiter = new WaitForSeconds(Data.triggerDelay);
+        yield return waiter;
+
+        Debug.Log("Resolving delayed trigger for: " + ParentAbility.Data.abilityName);
 
         ActivationCallback?.Invoke(activationInstance);
     }

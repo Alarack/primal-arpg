@@ -91,6 +91,7 @@ public class AbilityData
 
     public int startingRecoveryCharges = 1;
     public int baseRuneSlots = 2;
+    public int maxRanks = -1;
     public GameObject windupVFX;
 
     public List<StatData> abilityStatData = new List<StatData>();

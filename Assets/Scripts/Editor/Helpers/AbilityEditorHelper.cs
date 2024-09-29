@@ -57,6 +57,7 @@ public static class AbilityEditorHelper {
 
         entry.suspend = EditorGUILayout.Toggle("Suspend?", entry.suspend);
 
+        entry.maxRanks = EditorGUILayout.IntField("Max Ranks", entry.maxRanks);
 
         EditorGUILayout.Separator();
 
@@ -180,6 +181,7 @@ public static class AbilityEditorHelper {
 
         entry.type = EditorHelper.EnumPopup("Trigger Type", entry.type);
         entry.procChance = EditorGUILayout.FloatField("Proc Chance", entry.procChance);
+        entry.triggerDelay = EditorGUILayout.FloatField("TriggerDelay", entry.triggerDelay);
         entry.delay1Frame = EditorGUILayout.Toggle("Delay 1 Frame", entry.delay1Frame);
         if (entry.type == TriggerType.Rider) {
             entry.riderAbilityName = EditorGUILayout.TextField("Target Ability", entry.riderAbilityName);

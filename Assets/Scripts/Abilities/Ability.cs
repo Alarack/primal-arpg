@@ -205,7 +205,7 @@ public class Ability {
 
     public void Uneqeuip() {
 
-        //Debug.Log("Unequipping: " + Data.abilityName);
+        Debug.Log("Unequipping: " + Data.abilityName);
 
         if (IsEquipped == false) {
             Debug.LogWarning("Tried to unequip " + Data.abilityName + " but it wasn't equipped");
@@ -631,7 +631,14 @@ public class Ability {
 
     #region LEVELING
 
+    public bool IsMaxRank() {
+        return Data.maxRanks > 0 && AbilityLevel >= Data.maxRanks;
+    }
+
     public void LevelUp() {
+        if (IsMaxRank() == true)
+            return;
+        
         AbilityLevel++;
         SendLevelChangedEvent();
     }
@@ -1121,6 +1128,7 @@ public class Ability {
 
     #region ACTIVATION
 
+
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
         //if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
@@ -1129,8 +1137,6 @@ public class Ability {
         if (IsChanneled == true && IsActive == true) {
             return;
         }
-
-
 
         if (IsReady == false) {
             //Debug.Log("An ability: " + Data.abilityName + " tried to trigger, but is not ready.");
@@ -1164,49 +1170,16 @@ public class Ability {
                 return;
             }
         }
-        //else {
-        //    if (CheckCost() == false)
-        //        return;
-        //}
-
-
-
-
-
-
-        //if(Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
-
-        //    if (CheckCost() == false)
-        //        return;
-
-        //    if (currentWindup == null) {
-        //        currentWindup = new Task(StartAbilityWindup(activationInstance));
-        //        Source.ActivelyCastingAbility = this;
-        //        return;
-        //    }
-        //    else {
-        //        //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
-        //        return;
-        //    }
-        //}
 
         if (TrySpendCharge(1) == false) {
             //Debug.LogWarning("Not enough charges on: " + Data.abilityName);
             return;
         }
 
-
-
-
-
         if (activationCounter != null && activationCounter.Evaluate() == false) {
             //Debug.LogWarning(activationCounter.Count + " is not enough triggers for " + Data.abilityName);
             return;
         }
-
-        //if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
-        //    Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is resolving. Source: " + Source.EntityName, Color.green));
-
 
         IsActive = true;
 
@@ -1216,11 +1189,6 @@ public class Ability {
         SendAbilityInitiatedEvent(activationInstance);
 
         TriggerAllEffectsInstantly(activationInstance);
-
-
-
-        //new Task(TriggerAllEffectsWithDelay(activationInstance));
-
     }
 
     protected bool HasWindup() {
@@ -1275,7 +1243,7 @@ public class Ability {
                 return true;
             }
             else {
-                //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
+                Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
                 return true;
             }
         }

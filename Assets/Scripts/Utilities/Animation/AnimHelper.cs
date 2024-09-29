@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
+using UnityEditor.Playables;
 
 public class AnimHelper : MonoBehaviour {
 
@@ -20,6 +21,7 @@ public class AnimHelper : MonoBehaviour {
 
         if (owner != null) {
             EventManager.RegisterListener(GameEvent.AbilityInitiated, OnAbilityInitiated);
+            EventManager.RegisterListener(GameEvent.AbilityEnded, OnAbilityEnded);
         }
 
 
@@ -93,6 +95,12 @@ public class AnimHelper : MonoBehaviour {
 
         Ability ability = data.GetAbility("Ability");
 
+        if (ability.IsChanneled == true && ability.IsActive == true) {
+            StartChannelAnim(ability);
+            return;
+        }
+
+
         if (string.IsNullOrEmpty(ability.Data.animationString) == true) {
             return;
         }
@@ -107,6 +115,34 @@ public class AnimHelper : MonoBehaviour {
         bool readyCheck = entity is EntityPlayer;
 
         SetAttackAnim(ability, readyCheck);
+
+    }
+
+    private void StartChannelAnim(Ability ability) {
+
+
+
+        if(IsAnimRunning("Channel") == false) {
+            //Debug.Log("Starting Channel");
+            SetBool("Channel", true);
+        }
+
+    }
+
+    private void OnAbilityEnded(EventData data) {
+        Entity entity = data.GetEntity("Source");
+
+        if (entity == null || owner != entity) {
+            return;
+        }
+
+        Ability ability = data.GetAbility("Ability");
+
+        if (ability.IsChanneled == true && IsAnimRunning("Channel") == true) {
+            //Debug.Log("Ending Channel");
+            SetBool("Channel", false);
+        }
+
 
     }
 
