@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Add Arcane Tag
+  m_Name: E_Increase Proc Rate
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Attuned Blast Add Arcane Tag
-    effectDescription: 
-    type: 16
+    effectName: Honed Lightning Proc Rate adj
+    effectDescription: Increase the chance to Trigger Arcane Lightning by {}
+    type: 1
     targeting: 8
     subTarget: 4
     maskTargeting: 0
@@ -98,7 +98,22 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData: []
+    modData:
+    - targetStat: 65
+      value: 0.1
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      scaleFromAbilityLevel: 1
+      abilityLevelCoefficient: 1
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}

@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 6
     abilityIcon: {fileID: 21300000, guid: 32dec6493e7c4f34583c777cb4831630, type: 3}
     abilityName: Eldritch Amplification
-    abilityDescription: Dealing Aracne Damage causes the target to become carged
-      with Eldritch Energy. Dealing further damage causes things to happen
+    abilityDescription: Dealing Aracne Damage from another source has a {PR} chance
+      to trigger a bolt of Arcane Lightning on a nearby target.
     resourceCost: 35
     toBestow: 0
     suspend: 0
@@ -38,11 +38,12 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 1b0000001a000000
+    tags: 160000001a000000
     activationTriggerData:
     - type: 1
-      procChance: 1
-      triggerDelay: 1
+      overrideProcStat: 0
+      procChance: 0.5
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
@@ -219,7 +220,49 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+        - type: 7
+          inverse: 1
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
     - type: 38
+      overrideProcStat: 1
       procChance: 1
       triggerDelay: 0
       riderAbilityName: 
@@ -235,6 +278,7 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
         triggerDelay: 0
         riderAbilityName: 
@@ -253,6 +297,7 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
         triggerDelay: 0
         riderAbilityName: 
@@ -278,6 +323,11 @@ MonoBehaviour:
     - variant: 0
       statName: 34
       value: 3
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 65
+      value: 0.5
       maxValue: 0
       minValue: 0
     recoveryData: []

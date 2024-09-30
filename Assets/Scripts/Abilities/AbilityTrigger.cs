@@ -317,7 +317,11 @@ public abstract class AbilityTrigger {
     protected bool RollProc(TriggerInstance activationInstance) {
 
         if (ParentAbility != null) {
-            if (ParentAbility.Stats.Contains(StatName.ProcChance) == false)
+            
+            if (ParentAbility.Stats.Contains(StatName.ProcChance) == false && Data.overrideProcStat == false)
+                return true;
+
+            if (Data.overrideProcStat == true && Data.procChance >= 1f)
                 return true;
 
 
@@ -339,7 +343,9 @@ public abstract class AbilityTrigger {
                 }
             }
 
-            float proc = ParentAbility.Stats[StatName.ProcChance];
+            float proc = Data.overrideProcStat == true ? Data.procChance : ParentAbility.Stats[StatName.ProcChance];
+
+            //float proc = ParentAbility.Stats[StatName.ProcChance];
             float roll = UnityEngine.Random.Range(0f, 1f);
 
             return roll < proc;

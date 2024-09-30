@@ -52,6 +52,7 @@ public class TriggerData
 {
 
     public TriggerType type;
+    public bool overrideProcStat;
     public float procChance = 1f;
     public float triggerDelay;
 

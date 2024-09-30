@@ -180,7 +180,10 @@ public static class AbilityEditorHelper {
         EditorGUILayout.LabelField(placeholderTriggerName, EditorHelper2.LoadStyle(triggerHeader));
 
         entry.type = EditorHelper.EnumPopup("Trigger Type", entry.type);
-        entry.procChance = EditorGUILayout.FloatField("Proc Chance", entry.procChance);
+        entry.overrideProcStat = EditorGUILayout.Toggle("Override Proc Stat", entry.overrideProcStat);
+        if(entry.overrideProcStat == true) {
+            entry.procChance = EditorGUILayout.FloatField("Proc Chance", entry.procChance);
+        }
         entry.triggerDelay = EditorGUILayout.FloatField("TriggerDelay", entry.triggerDelay);
         entry.delay1Frame = EditorGUILayout.Toggle("Delay 1 Frame", entry.delay1Frame);
         if (entry.type == TriggerType.Rider) {

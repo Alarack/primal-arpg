@@ -135,6 +135,8 @@ public static class TextHelper
             StatName.GlobalEssenceCostModifier when value < 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.CastingMoveSpeedModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.CastingMoveSpeedModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.EffectRange when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            StatName.EffectRange when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             _ => "No Entry For: " + stat,
         };
 

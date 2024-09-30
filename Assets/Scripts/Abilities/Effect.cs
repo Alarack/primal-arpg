@@ -2836,6 +2836,7 @@ public class StatAdjustmentEffect : Effect {
             return;
 
         ResetApplicationToAbilities();
+        ResetApplicationToEffects();
     }
 
     public override void Stack(Status status) {
@@ -3240,6 +3241,15 @@ public class StatAdjustmentEffect : Effect {
 
             RemoveFromAbility(target);
             ApplyToAbility(target);
+        }
+    }
+
+    public void ResetApplicationToEffects() {
+        for (int i = EffectTargets.Count - 1; i >= 0; i--) {
+            Effect target = EffectTargets[i];
+
+            RemoveFromEffect(target);
+            ApplyDirectlyToEffect(target);
         }
     }
 
