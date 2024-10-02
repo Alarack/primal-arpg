@@ -572,6 +572,15 @@ public static class AbilityEditorHelper {
                 entry.addMissingStatIfNotPresent = EditorGUILayout.Toggle("Add Missing Stat", entry.addMissingStatIfNotPresent);
                 EditorGUI.indentLevel++;
                 entry.modData = EditorHelper.DrawExtendedList(entry.modData, "Mod", DrawStatModifierData);
+
+
+                EditorGUILayout.LabelField("Status Scaling", EditorHelper2.LoadStyle(abilityHeader));
+                entry.scaleFromStatus = EditorGUILayout.Toggle("Status Scaleing", entry.scaleFromStatus);
+
+                if (entry.scaleFromStatus == true) {
+                    entry.statusModifiers = EditorHelper.DrawExtendedList(entry.statusModifiers, "Status Modifer", DrawStatusModifier);
+                }
+
                 EditorGUI.indentLevel--;
 
                 break;
@@ -725,6 +734,12 @@ public static class AbilityEditorHelper {
 
                 break;
 
+            case EffectType.AddStatusScaling:
+
+                EditorGUILayout.LabelField("Status Scalers", EditorHelper2.LoadStyle(abilityHeader));
+                entry.statusScalingData = EditorHelper.DrawExtendedList(entry.statusScalingData, "Status Scaler", DrawStatusModifier);
+                break;
+
             default:
                 break;
         }
@@ -823,6 +838,13 @@ public static class AbilityEditorHelper {
         if(entry.scaleFromAbilityLevel == true) {
             entry.abilityLevelCoefficient = EditorGUILayout.FloatField("Coefficient", entry.abilityLevelCoefficient);
         }
+
+        return entry;
+    }
+
+    public static StatModifierData.StatusModifier DrawStatusModifier(StatModifierData.StatusModifier entry) {
+        entry.status = EditorHelper.EnumPopup("Status", entry.status);
+        entry.modifierValue = EditorGUILayout.FloatField("Modifier", entry.modifierValue);
 
         return entry;
     }

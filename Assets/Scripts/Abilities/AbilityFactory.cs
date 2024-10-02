@@ -142,6 +142,7 @@ public static class AbilityFactory {
             EffectType.ChangeEffectZone => new EffectChangeEffectZpme(data, source, parentAbility),
             EffectType.ModifyProjectile => new ModifyProjectileEffect(data, source, parentAbility),
             EffectType.ModifyElapsedCooldown => new ModifiyElapsedCooldownEffect(data, source, parentAbility),
+            EffectType.AddStatusScaling => new AddStatusScalingEffect(data, source, parentAbility),
             _ => null,
         };
 

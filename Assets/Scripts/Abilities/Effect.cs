@@ -9,6 +9,7 @@ using UnityEngine;
 using static AbilityTrigger;
 using static Status;
 using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.Rendering.DebugUI;
 using Random = UnityEngine.Random;
 
 
@@ -2475,6 +2476,99 @@ public class AddStatusEffect : Effect {
 
 }
 
+
+public class AddStatusScalingEffect : Effect {
+
+    public override EffectType Type => EffectType.AddStatusScaling;
+
+    public Dictionary<Effect, List<StatModifierData.StatusModifier>> activeStatusModifiers = new Dictionary<Effect, List<StatModifierData.StatusModifier>>();
+
+    public AddStatusScalingEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        //Debug.Log("Creating a status scaling effect: " + data.statusScalingData.Count);
+    }
+
+    public override bool Apply(Entity target) {
+        Debug.LogError("Add Status Scaling doesn't yet support targeting Entities");
+        return false;
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+        Debug.Log("Applyin: " + Data.effectName);
+
+        StatAdjustmentEffect adjustmentEffect = target as StatAdjustmentEffect;
+
+        if(adjustmentEffect == null) {
+            Debug.LogError("Tried to add status scaling to a non-stat adjustment effect");
+            return false;
+        }
+
+        for (int i = 0; i < Data.statusScalingData.Count; i++) {
+            TrackStatusScaling(target, Data.statusScalingData[i]);
+            adjustmentEffect.statusModifiers.AddRange(Data.statusScalingData);
+        }
+
+        return true;
+    }
+
+    public override void RemoveFromEffect(Effect target) {
+        base.RemoveFromEffect(target);
+
+        StatAdjustmentEffect adjustmentEffect = target as StatAdjustmentEffect;
+
+        if (activeStatusModifiers.TryGetValue(target, out List<StatModifierData.StatusModifier> modifierList)) {
+            for (int i = 0; i < modifierList.Count; i++) {
+                adjustmentEffect.statusModifiers.Remove(modifierList[i]);
+            }
+        }
+
+        activeStatusModifiers.Remove(target);
+
+    }
+
+    private void TrackStatusScaling(Effect target, StatModifierData.StatusModifier modifier) {
+        if (activeStatusModifiers.TryGetValue(target, out List<StatModifierData.StatusModifier> list) == true) {
+            list.Add(modifier);
+        }
+        else {
+            activeStatusModifiers.Add(target, new List<StatModifierData.StatusModifier> { modifier });
+        }
+
+    }
+
+
+
+    public override string GetTooltip() {
+        StringBuilder builder = new StringBuilder();
+
+        string bonusColor = UnityEngine.ColorUtility.ToHtmlStringRGB(new Color(.439f, .839f, 0.11f));
+        string penaltyColor = UnityEngine.ColorUtility.ToHtmlStringRGB(new Color(0.839f, 0.235f, 0.11f));
+
+        List<string> results = new List<string>();
+        foreach (var entry in Data.statusScalingData) {
+            string status = TextHelper.ColorizeText(entry.status.ToString(), Color.magenta);
+            string damage = TextHelper.ColorizeText((entry.modifierValue * 100).ToString(), new Color(.439f, .839f, 0.11f));
+
+            string result = Data.effectDescription + " deals " + damage + "% more damage to " + status + " targets.";
+
+            results.Add(result);
+        }
+
+        for (int i = 0; i < results.Count; i++) {
+            builder.AppendLine(results[i]);
+        }
+
+
+
+        return builder.ToString();
+
+    }
+
+
+}
+
 public class SpawnProjectileEffect : Effect {
 
     public override EffectType Type => EffectType.SpawnProjectile;
@@ -2796,6 +2890,8 @@ public class StatAdjustmentEffect : Effect {
 
     private List<StatModifierData> modData = new List<StatModifierData>();
 
+    public List<StatModifierData.StatusModifier> statusModifiers = new List<StatModifierData.StatusModifier>();
+
 
     public StatAdjustmentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
@@ -2808,6 +2904,11 @@ public class StatAdjustmentEffect : Effect {
 
         for (int i = 0; i < modData.Count; i++) {
             modData[i].SetupEffectStats();
+        }
+
+        statusModifiers = new List<StatModifierData.StatusModifier>();
+        for (int i = 0; i < data.statusModifiers.Count; i++) {
+            this.statusModifiers.Add(new StatModifierData.StatusModifier(data.statusModifiers[i]));
         }
 
     }
@@ -3459,6 +3560,17 @@ public class StatAdjustmentEffect : Effect {
 
                 globalDamageMultiplier += value;
             }
+        }
+
+        if(statusModifiers != null && statusModifiers.Count > 0) {
+            float statusModValue = 1f;
+            for (int i = 0; i < statusModifiers.Count; i++) {
+                if (target.HasStatus(statusModifiers[i].status) == true) {
+                    statusModValue += statusModifiers[i].modifierValue;
+                }
+            }
+
+            globalDamageMultiplier *= statusModValue;
         }
 
 

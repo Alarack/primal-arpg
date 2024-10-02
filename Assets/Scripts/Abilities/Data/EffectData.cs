@@ -30,7 +30,8 @@ public enum EffectType {
     ChangePayload,
     ChangeEffectZone,
     ModifyProjectile,
-    ModifyElapsedCooldown
+    ModifyElapsedCooldown,
+    AddStatusScaling
 }
 
 public enum EffectTarget {
@@ -148,6 +149,8 @@ public class EffectData
     public Gradient overloadFloatingTextColor = new Gradient();
     public StatModifierData.StatModDesignation effectDesignation;
     public bool addMissingStatIfNotPresent;
+    public bool scaleFromStatus;
+    public List<StatModifierData.StatusModifier> statusModifiers = new List<StatModifierData.StatusModifier>();
     //public List<StatScaler> adjustmentOptions = new List<StatScaler>();
 
 
@@ -232,6 +235,9 @@ public class EffectData
 
     //Modifiy Cooldown Elapsed
     public float cooldownElapsedModifier;
+
+    //Add Status Scaling
+    public List<StatModifierData.StatusModifier> statusScalingData = new List<StatModifierData.StatusModifier>();
 
 
 

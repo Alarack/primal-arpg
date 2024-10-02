@@ -23,7 +23,9 @@ public class StatModifier
 
     public StatVariantTarget VariantTarget { get; private set; }
 
-    public StatModifier(float value, StatModType modType, StatName targetStat, object source, StatVariantTarget variantTarget)
+    
+
+    public StatModifier(float value, StatModType modType, StatName targetStat, object source, StatVariantTarget variantTarget, List<StatModifierData.StatusModifier> statusModifiers = null)
     {
         Value = value;
         ModType = modType;

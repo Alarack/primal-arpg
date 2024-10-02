@@ -69,6 +69,7 @@ public class StatModifierData
     public StatName derivedTargetStat;
     public bool invertDerivedValue;
     public bool scaleFromAbilityLevel;
+
     public float abilityLevelCoefficient = 1f;
 
     public string otherTargetAbility;
@@ -193,6 +194,7 @@ public class StatModifierData
         this.weaponDamagePercent = copy.weaponDamagePercent;
         this.scaleFromAbilityLevel = copy.scaleFromAbilityLevel;
         this.abilityLevelCoefficient = copy.abilityLevelCoefficient;
+
         CloneStatScalers(copy);
     }
 
@@ -206,6 +208,27 @@ public class StatModifierData
         }
 
     }
+
+    [System.Serializable]
+    public class StatusModifier {
+        public Status.StatusName status;
+        public float modifierValue;
+
+        public StatusModifier() {
+
+        }
+
+        public StatusModifier(StatusModifier copy) {
+            this.status = copy.status;
+            this.modifierValue = copy.modifierValue;
+        }
+
+        public StatusModifier(Status.StatusName status, float modifierValue) {
+            this.status = status;
+            this.modifierValue = modifierValue;
+        }
+    }
+
 }
 
 
