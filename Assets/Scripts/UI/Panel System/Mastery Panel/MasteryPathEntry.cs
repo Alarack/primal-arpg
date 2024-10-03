@@ -114,6 +114,8 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
                 UnInvest();
                 break;
         }
+
+        TooltipManager.Show(PathAbility.GetTooltip(), PathAbility.Data.abilityName);
     }
 
 

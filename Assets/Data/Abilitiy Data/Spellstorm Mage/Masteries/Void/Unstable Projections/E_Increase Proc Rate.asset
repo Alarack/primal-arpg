@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Increase Unstable Projections Proc rate
-    effectDescription: 
+    effectDescription: Increase the chance to Trigger Unstable Projections by {}.
     type: 1
     targeting: 8
     subTarget: 4
@@ -29,6 +29,7 @@ MonoBehaviour:
     showScalers: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
+    chainTargetDelay: 0.1
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
@@ -175,6 +176,8 @@ MonoBehaviour:
       m_NumAlphaKeys: 3
     effectDesignation: 0
     addMissingStatIfNotPresent: 0
+    scaleFromStatus: 0
+    statusModifiers: []
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
@@ -216,3 +219,5 @@ MonoBehaviour:
     modifiedSeekDuration: -1
     modifiedDrunkInterval: 0.2
     cooldownElapsedModifier: 0
+    statusScalingData: []
+    scaleFromAbilityLevel: 0

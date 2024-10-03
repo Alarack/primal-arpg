@@ -1153,7 +1153,11 @@ public class Ability {
             Ability castingAbility = Source.ActivelyCastingAbility;
 
             if(castingAbility != null) {
-                //Debug.LogWarning("Another ability is casting at the moment: " + castingAbility.Data.abilityName);
+                
+                if(Data.abilityName == "Temportal Shift") {
+                    Debug.LogWarning("Another ability is casting at the moment: " + castingAbility.Data.abilityName);
+                }
+
                 return;
             }
         }
@@ -1161,8 +1165,7 @@ public class Ability {
         if (CheckCostWithoutSpending() == false)
             return;
 
-        if (CheckCost() == false)
-            return;
+
 
         if(HasWindup() == true) {
             
@@ -1170,6 +1173,11 @@ public class Ability {
                 return;
             }
         }
+
+
+        if (CheckCost() == false)
+            return;
+
 
         if (TrySpendCharge(1) == false) {
             //Debug.LogWarning("Not enough charges on: " + Data.abilityName);
@@ -1213,8 +1221,11 @@ public class Ability {
                 Debug.LogWarning(Data.abilityName + " is mid animation and cannot trigger again");
                 return true;
             }
-            
-            
+
+            if (CheckCost() == false)
+                return true;
+
+
             Source.ActivelyCastingAbility = this;
             SendAbilityInitiatedEvent(activationInstance);
 
@@ -1227,8 +1238,6 @@ public class Ability {
                 currentWindupVFX.transform.localPosition = Vector3.zero;
                 GameObject.Destroy(currentWindupVFX, 3f);
             }
-
-            //Source.Movement.StopMovement();
 
             return true;
         }
@@ -1365,7 +1374,6 @@ public class Ability {
             Source.ActivelyCastingAbility = null;
             if(IsChanneled == true)
                 Source.ActiveChannelingAbility = null;
-            //Source.Movement.CanMove = true;
             return;
         }
 

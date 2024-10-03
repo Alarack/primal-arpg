@@ -2492,6 +2492,30 @@ public class AddStatusScalingEffect : Effect {
         return false;
     }
 
+    public override void RegisterEvents() {
+        base.RegisterEvents();
+        EventManager.RegisterListener(GameEvent.AbilityLevelChanged, OnAbilityLevelChanged);
+
+    }
+
+    private void OnAbilityLevelChanged(EventData data) {
+        Ability ability = data.GetAbility("Ability");
+
+        if (ability != ParentAbility)
+            return;
+
+        ResetApplicationToEffects();
+    }
+
+    public void ResetApplicationToEffects() {
+        for (int i = EffectTargets.Count - 1; i >= 0; i--) {
+            Effect target = EffectTargets[i];
+
+            RemoveFromEffect(target);
+            ApplyToEffect(target);
+        }
+    }
+
     public override bool ApplyToEffect(Effect target) {
         if (base.ApplyToEffect(target) == false)
             return false;
@@ -2506,8 +2530,18 @@ public class AddStatusScalingEffect : Effect {
         }
 
         for (int i = 0; i < Data.statusScalingData.Count; i++) {
-            TrackStatusScaling(target, Data.statusScalingData[i]);
-            adjustmentEffect.statusModifiers.AddRange(Data.statusScalingData);
+            
+            if(Data.scaleFromAbilityLevel == true) {
+                float modValue = Data.statusScalingData[i].modifierValue * ParentAbility.AbilityLevel;
+                StatModifierData.StatusModifier modifier = new StatModifierData.StatusModifier(Data.statusScalingData[i].status, modValue);
+                TrackStatusScaling(target, modifier);
+                adjustmentEffect.statusModifiers.Add(modifier);
+
+            }
+            else {
+                TrackStatusScaling(target, Data.statusScalingData[i]);
+                adjustmentEffect.statusModifiers.Add(Data.statusScalingData[i]);
+            }
         }
 
         return true;
@@ -2543,13 +2577,16 @@ public class AddStatusScalingEffect : Effect {
     public override string GetTooltip() {
         StringBuilder builder = new StringBuilder();
 
-        string bonusColor = UnityEngine.ColorUtility.ToHtmlStringRGB(new Color(.439f, .839f, 0.11f));
-        string penaltyColor = UnityEngine.ColorUtility.ToHtmlStringRGB(new Color(0.839f, 0.235f, 0.11f));
+        //string bonusColor = UnityEngine.ColorUtility.ToHtmlStringRGB(new Color(.439f, .839f, 0.11f));
+        //string penaltyColor = UnityEngine.ColorUtility.ToHtmlStringRGB(new Color(0.839f, 0.235f, 0.11f));
 
         List<string> results = new List<string>();
         foreach (var entry in Data.statusScalingData) {
             string status = TextHelper.ColorizeText(entry.status.ToString(), Color.magenta);
-            string damage = TextHelper.ColorizeText((entry.modifierValue * 100).ToString(), new Color(.439f, .839f, 0.11f));
+
+            float damageValue = Data.scaleFromAbilityLevel == false ? entry.modifierValue : entry.modifierValue * ParentAbility.AbilityLevel;
+
+            string damage = TextHelper.ColorizeText((damageValue * 100).ToString(), new Color(.439f, .839f, 0.11f));
 
             string result = Data.effectDescription + " deals " + damage + "% more damage to " + status + " targets.";
 
@@ -3660,7 +3697,9 @@ public class StatAdjustmentEffect : Effect {
 
         StringBuilder builder = new StringBuilder();
 
-        string formated = TextHelper.FormatStat(modData[0].targetStat, modData[0].Stats[StatName.StatModifierValue]);
+        float value = modData[0].scaleFromAbilityLevel == false ? modData[0].Stats[StatName.StatModifierValue] : modData[0].Stats[StatName.StatModifierValue] * ParentAbility.AbilityLevel;
+
+        string formated = TextHelper.FormatStat(modData[0].targetStat, value);
 
         string replacement = Data.effectDescription.Replace("{}", formated);
 

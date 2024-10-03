@@ -77,6 +77,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
     public void Deselect() {
         Selected = false;
         selectedFrame.gameObject.SetActive(false);
+        pathEntries.ClearList();
         UpdateButtonText();
     }
 

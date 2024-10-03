@@ -357,7 +357,7 @@ public class AbilityManager : MonoBehaviour {
         List<Ability> results = new List<Ability>();
 
         for (int i = 0; i < targetAbilities.Count; i++) {
-            if (targetAbilities[i].Locked == true)
+            if (targetAbilities[i].Locked == true && targetAbilities[i].Tags.Contains(AbilityTag.Mastery) == false)
                 results.Add(targetAbilities[i]);
         }
 

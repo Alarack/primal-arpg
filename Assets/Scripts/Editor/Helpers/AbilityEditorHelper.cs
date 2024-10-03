@@ -737,7 +737,9 @@ public static class AbilityEditorHelper {
             case EffectType.AddStatusScaling:
 
                 EditorGUILayout.LabelField("Status Scalers", EditorHelper2.LoadStyle(abilityHeader));
+                entry.scaleFromAbilityLevel = EditorGUILayout.Toggle("Scale From Level", entry.scaleFromAbilityLevel);
                 entry.statusScalingData = EditorHelper.DrawExtendedList(entry.statusScalingData, "Status Scaler", DrawStatusModifier);
+                
                 break;
 
             default:

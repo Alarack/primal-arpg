@@ -238,7 +238,7 @@ public class EffectData
 
     //Add Status Scaling
     public List<StatModifierData.StatusModifier> statusScalingData = new List<StatModifierData.StatusModifier>();
-
+    public bool scaleFromAbilityLevel;
 
 
     public EffectData() {

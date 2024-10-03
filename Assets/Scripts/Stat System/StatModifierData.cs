@@ -69,7 +69,6 @@ public class StatModifierData
     public StatName derivedTargetStat;
     public bool invertDerivedValue;
     public bool scaleFromAbilityLevel;
-
     public float abilityLevelCoefficient = 1f;
 
     public string otherTargetAbility;

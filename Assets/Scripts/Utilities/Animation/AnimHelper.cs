@@ -10,8 +10,10 @@ public class AnimHelper : MonoBehaviour {
 
     private Entity owner;
 
-    private Ability currentAbility;
-    private AbilityTrigger.TriggerInstance currentTriggerInstance;
+    //private Ability currentAbility;
+    //private AbilityTrigger.TriggerInstance currentTriggerInstance;
+
+    private Queue<AbilityActivationInstance> abilityQueue = new Queue<AbilityActivationInstance>();
 
     private void Awake() {
         owner = GetComponentInParent<Entity>();
@@ -54,8 +56,12 @@ public class AnimHelper : MonoBehaviour {
 
     public void ReceiveAnimEvent(string name) {
         EventData data = new EventData();
-        data.AddAbility("Ability", currentAbility);
-        data.AddTriggerInstance("Instance", currentTriggerInstance);
+        
+        AbilityActivationInstance nextInstance = abilityQueue.Dequeue();
+        
+        
+        data.AddAbility("Ability", nextInstance.ability);
+        data.AddTriggerInstance("Instance", nextInstance.triggerInstance);
 
         EventManager.SendEvent(GameEvent.AbilityAnimReceived, data);
     }
@@ -109,8 +115,11 @@ public class AnimHelper : MonoBehaviour {
 
 
 
-        currentAbility = ability;
-        currentTriggerInstance = triggerInstance;
+        //currentAbility = ability;
+        //currentTriggerInstance = triggerInstance;
+
+        abilityQueue.Enqueue(new AbilityActivationInstance(ability, triggerInstance));
+
 
         bool readyCheck = entity is EntityPlayer;
 
@@ -166,6 +175,23 @@ public class AnimHelper : MonoBehaviour {
 
     public bool IsAnimRunning(string animName) {
         return animator.GetCurrentAnimatorStateInfo(0).IsName(animName);
+    }
+
+
+
+
+    public class AbilityActivationInstance {
+        public Ability ability;
+        public AbilityTrigger.TriggerInstance triggerInstance;
+
+        public AbilityActivationInstance() {
+
+        }
+
+        public AbilityActivationInstance(Ability ability, AbilityTrigger.TriggerInstance triggerInstance) {
+            this.ability = ability;
+            this.triggerInstance = triggerInstance;
+        }
     }
 
 }
