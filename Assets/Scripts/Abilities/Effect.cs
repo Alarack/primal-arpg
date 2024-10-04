@@ -2684,6 +2684,10 @@ public class SpawnProjectileEffect : Effect {
                 case DeliverySpawnLocation.AITarget:
                     token.transform.localPosition = target.transform.position;
                     break;
+
+                case DeliverySpawnLocation.Trigger:
+                    token.transform.localPosition = targeter.ActivationInstance.TriggeringEntity.transform.position;
+                    break;
                 default:
                     token.transform.localPosition = Source.transform.position;
                     break;

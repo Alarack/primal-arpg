@@ -590,8 +590,13 @@ public class EffectTargeter {
 
             if (parentEffect.Data.spawnLocation == DeliverySpawnLocation.Trigger) {
                 Entity triggeringEntity = ActivationInstance.TriggeringEntity;
+                Entity causingEntity = ActivationInstance.CauseOfTrigger;
                 if (triggeringEntity != null) {
                     projectile.IgnoreCollision(triggeringEntity);
+                }
+
+                if(causingEntity != null) {
+                    projectile.IgnoreCollision(causingEntity);
                 }
             }
 
