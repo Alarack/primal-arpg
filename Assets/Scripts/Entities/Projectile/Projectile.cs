@@ -321,6 +321,30 @@ public class Projectile : Entity {
         EventManager.SendEvent(GameEvent.ProjectilePierced, data);
     }
 
+    public void CloneProjectile(Entity ignoreTarget = null) {
+        Projectile child = Instantiate(gameObject, transform.position, transform.rotation).GetComponent<Projectile>();
+        child.Setup(Source, parentEffect, projectileHitMask, parentEffect.Data.maskTargeting);
+        child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
+
+        if (ignoreTarget != null) {
+            Collider2D recentHit = ignoreTarget.GetComponent<Collider2D>();
+            child.SetupChildCollision(recentHit);
+            TargetUtilities.RotateToRandomNearbyTarget(recentHit, child, chainRadius, chainMask, true);
+        }
+    }
+    public void ForceProjectileSplit(Entity ignoreTarget = null) {
+        Projectile child = Instantiate(parentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
+        child.Setup(Source, parentEffect, projectileHitMask, parentEffect.Data.maskTargeting);
+        child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
+
+        if (ignoreTarget != null) {
+            Collider2D recentHit = ignoreTarget.GetComponent<Collider2D>();
+            child.SetupChildCollision(recentHit);
+            TargetUtilities.RotateToRandomNearbyTarget(recentHit, child, chainRadius, chainMask, true);
+        }
+        
+    }
+
     private bool HandleProjectileSplit(Collider2D recentHit) {
 
         if (Stats[StatName.ProjectileSplitCount] < 1f) {
