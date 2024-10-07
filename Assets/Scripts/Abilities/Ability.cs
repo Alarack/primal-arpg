@@ -1252,7 +1252,7 @@ public class Ability {
                 return true;
             }
             else {
-                Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
+                //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
                 return true;
             }
         }

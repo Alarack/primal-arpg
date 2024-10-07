@@ -54,6 +54,15 @@ public class NPC : Entity
         }
     }
 
+
+    public Ability AddAbility(AbilityData data) {
+        Ability newAbility = AbilityFactory.CreateAbility(data, this);
+        AddAbility(newAbility);
+
+        return newAbility;
+    }
+
+
     public override void AddAbility(Ability ability) {
         base.AddAbility(ability);
         Brain.AddAbility(ability);

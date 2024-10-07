@@ -4,12 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Unity.VisualScripting;
 using UnityEngine;
 using static AbilityTrigger;
 using static Status;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.Rendering.DebugUI;
 using Random = UnityEngine.Random;
 
 
@@ -1961,15 +1958,24 @@ public class AddAbilityEffect : Effect {
             return false;
 
         for (int i = 0; i < Data.abilitiesToAdd.Count; i++) {
-            Ability newChild = target.AbilityManager.LearnAbility(Data.abilitiesToAdd[i].AbilityData, true);
-            
-            if(newChild == null) {
-                Debug.LogError("Alrady leared an ability, just unlock it: " + Data.abilitiesToAdd[i].AbilityData.abilityName);
-            }
-            
-            TrackAbilties(target, newChild);
 
-            Debug.Log("Adding new ability: " + newChild.Data.abilityName);
+            NPC npcTarget = target as NPC;
+            if(npcTarget != null) {
+                Ability newAblity = npcTarget.AddAbility(Data.abilitiesToAdd[i].AbilityData);
+                TrackAbilties(target, newAblity);
+
+            }
+            else {
+                Ability newChild = target.AbilityManager.LearnAbility(Data.abilitiesToAdd[i].AbilityData, true);
+
+                if (newChild == null) {
+                    Debug.LogError("Alrady leared an ability, just unlock it: " + Data.abilitiesToAdd[i].AbilityData.abilityName);
+                }
+
+                TrackAbilties(target, newChild);
+
+                Debug.Log("Adding new ability: " + newChild.Data.abilityName);
+            }
         }
 
         return true;
@@ -1980,8 +1986,17 @@ public class AddAbilityEffect : Effect {
 
         if (trackedAbilities.TryGetValue(target, out List<Ability> abilitiesLearned) == true) {
 
-            for (int i = 0; i < abilitiesLearned.Count; i++) {
-                target.AbilityManager.UnlearnAbility(abilitiesLearned[i]);
+            NPC npcTarget = target as NPC;
+            if(npcTarget != null) {
+                for (int i = 0; i < abilitiesLearned.Count; i++) {
+                    target.RemoveAbility(abilitiesLearned[i]);
+                }
+
+            }
+            else {
+                for (int i = 0; i < abilitiesLearned.Count; i++) {
+                    target.AbilityManager.UnlearnAbility(abilitiesLearned[i]);
+                }
             }
 
             trackedAbilities.Remove(target);
