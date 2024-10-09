@@ -34,3 +34,9 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 12d90fda90424d64d8aa3046fd34a5c2, type: 2}
       - {fileID: 11400000, guid: 3c2552648f7c7cb4d8cf24fda484c832, type: 2}
       - {fileID: 11400000, guid: 584f5cb0242b6ec488919c8bcb22e8d5, type: 2}
+  - masteryName: Space
+    features:
+    - featureName: Teleport Mastery
+      featureAbility: {fileID: 11400000, guid: bb3967d0245c1ac4e86fd64517d590b8, type: 2}
+      featurePathAbilities:
+      - {fileID: 11400000, guid: bda2b8d2e58c0d146b4fcd2bab32cd2c, type: 2}

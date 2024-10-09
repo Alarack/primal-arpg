@@ -375,6 +375,28 @@ public class AbilityOnHotbarConstraint : AbilityConstraint {
     }
 }
 
+public class AbilityInSlotConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.AbilityOnHotbar;
+
+    public AbilityInSlotConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        Debug.LogError("An Ability In Slot Constraint is trying to evaluate an Entity. This is not supported");
+        return false;
+    }
+
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+        bool result = EntityManager.ActivePlayer.AbilityManager.IsAbilityInSlot(ability, data.abilitySlot);
+        
+        return inverse == false ? result : !result;
+    }
+}
+
 public class OwnerConstraint : AbilityConstraint {
 
     public override ConstraintType Type => ConstraintType.Owner;

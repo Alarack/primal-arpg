@@ -519,7 +519,11 @@ public class AbilityManager : MonoBehaviour {
         return ActiveAbilities.Contains(ability);
     }
 
+    public bool IsAbilityInSlot(Ability ability, int slot) {
+        Ability targetAbility = PanelManager.GetPanel<HotbarPanel>().GetActiveAbilityBySlot(slot);
 
+        return targetAbility != null && targetAbility == ability;
+    }
 
     #endregion
 

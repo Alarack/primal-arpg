@@ -40,7 +40,8 @@ public enum ConstraintType {
     AbilityOnHotbar,
     EffectAppliedTo,
     TriggerOnly,
-    CauseOnly
+    CauseOnly,
+    AbilityInSlot
 }
 
 public enum GainedOrLost {
@@ -157,6 +158,9 @@ public class ConstraintData
 
     //Is Moving
     public float movementMagnitudeLimit = 0.1f;
+
+    //Ability In Slot
+    public int abilitySlot;
 
     public ConstraintData() {
 

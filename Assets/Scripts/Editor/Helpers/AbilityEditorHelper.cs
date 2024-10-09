@@ -429,6 +429,10 @@ public static class AbilityEditorHelper {
                 entry.targetStateData = (StateData)EditorGUILayout.ObjectField("To State:", entry.targetStateData, typeof(StateData), false);
 
                 break;
+
+            case ConstraintType.AbilityInSlot:
+                entry.abilitySlot = EditorGUILayout.IntField("Target Slot", entry.abilitySlot);
+                break;
             default:
                 break;
         }
@@ -731,6 +735,7 @@ public static class AbilityEditorHelper {
 
             case EffectType.ModifyElapsedCooldown:
                 entry.cooldownElapsedModifier = EditorGUILayout.FloatField("Amount", entry.cooldownElapsedModifier);
+                entry.scaleFromAbilityLevel = EditorGUILayout.Toggle("Scale From Level", entry.scaleFromAbilityLevel);
 
                 break;
 
@@ -741,6 +746,7 @@ public static class AbilityEditorHelper {
                 entry.statusScalingData = EditorHelper.DrawExtendedList(entry.statusScalingData, "Status Scaler", DrawStatusModifier);
                 
                 break;
+
 
             default:
                 break;

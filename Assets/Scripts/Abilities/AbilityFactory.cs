@@ -92,6 +92,7 @@ public static class AbilityFactory {
             ConstraintType.EffectAppliedTo => new EffectAppliedToConstraint(data, source, parentAbility),
             ConstraintType.TriggerOnly => new TriggerOnlyConstraint(data, source, parentAbility),
             ConstraintType.CauseOnly => new CauseOnlyConstraint(data, source, parentAbility),
+            ConstraintType.AbilityInSlot => new AbilityInSlotConstraint(data, source, parentAbility),
             _ => null,
         };
 

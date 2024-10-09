@@ -666,8 +666,11 @@ public class ModifiyElapsedCooldownEffect : Effect {
         if (target is EntityPlayer) {
             List<Ability> allAbilities = target.AbilityManager.GetAllAbilities();
 
+            float coolDownProgress = Data.scaleFromAbilityLevel == false ? Data.cooldownElapsedModifier : Data.cooldownElapsedModifier * ParentAbility.AbilityLevel;
+
             for (int i = 0; i < allAbilities.Count; i++) {
-                allAbilities[i].ModifyCooldownElasped(Data.cooldownElapsedModifier);
+    
+                allAbilities[i].ModifyCooldownElasped(coolDownProgress);
             }
         }
         else {
@@ -682,7 +685,9 @@ public class ModifiyElapsedCooldownEffect : Effect {
         if (base.ApplyToAbility(target) == false)
             return false;
 
-        target.ModifyCooldownElasped(Data.cooldownElapsedModifier);
+        float coolDownProgress = Data.scaleFromAbilityLevel == false ? Data.cooldownElapsedModifier : Data.cooldownElapsedModifier * ParentAbility.AbilityLevel;
+
+        target.ModifyCooldownElasped(coolDownProgress);
 
 
         return true;
@@ -692,6 +697,19 @@ public class ModifiyElapsedCooldownEffect : Effect {
 
         Debug.LogError("Tried to modify the cooldown of an effect: " + target.Data.effectName + " this is not supported");
         return false;
+    }
+
+
+    public override string GetTooltip() {
+        float coolDownProgress = Data.scaleFromAbilityLevel == false ? Data.cooldownElapsedModifier : Data.cooldownElapsedModifier * ParentAbility.AbilityLevel;
+
+        string colorized = TextHelper.ColorizeText(coolDownProgress.ToString(), Color.yellow);
+
+        string replacement = Data.effectDescription.Replace("{}", colorized);
+
+        return replacement;
+
+
     }
 }
 
