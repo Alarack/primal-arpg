@@ -244,11 +244,11 @@ RectTransform:
   m_Father: {fileID: 8561135467425607160}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -105.62}
-  m_SizeDelta: {x: 175, y: 35}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 35}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &4341389202966223036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,8 +458,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 72ba3b383a2ae2247896202aa32d67bd, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d05317649c3f80c48ab858ec0e14daa4, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1050,6 +1050,7 @@ GameObject:
   - component: {fileID: 4066794926018457080}
   - component: {fileID: 1592557159975844027}
   - component: {fileID: 2726913047769912983}
+  - component: {fileID: 1604588027163055699}
   m_Layer: 5
   m_Name: Rune Pip Entry
   m_TagString: Untagged
@@ -1118,14 +1119,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: 521b7361d4f0adb4f8857be30745c44d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1135,6 +1136,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1604588027163055699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315540002705713431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &6444016460913963349
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,9 +1315,8 @@ MonoBehaviour:
   passiveHolder: {fileID: 3293873730154880681}
   passiveIcon: {fileID: 2995453209543544143}
   selecteFrame: {fileID: 6475354584802627871}
-  equippedColor: {r: 0.34021595, g: 0.5754717, b: 0.38564157, a: 1}
-  unequippedColor: {r: 0.59607846, g: 0.59607846, b: 0.59607846, a: 1}
   runePipImageTemplate: {fileID: 2726913047769912983}
+  emptyRuneSlotImage: {fileID: 21300000, guid: fa8744ab8135b9d4d89ae8b6edae9586, type: 3}
   runePipHolder: {fileID: 3143729773290941974}
 --- !u!223 &2510296072787675812
 Canvas:

@@ -41,9 +41,10 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Image selecteFrame;
 
     [Header("Rune Pips")]
-    public Color equippedColor;
-    public Color unequippedColor;
+    //public Color equippedColor;
+    //public Color unequippedColor;
     public Image runePipImageTemplate;
+    public Sprite emptyRuneSlotImage;
     public Transform runePipHolder;
 
     private List<Image> runePipEntries = new List<Image>();
@@ -125,15 +126,15 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         runePipEntries.PopulateList(Ability.GetMaxRunes(), runePipImageTemplate, runePipHolder, true);
 
         for (int i = 0; i < Ability.GetEquippedRuneCount(); i++) {
-            runePipEntries[i].color = equippedColor;
+            runePipEntries[i].sprite = runePipImageTemplate.sprite;
         }
 
         for (int i = 0; i < runePipEntries.Count; i++) {
             if (i < Ability.GetEquippedRuneCount()) {
-                runePipEntries[i].color = equippedColor;
+                runePipEntries[i].sprite = runePipImageTemplate.sprite;
             }
             else {
-                runePipEntries[i].color = unequippedColor;
+                runePipEntries[i].sprite = emptyRuneSlotImage;
             }
         }
     }
