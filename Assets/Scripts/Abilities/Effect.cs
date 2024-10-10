@@ -3772,11 +3772,11 @@ public class StatAdjustmentEffect : Effect {
 
         builder.AppendLine();
 
-        string scalarTooltip = ScalarTooltip();
+        //string scalarTooltip = ScalarTooltip();
 
-        builder.AppendLine("Scales From: ");
+        //builder.AppendLine("Scales From: ");
 
-        builder.Append(scalarTooltip).AppendLine();
+        //builder.Append(scalarTooltip).AppendLine();
 
         float damageRatio = GetWeaponScaler();
 

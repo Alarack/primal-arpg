@@ -932,7 +932,7 @@ public class Ability {
 
                     builder.AppendLine(adj.GetTooltip());
                 }
-                else {
+                else if(adj.ZoneInfo.applyOnInterval == false) {
                     builder.AppendLine();
                     builder.AppendLine("Scales From: ");
 

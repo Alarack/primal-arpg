@@ -440,7 +440,7 @@ public class RoomManager : Singleton<RoomManager> {
 
     }
 
-    private void CleanUpRewardPedestals() {
+    public void CleanUpRewardPedestals() {
         for (int i = 0; i < currentRewards.Count; i++) {
             Destroy(currentRewards[i].gameObject);
         }
