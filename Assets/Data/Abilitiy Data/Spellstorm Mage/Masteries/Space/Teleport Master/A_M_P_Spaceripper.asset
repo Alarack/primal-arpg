@@ -17,7 +17,7 @@ MonoBehaviour:
     abilityIcon: {fileID: 21300000, guid: f3f237de98d576645817efe1aa761401, type: 3}
     abilityName: Spaceripper
     abilityDescription: Whenever you deal damage from a Teleport effect, generate
-      a charge of Spatial Energy. When you accumulate 5 charges, you erupt, creating
+      a charge of Spatial Energy. When you accumulate {TC} charges, you erupt, creating
       a Spatial Tear.
     resourceCost: 0
     toBestow: 0
@@ -244,6 +244,7 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 1
+      reduceTriggerCountByAbilityLevel: 1
       minTriggerCount: 5
     endCounterData:
       useCustomRefreshTrigger: 0
@@ -263,13 +264,14 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: a61238914b0fae34f9f5ef334ee74bdd, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    maxRanks: 1
+    maxRanks: 3
     windupVFX: {fileID: 0}
     abilityStatData:
     - variant: 0

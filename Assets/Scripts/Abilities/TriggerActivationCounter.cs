@@ -22,9 +22,12 @@ public class TriggerActivationCounter
     private int maxTriggerCount = -1;
     private int minTriggerCount = -1;
 
+    public TriggerActivationCounterData Data { get; private set; }
+
     public TriggerActivationCounter(TriggerActivationCounterData data, Entity source, Ability parentAbility = null) {
         this.ParentAbility = parentAbility;
         this.Source = source;
+        this.Data = data;
         useCustomRefreshTrigger = data.useCustomRefreshTrigger;
         requireMultipleTriggers = data.requireMultipleTriggers;
         limitNumberOfTriggers = data.limitedNumberOfTriggers;
@@ -54,6 +57,13 @@ public class TriggerActivationCounter
         RefreshCount(null);
     }
 
+    public int GetMinTriggerCount() {
+        int targetMinTriggerCount = Data.reduceTriggerCountByAbilityLevel == false ? minTriggerCount : minTriggerCount - (ParentAbility.AbilityLevel - 1);
+
+
+        return targetMinTriggerCount;
+    }
+
     public bool Evaluate() {
         Count++;
 
@@ -61,7 +71,10 @@ public class TriggerActivationCounter
 
         SendActivationCountEvent(requireMultipleTriggers);
 
-        if (requireMultipleTriggers == true && Count < minTriggerCount)
+        //int targetMinTriggerCount = Data.reduceTriggerCountByAbilityLevel == false ? MinTriggerCount : MinTriggerCount - ParentAbility.AbilityLevel;
+
+
+        if (requireMultipleTriggers == true && Count < GetMinTriggerCount())
             return false;
 
         if (limitNumberOfTriggers == true && Count > maxTriggerCount)

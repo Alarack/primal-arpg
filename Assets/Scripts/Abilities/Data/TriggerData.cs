@@ -120,6 +120,7 @@ public class TriggerActivationCounterData {
 
     //This Constraint can only be true if a trigger has happend X or more times.
     public bool requireMultipleTriggers;
+    public bool reduceTriggerCountByAbilityLevel;
     public int minTriggerCount;
 
 }

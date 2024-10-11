@@ -218,8 +218,11 @@ public static class AbilityEditorHelper {
         entry.limitedNumberOfTriggers = EditorGUILayout.Toggle("Limit Activations?", entry.limitedNumberOfTriggers);
         entry.requireMultipleTriggers = EditorGUILayout.Toggle("Require Multiple Activations?", entry.requireMultipleTriggers);
 
-        if (entry.requireMultipleTriggers == true)
+        if (entry.requireMultipleTriggers == true) {
             entry.minTriggerCount = EditorGUILayout.IntField("Activations Required", entry.minTriggerCount);
+            entry.reduceTriggerCountByAbilityLevel = EditorGUILayout.Toggle("Reduce by Level", entry.reduceTriggerCountByAbilityLevel);
+
+        }
 
         if (entry.limitedNumberOfTriggers == true)
             entry.maxTriggerCount = EditorGUILayout.IntField("Maximum Activations", entry.maxTriggerCount);

@@ -72,6 +72,10 @@ public class HUDPanel : BasePanel
     }
 
 
+    public void ClearStatusUI() {
+        statusIndicators.ClearList();
+    }
+
     private void OnStatusApplied(EventData data) {
         Status status = data.GetStatus("Status");
         Entity target = data.GetEntity("Target");

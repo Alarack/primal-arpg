@@ -896,7 +896,19 @@ public class Ability {
             string timerInteralText = TextHelper.ColorizeText(timerInterval.ToString(), Color.yellow);
             string timerIntervalReplacment = statusLifeReplacement.Replace("{TI}", timerInteralText);
 
-            builder.Append(timerIntervalReplacment);
+
+            string triggerCountReplacement = timerIntervalReplacment;
+            if (Data.counterData.minTriggerCount > 0) {
+                int triggerCount = GetMinTriggerCount();
+                if(triggerCount > 0) {
+                    string triggerCountText = TextHelper.ColorizeText(triggerCount.ToString(), Color.green);
+                    triggerCountReplacement = timerIntervalReplacment.Replace("{TC}", triggerCountText);
+                }
+            }
+
+
+
+            builder.Append(triggerCountReplacement);
 
             if(Data.showChildAbilitiesInTooltip == false) {
                 builder.AppendLine();
@@ -1100,6 +1112,16 @@ public class Ability {
             return 0;
 
         return (int)effects[0].Stats[StatName.EffectMaxTargets]; ;
+    }
+
+    public int GetMinTriggerCount() {
+        if (Data.counterData.minTriggerCount <= 0)
+            return -1;
+        
+        int targetMinTriggerCount = Data.counterData.reduceTriggerCountByAbilityLevel == false ? 
+            Data.counterData.minTriggerCount : Data.counterData.minTriggerCount - (AbilityLevel -1);
+
+        return targetMinTriggerCount;
     }
 
     public bool HasAutoFire() {

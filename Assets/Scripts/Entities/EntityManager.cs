@@ -191,6 +191,7 @@ public class EntityManager : Singleton<EntityManager> {
         ActivePlayer.AbilityManager.ResetAbilities();
         ActivePlayer.ResetLevel();
         PanelManager.GetPanel<InventoryPanel>().ResetForge();
+        PanelManager.GetPanel<HUDPanel>().ClearStatusUI();
         PanelManager.ClosePanel<LevelUpPanel>();
         RoomManager.Instance.CleanUpRewardPedestals();
 
