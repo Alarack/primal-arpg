@@ -93,6 +93,23 @@ public class Status {
 
     private void RegisterEvents() {
         EventManager.RegisterListener(GameEvent.UnitDied, OnUnitDied);
+        EventManager.RegisterListener(GameEvent.UnitStatAdjusted, OnStatusDurationChanged);
+    }
+
+
+    private void OnStatusDurationChanged(EventData data) {
+        StatName stat = (StatName)data.GetInt("Stat");
+        Entity target = data.GetEntity("Target");
+
+        if(target != Source) {
+            return;
+        }
+
+        if (stat == StatName.GlobalStatusDurationModifier) {
+            CreateTimers();
+        }
+
+        
     }
 
     private void OnUnitDied(EventData data) {

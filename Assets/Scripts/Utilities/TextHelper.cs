@@ -215,8 +215,8 @@ public static class TextHelper
             StatName.GlobalEssenceCostModifier => "Essence Cost Modifier",
             StatName.GlobalStatusDurationModifier => "Status Duration Modifier",
             StatName.GlobalStatusIntervalModifier => "Status Interval Modifier",
-            StatName.CastingMoveSpeedModifier => "Casting Move Speed Modifier",
-            StatName.ChannelingMoveSpeedModifier => "Channeling Move Speed Modifier",
+            StatName.CastingMoveSpeedModifier => "Casting Move Speed",
+            StatName.ChannelingMoveSpeedModifier => "Channeling Move Speed",
 
   
             _ => stat.ToString().SplitCamelCase(),

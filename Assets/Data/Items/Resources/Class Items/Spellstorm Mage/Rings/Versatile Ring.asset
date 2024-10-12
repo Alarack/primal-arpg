@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Ring of Temporal Affliction
+  m_Name: Versatile Ring
   m_EditorClassIdentifier: 
   devItem: 0
   startingItem: 0
@@ -18,25 +18,23 @@ MonoBehaviour:
     Type: 1
     affixStatTarget: 1
     entityClass: 0
-    itemName: Ring of Temporal Afffliction
-    itemDescription: 'A steel ring with a band of unidentifiable of ice-blue metal
-      running through the center. It feels heavier than it should. '
+    itemName: Versatile Ring
+    itemDescription: A strange band with a series of glowing sockets.
     secondaryDescription: 
     itemValue: 500
     runeAbilityTarget: 
     validSlots: 0400000005000000
-    abilityTags: 18000000
+    abilityTags: 
     targetedAbilityName: 
-    itemIcon: {fileID: 21300000, guid: a2d67a79fad1984469b6c677f6cc4ff6, type: 3}
-    pickupIcon: {fileID: 21300000, guid: a2d67a79fad1984469b6c677f6cc4ff6, type: 3}
+    itemIcon: {fileID: 21300000, guid: b7e32112811352747af31ee5804f567f, type: 3}
+    pickupIcon: {fileID: 21300000, guid: b7e32112811352747af31ee5804f567f, type: 3}
     pickupOnCollision: 1
     tier: 0
-    baseAffixSlots: 2
+    baseAffixSlots: 4
     minDamage: 0
     maxDamage: 0
     statModifierData: []
-    abilityDefinitions:
-    - {fileID: 11400000, guid: 6dc2563be87c04543b392bb1dcf0639c, type: 2}
+    abilityDefinitions: []
     learnableAbilities: []
     classPreviewAbilities: []
     startingItemOptions: []

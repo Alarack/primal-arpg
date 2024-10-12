@@ -1076,6 +1076,13 @@ public class TeleportEffect : Effect {
                 Entity other = targeter.GetLastTargetFromOtherEffect(Data.otherAbilityName, Data.otherEffectName, AbilityCategory.Any);
                 TeleportToEntity(target, other);
                 break;
+
+            case TeleportDestination.TargetSequence:
+                List<Entity> targets = targeter.GetOtherEffectEntityTargets(Data.otherAbilityName, Data.otherEffectName, AbilityCategory.Any);
+                if(targets.Count > 0)
+                    new Task(TeleportSequence(target, targets));
+                break;
+
             default:
                 break;
         }
@@ -1084,6 +1091,17 @@ public class TeleportEffect : Effect {
 
 
         return true;
+    }
+
+    private IEnumerator TeleportSequence(Entity mainTarget, List<Entity> targets) {
+        WaitForSeconds waiter = new WaitForSeconds(Data.teleportSequenceDelay);
+
+        for (int i = 0; i < targets.Count; i++) {
+            TeleportToEntity(mainTarget, targets[i]);
+            yield return waiter;
+        }
+
+        
     }
 
     private void TeleportToEntity(Entity target, Entity other) {

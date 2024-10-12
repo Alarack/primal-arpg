@@ -171,6 +171,7 @@ public class EffectData
     public TeleportDestination teleportDestination;
     public GameObject teleportVFX;
     public float forwardDistance;
+    public float teleportSequenceDelay = 0.2f;
 
     //Spawn Projectile
     public List<Projectile> tokenPrefabs = new List<Projectile>();
