@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Flicker Damage
+  m_Name: A_R_Telesplosion
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 5
-    abilityIcon: {fileID: 21300000, guid: a28c2d8950067bd40aed525b49c5d923, type: 3}
-    abilityName: Flicker Stride Damage
-    abilityDescription: 
+    category: 3
+    abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
+    abilityName: Telesplosion
+    abilityDescription: After you Teleport, cause an explosion of unstable Spatial
+      energy around you
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -28,7 +29,7 @@ MonoBehaviour:
     recastOnChannelCost: 0
     normalizedProcRate: 0
     startingAbility: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Tactical Teleport
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -37,7 +38,7 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 0e0000000f000000
+    tags: 060000000e000000
     activationTriggerData:
     - type: 36
       overrideProcStat: 0
@@ -86,7 +87,7 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: Flicker Stride
+          targetAbiltyName: Tactical Teleport
           targetEffectName: 
           effectDesigantion: 0
           targetEffectType: 0

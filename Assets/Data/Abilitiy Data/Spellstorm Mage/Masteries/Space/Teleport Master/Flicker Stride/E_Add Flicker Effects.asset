@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Flicker To Targets
+  m_Name: E_Add Flicker Effects
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Flicker to Targets
+    effectName: Add Flicker Effects
     effectDescription: 
-    type: 11
-    targeting: 1
-    subTarget: 1
+    type: 15
+    targeting: 8
+    subTarget: 4
     maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -28,12 +28,54 @@ MonoBehaviour:
     showRiderTooltip: 0
     showScalers: 0
     inheritStatsFromParentAbility: 1
-    numberOfTargets: 3
+    numberOfTargets: 1
     chainTargetDelay: 0.1
-    otherAbilityName: Flicker Stride
-    otherEffectName: Gather Flicker Targets
+    otherAbilityName: 
+    otherEffectName: 
     targetAbilityForLastPayload: 
-    targetConstraints: []
+    targetConstraints:
+    - type: 18
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: Tactical Teleport
+      targetEffectName: 
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+      abilitySlot: 0
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadStatData: []
@@ -128,10 +170,10 @@ MonoBehaviour:
     invertDestination: 0
     resetMovement: 0
     targetDestination: 0
-    teleportDestination: 5
-    teleportVFX: {fileID: 1197010802093610, guid: 9512773bce5218343a8e521647e7865f, type: 3}
+    teleportDestination: 0
+    teleportVFX: {fileID: 0}
     forwardDistance: 0
-    teleportSequenceDelay: 0.1
+    teleportSequenceDelay: 0.2
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -139,11 +181,14 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
-    effectsToAdd: []
+    effectsToAdd:
+    - {fileID: 11400000, guid: efa27887ccb9e63498d46849771b1696, type: 2}
+    - {fileID: 11400000, guid: 05f5454a0dc59d6499883e995d15855b, type: 2}
     targetAbilityToAddEffectsTo: 
     ridersToAdd: []
     ridersToRemove: []
-    effectsToRemove: []
+    effectsToRemove:
+    - Teleport Effect
     targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 

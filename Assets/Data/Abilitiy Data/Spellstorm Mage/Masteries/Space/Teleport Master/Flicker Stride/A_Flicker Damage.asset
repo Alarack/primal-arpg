@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Tactical Teleport
+  m_Name: A_Flicker Damage
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 1
-    abilityIcon: {fileID: 21300000, guid: c0bf74316ee1deb4393e0e5ac6ba615e, type: 3}
-    abilityName: Tactical Teleport
-    abilityDescription: Instantly teleport to your mouse cursor.
+    category: 5
+    abilityIcon: {fileID: 21300000, guid: a28c2d8950067bd40aed525b49c5d923, type: 3}
+    abilityName: Flicker Stride Damage
+    abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -31,25 +31,15 @@ MonoBehaviour:
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
-    initSFXVolume: 0.5
-    initiationSounds:
-    - {fileID: 8300000, guid: 9fb2085538d1bfe41abcb2b5c317517f, type: 3}
+    initSFXVolume: 1
+    initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: f3a84b0ee105bbc428f0c9ed7393c714, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: e6335cee18128734499d0384103d1dde, type: 2}
-      tier: 2
-    - runes:
-      - {fileID: 11400000, guid: c3263ef78edcf314892bf77f103092c7, type: 2}
-      tier: 3
+    runeGroupData: []
     tags: 0e0000000f000000
     activationTriggerData:
-    - type: 6
+    - type: 36
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -61,9 +51,9 @@ MonoBehaviour:
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
       allConstraints:
-      - focus: 4
+      - focus: 5
         constraintData:
-        - type: 7
+        - type: 18
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -96,7 +86,7 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: 
+          targetAbiltyName: Tactical Teleport
           targetEffectName: 
           effectDesigantion: 0
           targetEffectType: 0
@@ -147,39 +137,11 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 650865caed6f7424b9be322424b8d3c4, type: 2}
+    - {fileID: 11400000, guid: dc21f6c9b981dbb4aa8e3812be3c8868, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
     windupVFX: {fileID: 0}
-    abilityStatData:
-    - variant: 0
-      statName: 46
-      value: 0
-      maxValue: 0
-      minValue: 0
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          overrideProcStat: 0
-          procChance: 1
-          triggerDelay: 0
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          chainTriggerDelay: 0.1
-          delay1Frame: 0
-          autoActivateTimer: 0
-          resetTimerOnParentAbilityEnd: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        reduceTriggerCountByAbilityLevel: 0
-        minTriggerCount: 0
-      cooldown: 4
+    abilityStatData: []
+    recoveryData: []

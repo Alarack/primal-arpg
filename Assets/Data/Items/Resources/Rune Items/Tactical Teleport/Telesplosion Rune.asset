@@ -13,21 +13,29 @@ MonoBehaviour:
   m_Name: Telesplosion Rune
   m_EditorClassIdentifier: 
   devItem: 0
+  startingItem: 0
   itemData:
     Type: 2
+    affixStatTarget: 1
     entityClass: 0
     itemName: Telesplosion Rune
     itemDescription: 
+    secondaryDescription: 
     itemValue: 200
     runeAbilityTarget: Tactical Teleport
     validSlots: 0e000000
     abilityTags: 
+    targetedAbilityName: 
     itemIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
     pickupIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
     pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
     statModifierData: []
     abilityDefinitions:
-    - {fileID: 11400000, guid: af0d9b2db248ab94b97f60c6bc9131bb, type: 2}
+    - {fileID: 11400000, guid: 5b174ef5da48630469ff63be9fe0e66f, type: 2}
     learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []
