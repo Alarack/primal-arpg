@@ -826,7 +826,7 @@ public class Ability {
             builder.Append(TextHelper.ColorizeText("[", Color.gray, 20f));
 
             for (int i = 0; i < Tags.Count; i++) {
-                builder.Append(TextHelper.ColorizeText(Tags[i].ToString(), Color.gray, 20f));
+                builder.Append(TextHelper.ColorizeText(TextHelper.SplitCamelCase(Tags[i].ToString()), Color.gray, 20f));
 
                 if (i != Tags.Count - 1) {
                     builder.Append(", ");

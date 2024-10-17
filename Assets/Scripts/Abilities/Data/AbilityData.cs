@@ -32,7 +32,8 @@ public enum AbilityTag {
     Time,
     Passive,
     Mastery,
-    Lightning
+    Lightning,
+    DamageOverTime
 }
 
 public enum AbilityCategory {

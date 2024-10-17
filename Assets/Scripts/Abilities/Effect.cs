@@ -2190,25 +2190,6 @@ public class ForceStatusTickEffect : Effect {
             }
         }
 
-
-        //Effect targetEffect = AbilityUtilities.GetEffectByName(
-        //    Data.forceTickAbility.AbilityData.abilityName,
-        //    Data.forceTickStatusEffect.effectData.effectName, Source, AbilityCategory.Any);
-
-        //if (targetEffect == null) {
-        //    Debug.LogError("Could not find effect: " + Data.forceTickStatusEffect.effectData.effectName);
-        //    return false;
-        //}
-
-        //AddStatusEffect addStatusEffect = targetEffect as AddStatusEffect;
-
-        //if (addStatusEffect == null) {
-        //    Debug.LogError("an effect: " + Data.effectName + " tried to force a non-status to tick: " + targetEffect.Data.effectName);
-        //    return false;
-        //}
-
-        //addStatusEffect.ForceTickOnTarget(target);
-
         return true;
     }
 

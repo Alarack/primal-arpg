@@ -159,6 +159,20 @@ public class Status {
         }
 
         ActiveEffect.Apply(Target);
+        CheckDoubleTick();
+    }
+
+    private void CheckDoubleTick() {
+        float doubleTickStat = ParentEffect.ParentAbility.Stats[StatName.DoubleTickChance] + ParentEffect.Source.Stats[StatName.DoubleTickChance];
+
+        if (doubleTickStat <= 0f)
+            return;
+
+        float roll = UnityEngine.Random.Range(0f, 1f);
+
+        if(roll <= doubleTickStat) {
+            ActiveEffect.Apply(Target);
+        }
     }
 
     public virtual void FirstApply() {

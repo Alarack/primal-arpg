@@ -94,7 +94,8 @@ public enum StatName
     GlobalEssenceCostModifier,
     HeathPotions,
     ChannelingMoveSpeedModifier,
-    CastingMoveSpeedModifier
+    CastingMoveSpeedModifier,
+    DoubleTickChance
 
 
 }
