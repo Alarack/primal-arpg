@@ -31,7 +31,8 @@ public enum EffectType {
     ChangeEffectZone,
     ModifyProjectile,
     ModifyElapsedCooldown,
-    AddStatusScaling
+    AddStatusScaling,
+    SpawnItem
 }
 
 public enum EffectTarget {
@@ -244,6 +245,13 @@ public class EffectData
     //Add Status Scaling
     public List<StatModifierData.StatusModifier> statusScalingData = new List<StatModifierData.StatusModifier>();
     public bool scaleFromAbilityLevel;
+
+    //SpawnItem
+    public ItemType spawnedItemType;
+    public DeliverySpawnLocation itemSpawnLocation;
+
+    public List<ItemDefinition> itemsToSpawn = new List<ItemDefinition>();
+    public int itemSpawnAmount;
 
 
     public EffectData() {

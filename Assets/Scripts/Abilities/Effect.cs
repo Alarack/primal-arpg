@@ -2764,6 +2764,63 @@ public class SpawnProjectileEffect : Effect {
 
 }
 
+public class SpawnItemEffect : Effect {
+    public override EffectType Type => EffectType.SpawnItem;
+
+
+    public SpawnItemEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+
+    }
+
+
+    public override bool Apply(Entity target) {
+        if(base.Apply(target) == false) 
+            return false;
+
+        for (int i = 0; i < Data.itemSpawnAmount; i++) {
+            SpawnItem(Data.spawnedItemType);
+        }
+
+        return true;
+    }
+
+
+    private void SpawnItem(ItemType type) {
+        Vector2 spawnLocation = targeter.GetPayloadSpawnLocation(Data.itemSpawnLocation);
+
+        switch (Data.spawnedItemType) {
+            case ItemType.None:
+                break;
+            case ItemType.Equipment:
+                break;
+            case ItemType.Rune:
+                break;
+            case ItemType.Currency:
+                ItemSpawner.SpawnCoins(1, spawnLocation, 1f, 5f);
+                break;
+            case ItemType.Skill:
+                break;
+            case ItemType.ClassSelection:
+                break;
+            case ItemType.StatBooster:
+                break;
+            case ItemType.Experience:
+                ItemSpawner.SpawnEXP(1, spawnLocation, 1f, 5f);
+                break;
+            case ItemType.SkillPoint:
+                break;
+            case ItemType.HealthPotion:
+                break;
+        }
+
+    }
+
+
+
+
+}
+
 public class SpawnEntityEffect : Effect {
     public override EffectType Type => EffectType.SpawnEntity;
 
@@ -2951,7 +3008,7 @@ public class SpawnEntityEffect : Effect {
 
     private Vector2 GetSpawnLocation() {
 
-        Vector2 location = targeter.GetPayloadSpawnLocation();
+        Vector2 location = targeter.GetPayloadSpawnLocation(Data.spawnLocation);
 
         Vector2 nearby = location + Random.insideUnitCircle * Random.Range(2f, 4f);
 

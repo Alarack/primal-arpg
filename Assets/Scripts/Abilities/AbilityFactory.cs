@@ -144,6 +144,7 @@ public static class AbilityFactory {
             EffectType.ModifyProjectile => new ModifyProjectileEffect(data, source, parentAbility),
             EffectType.ModifyElapsedCooldown => new ModifiyElapsedCooldownEffect(data, source, parentAbility),
             EffectType.AddStatusScaling => new AddStatusScalingEffect(data, source, parentAbility),
+            EffectType.SpawnItem => new SpawnItemEffect(data, source, parentAbility),
             _ => null,
         };
 

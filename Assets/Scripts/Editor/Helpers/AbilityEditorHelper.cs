@@ -758,6 +758,13 @@ public static class AbilityEditorHelper {
                 
                 break;
 
+            case EffectType.SpawnItem:
+                entry.spawnedItemType = EditorHelper.EnumPopup("Item Type", entry.spawnedItemType);
+                entry.itemSpawnLocation = EditorHelper.EnumPopup("Location", entry.itemSpawnLocation);
+                entry.itemSpawnAmount = EditorGUILayout.IntField("Amount", entry.itemSpawnAmount);
+
+                break;
+
 
             default:
                 break;

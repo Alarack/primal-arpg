@@ -438,14 +438,14 @@ public class EffectTargeter {
         new Task(DeliveryPayloadOnDelay(/*GetPayloadSpawnLocation())*/));
     }
 
-    public Vector2 GetPayloadSpawnLocation() {
+    public Vector2 GetPayloadSpawnLocation(DeliverySpawnLocation spawnLocation) {
 
         if (parentEffect.Source == null) {
             //Debug.LogWarning("The source of: " + parentEffect.Data.effectName + " has been destroyed while casting");
             return Vector2.zero;
         }
 
-        Vector2 targetLocation = parentEffect.Data.spawnLocation switch {
+        Vector2 targetLocation = spawnLocation switch {
             DeliverySpawnLocation.Source => parentEffect.Source.GetOriginPoint().position,
             DeliverySpawnLocation.Trigger => ActivationInstance.TriggeringEntity.transform.position,
             DeliverySpawnLocation.Cause => ActivationInstance.CauseOfTrigger.transform.position,
@@ -574,7 +574,7 @@ public class EffectTargeter {
 
         for (int i = 0; i < totalShots; i++) {
 
-            Vector2 payloadLocation = GetPayloadSpawnLocation();
+            Vector2 payloadLocation = GetPayloadSpawnLocation(parentEffect.Data.spawnLocation);
 
             CreateDeliveryPayload(target, payloadLocation);
 
