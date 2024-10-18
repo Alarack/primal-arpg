@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_M_Temporal Tinkerer
+  m_Name: A_M_Temporal Tinkerer_Old
   m_EditorClassIdentifier: 
   AbilityData:
     category: 6
@@ -39,7 +39,7 @@ MonoBehaviour:
     runeGroupData: []
     tags: 180000001a000000
     activationTriggerData:
-    - type: 3
+    - type: 17
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -50,93 +50,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
-      allConstraints:
-      - focus: 5
-        constraintData:
-        - type: 17
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 28
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-          abilitySlot: 0
-        - type: 4
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-          abilitySlot: 0
+      allConstraints: []
     endTriggerData:
     - type: 18
       overrideProcStat: 0
@@ -191,7 +105,7 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 143802925ad760044a379ab423f049df, type: 2}
+    - {fileID: 11400000, guid: 87ac968a695ece244b675c507225a46e, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

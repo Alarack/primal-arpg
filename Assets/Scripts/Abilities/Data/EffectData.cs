@@ -46,7 +46,11 @@ public enum EffectTarget {
     LogicSelectedAbility,
     LogicSelectedEffect,
     CurrentValidTargets,
-    CurrentAIBrainTarget
+    CurrentAIBrainTarget,
+    AbilityCause,
+    AbilityTrigger,
+    EffectCause,
+    EffectTrigger
 }
 
 public enum EffectSubTarget {

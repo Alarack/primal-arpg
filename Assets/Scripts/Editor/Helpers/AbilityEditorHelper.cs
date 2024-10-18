@@ -279,6 +279,10 @@ public static class AbilityEditorHelper {
             }
         }
 
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+
         if (GUILayout.Button("A Triggers")) {
             if (data.HasConstraintListOfType(ConstraintFocus.AbilityTrigger) == false) {
                 ConstraintDataFocus newList = new ConstraintDataFocus(ConstraintFocus.AbilityTrigger);

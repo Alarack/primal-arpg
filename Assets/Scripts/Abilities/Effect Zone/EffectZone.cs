@@ -236,6 +236,20 @@ public class EffectZone : Entity {
 
     protected virtual void OnEffectInterval(EventData data) {
         ApplyToAllTargets();
+        CheckDoubleTick();
+    }
+
+    private void CheckDoubleTick() {
+        float doubleTickStat = parentEffect.ParentAbility.Stats[StatName.DoubleTickChance] + parentEffect.Source.Stats[StatName.DoubleTickChance];
+
+        if (doubleTickStat <= 0f)
+            return;
+
+        float roll = Random.Range(0f, 1f);
+
+        if (roll <= doubleTickStat) {
+            ApplyToAllTargets();
+        }
     }
 
     protected virtual void Apply(Entity target) {

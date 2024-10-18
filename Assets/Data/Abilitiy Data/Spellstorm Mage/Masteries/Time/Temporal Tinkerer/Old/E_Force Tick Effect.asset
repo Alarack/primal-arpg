@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Add Double Tick Chance
+  m_Name: E_Force Tick Effect
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Add Double Tick Chance
-    effectDescription: Your Damage Over Time Skills have a {} chance to tick twice.
-    type: 1
+    effectName: Force Double Tick
+    effectDescription: 
+    type: 9
     targeting: 12
     subTarget: 4
     maskTargeting: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
     deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
-    nonStacking: 1
+    nonStacking: 0
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
     showScalers: 0

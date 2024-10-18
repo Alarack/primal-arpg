@@ -327,6 +327,14 @@ public abstract class Effect {
         return false;
     }
 
+    private bool CheckAbilityNonStacking(Ability target) {
+        if (Data.nonStacking == false)
+            return false;
+
+
+        return AbilityTargets.Contains(target);
+    }
+
     private bool CheckOverload(Entity target) {
         float sourceChance = Source.Stats[StatName.OverloadChance];
         float targetChance = target == null ? 0f : target.Stats[StatName.OverloadRecieveChance];
@@ -378,6 +386,9 @@ public abstract class Effect {
     }
 
     public virtual bool ApplyToAbility(Ability target) {
+
+        if (CheckAbilityNonStacking(target) == true)
+            return false;
 
         if (EvaluateAbilityTargetConstraints(target) == false)
             return false;
@@ -2208,6 +2219,25 @@ public class ForceStatusTickEffect : Effect {
         addStatusEffect.ForceTick();
         return true;
     }
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+        List<Effect> effects = target.GetAllEffects();
+
+        for (int i = 0; i < effects.Count; i++) {
+            ApplyToEffect(effects[i]);
+            
+            //AddStatusEffect addStatusEffect = effects[i] as AddStatusEffect;
+            //if (addStatusEffect != null) {
+            //    addStatusEffect.ForceTick();
+            //}
+        }
+
+
+        return true;
+    }
 }
 
 public class AddStatusEffect : Effect {
@@ -3052,7 +3082,7 @@ public class StatAdjustmentEffect : Effect {
     public void AddStatAdjustmentModifier(StatModifier mod) {
         for (int i = 0; i < modData.Count; i++) {
             StatAdjustmentManager.ApplyDataModifier(modData[i], mod);
-            //Debug.LogWarning("Applying: " + mod.TargetStat + " Modifier: " + mod.Value + " to " + Data.effectName);
+            Debug.LogWarning("Applying: " + mod.TargetStat + " Modifier: " + mod.Value + " to " + Data.effectName);
         }
     }
 

@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Add Double Tick Chance
+  m_Name: E_Enhance Double Tick
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Add Double Tick Chance
-    effectDescription: Your Damage Over Time Skills have a {} chance to tick twice.
+    effectName: Enhance Double Tick Chance
+    effectDescription: Increase the chance for your Damage of Time effects to Tick
+      twice by {}
     type: 1
-    targeting: 12
-    subTarget: 4
+    targeting: 9
+    subTarget: 3
     maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
-    nonStacking: 1
+    nonStacking: 0
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
     showScalers: 0
@@ -33,7 +34,49 @@ MonoBehaviour:
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
-    targetConstraints: []
+    targetConstraints:
+    - type: 19
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: Temporal Tinkerer
+      targetEffectName: Add Double Tick Chance
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+      abilitySlot: 0
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadStatData: []
@@ -58,8 +101,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 90
-      value: 0.25
+    - targetStat: 27
+      value: 0.1
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -68,7 +111,7 @@ MonoBehaviour:
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
+      scaleFromAbilityLevel: 1
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 

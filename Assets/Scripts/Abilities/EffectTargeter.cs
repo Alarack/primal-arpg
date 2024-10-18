@@ -337,6 +337,18 @@ public class EffectTargeter {
         parentEffect.SendEffectAppliedEvent();
     }
 
+    private void ApplyToCausingAbility() {
+        Ability causingAbility = ActivationInstance.CausingAbility;
+        parentEffect.ApplyToAbility(causingAbility);
+        parentEffect.SendEffectAppliedEvent();
+    }
+
+    private void ApplyToCausingEffect() {
+        Effect causingEffect = ActivationInstance.CausingEffect;
+        parentEffect.ApplyToEffect(causingEffect);
+        parentEffect.SendEffectAppliedEvent();
+    }
+
     private void ApplyToCause() {
 
         Entity causeingEntity = GetCauseTarget();
@@ -677,6 +689,8 @@ public class EffectTargeter {
             EffectTarget.PayloadDelivered => ApplyPayloadDelivery,
             EffectTarget.LogicSelectedEffect => ApplyToLogicTargetedEffects,
             EffectTarget.LogicSelectedAbility => ApplyToLogicTargetedAbilities,
+            EffectTarget.AbilityCause => ApplyToCausingAbility,
+            EffectTarget.EffectCause => ApplyToCausingEffect,
             _ => null
         };
 

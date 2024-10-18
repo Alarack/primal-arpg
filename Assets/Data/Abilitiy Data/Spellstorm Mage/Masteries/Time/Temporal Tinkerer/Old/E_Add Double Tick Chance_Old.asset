@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Add Double Tick Chance
+  m_Name: E_Add Double Tick Chance_Old
   m_EditorClassIdentifier: 
   effectData:
     effectName: Add Double Tick Chance
     effectDescription: Your Damage Over Time Skills have a {} chance to tick twice.
     type: 1
-    targeting: 12
+    targeting: 8
     subTarget: 4
     maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
-    nonStacking: 1
+    nonStacking: 0
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
     showScalers: 0
@@ -33,7 +33,49 @@ MonoBehaviour:
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
-    targetConstraints: []
+    targetConstraints:
+    - type: 17
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 28
+      targetAbiltyName: 
+      targetEffectName: 
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+      abilitySlot: 0
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadStatData: []
