@@ -35,11 +35,11 @@ public class Projectile : Entity {
     private Collider2D myCollider;
     public Entity Source { get; private set; }
 
-    private List<Effect> onHitEffects = new List<Effect>();
+    private List<Effect> additionalEffects = new List<Effect>();
 
 
     //private Weapon parentWeapon;
-    private Effect parentEffect;
+    public Effect ParentEffect { get; private set; }
 
     //private EffectZone activeZone;
 
@@ -88,14 +88,14 @@ public class Projectile : Entity {
 
     public void Setup(Entity source, Weapon parentWeapon, List<Effect> onHitEffects) {
         this.Source = source;
-        this.onHitEffects = onHitEffects;
+        this.additionalEffects = onHitEffects;
         //this.parentWeapon = parentWeapon;
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
     }
 
     public void Setup(Entity source, Effect parentEffect, LayerMask hitMask, MaskTargeting maskTargeting = MaskTargeting.Opposite) {
         this.Source = source;
-        this.parentEffect = parentEffect;
+        this.ParentEffect = parentEffect;
         this.projectileHitMask = hitMask;
         this.parentLayer = parentEffect.Source.gameObject.layer;
         this.ownerType = source.ownerType;
@@ -119,6 +119,20 @@ public class Projectile : Entity {
         SendProjectileCreatedEvent();
     }
 
+    public void AddAdditionalEffect(List<Effect> effects) {
+        for (int i = 0; i < effects.Count; i++) {
+            additionalEffects.Add(effects[i]);
+        }
+    }
+
+    public void AddAdditionalEffect(Effect effect) {
+        additionalEffects.Add(effect);
+    }
+
+    public void RemoveAdditionalEffect(Effect effect) {
+        additionalEffects.RemoveIfContains(effect);
+    }
+
     private IEnumerator DelayEnvironmentMask() {
         yield return new WaitForSeconds(0.15f);
         projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Environment"));
@@ -129,10 +143,10 @@ public class Projectile : Entity {
         if (Source == null)
             return;
 
-        float ownerPierce = Source.Stats[StatName.ProjectilePierceCount] + parentEffect.ParentAbility.Stats[StatName.ProjectilePierceCount];
-        float ownerChain = Source.Stats[StatName.ProjectileChainCount] + parentEffect.ParentAbility.Stats[StatName.ProjectileChainCount];
-        float ownerSplit = Source.Stats[StatName.ProjectileSplitCount] + parentEffect.ParentAbility.Stats[StatName.ProjectileSplitCount];
-        float splitAmount = Source.Stats[StatName.ProjectileSplitQuantity] + parentEffect.ParentAbility.Stats[StatName.ProjectileSplitQuantity];
+        float ownerPierce = Source.Stats[StatName.ProjectilePierceCount] + ParentEffect.ParentAbility.Stats[StatName.ProjectilePierceCount];
+        float ownerChain = Source.Stats[StatName.ProjectileChainCount] + ParentEffect.ParentAbility.Stats[StatName.ProjectileChainCount];
+        float ownerSplit = Source.Stats[StatName.ProjectileSplitCount] + ParentEffect.ParentAbility.Stats[StatName.ProjectileSplitCount];
+        float splitAmount = Source.Stats[StatName.ProjectileSplitQuantity] + ParentEffect.ParentAbility.Stats[StatName.ProjectileSplitQuantity];
         if(ownerPierce > 0) 
             Stats.AddModifier(StatName.ProjectilePierceCount, ownerPierce, StatModType.Flat, Source);
         if (ownerChain > 0)
@@ -150,8 +164,8 @@ public class Projectile : Entity {
 
     private void SendProjectileCreatedEvent() {
         EventData data = new EventData();
-        data.AddEffect("Parent Effect", parentEffect);
-        data.AddAbility("Parent Ability", parentEffect.ParentAbility);
+        data.AddEffect("Parent Effect", ParentEffect);
+        data.AddAbility("Parent Ability", ParentEffect.ParentAbility);
         data.AddEntity("Projectile", this);
 
         EventManager.SendEvent(GameEvent.ProjectileCreated, data);
@@ -234,6 +248,18 @@ public class Projectile : Entity {
 
     }
 
+    private void ApplyEffectDirectly(Entity target, Effect effect) {
+        if (target == null) 
+            return;
+
+        bool applied = effect.Apply(target);
+        if (applied == true) {
+            CreateApplyVFX(target.transform.position, false);
+            effect.SendEffectAppliedEvent();
+        }
+
+    }
+
     private void ApplyImpact(Collider2D other) {
 
         string layer = LayerMask.LayerToName(other.gameObject.layer);
@@ -263,31 +289,40 @@ public class Projectile : Entity {
 
     private void DeployZoneEffect(Collider2D other) {
         //Debug.Log(gameObject.name + " is tryin to deplay an effect zone");
-        if (other != null && parentEffect.EffectZonePrefab == null) {
-            Entity otherEntity = other.GetComponent<Entity>();
-            if (otherEntity != null) {
-                bool applied = parentEffect.Apply(otherEntity);
-                if(applied == true) {
-                    CreateApplyVFX(otherEntity.transform.position, false);
-                    parentEffect.SendEffectAppliedEvent();
-                }
+        if (other != null && ParentEffect.EffectZonePrefab == null) {
+            Entity target = other.GetComponent<Entity>();
+            ApplyEffectDirectly(target, ParentEffect);
+
+            for (int i = 0; i < additionalEffects.Count; i++) {
+                ApplyEffectDirectly(target, additionalEffects[i]);
             }
+
+            //Entity otherEntity = other.GetComponent<Entity>();
+            //if (otherEntity != null) {
+            //    bool applied = parentEffect.Apply(otherEntity);
+            //    if(applied == true) {
+            //        CreateApplyVFX(otherEntity.transform.position, false);
+            //        parentEffect.SendEffectAppliedEvent();
+            //    }
+            //}
 
             return;
         }
 
-        if (parentEffect == null)
+        if (ParentEffect == null)
             return;
 
-        if (parentEffect.EffectZonePrefab == null)
+        if (ParentEffect.EffectZonePrefab == null)
             return;
 
         //Debug.LogWarning("Creating effect zone: " + parentEffect.EffectZonePrefab.gameObject.name);
 
-        EffectZone activeZone = Instantiate(parentEffect.EffectZonePrefab, transform.position, Quaternion.identity);
-        activeZone.Stats.AddMissingStats(parentEffect.Stats);
-        activeZone.Setup(parentEffect, parentEffect.ZoneInfo, null, this, parentLayer, parentEffect.Data.maskTargeting);
-
+        EffectZone activeZone = Instantiate(ParentEffect.EffectZonePrefab, transform.position, Quaternion.identity);
+        activeZone.Stats.AddMissingStats(ParentEffect.Stats);
+        activeZone.Setup(ParentEffect, ParentEffect.ZoneInfo, null, this, parentLayer, ParentEffect.Data.maskTargeting);
+        if(additionalEffects.Count > 0) {
+            activeZone.AddAdditionalEffect(additionalEffects);
+        }
     }
 
 
@@ -313,8 +348,8 @@ public class Projectile : Entity {
         data.AddEntity("Projectile", this);
         data.AddEntity("Owner", Source);
         data.AddEntity("Cause", cause);
-        data.AddEffect("Parent Effect", parentEffect);
-        data.AddAbility("Ability", parentEffect.ParentAbility);
+        data.AddEffect("Parent Effect", ParentEffect);
+        data.AddAbility("Ability", ParentEffect.ParentAbility);
 
         //Debug.Log("Piercing has occured");
 
@@ -323,7 +358,7 @@ public class Projectile : Entity {
 
     public void CloneProjectile(Entity ignoreTarget = null) {
         Projectile child = Instantiate(gameObject, transform.position, transform.rotation).GetComponent<Projectile>();
-        child.Setup(Source, parentEffect, projectileHitMask, parentEffect.Data.maskTargeting);
+        child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting);
         child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
 
         if (ignoreTarget != null) {
@@ -333,8 +368,8 @@ public class Projectile : Entity {
         }
     }
     public void ForceProjectileSplit(Entity ignoreTarget = null) {
-        Projectile child = Instantiate(parentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
-        child.Setup(Source, parentEffect, projectileHitMask, parentEffect.Data.maskTargeting);
+        Projectile child = Instantiate(ParentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
+        child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting);
         child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
 
         if (ignoreTarget != null) {
@@ -356,8 +391,8 @@ public class Projectile : Entity {
         for (int i = 0; i < Stats[StatName.ProjectileSplitQuantity]; i++) {
 
             if (cloneSelfOnSplit == true) {
-                Projectile child = Instantiate(parentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
-                child.Setup(Source, parentEffect, projectileHitMask, parentEffect.Data.maskTargeting);
+                Projectile child = Instantiate(ParentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
+                child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting);
                 child.SetupChildCollision(recentHit);
                 child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
 
@@ -373,7 +408,7 @@ public class Projectile : Entity {
             return false;
         }
 
-        float chainRadius = parentEffect.Stats[StatName.EffectRange] > 0 ? parentEffect.Stats[StatName.EffectRange] : this.chainRadius;
+        float chainRadius = ParentEffect.Stats[StatName.EffectRange] > 0 ? ParentEffect.Stats[StatName.EffectRange] : this.chainRadius;
 
         bool targetInRange = TargetUtilities.RotateToRandomNearbyTarget(recentHit, this, chainRadius, chainMask, true);
 
@@ -397,8 +432,8 @@ public class Projectile : Entity {
         data.AddEntity("Projectile", this);
         data.AddEntity("Owner", Source);
         data.AddEntity("Cause", cause);
-        data.AddEffect("Parent Effect", parentEffect);
-        data.AddAbility("Ability", parentEffect.ParentAbility);
+        data.AddEffect("Parent Effect", ParentEffect);
+        data.AddAbility("Ability", ParentEffect.ParentAbility);
 
         //Debug.Log("Chaining has occured");
 
@@ -460,12 +495,12 @@ public class Projectile : Entity {
     }
 
     private void CreateApplyVFX(Vector2 location, bool variance = true) {
-        if (parentEffect.ZoneInfo.applyVFX == null) {
+        if (ParentEffect.ZoneInfo.applyVFX == null) {
             //Debug.LogWarning("a projectile: " + EntityName + " has no apply vfx");
             return;
         }
 
-        VFXUtility.SpawnVFX(parentEffect.ZoneInfo.applyVFX, location, Quaternion.identity, null, 2f, 1f, variance);
+        VFXUtility.SpawnVFX(ParentEffect.ZoneInfo.applyVFX, location, Quaternion.identity, null, 2f, 1f, variance);
     }
 
     //private IEnumerator CleanUpNextFrame(bool deployZone) {

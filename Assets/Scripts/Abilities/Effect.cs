@@ -1755,6 +1755,13 @@ public class AddEffectEffect : Effect {
         if (base.Apply(target) == false)
             return false;
 
+        Projectile projectile = target as Projectile;
+        if(projectile != null) {
+            ApplyToProjectile(projectile);
+            return true;
+        }
+
+
         Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
 
         if (targetAbility == null) {
@@ -1772,8 +1779,37 @@ public class AddEffectEffect : Effect {
         return true;
     }
 
+    public void ApplyToProjectile(Projectile target) {
+        for (int i = 0; i < Data.effectsToAdd.Count; i++) {
+            Effect newEffect = AbilityFactory.CreateEffect(Data.effectsToAdd[i].effectData, Source, ParentAbility);
+
+            target.AddAdditionalEffect(newEffect);
+            TrackEffectsOnEntity(target, newEffect);
+        }
+    }
+
+    public void RemoveFromProjectile(Projectile target) {
+
+        if (entityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
+
+            for (int i = 0; i < effectsAdded.Count; i++) {
+                target.RemoveAdditionalEffect(effectsAdded[i]);
+            }
+
+            entityTrackedEffects.Remove(target);
+
+        }
+    }
+
     public override void Remove(Entity target) {
         base.Remove(target);
+
+        Projectile projectile = target as Projectile;
+        if (projectile != null) {
+            RemoveFromProjectile(projectile);
+            return;
+        }
+
 
         if (entityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
 
@@ -3139,7 +3175,7 @@ public class StatAdjustmentEffect : Effect {
     public void AddStatAdjustmentModifier(StatModifier mod) {
         for (int i = 0; i < modData.Count; i++) {
             StatAdjustmentManager.ApplyDataModifier(modData[i], mod);
-            Debug.LogWarning("Applying: " + mod.TargetStat + " Modifier: " + mod.Value + " to " + Data.effectName);
+            //Debug.LogWarning("Applying: " + mod.TargetStat + " Modifier: " + mod.Value + " to " + Data.effectName);
         }
     }
 

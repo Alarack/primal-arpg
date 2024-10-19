@@ -17,6 +17,7 @@ public class EffectZone : Entity {
     private LayerMask mask;
 
     protected Effect parentEffect;
+    protected List<Effect> additionalEffects = new List<Effect>();
     protected List<Entity> targets = new List<Entity>();
     protected EffectZoneInfo zoneInfo;
 
@@ -103,6 +104,18 @@ public class EffectZone : Entity {
 
         SpawnEntranceEffect(effectSize);
     }
+
+
+    public void AddAdditionalEffect(List<Effect> effects) {
+        for (int i = 0; i < effects.Count; i++) {
+            additionalEffects.Add(effects[i]);
+        }
+    }
+
+    public void AddAdditionalEffect(Effect effect) {
+        additionalEffects.Add(effect);
+    }
+
 
     protected override void Update() {
         base.Update();
@@ -253,22 +266,47 @@ public class EffectZone : Entity {
     }
 
     protected virtual void Apply(Entity target) {
+
+        ApplyEffect(target, parentEffect);
+
+        if(additionalEffects.Count > 0) {
+            for (int i = 0; i < additionalEffects.Count; i++) {
+                ApplyEffect(target, additionalEffects[i]);
+            }
+        }
+        
+        
+        //targets.AddUnique(target);
+
+        //parentEffect.TrackActiveDelivery(carrier);
+
+        ////Debug.Log("Zone effect is applying: " + parentEffect.Data.effectName + " to " + target.EntityName);
+        //bool applied = parentEffect.Apply(target);
+
+
+        //if (applied == true) {
+        //    CreateApplyVFX(target.transform.position);
+        //    parentEffect.SendEffectAppliedEvent();
+        //}
+
+    }
+
+    private void ApplyEffect(Entity target, Effect effect) {
         targets.AddUnique(target);
 
-        parentEffect.TrackActiveDelivery(carrier);
+        effect.TrackActiveDelivery(carrier);
 
         //Debug.Log("Zone effect is applying: " + parentEffect.Data.effectName + " to " + target.EntityName);
-        bool applied = parentEffect.Apply(target);
+        bool applied = effect.Apply(target);
 
 
         if (applied == true) {
             CreateApplyVFX(target.transform.position);
-            parentEffect.SendEffectAppliedEvent();
+            effect.SendEffectAppliedEvent();
         }
-
     }
 
-    protected virtual void Remove(Entity target) {
+    private void RemoveEffect(Entity target, Effect effect) {
         targets.RemoveIfContains(target);
 
         if (zoneInfo.removeEffectOnExit == true) {
@@ -276,8 +314,30 @@ public class EffectZone : Entity {
             if (CheckNonStacking(target) == true)
                 return;
 
-            parentEffect.Remove(target);
+            effect.Remove(target);
         }
+    }
+
+    protected virtual void Remove(Entity target) {
+
+        RemoveEffect(target, parentEffect);
+
+        if (additionalEffects.Count > 0) {
+            for (int i = 0; i < additionalEffects.Count; i++) {
+                RemoveEffect(target, additionalEffects[i]);
+            }
+        }
+
+
+        //targets.RemoveIfContains(target);
+
+        //if (zoneInfo.removeEffectOnExit == true) {
+
+        //    if (CheckNonStacking(target) == true)
+        //        return;
+
+        //    parentEffect.Remove(target);
+        //}
 
     }
 
