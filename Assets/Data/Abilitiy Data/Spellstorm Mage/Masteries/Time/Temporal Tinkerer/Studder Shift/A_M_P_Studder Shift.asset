@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_M_P_Steal Potentail
+  m_Name: A_M_P_Studder Shift
   m_EditorClassIdentifier: 
   AbilityData:
     category: 6
-    abilityIcon: {fileID: 21300000, guid: 1da4c04c20f06cb49b5f6a04d03442b1, type: 3}
-    abilityName: Steal Potential
-    abilityDescription: Your Damage Over  Time effects have a {PR} chance to spawn
-      experience or gold per tick.
+    abilityIcon: {fileID: 21300000, guid: 0a535256808212346a14b41c0106b328, type: 3}
+    abilityName: Studder Shift
+    abilityDescription: Your Damage Over Time effects have a {PR} chance to advance
+      the active Cooldown of your Tactical Teleport Skill.
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     ignoreOtherCasting: 0
-    includeEffectsInTooltip: 0
+    includeEffectsInTooltip: 1
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
@@ -266,17 +266,16 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 03a896cec6002cf439854625e45bb053, type: 2}
-    - {fileID: 11400000, guid: d498c6fa615f4204aa4cac6ad603b729, type: 2}
+    - {fileID: 11400000, guid: 928cfbec90cc74642acec3f7b6f187a4, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    maxRanks: 1
+    maxRanks: 5
     windupVFX: {fileID: 0}
     abilityStatData:
     - variant: 0
       statName: 65
-      value: 0.1
+      value: 0.2
       maxValue: 0
       minValue: 0
     recoveryData: []

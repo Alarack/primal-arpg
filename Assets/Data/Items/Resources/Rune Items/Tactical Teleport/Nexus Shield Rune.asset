@@ -13,21 +13,29 @@ MonoBehaviour:
   m_Name: Nexus Shield Rune
   m_EditorClassIdentifier: 
   devItem: 0
+  startingItem: 0
   itemData:
     Type: 2
+    affixStatTarget: 1
     entityClass: 0
     itemName: Nexus Sheld Rune
     itemDescription: 
+    secondaryDescription: 
     itemValue: 200
     runeAbilityTarget: Tactical Teleport
     validSlots: 0e000000
     abilityTags: 
+    targetedAbilityName: 
     itemIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
     pickupIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
     pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
     statModifierData: []
     abilityDefinitions:
-    - {fileID: 11400000, guid: 90ecd7d575ec6304db27d7224454c609, type: 2}
+    - {fileID: 11400000, guid: bdd6df42401f40540a03808d25e9d079, type: 2}
     learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []
