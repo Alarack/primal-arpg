@@ -42,6 +42,7 @@ public class Status {
 
 
     public bool IsStackCapped { get { return MaxStacks > 0 && StackCount == MaxStacks; } }
+    public bool IsDot { get { return IsDOT(); } }
     public int StackCount { get; protected set; }
     public int MaxStacks { get; protected set; }
     public Entity Target { get; protected set; }
@@ -316,6 +317,11 @@ public class Status {
 
         if (intervalTimer != null)
             intervalTimer.UpdateClock();
+    }
+
+
+    private bool IsDOT() {
+        return ParentEffect.ParentAbility.Tags.Contains(AbilityTag.DamageOverTime);
     }
 
 }

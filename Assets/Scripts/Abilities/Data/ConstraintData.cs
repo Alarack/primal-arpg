@@ -41,7 +41,8 @@ public enum ConstraintType {
     EffectAppliedTo,
     TriggerOnly,
     CauseOnly,
-    AbilityInSlot
+    AbilityInSlot,
+    HasDot,
 }
 
 public enum GainedOrLost {

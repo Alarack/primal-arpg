@@ -581,6 +581,23 @@ public class HasStatusConstraint : AbilityConstraint {
 
 }
 
+public class HasDOTConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.HasDot;
+
+    public HasDOTConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        bool result = target.HasDot();
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
 public class EffectTypeConstraint : AbilityConstraint {
 
     public override ConstraintType Type => ConstraintType.EffectType;

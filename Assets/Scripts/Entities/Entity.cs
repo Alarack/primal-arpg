@@ -438,6 +438,18 @@ public abstract class Entity : MonoBehaviour {
         return false;
     }
 
+    public bool HasDot() {
+        if (ActiveStatuses.Count == 0)
+            return false;
+
+        for (int i = 0; i < ActiveStatuses.Count; i++) {
+            if (ActiveStatuses[i].IsDot) 
+                return true;
+        }
+
+        return false;
+    }
+
 
     #endregion
 
