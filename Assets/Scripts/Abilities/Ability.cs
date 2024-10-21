@@ -1516,6 +1516,12 @@ public class Ability {
 
 
     private void ResetEffectTargets(EventData data) {
+        Ability ability = data.GetAbility("Ability");
+        
+        if(ability == null || ability == this) {
+            return;
+        }
+
         for (int i = 0; i < effects.Count; i++) {
             effects[i].ResetEffectTargets();
         }

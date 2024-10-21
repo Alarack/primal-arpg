@@ -65,6 +65,11 @@ public class SkillsPanel : SkillBasePanel {
         TooltipManager.Hide();
     }
 
+    protected override void OnFadeOutComplete() {
+        base.OnFadeOutComplete();
+        TooltipManager.Hide();
+    }
+
     protected override void CreateEmptySlots() {
         AbilityUtilities.CreateEmptySkillEntries(ref activeSkillEntries, 6, skillEntryTemplate, holder, SkillEntry.SkillEntryLocation.ActiveSkill, defaultKeybinds);
         AbilityUtilities.CreateEmptyPassiveSkillEntries(ref activePassiveSkillEntries, 4, skillEntryTemplate, activePassiveSkillsHolder);
