@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using LL.Events;
 
 
 public enum AbilityTag {
@@ -67,6 +68,7 @@ public class AbilityData
     public bool recastOnChannelCost;
     public bool normalizedProcRate;
     public bool startingAbility;
+    public bool scaleProcByLevel;
     public string runeAbilityTarget;
     public string animationString;
     public bool waitForAnimToResolve;
@@ -81,6 +83,7 @@ public class AbilityData
 
     public List<AbilityTag> tags = new List<AbilityTag>();
 
+    public List<GameEvent> resetEvents = new List<GameEvent>();
     public List<TriggerData> activationTriggerData = new List<TriggerData>();
     public List<TriggerData> endTriggerData = new List<TriggerData>();
 

@@ -345,6 +345,11 @@ public abstract class AbilityTrigger {
 
             float proc = Data.overrideProcStat == true ? Data.procChance : ParentAbility.Stats[StatName.ProcChance];
 
+            if(ParentAbility.Data.scaleProcByLevel == true) {
+                proc *= ParentAbility.AbilityLevel;
+            }
+
+
             //float proc = ParentAbility.Stats[StatName.ProcChance];
             float roll = UnityEngine.Random.Range(0f, 1f);
 

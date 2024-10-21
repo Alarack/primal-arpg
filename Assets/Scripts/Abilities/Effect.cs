@@ -263,9 +263,34 @@ public abstract class Effect {
         RemoveFromAllTargets();
     }
 
+    public virtual void ResetEffectTargets() {
+
+        //switch (Data.targeting) {
+        //    case EffectTarget.LogicSelected:
+        //        List<Entity> validEntityTargets = targeter.GatherValidTargets();
+
+        //        for (int i = 0; i < validEntityTargets.Count; i++) {
+
+        //        }
+
+        //        break;
+        //    case EffectTarget.LogicSelectedAbility:
+        //        List<Ability> validAbilityTargets = targeter.GatherValidAbilities();
+        //        break;
+        //    case EffectTarget.LogicSelectedEffect:
+        //        List<Effect> validEffectTargets = targeter.GatherValidEffectTargets();
+        //        break;
+        //}
+
+
+        RemoveFromAllTargets();
+        targeter.Apply();
+
+    }
+
     public virtual bool Apply(Entity target) {
 
-        if (target == null /*|| target.IsDead*/) {
+        if (target == null) {
             Debug.LogError(ParentAbility.Data.abilityName + " is trying to affect a null target");
             return false;
         }

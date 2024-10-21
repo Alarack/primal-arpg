@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using LL.FSM;
+using LL.Events;
 
 public static class AbilityEditorHelper {
     public const string abilityHeader = "Ability Header";
@@ -45,7 +46,7 @@ public static class AbilityEditorHelper {
         if (entry.ContainsStat(StatName.AbilityWindupTime)) {
             entry.windupVFX = EditorHelper.ObjectField("WindupVFX", entry.windupVFX);
         }
-
+        entry.scaleProcByLevel = EditorGUILayout.Toggle("Scale Proc by Level", entry.scaleProcByLevel);
         entry.startingAbility = EditorGUILayout.Toggle("Starting Ability", entry.startingAbility);
         entry.includeEffectsInTooltip = EditorGUILayout.Toggle("Include Effect Toolip", entry.includeEffectsInTooltip);
         entry.showChildAbilitiesInTooltip = EditorGUILayout.Toggle("Include Child Abilities", entry.showChildAbilitiesInTooltip);
@@ -87,6 +88,12 @@ public static class AbilityEditorHelper {
         GUILayout.Label("Rune Groups: ", EditorStyles.boldLabel);
 
         entry.runeGroupData = EditorHelper.DrawExtendedList(entry.runeGroupData, "Group", DrawRuneGroupData);
+
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+
+        entry.resetEvents = EditorHelper.DrawList("Reset Events", "Event", entry.resetEvents, GameEvent.AbilityLearned, EditorHelper.DrawListOfEnums);
 
         EditorGUILayout.EndVertical();
 

@@ -95,6 +95,12 @@ public class Ability {
 
     #region SETUP AND TEAR DOWN
 
+    private void RegisterResetEvents() {
+        for (int i = 0; i < Data.resetEvents.Count; i++) {
+            EventManager.RegisterListener(Data.resetEvents[i], ResetEffectTargets);
+        }
+    }
+
     private void SetupChannelTimer() {
         if(IsChanneled == true) {
             float channelInterval = Stats.Contains(StatName.ChannelInterval) ? Stats[StatName.ChannelInterval] : 1f;
@@ -169,6 +175,7 @@ public class Ability {
         Debug.Log("Equipping: " + Data.abilityName);
 
         SetupActivationTriggers();
+        RegisterResetEvents();
         SetupEndTriggers();
         SetupTriggerCounters();
         SetupChannelTimer();
@@ -880,9 +887,9 @@ public class Ability {
 
 
 
-            float procChance = Stats[StatName.ProcChance];
+            float procChance = Data.scaleProcByLevel == false ? Stats[StatName.ProcChance] : Stats[StatName.ProcChance] * AbilityLevel;
 
-            string procReplacement = chainCountReplacement.Replace("{PR}", TextHelper.FormatStat(StatName.ProcChance, procChance));
+            string procReplacement = chainCountReplacement.Replace("{PR}", TextHelper.FormatStat(StatName.ProcChance, MathF.Round(procChance, 2)));
 
             float statusDuration = Stats[StatName.StatusLifetime] * (1 + Source.Stats[StatName.GlobalStatusDurationModifier]);
 
@@ -1497,6 +1504,12 @@ public class Ability {
 
     }
 
+
+    private void ResetEffectTargets(EventData data) {
+        for (int i = 0; i < effects.Count; i++) {
+            effects[i].ResetEffectTargets();
+        }
+    }
 
     protected void TriggerAllEffectsInstantly(TriggerInstance activationInstance = null) {
         int count = effects.Count;

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Time Rip Damage
+  m_Name: E_Space Rip Status Damage
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Time Rip Damage
+    effectName: Space Rip Damage
     effectDescription: 
     type: 1
     targeting: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
       scalers:
       - targetStat: 28
         deriveTarget: 15
-        statScaleBaseValue: 0.5
+        statScaleBaseValue: 1
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 0, g: 1, b: 1, a: 1}

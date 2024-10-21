@@ -32,7 +32,9 @@ public class Status {
         EssenceSiphonCDR,
         RisingTide,
         EssenceGreed,
-        MoveHaste
+        MoveHaste,
+        TimeRip,
+        SpaceRipped
     }
 
     #endregion
@@ -164,6 +166,9 @@ public class Status {
     }
 
     private void CheckDoubleTick() {
+        if (ActiveEffect == null)
+            return;
+        
         float doubleTickStat = ParentEffect.ParentAbility.Stats[StatName.DoubleTickChance] + ParentEffect.Source.Stats[StatName.DoubleTickChance];
 
         if (doubleTickStat <= 0f)
