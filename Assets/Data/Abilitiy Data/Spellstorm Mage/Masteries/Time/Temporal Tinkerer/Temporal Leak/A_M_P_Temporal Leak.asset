@@ -28,6 +28,7 @@ MonoBehaviour:
     recastOnChannelCost: 0
     normalizedProcRate: 0
     startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -35,9 +36,11 @@ MonoBehaviour:
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities: []
+    childAbilities:
+    - {fileID: 11400000, guid: d649b1b2932747142a01e3fce9cda90e, type: 2}
     runeGroupData: []
     tags: 1a0000001c000000
+    resetEvents: 
     activationTriggerData:
     - type: 29
       overrideProcStat: 0
@@ -95,6 +98,7 @@ MonoBehaviour:
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
+          projectileToCheck: {fileID: 0}
         - type: 4
           inverse: 0
           statChangeTarget: 0
@@ -137,6 +141,7 @@ MonoBehaviour:
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0

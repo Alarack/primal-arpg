@@ -447,6 +447,10 @@ public static class AbilityEditorHelper {
             case ConstraintType.AbilityInSlot:
                 entry.abilitySlot = EditorGUILayout.IntField("Target Slot", entry.abilitySlot);
                 break;
+
+            case ConstraintType.HasProjectile:
+                entry.projectileToCheck = EditorHelper.ObjectField("Projectile", entry.projectileToCheck);
+                break;
             default:
                 break;
         }
@@ -493,7 +497,7 @@ public static class AbilityEditorHelper {
         entry.onlyShowTooltipInRune = EditorGUILayout.Toggle("Rune Only Tooltip", entry.onlyShowTooltipInRune);
         entry.showRiderTooltip = EditorGUILayout.Toggle("Show Rider Tooltip", entry.showRiderTooltip);
         
-        if(entry.type == EffectType.AddStatus) {
+        if(entry.type == EffectType.AddStatus || entry.type == EffectType.StatAdjustment) {
             entry.showScalers = EditorGUILayout.Toggle("Show Scalers in Tooltip", entry.showScalers);
 
         }

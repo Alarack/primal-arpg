@@ -51,7 +51,7 @@ MonoBehaviour:
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
-      applyVFX: {fileID: 0}
+      applyVFX: {fileID: 1197010802093610, guid: 9512773bce5218343a8e521647e7865f, type: 3}
       deathVFX: {fileID: 1279125013800246, guid: d25631b69b059d64385ac05f70824713, type: 3}
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
@@ -159,6 +159,7 @@ MonoBehaviour:
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0
+    teleportSequenceDelay: 0.2
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -193,3 +194,7 @@ MonoBehaviour:
     cooldownElapsedModifier: 0
     statusScalingData: []
     scaleFromAbilityLevel: 0
+    spawnedItemType: 0
+    itemSpawnLocation: 0
+    itemsToSpawn: []
+    itemSpawnAmount: 0

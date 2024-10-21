@@ -331,6 +331,10 @@ public abstract class Effect {
         return true;
     }
 
+    public bool HasProjectile(string projectileName) {
+        return PayloadPrefab != null && PayloadPrefab.EntityName == projectileName;
+    }
+
     private bool CheckNonStacking(Entity target) {
         if (Data.nonStacking == false)
             return false;
@@ -3911,6 +3915,18 @@ public class StatAdjustmentEffect : Effect {
         }
 
         builder.Append(replacement);
+
+        if(Data.showScalers == true) {
+            builder.AppendLine();
+            builder.AppendLine("Scales From: ");
+
+            builder.Append(ScalarTooltip()).AppendLine();
+        }
+
+
+
+
+
         return builder.ToString();
     }
 

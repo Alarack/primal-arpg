@@ -166,7 +166,7 @@ namespace LL.Events {
         StatusStacked,
         LevelUpAbilitySelected,
         AbilityAnimReceived,
-        AbilityLevelChanged
+        AbilityLevelChanged,
     }
 
 

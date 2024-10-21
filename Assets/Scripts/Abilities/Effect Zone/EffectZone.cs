@@ -79,19 +79,18 @@ public class EffectZone : Entity {
             transform.localPosition = Vector3.zero;
         }
 
+        float effectDurationModifier = parentEffect.Source.Stats[StatName.GlobalEffectDurationModifier];
+        if (effectDurationModifier != 0) {
+            Stats.AddModifier(StatName.EffectLifetime, effectDurationModifier, StatModType.PercentAdd, parentEffect.Source);
+        }
+
         if (info.applyOnInterval == true) {
 
             float effectIntervalModifier = parentEffect.Source.Stats[StatName.GlobalEffectIntervalModifier];
             if (effectIntervalModifier != 0) {
                 Stats.AddModifier(StatName.EffectInterval, effectIntervalModifier, StatModType.PercentAdd, parentEffect.Source);
             }
-
             persistantZoneTimer = new Timer(Stats[StatName.EffectInterval], OnEffectInterval, true);
-
-            float effectDurationModifier = parentEffect.Source.Stats[StatName.GlobalEffectDurationModifier];
-            if (effectDurationModifier != 0) {
-                Stats.AddModifier(StatName.EffectLifetime, effectDurationModifier, StatModType.PercentAdd, parentEffect.Source);
-            }
         }
 
         if (info.parentEffectToOrigin == true) {

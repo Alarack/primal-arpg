@@ -89,7 +89,7 @@ public class Tooltip : MonoBehaviour
         if (leftEdgeToScreenEdgeDistance > 0) {
             newPos.x += leftEdgeToScreenEdgeDistance;
         }
-        float topEdgeToScreenEdgeDistance = Screen.height - (newPos.y + rectTransform.rect.height * canvas.scaleFactor /2) - padding;
+        float topEdgeToScreenEdgeDistance = Screen.height - (newPos.y + rectTransform.rect.height * 2 * canvas.scaleFactor /2) - padding;
         if (topEdgeToScreenEdgeDistance < 0) {
             newPos.y += topEdgeToScreenEdgeDistance;
         }

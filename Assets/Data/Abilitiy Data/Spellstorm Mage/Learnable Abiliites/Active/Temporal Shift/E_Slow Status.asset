@@ -23,7 +23,7 @@ MonoBehaviour:
     deliveryPayloadToTarget: 0
     canOverload: 0
     canAffectDeadTargets: 0
-    nonStacking: 0
+    nonStacking: 1
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
     showScalers: 0
@@ -120,9 +120,11 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     effectDesignation: 0
     addMissingStatIfNotPresent: 0
+    scaleFromStatus: 0
+    statusModifiers: []
     statusToAdd:
     - statusName: 2
-      stackMethod: 1
+      stackMethod: 0
       maxStacks: 1
       initialStackCount: 1
       duration: 0
@@ -139,6 +141,7 @@ MonoBehaviour:
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0
+    teleportSequenceDelay: 0.2
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -171,3 +174,9 @@ MonoBehaviour:
     modifiedSeekDuration: -1
     modifiedDrunkInterval: 0.2
     cooldownElapsedModifier: 0
+    statusScalingData: []
+    scaleFromAbilityLevel: 0
+    spawnedItemType: 0
+    itemSpawnLocation: 0
+    itemsToSpawn: []
+    itemSpawnAmount: 0

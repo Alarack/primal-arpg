@@ -29,6 +29,7 @@ MonoBehaviour:
     recastOnChannelCost: 0
     normalizedProcRate: 0
     startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: Tactical Teleport
     animationString: 
     waitForAnimToResolve: 0
@@ -39,6 +40,7 @@ MonoBehaviour:
     childAbilities: []
     runeGroupData: []
     tags: 060000000e000000
+    resetEvents: 
     activationTriggerData:
     - type: 36
       overrideProcStat: 0
@@ -96,6 +98,7 @@ MonoBehaviour:
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0

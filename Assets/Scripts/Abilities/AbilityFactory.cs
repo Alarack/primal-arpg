@@ -94,6 +94,7 @@ public static class AbilityFactory {
             ConstraintType.CauseOnly => new CauseOnlyConstraint(data, source, parentAbility),
             ConstraintType.AbilityInSlot => new AbilityInSlotConstraint(data, source, parentAbility),
             ConstraintType.HasDot => new HasDOTConstraint(data, source, parentAbility),
+            ConstraintType.HasProjectile => new HasProjectileConstraint(data, source, parentAbility),
             _ => null,
         };
 

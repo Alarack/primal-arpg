@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Playables;
 using UnityEngine;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
 
@@ -596,6 +597,31 @@ public class HasDOTConstraint : AbilityConstraint {
         return inverse == false ? result : !result;
     }
 
+}
+
+public class HasProjectileConstraint : AbilityConstraint {
+    public override ConstraintType Type => ConstraintType.HasProjectile;
+
+    public HasProjectileConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+        bool result = ability.HasProjectile(data.projectileToCheck.EntityName);
+
+        return inverse == false ? result : !result;
+    }
+
+    public override bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
+        bool result = effect.HasProjectile(data.projectileToCheck.EntityName);
+
+        return inverse == false ? result : !result;
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        Debug.Log("Can't check has projectile constraint on an Entity");
+        return false;
+    }
 }
 
 public class EffectTypeConstraint : AbilityConstraint {

@@ -99,6 +99,7 @@ MonoBehaviour:
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
+          projectileToCheck: {fileID: 0}
         - type: 4
           inverse: 0
           statChangeTarget: 0
@@ -141,6 +142,7 @@ MonoBehaviour:
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
+          projectileToCheck: {fileID: 0}
       - focus: 5
         constraintData:
         - type: 4
@@ -185,6 +187,7 @@ MonoBehaviour:
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
+          projectileToCheck: {fileID: 0}
         - type: 17
           inverse: 0
           statChangeTarget: 0
@@ -227,6 +230,7 @@ MonoBehaviour:
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -269,7 +273,7 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: c3cca89fc2359be429d65f68fbd3ad53, type: 2}
+    - {fileID: 11400000, guid: a61238914b0fae34f9f5ef334ee74bdd, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

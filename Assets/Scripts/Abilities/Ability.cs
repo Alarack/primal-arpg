@@ -1143,6 +1143,16 @@ public class Ability {
         return manual == true && Data.autoFire == true;
     }
 
+    public bool HasProjectile(string projectileName) {
+        for (int i = 0; i < effects.Count; i++) {
+            if (effects[i].HasProjectile(projectileName) == true) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     //public List<Entity> GetFirstEffectTargets() {
     //    if (effects.Count == 0) {
     //        Debug.LogError("No effects found on: " + Data.abilityName + " while trying to preview effect targets");

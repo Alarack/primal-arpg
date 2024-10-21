@@ -43,6 +43,7 @@ public enum ConstraintType {
     CauseOnly,
     AbilityInSlot,
     HasDot,
+    HasProjectile
 }
 
 public enum GainedOrLost {
@@ -162,6 +163,9 @@ public class ConstraintData
 
     //Ability In Slot
     public int abilitySlot;
+
+    //Has Projectile
+    public Projectile projectileToCheck;
 
     public ConstraintData() {
 
