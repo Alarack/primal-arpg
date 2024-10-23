@@ -138,7 +138,7 @@ public abstract class Effect {
                 Debug.LogError("Null Rider in effect data: " + Data.effectName);
                 continue;
             }
-            
+
             Effect rider = AbilityFactory.CreateEffect(Data.riderEffects[i].effectData, Source, ParentAbility);
             rider.parentEffect = this;
             RiderEffects.Add(rider);
@@ -164,7 +164,7 @@ public abstract class Effect {
 
 
     public virtual EffectData RemoveRider(Effect target) {
-        if(RiderEffects.Contains(target) == false) {
+        if (RiderEffects.Contains(target) == false) {
             Debug.LogError("No Rider named: " + target.Data.effectName + " exists on : " + Data.effectName);
             return null;
         }
@@ -485,10 +485,10 @@ public abstract class Effect {
         Ability ability = data.GetAbility("Ability");
 
         if (ability != ParentAbility) {
-            
-            if(Data.effectName == "Apply Arcane Vulnerable Status")
+
+            if (Data.effectName == "Apply Arcane Vulnerable Status")
                 Debug.LogWarning(ability.Data.abilityName + " is not " + ParentAbility.Data.abilityName);
-            
+
             return;
         }
 
@@ -592,7 +592,7 @@ public abstract class Effect {
 
         ElectricArcEffect arc = activeVFX.GetComponent<ElectricArcEffect>();
 
-        if(arc != null) {
+        if (arc != null) {
             arc.SetPositions(spawnLocation, currentTarget.transform.position);
         }
 
@@ -709,7 +709,7 @@ public class ModifiyElapsedCooldownEffect : Effect {
             float coolDownProgress = Data.scaleFromAbilityLevel == false ? Data.cooldownElapsedModifier : Data.cooldownElapsedModifier * ParentAbility.AbilityLevel;
 
             for (int i = 0; i < allAbilities.Count; i++) {
-    
+
                 allAbilities[i].ModifyCooldownElasped(coolDownProgress);
             }
         }
@@ -787,7 +787,7 @@ public class EffectChangePayaload : Effect {
             return false;
 
 
-        if(TrackChangedPayload(target) == true) {
+        if (TrackChangedPayload(target) == true) {
             target.PayloadPrefab = Data.newPayloadPrefab;
         }
 
@@ -798,9 +798,9 @@ public class EffectChangePayaload : Effect {
     public override void RemoveFromEffect(Effect target) {
         base.RemoveFromEffect(target);
 
-        if(trackedPayloads.TryGetValue(target, out Entity payload) == true) {
+        if (trackedPayloads.TryGetValue(target, out Entity payload) == true) {
 
-            if(target.PayloadPrefab == payload) {
+            if (target.PayloadPrefab == payload) {
                 Debug.LogError(target.Data.effectName + " already has the payload tracked by " + Data.effectName);
                 return;
             }
@@ -812,19 +812,19 @@ public class EffectChangePayaload : Effect {
             Debug.LogError(target.Data.effectName + " is not tracked by a change payload effect: " + Data.effectName);
         }
 
-       
+
     }
 
 
     private bool TrackChangedPayload(Effect target) {
-        if(trackedPayloads.TryGetValue(target, out Entity trackedPayload)== true) {
-            if(trackedPayload == Data.newPayloadPrefab) {
+        if (trackedPayloads.TryGetValue(target, out Entity trackedPayload) == true) {
+            if (trackedPayload == Data.newPayloadPrefab) {
                 Debug.LogError("Trying to reapply the same changed payload to: " + target.Data.effectName);
                 return false;
             }
 
             trackedPayloads[target] = target.PayloadPrefab;
-            
+
         }
         else {
             trackedPayloads.Add(target, target.PayloadPrefab);
@@ -983,7 +983,11 @@ public class ActivateAbilityEffect : Effect {
         Ability targetAbility = target.GetAbilityByName(Data.nameOfAbilityToActivate, AbilityCategory.Any);
 
         if (targetAbility != null) {
-            targetAbility.ForceActivate();
+
+            TriggerInstance forcedTriggerInstance = new TriggerInstance(target, ParentAbility.Source, TriggerType.None);
+            forcedTriggerInstance.CausingAbility = ParentAbility;
+
+            targetAbility.ForceActivate(forcedTriggerInstance);
         }
 
 
@@ -994,7 +998,11 @@ public class ActivateAbilityEffect : Effect {
         if (base.ApplyToAbility(target) == false)
             return false;
 
-        target.ForceActivate();
+        TriggerInstance forcedTriggerInstance = new TriggerInstance(ParentAbility.Source, ParentAbility.Source, TriggerType.None);
+        forcedTriggerInstance.CausingAbility = ParentAbility;
+
+
+        target.ForceActivate(forcedTriggerInstance);
 
         return true;
     }
@@ -1094,6 +1102,11 @@ public class TeleportEffect : Effect {
     public override EffectType Type => EffectType.Teleport;
 
 
+
+    private Task teleportProcess;
+
+    private Queue<Tuple<Entity, List<Entity>>> teleportQueue = new Queue<Tuple<Entity, List<Entity>>>();
+
     public TeleportEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
     }
 
@@ -1118,19 +1131,47 @@ public class TeleportEffect : Effect {
                 break;
 
             case TeleportDestination.TargetSequence:
-                List<Entity> targets = targeter.GetOtherEffectEntityTargets(Data.otherAbilityName, Data.otherEffectName, AbilityCategory.Any);
-                if(targets.Count > 0)
-                    new Task(TeleportSequence(target, targets));
+                List<Entity> targets = targeter.GetOtherEffectEntityTargets(Data.otherAbilityName, Data.otherEffectName, AbilityCategory.Any); //new List<Entity>(targeter.GetOtherEffectEntityTargets(Data.otherAbilityName, Data.otherEffectName, AbilityCategory.Any));
+                if (targets != null && targets.Count > 0) {
+                    //Debug.Log(TextHelper.ColorizeText("Starting a teleport sequence", Color.yellow));
+
+                    Tuple<Entity, List<Entity>> teleportEntry = new Tuple<Entity, List<Entity>>(target, new List<Entity>(targets));
+
+                    teleportQueue.Enqueue(teleportEntry);
+
+                    if (teleportProcess == null) {
+                        teleportProcess = new Task(ProcessTeleportQueue());
+                    }
+
+                    targeter.ClearOtherEffectTargets(Data.otherAbilityName, Data.otherEffectName, AbilityCategory.Any);
+                }
+
                 break;
 
             default:
                 break;
         }
 
-
-
-
         return true;
+    }
+
+    private IEnumerator ProcessTeleportQueue() {
+
+        if (teleportQueue.Count == 0) {
+
+            //Debug.Log(TextHelper.ColorizeText("Queue Empty", Color.red));
+            teleportProcess = null;
+            yield break;
+        }
+
+        Tuple<Entity, List<Entity>> teleportEntry = teleportQueue.Dequeue();
+
+        yield return TeleportSequence(teleportEntry.Item1, teleportEntry.Item2);
+
+        //Debug.Log(TextHelper.ColorizeText("Processing next teleport", Color.green));
+
+        new Task(ProcessTeleportQueue());
+
     }
 
     private IEnumerator TeleportSequence(Entity mainTarget, List<Entity> targets) {
@@ -1138,10 +1179,12 @@ public class TeleportEffect : Effect {
 
         for (int i = 0; i < targets.Count; i++) {
             TeleportToEntity(mainTarget, targets[i]);
+
+            Debug.Log(TextHelper.ColorizeText("Wating: " + waiter.ToString(), Color.blue));
             yield return waiter;
         }
 
-        
+
     }
 
     private void TeleportToEntity(Entity target, Entity other) {
@@ -1266,7 +1309,7 @@ public class AddTagEffect : Effect {
 
             if (TrackTag(target, Data.tagsToAdd[i]) == false)
                 continue;
-            
+
             target.AddTag(Data.tagsToAdd[i]);
         }
 
@@ -1289,8 +1332,8 @@ public class AddTagEffect : Effect {
 
 
     private bool TrackTag(Ability target, AbilityTag tag) {
-        
-        if(trackedTags.TryGetValue(target, out List<AbilityTag> tags) == true) {
+
+        if (trackedTags.TryGetValue(target, out List<AbilityTag> tags) == true) {
             if (target.Tags.Contains(tag) == false) {
                 tags.Add(tag);
                 return true;
@@ -1303,7 +1346,7 @@ public class AddTagEffect : Effect {
             }
         }
         return false;
-        
+
     }
 
     private void TrackTags(Ability target) {
@@ -1331,7 +1374,7 @@ public class RemoveTagEffect : Effect {
 
             if (TrackTag(target, Data.tagsToRemove[i]) == false)
                 continue;
-            
+
             target.RemoveTag(Data.tagsToRemove[i]);
         }
 
@@ -1515,7 +1558,7 @@ public class ModifyProjectileEffect : Effect {
         if (base.Apply(target) == false)
             return false;
 
-       Projectile projectile = target as Projectile;
+        Projectile projectile = target as Projectile;
         if (projectile == null) {
             Debug.LogError("A Modify Projectile Effect is targeting a non Projectile: " + target.EntityName);
             return false;
@@ -1583,7 +1626,7 @@ public class AddRiderEffect : Effect {
     }
 
     public override bool ApplyToEffect(Effect target) {
-        if(base.ApplyToEffect(target) == false)
+        if (base.ApplyToEffect(target) == false)
             return false;
 
         for (int i = 0; i < Data.ridersToAdd.Count; i++) {
@@ -1597,7 +1640,7 @@ public class AddRiderEffect : Effect {
     public override void RemoveFromEffect(Effect target) {
         base.RemoveFromEffect(target);
 
-        if(effectTrackedRiderEffects.TryGetValue(target, out List<Effect> effects) == true) {
+        if (effectTrackedRiderEffects.TryGetValue(target, out List<Effect> effects) == true) {
 
             for (int i = 0; i < effects.Count; i++) {
                 target.RemoveRider(effects[i]);
@@ -1691,7 +1734,7 @@ public class RemoveRiderEffect : Effect {
     private Dictionary<Effect, List<EffectData>> effectTrackedRiderEffects = new Dictionary<Effect, List<EffectData>>();
 
     public RemoveRiderEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
-        
+
     }
 
     public override bool Apply(Entity target) {
@@ -1713,9 +1756,9 @@ public class RemoveRiderEffect : Effect {
 
         for (int i = 0; i < Data.ridersToRemove.Count; i++) {
             EffectData removedData = target.RemoveRider(Data.ridersToRemove[i].effectData.effectName);
-            
 
-            if(removedData != null)
+
+            if (removedData != null)
                 TrackEffectOnEffect(target, removedData);
         }
 
@@ -1759,7 +1802,7 @@ public class RemoveRiderEffect : Effect {
 
     public override string GetTooltip() {
         return base.GetTooltip();
-        
+
     }
 }
 
@@ -1785,7 +1828,7 @@ public class AddEffectEffect : Effect {
             return false;
 
         Projectile projectile = target as Projectile;
-        if(projectile != null) {
+        if (projectile != null) {
             ApplyToProjectile(projectile);
             return true;
         }
@@ -2072,7 +2115,7 @@ public class AddAbilityEffect : Effect {
         for (int i = 0; i < Data.abilitiesToAdd.Count; i++) {
 
             NPC npcTarget = target as NPC;
-            if(npcTarget != null) {
+            if (npcTarget != null) {
                 Ability newAblity = npcTarget.AddAbility(Data.abilitiesToAdd[i].AbilityData);
                 TrackAbilties(target, newAblity);
 
@@ -2099,7 +2142,7 @@ public class AddAbilityEffect : Effect {
         if (trackedAbilities.TryGetValue(target, out List<Ability> abilitiesLearned) == true) {
 
             NPC npcTarget = target as NPC;
-            if(npcTarget != null) {
+            if (npcTarget != null) {
                 for (int i = 0; i < abilitiesLearned.Count; i++) {
                     target.RemoveAbility(abilitiesLearned[i]);
                 }
@@ -2256,7 +2299,7 @@ public class ForceStatusTickEffect : Effect {
     }
 
     public override bool Apply(Entity target) {
-        if(base.Apply(target) == false)
+        if (base.Apply(target) == false)
             return false;
 
         //Debug.Log("Force Ticking Status on: " + target.EntityName);
@@ -2293,7 +2336,7 @@ public class ForceStatusTickEffect : Effect {
 
         for (int i = 0; i < effects.Count; i++) {
             ApplyToEffect(effects[i]);
-            
+
             //AddStatusEffect addStatusEffect = effects[i] as AddStatusEffect;
             //if (addStatusEffect != null) {
             //    addStatusEffect.ForceTick();
@@ -2351,7 +2394,7 @@ public class AddStatusEffect : Effect {
     }
 
     public void ForceTickOnTarget(Entity target) {
-        if(activeStatusDict.TryGetValue(target, out List<Status> activeStatuses) == true) {
+        if (activeStatusDict.TryGetValue(target, out List<Status> activeStatuses) == true) {
             for (int i = 0; i < activeStatuses.Count; i++) {
                 activeStatuses[i].ForceTick();
             }
@@ -2453,11 +2496,11 @@ public class AddStatusEffect : Effect {
 
     public string GetStatusStackingTooltip() {
         StringBuilder builder = new StringBuilder();
-        
+
         float maxStacks = Stats.GetStatRangeMaxValue(StatName.StackCount);
 
-        if (maxStacks < float.MaxValue && 
-            Data.statusToAdd[0].stackMethod != StackMethod.None && 
+        if (maxStacks < float.MaxValue &&
+            Data.statusToAdd[0].stackMethod != StackMethod.None &&
             Data.statusToAdd[0].stackMethod != StackMethod.Infinite) {
             builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
         }
@@ -2514,7 +2557,7 @@ public class AddStatusEffect : Effect {
                     //    builder.Append("Doesn't Stack");
                     //}
 
-                   
+
 
 
                     break;
@@ -2523,7 +2566,7 @@ public class AddStatusEffect : Effect {
                     //builder.AppendLine();
 
 
-                    if(Data.showScalers == true) {
+                    if (Data.showScalers == true) {
                         string scalarTooltip = activeStatusEffects[i].ScalarTooltip();
                         builder.AppendLine("Scales From: ");
                         builder.Append(scalarTooltip).AppendLine();
@@ -2565,7 +2608,7 @@ public class AddStatusEffect : Effect {
 
 
 
-                   
+
 
                     string projectileStats = GetProjectileStatsTooltip();
                     if (string.IsNullOrEmpty(projectileStats) == false) {
@@ -2651,14 +2694,14 @@ public class AddStatusScalingEffect : Effect {
 
         StatAdjustmentEffect adjustmentEffect = target as StatAdjustmentEffect;
 
-        if(adjustmentEffect == null) {
+        if (adjustmentEffect == null) {
             Debug.LogError("Tried to add status scaling to a non-stat adjustment effect");
             return false;
         }
 
         for (int i = 0; i < Data.statusScalingData.Count; i++) {
-            
-            if(Data.scaleFromAbilityLevel == true) {
+
+            if (Data.scaleFromAbilityLevel == true) {
                 float modValue = Data.statusScalingData[i].modifierValue * ParentAbility.AbilityLevel;
                 StatModifierData.StatusModifier modifier = new StatModifierData.StatusModifier(Data.statusScalingData[i].status, modValue);
                 TrackStatusScaling(target, modifier);
@@ -2840,7 +2883,7 @@ public class SpawnItemEffect : Effect {
 
 
     public override bool Apply(Entity target) {
-        if(base.Apply(target) == false) 
+        if (base.Apply(target) == false)
             return false;
 
         for (int i = 0; i < Data.itemSpawnAmount; i++) {
@@ -3152,7 +3195,7 @@ public class StatAdjustmentEffect : Effect {
     public override void RegisterEvents() {
         base.RegisterEvents();
         EventManager.RegisterListener(GameEvent.AbilityLevelChanged, OnAbilityLevelChanged);
-        
+
     }
 
     private void OnAbilityLevelChanged(EventData data) {
@@ -3190,7 +3233,7 @@ public class StatAdjustmentEffect : Effect {
             modData[i].Stats.AddModifier(stackMultiplier.TargetStat, stackMultiplier);
 
             //Status with no Interval don't tick past the first time, so they need to be updated with the new value
-            if(status.Data.interval == 0) {
+            if (status.Data.interval == 0) {
                 Remove(status.Target);
                 status.ForceTick();
             }
@@ -3402,7 +3445,7 @@ public class StatAdjustmentEffect : Effect {
             _ => 0f,
         };
 
-        if(modData.scaleFromAbilityLevel == true) {
+        if (modData.scaleFromAbilityLevel == true) {
             float levelModifier = ParentAbility.AbilityLevel * modData.abilityLevelCoefficient;
             targetValue *= levelModifier;
         }
@@ -3433,7 +3476,7 @@ public class StatAdjustmentEffect : Effect {
         //Debug.LogWarning("applying a stat adjustment: " + activeMod.Value + " from " + ParentAbility.Data.abilityName);
 
 
-        float vulnerabilityMod = GetVulnerabilityModifier(target, activeMod.Value );
+        float vulnerabilityMod = GetVulnerabilityModifier(target, activeMod.Value);
 
         float incommingDamage = activeMod.Value * vulnerabilityMod * globalDamageMultiplier;
 
@@ -3538,7 +3581,7 @@ public class StatAdjustmentEffect : Effect {
         float dividedDamageByType = incomingDamage / damageTypes.Count;
 
         for (int i = 0; i < damageTypes.Count; i++) {
-            
+
         }
 
 
@@ -3562,7 +3605,7 @@ public class StatAdjustmentEffect : Effect {
     }
 
     public void ResetApplicationToAbilities() {
-        for (int i = AbilityTargets.Count -1; i >= 0; i--) {
+        for (int i = AbilityTargets.Count - 1; i >= 0; i--) {
             Ability target = AbilityTargets[i];
 
             RemoveFromAbility(target);
@@ -3787,7 +3830,7 @@ public class StatAdjustmentEffect : Effect {
             }
         }
 
-        if(statusModifiers != null && statusModifiers.Count > 0) {
+        if (statusModifiers != null && statusModifiers.Count > 0) {
             float statusModValue = 1f;
             for (int i = 0; i < statusModifiers.Count; i++) {
                 if (target.HasStatus(statusModifiers[i].status) == true) {
@@ -3879,7 +3922,7 @@ public class StatAdjustmentEffect : Effect {
 
         //Debug.Log("Showing a Tooltip for: " + Data.effectName + " on " + ParentAbility.Data.abilityName);
 
-        if(ZoneInfo.applyOnInterval == true) {
+        if (ZoneInfo.applyOnInterval == true) {
             return GetDamageOverTimeTooltip();
         }
 
@@ -3916,7 +3959,7 @@ public class StatAdjustmentEffect : Effect {
 
         builder.Append(replacement);
 
-        if(Data.showScalers == true) {
+        if (Data.showScalers == true) {
             builder.AppendLine();
             builder.AppendLine("Scales From: ");
 
@@ -3948,7 +3991,7 @@ public class StatAdjustmentEffect : Effect {
 
         float intervalDurationModifier = 1 + Source.Stats[StatName.GlobalEffectIntervalModifier];
         float interval = Stats[StatName.EffectInterval] * intervalDurationModifier;
-  
+
         string durationText = TextHelper.ColorizeText(duration.ToString(), Color.yellow) + " seconds";
         string intervalText = TextHelper.ColorizeText(interval.ToString(), Color.yellow) + " seconds";
 

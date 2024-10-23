@@ -166,6 +166,14 @@ public class EffectTargeter {
         return null;
     }
 
+    public void ClearOtherEffectTargets(string abilityName, string effectName, AbilityCategory category) {
+        Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, parentEffect.Source, category);
+
+        if(target.Item2 != null) {
+            target.Item2.EntityTargets.Clear();
+        }
+    }
+
     public Entity GetSourceTarget() {
         Entity sourceEntity = parentEffect.Source;
 

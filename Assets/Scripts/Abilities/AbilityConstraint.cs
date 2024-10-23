@@ -496,6 +496,10 @@ public class RangeConstraint : AbilityConstraint {
                 range = Vector2.Distance(target.transform.position, source.transform.position);
                 break;
             case EffectTarget.Trigger:
+                if(triggerInstance.TriggeringEntity == null) {
+                    return false;
+                }
+                
                 range = Vector2.Distance(target.transform.position, triggerInstance.TriggeringEntity.transform.position);
                 break;
             case EffectTarget.Cause:

@@ -212,7 +212,7 @@ public class Ability {
 
     public void Uneqeuip() {
 
-        Debug.Log("Unequipping: " + Data.abilityName);
+        //Debug.Log("Unequipping: " + Data.abilityName);
 
         if (IsEquipped == false) {
             Debug.LogWarning("Tried to unequip " + Data.abilityName + " but it wasn't equipped");
@@ -1598,9 +1598,9 @@ public class Ability {
         IsActive = active;
     }
 
-    public void ForceActivate() {
+    public void ForceActivate(TriggerInstance triggerInstance = null) {
         //Debug.LogWarning("Force activating: " + Data.abilityName);
-        ReceiveStartActivationInstance(null);
+        ReceiveStartActivationInstance(triggerInstance);
     }
 
     public void ForceEndTrigger(TriggerInstance endInstance) {
