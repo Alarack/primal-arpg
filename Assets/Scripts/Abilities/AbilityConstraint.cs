@@ -488,6 +488,8 @@ public class RangeConstraint : AbilityConstraint {
 
         float range = 0f;
 
+        if (target == null)
+            return false;
 
         switch (data.rangeToWhat) {
             case EffectTarget.Source:

@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using static Unity.VisualScripting.Member;
-using static UnityEngine.GraphicsBuffer;
 
 public class Status {
     #region ENUMS
@@ -34,7 +32,8 @@ public class Status {
         EssenceGreed,
         MoveHaste,
         TimeRip,
-        SpaceRipped
+        SpaceRipped,
+        EldritchInstability
     }
 
     #endregion
