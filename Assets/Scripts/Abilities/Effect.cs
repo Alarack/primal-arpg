@@ -3937,7 +3937,11 @@ public class StatAdjustmentEffect : Effect {
 
         foreach (var item in scalers) {
 
-            string formatted = TextHelper.FormatStat(item.Key, item.Value);
+            float value = modData[0].scaleFromAbilityLevel == false ? item.Value : item.Value * ParentAbility.AbilityLevel;
+
+
+
+            string formatted = TextHelper.FormatStat(item.Key, value);
 
             builder.AppendLine(formatted + "of " + TextHelper.PretifyStatName(item.Key));
 
