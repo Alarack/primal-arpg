@@ -1125,6 +1125,10 @@ public class TeleportEffect : Effect {
             case TeleportDestination.SourceForward:
                 break;
 
+            case TeleportDestination.CenterStage:
+                TeleportToCenter(target);
+                break;
+
             case TeleportDestination.OtherTarget:
                 Entity other = targeter.GetLastTargetFromOtherEffect(Data.otherAbilityName, Data.otherEffectName, AbilityCategory.Any);
                 TeleportToEntity(target, other);
@@ -1187,18 +1191,40 @@ public class TeleportEffect : Effect {
 
     }
 
+
+
+    private void ExecuteTeleport(Entity target, Vector2 destination) {
+
+        VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+        SendTeleportInitiatedEvent(target);
+
+        target.transform.position = destination;
+
+        VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+        SendTeleportConcludedEvent(target);
+    }
+
     private void TeleportToEntity(Entity target, Entity other) {
 
         if (other == null)
             return;
 
-        VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
-        SendTeleportInitiatedEvent(target);
+        ExecuteTeleport(target, other.transform.position);
 
-        target.transform.position = other.transform.position;
 
-        VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
-        SendTeleportConcludedEvent(target);
+        //VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+        //SendTeleportInitiatedEvent(target);
+
+        //target.transform.position = other.transform.position;
+
+        //VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+        //SendTeleportConcludedEvent(target);
+    }
+
+    private void TeleportToCenter(Entity target) {
+        Vector2 center = TargetHelper.GetWorldPoint(WorldPositionConstant.Center);
+
+        ExecuteTeleport(target, center);
     }
 
     private void TeleportToMousePointer(Entity target) {
@@ -1219,14 +1245,16 @@ public class TeleportEffect : Effect {
             return;
         }
 
+        ExecuteTeleport(target, mousePos);
 
-        VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
-        SendTeleportInitiatedEvent(target);
 
-        target.transform.position = mousePos;
+        //VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+        //SendTeleportInitiatedEvent(target);
 
-        VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
-        SendTeleportConcludedEvent(target);
+        //target.transform.position = mousePos;
+
+        //VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
+        //SendTeleportConcludedEvent(target);
 
     }
 

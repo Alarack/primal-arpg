@@ -96,7 +96,8 @@ public enum TeleportDestination {
     RandomNearTarget,
     SourceForward,
     OtherTarget,
-    TargetSequence
+    TargetSequence,
+    CenterStage
 }
 
 public enum EntitySpawnType {
