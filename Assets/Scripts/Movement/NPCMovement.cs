@@ -109,8 +109,6 @@ public class NPCMovement : EntityMovement
             Owner.AnimHelper.SetBool("Run", animMove);
         }
 
-        
-
         return moveForce;
     }
 

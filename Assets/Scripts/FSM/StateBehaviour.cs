@@ -78,16 +78,22 @@ namespace LL.FSM {
                 return;
             }
 
-
             for (int i = 0; i < nearbyEntities.Length; i++) {
 
                 if (nearbyEntities[i] == null) {
                     continue;
                 }
 
+                if (nearbyEntities[i].gameObject == brain.Owner.gameObject) {
+                    continue;
+                }
+
                 float distance = Vector2.Distance(brain.Owner.transform.position, nearbyEntities[i].transform.position);
 
                 if (distance < Data.minFlockDistance) {
+
+                    //Debug.Log(nearbyEntities[i].gameObject.name + " is too close");
+                    
                     brain.Movement.MoveAwayFromPoint(nearbyEntities[i].transform.position, 0.5f);
                 }
 

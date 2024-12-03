@@ -167,6 +167,7 @@ namespace LL.Events {
         LevelUpAbilitySelected,
         AbilityAnimReceived,
         AbilityLevelChanged,
+        ProjectileDetected
     }
 
 

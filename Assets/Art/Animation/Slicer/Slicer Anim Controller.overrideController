@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Slicer Anim Controller
+  m_Controller: {fileID: 9100000, guid: d895823626e68be4c959f569e2f4c453, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e87e59acedd02cc469f5757be2f83967, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 855870097fd084a41bd6bc8b5b53c67e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 09d1a437b1d0e1c4fae832b09ca3a13a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 32a11cb798eda7745ac3f3d88f162d12, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0c631ed790092fa4e8e7123cf0b46801, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9120405d82a291640b8e9c7d771c5507, type: 2}

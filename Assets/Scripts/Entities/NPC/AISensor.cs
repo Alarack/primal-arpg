@@ -51,6 +51,7 @@ public class AISensor : MonoBehaviour {
         //Debug.Log("Setting detection Layer based on: " + LayerMask.LayerToName(owner.gameObject.layer));
 
         detectionMask = LayerTools.SetupHitMask(detectionMask, owner.gameObject.layer, maskTargeting);
+        //AddToDetectionMask(LayerMask.NameToLayer("Projectile"));
     }
 
     public void AddToDetectionMask(int layer) {
@@ -115,6 +116,13 @@ public class AISensor : MonoBehaviour {
 
 
     private void OnTriggerEnter2D(Collider2D other) {
+        
+        Projectile detectedProjectile = IsDetectionProjectile(other);
+
+        if(detectedProjectile != null) {
+            OnProjectileDetected(detectedProjectile);
+        }
+ 
         Entity detectedTarget = IsDetectionValid(other);
 
         if (detectedTarget == null)
@@ -160,6 +168,29 @@ public class AISensor : MonoBehaviour {
         return detectedTarget;
     }
 
+    private Projectile IsDetectionProjectile(Collider2D other) {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Projectile") == false)
+                return null;
+
+        Projectile projectile = other.GetComponent<Projectile>();
+
+        if (projectile == null) 
+            return null;
+
+        if(projectile.Source.ownerType == OwnerConstraintType.Friendly)
+            return projectile;
+
+        return null;
+    }
+
+
+    private void OnProjectileDetected(Projectile target) {
+        EventData data = new EventData();
+        data.AddEntity("Detector", owner);
+        data.AddEntity("Projectile", target);
+
+        EventManager.SendEvent(GameEvent.ProjectileDetected, data);
+    }
 
     private void OnTargetDetected(Entity target) {
         LatestTarget = target;
