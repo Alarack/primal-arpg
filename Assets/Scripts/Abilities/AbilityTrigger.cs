@@ -1356,6 +1356,35 @@ public class UnitDetectedTrigger : AbilityTrigger {
     }
 }
 
+public class ProjectileDetectedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.ProjectileDetected;
+
+    public override GameEvent TargetEvent => GameEvent.ProjectileDetected;
+
+    public override Action<EventData> EventReceiver => OnProjectileDetected;
+
+    public ProjectileDetectedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    }
+
+    private void OnProjectileDetected(EventData data) {
+        
+        Entity projectile = data.GetEntity("Projectile");
+        Entity detector = data.GetEntity("Detector");
+
+
+
+        TriggeringEntity = projectile;
+        if (detector != null)
+            CauseOfTrigger = detector;
+        else
+            CauseOfTrigger = SourceEntity;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
 public class EntitySpawnedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.EntitySpawned;

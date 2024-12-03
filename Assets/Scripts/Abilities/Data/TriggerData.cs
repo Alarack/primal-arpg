@@ -43,7 +43,8 @@ public enum TriggerType {
     TeleportInitiated,
     TeleportConcluded,
     StatusStacked,
-    Chain
+    Chain,
+    ProjectileDetected
 }
 
 

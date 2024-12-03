@@ -7,6 +7,8 @@ using System.Text;
 using UnityEngine;
 using static AbilityTrigger;
 using static Status;
+using static UnityEditor.FilePathAttribute;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 using Random = UnityEngine.Random;
 
 
@@ -1042,6 +1044,10 @@ public class ForcedMovementEffect : Effect {
             case MovementDestination.SourceForward:
                 ApplySourceForward(target);
                 break;
+
+            case MovementDestination.SourcePerpendicular:
+                ApplySourcePerpendicular(target);
+                break;
             case MovementDestination.SourceCurrentVelocity:
                 break;
             case MovementDestination.MousePosition:
@@ -1084,6 +1090,21 @@ public class ForcedMovementEffect : Effect {
         }
     }
 
+    private void ApplySourcePerpendicular(Entity target) {
+        Vector2 direction = target.GetOriginPoint().up.normalized * Stats[StatName.Knockback];
+        Vector2 perp = Vector2.Perpendicular(direction);
+
+        Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
+
+        if (targetBody != null) {
+            targetBody.AddForce(perp, ForceMode2D.Impulse);
+        }
+
+        ActivateTrail(target, true);
+        new Task(DelayTrailDeactivate(target));
+
+    }
+
     private void ApplyForceAwayFromSource(Entity target) {
         Vector2 direction = target.transform.position - Source.transform.position;
 
@@ -1094,6 +1115,24 @@ public class ForcedMovementEffect : Effect {
         if (targetBody != null) {
             targetBody.AddForce(resultingForce, ForceMode2D.Impulse);
         }
+    }
+
+
+
+    private void ActivateTrail(Entity target, bool active) {
+        TrailRenderer trail = target.GetComponentInChildren<TrailRenderer>();
+        if (trail != null) {
+            trail.emitting = active;
+        }
+    }
+
+    private IEnumerator DelayTrailDeactivate(Entity target) {
+        WaitForSeconds waiter = new WaitForSeconds(0.2f);
+
+        yield return waiter;
+
+        ActivateTrail(target, false);
+
     }
 }
 
