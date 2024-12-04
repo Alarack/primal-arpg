@@ -1048,6 +1048,10 @@ public class ForcedMovementEffect : Effect {
             case MovementDestination.SourcePerpendicular:
                 ApplySourcePerpendicular(target);
                 break;
+
+            case MovementDestination.Dodge:
+                ApplyDodgeMovement(target);
+                break;
             case MovementDestination.SourceCurrentVelocity:
                 break;
             case MovementDestination.MousePosition:
@@ -1090,9 +1094,30 @@ public class ForcedMovementEffect : Effect {
         }
     }
 
+
+    bool IsLeft(Vector2 A, Vector2 B) {
+        return -A.x * B.y + A.y * B.x < 0;
+    }
+
     private void ApplySourcePerpendicular(Entity target) {
         Vector2 direction = target.GetOriginPoint().up.normalized * Stats[StatName.Knockback];
         Vector2 perp = Vector2.Perpendicular(direction);
+
+
+        Entity triggering = targeter.ActivationInstance.TriggeringEntity;
+
+        if(triggering != null) {
+            Vector2 directionToTrigger = triggering.transform.position - target.transform.position;
+            Vector2 normDireciton = directionToTrigger.normalized;
+
+            Vector3 cross = Vector3.Cross(normDireciton, target.GetOriginPoint().up);
+
+            if(cross.z < 0f) {
+                perp = -perp;
+            }
+        }
+
+
 
         Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
 
@@ -1103,6 +1128,32 @@ public class ForcedMovementEffect : Effect {
         ActivateTrail(target, true);
         new Task(DelayTrailDeactivate(target));
 
+    }
+
+    private void ApplyDodgeMovement(Entity target) {
+        Entity triggering = targeter.ActivationInstance.TriggeringEntity;
+        if(triggering == null) {
+            ApplySourcePerpendicular(target);
+            return;
+        }
+
+        ApplyForceAwayFromTrigger(target, triggering);
+
+        ActivateTrail(target, true);
+        new Task(DelayTrailDeactivate(target));
+    }
+
+
+    private void ApplyForceAwayFromTrigger(Entity target, Entity trigger) {
+        Vector2 direction = target.transform.position - trigger.transform.position;
+
+        Vector2 resultingForce = direction.normalized * Stats[StatName.Knockback];
+
+        Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
+
+        if (targetBody != null) {
+            targetBody.AddForce(resultingForce, ForceMode2D.Impulse);
+        }
     }
 
     private void ApplyForceAwayFromSource(Entity target) {

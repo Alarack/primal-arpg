@@ -88,7 +88,8 @@ public enum MovementDestination {
     SourceCurrentVelocity,
     MousePosition,
     AwayFromSource,
-    SourcePerpendicular
+    SourcePerpendicular,
+    Dodge
 }
 
 public enum TeleportDestination {

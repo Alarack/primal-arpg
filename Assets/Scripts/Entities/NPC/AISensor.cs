@@ -26,6 +26,7 @@ public class AISensor : MonoBehaviour {
     private NPC owner;
     private List<Entity> targets = new List<Entity>();
     private AIBrain brain;
+    private ProjectileSensor projectileSensor;
 
 
     public void Initialize(NPC owner, AIBrain brain) {
@@ -35,6 +36,13 @@ public class AISensor : MonoBehaviour {
         myCollider.radius = owner.Stats[StatName.DetectionRange];
 
         SetDetectionMask();
+
+        projectileSensor = GetComponentInChildren<ProjectileSensor>();
+        if(projectileSensor != null ) {
+            projectileSensor.Setup(this, OnProjectileDetected);
+        }
+
+        
     }
 
 
@@ -117,11 +125,11 @@ public class AISensor : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other) {
         
-        Projectile detectedProjectile = IsDetectionProjectile(other);
+        //Projectile detectedProjectile = IsDetectionProjectile(other);
 
-        if(detectedProjectile != null) {
-            OnProjectileDetected(detectedProjectile);
-        }
+        //if(detectedProjectile != null) {
+        //    OnProjectileDetected(detectedProjectile);
+        //}
  
         Entity detectedTarget = IsDetectionValid(other);
 
@@ -168,20 +176,20 @@ public class AISensor : MonoBehaviour {
         return detectedTarget;
     }
 
-    private Projectile IsDetectionProjectile(Collider2D other) {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Projectile") == false)
-                return null;
+    //private Projectile IsDetectionProjectile(Collider2D other) {
+    //    if (other.gameObject.layer == LayerMask.NameToLayer("Projectile") == false)
+    //            return null;
 
-        Projectile projectile = other.GetComponent<Projectile>();
+    //    Projectile projectile = other.GetComponent<Projectile>();
 
-        if (projectile == null) 
-            return null;
+    //    if (projectile == null) 
+    //        return null;
 
-        if(projectile.Source.ownerType == OwnerConstraintType.Friendly)
-            return projectile;
+    //    if(projectile.Source.ownerType == OwnerConstraintType.Friendly)
+    //        return projectile;
 
-        return null;
-    }
+    //    return null;
+    //}
 
 
     private void OnProjectileDetected(Projectile target) {
