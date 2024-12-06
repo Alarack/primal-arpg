@@ -623,6 +623,7 @@ public static class AbilityEditorHelper {
                 //EditorGUILayout.LabelField("Not Yet Implemented: ", errorLabel);
                 entry.targetDestination = EditorHelper.EnumPopup("Move Direction", entry.targetDestination);
                 entry.resetMovement = EditorGUILayout.Toggle("Reset Movement", entry.resetMovement);
+                entry.showTrail = EditorGUILayout.Toggle("Show Trail", entry.showTrail);
 
                 if (entry.HasStat(StatName.Knockback) <= 0f) {
                     EditorGUILayout.LabelField("Add Knockback Stat!! ", EditorStyles.boldLabel);

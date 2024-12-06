@@ -1040,7 +1040,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCollider: {fileID: 6160927612907916105}
-  parentSensor: {fileID: 3854765764196881321}
 --- !u!58 &6160927612907916105
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1413,7 +1412,7 @@ MonoBehaviour:
   subtypes: 
   innerSprite: {fileID: 6922206969657884983}
   mainSprite: {fileID: 5341402106135422616}
-  statDefinitions: {fileID: 11400000, guid: 2428cbea6e9813742b291a835c69b822, type: 2}
+  statDefinitions: {fileID: 11400000, guid: f8519565cdde52f4ebc5f2e055480b28, type: 2}
   vfxScalar: 1
   deathEffectPrefab: {fileID: 150606, guid: 625165fb93553b14f8ed057807ed752a, type: 3}
   spawnEffectPrefab: {fileID: 7624612741357570336, guid: ef86985cce99ffa4dbdde299ff7b3bf7, type: 3}
@@ -1462,6 +1461,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 29f32464387147d4a8da3f2c4778ea72, type: 2}
   abilityDefinitions:
   - {fileID: 11400000, guid: e8835e6f17fa8bf49926bb80520713b4, type: 2}
+  - {fileID: 11400000, guid: 40e8a85b2d666024eb975050805db7f6, type: 2}
   debugCurrentState: 
   debugPreviousState: 
 --- !u!1 &7783198457334544943

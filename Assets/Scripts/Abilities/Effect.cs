@@ -1045,6 +1045,10 @@ public class ForcedMovementEffect : Effect {
                 ApplySourceForward(target);
                 break;
 
+                case MovementDestination.SourceBackward: 
+                ApplySourceBackward(target);
+                break;
+
             case MovementDestination.SourcePerpendicular:
                 ApplySourcePerpendicular(target);
                 break;
@@ -1092,11 +1096,20 @@ public class ForcedMovementEffect : Effect {
         if (targetBody != null) {
             targetBody.AddForce(force, ForceMode2D.Impulse);
         }
+
+        ActivateTrail(target);
     }
 
+    private void ApplySourceBackward(Entity target) {
+        Vector2 force = target.GetOriginPoint().up.normalized * Stats[StatName.Knockback];
 
-    bool IsLeft(Vector2 A, Vector2 B) {
-        return -A.x * B.y + A.y * B.x < 0;
+        Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
+
+        if (targetBody != null) {
+            targetBody.AddForce(-force, ForceMode2D.Impulse);
+        }
+
+        ActivateTrail(target);
     }
 
     private void ApplySourcePerpendicular(Entity target) {
@@ -1117,17 +1130,13 @@ public class ForcedMovementEffect : Effect {
             }
         }
 
-
-
         Rigidbody2D targetBody = target.GetComponent<Rigidbody2D>();
 
         if (targetBody != null) {
             targetBody.AddForce(perp, ForceMode2D.Impulse);
         }
 
-        ActivateTrail(target, true);
-        new Task(DelayTrailDeactivate(target));
-
+        ActivateTrail(target);
     }
 
     private void ApplyDodgeMovement(Entity target) {
@@ -1139,8 +1148,7 @@ public class ForcedMovementEffect : Effect {
 
         ApplyForceAwayFromTrigger(target, triggering);
 
-        ActivateTrail(target, true);
-        new Task(DelayTrailDeactivate(target));
+        ActivateTrail(target);
     }
 
 
@@ -1166,15 +1174,32 @@ public class ForcedMovementEffect : Effect {
         if (targetBody != null) {
             targetBody.AddForce(resultingForce, ForceMode2D.Impulse);
         }
+
+        ActivateTrail(target);
     }
 
 
 
-    private void ActivateTrail(Entity target, bool active) {
+    private void ToggleTrail(Entity target, bool active) {
         TrailRenderer trail = target.GetComponentInChildren<TrailRenderer>();
         if (trail != null) {
             trail.emitting = active;
+            
+            if(active == true)
+                new Task(DelayTrailDeactivate(target));
         }
+        else {
+            Debug.LogError("No Trail found on: " + target.EntityName);
+        }
+    }
+
+
+    private void ActivateTrail(Entity target) {
+
+        if (Data.showTrail == false)
+            return;
+        
+        ToggleTrail(target, true);
     }
 
     private IEnumerator DelayTrailDeactivate(Entity target) {
@@ -1182,7 +1207,7 @@ public class ForcedMovementEffect : Effect {
 
         yield return waiter;
 
-        ActivateTrail(target, false);
+        ToggleTrail(target, false);
 
     }
 }

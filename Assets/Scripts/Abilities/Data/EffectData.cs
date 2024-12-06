@@ -89,7 +89,8 @@ public enum MovementDestination {
     MousePosition,
     AwayFromSource,
     SourcePerpendicular,
-    Dodge
+    Dodge,
+    SourceBackward
 }
 
 public enum TeleportDestination {
@@ -172,6 +173,7 @@ public class EffectData
     public bool isTeleport;
     public bool invertDestination;
     public bool resetMovement;
+    public bool showTrail;
     public MovementDestination targetDestination;
     //public float moveForce;
 
