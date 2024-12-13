@@ -82,12 +82,10 @@ public class EntityManager : Singleton<EntityManager> {
             return;
         }
 
-        if (Instance.enemiesClearedCheck == null) {
+        if (Instance.enemiesClearedCheck == null || Instance.enemiesClearedCheck.Running == false) {
             Instance.enemiesClearedCheck = new Task(Instance.DelayedCheckForEnemies());
         }
-        else if (Instance.enemiesClearedCheck.Running == false) {
-            Instance.enemiesClearedCheck = new Task(Instance.DelayedCheckForEnemies());
-        }
+
     }
 
     private IEnumerator DelayedCheckForEnemies() {
@@ -190,13 +188,17 @@ public class EntityManager : Singleton<EntityManager> {
         ActivePlayer.RemoveAllStatuses();
         ActivePlayer.AbilityManager.ResetAbilities();
         ActivePlayer.ResetLevel();
+        
+       
         PanelManager.GetPanel<InventoryPanel>().ResetForge();
         PanelManager.GetPanel<HUDPanel>().ClearStatusUI();
         PanelManager.ClosePanel<LevelUpPanel>();
         RoomManager.Instance.CleanUpRewardPedestals();
 
- 
-        if(ActiveEntities.TryGetValue(Entity.EntityType.Enemy, out List<Entity> enemies)){
+      
+
+
+        if (ActiveEntities.TryGetValue(Entity.EntityType.Enemy, out List<Entity> enemies)){
             for (int i = 0; i < enemies.Count; i++) {
                 enemies[i].EndGameCleanUp();
             }

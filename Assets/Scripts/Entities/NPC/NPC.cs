@@ -4,6 +4,7 @@ using UnityEngine;
 using LL.Events;
 using static AffixDatabase;
 using System;
+using static UnityEngine.GraphicsBuffer;
 
 public class NPC : Entity
 {
@@ -103,9 +104,11 @@ public class NPC : Entity
 
         if(Brain != null) 
             Brain.TearDownAbilities();
-
         EntityManager.RemoveEntity(this);
-        //EffectManager.RemoveTarget(this);
+
+        int threat = (int)NPCDataManager.GetThreatLevel(EntityName);
+        GameManager.Instance.totalThreatFromKilledEnemies += threat;
+
         SpawnDeathVFX();
         Destroy(gameObject, 0.1f);
     }

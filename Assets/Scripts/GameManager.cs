@@ -10,6 +10,8 @@ public class GameManager : Singleton<GameManager>
     public StatTooltipData tooltipData;
     public MasteryDefiniiton masteryDatabase;
 
+    public int totalThreatFromKilledEnemies = 0;
+
     public static bool AllowDuiplicatSkills { get { return CheckDuplicateAllowance(); } }
 
     private static bool CheckDuplicateAllowance() {
