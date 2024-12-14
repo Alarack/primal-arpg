@@ -19,6 +19,7 @@ public class LootDatabase : ScriptableObject {
     private AbilityTag[] allTags;
 
     public float baseEnchantingCost = 25f;
+    public int metaUnlockValue = 50;
 
     public List<ItemStatAffixData> itemStatAffixes = new List<ItemStatAffixData>();
     public List<ItemIconData> itemIcons = new List<ItemIconData>();
