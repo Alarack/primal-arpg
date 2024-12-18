@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using LL.Events;
 
 public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
     
@@ -79,26 +80,48 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         selectedFrame.gameObject.SetActive(false);
         pathEntries.ClearList();
         UpdateButtonText();
+        Unlearn();
     }
 
     public void OnLearnClicked() {
         if(FeatureAbility != null) {
             if(FeatureAbility.IsEquipped == true) {
-                FeatureAbility.Uneqeuip();
-                UnequipPathAbilities();
+                Unlearn();
+                
+                //FeatureAbility.Uneqeuip();
+                //UnequipPathAbilities();
             }
             else {
-                FeatureAbility.Equip();
-                EquipPathAbilities();
+                Learn();
+                //FeatureAbility.Equip();
+                //EquipPathAbilities();
             }
         }
         else {
             FeatureAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(FeatureData.featureAbility.AbilityData, true);
-
+            PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);
         }
 
         SetDimmer();
         UpdateButtonText();
+    }
+
+    private void Learn() {
+        FeatureAbility.Equip();
+        EquipPathAbilities();
+
+        PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);
+    }
+
+    public void Unlearn() {
+        if (FeatureAbility == null)
+            return;
+
+        FeatureAbility.Uneqeuip();
+        UnequipPathAbilities();
+
+        PanelManager.GetPanel<MasteryPanel>().RemoveFeature(this);
+
     }
 
     private void UnequipPathAbilities() {
@@ -128,11 +151,27 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        parentEntry.OnFeatureSelected(this);
         
+        if(eventData.button == PointerEventData.InputButton.Left) {
+            parentEntry.OnFeatureSelected(this);
+        }
+
+        if(eventData.button == PointerEventData.InputButton.Right) {
+
+            if (FeatureAbility == null || FeatureAbility.IsEquipped == false)
+                return;
+            
+            PanelManager.OpenPanel<PopupPanel>().Setup("Unlearn Mastery", "Are you sure you want to unlearn: " + FeatureData.featureName, Unlearn);
+        }
+
     }
 
+
     public void OnPointerEnter(PointerEventData eventData) {
+        ShowTooltip();
+    }
+
+    public void ShowTooltip() {
         if (FeatureAbility != null)
             TooltipManager.Show(FeatureAbility.GetTooltip(), FeatureAbility.Data.abilityName);
         else

@@ -19,7 +19,7 @@ public class MasteryEntry : MonoBehaviour
     private MasteryFeatureEntry selectedFeature;
 
     private List<MasteryFeatureEntry> featureEntries = new List<MasteryFeatureEntry>();
-    private List<MasteryPathEntry> currentPathEntries = new List<MasteryPathEntry>();
+    //private List<MasteryPathEntry> currentPathEntries = new List<MasteryPathEntry>();
 
 
     //private Dictionary<MasteryFeatureEntry, List<MasteryPathEntry>> allPaths = new Dictionary<MasteryFeatureEntry, List<MasteryPathEntry>>();
@@ -46,12 +46,11 @@ public class MasteryEntry : MonoBehaviour
         }
 
         if(featureEntries.Count > 0)
-            OnFeatureSelected(featureEntries[0]);
+            OnFeatureSelected(featureEntries[0], false);
     }
 
 
-
-    public void OnFeatureSelected(MasteryFeatureEntry feature) {
+    public void OnFeatureSelected(MasteryFeatureEntry feature, bool confirm = true) {
         selectedFeature = feature;
 
         for (int i = 0; i < featureEntries.Count; i++) {
@@ -60,6 +59,15 @@ public class MasteryEntry : MonoBehaviour
 
         selectedFeature.Select();
         currentFeatureNameText.text = selectedFeature.FeatureData.featureName;
+
+        if(confirm == true) {
+
+            if (PanelManager.GetPanel<MasteryPanel>().CheckMaxFeatures() == true)
+                return;
+            
+            PromptLearnMastery(feature);
+
+        }
     }
 
     public void OnLearnClicked() {
@@ -69,5 +77,13 @@ public class MasteryEntry : MonoBehaviour
         selectedFeature.OnLearnClicked();
     }
 
+    private void PromptLearnMastery(MasteryFeatureEntry feature) {
+        PanelManager.OpenPanel<PopupPanel>().Setup("Learning " + feature.FeatureData.featureName, "Are you sure you want to choose this mastery? You can change your mind later.", ConfirmMastery);
+    }
+
+
+    private void ConfirmMastery() {
+        OnLearnClicked();
+    }
 
 }
