@@ -79,11 +79,11 @@ public class GameOverPanel : BasePanel
 
 
     private void GainMetaPoint() {
-        int metaPoints = PlayerPrefs.GetInt("Meta Points");
-        metaPoints++;
 
-        pointsGainText.text = "Primal Essence: " + metaPoints;
-        PlayerPrefs.SetInt("Meta Points", metaPoints);
+        SaveLoadUtility.SaveData.primalEssencePoints++;
+
+        pointsGainText.text = "Primal Essence: " + SaveLoadUtility.SaveData.primalEssencePoints;
+        SaveLoadUtility.SavePlayerData();
 
     }
 

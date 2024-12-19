@@ -43,8 +43,7 @@ public class MasteryPanel : BasePanel {
     }
 
     public void UpdatePrimalEssenceText() {
-        int metaPoints = PlayerPrefs.GetInt("Meta Points");
-        primalEssenceText.text = "Primal Essence: " + metaPoints;
+        primalEssenceText.text = "Primal Essence: " + SaveLoadUtility.SaveData.primalEssencePoints;
     }
 
     private void PopulateMasteries() {
@@ -57,7 +56,8 @@ public class MasteryPanel : BasePanel {
 
 
     public bool CheckMaxFeatures() {
-        if (activeFeatures.Count >= 2) {
+
+        if (SaveLoadUtility.SaveData.CountOfMasteries >= 2) {
             PanelManager.OpenPanel<PopupPanel>().Setup("Maximum Masteries", "You can only have 2 Masteries at a time. Right Click one of your existing Masteries to unlearn it.");
             return true;
         }
@@ -66,7 +66,7 @@ public class MasteryPanel : BasePanel {
     }
 
     public void TrackFeature(MasteryFeatureEntry feature) {
-        if(activeFeatures.Count >= 2) {
+        if(SaveLoadUtility.SaveData.CountOfMasteries >= 2) {
             PanelManager.OpenPanel<PopupPanel>().Setup("Maximum Masteries", "You can only have 2 Masteries at a time. Right Click one of your existing Masteries to unlearn it.");
             return;
         }
@@ -92,5 +92,36 @@ public class MasteryPanel : BasePanel {
         }
         
         activeFeatures.RemoveIfContains(feature);
+    }
+
+
+    public bool HasMetaPoints() {
+        return SaveLoadUtility.SaveData.primalEssencePoints > 0;
+    }
+
+    public bool TrySpendMetaPoints(string masteryName, string abilityName, int level) {
+        if(SaveLoadUtility.SaveData.primalEssencePoints <= 0) {
+            return false;
+        }
+
+        SaveLoadUtility.SaveData.primalEssencePoints--;
+        SaveLoadUtility.SaveData.UpdateMasteryPath(masteryName, abilityName, level);
+        SaveLoadUtility.SavePlayerData();
+        UpdatePrimalEssenceText();
+        return true;
+    }
+
+    public void RefundMetaPoints(string masteryName, string abilityName, int level) {
+        SaveLoadUtility.SaveData.primalEssencePoints++;
+        
+        if(level == 0) {
+            SaveLoadUtility.SaveData.RemoveMasteryPath(masteryName, abilityName);
+        }
+        else {
+            SaveLoadUtility.SaveData.UpdateMasteryPath(masteryName, abilityName, level);
+        }
+        
+        SaveLoadUtility.SavePlayerData();
+        UpdatePrimalEssenceText();
     }
 }

@@ -11,7 +11,14 @@ public class MasteryData
 
     public List<MasteryFeatureData> features = new List<MasteryFeatureData>();
 
+    public MasteryFeatureData GetFeatureByName(string name) {
+        for (int i = 0; i < features.Count; i++) {
+            if (features[i].featureName == name)
+                return features[i];
+        }
 
+        return null;
+    }
 
 
     [System.Serializable]

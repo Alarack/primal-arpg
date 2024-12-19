@@ -58,9 +58,24 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
         //}
     }
 
+    private bool CheckPoints() {
+        bool canSpend = PanelManager.GetPanel<MasteryPanel>().HasMetaPoints();
+
+        if (canSpend == false) {
+            PanelManager.OpenPanel<PopupPanel>().Setup("No Primal Essence", "You don't have enough Primal Essence to invest.");
+            return false;
+        }
+
+        return true;
+    }
+
     private void Invest() {
+
+      
+        
         if(PathAbility == null) {
             PathAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(PathAbilityDef.AbilityData, true);
+            PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, 1);
         }
         else {
             if (PathAbility.IsEquipped == false)
@@ -71,6 +86,7 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
             }
 
             PathAbility.LevelUp();
+            PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
         }
 
         UpdateRankText();
@@ -87,6 +103,7 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
         if (PathAbility.AbilityLevel <= 0)
             PathAbility.Uneqeuip();
 
+        PanelManager.GetPanel<MasteryPanel>().RefundMetaPoints(parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
         UpdateRankText();
         //rankText.text = PathAbility.AbilityLevel.ToString();
     }
@@ -108,6 +125,10 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
         switch (eventData.button) {
             case PointerEventData.InputButton.Left:
+
+                if (CheckPoints() == false)
+                    return;
+                
                 Invest();
                 break;
             case PointerEventData.InputButton.Right:
