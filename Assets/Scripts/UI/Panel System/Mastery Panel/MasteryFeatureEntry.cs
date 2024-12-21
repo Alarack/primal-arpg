@@ -15,6 +15,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
     public Image selectedFrame;
 
     public MasteryData.MasteryFeatureData FeatureData { get; private set; }
+    public string ParentMasteryName { get { return parentEntry.MasteryName; } }
 
     public Ability FeatureAbility { get; private set; }
 
@@ -99,7 +100,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         }
         else {
             FeatureAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(FeatureData.featureAbility.AbilityData, true);
-            SaveLoadUtility.SaveData.AddMastery(FeatureData.featureName, FeatureAbility.Data.abilityName);
+            SaveLoadUtility.SaveData.AddMastery(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
             SaveLoadUtility.SavePlayerData();
             PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);
         }
@@ -112,7 +113,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         FeatureAbility.Equip();
         EquipPathAbilities();
 
-        SaveLoadUtility.SaveData.AddMastery(FeatureData.featureName, FeatureAbility.Data.abilityName);
+        SaveLoadUtility.SaveData.AddMastery(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
         SaveLoadUtility.SavePlayerData();
 
         PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);
@@ -125,7 +126,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         FeatureAbility.Uneqeuip();
         UnequipPathAbilities();
 
-        SaveLoadUtility.SaveData.RemoveMasteryPath(FeatureData.featureName, FeatureAbility.Data.abilityName);
+        SaveLoadUtility.SaveData.RemoveMasteryPath(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
         SaveLoadUtility.SavePlayerData();
 
         PanelManager.GetPanel<MasteryPanel>().RemoveFeature(this);

@@ -75,7 +75,7 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
         
         if(PathAbility == null) {
             PathAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(PathAbilityDef.AbilityData, true);
-            PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, 1);
+            PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.ParentMasteryName, parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, 1);
         }
         else {
             if (PathAbility.IsEquipped == false)
@@ -86,7 +86,7 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
             }
 
             PathAbility.LevelUp();
-            PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
+            PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.ParentMasteryName, parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
         }
 
         UpdateRankText();
@@ -103,7 +103,7 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
         if (PathAbility.AbilityLevel <= 0)
             PathAbility.Uneqeuip();
 
-        PanelManager.GetPanel<MasteryPanel>().RefundMetaPoints(parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
+        PanelManager.GetPanel<MasteryPanel>().RefundMetaPoints(parentFeature.ParentMasteryName, parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
         UpdateRankText();
         //rankText.text = PathAbility.AbilityLevel.ToString();
     }

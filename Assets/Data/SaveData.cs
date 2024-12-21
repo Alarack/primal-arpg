@@ -9,31 +9,30 @@ public class SaveData
 
     public int primalEssencePoints;
 
+    public List<MasteryDistributionData> savedMasteries = new List<MasteryDistributionData>();
 
-    public List<MasteryDistributionData> distributions = new List<MasteryDistributionData>();
-
-    public int CountOfMasteries { get { return distributions.Count; } }
+    public int CountOfMasteries { get { return savedMasteries.Count; } }
 
     public void SetMasteryPoints(int value) {
         primalEssencePoints = value;
     }
 
-    public void AddMastery(string masteryName, string mainAbilityName) {
-        MasteryDistributionData data = new MasteryDistributionData(masteryName, mainAbilityName);
-        distributions.Add(data);
+    public void AddMastery(string masteryName, string featureName, string mainAbilityName) {
+        MasteryDistributionData data = new MasteryDistributionData(masteryName, featureName, mainAbilityName);
+        savedMasteries.Add(data);
     }
 
-    public void UpdateMasteryPath(string masteryName, string abilityName, int level) {
+    public void UpdateMasteryPath(string masteryName, string featureName, string abilityName, int level) {
         MasteryDistributionData targetData = GetMasteryDistribution(masteryName);
 
         if(targetData == null) {
             Debug.LogError("Can't Find: " + masteryName + " in data");
             return;
         }
-        targetData.SetPathAbility(abilityName, level);
+        targetData.SetPathAbility(featureName, abilityName, level);
     }
 
-    public void RemoveMasteryPath(string masteryName, string abilityName) {
+    public void RemoveMasteryPath(string masteryName, string featureName, string abilityName) {
         MasteryDistributionData targetData = GetMasteryDistribution(masteryName);
 
         if (targetData == null) {
@@ -41,14 +40,14 @@ public class SaveData
             return;
         }
 
-        targetData.RemovePathAbility(abilityName);
+        targetData.RemovePathAbility(featureName, abilityName);
     }
 
 
     private MasteryDistributionData GetMasteryDistribution(string masteryName) {
-        for (int i = 0; i < distributions.Count; i++) {
-            if (distributions[i].masteryName == masteryName) {
-                return distributions[i];
+        for (int i = 0; i < savedMasteries.Count; i++) {
+            if (savedMasteries[i].masteryName == masteryName) {
+                return savedMasteries[i];
             }
         }
 
@@ -76,23 +75,69 @@ public class SaveData
     public class MasteryDistributionData {
 
         public string masteryName;
-        public string mainAbilityName;
-
-        public Dictionary<string, int> abilityDistribution = new Dictionary<string, int>();
-
+        public List <MasteryFeatureDistirbutionData> distirbutionData = new List<MasteryFeatureDistirbutionData> ();
 
         public MasteryDistributionData() { 
         
         }
 
-        public MasteryDistributionData(string masteryName, string mainAbilityName) {
+        public MasteryDistributionData(string masteryName, string featureName, string mainAbilityName) {
             this.masteryName = masteryName;
+           
+            MasteryFeatureDistirbutionData feature = new MasteryFeatureDistirbutionData(featureName, mainAbilityName);
+            distirbutionData.Add(feature);
+
+        }
+
+
+        public void SetPathAbility(string featureName, string abilityName, int level) {
+          MasteryFeatureDistirbutionData targetData = GetFeatureByName(featureName);
+
+            if(targetData != null) {
+                targetData.SetPathAbility(abilityName, level);
+            }
+        }
+
+        public void RemovePathAbility(string featureName, string abilityName) {
+            MasteryFeatureDistirbutionData targetData = GetFeatureByName(featureName);
+
+            if (targetData != null) {
+                targetData.RemovePathAbility(abilityName);
+            }
+        }
+
+        public MasteryFeatureDistirbutionData GetFeatureByName(string featureName) {
+            for (int i = 0; i < distirbutionData.Count; i++) {
+                if (distirbutionData[i].featureName == featureName) {
+                    return distirbutionData[i];
+                }
+            }
+
+            return null;
+        }
+
+
+    }
+
+
+    public class MasteryFeatureDistirbutionData {
+        public string featureName;
+        public string mainAbilityName;
+
+        public Dictionary<string, int> abilityDistribution = new Dictionary<string, int>();
+
+        public MasteryFeatureDistirbutionData() {
+
+        }
+
+        public MasteryFeatureDistirbutionData(string featureName, string mainAbilityName) {
             this.mainAbilityName = mainAbilityName;
+            this.featureName = featureName;
         }
 
 
         public void SetPathAbility(string name, int level) {
-            if(abilityDistribution.TryGetValue(name, out int value)) {
+            if (abilityDistribution.TryGetValue(name, out int value)) {
                 abilityDistribution[name] = level;
             }
             else {
@@ -101,13 +146,12 @@ public class SaveData
         }
 
         public void RemovePathAbility(string name) {
-            if(abilityDistribution.ContainsKey(name) == true) {
+            if (abilityDistribution.ContainsKey(name) == true) {
                 abilityDistribution.Remove(name);
             }
         }
-
-
     }
+
 
 
 }

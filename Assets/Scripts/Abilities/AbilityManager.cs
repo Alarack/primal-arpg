@@ -228,7 +228,7 @@ public class AbilityManager : MonoBehaviour {
         EventManager.SendEvent(GameEvent.AbilityLearned, data);
     }
 
-    public Ability LearnAbility(AbilityData abilityData, bool autoEquip = false) {
+    public Ability LearnAbility(AbilityData abilityData, bool autoEquip = false, int startingLevel = 1) {
         Ability existingAbility = GetAbilityByName(abilityData.abilityName, AbilityCategory.Any);
         if(existingAbility != null) {
             existingAbility.Locked = false;
@@ -244,6 +244,7 @@ public class AbilityManager : MonoBehaviour {
         
         
         Ability newAbility = AbilityFactory.CreateAbility(abilityData, Owner);
+        newAbility.SetLevel(startingLevel);
         LearnAbility(newAbility, abilityData.category, autoEquip);
 
         return newAbility;

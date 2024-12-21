@@ -99,26 +99,26 @@ public class MasteryPanel : BasePanel {
         return SaveLoadUtility.SaveData.primalEssencePoints > 0;
     }
 
-    public bool TrySpendMetaPoints(string masteryName, string abilityName, int level) {
+    public bool TrySpendMetaPoints(string masteryName, string featureName, string abilityName, int level) {
         if(SaveLoadUtility.SaveData.primalEssencePoints <= 0) {
             return false;
         }
 
         SaveLoadUtility.SaveData.primalEssencePoints--;
-        SaveLoadUtility.SaveData.UpdateMasteryPath(masteryName, abilityName, level);
+        SaveLoadUtility.SaveData.UpdateMasteryPath(masteryName, featureName, abilityName, level);
         SaveLoadUtility.SavePlayerData();
         UpdatePrimalEssenceText();
         return true;
     }
 
-    public void RefundMetaPoints(string masteryName, string abilityName, int level) {
+    public void RefundMetaPoints(string masteryName, string featureName, string abilityName, int level) {
         SaveLoadUtility.SaveData.primalEssencePoints++;
         
         if(level == 0) {
-            SaveLoadUtility.SaveData.RemoveMasteryPath(masteryName, abilityName);
+            SaveLoadUtility.SaveData.RemoveMasteryPath(masteryName, featureName, abilityName);
         }
         else {
-            SaveLoadUtility.SaveData.UpdateMasteryPath(masteryName, abilityName, level);
+            SaveLoadUtility.SaveData.UpdateMasteryPath(masteryName, featureName, abilityName, level);
         }
         
         SaveLoadUtility.SavePlayerData();

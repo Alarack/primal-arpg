@@ -24,6 +24,7 @@ public class MasteryEntry : MonoBehaviour
 
     //private Dictionary<MasteryFeatureEntry, List<MasteryPathEntry>> allPaths = new Dictionary<MasteryFeatureEntry, List<MasteryPathEntry>>();
 
+    public string MasteryName { get { return Data.masteryName; } }
     private MasteryData Data;
 
 
