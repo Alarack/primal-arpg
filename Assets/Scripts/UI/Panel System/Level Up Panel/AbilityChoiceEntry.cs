@@ -37,6 +37,7 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
         fader.alpha = 0f;
         shimmer.transform.DOLocalMove(new Vector2(-134f, -126f), 1f);
         fader.DOFade(1f, 0.3f);
+        RotateAnimation();
 
         if(ability.Data.category == AbilityCategory.PassiveSkill) {
             passiveMask.enabled = true;
@@ -46,6 +47,11 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
             passiveMask.enabled = false;
             borderImage.sprite = activeBorderSprite;
         }
+    }
+
+    public void RotateAnimation(float duration = 0.3f) {
+        transform.localEulerAngles = new Vector3(0f, -90f, 0f);
+        transform.DOLocalRotate(Vector3.zero, duration).SetEase(Ease.OutBounce);
     }
 
     private void OnDisable() {
