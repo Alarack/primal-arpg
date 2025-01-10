@@ -10,6 +10,7 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public Image skillIcon;
     public TextMeshProUGUI abilityNameText;
+    public TextMeshProUGUI abilityDescriptionText;
     public GameObject shimmer;
     public CanvasGroup fader;
 
@@ -33,6 +34,7 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
         this.levelUpPanel = levelUpPanel;
 
         abilityNameText.text = ability.Data.abilityName;
+        abilityDescriptionText.text = AbilityChoice.GetTooltip();
         skillIcon.sprite = ability.Data.abilityIcon;
         fader.alpha = 0f;
         shimmer.transform.DOLocalMove(new Vector2(-134f, -126f), 1f);
