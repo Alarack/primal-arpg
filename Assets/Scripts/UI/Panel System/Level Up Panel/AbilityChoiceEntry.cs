@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using DG.Tweening;
+using System.Security.Cryptography;
 
 public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
 
@@ -24,10 +25,17 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     public ParticleSystem selectionEffect;
     public CanvasGroup flashFader;
 
+    [Header("Tilt")]
+    public float manualTiltAmount = 5f;
+    public float autoTiltAmount = 2.5f;
+    public float tiltSpeed = 30f;
+
     public Ability AbilityChoice { get; private set; }
 
 
     private LevelUpPanel levelUpPanel;
+    private bool mouseHovering;
+    private bool startTilt;
 
     public void Setup(Ability ability, LevelUpPanel levelUpPanel) {
         this.AbilityChoice = ability;
@@ -51,9 +59,37 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
         }
     }
 
+    private void Update() {
+
+        if (startTilt == true)
+            TiltRotation();
+    }
+
     public void RotateAnimation(float duration = 0.3f) {
         transform.localEulerAngles = new Vector3(0f, -90f, 0f);
-        transform.DOLocalRotate(Vector3.zero, duration).SetEase(Ease.OutBounce);
+        transform.DOLocalRotate(Vector3.zero, duration).SetEase(Ease.OutBounce).onComplete += StartTilt;
+    }
+
+    private void StartTilt() {
+        startTilt = true;
+    }
+
+    private void TiltRotation() {
+        float sine = Mathf.Sin(Time.time + transform.parent.GetSiblingIndex()) * (mouseHovering ? .2f : 1);
+        float cosine = Mathf.Cos(Time.time + transform.parent.GetSiblingIndex()) * (mouseHovering ? .2f : 1);
+
+        Vector3 offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
+        float tiltX = mouseHovering ? ((offset.y * -1) * manualTiltAmount) : 0f;
+        float tiltY = mouseHovering ? ((offset.x) * manualTiltAmount) : 0;
+        float tiltZ = mouseHovering ? transform.eulerAngles.z : 0f; //: (curveRotationOffset * (curve.rotationInfluence * transform.parent.childCount - 1));
+
+        float lerpX = Mathf.LerpAngle(transform.eulerAngles.x, tiltX + (sine * autoTiltAmount), tiltSpeed * Time.deltaTime);
+        float lerpY = Mathf.LerpAngle(transform.eulerAngles.y, tiltY + (cosine * autoTiltAmount), tiltSpeed * Time.deltaTime);
+        float lerpZ = Mathf.LerpAngle(transform.eulerAngles.z, tiltZ, tiltSpeed / 2 * Time.deltaTime);
+
+        transform.eulerAngles = new Vector3(lerpX, lerpY, lerpZ);
+
     }
 
     private void OnDisable() {
@@ -74,11 +110,13 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        TooltipManager.Show(AbilityChoice.GetTooltip(), AbilityChoice.Data.abilityName);
+        //TooltipManager.Show(AbilityChoice.GetTooltip(), AbilityChoice.Data.abilityName);
+        mouseHovering = true;
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        TooltipManager.Hide();
+        //TooltipManager.Hide();
+        mouseHovering = false;
     }
 
     #endregion
