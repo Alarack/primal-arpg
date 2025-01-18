@@ -81,7 +81,7 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
         Vector3 offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
         float tiltX = mouseHovering ? ((offset.y * -1) * manualTiltAmount) : 0f;
-        float tiltY = mouseHovering ? ((offset.x) * manualTiltAmount) : 0;
+        float tiltY = mouseHovering ? ((offset.x) * manualTiltAmount) : 0f;
         float tiltZ = mouseHovering ? transform.eulerAngles.z : 0f; //: (curveRotationOffset * (curve.rotationInfluence * transform.parent.childCount - 1));
 
         float lerpX = Mathf.LerpAngle(transform.eulerAngles.x, tiltX + (sine * autoTiltAmount), tiltSpeed * Time.deltaTime);
