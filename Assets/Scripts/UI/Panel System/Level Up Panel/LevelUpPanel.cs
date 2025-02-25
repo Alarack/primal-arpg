@@ -4,6 +4,7 @@ using UnityEngine;
 using static StatModifierData;
 using TMPro;
 using LL.Events;
+using Michsky.MUIP;
 
 public class LevelUpPanel : BasePanel
 {
@@ -18,6 +19,7 @@ public class LevelUpPanel : BasePanel
 
     [Header("Rerolls")]
     public TextMeshProUGUI rerollText;
+    public ButtonManager rerollButton;
 
     private List<StatBoostEntry> statBoostEntries = new List<StatBoostEntry>();
     private List<AbilityChoiceEntry> abilityChoiceEntries = new List<AbilityChoiceEntry>();
@@ -138,6 +140,7 @@ public class LevelUpPanel : BasePanel
 
     private void UpdateRerollText() {
         rerollText.text = "Rerolls: " + EntityManager.ActivePlayer.Stats[StatName.StatReroll];
+        rerollButton.SetText("Rerolls: " + EntityManager.ActivePlayer.Stats[StatName.StatReroll]);
     }
 
 

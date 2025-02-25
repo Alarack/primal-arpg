@@ -66,13 +66,13 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
 
     private void Update() {
 
-        if (startTilt == true)
-            TiltRotation();
+        //if (startTilt == true)
+        //    TiltRotation();
     }
 
     public void RotateAnimation(float duration = 0.3f) {
         transform.localEulerAngles = new Vector3(0f, -90f, 0f);
-        transform.DOLocalRotate(Vector3.zero, duration).SetEase(Ease.OutBounce).onComplete += StartTilt;
+        transform.DOLocalRotate(Vector3.zero, duration).SetEase(Ease.OutBounce)/*.onComplete += StartTilt*/;
     }
 
     private void StartTilt() {
