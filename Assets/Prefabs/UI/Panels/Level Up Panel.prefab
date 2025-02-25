@@ -578,8 +578,15 @@ MonoBehaviour:
   shimmer: {fileID: 8654355593572025314}
   fader: {fileID: 6081669959551031389}
   borderImage: {fileID: 1975856093169950451}
+  bgImage: {fileID: 6761312403595122555}
   activeBorderSprite: {fileID: 21300000, guid: 42d03fa16d9144f4fa866d5592f78d91, type: 3}
   passiveBordersprite: {fileID: 21300000, guid: 0984109fa6dd15d43b174adf32376b1a, type: 3}
+  bgImageVariants:
+  - {fileID: 21300000, guid: fe002ce85f23e4b4688fb1fcee34a917, type: 3}
+  - {fileID: 21300000, guid: f89a018234d4f994b80d972379777047, type: 3}
+  - {fileID: 21300000, guid: 4da0c5f2ee108e1409e538c30a73e37c, type: 3}
+  - {fileID: 21300000, guid: d027e861e80ded4489c0d8039176a4a5, type: 3}
+  - {fileID: 21300000, guid: 8327c541c340fb24489e249c29ff30e8, type: 3}
   passiveMask: {fileID: 1606526409724559728}
   selectionEffect: {fileID: 2455588823534463996}
   flashFader: {fileID: 5659808254266750632}
@@ -17650,7 +17657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.25490198}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.21960784}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -16,8 +16,11 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     public CanvasGroup fader;
 
     public Image borderImage;
+    public Image bgImage;
     public Sprite activeBorderSprite;
     public Sprite passiveBordersprite;
+
+    public Sprite[] bgImageVariants;
 
     public Mask passiveMask;
 
@@ -57,6 +60,8 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
             passiveMask.enabled = false;
             borderImage.sprite = activeBorderSprite;
         }
+        int bgIndex = Random.Range(0, bgImageVariants.Length);
+        bgImage.sprite = bgImageVariants[bgIndex];
     }
 
     private void Update() {
