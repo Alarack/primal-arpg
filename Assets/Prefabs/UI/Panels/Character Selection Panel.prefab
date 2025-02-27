@@ -213,6 +213,82 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &810171295102158986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 522264357197090777}
+  - component: {fileID: 623613468740817059}
+  - component: {fileID: 3284430365223750703}
+  m_Layer: 5
+  m_Name: Flash Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &522264357197090777
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810171295102158986}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3201272842578734633}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &623613468740817059
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810171295102158986}
+  m_CullTransparentMesh: 1
+--- !u!114 &3284430365223750703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810171295102158986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &848539985701628374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,10 +1229,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a29c7a638f80345acca92563f22113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterImgage: {fileID: 2549493560283616795}
+  characterImgage: {fileID: 3981326078286449930}
+  flashImage: {fileID: 3284430365223750703}
   shortDescriptionText: {fileID: 439389395049826619}
   bulletPointsText: {fileID: 6443638732749609586}
   classNameText: {fileID: 492746785059234727}
+  bgAnchor: {fileID: 3201272842578734633}
   template: {fileID: 9043199410373998787}
   holder: {fileID: 8353451117421729874}
   weaponSelectionTemplate: {fileID: 2027184083123666091}
@@ -1579,9 +1657,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterImgage: {fileID: 9177425513643226169}
+  flashImage: {fileID: 0}
   shortDescriptionText: {fileID: 8928914518073660704}
   bulletPointsText: {fileID: 2882990851786994657}
   classNameText: {fileID: 4847142358086056467}
+  bgAnchor: {fileID: 0}
   template: {fileID: 5894195951417839303}
   holder: {fileID: 1167967347233674907}
   weaponSelectionTemplate: {fileID: 6138284495296485402}
@@ -2576,13 +2656,14 @@ RectTransform:
   - {fileID: 4255438357888841309}
   - {fileID: 5208735605669465219}
   - {fileID: 6070088977992097679}
+  - {fileID: 522264357197090777}
   m_Father: {fileID: 6170964999917453957}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -67.5, y: 75}
+  m_SizeDelta: {x: 15, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &482467097198093332
 CanvasRenderer:
@@ -4210,7 +4291,7 @@ MonoBehaviour:
   OnClosedEvent:
     m_PersistentCalls:
       m_Calls: []
-  template: {fileID: 2041167425482243153}
+  template: {fileID: 7466114650116548395}
   holder: {fileID: 4831762728219726655}
   classItems:
   - {fileID: 11400000, guid: 46324e51e9dcc1245bc2cbfd8b59bf8d, type: 2}

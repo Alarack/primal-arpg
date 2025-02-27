@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class CharacterChoiceEntry : MonoBehaviour
 {
 
     public Image characterImgage;
+    public Image flashImage;
     public TextMeshProUGUI shortDescriptionText;
     public TextMeshProUGUI bulletPointsText;
     public TextMeshProUGUI classNameText;
+    public Transform bgAnchor;
 
     [Header("Template")]
     public SkillPreviewEntry template;
@@ -36,10 +39,15 @@ public class CharacterChoiceEntry : MonoBehaviour
         ClassItem = item;
         this.selectionPanel = selectionPanel;
         SetupDisplay();
+
+        flashImage.color = Color.white;
+        flashImage.DOColor(Color.clear, 1f);
+        bgAnchor.DOLocalMove(Vector2.zero, 0.4f).SetEase(Ease.OutSine);
     }
 
     private void SetupDisplay() {
         characterImgage.sprite = ClassItem.itemData.itemIcon;
+
         shortDescriptionText.text = ClassItem.itemData.itemDescription;
         bulletPointsText.text = ClassItem.itemData.secondaryDescription;
         classNameText.text = ClassItem.itemData.itemName;
