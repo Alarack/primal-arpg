@@ -9,10 +9,16 @@ public class CharacterSelectPanel : BasePanel
     public CharacterChoiceEntry template;
     public Transform holder;
 
+    [Header("Anchors")]
+    public Transform selectedClassAnchor;
+
     [Header("Class Data")]
     public List<ItemDefinition> classItems = new List<ItemDefinition>();
 
     private List<CharacterChoiceEntry> entries = new List<CharacterChoiceEntry>();
+
+
+    private CharacterChoiceEntry selectedClass;
 
     protected override void Awake() {
         base.Awake();
@@ -40,6 +46,15 @@ public class CharacterSelectPanel : BasePanel
         Close();
     }
 
+    public void OnClassInfoClicked(CharacterChoiceEntry entry) {
+        selectedClass = entry;
+        selectedClass.Select();
+
+        for (int i = 0; i < entries.Count; i++) {
+            if (entries[i] != entry)
+                entry.Deselect();
+        }
+    }
     public void OnClassSelected(CharacterChoiceEntry entry) {
         ItemSpawner.SpawnItem(entry.ClassItem, transform.position, true);
         ItemSpawner.SpawnItem(entry.ChosenItem, transform.position, true);

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using Michsky.MUIP;
 
 public class CharacterChoiceEntry : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class CharacterChoiceEntry : MonoBehaviour
     public TextMeshProUGUI bulletPointsText;
     public TextMeshProUGUI classNameText;
     public Transform bgAnchor;
+    public ButtonManager infoButton;
 
     [Header("Template")]
     public SkillPreviewEntry template;
@@ -38,11 +40,38 @@ public class CharacterChoiceEntry : MonoBehaviour
     public void Setup(ItemDefinition item, CharacterSelectPanel selectionPanel) {
         ClassItem = item;
         this.selectionPanel = selectionPanel;
+        infoButton.onClick.AddListener(OnInfoClicked);
         SetupDisplay();
 
+        FlashWhite();
+        bgAnchor.DOLocalMove(Vector2.zero, 0.4f).SetEase(Ease.OutSine);
+    }
+
+    private void FlashWhite() {
         flashImage.color = Color.white;
         flashImage.DOColor(Color.clear, 1f);
+    }
+
+    public void Select() {
+        FlashWhite();
+        bgAnchor.DOMove(selectionPanel.selectedClassAnchor.position, 0.7f).SetEase(Ease.OutSine);
+        infoButton.onClick.RemoveListener(OnInfoClicked);
+        infoButton.onClick.AddListener(Deselect);
+        infoButton.SetText("Back");
+
+        Debug.Log("Selecting: " + ClassItem.itemData.itemName);
+    }
+
+    public void Deselect() {
+        FlashWhite();
         bgAnchor.DOLocalMove(Vector2.zero, 0.4f).SetEase(Ease.OutSine);
+
+        infoButton.onClick.RemoveListener(Deselect);
+        infoButton.onClick.AddListener(OnInfoClicked);
+        infoButton.SetText("Info");
+
+        Debug.Log("Deselecting: " + ClassItem.itemData.itemName);
+
     }
 
     private void SetupDisplay() {
@@ -63,6 +92,10 @@ public class CharacterChoiceEntry : MonoBehaviour
         }
 
         OnWeaponSelected(weaponSelectionEntries[0]);
+    }
+
+    public void OnInfoClicked() {
+        selectionPanel.OnClassInfoClicked(this);
     }
 
     public void OnSelectClicked() {
