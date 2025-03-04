@@ -16,6 +16,7 @@ public class CharacterChoiceEntry : MonoBehaviour
     public TextMeshProUGUI classNameText;
     public Transform bgAnchor;
     public ButtonManager infoButton;
+    public CanvasGroup fader;
 
     [Header("Template")]
     public SkillPreviewEntry template;
@@ -60,6 +61,7 @@ public class CharacterChoiceEntry : MonoBehaviour
         infoButton.SetText("Back");
 
         Debug.Log("Selecting: " + ClassItem.itemData.itemName);
+        
     }
 
     public void Deselect() {
@@ -71,7 +73,18 @@ public class CharacterChoiceEntry : MonoBehaviour
         infoButton.SetText("Info");
 
         Debug.Log("Deselecting: " + ClassItem.itemData.itemName);
+        selectionPanel.UnhideAllEntries(this);
 
+    }
+
+    public void Hide() {
+        fader.DOFade(0f, 0.6f);
+        Debug.Log("Hiding: " + ClassItem.itemData.itemName);
+    }
+
+    public void Show() {
+        fader.DOFade(1f, 0.6f);
+        Debug.Log("Showing: " + ClassItem.itemData.itemName);
     }
 
     private void SetupDisplay() {

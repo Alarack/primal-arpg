@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class CharacterSelectPanel : BasePanel
 {
@@ -28,16 +29,30 @@ public class CharacterSelectPanel : BasePanel
     public override void Open() {
         base.Open();
 
-        entries.PopulateList(classItems.Count, template, holder, true);
-        for (int i = 0; i < entries.Count; i++) {
-            entries[i].Setup(classItems[i], this);
-        }
+        new Task(PopulateClassOptions());
+
+        //entries.PopulateList(classItems.Count, template, holder, true);
+        //for (int i = 0; i < entries.Count; i++) {
+        //    entries[i].Setup(classItems[i], this);
+        //}
     }
 
     public override void Close() {
         base.Close();
 
         TooltipManager.Hide();
+    }
+
+
+    private IEnumerator PopulateClassOptions() {
+        WaitForSeconds waiter = new WaitForSeconds(0.2f);
+        
+        entries.PopulateList(classItems.Count, template, holder, true);
+        for (int i = 0; i < entries.Count; i++) {
+            entries[i].Setup(classItems[i], this);
+            yield return waiter;
+        }
+
     }
 
 
@@ -49,12 +64,22 @@ public class CharacterSelectPanel : BasePanel
     public void OnClassInfoClicked(CharacterChoiceEntry entry) {
         selectedClass = entry;
         selectedClass.Select();
+        selectedClass.Show();
 
         for (int i = 0; i < entries.Count; i++) {
             if (entries[i] != entry)
-                entry.Deselect();
+                entries[i].Hide();
         }
     }
+
+    public void UnhideAllEntries(CharacterChoiceEntry entry) {
+        for (int i = 0; i < entries.Count; i++) {
+            if (entries[i] != entry)
+                entries[i].Show();
+        }
+    }
+
+
     public void OnClassSelected(CharacterChoiceEntry entry) {
         ItemSpawner.SpawnItem(entry.ClassItem, transform.position, true);
         ItemSpawner.SpawnItem(entry.ChosenItem, transform.position, true);
