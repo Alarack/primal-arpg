@@ -18,6 +18,7 @@ public class CharacterChoiceEntry : MonoBehaviour
     public ButtonManager infoButton;
     public CanvasGroup fader;
 
+
     [Header("Template")]
     public SkillPreviewEntry template;
     public Transform holder;
@@ -55,7 +56,7 @@ public class CharacterChoiceEntry : MonoBehaviour
 
     public void Select() {
         FlashWhite();
-        bgAnchor.DOMove(selectionPanel.selectedClassAnchor.position, 0.7f).SetEase(Ease.OutSine);
+        bgAnchor.DOMove(selectionPanel.selectedClassAnchor.position, 0.7f).SetEase(Ease.OutSine).onComplete = selectionPanel.StartInfoFadein;
         infoButton.onClick.RemoveListener(OnInfoClicked);
         infoButton.onClick.AddListener(Deselect);
         infoButton.SetText("Back");
@@ -74,6 +75,7 @@ public class CharacterChoiceEntry : MonoBehaviour
 
         Debug.Log("Deselecting: " + ClassItem.itemData.itemName);
         selectionPanel.UnhideAllEntries(this);
+        new Task(selectionPanel.FadeoutInfoPanels());
 
     }
 
@@ -94,10 +96,7 @@ public class CharacterChoiceEntry : MonoBehaviour
         bulletPointsText.text = ClassItem.itemData.secondaryDescription;
         classNameText.text = ClassItem.itemData.itemName;
 
-        skillPreviewEntries.PopulateList(ClassItem.itemData.classPreviewAbilities.Count, template, holder, true);
-        for (int i = 0; i < skillPreviewEntries.Count; i++) {
-            skillPreviewEntries[i].Setup(ClassItem.itemData.classPreviewAbilities[i]);
-        }
+        //SetupExampleSpells();
 
         weaponSelectionEntries.PopulateList(ClassItem.itemData.startingItemOptions.Count, weaponSelectionTemplate, weaponSelectionHolder, true);
         for (int i = 0; i < weaponSelectionEntries.Count; i++) {
@@ -107,8 +106,17 @@ public class CharacterChoiceEntry : MonoBehaviour
         OnWeaponSelected(weaponSelectionEntries[0]);
     }
 
+    public void SetupExampleSpells() {
+        skillPreviewEntries.PopulateList(ClassItem.itemData.classPreviewAbilities.Count, template, holder, true);
+        for (int i = 0; i < skillPreviewEntries.Count; i++) {
+            skillPreviewEntries[i].Setup(ClassItem.itemData.classPreviewAbilities[i]);
+        }
+    }
+
     public void OnInfoClicked() {
         selectionPanel.OnClassInfoClicked(this);
+        selectionPanel.SetupExampleSpells(ClassItem.itemData.classPreviewAbilities);
+        //SetupExampleSpells();
     }
 
     public void OnSelectClicked() {

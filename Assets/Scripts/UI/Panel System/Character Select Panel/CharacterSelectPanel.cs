@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -9,9 +11,13 @@ public class CharacterSelectPanel : BasePanel
     [Header("Template")]
     public CharacterChoiceEntry template;
     public Transform holder;
+    public SkillPreviewEntry skillPreviewTemplate;
+    public Transform skillPreviewHolder;
 
-    [Header("Anchors")]
+    [Header("Anchors & Faders")]
     public Transform selectedClassAnchor;
+    public CanvasGroup bulletPointsFader;
+    public CanvasGroup exampleSpellsFader;
 
     [Header("Class Data")]
     public List<ItemDefinition> classItems = new List<ItemDefinition>();
@@ -20,6 +26,8 @@ public class CharacterSelectPanel : BasePanel
 
 
     private CharacterChoiceEntry selectedClass;
+
+    private List<SkillPreviewEntry> skillPreviewEntries = new List<SkillPreviewEntry>();
 
     protected override void Awake() {
         base.Awake();
@@ -30,6 +38,8 @@ public class CharacterSelectPanel : BasePanel
         base.Open();
 
         new Task(PopulateClassOptions());
+        bulletPointsFader.alpha = 0f;
+        exampleSpellsFader.alpha = 0f;  
 
         //entries.PopulateList(classItems.Count, template, holder, true);
         //for (int i = 0; i < entries.Count; i++) {
@@ -55,6 +65,38 @@ public class CharacterSelectPanel : BasePanel
 
     }
 
+    public void SetupExampleSpells(List<AbilityDefinition> skills) {
+        skillPreviewEntries.PopulateList(skills.Count, skillPreviewTemplate, skillPreviewHolder, true);
+        for (int i = 0; i < skillPreviewEntries.Count; i++) {
+            skillPreviewEntries[i].Setup(skills[i]);
+        }
+    }
+
+
+
+
+    public void StartInfoFadein() {
+        new Task(FadeInInfoPanels());
+    }
+
+    public IEnumerator FadeInInfoPanels() {
+        WaitForSeconds waiter = new WaitForSeconds(0.2f);
+
+        bulletPointsFader.DOFade(1f, 0.2f);
+        yield return waiter;
+        exampleSpellsFader.DOFade(1f, 0.2f);
+
+    }
+
+    public IEnumerator FadeoutInfoPanels() {
+        WaitForSeconds waiter = new WaitForSeconds(0.1f);
+
+        bulletPointsFader.DOFade(0f, 0.1f);
+        yield return waiter;
+        exampleSpellsFader.DOFade(0f, 0.1f);
+
+    }
+
 
     public void OnBackClicked() {
         PanelManager.OpenPanel<MainMenuPanel>();
@@ -70,6 +112,7 @@ public class CharacterSelectPanel : BasePanel
             if (entries[i] != entry)
                 entries[i].Hide();
         }
+
     }
 
     public void UnhideAllEntries(CharacterChoiceEntry entry) {

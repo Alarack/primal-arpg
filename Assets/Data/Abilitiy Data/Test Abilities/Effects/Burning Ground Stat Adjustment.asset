@@ -18,41 +18,64 @@ MonoBehaviour:
     type: 1
     targeting: 5
     subTarget: 0
+    maskTargeting: 0
+    hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 1
+    canAffectDeadTargets: 0
+    nonStacking: 0
+    onlyShowTooltipInRune: 0
+    showRiderTooltip: 0
+    showScalers: 0
+    inheritStatsFromParentAbility: 1
     numberOfTargets: -1
+    chainTargetDelay: 0.1
     otherAbilityName: 
     otherEffectName: 
+    targetAbilityForLastPayload: 
     targetConstraints: []
+    riderEffects: []
     payloadPrefab: {fileID: 1593382238141744661, guid: 9f147b99fe89ca240b501d4bc935f4bf, type: 3}
-    payloadCount: 1
-    shotDelay: 0.2
     payloadStatData: []
     spawnLocation: 3
+    spawnLocationStart: 0
+    spawnLocationEnd: 0
+    minViewportValues: {x: 0, y: 0}
+    maxViewportValues: {x: 0, y: 0}
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
+      parentToTarget: 0
       applyOncePerTarget: 1
       applyOnInterval: 1
+      affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 416251089823111746, guid: 240c830bfe588ad4f9925288b65d7a18, type: 3}
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
+    projectileHitMask:
+      serializedVersion: 2
+      m_Bits: 0
     modData:
     - targetStat: 0
       value: -1
       modifierType: 0
       variantTarget: 1
-      modValueSetMethod: 5
+      modValueSetMethod: 6
       weaponDamagePercent: 0.5
       deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 1
+      scaleFromAbilityLevel: 0
+      abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
-      scalers: []
+      scalers:
+      - targetStat: 28
+        deriveTarget: 0
+        statScaleBaseValue: 1
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 0.6077585, b: 0, a: 1}
@@ -114,12 +137,20 @@ MonoBehaviour:
       m_NumColorKeys: 3
       m_NumAlphaKeys: 3
     effectDesignation: 1
+    addMissingStatIfNotPresent: 0
+    scaleFromStatus: 0
+    statusModifiers: []
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
+    resetMovement: 0
+    showTrail: 0
     targetDestination: 0
-    moveForce: 0
+    teleportDestination: 0
+    teleportVFX: {fileID: 0}
+    forwardDistance: 0
+    teleportSequenceDelay: 0.2
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -127,7 +158,34 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    effectsToAdd: []
+    targetAbilityToAddEffectsTo: 
+    ridersToAdd: []
+    ridersToRemove: []
+    effectsToRemove: []
+    targetAbilityToRemoveEffectsFrom: 
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
     statScalersToAdd: []
+    entityPrefab: {fileID: 0}
+    percentOfPlayerDamage: 1
+    destroyPreviousSummonAtCap: 0
+    inheritParentLayer: 1
+    spawnType: 0
+    nameOfAbilityToActivate: 
+    targetStateName: 
+    tagsToAdd: 
+    tagsToRemove: 
+    newPayloadPrefab: {fileID: 0}
+    newEffectZonePrefab: {fileID: 0}
+    modifiedMovementBehavior: 0
+    modifiedSeekDuration: -1
+    modifiedDrunkInterval: 0.2
+    cooldownElapsedModifier: 0
+    statusScalingData: []
+    scaleFromAbilityLevel: 0
+    spawnedItemType: 0
+    itemSpawnLocation: 0
+    itemsToSpawn: []
+    itemSpawnAmount: 0
