@@ -13,6 +13,8 @@ public class CharacterSelectPanel : BasePanel
     public Transform holder;
     public SkillPreviewEntry skillPreviewTemplate;
     public Transform skillPreviewHolder;
+    public CharacterStarterPackageEntry starterPackageTemplate;
+    public Transform starterPackageHolder;
 
     [Header("Anchors & Faders")]
     public Transform selectedClassAnchor;
@@ -28,6 +30,7 @@ public class CharacterSelectPanel : BasePanel
     private CharacterChoiceEntry selectedClass;
 
     private List<SkillPreviewEntry> skillPreviewEntries = new List<SkillPreviewEntry>();
+    private List<CharacterStarterPackageEntry> starterPackageEntries = new List<CharacterStarterPackageEntry>();
 
     protected override void Awake() {
         base.Awake();
@@ -124,8 +127,25 @@ public class CharacterSelectPanel : BasePanel
 
 
     public void OnClassSelected(CharacterChoiceEntry entry) {
-        ItemSpawner.SpawnItem(entry.ClassItem, transform.position, true);
-        ItemSpawner.SpawnItem(entry.ChosenItem, transform.position, true);
+        selectedClass = entry;
+        
+        
+        ShowStarterPackages();
+        
+        //ItemSpawner.SpawnItem(entry.ClassItem, transform.position, true);
+        //ItemSpawner.SpawnItem(entry.ChosenItem, transform.position, true);
+        //Close();
+
+        //RoomManager.SpawnRoomPortals();
+
+        //EntityManager.ActivePlayer.Inventory.AddEXP(25f);
+        //PanelManager.OpenPanel<HotbarPanel>();
+        //PanelManager.OpenPanel<HUDPanel>();
+        
+        //PanelManager.OpenPanel<LevelUpPanel>();
+    }
+
+    public void StartGame() {
         Close();
 
         RoomManager.SpawnRoomPortals();
@@ -133,9 +153,41 @@ public class CharacterSelectPanel : BasePanel
         EntityManager.ActivePlayer.Inventory.AddEXP(25f);
         PanelManager.OpenPanel<HotbarPanel>();
         PanelManager.OpenPanel<HUDPanel>();
-        
+
         PanelManager.OpenPanel<LevelUpPanel>();
     }
 
 
+
+    private void ShowStarterPackages() {
+        starterPackageEntries.ClearList();
+
+        List<ItemDefinition> starterSkills = new List<ItemDefinition>(ItemSpawner.Instance.lootDatabase.GetRandomSkillsByTag(selectedClass.ClassItem.itemData.abilityTags));
+        List<ItemDefinition> starterWeapons = new List<ItemDefinition>(selectedClass.ClassItem.itemData.startingItemOptions);
+        starterWeapons.Shuffle();
+        starterSkills.Shuffle();
+
+        if(starterWeapons.Count < 4) { 
+            Debug.LogError("Less than 4 starter Weapons Found on " + selectedClass.ClassItem.itemData.itemName);
+            return;
+        }
+
+        if (starterSkills.Count < 4) {
+            Debug.LogError("Less than 4 starter skills Found on " + selectedClass.ClassItem.itemData.itemName);
+            return;
+        }
+
+
+        for (int i = 0; i < 4; i++) {
+            CreateStarterPackage(starterWeapons[i], starterSkills[i]);
+        }
+
+    }
+
+    private void CreateStarterPackage(params ItemDefinition[] items) {
+        CharacterStarterPackageEntry starterPackage = Instantiate(starterPackageTemplate, starterPackageHolder);
+        starterPackage.gameObject.SetActive(true);
+        starterPackage.Setup(this, items);
+        starterPackageEntries.Add(starterPackage);
+    }
 }

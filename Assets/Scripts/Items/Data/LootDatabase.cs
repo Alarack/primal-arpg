@@ -56,7 +56,7 @@ public class LootDatabase : ScriptableObject {
         allPossibleItems.Shuffle();
 
         for (int i = 0; i < allPossibleItems.Count; i++) {
-            if (allPossibleItems[i].devItem == true || allPossibleItems[i].startingItem == true)
+            if (allPossibleItems[i].devItem == true || allPossibleItems[i].startingItem == true || allPossibleItems[i].itemData.Type == ItemType.ClassSelection)
                 continue;
             
             
@@ -214,6 +214,19 @@ public class LootDatabase : ScriptableObject {
     //    int randomIndex = Random.Range(0, filteredList.Count);
     //    return filteredList[randomIndex];
     //}
+
+
+
+    public List<ItemDefinition> GetRandomSkillsByTag(List<AbilityTag> tags) {
+        List<ItemDefinition> results = new List<ItemDefinition> ();
+        
+        for (int i = 0; i < tags.Count; i++) {
+            ItemDefinition skill = GetItem(ItemType.Skill, results, tags[i]);
+            results.Add(skill);
+        }
+
+        return results;
+    }
 
     public ItemDefinition GetItem(ItemType type, List<ItemDefinition> exclusions, AbilityTag tag = AbilityTag.None, ItemSlot slot = ItemSlot.None) {
 
