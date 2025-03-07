@@ -10,6 +10,9 @@ public class CharacterStarterPackageEntry : MonoBehaviour
     public StarterItemDisplayEntry template;
     public Transform holder;
 
+    [Header("Fader")]
+    public CanvasGroup fader;
+
     private List<StarterItemDisplayEntry> itemEntries = new List<StarterItemDisplayEntry>();
     private CharacterSelectPanel characterSelectPanel;
 
@@ -20,12 +23,12 @@ public class CharacterStarterPackageEntry : MonoBehaviour
 
     public void Setup(CharacterSelectPanel selectionPanel, params ItemDefinition[] items) {
         characterSelectPanel = selectionPanel;
-        
+
         itemEntries.PopulateList(items.Length, template, holder, true);
         for (int i = 0; i < items.Length; i++) {
             itemEntries[i].Setup(items[i]);
         }
-        
+
     }
 
 

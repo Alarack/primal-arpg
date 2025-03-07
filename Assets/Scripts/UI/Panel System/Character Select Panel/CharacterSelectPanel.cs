@@ -5,8 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
-public class CharacterSelectPanel : BasePanel
-{
+public class CharacterSelectPanel : BasePanel {
 
     [Header("Template")]
     public CharacterChoiceEntry template;
@@ -36,13 +35,13 @@ public class CharacterSelectPanel : BasePanel
         base.Awake();
         template.gameObject.SetActive(false);
     }
-    
+
     public override void Open() {
         base.Open();
 
         new Task(PopulateClassOptions());
         bulletPointsFader.alpha = 0f;
-        exampleSpellsFader.alpha = 0f;  
+        exampleSpellsFader.alpha = 0f;
 
         //entries.PopulateList(classItems.Count, template, holder, true);
         //for (int i = 0; i < entries.Count; i++) {
@@ -54,12 +53,13 @@ public class CharacterSelectPanel : BasePanel
         base.Close();
 
         TooltipManager.Hide();
+        starterPackageEntries.ClearList();
     }
 
 
     private IEnumerator PopulateClassOptions() {
         WaitForSeconds waiter = new WaitForSeconds(0.2f);
-        
+
         entries.PopulateList(classItems.Count, template, holder, true);
         for (int i = 0; i < entries.Count; i++) {
             entries[i].Setup(classItems[i], this);
@@ -125,13 +125,20 @@ public class CharacterSelectPanel : BasePanel
         }
     }
 
+    public void HideAllEntries() {
+        for (int i = 0; i < entries.Count; i++) {
+            entries[i].Hide();
+        }
+    }
+
 
     public void OnClassSelected(CharacterChoiceEntry entry) {
         selectedClass = entry;
-        
-        
+
+        HideAllEntries();
+        new Task(FadeoutInfoPanels());
         ShowStarterPackages();
-        
+
         //ItemSpawner.SpawnItem(entry.ClassItem, transform.position, true);
         //ItemSpawner.SpawnItem(entry.ChosenItem, transform.position, true);
         //Close();
@@ -141,7 +148,7 @@ public class CharacterSelectPanel : BasePanel
         //EntityManager.ActivePlayer.Inventory.AddEXP(25f);
         //PanelManager.OpenPanel<HotbarPanel>();
         //PanelManager.OpenPanel<HUDPanel>();
-        
+
         //PanelManager.OpenPanel<LevelUpPanel>();
     }
 
@@ -160,6 +167,8 @@ public class CharacterSelectPanel : BasePanel
 
 
     private void ShowStarterPackages() {
+        //WaitForSeconds waiter = new WaitForSeconds(0.3f);
+
         starterPackageEntries.ClearList();
 
         List<ItemDefinition> starterSkills = new List<ItemDefinition>(ItemSpawner.Instance.lootDatabase.GetRandomSkillsByTag(selectedClass.ClassItem.itemData.abilityTags));
@@ -167,13 +176,15 @@ public class CharacterSelectPanel : BasePanel
         starterWeapons.Shuffle();
         starterSkills.Shuffle();
 
-        if(starterWeapons.Count < 4) { 
+        if (starterWeapons.Count < 4) {
             Debug.LogError("Less than 4 starter Weapons Found on " + selectedClass.ClassItem.itemData.itemName);
+            //yield return null;
             return;
         }
 
         if (starterSkills.Count < 4) {
             Debug.LogError("Less than 4 starter skills Found on " + selectedClass.ClassItem.itemData.itemName);
+            //yield return null;
             return;
         }
 
@@ -182,6 +193,17 @@ public class CharacterSelectPanel : BasePanel
             CreateStarterPackage(starterWeapons[i], starterSkills[i]);
         }
 
+        new Task(FadeInPackages());
+
+    }
+
+    private IEnumerator FadeInPackages() {
+        WaitForSeconds waiter = new WaitForSeconds(0.2f);
+
+        for (int i = 0; i < starterPackageEntries.Count; i++) {
+            UIHelper.FadeInObject(starterPackageEntries[i].gameObject, 1, 0.4f);
+            yield return waiter;
+        }
     }
 
     private void CreateStarterPackage(params ItemDefinition[] items) {

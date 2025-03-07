@@ -1117,7 +1117,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -75}
+  m_AnchoredPosition: {x: 185.015, y: -75}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7794344562136556889
@@ -1381,6 +1381,7 @@ GameObject:
   - component: {fileID: 6574342988256571071}
   - component: {fileID: 3838292261158207430}
   - component: {fileID: 6257505268431808196}
+  - component: {fileID: 1258651751201056432}
   m_Layer: 5
   m_Name: Starter Package Entry
   m_TagString: Untagged
@@ -1408,7 +1409,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 910, y: -427.47552}
-  m_SizeDelta: {x: 450, y: 220}
+  m_SizeDelta: {x: 370.03, y: 220}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3838292261158207430
 MonoBehaviour:
@@ -1425,7 +1426,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 450
+  m_PreferredWidth: 370.03
   m_PreferredHeight: 220
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -1444,6 +1445,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template: {fileID: 4018488864454828295}
   holder: {fileID: 5936848849874275601}
+  fader: {fileID: 1258651751201056432}
+--- !u!225 &1258651751201056432
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2150049668092993299}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2220345012115689786
 GameObject:
   m_ObjectHideFlags: 0
@@ -5580,7 +5594,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: 69.2
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
