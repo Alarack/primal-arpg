@@ -202,7 +202,9 @@ public class CharacterSelectPanel : BasePanel {
 
         for (int i = 0; i < starterPackageEntries.Count; i++) {
             UIHelper.FadeInObject(starterPackageEntries[i].gameObject, 1, 0.4f);
+            starterPackageEntries[i].ShowShimmer();
             yield return waiter;
+            
         }
     }
 

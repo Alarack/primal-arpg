@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,13 +13,19 @@ public class CharacterStarterPackageEntry : MonoBehaviour
 
     [Header("Fader")]
     public CanvasGroup fader;
+    public GameObject shimmer;
 
     private List<StarterItemDisplayEntry> itemEntries = new List<StarterItemDisplayEntry>();
     private CharacterSelectPanel characterSelectPanel;
 
+    private Vector2 shimmerStartPos;
+
+    [SerializeField]
+    private Vector2 shimmerEndPos;
 
     private void Awake() {
         template.gameObject.SetActive(false);
+        shimmerStartPos = shimmer.transform.localPosition;
     }
 
     public void Setup(CharacterSelectPanel selectionPanel, params ItemDefinition[] items) {
@@ -38,6 +45,11 @@ public class CharacterStarterPackageEntry : MonoBehaviour
         }
 
         characterSelectPanel.StartGame();
+    }
+
+    public void ShowShimmer() {
+        shimmer.transform.localPosition = shimmerStartPos;
+        shimmer.transform.DOLocalMove(shimmerEndPos, 0.8f).SetEase(Ease.OutSine);
     }
 
 

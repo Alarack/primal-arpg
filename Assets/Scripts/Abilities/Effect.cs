@@ -1181,6 +1181,10 @@ public class ForcedMovementEffect : Effect {
 
 
     private void ToggleTrail(Entity target, bool active) {
+
+        if (target == null)
+            return;
+
         TrailRenderer trail = target.GetComponentInChildren<TrailRenderer>();
         if (trail != null) {
             trail.emitting = active;
