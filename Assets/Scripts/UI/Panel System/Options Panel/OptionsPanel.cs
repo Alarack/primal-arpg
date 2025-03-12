@@ -119,7 +119,6 @@ public class OptionsPanel : BasePanel
 
     #endregion
 
-
     #region Cursor Methods
 
     public void OnCursorThicknessChanged()
@@ -183,6 +182,18 @@ public class OptionsPanel : BasePanel
         AudioManager.SetMusicVolume(value);
     }
 
+
+    #endregion
+
+    #region Data Methods
+
+    public void OnDeleteSaveClicked() {
+        PanelManager.OpenPanel<PopupPanel>().Setup("Delete Save", "Are you sure you want to Delete ALL Save Data?", ConfirmDeleteSavedata);
+    }
+
+    private void ConfirmDeleteSavedata() {
+        SaveLoadUtility.ResetSaveData();
+    }
 
     #endregion
 }

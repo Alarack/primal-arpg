@@ -35,4 +35,12 @@ public static class SaveLoadUtility
         string jsonString = SaveData.ToJSON();
         File.WriteAllText(filePath, jsonString);
     }
+
+    public static void ResetSaveData() {
+        string filePath = Application.persistentDataPath + "/SaveData.json";
+
+        if (File.Exists(filePath) == true) {
+            File.Delete(filePath);
+        }
+    }
 }

@@ -6,8 +6,7 @@ using TMPro;
 using DG.Tweening;
 using Michsky.MUIP;
 
-public class CharacterChoiceEntry : MonoBehaviour
-{
+public class CharacterChoiceEntry : MonoBehaviour {
 
     public Image characterImgage;
     public Image flashImage;
@@ -17,6 +16,7 @@ public class CharacterChoiceEntry : MonoBehaviour
     public Transform bgAnchor;
     public ButtonManager infoButton;
     public CanvasGroup fader;
+    public GameObject devBlocker;
 
 
     [Header("Template")]
@@ -56,13 +56,14 @@ public class CharacterChoiceEntry : MonoBehaviour
 
     public void Select() {
         FlashWhite();
+        bulletPointsText.text = ClassItem.itemData.secondaryDescription;
         bgAnchor.DOMove(selectionPanel.selectedClassAnchor.position, 0.7f).SetEase(Ease.OutSine).onComplete = selectionPanel.StartInfoFadein;
         infoButton.onClick.RemoveListener(OnInfoClicked);
         infoButton.onClick.AddListener(Deselect);
         infoButton.SetText("Back");
 
         Debug.Log("Selecting: " + ClassItem.itemData.itemName);
-        
+
     }
 
     public void Deselect() {
@@ -90,6 +91,9 @@ public class CharacterChoiceEntry : MonoBehaviour
     }
 
     private void SetupDisplay() {
+
+        devBlocker.gameObject.SetActive(ClassItem.devItem);
+
         characterImgage.sprite = ClassItem.itemData.itemIcon;
 
         shortDescriptionText.text = ClassItem.itemData.itemDescription;
