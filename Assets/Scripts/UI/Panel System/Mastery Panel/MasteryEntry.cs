@@ -39,6 +39,26 @@ public class MasteryEntry : MonoBehaviour
         SetupFeatures();
     }
 
+    //public MasteryFeatureEntry GetFeatureEntryByData(MasteryData.MasteryFeatureData data) {
+    //    for (int i = 0; i < featureEntries.Count; i++) {
+    //        if (featureEntries[i].FeatureData.featureName == data.featureName) {
+    //            return featureEntries[i];
+    //        }
+    //    }
+
+    //    return null;
+    //}
+
+    public MasteryFeatureEntry GetFeatureEntryByFeatureName(string featureName) {
+        for (int i = 0; i < featureEntries.Count; i++) {
+            if (featureEntries[i].FeatureData.featureName == featureName) {
+                return featureEntries[i];
+            }
+        }
+
+        return null;
+    }
+
 
     private void SetupFeatures() {
         featureEntries.PopulateList(Data.features.Count, featureTemplate, featureHolder, true);
@@ -55,6 +75,9 @@ public class MasteryEntry : MonoBehaviour
         selectedFeature = feature;
 
         for (int i = 0; i < featureEntries.Count; i++) {
+            if (featureEntries[i] == selectedFeature)
+                continue;
+            
             featureEntries[i].Deselect();
         }
 
@@ -64,6 +87,9 @@ public class MasteryEntry : MonoBehaviour
         if(confirm == true) {
 
             if (PanelManager.GetPanel<MasteryPanel>().CheckMaxFeatures() == true)
+                return;
+
+            if (SaveLoadUtility.SaveData.CheckForDuplicateMastery(MasteryName) == true)
                 return;
             
             PromptLearnMastery(feature);

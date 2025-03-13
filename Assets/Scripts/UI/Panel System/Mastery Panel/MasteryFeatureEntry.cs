@@ -45,6 +45,19 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         UpdateButtonText();
     }
 
+    public void LoadFeature() {
+
+        FeatureAbility = EntityManager.ActivePlayer.AbilityManager.GetAbilityByName(FeatureData.featureAbility.AbilityData.abilityName, AbilityCategory.PassiveSkill);
+
+        if (FeatureAbility == null) {
+            Debug.LogError("Couldn't find: " + FeatureData.featureAbility.AbilityData.abilityName + " on player, learning it fresh. Level will be wrong");
+            FeatureAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(FeatureData.featureAbility.AbilityData, true);
+        }
+
+        SetDimmer();
+        UpdateButtonText();
+    }
+
     private void SetupDisplay() {
         featureIcon.sprite = FeatureData.featureAbility.AbilityData.abilityIcon;
     }
@@ -81,7 +94,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         selectedFrame.gameObject.SetActive(false);
         pathEntries.ClearList();
         UpdateButtonText();
-        Unlearn();
+        //Unlearn();
     }
 
     public void OnLearnClicked() {
@@ -99,6 +112,13 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
             }
         }
         else {
+
+            if (SaveLoadUtility.SaveData.CountOfMasteries >= 2) {
+                PanelManager.OpenPanel<PopupPanel>().Setup("Maximum Masteries", "You can only have 2 Masteries at a time. Right Click one of your existing Masteries to unlearn it.");
+                return;
+            }
+
+
             FeatureAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(FeatureData.featureAbility.AbilityData, true);
             SaveLoadUtility.SaveData.AddMastery(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
             SaveLoadUtility.SavePlayerData();
@@ -110,6 +130,13 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
     }
 
     private void Learn() {
+
+        if (SaveLoadUtility.SaveData.CountOfMasteries >= 2) {
+            PanelManager.OpenPanel<PopupPanel>().Setup("Maximum Masteries", "You can only have 2 Masteries at a time. Right Click one of your existing Masteries to unlearn it.");
+            return;
+        }
+
+
         FeatureAbility.Equip();
         EquipPathAbilities();
 
@@ -126,7 +153,8 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         FeatureAbility.Uneqeuip();
         UnequipPathAbilities();
 
-        SaveLoadUtility.SaveData.RemoveMasteryPath(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
+        //SaveLoadUtility.SaveData.RemoveMasteryPath(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
+        SaveLoadUtility.SaveData.RemoveMasteryFeature(ParentMasteryName,FeatureData.featureName);
         SaveLoadUtility.SavePlayerData();
 
         PanelManager.GetPanel<MasteryPanel>().RemoveFeature(this);

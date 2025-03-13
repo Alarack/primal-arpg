@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections.Editor.Search;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,23 @@ public class SaveData
         primalEssencePoints = value;
     }
 
+
+    public bool CheckForDuplicateMastery(string masteryName) {
+        MasteryDistributionData existingData = GetMasteryDistribution(masteryName);
+
+        if (existingData != null) {
+            PanelManager.OpenPanel<PopupPanel>().Setup("Existing Mastery", "Only one mastery per Element is allowed");
+            return true;
+        }
+
+        return false;
+    }
+
     public void AddMastery(string masteryName, string featureName, string mainAbilityName) {
+
+        if (CheckForDuplicateMastery(masteryName) == true)
+            return;
+        
         MasteryDistributionData data = new MasteryDistributionData(masteryName, featureName, mainAbilityName);
         savedMasteries.Add(data);
     }
@@ -41,6 +58,18 @@ public class SaveData
         }
 
         targetData.RemovePathAbility(featureName, abilityName);
+    }
+
+    public void RemoveMasteryFeature(string masteryName, string featureName) {
+        MasteryDistributionData targetData = GetMasteryDistribution(masteryName);
+
+        if (targetData == null) {
+            Debug.LogError("Can't Find: " + masteryName + " in data");
+            return;
+        }
+
+        targetData.RemoveFeature(featureName);
+        savedMasteries.Remove(targetData);
     }
 
 
@@ -114,6 +143,13 @@ public class SaveData
             }
 
             return null;
+        }
+
+        public void RemoveFeature(string featureName) {
+            MasteryFeatureDistirbutionData targetData = GetFeatureByName(featureName);
+            if (targetData != null) {
+                distirbutionData.Remove(targetData);
+            }
         }
 
 

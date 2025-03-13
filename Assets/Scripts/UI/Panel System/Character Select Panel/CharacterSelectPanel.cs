@@ -154,7 +154,7 @@ public class CharacterSelectPanel : BasePanel {
 
     public void StartGame() {
         Close();
-
+        MasteryManager.Instance.LoadSavedMasteries();
         RoomManager.SpawnRoomPortals();
 
         EntityManager.ActivePlayer.Inventory.AddEXP(25f);
