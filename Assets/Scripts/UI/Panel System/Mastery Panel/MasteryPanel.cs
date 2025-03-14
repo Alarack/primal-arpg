@@ -193,4 +193,12 @@ public class MasteryPanel : BasePanel {
         SaveLoadUtility.SavePlayerData();
         UpdatePrimalEssenceText();
     }
+
+
+
+    public void DEV_GiveMetaPoints() {
+        SaveLoadUtility.SaveData.primalEssencePoints++;
+        SaveLoadUtility.SavePlayerData();
+        UpdatePrimalEssenceText();
+    }
 }

@@ -112,4 +112,13 @@ public class GameOverPanel : BasePanel
         Application.Quit();
     }
 
+    public void OnMasteryClicked() {
+        PanelManager.OpenPanel<MasteryPanel>().SetOnCloseCallback(OnMasteryFinished);
+    }
+
+    private void OnMasteryFinished() {
+        OnStarOverClicked();
+        Close();
+    }
+
 }

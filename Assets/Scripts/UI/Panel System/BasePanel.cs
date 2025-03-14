@@ -38,6 +38,7 @@ public class BasePanel : MonoBehaviour
     public UnityEvent OnClosedEvent;
 
     protected GameObject view;
+    private Action onCloseCallback;
 
     protected virtual void Awake()
     {
@@ -146,6 +147,10 @@ public class BasePanel : MonoBehaviour
 
     }
 
+    public void SetOnCloseCallback(Action oncloseCallback) {
+        this.onCloseCallback = oncloseCallback;
+    }
+
     public virtual void Close()
     {
         if (view != null)
@@ -165,6 +170,7 @@ public class BasePanel : MonoBehaviour
             {
                 IsOpen = false;
                 OnClose();
+                onCloseCallback?.Invoke();
             }
             else
             {
