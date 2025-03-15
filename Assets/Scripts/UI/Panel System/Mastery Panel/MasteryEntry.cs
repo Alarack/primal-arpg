@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.Burst.Intrinsics;
+using System;
 
 public class MasteryEntry : MonoBehaviour
 {
@@ -67,11 +69,11 @@ public class MasteryEntry : MonoBehaviour
         }
 
         if(featureEntries.Count > 0)
-            OnFeatureSelected(featureEntries[0], false);
+            OnFeatureSelected(featureEntries[0]);
     }
 
 
-    public void OnFeatureSelected(MasteryFeatureEntry feature, bool confirm = true) {
+    public void OnFeatureSelected(MasteryFeatureEntry feature) {
         selectedFeature = feature;
 
         for (int i = 0; i < featureEntries.Count; i++) {
@@ -84,33 +86,85 @@ public class MasteryEntry : MonoBehaviour
         selectedFeature.Select();
         currentFeatureNameText.text = selectedFeature.FeatureData.featureName;
 
-        if(confirm == true) {
+        //if(confirm == true) {
 
-            if (PanelManager.GetPanel<MasteryPanel>().CheckMaxFeatures() == true)
-                return;
+        //    if (PanelManager.GetPanel<MasteryPanel>().CheckMaxFeatures() == true)
+        //        return;
 
-            if (SaveLoadUtility.SaveData.CheckForDuplicateMastery(MasteryName) == true)
-                return;
+        //    if (SaveLoadUtility.SaveData.CheckForDuplicateMastery(MasteryName) == true)
+        //        return;
             
-            PromptLearnMastery(feature);
+        //    PromptLearnMastery(feature);
 
-        }
+        //}
     }
 
     public void OnLearnClicked() {
         if (selectedFeature == null)
             return;
-        
-        selectedFeature.OnLearnClicked();
+
+
+        PromptLearnMastery(selectedFeature);
+
+        //if (PanelManager.GetPanel<MasteryPanel>().CheckMaxFeatures() == true)
+        //    return;
+
+        //if (SaveLoadUtility.SaveData.CheckForDuplicateMastery(MasteryName) == true)
+        //    return;
+
+
+        //selectedFeature.OnLearnClicked();
     }
 
     private void PromptLearnMastery(MasteryFeatureEntry feature) {
-        PanelManager.OpenPanel<PopupPanel>().Setup("Learning " + feature.FeatureData.featureName, "Are you sure you want to choose this mastery? You can change your mind later.", ConfirmMastery);
+
+        bool featureExists = feature.FeatureAbility != null;
+        bool featureEquipped = featureExists && feature.FeatureAbility.IsEquipped;
+
+        if(featureExists && featureEquipped == true) {
+            PanelManager.OpenPanel<PopupPanel>().Setup("Unlearning: " 
+                + feature.FeatureAbility.Data.abilityName, "Are you sure you want to unlearn this Mastery?", ConfirmUnlearnMastery);
+            return;
+        }
+
+        if (featureExists == false ||  (featureExists && featureEquipped == false)) {
+            PanelManager.OpenPanel<PopupPanel>().Setup("Learning: "
+            + feature.FeatureData.featureName, "Are you sure you want to learn this mastery?"
+            + ". You can change your mind later.", ConfirmLearnMastery);
+            return;
+        }
     }
 
 
+    private void ConfirmLearnMastery() {
+        if (PanelManager.GetPanel<MasteryPanel>().CheckMaxFeatures() == true)
+            return;
+
+        if (SaveLoadUtility.SaveData.CheckForDuplicateMastery(MasteryName) == true)
+            return;
+
+
+        selectedFeature.Learn();
+    }
+
+    private void ConfirmUnlearnMastery() {
+        selectedFeature.Unlearn();
+    }
+
     private void ConfirmMastery() {
-        OnLearnClicked();
+
+
+        //if (PanelManager.GetPanel<MasteryPanel>().CheckMaxFeatures() == true)
+        //    return;
+
+        //if (SaveLoadUtility.SaveData.CheckForDuplicateMastery(MasteryName) == true)
+        //    return;
+
+
+        //selectedFeature.OnLearnClicked();
+
+
+        //OnLearnClicked();
     }
 
 }

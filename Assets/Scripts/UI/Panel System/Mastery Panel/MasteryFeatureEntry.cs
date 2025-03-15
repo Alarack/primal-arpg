@@ -97,44 +97,66 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         //Unlearn();
     }
 
-    public void OnLearnClicked() {
-        if(FeatureAbility != null) {
-            if(FeatureAbility.IsEquipped == true) {
-                Unlearn();
+
+    //public void LearnOrUnlearn() {
+    //    if(FeatureAbility == null)
+    //        CreateFeatureAbility();
+
+    //    if (FeatureAbility.IsEquipped) 
+    //        Unlearn();
+    //    else
+    //        Learn();
+    //}
+
+
+    //public void OnLearnClicked() {
+    //    if(FeatureAbility != null) {
+    //        if(FeatureAbility.IsEquipped == true) {
+    //            Unlearn();
                 
-                //FeatureAbility.Uneqeuip();
-                //UnequipPathAbilities();
-            }
-            else {
-                Learn();
-                //FeatureAbility.Equip();
-                //EquipPathAbilities();
-            }
-        }
-        else {
+    //            //FeatureAbility.Uneqeuip();
+    //            //UnequipPathAbilities();
+    //        }
+    //        else {
+    //            Learn();
+    //            //FeatureAbility.Equip();
+    //            //EquipPathAbilities();
+    //        }
+    //    }
+    //    else {
 
-            if (SaveLoadUtility.SaveData.CountOfMasteries >= 2) {
-                PanelManager.OpenPanel<PopupPanel>().Setup("Maximum Masteries", "You can only have 2 Masteries at a time. Right Click one of your existing Masteries to unlearn it.");
-                return;
-            }
+    //        if (SaveLoadUtility.SaveData.CountOfMasteries >= 2) {
+    //            PanelManager.OpenPanel<PopupPanel>().Setup("Maximum Masteries", "You can only have 2 Masteries at a time. Right Click one of your existing Masteries to unlearn it.");
+    //            return;
+    //        }
 
 
-            FeatureAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(FeatureData.featureAbility.AbilityData, true);
-            SaveLoadUtility.SaveData.AddMastery(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
-            SaveLoadUtility.SavePlayerData();
-            PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);
-        }
+    //        FeatureAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(FeatureData.featureAbility.AbilityData, true);
+    //        SaveLoadUtility.SaveData.AddMastery(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
+    //        SaveLoadUtility.SavePlayerData();
+    //        PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);
+    //    }
 
-        SetDimmer();
-        UpdateButtonText();
+    //    //SetDimmer();
+    //    //UpdateButtonText();
+    //}
+
+    private void CreateFeatureAbility() {
+        FeatureAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(FeatureData.featureAbility.AbilityData, false);
+        //SaveLoadUtility.SaveData.AddMastery(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
+        //SaveLoadUtility.SavePlayerData();
+        //PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);
     }
 
-    private void Learn() {
+    public void Learn() {
 
-        if (SaveLoadUtility.SaveData.CountOfMasteries >= 2) {
-            PanelManager.OpenPanel<PopupPanel>().Setup("Maximum Masteries", "You can only have 2 Masteries at a time. Right Click one of your existing Masteries to unlearn it.");
-            return;
-        }
+        //if (SaveLoadUtility.SaveData.CountOfMasteries >= 2) {
+        //    PanelManager.OpenPanel<PopupPanel>().Setup("Maximum Masteries", "You can only have 2 Masteries at a time. Right Click one of your existing Masteries to unlearn it.");
+        //    return;
+        //}
+
+        if (FeatureAbility == null)
+            CreateFeatureAbility();
 
 
         FeatureAbility.Equip();
@@ -144,6 +166,9 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         SaveLoadUtility.SavePlayerData();
 
         PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);
+
+        SetDimmer();
+        UpdateButtonText();
     }
 
     public void Unlearn() {
@@ -158,6 +183,10 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         SaveLoadUtility.SavePlayerData();
 
         PanelManager.GetPanel<MasteryPanel>().RemoveFeature(this);
+
+
+        SetDimmer();
+        UpdateButtonText();
 
     }
 
@@ -176,14 +205,14 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
     private void UpdateButtonText() {
         if (FeatureAbility != null) {
             if (FeatureAbility.IsEquipped == true) {
-                learnButtonText.text = "UnSelect";
+                learnButtonText.text = "Unlearn";
             }
             else {
-                learnButtonText.text = "Select";
+                learnButtonText.text = "Learn";
             }
         }
         else {
-            learnButtonText.text = "Select";
+            learnButtonText.text = "Learn";
         }
     }
 
