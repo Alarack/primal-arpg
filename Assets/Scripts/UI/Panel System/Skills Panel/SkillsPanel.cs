@@ -130,6 +130,10 @@ public class SkillsPanel : SkillBasePanel {
     }
 
     public void AutoEquipPassiveToFirstEmptySlot(Ability ability) {
+
+        if (ability.Data.tags.Contains(AbilityTag.Mastery))
+            return;
+        
         int firstEmpty = GetFirstEmptyPassiveSlot();
 
         if(firstEmpty > -1) {

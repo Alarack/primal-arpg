@@ -7,8 +7,6 @@ using System.Text;
 using UnityEngine;
 using static AbilityTrigger;
 using static Status;
-using static UnityEditor.FilePathAttribute;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 using Random = UnityEngine.Random;
 
 

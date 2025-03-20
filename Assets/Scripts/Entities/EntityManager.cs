@@ -188,7 +188,7 @@ public class EntityManager : Singleton<EntityManager> {
         ActivePlayer.RemoveAllStatuses();
         ActivePlayer.AbilityManager.ResetAbilities();
         ActivePlayer.ResetLevel();
-        
+        MasteryManager.Instance.LoadSavedMasteries();
        
         PanelManager.GetPanel<InventoryPanel>().ResetForge();
         PanelManager.GetPanel<HUDPanel>().ClearStatusUI();

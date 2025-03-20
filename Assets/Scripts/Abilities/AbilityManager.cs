@@ -48,6 +48,9 @@ public class AbilityManager : MonoBehaviour {
         
         foreach (var entry in Abilities) {
             for (int i = 0; i < entry.Value.Count; i++) {
+                if (entry.Value[i].Tags.Contains(AbilityTag.Mastery))
+                   continue;
+
                 entry.Value[i].ResetLevel();
                 entry.Value[i].ResetRunes();
 
@@ -73,6 +76,9 @@ public class AbilityManager : MonoBehaviour {
         }
 
         for (int i = PassiveAbilities.Count - 1; i >= 0; i--) {
+            if (PassiveAbilities[i].Tags.Contains(AbilityTag.Mastery))
+                continue;
+            
             if (PassiveAbilities[i].IsEquipped == true)
                 PassiveAbilities[i].Uneqeuip();
         }

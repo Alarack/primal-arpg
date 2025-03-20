@@ -38,7 +38,7 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
 
     private LevelUpPanel levelUpPanel;
     private bool mouseHovering;
-    private bool startTilt;
+    //private bool startTilt;
 
     public void Setup(Ability ability, LevelUpPanel levelUpPanel) {
         this.AbilityChoice = ability;
@@ -75,9 +75,9 @@ public class AbilityChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerE
         transform.DOLocalRotate(Vector3.zero, duration).SetEase(Ease.OutBounce)/*.onComplete += StartTilt*/;
     }
 
-    private void StartTilt() {
-        startTilt = true;
-    }
+    //private void StartTilt() {
+    //    startTilt = true;
+    //}
 
     private void TiltRotation() {
         float sine = Mathf.Sin(Time.time + transform.parent.GetSiblingIndex()) * (mouseHovering ? .2f : 1);
