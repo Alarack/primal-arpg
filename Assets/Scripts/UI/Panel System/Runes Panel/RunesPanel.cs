@@ -187,4 +187,12 @@ public class RunesPanel : BasePanel {
 
     }
 
+    public void OnLeveUpMouseOver() {
+        TooltipManager.Show("Skill Points are gained whenever you level up. Choose one Rune from each Tier. Increase your Skill Level to unlock additional Rune Tiers.", "Skill Leveling");
+    }
+
+    public void OnLevelUpMouseOut() {
+        TooltipManager.Hide();
+    }
+
 }
