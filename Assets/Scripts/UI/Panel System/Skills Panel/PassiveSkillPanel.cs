@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Michsky.MUIP;
 
 public class PassiveSkillPanel : BasePanel
 {
@@ -10,6 +11,8 @@ public class PassiveSkillPanel : BasePanel
     public SkillEntry selectedKnownEntry;
 
     public TextMeshProUGUI buttonText;
+
+    public ButtonManager equipButton;
 
     public SkillsPanel skillPanel;
 
@@ -40,10 +43,13 @@ public class PassiveSkillPanel : BasePanel
 
         if(selectedActiveEntry.Ability != null) {
             buttonText.text = "Unequip";
+            equipButton.SetText("Unequip");
             //skillPanel.SetPassiveHighlights(slot)
         }
         else {
             buttonText.text = "Equip";
+            equipButton.SetText("Equip");
+
         }
     }
 
@@ -53,10 +59,18 @@ public class PassiveSkillPanel : BasePanel
 
         if (selectedActiveEntry.Ability != null && selectedActiveEntry.Ability == knownEntry.Ability) {
             buttonText.text = "Unequip";
+            equipButton.SetText("Unequip");
         }
         else {
             buttonText.text = "Equip";
+            equipButton.SetText("Equip");
         }
+    }
+
+
+
+    private void SetButtonText() {
+
     }
 
     public void OnEquipClicked() {
