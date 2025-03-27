@@ -224,6 +224,10 @@ public class HUDPanel : BasePanel
         PanelManager.TogglePanel<SkillsPanel>();
     }
 
+    public void OnMasteryClicked() {
+        PanelManager.OpenPanel<MasteryPanel>();
+    }
+
     public void OnInventoryClicked() {
         PanelManager.TogglePanel<InventoryPanel>();
     }

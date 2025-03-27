@@ -53,6 +53,9 @@ public class MasteryEntry : MonoBehaviour
 
     public MasteryFeatureEntry GetFeatureEntryByFeatureName(string featureName) {
         for (int i = 0; i < featureEntries.Count; i++) {
+            if (featureEntries[i].FeatureData == null)
+                continue;
+            
             if (featureEntries[i].FeatureData.featureName == featureName) {
                 return featureEntries[i];
             }
@@ -65,13 +68,34 @@ public class MasteryEntry : MonoBehaviour
     private void SetupFeatures() {
         featureEntries.PopulateList(Data.features.Count, featureTemplate, featureHolder, true);
         for (int i = 0; i < featureEntries.Count; i++) {
+            if (Data.features[i].dev == true) {
+                featureEntries[i].gameObject.SetActive(false);
+                continue;
+            }
+            
             featureEntries[i].Setup(Data.features[i], this);
         }
 
-        if(featureEntries.Count > 0)
-            OnFeatureSelected(featureEntries[0]);
+        if(featureEntries.Count > 0) {
+            MasteryFeatureEntry firstActive = GetFirstActiveEntry();
+            if(firstActive != null) {
+                OnFeatureSelected(firstActive);
+            }
+            else {
+                Debug.LogError("No Active Feature Entries found for: " + Data.masteryName);
+            }
+        }
     }
 
+
+    private MasteryFeatureEntry GetFirstActiveEntry() {
+        for (int i = 0; i < featureEntries.Count; i++) {
+            if (featureEntries[i].gameObject.activeSelf == true)
+                return featureEntries[i];
+        }
+
+        return null;
+    }
 
     public void OnFeatureSelected(MasteryFeatureEntry feature) {
         selectedFeature = feature;

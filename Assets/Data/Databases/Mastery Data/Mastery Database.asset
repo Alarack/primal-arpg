@@ -15,10 +15,12 @@ MonoBehaviour:
   masteryData:
   - masteryName: Arcane
     features:
-    - featureName: Arcane Anomalies
+    - dev: 1
+      featureName: Arcane Anomalies
       featureAbility: {fileID: 11400000, guid: 6eb06622156c68948b2ab9274c4c19db, type: 2}
       featurePathAbilities: []
-    - featureName: Eldritch Amplification
+    - dev: 0
+      featureName: Eldritch Amplification
       featureAbility: {fileID: 11400000, guid: d6b67b7e7096cdc4986068a429cfbe48, type: 2}
       featurePathAbilities:
       - {fileID: 11400000, guid: 9b7c50498eaee4e4d8761b7bd7724f2e, type: 2}
@@ -28,7 +30,8 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 0186171d4a02abf4faecccbe3158614f, type: 2}
   - masteryName: Void
     features:
-    - featureName: Unstable Projections
+    - dev: 0
+      featureName: Unstable Projections
       featureAbility: {fileID: 11400000, guid: 0dadaa6cb57aad542b7b03e74f6d1c24, type: 2}
       featurePathAbilities:
       - {fileID: 11400000, guid: 5192517fdd44fc44db404cb72516efc4, type: 2}
@@ -38,7 +41,8 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 584f5cb0242b6ec488919c8bcb22e8d5, type: 2}
   - masteryName: Space
     features:
-    - featureName: Teleport Mastery
+    - dev: 0
+      featureName: Teleport Mastery
       featureAbility: {fileID: 11400000, guid: bb3967d0245c1ac4e86fd64517d590b8, type: 2}
       featurePathAbilities:
       - {fileID: 11400000, guid: bda2b8d2e58c0d146b4fcd2bab32cd2c, type: 2}
@@ -48,7 +52,8 @@ MonoBehaviour:
       - {fileID: 11400000, guid: fa464f9f7fb42444797e80d4775a154b, type: 2}
   - masteryName: Time
     features:
-    - featureName: Temporal Tinkerer
+    - dev: 0
+      featureName: Temporal Tinkerer
       featureAbility: {fileID: 11400000, guid: 4e18e4cf87c64df47850fd9db4b6ae67, type: 2}
       featurePathAbilities:
       - {fileID: 11400000, guid: 1ff10f9ace801ba4abece1f8ac1ac356, type: 2}

@@ -19,6 +19,15 @@ public class GameOverPanel : BasePanel
     private int sessionScore;
     //private int pointsGained;
 
+    private MasteryPanel masteryPanel;
+
+
+    protected override void Awake() {
+        base.Awake();
+
+        masteryPanel = PanelManager.GetPanel<MasteryPanel>();
+    }
+
     public override void Open() {
         base.Open();
         savedThreat = PlayerPrefs.GetInt("Total Threat");
@@ -113,12 +122,15 @@ public class GameOverPanel : BasePanel
     }
 
     public void OnMasteryClicked() {
-        PanelManager.OpenPanel<MasteryPanel>().SetOnCloseCallback(OnMasteryFinished);
+        masteryPanel.SetOnCloseCallback(OnMasteryFinished);
+        PanelManager.OpenPanel<MasteryPanel>();
     }
 
     private void OnMasteryFinished() {
+        masteryPanel.SetOnCloseCallback(null);
         OnStarOverClicked();
         Close();
+        
     }
 
 }

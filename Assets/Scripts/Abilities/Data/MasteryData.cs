@@ -7,7 +7,7 @@ using UnityEngine;
 [System.Serializable]
 public class MasteryData 
 {
-
+    
     public string masteryName;
 
     public List<MasteryFeatureData> features = new List<MasteryFeatureData>();
@@ -24,6 +24,7 @@ public class MasteryData
 
     [System.Serializable]
     public class MasteryFeatureData {
+        public bool dev;
         public string featureName;
         public AbilityDefinition featureAbility;
         public List<AbilityDefinition> featurePathAbilities;
