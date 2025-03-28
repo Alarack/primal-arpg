@@ -1,6 +1,7 @@
 using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 using GameButtonType = InputHelper.GameButtonType;
@@ -204,6 +205,24 @@ public class SkillsPanel : SkillBasePanel {
                 activePassiveSkillEntries[i].AssignNewAbility(null);
             }
         }
+    }
+
+
+    public void ShowInfoTooltip() {
+        StringBuilder builder = new StringBuilder();
+        builder.AppendLine("Drag Skills from the Known Skills section to the Active Skills section to assign them.");
+        builder.AppendLine("You can also drag skills around in the Action Section to change their posiitons.");
+        builder.AppendLine();
+        builder.AppendLine("Right Click a Skill to edit that Skill's Runes.");
+        builder.AppendLine();
+        builder.AppendLine("Click an Empty Passive Skill to assign a Passive from your Known Passives.");
+        
+        
+        TooltipManager.Show(builder.ToString(), "Skills Info");
+    }
+
+    public void HideInfoTooltip() {
+        TooltipManager.Hide();
     }
 
 }

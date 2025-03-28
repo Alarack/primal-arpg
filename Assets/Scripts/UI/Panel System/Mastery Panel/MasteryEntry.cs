@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Unity.Burst.Intrinsics;
 using System;
+using Michsky.MUIP;
 
 public class MasteryEntry : MonoBehaviour
 {

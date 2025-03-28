@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static InputHelper;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -9,6 +10,9 @@ public class GameManager : Singleton<GameManager>
     public TileDatabase tileDatabase;
     public StatTooltipData tooltipData;
     public MasteryDefiniiton masteryDatabase;
+
+    public SerializableDictionary<GameButtonType, Sprite> buttonDict = new SerializableDictionary<GameButtonType, Sprite>();
+
 
     public int totalThreatFromKilledEnemies = 0;
 

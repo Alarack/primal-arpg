@@ -6,11 +6,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using LL.Events;
+using Michsky.MUIP;
 
 public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
     
     public Image featureIcon;
     public TextMeshProUGUI learnButtonText;
+    public ButtonManager masteryLearnButton;
     public Image dimmer;
     public Image selectedFrame;
 
@@ -206,13 +208,16 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         if (FeatureAbility != null) {
             if (FeatureAbility.IsEquipped == true) {
                 learnButtonText.text = "Unlearn";
+                masteryLearnButton.SetText("Unlearn");
             }
             else {
                 learnButtonText.text = "Learn";
+                masteryLearnButton.SetText("Learn");
             }
         }
         else {
             learnButtonText.text = "Learn";
+            masteryLearnButton.SetText("Learn");
         }
     }
 

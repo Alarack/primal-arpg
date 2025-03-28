@@ -23,10 +23,12 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
 
+
     [Header("Images & Text")]
     public Image icon;
     public Image dimmer;
     public Image buttonPromptImage;
+    public Image keyBindImage;
     public TextMeshProUGUI buttonPromptText;
     public TextMeshProUGUI chargesText;
     public SkillEntryLocation location;
@@ -91,8 +93,21 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         SetupAbilityIcon(ability);
 
         this.location = location;
-        if ((location == SkillEntryLocation.Hotbar || location == SkillEntryLocation.ActiveSkill) && index > 0)
+        if ((location == SkillEntryLocation.Hotbar || location == SkillEntryLocation.ActiveSkill) && index > -1) {
             Index = index;
+
+            if(keyBindImage != null) {
+                keyBindImage.gameObject.SetActive(true);
+                keyBindImage.sprite = GameManager.Instance.buttonDict[keyBind];
+            }
+        }
+
+        if(location != SkillEntryLocation.Hotbar && location != SkillEntryLocation.ActiveSkill) {
+            if(keyBindImage != null) {
+                keyBindImage.gameObject.SetActive(false);
+            }
+        }
+          
 
         SetupCharges();
 
