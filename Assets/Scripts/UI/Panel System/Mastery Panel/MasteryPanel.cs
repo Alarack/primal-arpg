@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Text;
 
 public class MasteryPanel : BasePanel {
 
@@ -46,7 +47,7 @@ public class MasteryPanel : BasePanel {
     }
 
     public void UpdatePrimalEssenceText() {
-        primalEssenceText.text = "Primal Essence: " + SaveLoadUtility.SaveData.primalEssencePoints;
+        primalEssenceText.text = SaveLoadUtility.SaveData.primalEssencePoints.ToString();
     }
 
     private void PopulateMasteries() {
@@ -146,7 +147,7 @@ public class MasteryPanel : BasePanel {
 
         activeFeatureDisplays.Add(display);
 
-        Debug.Log("Creating active display for: " + feature.FeatureData.featureName);
+        //Debug.Log("Creating active display for: " + feature.FeatureData.featureName);
     }
 
     public void RemoveFeature(MasteryFeatureEntry feature) {
@@ -196,9 +197,41 @@ public class MasteryPanel : BasePanel {
 
 
 
+    public void ShowInfoTooltip() {
+        StringBuilder builder = new StringBuilder();
+        builder.AppendLine("You can learn up to two different Elemental Masteries.");
+        builder.AppendLine();
+        builder.AppendLine("The Feature skill, at the top of each section, is free to learn or unlearn at any time.");
+        builder.AppendLine();
+        builder.AppendLine("Spend Primal Essence Points in each Feature's Path to enhance that feature's power.");
+        builder.AppendLine();
+        builder.AppendLine("Right Click any Feature Path option to refund Primal Essence from that Path.");
+
+
+        TooltipManager.Show(builder.ToString(), "Mastery Info");
+    }
+
+    public void HideInfoTooltip() {
+        TooltipManager.Hide();
+    }
+
+
+    public void ShowEssenceInfo() {
+        StringBuilder builder = new StringBuilder();
+        builder.AppendLine("Gain Primal Essence after each run depending on how many monsters you defeat.");
+
+
+        TooltipManager.Show(builder.ToString(), "Primal Essence");
+    }
+
+
     public void DEV_GiveMetaPoints() {
         SaveLoadUtility.SaveData.primalEssencePoints++;
         SaveLoadUtility.SavePlayerData();
         UpdatePrimalEssenceText();
     }
+
+
+
+
 }
