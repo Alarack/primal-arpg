@@ -40,7 +40,7 @@ public class SkillsPanel : SkillBasePanel {
         AbilityUtilities.PopulateSkillEntryList(ref knownPassiveSkillEntries, skillEntryTemplate, knownPassiveSkillsHolder, SkillEntry.SkillEntryLocation.KnownPassive);
         AbilityUtilities.PopulateSkillEntryList(ref classFeatureEntries, skillEntryTemplate, classFeatureSkillHolder, SkillEntry.SkillEntryLocation.ClassFeatureSkill);
 
-        ShowTutorial();
+        //ShowTutorial();
     }
 
     public override void Show() {

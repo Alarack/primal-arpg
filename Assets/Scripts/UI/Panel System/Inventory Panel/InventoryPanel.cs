@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using LL.Events;
 using TMPro;
 using System.Linq;
+using System.Text;
 
 public class InventoryPanel : BasePanel {
 
@@ -46,6 +47,9 @@ public class InventoryPanel : BasePanel {
 
     private Task createAffixTask;
     private Task selectAffixTask;
+
+    [Header("Text Fields")]
+    public TextMeshProUGUI goldText;
     //[Header("Testing Debug Things")]
     //public TextMeshProUGUI cdrText;
 
@@ -86,6 +90,7 @@ public class InventoryPanel : BasePanel {
 
         PopulateInventory();
         SetStatValues();
+        UpdateGoldText();
     }
 
     public override void Close() {
@@ -318,6 +323,19 @@ public class InventoryPanel : BasePanel {
         //}
     }
 
+    private void UpdateGoldText() {
+        float currentCoins = EntityManager.ActivePlayer != null ? EntityManager.ActivePlayer.Inventory.GetCurrencyAmount() : 0f;
+        
+        if(currentCoins >= 25f) {
+            goldText.color = Color.white;
+        }
+        else {
+            goldText.color = Color.red;
+        }
+
+        goldText.text = "25/" + currentCoins;
+    }
+
     public void UpdateAffixSlot(ItemAffixSlotEntry slot) {
 
         int index = itemAffixSlots.IndexOf(slot);
@@ -354,6 +372,7 @@ public class InventoryPanel : BasePanel {
         AudioManager.PlayForgeSound();
 
         createAffixTask = new Task(CreateAffixEntries());
+        UpdateGoldText();
 
     }
 
@@ -434,6 +453,28 @@ public class InventoryPanel : BasePanel {
         for (int i = 0; i < inventoryEntries.Count; i++) {
             inventoryEntries[i].Remove();
         }
+    }
+
+
+
+
+    public void ShowForgeInfo() {
+        StringBuilder builder = new StringBuilder();
+        builder.AppendLine("Drag an item into the Forget Slot to begin.");
+        builder.AppendLine();
+        builder.AppendLine("Choose an enhancment slot at the bottom and click Forge.");
+        builder.AppendLine();
+        builder.AppendLine("If you can afford the gold cost, you can forge any number of times in the same slot to re-roll for a desired affix.");
+        builder.AppendLine();
+        builder.AppendLine("Click on a desired Affix from the list to attach it to the current item.");
+        builder.AppendLine();
+        builder.AppendLine("You can reforge Affixes even after you've chosen.");
+
+        TooltipManager.Show(builder.ToString(), "Forging");
+    }
+
+    public void HideForgeInfo() {
+        TooltipManager.Hide();
     }
 
 }

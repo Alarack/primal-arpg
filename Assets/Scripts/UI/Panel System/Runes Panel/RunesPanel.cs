@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Text;
 
 public class RunesPanel : BasePanel {
 
@@ -192,6 +193,24 @@ public class RunesPanel : BasePanel {
     }
 
     public void OnLevelUpMouseOut() {
+        TooltipManager.Hide();
+    }
+
+    public void ShowInfoTooltip() {
+        StringBuilder builder = new StringBuilder();
+        builder.AppendLine("You gain 1 Skill Point when you Level up, and they can also be Room Rewards.");
+        builder.AppendLine();
+        builder.AppendLine("Choose one Rune from each Tier.");
+        builder.AppendLine();
+        builder.AppendLine("Increase your Skill Level by spending Skill Points to unlock additional Rune Tiers.");
+        builder.AppendLine();
+        builder.AppendLine("You can also Right Click any active Rune to disable it.");
+
+
+        TooltipManager.Show(builder.ToString(), "Runes Info");
+    }
+
+    public void HideInfoTooltip() {
         TooltipManager.Hide();
     }
 

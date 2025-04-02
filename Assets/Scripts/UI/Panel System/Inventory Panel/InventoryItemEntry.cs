@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using LL.Events;
+using System.Text;
 
 
 public class InventoryItemEntry : InventoryBaseEntry {
@@ -197,11 +198,15 @@ public class InventoryItemEntry : InventoryBaseEntry {
     public override void OnPointerEnter(PointerEventData eventData) {
         base.OnPointerEnter(eventData);
 
-        if(MyItem == null && slot == ItemSlot.ForgeSlot) {
-            TooltipManager.Show("Drag an item into the Forget Slot to begin. Then pick an empty slot and click Forge. You can forge any number of times in the same slot to re-roll for a desired affix. Click on a desired Affix to attach it to the current Item. You can reforge Affixes even after you've chosen.", "Forging");
-        }
+        //if(MyItem == null && slot == ItemSlot.ForgeSlot) {
+        //    //TooltipManager.Show("Drag an item into the Forget Slot to begin. Then pick an empty slot and click Forge. You can forge any number of times in the same slot to re-roll for a desired affix. Click on a desired Affix to attach it to the current Item. You can reforge Affixes even after you've chosen.", "Forging");
+        //    ShowForgeInfo();
+        //}
 
     }
+
+
+    
 
     #endregion
 }

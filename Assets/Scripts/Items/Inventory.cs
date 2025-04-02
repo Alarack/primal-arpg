@@ -219,6 +219,14 @@ public class Inventory : MonoBehaviour {
         return false;
     }
 
+    public float GetCurrencyAmount(string  currency = "Coin") {
+        if(currencyDictionary.ContainsKey(currency) == false) {
+            return 0f;
+        }
+        
+        return currencyDictionary[currency];
+    }
+
     public void ResetCurrency() {
         currencyDictionary.Clear();
         SendCurrencyChangedEvent(0, "Coin");
