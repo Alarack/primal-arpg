@@ -13,16 +13,19 @@ MonoBehaviour:
   m_Name: Cascading Missiles Rune
   m_EditorClassIdentifier: 
   devItem: 0
+  startingItem: 0
   itemData:
     Type: 2
     affixStatTarget: 1
     entityClass: 0
     itemName: 'Cascading Missiles '
-    itemDescription: Your Arcane Missles can trigger themselves.
+    itemDescription: Your Arcane Missiles can trigger themselves.
+    secondaryDescription: 
     itemValue: 50
     runeAbilityTarget: Arcane Missiles
     validSlots: 0e000000
     abilityTags: 
+    targetedAbilityName: 
     itemIcon: {fileID: 21300000, guid: 50343d7a9a9b5ec4db39a865b0b897f5, type: 3}
     pickupIcon: {fileID: 21300000, guid: 50343d7a9a9b5ec4db39a865b0b897f5, type: 3}
     pickupOnCollision: 1
@@ -34,3 +37,5 @@ MonoBehaviour:
     abilityDefinitions:
     - {fileID: 11400000, guid: e600b12ade7d52743846c7013fc7bb3c, type: 2}
     learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

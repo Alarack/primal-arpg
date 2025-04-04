@@ -34,7 +34,8 @@ public enum ItemType {
     StatBooster,
     Experience,
     SkillPoint,
-    HealthPotion
+    HealthPotion,
+    HealthOrb
 
 }
 

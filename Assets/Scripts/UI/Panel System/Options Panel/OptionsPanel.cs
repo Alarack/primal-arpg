@@ -19,6 +19,9 @@ public class OptionsPanel : BasePanel
     public TMP_Dropdown cursorModeDropdown;
     private CustomCursor customCursor;
 
+    [Header("Game speed")]
+    public Slider gameSpeedSlider;
+
     public ColorSwatchHelper edgeColorOneSwatch;
     public ColorSwatchHelper edgeColorTwoSwatch;
 
@@ -182,6 +185,15 @@ public class OptionsPanel : BasePanel
         AudioManager.SetMusicVolume(value);
     }
 
+
+    #endregion
+
+    #region Game Speed Methods
+
+    public void OnGameSpeedChanged() {
+        Time.timeScale = gameSpeedSlider.value;
+        PlayerPrefs.SetFloat("GameSpeed", Time.timeScale);
+    }
 
     #endregion
 

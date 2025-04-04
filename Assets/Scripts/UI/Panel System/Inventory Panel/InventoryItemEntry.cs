@@ -112,6 +112,9 @@ public class InventoryItemEntry : InventoryBaseEntry {
 
     public override void OnDrop(PointerEventData eventData) {
 
+        if (DraggedInventoryItem == null)
+            return;
+
         Item draggedItem = DraggedInventoryItem.MyItem;
 
         if(draggedItem == null) 

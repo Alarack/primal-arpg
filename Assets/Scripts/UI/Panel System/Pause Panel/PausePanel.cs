@@ -13,7 +13,15 @@ public class PausePanel : BasePanel
 
     public override void Close() {
         base.Close();
-        Time.timeScale = 1f;
+
+        float savedSpeed = PlayerPrefs.GetFloat("GameSpeed");
+
+        if(savedSpeed > 0f) {
+            Time.timeScale = savedSpeed;
+        }
+        else {
+            Time.timeScale = 1f;
+        }
     }
 
 

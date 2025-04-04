@@ -14,6 +14,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
     public ItemPickup pickupPrefab;
     public ItemPickup coinPickupPrefab;
     public ItemPickup expPickupPrefab;
+    public ItemPickup heathOrbPickup;
     public LootDatabase lootDatabase;
 
     public static Vector2 defaultSpawnLocation = Vector2.zero;
@@ -65,6 +66,17 @@ public class ItemSpawner : Singleton<ItemSpawner>
             if(expValue > 0f) {
                 SpawnEXP(threat, target.transform.position, 1f, Mathf.Min(1f, expValue));
             }
+
+
+            Entity player = EntityManager.ActivePlayer;
+
+            if(player != null && player.Stats.GetStatRangeRatio(StatName.Health) < 1f) {
+                float roll = Random.Range(0f, 1f);
+                if(roll < 0.15f) {
+                    SpawnHealthOrbs(1, target.transform.position);
+                }
+            }
+
 
         }
     }
@@ -145,6 +157,28 @@ public class ItemSpawner : Singleton<ItemSpawner>
             expDataItem.pickupOnCollision = true;
 
             ItemPickup pickup = Instantiate(Instance.expPickupPrefab, location, Quaternion.identity);
+            pickup.Setup(expDataItem);
+        }
+    }
+
+    public static void SpawnHealthOrbs(int count, Vector2 location) {
+
+        if (EntityManager.ActivePlayer == null)
+            return;
+
+        float maxHealth = EntityManager.ActivePlayer.Stats.GetStatRangeMaxValue(StatName.Health);
+        
+        for (int i = 0; i < count; i++) {
+            ItemData expDataItem = new ItemData();
+
+            float valueRange = Random.Range(maxHealth * 0.1f, maxHealth * 0.25f);
+
+            expDataItem.itemValue = valueRange;
+            expDataItem.itemName = "EXP";
+            expDataItem.Type = ItemType.HealthOrb;
+            expDataItem.pickupOnCollision = true;
+
+            ItemPickup pickup = Instantiate(Instance.heathOrbPickup, location, Quaternion.identity);
             pickup.Setup(expDataItem);
         }
     }

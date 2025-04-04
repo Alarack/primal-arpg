@@ -16,7 +16,7 @@ MonoBehaviour:
     category: 6
     abilityIcon: {fileID: 21300000, guid: 32dec6493e7c4f34583c777cb4831630, type: 3}
     abilityName: Eldritch Amplification
-    abilityDescription: Dealing Aracne Damage from another source has a {PR} chance
+    abilityDescription: Dealing Arcane Damage from another source has a {PR} chance
       to trigger a bolt of Arcane Lightning on a nearby target.
     resourceCost: 35
     toBestow: 0
@@ -29,6 +29,7 @@ MonoBehaviour:
     recastOnChannelCost: 0
     normalizedProcRate: 0
     startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -39,6 +40,7 @@ MonoBehaviour:
     childAbilities: []
     runeGroupData: []
     tags: 160000001a000000
+    resetEvents: 
     activationTriggerData:
     - type: 1
       overrideProcStat: 0
@@ -95,6 +97,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
         - type: 4
           inverse: 0
           statChangeTarget: 0
@@ -136,6 +140,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
       - focus: 5
         constraintData:
         - type: 4
@@ -179,6 +185,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
         - type: 17
           inverse: 0
           statChangeTarget: 0
@@ -220,6 +228,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
         - type: 7
           inverse: 1
           statChangeTarget: 0
@@ -261,6 +271,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     - type: 38
       overrideProcStat: 1
       procChance: 1
@@ -292,6 +304,7 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
@@ -311,6 +324,7 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: e0a652f6a9e5df14eb49522483a590a6, type: 2}

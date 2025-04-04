@@ -16,7 +16,7 @@ MonoBehaviour:
     category: 6
     abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
     abilityName: Arcane Missiles
-    abilityDescription: Whnever you use an Active Skill, you have a chance based
+    abilityDescription: Whenever you use an Active Skill, you have a chance based
       on the Cooldown of that Skill to fire {SC} Arcane Missiles which seek forward.
     resourceCost: 35
     toBestow: 0
@@ -29,6 +29,7 @@ MonoBehaviour:
     recastOnChannelCost: 0
     normalizedProcRate: 1
     startingAbility: 1
+    scaleProcByLevel: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -51,12 +52,16 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 712379830daed21459a3b2e920e83219, type: 2}
       tier: 3
     tags: 190000001600000008000000
+    resetEvents: 
     activationTriggerData:
     - type: 11
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
@@ -104,6 +109,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
       - focus: 4
         constraintData:
         - type: 18
@@ -147,6 +154,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
         - type: 29
           inverse: 0
           statChangeTarget: 0
@@ -188,15 +197,20 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
@@ -204,15 +218,19 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
@@ -220,12 +238,14 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: fa10c0124945d8b4999d5fc79bf9ef42, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
+    maxRanks: -1
     windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
     abilityStatData:
     - variant: 0

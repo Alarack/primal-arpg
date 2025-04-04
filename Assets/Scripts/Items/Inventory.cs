@@ -126,6 +126,11 @@ public class Inventory : MonoBehaviour {
             return;
         }
 
+        if (item.Data.Type == ItemType.HealthOrb) {
+            HealFromPickup(item);
+            return;
+        }
+
         if (ownedItems.AddUnique(item) == false) {
             Debug.LogWarning("An item: " + item.Data.itemName + " was added to " + Owner.EntityName + "'s inventory, but it was already there");
             return;
@@ -165,6 +170,10 @@ public class Inventory : MonoBehaviour {
         if (Owner.Stats.GetStatRangeRatio(StatName.Experience) >= 1) {
             Owner.LevelUp();
         }
+    }
+
+    private void HealFromPickup(Item item) {
+        Owner.Stats.AdjustStatRangeByPercentOfMaxValue(StatName.Health, item.Data.itemValue, Owner);
     }
 
 
