@@ -914,8 +914,13 @@ public class Ability {
             }
 
 
+            float effectDuration = Stats[StatName.EffectLifetime] * (1 + Source.Stats[StatName.GlobalEffectDurationModifier]);
+            string effectDureationText = TextHelper.ColorizeText(TextHelper.FormatStat(StatName.EffectLifetime, MathF.Round(effectDuration, 2)), Color.yellow);
+            string effectDurationReplacement = triggerCountReplacement.Replace("{EL}", effectDureationText);
+            
 
-            builder.Append(triggerCountReplacement);
+
+            builder.Append(effectDurationReplacement);
 
             if(Data.showChildAbilitiesInTooltip == false) {
                 builder.AppendLine();

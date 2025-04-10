@@ -13,21 +13,29 @@ MonoBehaviour:
   m_Name: Arcane Runoff Rune
   m_EditorClassIdentifier: 
   devItem: 0
+  startingItem: 0
   itemData:
     Type: 2
+    affixStatTarget: 1
     entityClass: 0
     itemName: Arcane Runoff Rune
-    itemDescription: Whenever you lose Essence, trigger your Arcane Missiles ability.
+    itemDescription: 
+    secondaryDescription: 
     itemValue: 200
     runeAbilityTarget: Essence Field
     validSlots: 0e000000
     abilityTags: 
+    targetedAbilityName: 
     itemIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
     pickupIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
     pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
     statModifierData: []
     abilityDefinitions:
     - {fileID: 11400000, guid: 69f2f6e7275f2e94da8f5d6162c82956, type: 2}
     learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

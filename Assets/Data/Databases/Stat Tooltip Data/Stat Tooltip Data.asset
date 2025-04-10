@@ -17,8 +17,9 @@ MonoBehaviour:
     decription: 'Reduces the time for skills to cooldown. '
     icon: {fileID: 0}
   - stat: 16
-    decription: Influnces the random rotation added to projectiles. 0% Accuracy impose
-      up to 360 degrees of random rotation.
+    decription: Influences the base accuracy of projectiles. Most Projectiles move
+      forward from their aimed position. 100% Accuracy imposes no deviation, while
+      0% accuracy imposes up to 360 degrees of deviation.
     icon: {fileID: 21300000, guid: c2625b56a3ffb9d4da69fa8537371022, type: 3}
   - stat: 23
     decription: Multiplier for the duration for Zone Effects.

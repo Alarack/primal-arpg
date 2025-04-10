@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Essence Regen
+  m_Name: E_Arcane Scattergun
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Essence Regen Effect
-    effectDescription: Increase your Essence Regeneration Rate by 25%
-    type: 1
-    targeting: 1
+    effectName: 
+    effectDescription: 
+    type: 0
+    targeting: 0
     subTarget: 0
     maskTargeting: 0
     hideFloatingText: 0
@@ -57,22 +57,7 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData:
-    - targetStat: 48
-      value: 0.25
-      modifierType: 2
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
+    modData: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}

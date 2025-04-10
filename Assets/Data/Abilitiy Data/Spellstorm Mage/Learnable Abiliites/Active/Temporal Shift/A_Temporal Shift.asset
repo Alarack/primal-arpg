@@ -17,7 +17,7 @@ MonoBehaviour:
     abilityIcon: {fileID: 21300000, guid: b09367d8b3c807e42bba097bf11b6ec1, type: 3}
     abilityName: Temporal Shift
     abilityDescription: Slow time in an area, reducing Enemy movement speed and attack
-      speed
+      speed for {EL}seconds.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -29,6 +29,7 @@ MonoBehaviour:
     recastOnChannelCost: 0
     normalizedProcRate: 0
     startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: 
     animationString: Attack
     waitForAnimToResolve: 1
@@ -49,6 +50,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: c3c7c43a80e92b740823968b45196497, type: 2}
       tier: 3
     tags: 1800000006000000
+    resetEvents: 
     activationTriggerData:
     - type: 6
       overrideProcStat: 0
@@ -105,6 +107,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
       - focus: 4
         constraintData:
         - type: 7
@@ -148,6 +152,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -167,6 +173,7 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
@@ -186,6 +193,7 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: b850962395d5fb041aec78695e6acb32, type: 2}
@@ -236,5 +244,6 @@ MonoBehaviour:
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0
         requireMultipleTriggers: 0
+        reduceTriggerCountByAbilityLevel: 0
         minTriggerCount: 0
       cooldown: 5

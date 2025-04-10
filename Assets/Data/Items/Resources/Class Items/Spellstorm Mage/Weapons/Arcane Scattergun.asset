@@ -19,8 +19,8 @@ MonoBehaviour:
     affixStatTarget: 1
     entityClass: 0
     itemName: Arcane Scattergun
-    itemDescription: 'An otherworldly product of eldritch artifice, this assemblage
-      of tubes and triggers evokes the sensation of wild power. '
+    itemDescription: An otherworldly product of eldritch artifice, this assemblage
+      of tubes and triggers evokes the sensation of wild power.
     secondaryDescription: 
     itemValue: 0
     runeAbilityTarget: 
@@ -36,7 +36,7 @@ MonoBehaviour:
     maxDamage: 7
     statModifierData:
     - targetStat: 14
-      value: 4
+      value: 2
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -45,11 +45,13 @@ MonoBehaviour:
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
       scalers: []
     - targetStat: 22
-      value: -0.5
+      value: -0.4
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -58,6 +60,8 @@ MonoBehaviour:
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
       scalers: []
@@ -71,6 +75,8 @@ MonoBehaviour:
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
       scalers: []
@@ -84,6 +90,8 @@ MonoBehaviour:
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
       scalers: []
@@ -97,10 +105,13 @@ MonoBehaviour:
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
       scalers: []
-    abilityDefinitions: []
+    abilityDefinitions:
+    - {fileID: 11400000, guid: 03102adb1335da64aab0022f46247b9b, type: 2}
     learnableAbilities: []
     classPreviewAbilities: []
     startingItemOptions: []

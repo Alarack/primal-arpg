@@ -139,10 +139,13 @@ public class ItemData
 
     public string GetAffixTooltip() {
         StringBuilder builder = new StringBuilder();
-        
+
+        string maxPrefix = statModifierData[0].targetStat == StatName.Essence || statModifierData[0].targetStat == StatName.Health ? "Max " : "";
+
+
         builder.Append(TextHelper.ColorizeText("Tier - ", GetTierColor(tier))).Append(GetTier())
                .Append(" ")
-               .Append(statModifierData[0].targetStat.ToString().SplitCamelCase())
+               .Append(maxPrefix + statModifierData[0].targetStat.ToString().SplitCamelCase())
                .Append(": ")
                .Append(TextHelper.FormatStat(statModifierData[0].targetStat, statModifierData[0].value))
 
