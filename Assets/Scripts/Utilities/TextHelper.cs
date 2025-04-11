@@ -10,11 +10,15 @@ public static class TextHelper
 {
 
 
-    public static string FormatStat(StatName stat, float value) {
+    public static string FormatStat(StatName stat, float value, bool displayAsPercent = false) {
 
         //StringBuilder builder = new StringBuilder();
         string bonusColor = ColorUtility.ToHtmlStringRGB(new Color(.439f, .839f, 0.11f));
         string penaltyColor = ColorUtility.ToHtmlStringRGB(new Color(0.839f, 0.235f, 0.11f));
+
+        string bonusFormat = displayAsPercent == true ? $"<color=#{bonusColor}>" + (value * 100) + "% </color>" : $"<color=#{bonusColor}>" + value + "</color>";
+        string penaltyFormat = displayAsPercent == true ? $"<color=#{penaltyColor}>" + (value * 100) + "% </color>" : $"<color=#{penaltyColor}>" + value + "</color>";
+
 
         string result = stat switch {
             StatName.Health => $"<color=#{bonusColor}>+" + value + "</color>",
@@ -135,8 +139,13 @@ public static class TextHelper
             StatName.GlobalEssenceCostModifier when value < 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.CastingMoveSpeedModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.CastingMoveSpeedModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
-            StatName.EffectRange when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
-            StatName.EffectRange when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            //StatName.EffectRange when value >= 0 => $"<color=#{bonusColor}>" + value  + "</color>",
+            //StatName.EffectRange when value < 0 => $"<color=#{penaltyColor}>" + value + "</color>",
+
+            StatName.EffectRange when value >= 0 => bonusFormat,
+            StatName.EffectRange when value < 0 => penaltyFormat,
+
+
             StatName.DoubleTickChance when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.DoubleTickChance when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             _ => "No Entry For: " + stat,

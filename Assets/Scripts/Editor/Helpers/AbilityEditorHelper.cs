@@ -836,6 +836,7 @@ public static class AbilityEditorHelper {
         switch (entry.modValueSetMethod) {
             case StatModifierData.ModValueSetMethod.Manual:
                 entry.value = EditorGUILayout.FloatField("Value", entry.value);
+                entry.displayAsPercent = EditorGUILayout.Toggle("Display As %", entry.displayAsPercent);
                 break;
             case StatModifierData.ModValueSetMethod.DeriveFromOtherStats:
                 entry.deriveTarget = EditorHelper.EnumPopup("Derive Target", entry.deriveTarget);

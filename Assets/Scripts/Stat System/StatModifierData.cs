@@ -69,6 +69,7 @@ public class StatModifierData
     public StatName derivedTargetStat;
     public bool invertDerivedValue;
     public bool scaleFromAbilityLevel;
+    public bool displayAsPercent;
     public float abilityLevelCoefficient = 1f;
 
     public string otherTargetAbility;
@@ -193,6 +194,7 @@ public class StatModifierData
         this.weaponDamagePercent = copy.weaponDamagePercent;
         this.scaleFromAbilityLevel = copy.scaleFromAbilityLevel;
         this.abilityLevelCoefficient = copy.abilityLevelCoefficient;
+        this.displayAsPercent = copy.displayAsPercent;
 
         CloneStatScalers(copy);
     }

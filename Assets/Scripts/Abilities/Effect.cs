@@ -4079,7 +4079,7 @@ public class StatAdjustmentEffect : Effect {
 
         float value = modData[0].scaleFromAbilityLevel == false ? modData[0].Stats[StatName.StatModifierValue] : modData[0].Stats[StatName.StatModifierValue] * ParentAbility.AbilityLevel;
 
-        string formated = TextHelper.FormatStat(modData[0].targetStat, value);
+        string formated = TextHelper.FormatStat(modData[0].targetStat, value, modData[0].displayAsPercent);
 
         string replacement = Data.effectDescription.Replace("{}", formated);
 

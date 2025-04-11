@@ -75,6 +75,8 @@ MonoBehaviour:
       statRatioTarget: 0
       targetRatio: 0
       movementMagnitudeLimit: 0.1
+      abilitySlot: 0
+      projectileToCheck: {fileID: 0}
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadStatData: []
@@ -110,6 +112,7 @@ MonoBehaviour:
       derivedTargetStat: 0
       invertDerivedValue: 0
       scaleFromAbilityLevel: 1
+      displayAsPercent: 1
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
@@ -176,15 +179,19 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     effectDesignation: 0
     addMissingStatIfNotPresent: 0
+    scaleFromStatus: 0
+    statusModifiers: []
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
+    showTrail: 0
     targetDestination: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0
+    teleportSequenceDelay: 0.2
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -217,3 +224,9 @@ MonoBehaviour:
     modifiedSeekDuration: -1
     modifiedDrunkInterval: 0.2
     cooldownElapsedModifier: 0
+    statusScalingData: []
+    scaleFromAbilityLevel: 0
+    spawnedItemType: 0
+    itemSpawnLocation: 0
+    itemsToSpawn: []
+    itemSpawnAmount: 0

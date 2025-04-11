@@ -968,6 +968,13 @@ public class Ability {
                     builder.AppendLine(projectileStats);
                 }
 
+                float effectRange = effects[0].Stats[StatName.EffectRange];
+
+                if(effectRange > 0f) {
+                    builder.AppendLine($"Range: {TextHelper.FormatStat(StatName.EffectRange, effectRange)} Meters");
+                }
+
+
                 if(adj.Data.showRiderTooltip == true) {
                     for (int i = 0; i < adj.RiderEffects.Count; i++) {
                         builder.AppendLine(adj.RiderEffects[i].GetTooltip());
