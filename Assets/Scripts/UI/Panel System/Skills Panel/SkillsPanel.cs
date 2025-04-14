@@ -213,11 +213,12 @@ public class SkillsPanel : SkillBasePanel {
         builder.AppendLine("Drag Skills from the Known Skills section to the Active Skills section to assign them.");
         builder.AppendLine("You can also drag skills around in the Action Skills Section to change their posiitons.");
         builder.AppendLine();
-        builder.AppendLine("Right Click a Skill to edit that Skill's Runes.");
+        builder.AppendLine("Right Click any Skill to edit that Skill's Runes.");
         builder.AppendLine();
-        builder.AppendLine("Click an Empty Passive Skill to assign a Passive from your Known Passives.");
-        
-        
+        builder.AppendLine("Left Click an Empty Passive Skill Slot to assign a Passive from your Known Passives.");
+        builder.AppendLine("Left Click on an assigned Passive Skill to unasign that Passive Skill.");
+
+
         TooltipManager.Show(builder.ToString(), "Skills Info");
     }
 

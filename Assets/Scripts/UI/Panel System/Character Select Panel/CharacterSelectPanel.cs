@@ -20,6 +20,9 @@ public class CharacterSelectPanel : BasePanel {
     public CanvasGroup bulletPointsFader;
     public CanvasGroup exampleSpellsFader;
 
+    [Header("Ray Blocker")]
+    public GameObject rayBlocker;
+
     [Header("Class Data")]
     public List<ItemDefinition> classItems = new List<ItemDefinition>();
 
@@ -42,7 +45,7 @@ public class CharacterSelectPanel : BasePanel {
         new Task(PopulateClassOptions());
         bulletPointsFader.alpha = 0f;
         exampleSpellsFader.alpha = 0f;
-
+        rayBlocker.SetActive(false);
         //entries.PopulateList(classItems.Count, template, holder, true);
         //for (int i = 0; i < entries.Count; i++) {
         //    entries[i].Setup(classItems[i], this);
@@ -168,7 +171,7 @@ public class CharacterSelectPanel : BasePanel {
 
     private void ShowStarterPackages() {
         //WaitForSeconds waiter = new WaitForSeconds(0.3f);
-
+        rayBlocker.SetActive(true);
         starterPackageEntries.ClearList();
 
         List<ItemDefinition> starterSkills = new List<ItemDefinition>(ItemSpawner.Instance.lootDatabase.GetRandomSkillsByTag(selectedClass.ClassItem.itemData.abilityTags));

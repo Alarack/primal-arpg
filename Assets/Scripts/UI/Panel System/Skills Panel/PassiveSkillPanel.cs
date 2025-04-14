@@ -65,6 +65,9 @@ public class PassiveSkillPanel : BasePanel
             buttonText.text = "Equip";
             equipButton.SetText("Equip");
         }
+
+        TooltipManager.Hide();
+        OnEquipClicked();
     }
 
 
