@@ -17,7 +17,7 @@ MonoBehaviour:
     abilityIcon: {fileID: 21300000, guid: 187996d5c8957b34696a53f0ffa7dc88, type: 3}
     abilityName: Tear Through Space
     abilityDescription: Whenever you Teleport, create a Void Bolt for each nearby
-      Enemy.
+      within 10 meters of your destination.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -29,6 +29,7 @@ MonoBehaviour:
     recastOnChannelCost: 0
     normalizedProcRate: 0
     startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -39,6 +40,7 @@ MonoBehaviour:
     childAbilities: []
     runeGroupData: []
     tags: 1a000000
+    resetEvents: 
     activationTriggerData:
     - type: 36
       overrideProcStat: 0
@@ -95,6 +97,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -114,6 +118,7 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
@@ -133,6 +138,7 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: b0b48064effed5c48bc0f4d1ac5f1bdb, type: 2}

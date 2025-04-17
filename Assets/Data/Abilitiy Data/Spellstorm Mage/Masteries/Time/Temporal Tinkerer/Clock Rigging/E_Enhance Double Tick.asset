@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Enhance Double Tick Chance
-    effectDescription: Increase the chance for your Damage of Time effects to Tick
+    effectDescription: Increase the chance for your Damage over Time effects to Tick
       twice by {}
     type: 1
     targeting: 9
@@ -77,6 +77,7 @@ MonoBehaviour:
       targetRatio: 0
       movementMagnitudeLimit: 0.1
       abilitySlot: 0
+      projectileToCheck: {fileID: 0}
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadStatData: []
@@ -112,6 +113,7 @@ MonoBehaviour:
       derivedTargetStat: 0
       invertDerivedValue: 0
       scaleFromAbilityLevel: 1
+      displayAsPercent: 0
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
@@ -185,6 +187,7 @@ MonoBehaviour:
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
+    showTrail: 0
     targetDestination: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
@@ -224,3 +227,7 @@ MonoBehaviour:
     cooldownElapsedModifier: 0
     statusScalingData: []
     scaleFromAbilityLevel: 0
+    spawnedItemType: 0
+    itemSpawnLocation: 0
+    itemsToSpawn: []
+    itemSpawnAmount: 0

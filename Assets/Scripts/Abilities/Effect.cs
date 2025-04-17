@@ -2095,7 +2095,7 @@ public class AddEffectEffect : Effect {
     public override string GetTooltip() {
         StringBuilder builder = new StringBuilder();
 
-        //Debug.Log("Showing a tooltip for an Add Effect Effect On " + Data.effectName + ". " + activeEffects.Count + " effects found to add");
+        Debug.Log("Showing a tooltip for an Add Effect Effect On " + Data.effectName + ". " + activeDisplayEffects.Count + " effects found to add");
 
         for (int i = 0; i < activeDisplayEffects.Count; i++) {
 
@@ -3738,7 +3738,7 @@ public class StatAdjustmentEffect : Effect {
         if (activeMod.TargetStat == StatName.Health && Data.hideFloatingText == false && modValueResult != 0f) {
             //Debug.LogWarning("Damage dealt: " + modValueResult + " : " + Data.effectName);
 
-            FloatingText text = FloatingTextManager.SpawnFloatingText(position, modValueResult.ToString(), 0.75f, isOverloading);
+            FloatingText text = FloatingTextManager.SpawnFloatingText(position, Mathf.Abs(modValueResult).ToString(), 0.75f, isOverloading);
 
             Gradient targetGrad = isOverloading == false ? Data.floatingTextColor : Data.overloadFloatingTextColor;
             text.SetColor(targetGrad);
