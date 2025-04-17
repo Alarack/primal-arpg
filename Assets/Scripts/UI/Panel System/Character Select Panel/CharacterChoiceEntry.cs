@@ -57,6 +57,7 @@ public class CharacterChoiceEntry : MonoBehaviour {
     public void Select() {
         FlashWhite();
         bulletPointsText.text = ClassItem.itemData.secondaryDescription;
+        shortDescriptionText.text = ClassItem.itemData.itemDescription;
         bgAnchor.DOMove(selectionPanel.selectedClassAnchor.position, 0.7f).SetEase(Ease.OutSine).onComplete = selectionPanel.StartInfoFadein;
         infoButton.onClick.RemoveListener(OnInfoClicked);
         infoButton.onClick.AddListener(Deselect);
@@ -96,8 +97,8 @@ public class CharacterChoiceEntry : MonoBehaviour {
 
         characterImgage.sprite = ClassItem.itemData.itemIcon;
 
-        shortDescriptionText.text = ClassItem.itemData.itemDescription;
-        bulletPointsText.text = ClassItem.itemData.secondaryDescription;
+        //shortDescriptionText.text = ClassItem.itemData.itemDescription;
+        //bulletPointsText.text = ClassItem.itemData.secondaryDescription;
         classNameText.text = ClassItem.itemData.itemName;
 
         //SetupExampleSpells();
@@ -110,12 +111,12 @@ public class CharacterChoiceEntry : MonoBehaviour {
         OnWeaponSelected(weaponSelectionEntries[0]);
     }
 
-    public void SetupExampleSpells() {
-        skillPreviewEntries.PopulateList(ClassItem.itemData.classPreviewAbilities.Count, template, holder, true);
-        for (int i = 0; i < skillPreviewEntries.Count; i++) {
-            skillPreviewEntries[i].Setup(ClassItem.itemData.classPreviewAbilities[i]);
-        }
-    }
+    //public void SetupExampleSpells() {
+    //    skillPreviewEntries.PopulateList(ClassItem.itemData.classPreviewAbilities.Count, template, holder, true);
+    //    for (int i = 0; i < skillPreviewEntries.Count; i++) {
+    //        skillPreviewEntries[i].Setup(ClassItem.itemData.classPreviewAbilities[i]);
+    //    }
+    //}
 
     public void OnInfoClicked() {
         selectionPanel.OnClassInfoClicked(this);

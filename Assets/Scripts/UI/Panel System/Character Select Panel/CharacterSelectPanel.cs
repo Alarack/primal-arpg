@@ -19,6 +19,7 @@ public class CharacterSelectPanel : BasePanel {
     public Transform selectedClassAnchor;
     public CanvasGroup bulletPointsFader;
     public CanvasGroup exampleSpellsFader;
+    public CanvasGroup blurbFader;
 
     [Header("Ray Blocker")]
     public GameObject rayBlocker;
@@ -45,6 +46,7 @@ public class CharacterSelectPanel : BasePanel {
         new Task(PopulateClassOptions());
         bulletPointsFader.alpha = 0f;
         exampleSpellsFader.alpha = 0f;
+        blurbFader.alpha = 0f;
         rayBlocker.SetActive(false);
         //entries.PopulateList(classItems.Count, template, holder, true);
         //for (int i = 0; i < entries.Count; i++) {
@@ -88,6 +90,8 @@ public class CharacterSelectPanel : BasePanel {
     public IEnumerator FadeInInfoPanels() {
         WaitForSeconds waiter = new WaitForSeconds(0.2f);
 
+        blurbFader.DOFade(1f, 0.2f);
+        yield return waiter;
         bulletPointsFader.DOFade(1f, 0.2f);
         yield return waiter;
         exampleSpellsFader.DOFade(1f, 0.2f);
@@ -97,6 +101,8 @@ public class CharacterSelectPanel : BasePanel {
     public IEnumerator FadeoutInfoPanels() {
         WaitForSeconds waiter = new WaitForSeconds(0.1f);
 
+        blurbFader.DOFade(0f, 0.1f);
+        yield return waiter;
         bulletPointsFader.DOFade(0f, 0.1f);
         yield return waiter;
         exampleSpellsFader.DOFade(0f, 0.1f);

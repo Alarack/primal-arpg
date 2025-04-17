@@ -121,6 +121,7 @@ public class EntityPlayer : Entity {
         }
 
         AllIn1Shaker.i.DoCameraShake(0.05f);
+        HitStopManager.Stop();
     }
 
     #endregion

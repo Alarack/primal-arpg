@@ -30,6 +30,11 @@ public class SkillPreviewEntry : MonoBehaviour, IPointerEnterHandler, IPointerEx
     }
 
     private void SetupDisplay() {
+        if (skillIcon == null) {
+            return;
+        }
+
+
         skillIcon.sprite = abilityDefinition.AbilityData.abilityIcon;
     }
 
