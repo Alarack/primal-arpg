@@ -30,7 +30,7 @@ public class StarterItemDisplayEntry : MonoBehaviour, IPointerEnterHandler, IPoi
 
         switch (displayItem.Data.Type) {
             case ItemType.Equipment:
-                TooltipManager.Show(displayItem.GetTooltip(), TextHelper.ColorizeText(displayItem.Data.itemName, ColorDataManager.Instance["Burnt Orange"]));
+                TooltipManager.Show(displayItem.GetTooltip(), TextHelper.ColorizeText(displayItem.Data.itemName, ColorDataManager.Instance["Item Header"]));
                 break;
          
             case ItemType.Skill:

@@ -72,7 +72,7 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
             case ItemType.None:
                 break;
             case ItemType.Equipment:
-                TooltipManager.Show(displayItem.GetTooltip(), TextHelper.ColorizeText(displayItem.Data.itemName, ColorDataManager.Instance["Burnt Orange"]));
+                TooltipManager.Show(displayItem.GetTooltip(), TextHelper.ColorizeText(displayItem.Data.itemName, ColorDataManager.Instance["Item Header"]));
                 break;
             case ItemType.Rune:
                 TooltipManager.Show(displayItem.GetTooltip(), TextHelper.ColorizeText(displayItem.Data.itemName, Color.cyan));

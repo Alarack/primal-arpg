@@ -82,7 +82,7 @@ public class RuneChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        TooltipManager.Show(RuneItem.GetTooltip(), TextHelper.ColorizeText(RuneItem.Data.itemName, ColorDataManager.Instance["Burnt Orange"]));
+        TooltipManager.Show(RuneItem.GetTooltip(), TextHelper.ColorizeText(RuneItem.Data.itemName, ColorDataManager.Instance["Item Header"]));
 
     }
 
