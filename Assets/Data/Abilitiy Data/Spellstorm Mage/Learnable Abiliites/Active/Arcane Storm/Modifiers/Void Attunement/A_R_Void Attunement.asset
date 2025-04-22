@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
     abilityName: Void Attunement Rune
-    abilityDescription: Arcane Storm causes Void Vulnerability instead of Arcane
-      Vulnerability. It deals Void Damage instead of Arcane Damage.
+    abilityDescription: 'Instead of applying Arcane Vulnerability, Arcane Storm now
+      applies Void Vulnerability. It deals Void Damage instead of Arcane Damage. '
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -27,28 +27,47 @@ MonoBehaviour:
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
+    normalizedProcRate: 0
+    startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: Arcane Storm
+    animationString: 
+    waitForAnimToResolve: 0
+    initSFXVolume: 1
+    initiationSounds: []
+    channelSFXVolume: 1
+    channeledSounds: []
     childAbilities: []
+    runeGroupData: []
     tags: 
+    resetEvents: 
     activationTriggerData:
     - type: 17
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 0
         constraintData: []
     endTriggerData:
     - type: 18
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 0
         constraintData: []
@@ -56,31 +75,41 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: c013326033a6ba24e88a679ffd111838, type: 2}
@@ -91,6 +120,7 @@ MonoBehaviour:
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
+    maxRanks: -1
     windupVFX: {fileID: 0}
     abilityStatData: []
     recoveryData: []

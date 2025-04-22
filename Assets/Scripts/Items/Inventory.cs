@@ -17,6 +17,8 @@ public class Inventory : MonoBehaviour {
 
     private List<Item> equippedRunes = new List<Item>();
 
+    public ItemData ClassItem { get; private set; }
+
     public ItemWeapon CurrentWeapon { get { return GetWeapon(); } }
 
     private void Awake() {
@@ -149,6 +151,10 @@ public class Inventory : MonoBehaviour {
             if (existingItem == null) {
                 EquipItemToSlot(item, item.Data.validSlots[0]);
             }
+        }
+
+        if(item.Data.Type == ItemType.ClassSelection) {
+            ClassItem = item.Data;
         }
     }
 

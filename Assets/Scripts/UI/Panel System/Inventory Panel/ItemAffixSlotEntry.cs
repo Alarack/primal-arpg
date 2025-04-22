@@ -11,8 +11,9 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
 
 
     public TextMeshProUGUI affixText;
-    public Image affixBG;
+    //public Image affixBG;
     public Image borderImage;
+    public Image affixIconImage;
     public GameObject selectorArrow;
 
 
@@ -21,6 +22,7 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     private InventoryPanel inventoryPanel;
 
     private Color baseBorderColor;
+
     public ItemData AffixData { get; private set; }
 
     public void Setup(InventoryPanel inventoryPanel, Item item, ItemData affixData) {
@@ -40,21 +42,40 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public void Select() {
         borderImage.color = Color.white;
-        selectorArrow.SetActive(true);
+        if(selectorArrow != null)
+            selectorArrow.SetActive(true);
     }
 
     public void Deselect() {
-        borderImage.color = baseBorderColor; 
-        selectorArrow.SetActive(false);
+        borderImage.color = baseBorderColor;
+        if (selectorArrow != null)
+            selectorArrow.SetActive(false);
     }
 
     private void SetupDisplay() {
         if (AffixData == null) {
-            affixText.text = "Empty";
+            if(affixText != null)
+                affixText.text = "Empty";
+            if (affixIconImage != null)
+                affixIconImage.gameObject.SetActive(false);
             return;
         }
 
-        affixText.text = AffixData.GetShortTooltip();
+        if(affixText != null)
+            affixText.text = AffixData.GetShortTooltip();
+
+        if(affixIconImage != null) {
+            Sprite icon = AffixData.GetAffixIcon();
+
+            if(icon != null) {
+                affixIconImage.gameObject.SetActive(true);
+                affixIconImage.sprite = icon;
+                affixIconImage.color = AffixData.GetTierColor(AffixData.tier);
+            }
+            else {
+                affixIconImage.gameObject.SetActive(false);
+            }
+        }
     }
 
 
@@ -65,11 +86,12 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-
+        if(AffixData != null)
+            TooltipManager.Show(AffixData.GetAffixTooltip(), AffixData.GetShortTooltip());
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-
+        TooltipManager.Hide();
     }
 
     #endregion

@@ -17,10 +17,16 @@ public class ColorDataManager : Singleton<ColorDataManager>
 
     public static Color GetColorByName(string name) {
         for (int i = 0; i < Instance.colors.Length; i++) {
+            
+            //Debug.Log("Checking: " + Instance.colors[i].name);
+            
             if (Instance.colors[i].name == name)
                 return Instance.colors[i].color;
         }
 
+        Debug.LogError("Can't Find Color: " + name);
+
+       
         return Color.white;
     }
 

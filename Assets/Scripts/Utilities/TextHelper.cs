@@ -13,8 +13,13 @@ public static class TextHelper
     public static string FormatStat(StatName stat, float value, bool displayAsPercent = false) {
 
         //StringBuilder builder = new StringBuilder();
-        string bonusColor = ColorUtility.ToHtmlStringRGB(new Color(.439f, .839f, 0.11f));
-        string penaltyColor = ColorUtility.ToHtmlStringRGB(new Color(0.839f, 0.235f, 0.11f));
+        //string bonusColor = ColorUtility.ToHtmlStringRGB(new Color(.439f, .839f, 0.11f));
+        Color bonus = ColorDataManager.Instance["Stat Bonus Color"];
+        Color penalty = ColorDataManager.Instance["Stat Penalty Color"];
+        //Debug.Log(bonus);
+        string bonusColor = ColorUtility.ToHtmlStringRGB(bonus);
+        //string penaltyColor = ColorUtility.ToHtmlStringRGB(new Color(0.839f, 0.235f, 0.11f));
+        string penaltyColor = ColorUtility.ToHtmlStringRGB(penalty);
 
         string bonusFormat = displayAsPercent == true ? $"<color=#{bonusColor}>" + (value * 100) + "% </color>" : $"<color=#{bonusColor}>" + value + "</color>";
         string penaltyFormat = displayAsPercent == true ? $"<color=#{penaltyColor}>" + (value * 100) + "% </color>" : $"<color=#{penaltyColor}>" + value + "</color>";

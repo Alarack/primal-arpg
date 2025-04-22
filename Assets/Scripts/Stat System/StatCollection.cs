@@ -197,17 +197,17 @@ public class StatCollection {
     #endregion
 
 
-    public Dictionary<string, string> GetStatDisplays(List<StatName> exceptions = null) {
-        Dictionary<string, string> results = new Dictionary<string, string>();
+    public Dictionary<StatName, string> GetStatDisplays(List<StatName> exceptions = null) {
+        Dictionary<StatName, string> results = new Dictionary<StatName, string>();
 
         foreach (var entry in statDictionary) {
             if (exceptions != null && exceptions.Contains(entry.Key))
                 continue;
 
-            string name = TextHelper.PretifyStatName(entry.Key);
+            //string name = TextHelper.PretifyStatName(entry.Key);
             string value = TextHelper.FormatStat(entry.Key, entry.Value.ModifiedValue);
 
-            results.Add(name, value);
+            results.Add(entry.Key, value);
         }
 
         return results;

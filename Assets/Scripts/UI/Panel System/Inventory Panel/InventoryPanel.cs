@@ -53,6 +53,9 @@ public class InventoryPanel : BasePanel {
     //[Header("Testing Debug Things")]
     //public TextMeshProUGUI cdrText;
 
+    [Header("Images")]
+    public Image characterImage;
+
     protected override void Awake() {
         base.Awake();
         CreateEmptySlots();
@@ -91,9 +94,17 @@ public class InventoryPanel : BasePanel {
         PopulateInventory();
         SetStatValues();
         UpdateGoldText();
+
+
+        //if(characterImage.sprite != null) {
+        //    characterImage.sprite = EntityManager.ActivePlayer.Inventory.GetItems(ItemType.ClassSelection)[0].Data.itemIcon;
+        //}
     }
 
     public override void Close() {
+        if (InventoryBaseEntry.DraggedInventoryItem != null)
+            return;
+        
         base.Close();
 
         TooltipManager.Hide();
@@ -132,22 +143,24 @@ public class InventoryPanel : BasePanel {
             StatName.EssenceShield,
             StatName.SkillPoint,
             StatName.HeathPotions,
-
-
         };
 
         if(exceptions.Contains(stat)) {
             return;
         }
 
-        Dictionary<string, string> allStatDisplays = EntityManager.ActivePlayer.Stats.GetStatDisplays(exceptions);
-        List<StatName> relevantStats = EntityManager.ActivePlayer.Stats.GetListOfStatNames(exceptions);
+        Dictionary<StatName, string> allStatDisplays = EntityManager.ActivePlayer.Stats.GetStatDisplays(exceptions);
+        //List<StatName> relevantStats = EntityManager.ActivePlayer.Stats.GetListOfStatNames(exceptions);
+
+        allStatDisplays = allStatDisplays.OrderBy(s => s.Key.ToString()).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        //relevantStats.Sort();
+
         statDisplayEntries.PopulateList(allStatDisplays.Count, statDisplayTemplate, statDisplayHolder, true);
 
         int count = 0;
         foreach (var statDisplay in allStatDisplays) {
-            string displayText = statDisplay.Key + ": " + statDisplay.Value;
-            statDisplayEntries[count].Setup(displayText, relevantStats[count]);
+            string displayText = TextHelper.PretifyStatName(statDisplay.Key) + ": " + statDisplay.Value;
+            statDisplayEntries[count].Setup(displayText, statDisplay.Key);
             count++;
         }
 
@@ -199,6 +212,10 @@ public class InventoryPanel : BasePanel {
 
         if(item.Data.Type == ItemType.Equipment)
             AddToFirstEmptySlot(item);
+
+        if(item.Data.Type == ItemType.ClassSelection) {
+            characterImage.sprite = EntityManager.ActivePlayer.Inventory.GetItems(ItemType.ClassSelection)[0].Data.itemIcon;
+        }
     }
 
     private void OnItemEquipped(EventData data) {
