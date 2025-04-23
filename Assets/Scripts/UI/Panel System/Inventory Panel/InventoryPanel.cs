@@ -477,15 +477,15 @@ public class InventoryPanel : BasePanel {
 
     public void ShowForgeInfo() {
         StringBuilder builder = new StringBuilder();
-        builder.AppendLine("Drag an item into the Forget Slot to begin.");
+        builder.AppendLine("Drag an item into the Forge Slot to begin.");
         builder.AppendLine();
-        builder.AppendLine("Choose an enhancment slot at the bottom and click Forge.");
+        builder.AppendLine("Choose an enhancment slot above the Forge Button and click Forge.");
         builder.AppendLine();
         builder.AppendLine("If you can afford the gold cost, you can forge any number of times in the same slot to re-roll for a desired affix.");
         builder.AppendLine();
         builder.AppendLine("Click on a desired Affix from the list to attach it to the current item.");
         builder.AppendLine();
-        builder.AppendLine("You can reforge Affixes even after you've chosen.");
+        builder.AppendLine("You can reforge previously chosen Affixes.");
 
         TooltipManager.Show(builder.ToString(), "Forging");
     }

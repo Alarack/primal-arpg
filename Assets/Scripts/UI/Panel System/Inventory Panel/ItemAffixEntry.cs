@@ -13,10 +13,14 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
     public Image affixBG;
     public Image borderImage;
     public Image statIcon;
+    public Image circleBorder;
+    public Image innerCircle;
 
     [Header("VFX")]
     public CanvasGroup fader;
     public GameObject shimmer;
+    public GameObject highlightShimmer;
+    private Vector3 highlightShimmerStartPos;
     public ParticleSystem selectionEffect;
     public CanvasGroup flashFader;
 
@@ -25,6 +29,13 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
     private ItemData affixData;
 
+    private Color baseCircleBorderColor;
+    private Color baseCircleFillColor;
+    public Color highlightedCircleBorderColor;
+    public Color highlightedCircleFillColor;
+
+
+    private Task unRotateTask;
 
     public void Setup(InventoryPanel inventoryPanel, Item item, ItemData affixData) {
         this.inventoryPanel = inventoryPanel;
@@ -32,10 +43,18 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
         this.affixData = affixData;
 
         SetupDisplay();
-
+        baseCircleBorderColor = circleBorder.color;
+        baseCircleFillColor = innerCircle.color;
         fader.alpha = 0f;
         shimmer.transform.DOLocalMove(new Vector2(311f, 0f), 0.75f);
+        highlightShimmerStartPos = highlightShimmer.transform.localPosition;
         fader.DOFade(1f, 0.3f);
+
+    }
+
+    private void OnDisable() {
+        if(unRotateTask != null) 
+            unRotateTask.Stop();
     }
 
     public void ShowSelectionEffects() {
@@ -68,11 +87,23 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        
+        //highlightShimmer.transform.localPosition = highlightShimmerStartPos;
+        //highlightShimmer.transform.DOLocalMove(new Vector2(311f, 0f), 0.75f);
+        circleBorder.color = highlightedCircleBorderColor;
+        innerCircle.color = highlightedCircleFillColor;
+        statIcon.transform.DORotate(new Vector3(0f, 180f, 0f), 0.5f, RotateMode.FastBeyond360).SetEase(Ease.OutSine);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        
+        innerCircle.color = baseCircleFillColor;
+        circleBorder.color = baseCircleBorderColor;
+        unRotateTask = new Task(DelayedRotate());
+    }
+
+    private IEnumerator DelayedRotate() {
+        yield return new WaitForSeconds(0.2f);
+        statIcon.transform.DORotate(new Vector3(0f, 360, 0f), 0.5f, RotateMode.FastBeyond360).SetEase(Ease.OutSine);
+
     }
 
     #endregion
