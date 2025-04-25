@@ -74,7 +74,7 @@ public class AudioManager : Singleton<AudioManager>
     }
 
     public static void PlayForgeSound() {
-        PlaySoundClip(Instance.forgeSound, Instance.transform.position, 0.4f);
+        PlaySoundClip(Instance.forgeSound, Instance.transform.position, 0.15f);
     }
 
     public static void PlayForgeSelect() {
