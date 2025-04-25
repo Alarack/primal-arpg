@@ -389,7 +389,17 @@ namespace Michsky.MUIP
             if (!isInteractable) { return; }
             if (enableButtonSounds && useHoverSound && soundSource != null) { soundSource.PlayOneShot(hoverSound); }
             if (animationSolution == AnimationSolution.ScriptBased) { StartCoroutine(nameof(SetHighlight)); }
-         
+
+            if (enableButtonSounds) {
+
+                if (hoverSound == null)
+                    AudioManager.PlayButtonHover();
+                else
+                    AudioManager.PlaySoundClip(hoverSound, Vector2.zero, 1f);
+            }
+                
+            
+            
             isPointerOn = true;
             onHover.Invoke();
         }
