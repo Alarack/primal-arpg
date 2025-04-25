@@ -19447,16 +19447,18 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 1773673519030548, guid: 6e3db7afa59301e48bc3999ec41f1410, type: 3}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
-  spawnSFXVolume: 1
+  statusVFXPosition: {fileID: 0}
+  spawnSFXVolume: 0.7
   spawnSFX:
   - {fileID: 8300000, guid: 3f59ed8105a05ee44b7eb1ef7608315d, type: 3}
   hurtSFXVolume: 1
   hurtSFX: []
-  deathSFXVolume: 0.5
+  deathSFXVolume: 0.1
   deathSFX:
   - {fileID: 8300000, guid: 9fb2085538d1bfe41abcb2b5c317517f, type: 3}
   spriteProgression:
     _serializedList: []
+  healthBar: {fileID: 0}
   textColorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}

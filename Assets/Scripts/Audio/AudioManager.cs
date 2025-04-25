@@ -11,6 +11,7 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource SFXTemplate;
 
     public AudioSource sfxSource;
+    public float minSoundInterval;
 
 
     public AudioClip basicButtonHover;
@@ -93,16 +94,22 @@ public class AudioManager : Singleton<AudioManager>
         AudioSource activeAudio = Instantiate(Instance.SFXTemplate, Instance.transform);
         activeAudio.transform.localPosition = position;
 
+        if (Instance.activeSources.ContainsKey(clip)) {
+            //Debug.Log("Already Playing: " + clip.name);
+            return;
+        }
+
+        //Debug.Log("Playing: " + clip.name);
 
         TrackAudioClip(clip, activeAudio);
 
         
         activeAudio.clip = clip;
-        
-        int countOfActiveClips = GetCountOfClip(clip);
-        float modifier = countOfActiveClips > 1 ? countOfActiveClips / 2 : 1;
-        
-        activeAudio.volume = volume *  (1 / modifier);
+
+        //int countOfActiveClips = GetCountOfClip(clip);
+        //float modifier = countOfActiveClips > 1 ? countOfActiveClips / 2 : 1;
+
+        activeAudio.volume = volume;
         activeAudio.Play();
 
         new Task(Instance.ResolveSound(clip, activeAudio));

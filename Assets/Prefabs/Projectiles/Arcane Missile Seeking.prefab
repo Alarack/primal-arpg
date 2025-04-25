@@ -62,7 +62,8 @@ MonoBehaviour:
   spawnEffectPrefab: {fileID: 1773673519030548, guid: 6e3db7afa59301e48bc3999ec41f1410, type: 3}
   facingIndicator: {fileID: 0}
   castingVFXPosition: {fileID: 0}
-  spawnSFXVolume: 1
+  statusVFXPosition: {fileID: 0}
+  spawnSFXVolume: 0.75
   spawnSFX:
   - {fileID: 8300000, guid: 74ea4a2ad98acb241bdb9753be6cd8c4, type: 3}
   hurtSFXVolume: 1
@@ -72,6 +73,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7fb954e1c1961644d85f884b946f53b0, type: 3}
   spriteProgression:
     _serializedList: []
+  healthBar: {fileID: 0}
   textColorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
