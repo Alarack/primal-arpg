@@ -419,6 +419,11 @@ public class Projectile : Entity {
         Entity otherEntity = recentHit.GetComponent<Entity>();
         new Task(SendChainEvent(otherEntity));
 
+        if(killTimer != null && killTimer.Running == true) {
+            killTimer.Stop();
+            killTimer = new Task(KillAfterLifetime());
+        }
+
         return true;
     }
 

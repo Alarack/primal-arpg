@@ -17,8 +17,7 @@ MonoBehaviour:
     abilityIcon: {fileID: 21300000, guid: ef7a6e9ca48052440b0f53b360638774, type: 3}
     abilityName: Steal Time
     abilityDescription: Launch a shifting chronal projectile. Affected targets suffer
-      damage over time, and whenever this Skill deals damage, regain a small amount
-      of Essence.
+      damage over time.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -30,6 +29,7 @@ MonoBehaviour:
     recastOnChannelCost: 0
     normalizedProcRate: 0
     startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: 
     animationString: Attack
     waitForAnimToResolve: 1
@@ -48,6 +48,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: f1d4592c905804c4cac90cbdfdd544df, type: 2}
       tier: 2
     tags: 18000000080000000a0000001c000000
+    resetEvents: 
     activationTriggerData:
     - type: 6
       overrideProcStat: 0
@@ -105,6 +106,7 @@ MonoBehaviour:
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
+          projectileToCheck: {fileID: 0}
       - focus: 4
         constraintData:
         - type: 7
@@ -149,6 +151,7 @@ MonoBehaviour:
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -216,6 +219,11 @@ MonoBehaviour:
     - variant: 0
       statName: 50
       value: 0.22
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 34
+      value: 2
       maxValue: 0
       minValue: 0
     recoveryData:

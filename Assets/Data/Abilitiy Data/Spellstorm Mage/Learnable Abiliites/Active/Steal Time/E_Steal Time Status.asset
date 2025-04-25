@@ -29,6 +29,7 @@ MonoBehaviour:
     showScalers: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
+    chainTargetDelay: 0.1
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
@@ -119,24 +120,29 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     effectDesignation: 1
     addMissingStatIfNotPresent: 0
+    scaleFromStatus: 0
+    statusModifiers: []
     statusToAdd:
     - statusName: 11
-      stackMethod: 0
-      maxStacks: 1
+      stackMethod: 1
+      maxStacks: 3
       initialStackCount: 1
       duration: 0
       interval: 0
       VFXPrefab: {fileID: 121954, guid: c849c99816049e5458f41c3e3ccf118c, type: 3}
+      statusSprite: {fileID: 0}
       vfxScaleModifier: 1
       statusEffectDef: {fileID: 11400000, guid: 4c2e8fbefc12cd84e92e85770b6c042b, type: 2}
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
+    showTrail: 0
     targetDestination: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0
+    teleportSequenceDelay: 0.2
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -165,3 +171,13 @@ MonoBehaviour:
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
     newEffectZonePrefab: {fileID: 0}
+    modifiedMovementBehavior: 0
+    modifiedSeekDuration: -1
+    modifiedDrunkInterval: 0.2
+    cooldownElapsedModifier: 0
+    statusScalingData: []
+    scaleFromAbilityLevel: 0
+    spawnedItemType: 0
+    itemSpawnLocation: 0
+    itemsToSpawn: []
+    itemSpawnAmount: 0

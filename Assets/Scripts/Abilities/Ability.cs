@@ -855,7 +855,7 @@ public class Ability {
             string replacement = Data.abilityDescription;
 
             if (targets > 0) {
-                replacement = Data.abilityDescription.Replace("{T}", TextHelper.ColorizeText(GetMaxTargets().ToString(), Color.green));
+                replacement = Data.abilityDescription.Replace("{T}", TextHelper.ColorizeText(GetMaxTargets().ToString(), "Stat Bonus Color"));
 
                 //builder.Append(replacement).AppendLine();
             }
@@ -869,7 +869,7 @@ public class Ability {
 
             size *= (1 + globalSizeMod);
 
-            string radiusReplacement = replacement.Replace("{ES}", TextHelper.ColorizeText(size.ToString(), Color.green));
+            string radiusReplacement = replacement.Replace("{ES}", TextHelper.ColorizeText(size.ToString(), "Stat Bonus Color"));
 
             //Debug.Log("Global projectile life: " + Source.EntityName + " :: " + Source.Stats[StatName.GlobalProjectileLifetimeModifier]);
 
@@ -879,11 +879,11 @@ public class Ability {
 
             int shotCount = (int)effects[0].Stats[StatName.ShotCount];
 
-            string shotCountReplacement = durationReplacment.Replace("{SC}", TextHelper.ColorizeText(shotCount.ToString(), Color.green));
+            string shotCountReplacement = durationReplacment.Replace("{SC}", TextHelper.ColorizeText(shotCount.ToString(), "Stat Bonus Color"));
 
             int chainCount = (int)effects[0].Stats[StatName.ProjectileChainCount];
 
-            string chainCountReplacement = shotCountReplacement.Replace("{CC}", TextHelper.ColorizeText(chainCount.ToString(), Color.green));
+            string chainCountReplacement = shotCountReplacement.Replace("{CC}", TextHelper.ColorizeText(chainCount.ToString(), "Stat Bonus Color"));
 
 
 
@@ -908,7 +908,7 @@ public class Ability {
             if (Data.counterData.minTriggerCount > 0) {
                 int triggerCount = GetMinTriggerCount();
                 if(triggerCount > 0) {
-                    string triggerCountText = TextHelper.ColorizeText(triggerCount.ToString(), Color.green);
+                    string triggerCountText = TextHelper.ColorizeText(triggerCount.ToString(), "Stat Bonus Color");
                     triggerCountReplacement = timerIntervalReplacment.Replace("{TC}", triggerCountText);
                 }
             }
@@ -984,7 +984,7 @@ public class Ability {
                 if (effects[0].Data.canOverload == true) {
                     float overloadChance = GetAbilityOverloadChance();
 
-                    builder.AppendLine("Overload Chance: " + TextHelper.ColorizeText( TextHelper.FormatStat(StatName.OverloadChance, overloadChance), Color.green));
+                    builder.AppendLine("Overload Chance: " + TextHelper.ColorizeText( TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
                 }
 
             }

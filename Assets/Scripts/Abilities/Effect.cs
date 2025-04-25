@@ -2727,7 +2727,7 @@ public class AddStatusEffect : Effect {
 
 
                     if (damageRatio > 0) {
-                        builder.Append("Causes " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", Color.green)
+                        builder.Append("Causes " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", "Stat Bonus Color")
                        + " of Weapon Damage every " + intervalText + " for "
                        + durationReplacement);
 
@@ -2748,7 +2748,7 @@ public class AddStatusEffect : Effect {
                         float overloadChance = ParentAbility != null ? ParentAbility.GetAbilityOverloadChance() : Source.Stats[StatName.OverloadChance];
 
                         builder.AppendLine();
-                        builder.Append("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), Color.green));
+                        builder.Append("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
                     }
 
 
@@ -3280,9 +3280,9 @@ public class SpawnEntityEffect : Effect {
         }
 
 
-        string replacement = Data.effectDescription.Replace("{}", TextHelper.ColorizeText(maxSpawns.ToString(), Color.green));
+        string replacement = Data.effectDescription.Replace("{}", TextHelper.ColorizeText(maxSpawns.ToString(), "Stat Bonus Color"));
 
-        string weaponPercent = TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(Data.percentOfPlayerDamage * 100f, 2) + "%", Color.green);
+        string weaponPercent = TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(Data.percentOfPlayerDamage * 100f, 2) + "%", "Stat Bonus Color");
 
         string damageReplacement = replacement.Replace("{P}", weaponPercent);
 
@@ -4146,7 +4146,7 @@ public class StatAdjustmentEffect : Effect {
 
 
         if (damageRatio > 0) {
-            builder.Append("Causes " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", Color.green)
+            builder.Append("Causes " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", "Stat Bonus Color")
            + " of Weapon Damage every " + intervalText + " for "
            + durationText);
 
@@ -4159,7 +4159,7 @@ public class StatAdjustmentEffect : Effect {
             float overloadChance = ParentAbility != null ? ParentAbility.GetAbilityOverloadChance() : Source.Stats[StatName.OverloadChance];
 
             builder.AppendLine();
-            builder.Append("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), Color.green));
+            builder.Append("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
         }
 
         return builder.ToString();

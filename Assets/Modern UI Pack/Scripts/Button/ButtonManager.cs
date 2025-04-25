@@ -336,6 +336,15 @@ namespace Michsky.MUIP
             if (!isInteractable || eventData.button != PointerEventData.InputButton.Left) { return; }
             if (enableButtonSounds && useClickSound == true && soundSource != null) { soundSource.PlayOneShot(clickSound); }
 
+            if (enableButtonSounds) {
+
+                if (clickSound == null)
+                    AudioManager.PlayButtonPressed();
+                else
+                    AudioManager.PlaySoundClip(clickSound, Vector2.zero, 1f);
+            }
+
+
             // Invoke click actions
             onClick.Invoke();
 

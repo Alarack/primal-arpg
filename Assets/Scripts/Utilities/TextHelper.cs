@@ -241,6 +241,13 @@ public static class TextHelper
         return result;
     }
 
+
+    public static string ColorizeText(string text, string color, float size = 0f) {
+        Color convertedColor = ColorDataManager.Instance[color];
+
+        return ColorizeText(text, convertedColor, size);
+    }
+
     public static string ColorizeText(string text, Color color, float size = 0f) {
         string hexColor = ColorUtility.ToHtmlStringRGB(color);
 
