@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using System.Text;
 using DG.Tweening;
+using Michsky.MUIP;
 
 public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
 
@@ -15,6 +16,8 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
     public Image statIcon;
     public Image circleBorder;
     public Image innerCircle;
+    public Image rarityGemImage;
+    public UIGradient rarityGradient;
 
     [Header("VFX")]
     public CanvasGroup fader;
@@ -67,6 +70,16 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
         affixText.text = affixData.GetAffixTooltip();
 
         Sprite statIcon = affixData.GetAffixIcon();
+        
+        rarityGemImage.sprite = affixData.GetAffixRarityGem();
+
+        if(affixData.tier > 1) {
+            rarityGradient.enabled = true;
+            rarityGradient.EffectGradient = affixData.GetAffixRarityGradient();
+        }
+        else {
+            rarityGradient.enabled = false;
+        }
 
         if(statIcon != null) {
             this.statIcon.gameObject.SetActive(true);

@@ -1,0 +1,185 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e622ecb1522e2489168cce914367ad, type: 3}
+  m_Name: Item Affix Database
+  m_EditorClassIdentifier: 
+  itemAffixData:
+  - name: Common
+    tier: 1
+    rarityIcon: {fileID: 21300000, guid: 3f9680e5dacbfaa4eb0e31024d6185ca, type: 3}
+    Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
+    backgroundGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+  - name: Uncommon
+    tier: 2
+    rarityIcon: {fileID: 21300000, guid: c214832fb76670347be7a153efbf57f9, type: 3}
+    Color: {r: 0.13522008, g: 0.5, b: 0.21529374, a: 1}
+    backgroundGradient:
+      serializedVersion: 2
+      key0: {r: 0.023199212, g: 0.3207547, b: 0.034840778, a: 0.47058824}
+      key1: {r: 0.056366395, g: 0.4716981, b: 0.14771938, a: 0.47058824}
+      key2: {r: 0.023529414, g: 0.32156864, b: 0.03529412, a: 1}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 33924
+      ctime2: 65535
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65342
+      atime2: 65535
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
+  - name: Rare
+    tier: 3
+    rarityIcon: {fileID: 21300000, guid: 2e6c3f2695b89b847ad7983a933e499f, type: 3}
+    Color: {r: 0.20392157, g: 0.4120606, b: 0.5568628, a: 1}
+    backgroundGradient:
+      serializedVersion: 2
+      key0: {r: 0.4025157, g: 0.44650728, b: 0.6037736, a: 0.47058824}
+      key1: {r: 0.035294104, g: 0.60486716, b: 0.8, a: 0.47058824}
+      key2: {r: 0.40000004, g: 0.44705886, b: 0.6039216, a: 1}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 33924
+      ctime2: 65535
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65342
+      atime2: 65535
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
+  - name: Epic
+    tier: 4
+    rarityIcon: {fileID: 21300000, guid: 549baca3724f2e14f86b40450f0c9bbd, type: 3}
+    Color: {r: 0.41152936, g: 0.1555417, b: 0.46226418, a: 1}
+    backgroundGradient:
+      serializedVersion: 2
+      key0: {r: 0.28941482, g: 0.0662157, b: 0.33962262, a: 0.47058824}
+      key1: {r: 0.41176474, g: 0.15686275, b: 0.46274513, a: 0.47058824}
+      key2: {r: 0.2901961, g: 0.06666667, b: 0.34117648, a: 1}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 33924
+      ctime2: 65535
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65342
+      atime2: 65535
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
+  - name: Legendary
+    tier: 5
+    rarityIcon: {fileID: 21300000, guid: 8064aac9b27557741b22dd0163b99cb2, type: 3}
+    Color: {r: 0.5188679, g: 0.08158297, b: 0.08158297, a: 1}
+    backgroundGradient:
+      serializedVersion: 2
+      key0: {r: 0.2264151, g: 0.024919875, b: 0.03664591, a: 0.47058824}
+      key1: {r: 0.5176471, g: 0.08235294, b: 0.08235294, a: 0.47058824}
+      key2: {r: 0.227451, g: 0.023529414, b: 0.03529412, a: 1}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 33924
+      ctime2: 65535
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65342
+      atime2: 65535
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3

@@ -16,6 +16,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
     public ItemPickup expPickupPrefab;
     public ItemPickup heathOrbPickup;
     public LootDatabase lootDatabase;
+    public ItemAffixDatabase itemAffixDatabase;
 
     public static Vector2 defaultSpawnLocation = Vector2.zero;
 

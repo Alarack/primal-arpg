@@ -12,6 +12,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
 
     private InventoryPanel parentPanel;
     private Color defaultBgColor;
+    public Color highlightColor;
 
     protected override void Awake() {
         base.Awake();
@@ -80,7 +81,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
     }
 
     public void ShowHighlight() {
-        bgImage.color = Color.yellow;
+        bgImage.color = highlightColor;
     }
 
     public void HideHighlight() {

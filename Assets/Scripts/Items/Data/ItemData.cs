@@ -142,8 +142,9 @@ public class ItemData
 
         string maxPrefix = statModifierData[0].targetStat == StatName.Essence || statModifierData[0].targetStat == StatName.Health ? "Max " : "";
 
+        string rarityName = ItemSpawner.Instance.itemAffixDatabase.GetAffixRarityName(tier);
 
-        builder.Append(TextHelper.ColorizeText("Tier - ", GetTierColor(tier))).Append(GetTier())
+        builder.Append(TextHelper.ColorizeText(rarityName + " ", GetTierColor(tier), 15f)).AppendLine()/*.Append(GetTier())*/
                .Append(" ")
                .Append(maxPrefix + statModifierData[0].targetStat.ToString().SplitCamelCase())
                .Append(": ")
@@ -161,20 +162,36 @@ public class ItemData
         return targetSprite;
     }
 
+    public Sprite GetAffixRarityGem() {
+        Sprite targetSprite = ItemSpawner.Instance.itemAffixDatabase.GetAffixRaritySprite(tier);
+
+        return targetSprite;
+    }
+
+    public Gradient GetAffixRarityGradient() {
+        Gradient targetGradient = ItemSpawner.Instance.itemAffixDatabase.GetRarityGradient(tier);
+
+        return targetGradient;
+    }
+
     public Color GetTierColor(int tier) {
         if (tier == 0)
             return Color.white;
 
-        Color result = tier switch {
-            1 => Color.white,
-            2 => Color.green,
-            3 => Color.cyan,
-            4 => Color.magenta,
-            5 => Color.red,
-            _ => Color.white,
-        };
 
-        return result;
+        return ItemSpawner.Instance.itemAffixDatabase.GetAffixColor(tier);
+
+
+        //Color result = tier switch {
+        //    1 => Color.white,
+        //    2 => Color.green,
+        //    3 => Color.cyan,
+        //    4 => Color.magenta,
+        //    5 => Color.red,
+        //    _ => Color.white,
+        //};
+
+        //return result;
     }
 
     public string GetItemInfo() {
