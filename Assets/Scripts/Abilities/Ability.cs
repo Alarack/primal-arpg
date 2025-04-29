@@ -1268,7 +1268,7 @@ public class Ability {
         if (string.IsNullOrEmpty(Data.animationString) == false && Data.waitForAnimToResolve == true) {
 
             if (Source.AnimHelper != null && Source.AnimHelper.IsAnimRunning(Data.animationString) == true) {
-                Debug.LogWarning(Data.abilityName + " is mid animation and cannot trigger again");
+                //Debug.LogWarning(Data.abilityName + " is mid animation and cannot trigger again");
                 return true;
             }
 

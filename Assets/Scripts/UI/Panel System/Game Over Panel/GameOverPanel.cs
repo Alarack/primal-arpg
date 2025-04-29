@@ -64,8 +64,8 @@ public class GameOverPanel : BasePanel
             float progressValue = (float)currentValue / (float)ItemSpawner.Instance.lootDatabase.metaUnlockValue;
             progressSlider.value = progressValue;
 
-            Debug.Log("Current Value: " + currentValue);
-            Debug.Log("Slider Value: " + progressValue);
+            //Debug.Log("Current Value: " + currentValue);
+            //Debug.Log("Slider Value: " + progressValue);
 
             if (currentValue >= ItemSpawner.Instance.lootDatabase.metaUnlockValue) {
 

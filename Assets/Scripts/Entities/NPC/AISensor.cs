@@ -194,7 +194,7 @@ public class AISensor : MonoBehaviour {
 
     private void OnProjectileDetected(Projectile target) {
 
-        Debug.Log("Detecting Projectile: " + target.EntityName);
+        //Debug.Log("Detecting Projectile: " + target.EntityName);
         
         EventData data = new EventData();
         data.AddEntity("Detector", owner);

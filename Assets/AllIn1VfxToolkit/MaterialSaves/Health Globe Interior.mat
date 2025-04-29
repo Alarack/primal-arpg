@@ -14,6 +14,7 @@ Material:
   m_ValidKeywords:
   - ADDITIVECONFIG_ON
   - GLOW_ON
+  - HSV_ON
   - MASK_ON
   - SHAPE1DISTORT_ON
   m_InvalidKeywords: []
@@ -109,8 +110,8 @@ Material:
     - _CamDistProximityFade: 0
     - _ColorGradingMidPoint: 0.5
     - _ColorMask: 15
-    - _ColorRampBlend: 0.403
-    - _ColorRampLuminosity: 0.12
+    - _ColorRampBlend: 0.649
+    - _ColorRampLuminosity: 0.29
     - _CullingOption: 0
     - _DebugShape: 1
     - _DepthGlow: 1
@@ -137,16 +138,16 @@ Material:
     - _GlowGlobal: 1.77
     - _HandDrawnAmount: 10
     - _HandDrawnSpeed: 5
-    - _HsvBright: 1
-    - _HsvSaturation: 1
-    - _HsvShift: 180
-    - _LightAmount: 0
+    - _HsvBright: 1.49
+    - _HsvSaturation: 1.08
+    - _HsvShift: 360
+    - _LightAmount: 0.436
     - _MaskPow: 0.5
     - _OffsetSh1: 1
     - _OffsetSh2: 1
     - _OffsetSh3: 1
     - _PixelateSize: 32
-    - _PosterizeNumColors: 5
+    - _PosterizeNumColors: 1
     - _RandomSh1Mult: 1
     - _RandomSh2Mult: 1
     - _RandomSh3Mult: 1
@@ -165,7 +166,7 @@ Material:
     - _Sh1BlendOffset: 0
     - _Sh2BlendOffset: 0
     - _Sh3BlendOffset: 0
-    - _ShadowAmount: 0.4
+    - _ShadowAmount: 0.852
     - _ShadowStepMax: 1
     - _ShadowStepMin: 0
     - _ShakeUvSpeed: 20
@@ -230,7 +231,7 @@ Material:
     - _BackFaceTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _ColorGradingDark: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorGradingLight: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorGradingLight: {r: 1, g: 0, b: 0, a: 1}
     - _ColorGradingMiddle: {r: 1, g: 1, b: 1, a: 1}
     - _DepthGlowColor: {r: 1, g: 1, b: 1, a: 1}
     - _FadeBurnColor: {r: 1, g: 1, b: 0, a: 1}
@@ -240,5 +241,5 @@ Material:
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _Shape2Color: {r: 1, g: 1, b: 1, a: 1}
     - _Shape3Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ShapeColor: {r: 2, g: 0, b: 0, a: 1}
+    - _ShapeColor: {r: 2.0152128, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

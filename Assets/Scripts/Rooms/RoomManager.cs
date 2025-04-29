@@ -281,7 +281,7 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     public static void OnRoomSelected(Room room) {
-        Debug.Log("Room Selected: " + room.Type);
+        //Debug.Log("Room Selected: " + room.Type);
         if (Instance.createPortalsTask != null && Instance.createPortalsTask.Running == true) {
             Debug.LogWarning("Portal creation task is running");
             

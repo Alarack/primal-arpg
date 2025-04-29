@@ -455,7 +455,7 @@ public class EffectTargeter {
 
         Vector2 targetLocation = spawnLocation switch {
             DeliverySpawnLocation.Source => parentEffect.Source.GetOriginPoint().position,
-            DeliverySpawnLocation.Trigger => ActivationInstance.TriggeringEntity.transform.position,
+            DeliverySpawnLocation.Trigger => ActivationInstance.TriggeringEntity != null ? ActivationInstance.TriggeringEntity.transform.position : Vector2.zero,
             DeliverySpawnLocation.Cause => ActivationInstance.CauseOfTrigger.transform.position,
             DeliverySpawnLocation.MousePointer => GetMouseLocationWithInaccuracy(),
             DeliverySpawnLocation.AITarget => GetAITargetPosition(),

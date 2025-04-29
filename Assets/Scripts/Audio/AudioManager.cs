@@ -95,8 +95,13 @@ public class AudioManager : Singleton<AudioManager>
         activeAudio.transform.localPosition = position;
 
         if (Instance.activeSources.ContainsKey(clip)) {
+            if (Instance.activeSources[clip][0].time < clip.length / 2f) {
+                return;
+            }
+            
+            
             //Debug.Log("Already Playing: " + clip.name);
-            return;
+            
         }
 
         //Debug.Log("Playing: " + clip.name);
