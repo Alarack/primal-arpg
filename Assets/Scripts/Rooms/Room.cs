@@ -149,7 +149,7 @@ public abstract class Room {
             ItemType.Equipment when slot != ItemSlot.None => slot.ToString().Replace("1", ""), //SetEquipmentRewardDescriptions(reward, slot),
             ItemType.Equipment when slot == ItemSlot.None => "Random Equipment",
             ItemType.Rune => "Skill Rune",
-            ItemType.Currency => "Gold",
+            ItemType.Currency => "Crystalized Aetherium",
             ItemType.Skill when tag != AbilityTag.None => tag + " Skill", //SetSkillRewardDescription(reward, tag),
             ItemType.Skill when tag == AbilityTag.None => "Random Skill",
             ItemType.ClassSelection => "",

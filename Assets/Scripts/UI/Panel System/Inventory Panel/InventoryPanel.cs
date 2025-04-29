@@ -34,6 +34,7 @@ public class InventoryPanel : BasePanel {
 
     [Header("Template")]
     public int slotCount = 60;
+    public int defaultForgeCost = 25;
     public Transform inventoryHolder;
     public InventoryItemEntry inventoryEntryTemplate;
 
@@ -50,6 +51,7 @@ public class InventoryPanel : BasePanel {
 
     [Header("Text Fields")]
     public TextMeshProUGUI goldText;
+    public TextMeshProUGUI forgeCostText;
     //[Header("Testing Debug Things")]
     //public TextMeshProUGUI cdrText;
 
@@ -94,11 +96,15 @@ public class InventoryPanel : BasePanel {
         PopulateInventory();
         SetStatValues();
         UpdateGoldText();
-
+        UpdateForgeCost();
 
         //if(characterImage.sprite != null) {
         //    characterImage.sprite = EntityManager.ActivePlayer.Inventory.GetItems(ItemType.ClassSelection)[0].Data.itemIcon;
         //}
+    }
+
+    private void UpdateForgeCost() {
+        forgeCostText.text = defaultForgeCost + ": ";
     }
 
     public override void Close() {
@@ -347,10 +353,10 @@ public class InventoryPanel : BasePanel {
             goldText.color = Color.white;
         }
         else {
-            goldText.color = Color.red;
+            goldText.color = ColorDataManager.Instance["Stat Penalty Color"];
         }
 
-        goldText.text = "25/" + currentCoins;
+        goldText.text = currentCoins.ToString();
     }
 
     public void UpdateAffixSlot(ItemAffixSlotEntry slot) {

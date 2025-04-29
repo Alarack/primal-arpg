@@ -78,7 +78,7 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
                 TooltipManager.Show(displayItem.GetTooltip(), TextHelper.ColorizeText(displayItem.Data.itemName, Color.cyan));
                 break;
             case ItemType.Currency:
-                TooltipManager.Show("A pile of Gold");
+                TooltipManager.Show("A cluster of Aetherium Crystals");
                 break;
             case ItemType.Skill:
                 TooltipManager.Show(displayAbility.GetTooltip(), displayAbility.Data.abilityName);
