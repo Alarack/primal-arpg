@@ -34,6 +34,9 @@ public class HealthPotionUIManager : MonoBehaviour
     private void OnDisable() {
         //EventManager.RemoveMyListeners(this);
 
+        if (potionsStat == null)
+            return;
+
         potionsStat.onValueChanged -= OnStatValueChanged;
         potionsStat.MaxValueStat.onValueChanged -= OnStatMaxValueChanged;
 

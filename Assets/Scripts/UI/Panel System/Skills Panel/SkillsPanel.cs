@@ -210,8 +210,8 @@ public class SkillsPanel : SkillBasePanel {
 
     public void ShowInfoTooltip() {
         StringBuilder builder = new StringBuilder();
-        builder.AppendLine("Drag Skills from the Known Skills section to the Active Skills section to assign them.");
-        builder.AppendLine("You can also drag skills around in the Action Skills Section to change their posiitons.");
+        builder.AppendLine("Drag unassigned Skills from the Known Skills section to the Active Skills section to assign them.");
+        builder.AppendLine("You can also drag assigned skills around in the Active Skills Section to change their posiitons.");
         builder.AppendLine();
         builder.AppendLine("Right Click any Skill to edit that Skill's Runes.");
         builder.AppendLine();

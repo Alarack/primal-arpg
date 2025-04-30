@@ -53,7 +53,7 @@ public class BasePanel : MonoBehaviour
             case BasePanelState.Open:
                 break;
             case BasePanelState.Closed:
-                Close();
+                //Close();
                 break;
         }
     }

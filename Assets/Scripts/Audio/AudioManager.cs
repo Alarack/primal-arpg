@@ -91,18 +91,15 @@ public class AudioManager : Singleton<AudioManager>
 
     public static void PlaySoundClip(AudioClip clip, Vector2 position, float volume, float pitchVariance = 1f) {
 
-        AudioSource activeAudio = Instantiate(Instance.SFXTemplate, Instance.transform);
-        activeAudio.transform.localPosition = position;
-
         if (Instance.activeSources.ContainsKey(clip)) {
             if (Instance.activeSources[clip][0].time < clip.length / 2f) {
                 return;
             }
-            
-            
-            //Debug.Log("Already Playing: " + clip.name);
-            
         }
+
+        AudioSource activeAudio = Instantiate(Instance.SFXTemplate, Instance.transform);
+        activeAudio.transform.localPosition = position;
+
 
         //Debug.Log("Playing: " + clip.name);
 
@@ -131,6 +128,8 @@ public class AudioManager : Singleton<AudioManager>
         yield return waiter;
 
         if(activeSources.ContainsKey(clip) == true) {
+            //Debug.Log("Resolving: " + clip.name);
+
             activeSources.Remove(clip);
         }
 

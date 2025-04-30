@@ -36,6 +36,7 @@ public class HUDPanel : BasePanel
         base.Awake();
 
         statusTemplate.gameObject.SetActive(false);
+        goldText.text = "0";
     }
 
     protected override void Start() {

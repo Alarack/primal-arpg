@@ -29,6 +29,10 @@ public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
     }
 
     private void OnDisable() {
+
+        if (AssosiatedStat == null)
+            return;
+
         AssosiatedStat.onValueChanged -= OnStatValueChanged;
         AssosiatedStat.MaxValueStat.onValueChanged -= OnStatValueChanged;
     }

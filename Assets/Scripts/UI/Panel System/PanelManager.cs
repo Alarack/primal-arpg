@@ -108,6 +108,10 @@ public static class PanelManager
         activePanel.Initialize(targetPanel.panelID, targetPanel.closeOnEscape);
         currentPanels.Add(targetPanel.panelID, activePanel);
 
+        if (activePanel.defaultState == BasePanelState.Closed) {
+            activePanel.Close();
+        }
+
         return activePanel as T;
     }
 
