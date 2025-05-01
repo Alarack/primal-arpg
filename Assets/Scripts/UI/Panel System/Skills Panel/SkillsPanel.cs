@@ -1,4 +1,5 @@
 using LL.Events;
+using Michsky.MUIP;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -19,6 +20,11 @@ public class SkillsPanel : SkillBasePanel {
 
     [Header("Tutorial Overlay")]
     public GameObject tutorialOverlay;
+
+    [Header("Other UI Bits")]
+    public UnspentSkillPointIndicator unspentIndicator;
+
+  
 
     private List<SkillEntry> knownSkillEntries = new List<SkillEntry>();
     private List<SkillEntry> classFeatureEntries = new List<SkillEntry>();
@@ -41,6 +47,8 @@ public class SkillsPanel : SkillBasePanel {
         AbilityUtilities.PopulateSkillEntryList(ref classFeatureEntries, skillEntryTemplate, classFeatureSkillHolder, SkillEntry.SkillEntryLocation.ClassFeatureSkill);
 
         //ShowTutorial();
+
+        CheckForUnspentSkillPoints();
     }
 
     public override void Show() {
@@ -205,6 +213,12 @@ public class SkillsPanel : SkillBasePanel {
                 activePassiveSkillEntries[i].AssignNewAbility(null);
             }
         }
+    }
+
+    public void CheckForUnspentSkillPoints() {
+        float skillPoints = EntityManager.ActivePlayer.Stats[StatName.SkillPoint];
+        
+        unspentIndicator.gameObject.SetActive(skillPoints > 0);
     }
 
 

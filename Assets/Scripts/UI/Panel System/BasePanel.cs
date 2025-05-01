@@ -98,6 +98,8 @@ public class BasePanel : MonoBehaviour
 
         if (view.activeInHierarchy == true)
             IsOpen = true;
+
+        //IsOpen = defaultState == BasePanelState.Open;
     }
 
     public virtual void Refresh()

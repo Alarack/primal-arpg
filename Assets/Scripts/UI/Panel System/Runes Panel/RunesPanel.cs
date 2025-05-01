@@ -48,6 +48,7 @@ public class RunesPanel : BasePanel {
         base.Close();
 
         TooltipManager.Hide();
+        PanelManager.GetPanel<SkillsPanel>().CheckForUnspentSkillPoints();
     }
 
     public void Setup(Ability ability) {
