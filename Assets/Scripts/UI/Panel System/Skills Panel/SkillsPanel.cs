@@ -27,7 +27,7 @@ public class SkillsPanel : SkillBasePanel {
   
 
     private List<SkillEntry> knownSkillEntries = new List<SkillEntry>();
-    private List<SkillEntry> classFeatureEntries = new List<SkillEntry>();
+    //private List<SkillEntry> classFeatureEntries = new List<SkillEntry>();
 
     private List<SkillEntry> activePassiveSkillEntries = new List<SkillEntry>();
     private List<SkillEntry> knownPassiveSkillEntries = new List<SkillEntry>();
@@ -44,7 +44,7 @@ public class SkillsPanel : SkillBasePanel {
 
         AbilityUtilities.PopulateSkillEntryList(ref knownSkillEntries, skillEntryTemplate, knownSkillsHolder, SkillEntry.SkillEntryLocation.KnownSkill);
         AbilityUtilities.PopulateSkillEntryList(ref knownPassiveSkillEntries, skillEntryTemplate, knownPassiveSkillsHolder, SkillEntry.SkillEntryLocation.KnownPassive);
-        AbilityUtilities.PopulateSkillEntryList(ref classFeatureEntries, skillEntryTemplate, classFeatureSkillHolder, SkillEntry.SkillEntryLocation.ClassFeatureSkill);
+        //AbilityUtilities.PopulateSkillEntryList(ref classFeatureEntries, skillEntryTemplate, classFeatureSkillHolder, SkillEntry.SkillEntryLocation.ClassFeatureSkill);
 
         //ShowTutorial();
 
@@ -86,6 +86,10 @@ public class SkillsPanel : SkillBasePanel {
 
     public SkillEntry IsAbilityInActiveList(Ability ability) {
         return AbilityUtilities.GetSkillEntryByAbility(activeSkillEntries, ability);
+    }
+
+    public List<SkillEntry> GetActiveSkillEntries() {
+        return activeSkillEntries;
     }
 
     public void OnPassiveSlotClicked(SkillEntry slot) {

@@ -10,6 +10,7 @@ public class RunesPanel : BasePanel {
     public SkillRuneEntry inventoryEntryTemplate;
     public Transform inventoryHolder;
     public Transform runeSlotHolder;
+    public Transform skillEntryHolder;
 
     [Header("Rune Group Template")]
     public RuneGroupEntry runeGrouptemplate;
@@ -19,6 +20,7 @@ public class RunesPanel : BasePanel {
     public TextMeshProUGUI skillNameText;
     public TextMeshProUGUI skillLevelText;
     public TextMeshProUGUI availableSkillPointsText;
+    public TextMeshProUGUI headerText;
 
     [Header("Skill Entry Display")]
     public SkillEntry skillEntry;
@@ -29,6 +31,7 @@ public class RunesPanel : BasePanel {
     private List<SkillRuneEntry> skillRuneEntries = new List<SkillRuneEntry>();
     private List<RuneGroupEntry> runeGroupEntries = new List<RuneGroupEntry>();
 
+    private List<SkillEntry> activeSkillEntries = new List<SkillEntry>();
 
     private List<Item> currentSkillRunes = new List<Item>();
 
@@ -37,6 +40,7 @@ public class RunesPanel : BasePanel {
         inventoryEntryTemplate.gameObject.SetActive(false);
         runeGrouptemplate.gameObject.SetActive(false);
         //CreateEmptySlots();
+        skillEntry.gameObject.SetActive(false);
     }
 
     public override void Open() {
@@ -53,12 +57,37 @@ public class RunesPanel : BasePanel {
 
     public void Setup(Ability ability) {
         this.CurrentAbility = ability;
-        skillEntry.Setup(ability, SkillEntry.SkillEntryLocation.RunePanel, false);
-        skillNameText.text = CurrentAbility.Data.abilityName;
+        //skillEntry.Setup(ability, SkillEntry.SkillEntryLocation.RunePanel, false);
+        //skillNameText.text = CurrentAbility.Data.abilityName;
+        //headerText.text = CurrentAbility.Data.abilityName + " Runes"; 
+
+        SetupActiveSkills(ability);
+
         UpdateTextFields();
-        SetupRuneSlots();
-        PopulateInventory();
+        //SetupRuneSlots();
+        //PopulateInventory();
         CreateRuneGroups();
+    }
+
+    private void SetupActiveSkills(Ability selectedSkill) {
+
+        List<SkillEntry> activeEntries = PanelManager.GetPanel<SkillsPanel>().GetActiveSkillEntries();
+
+        activeSkillEntries.PopulateList(activeEntries.Count, skillEntry, skillEntryHolder, true);
+
+
+        for (int i = 0; i < activeSkillEntries.Count; i++) {
+
+            activeSkillEntries[i].Setup(activeEntries[i].Ability, SkillEntry.SkillEntryLocation.RunePanel, false);
+
+
+            if (activeSkillEntries[i].Ability == selectedSkill) {
+                activeSkillEntries[i].SelectActive();
+            }
+        }
+
+
+
     }
 
     public void ResetRunes() {
@@ -187,14 +216,6 @@ public class RunesPanel : BasePanel {
         OnSkillLevelUp();
         AudioManager.PlayAbilityLevelUp();
 
-    }
-
-    public void OnLeveUpMouseOver() {
-        TooltipManager.Show("Skill Points are gained whenever you level up. Choose one Rune from each Tier. Increase your Skill Level to unlock additional Rune Tiers.", "Skill Leveling");
-    }
-
-    public void OnLevelUpMouseOut() {
-        TooltipManager.Hide();
     }
 
     public void ShowInfoTooltip() {

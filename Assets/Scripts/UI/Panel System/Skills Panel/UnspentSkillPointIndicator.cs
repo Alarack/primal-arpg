@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using System.Text;
 
 public class UnspentSkillPointIndicator : MonoBehaviour,IPointerEnterHandler, IPointerExitHandler
 {
@@ -26,7 +27,16 @@ public class UnspentSkillPointIndicator : MonoBehaviour,IPointerEnterHandler, IP
     public void OnPointerEnter(PointerEventData eventData) {
         float skillPoints = EntityManager.ActivePlayer.Stats[StatName.SkillPoint];
 
-        TooltipManager.Show("You have " + skillPoints + " unspent Skill Points", "Unspent Skill Points");
+
+
+        StringBuilder builder = new StringBuilder();
+        builder.AppendLine("You have " + skillPoints + " unspent Skill Points");
+        builder.AppendLine();
+        builder.AppendLine("Right Click any Skill to spend Skill Points.");
+      
+        TooltipManager.Show(builder.ToString(), "Unspent Skill Points");
+
+
     }
 
     public void OnPointerExit(PointerEventData eventData) {

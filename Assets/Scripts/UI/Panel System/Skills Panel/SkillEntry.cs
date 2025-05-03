@@ -27,10 +27,12 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [Header("Images & Text")]
     public Image icon;
     public Image dimmer;
-    public Image buttonPromptImage;
+    //public Image buttonPromptImage;
     public Image keyBindImage;
+    public Image activeSelectionFrameImage;
     public TextMeshProUGUI buttonPromptText;
     public TextMeshProUGUI chargesText;
+    public TextMeshProUGUI skillNameText;
     public SkillEntryLocation location;
     public GameButtonType keybind;
 
@@ -87,33 +89,39 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         ShowCooldownDimmer();
     }
 
+    public void Setup(SkillEntry entry) {
+        Setup(entry.Ability, entry.location, entry.IsPassive, entry.keybind, entry.Index);
+    }
+
+
     public void Setup(Ability ability, SkillEntryLocation location, bool passive, GameButtonType keyBind = GameButtonType.None, int index = -1) {
         this.Ability = ability;
         this.keybind = keyBind;
         SetupAbilityIcon(ability);
+        SetupAbilityText();
 
         this.location = location;
         if ((location == SkillEntryLocation.Hotbar || location == SkillEntryLocation.ActiveSkill) && index > -1) {
             Index = index;
 
-            if(keyBindImage != null) {
+            if (keyBindImage != null) {
                 keyBindImage.gameObject.SetActive(true);
                 keyBindImage.sprite = GameManager.Instance.buttonDict[keyBind];
             }
         }
 
-        if(location != SkillEntryLocation.Hotbar && location != SkillEntryLocation.ActiveSkill) {
-            if(keyBindImage != null) {
+        if (location != SkillEntryLocation.Hotbar && location != SkillEntryLocation.ActiveSkill) {
+            if (keyBindImage != null) {
                 keyBindImage.gameObject.SetActive(false);
             }
         }
-          
+
 
         SetupCharges();
 
         IsPassive = passive;
 
-        if(passive == true) {
+        if (passive == true) {
             passiveHolder.SetActive(true);
             activeHolder.SetActive(false);
         }
@@ -130,13 +138,13 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             runePipEntries.ClearList();
             return;
         }
-            
+
 
         if (Ability == null) {
             runePipEntries.ClearList();
             return;
         }
-            
+
 
         runePipEntries.PopulateList(Ability.GetMaxRunes(), runePipImageTemplate, runePipHolder, true);
 
@@ -177,6 +185,16 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         chargesText.text = Ability.Charges.ToString();
     }
 
+    private void SetupAbilityText() {
+        
+        if (skillNameText != null) {
+            if (Ability != null)
+                skillNameText.text = Ability.Data.abilityName;
+            else
+                skillNameText.text = "";
+        }
+    }
+
     private void SetupAbilityIcon(Ability ability) {
 
         if (ability != null) {
@@ -213,6 +231,15 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             dimmer.fillAmount = 0;
     }
 
+
+    public void SelectActive() {
+        activeSelectionFrameImage.gameObject.SetActive(true);
+    }
+
+    public void DeselectActive() {
+        activeSelectionFrameImage.gameObject.SetActive(false);
+    }
+
     public void SelectPassive() {
         selecteFrame.gameObject.SetActive(true);
     }
@@ -238,11 +265,15 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerClick(PointerEventData eventData) {
 
-        if (location == SkillEntryLocation.RunePanel)
-            return;
+        //if (location == SkillEntryLocation.RunePanel) {
+        //    return;
+        //}
 
 
         if (eventData.button == PointerEventData.InputButton.Right) {
+            if (location == SkillEntryLocation.RunePanel) {
+                return;
+            }
 
             if (Ability != null && Ability.IsEquipped == true)
                 PanelManager.OpenPanel<RunesPanel>().Setup(Ability);
@@ -262,36 +293,31 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
 
 
-        if(eventData.button == PointerEventData.InputButton.Left) {
+        if (eventData.button == PointerEventData.InputButton.Left) {
 
-            if(location == SkillEntryLocation.ActivePassive || location == SkillEntryLocation.KnownPassive) {
+
+            if (location == SkillEntryLocation.RunePanel && Ability != null) {
+                PanelManager.GetPanel<RunesPanel>().Setup(Ability);
+                return;
+            }
+
+
+            if (location == SkillEntryLocation.ActivePassive || location == SkillEntryLocation.KnownPassive) {
                 SkillsPanel skillsPanel = PanelManager.GetPanel<SkillsPanel>();
 
-                if(location == SkillEntryLocation.KnownPassive) {
+                if (location == SkillEntryLocation.KnownPassive) {
                     skillsPanel.OnKnownPassiveSelected(this);
                 }
 
-                if(location == SkillEntryLocation.ActivePassive) {
+                if (location == SkillEntryLocation.ActivePassive) {
                     skillsPanel.OnPassiveSlotClicked(this);
                 }
 
             }
 
-          
+
         }
 
-        //if (location == SkillEntryLocation.ActivePassive && eventData.button == PointerEventData.InputButton.Left) {
-        //    SkillsPanel skillsPanel = PanelManager.GetPanel<SkillsPanel>();
-
-
-        //    if (Ability == null || Ability.IsEquipped == true) {
-        //      skillsPanel.OnPassiveSlotClicked(this);
-        //    }
-
-        //    if(Ability != null && Ability.IsEquipped == false) {
-        //        skillsPanel.OnKnownPassiveSelected(this);
-        //    }
-        //}
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
@@ -363,7 +389,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (Ability == null)
             return true;
 
-        if (location == SkillEntryLocation.Hotbar || 
+        if (location == SkillEntryLocation.Hotbar ||
             location == SkillEntryLocation.RunePanel ||
             location == SkillEntryLocation.ClassFeatureSkill)
             return true;
