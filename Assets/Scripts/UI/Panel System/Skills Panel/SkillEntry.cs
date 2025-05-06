@@ -27,6 +27,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [Header("Images & Text")]
     public Image icon;
     public Image dimmer;
+    public Image alreadySelectedDimmer;
     //public Image buttonPromptImage;
     public Image keyBindImage;
     public Image activeSelectionFrameImage;
@@ -97,10 +98,11 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void Setup(Ability ability, SkillEntryLocation location, bool passive, GameButtonType keyBind = GameButtonType.None, int index = -1) {
         this.Ability = ability;
         this.keybind = keyBind;
+        this.location = location;
         SetupAbilityIcon(ability);
         SetupAbilityText();
 
-        this.location = location;
+
         if ((location == SkillEntryLocation.Hotbar || location == SkillEntryLocation.ActiveSkill) && index > -1) {
             Index = index;
 
@@ -186,7 +188,17 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
     private void SetupAbilityText() {
-        
+
+        if (location != SkillEntryLocation.RunePanel) {
+
+            if (skillNameText != null)
+                skillNameText.gameObject.SetActive(false);
+
+            return;
+
+        }
+
+
         if (skillNameText != null) {
             if (Ability != null)
                 skillNameText.text = Ability.Data.abilityName;
@@ -216,6 +228,9 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         SetupAbilityIcon(ability);
         SetupCharges();
         SetupRunePips();
+
+        //if(ability != null) 
+        //    Debug.Log("Skill Entry Event Recieved: " + ability.Data.abilityName + " to slot " + Index);
     }
 
     private void ShowCooldownDimmer() {
@@ -265,11 +280,6 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerClick(PointerEventData eventData) {
 
-        //if (location == SkillEntryLocation.RunePanel) {
-        //    return;
-        //}
-
-
         if (eventData.button == PointerEventData.InputButton.Right) {
             if (location == SkillEntryLocation.RunePanel) {
                 return;
@@ -277,10 +287,6 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
             if (Ability != null && Ability.IsEquipped == true)
                 PanelManager.OpenPanel<RunesPanel>().Setup(Ability);
-
-            //SkillModifier embiggen = SkillModifierFactory.MakeProjectileBigger();
-            //Debug.Log("Modifying " + Skill.skillName + " " + embiggen.sizeMod);
-            //Skill.AddModifier(embiggen);
         }
 
         if (location == SkillEntryLocation.Hotbar && eventData.button == PointerEventData.InputButton.Left) {
@@ -292,18 +298,17 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             EventManager.SendEvent(GameEvent.UserActivatedAbility, data);
         }
 
-
         if (eventData.button == PointerEventData.InputButton.Left) {
-
 
             if (location == SkillEntryLocation.RunePanel && Ability != null) {
                 PanelManager.GetPanel<RunesPanel>().Setup(Ability);
                 return;
             }
 
+            SkillsPanel skillsPanel = PanelManager.GetPanel<SkillsPanel>();
 
             if (location == SkillEntryLocation.ActivePassive || location == SkillEntryLocation.KnownPassive) {
-                SkillsPanel skillsPanel = PanelManager.GetPanel<SkillsPanel>();
+                
 
                 if (location == SkillEntryLocation.KnownPassive) {
                     skillsPanel.OnKnownPassiveSelected(this);
@@ -312,12 +317,17 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 if (location == SkillEntryLocation.ActivePassive) {
                     skillsPanel.OnPassiveSlotClicked(this);
                 }
-
             }
 
+            if(location == SkillEntryLocation.ActiveSkill) {
+                //if(Ability == null)
+                skillsPanel.OnActiveSlotSelected(this);
+            }
 
+            if (location == SkillEntryLocation.KnownSkill && skillsPanel.IsAbilityInActiveList(Ability) == null) {
+                skillsPanel.OnKnownSkillSelected(this);
+            }
         }
-
     }
 
     public void OnBeginDrag(PointerEventData eventData) {

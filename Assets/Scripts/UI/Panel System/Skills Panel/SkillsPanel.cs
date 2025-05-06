@@ -15,8 +15,9 @@ public class SkillsPanel : SkillBasePanel {
     public Transform knownPassiveSkillsHolder;
     public Transform classFeatureSkillHolder;
 
-    [Header("Passive Collection Sub Panel")]
+    [Header("Sub Panels")]
     public PassiveSkillPanel passiveCollectionPanel;
+    public KnownSkillsSubpanel knownSkillsSubpanel;
 
     [Header("Tutorial Overlay")]
     public GameObject tutorialOverlay;
@@ -85,11 +86,30 @@ public class SkillsPanel : SkillBasePanel {
     }
 
     public SkillEntry IsAbilityInActiveList(Ability ability) {
+        if(ability == null) 
+            return null;
+
         return AbilityUtilities.GetSkillEntryByAbility(activeSkillEntries, ability);
+    }
+
+    public SkillEntry IsPassiveAbilityInActiveList(Ability ability) {
+        if (ability == null)
+            return null;
+
+        return AbilityUtilities.GetSkillEntryByAbility(activePassiveSkillEntries, ability);
     }
 
     public List<SkillEntry> GetActiveSkillEntries() {
         return activeSkillEntries;
+    }
+
+    public void OnActiveSlotSelected(SkillEntry entry) {
+        knownSkillsSubpanel.Open();
+        knownSkillsSubpanel.Setup(entry, knownSkillEntries, this);   
+    }
+
+    public void OnKnownSkillSelected(SkillEntry entry) {
+        knownSkillsSubpanel.AssignKnownSkill(entry);
     }
 
     public void OnPassiveSlotClicked(SkillEntry slot) {
