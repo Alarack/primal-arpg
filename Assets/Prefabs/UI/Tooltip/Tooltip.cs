@@ -22,16 +22,18 @@ public class Tooltip : MonoBehaviour
     private LayoutElement layoutElement;
     [SerializeField]
     private RectTransform rectTransform;
+    private RectTransform canvasRectTransform;
 
-    private GameObject view;
+    private RectTransform view;
     private CanvasGroup canvasGroup;
     private Canvas canvas;
 
     private Vector2 tempOffset;
 
     private void Awake() {
-        view = transform.Find("View").gameObject;
+        view = transform.Find("View").GetComponent<RectTransform>();
         canvas = GetComponent<Canvas>();
+        canvasRectTransform = canvas.GetComponent<RectTransform>();
 
         //rectTransform = view.GetComponent<RectTransform>();
         layoutElement = GetComponentInChildren<LayoutElement>(true);
@@ -53,6 +55,24 @@ public class Tooltip : MonoBehaviour
         //fadeInFeedback.StopFeedbacks();
         //fadeOutFeedback.PlayFeedbacks();
 
+    }
+
+    private void AnchorBottom() {
+        view.anchorMin = new Vector2(0.5f, 0);
+        view.anchorMax = new Vector2(0.5f, 0);
+        view.pivot = new Vector2(0.5f, 0);
+        rectTransform.anchorMin = new Vector2(0.5f, 0);
+        rectTransform.anchorMax = new Vector2(0.5f, 0);
+        rectTransform.pivot = new Vector2(0.5f, 0);
+    }
+
+    private void AnchorTop() {
+        view.anchorMin = new Vector2(0.5f, 1f);
+        view.anchorMax = new Vector2(0.5f, 1f);
+        view.pivot = new Vector2(0.5f, 1f);
+        rectTransform.anchorMin = new Vector2(0.5f, 1f);
+        rectTransform.anchorMax = new Vector2(0.5f, 1f);
+        rectTransform.pivot = new Vector2(0.5f, 1f);
     }
 
     public void SetText(string content, string header = "") {
@@ -79,24 +99,36 @@ public class Tooltip : MonoBehaviour
 
 
     private void SetTooltipPosition() {
+
+        if (view.gameObject.activeSelf == false)
+            return;
+
         Vector2 newPos = (Vector2)Input.mousePosition + offset + tempOffset;
+
         //newPos.z = 0f;
-        float rightEdgeToScreenEdgeDistance = Screen.width - (newPos.x + rectTransform.rect.width * canvas.scaleFactor / 2) - padding;
-        if (rightEdgeToScreenEdgeDistance < 0) {
+        float rightEdgeToScreenEdgeDistance = Screen.width - (newPos.x + rectTransform.rect.width * canvas.scaleFactor / 2f) - padding;
+        if (rightEdgeToScreenEdgeDistance < 0f) {
             newPos.x += rightEdgeToScreenEdgeDistance;
         }
-        float leftEdgeToScreenEdgeDistance = 0 - (newPos.x - rectTransform.rect.width * canvas.scaleFactor / 2) + padding;
-        if (leftEdgeToScreenEdgeDistance > 0) {
+        float leftEdgeToScreenEdgeDistance = 0f - (newPos.x - rectTransform.rect.width * canvas.scaleFactor / 2f) + padding;
+        if (leftEdgeToScreenEdgeDistance > 0f) {
             newPos.x += leftEdgeToScreenEdgeDistance;
         }
-        float topEdgeToScreenEdgeDistance = Screen.height - (newPos.y + rectTransform.rect.height * canvas.scaleFactor /2) - padding;
-        if (topEdgeToScreenEdgeDistance < 0) {
-            newPos.y += topEdgeToScreenEdgeDistance - rectTransform.rect.height - (offset.y * 2);
+        float topEdgeToScreenEdgeDistance = Screen.height - (newPos.y + rectTransform.rect.height * 2f * canvas.scaleFactor / 2f) - padding;
+        if (topEdgeToScreenEdgeDistance < 0f) {
+            newPos.y += topEdgeToScreenEdgeDistance;
+
+            float topEdge = (newPos.y + rectTransform.rect.height * 2f * canvas.scaleFactor / 2f) - padding;
+            float mouseY = Input.mousePosition.y;
+
+            float difference = topEdge - Input.mousePosition.y;
+
+            newPos.y -= difference + (offset.y * (canvas.scaleFactor * 2f));
         }
 
-        float bottomEdgeToScreenEdgeDistance = 0 - (newPos.y - rectTransform.rect.height * canvas.scaleFactor /2) + padding;
-        if (bottomEdgeToScreenEdgeDistance > 0) {
-            newPos.y += bottomEdgeToScreenEdgeDistance;
+        float bottomEdgeToScreenEdgeDistance = 0f - (newPos.y - rectTransform.rect.height * canvas.scaleFactor /2f) + padding;
+        if (bottomEdgeToScreenEdgeDistance > 0f) {
+            //newPos.y += bottomEdgeToScreenEdgeDistance;
         }
 
         view.transform.position = newPos;

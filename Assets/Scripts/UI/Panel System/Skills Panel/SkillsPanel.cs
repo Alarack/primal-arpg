@@ -243,6 +243,10 @@ public class SkillsPanel : SkillBasePanel {
         float skillPoints = EntityManager.ActivePlayer.Stats[StatName.SkillPoint];
         
         unspentIndicator.gameObject.SetActive(skillPoints > 0);
+
+        if (unspentIndicator.gameObject.activeSelf) {
+            unspentIndicator.UpdateSkillPoints(skillPoints);
+        }
     }
 
 

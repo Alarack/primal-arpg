@@ -5,10 +5,13 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using System.Text;
+using TMPro;
+
 
 public class UnspentSkillPointIndicator : MonoBehaviour,IPointerEnterHandler, IPointerExitHandler
 {
     private Image image;
+    public TextMeshProUGUI skillPointsText;
 
 
     private void Awake() {
@@ -16,7 +19,19 @@ public class UnspentSkillPointIndicator : MonoBehaviour,IPointerEnterHandler, IP
     }
 
     private void Start() {
+        Material runtimeMat = new Material(image.material);
+        image.material = runtimeMat;
         PulseGlow();
+    }
+
+    public void UpdateSkillPoints(float skillPoints) {
+        skillPointsText.text = skillPoints.ToString();
+    }
+
+    private void OnEnable() {
+        float skillPoints = EntityManager.ActivePlayer.Stats[StatName.SkillPoint];
+        skillPointsText.text = skillPoints.ToString();
+
     }
 
 
