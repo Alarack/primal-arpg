@@ -16,18 +16,24 @@ public class PassiveSkillPanel : BasePanel
 
     public SkillsPanel skillPanel;
 
+    private SkillEntry selectedEntry;
+    private SkillsPanel skillsPanel;
+
+    private List<SkillEntry> knownPassiveSkillEntries = new List<SkillEntry>();
+
+
     public override void Open() {
         base.Open();
 
-        skillPanel.ClearHighlights();
+        //skillPanel.ClearHighlights();
 
-        SkillEntry knownLastClicked = skillPanel.GetMatchingActiveSlot(selectedActiveEntry);
+        //SkillEntry knownLastClicked = skillPanel.GetMatchingActiveSlot(selectedActiveEntry);
 
-        if (knownLastClicked != null) {
-            knownLastClicked.SelectPassive();
-            selectedKnownEntry = knownLastClicked;
-            OnKnownEntryClicked(knownLastClicked);
-        }
+        //if (knownLastClicked != null) {
+        //    knownLastClicked.SelectPassive();
+        //    selectedKnownEntry = knownLastClicked;
+        //    OnKnownEntryClicked(knownLastClicked);
+        //}
     }
 
     public override void Close() {
@@ -35,6 +41,49 @@ public class PassiveSkillPanel : BasePanel
 
         selectedActiveEntry = null;
         selectedKnownEntry = null;
+        selectedEntry = null;
+    }
+
+    public void Setup(SkillEntry entry, List<SkillEntry> knownPassiveSkillEntries, SkillsPanel skillsPanel) {
+        this.selectedEntry = entry;
+        this.skillsPanel = skillsPanel;
+        this.knownPassiveSkillEntries = knownPassiveSkillEntries;
+
+        SetupDisplay();
+
+    }
+
+
+    private void SetupDisplay() {
+        for (int i = 0; i < knownPassiveSkillEntries.Count; i++) {
+            SkillEntry alreadyActive = skillsPanel.IsPassiveAbilityInActiveList(knownPassiveSkillEntries[i].Ability);
+
+            knownPassiveSkillEntries[i].alreadySelectedDimmer.gameObject.SetActive(alreadyActive != null);
+        }
+    }
+
+
+
+    public void AssignKnownPassiveSkill(SkillEntry entry) {
+
+        SkillEntry existingSkill = skillsPanel.IsPassiveAbilityInActiveList(selectedEntry.Ability);
+
+        if (existingSkill != null) { //Skill slot is already filled
+
+            //Debug.Log("Unassigning: " + existingSkill.Ability.Data.abilityName + " from slot " + existingSkill.Index);
+            //EntityManager.ActivePlayer.AbilityManager.UnequipAbility(existingSkill.Ability, existingSkill.Index);
+
+            existingSkill.Ability.Uneqeuip();
+            selectedEntry.AssignNewAbility(null);
+        }
+
+        //EntityManager.ActivePlayer.AbilityManager.EquipAbility(entry.Ability, selectedEntry.Index);
+        //Debug.Log("Assigning: " + entry.Ability.Data.abilityName + " to slot " + selectedEntry.Index);
+
+        selectedEntry.AssignNewAbility(entry.Ability);
+        selectedEntry.Ability.Equip();
+
+        Close();
     }
 
 
@@ -68,12 +117,6 @@ public class PassiveSkillPanel : BasePanel
 
         TooltipManager.Hide();
         OnEquipClicked();
-    }
-
-
-
-    private void SetButtonText() {
-
     }
 
     public void OnEquipClicked() {

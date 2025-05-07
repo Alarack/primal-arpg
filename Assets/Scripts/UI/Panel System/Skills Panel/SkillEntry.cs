@@ -247,6 +247,23 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
 
+
+    public void Select() {
+        if (Ability != null && Ability.Data.category == AbilityCategory.KnownSkill)
+            SelectActive();
+
+        if (Ability != null && Ability.Data.category == AbilityCategory.PassiveSkill)
+            SelectPassive();
+    }
+
+    public void Deselect() {
+        if (Ability != null && Ability.Data.category == AbilityCategory.KnownSkill)
+            DeselectActive();
+
+        if (Ability != null && Ability.Data.category == AbilityCategory.PassiveSkill)
+            DeselectPassive();
+    }
+
     public void SelectActive() {
         activeSelectionFrameImage.gameObject.SetActive(true);
     }
@@ -307,19 +324,28 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
             SkillsPanel skillsPanel = PanelManager.GetPanel<SkillsPanel>();
 
-            if (location == SkillEntryLocation.ActivePassive || location == SkillEntryLocation.KnownPassive) {
-                
+            //if (location == SkillEntryLocation.ActivePassive || location == SkillEntryLocation.KnownPassive) {
 
-                if (location == SkillEntryLocation.KnownPassive) {
-                    skillsPanel.OnKnownPassiveSelected(this);
-                }
 
-                if (location == SkillEntryLocation.ActivePassive) {
-                    skillsPanel.OnPassiveSlotClicked(this);
-                }
+            //    if (location == SkillEntryLocation.KnownPassive) {
+            //        skillsPanel.OnKnownPassiveSelected(this);
+            //    }
+
+            //    if (location == SkillEntryLocation.ActivePassive) {
+            //        skillsPanel.OnPassiveSlotClicked(this);
+            //    }
+            //}
+
+
+            if(location == SkillEntryLocation.ActivePassive) {
+                skillsPanel.OnPassiveSlotSelected(this);
             }
 
-            if(location == SkillEntryLocation.ActiveSkill) {
+            if (location == SkillEntryLocation.KnownPassive && skillsPanel.IsPassiveAbilityInActiveList(Ability) == null) {
+                skillsPanel.OnKnownPassiveSelected(this);
+            }
+
+            if (location == SkillEntryLocation.ActiveSkill) {
                 //if(Ability == null)
                 skillsPanel.OnActiveSlotSelected(this);
             }

@@ -43,7 +43,7 @@ public class RuneChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
         imagefader.DOFade(1f, 1f);
 
         if(selectSound != null) {
-            AudioManager.PlaySoundClip(selectSound, transform.position, 1f);
+            AudioManager.PlaySoundClip(selectSound, transform.position, 0.5f);
         }
 
         if(RuneItem.Equipped == false) {

@@ -103,6 +103,10 @@ public class SkillsPanel : SkillBasePanel {
         return activeSkillEntries;
     }
 
+    public List<SkillEntry> GetActivePassiveEntries() {
+        return activePassiveSkillEntries;
+    }
+
     public void OnActiveSlotSelected(SkillEntry entry) {
         knownSkillsSubpanel.Open();
         knownSkillsSubpanel.Setup(entry, knownSkillEntries, this);   
@@ -112,6 +116,12 @@ public class SkillsPanel : SkillBasePanel {
         knownSkillsSubpanel.AssignKnownSkill(entry);
     }
 
+
+    public void OnPassiveSlotSelected(SkillEntry entry) {
+        passiveCollectionPanel.Open();
+        passiveCollectionPanel.Setup(entry, knownPassiveSkillEntries, this);
+    }
+
     public void OnPassiveSlotClicked(SkillEntry slot) {
         passiveCollectionPanel.OnSlotClicked(slot);
         //passiveCollectionPanel.selectedActiveEntry = slot;
@@ -119,10 +129,11 @@ public class SkillsPanel : SkillBasePanel {
     }
 
     public void OnKnownPassiveSelected(SkillEntry entry) {
-        passiveCollectionPanel.selectedKnownEntry = entry;
-        passiveCollectionPanel.OnKnownEntryClicked(entry);
+        passiveCollectionPanel.AssignKnownPassiveSkill(entry);
+        //passiveCollectionPanel.selectedKnownEntry = entry;
+        //passiveCollectionPanel.OnKnownEntryClicked(entry);
 
-        SetPassiveHighlights(entry);
+        //SetPassiveHighlights(entry);
     }
 
     public int GetFirstEmptyPassiveSlot() {
@@ -252,14 +263,13 @@ public class SkillsPanel : SkillBasePanel {
 
     public void ShowInfoTooltip() {
         StringBuilder builder = new StringBuilder();
-        builder.AppendLine("Drag unassigned Skills from the Known Skills section to the Active Skills section to assign them.");
-        builder.AppendLine("You can also drag assigned skills around in the Active Skills Section to change their posiitons.");
+        builder.AppendLine("Here you can view all your currently assigned Skills.");
         builder.AppendLine();
-        builder.AppendLine("Right Click any Skill to edit that Skill's Runes.");
+        builder.AppendLine("Left click any skill, or an empty skill slot to assign a skill to that slot.");
         builder.AppendLine();
-        builder.AppendLine("Left Click an Empty Passive Skill Slot to assign a Passive from your Known Passives.");
-        builder.AppendLine("Left Click on an assigned Passive Skill to unasign that Passive Skill.");
-
+        builder.AppendLine("You drag assigned skills around in the Active Skills Section to change their posiitons.");
+        builder.AppendLine();
+        builder.AppendLine("Right Click any Skill to customize that Skill's Runes.");
 
         TooltipManager.Show(builder.ToString(), "Skills Info");
     }
