@@ -236,11 +236,11 @@ public class EntityManager : Singleton<EntityManager> {
 
         PanelManager.ClosePanel<MainMenuPanel>();
        
-        PanelManager.OpenPanel<InventoryPanel>();
-        PanelManager.OpenPanel<SkillsPanel>();
+        PanelManager.GetPanel<InventoryPanel>();
+        PanelManager.GetPanel<SkillsPanel>();
         PanelManager.OpenPanel<CharacterSelectPanel>();
-        PanelManager.OpenPanel<HotbarPanel>();
-        PanelManager.OpenPanel<HUDPanel>();
+        PanelManager.GetPanel<HotbarPanel>();
+        PanelManager.GetPanel<HUDPanel>();
         
 
         //RoomManager.CreateRewards(RoomManager.Instance.testRewardItems);

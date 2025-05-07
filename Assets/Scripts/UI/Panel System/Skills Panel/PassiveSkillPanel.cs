@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Michsky.MUIP;
+using System;
 
 public class PassiveSkillPanel : BasePanel
 {
@@ -42,6 +43,8 @@ public class PassiveSkillPanel : BasePanel
         selectedActiveEntry = null;
         selectedKnownEntry = null;
         selectedEntry = null;
+
+        TooltipManager.Hide();
     }
 
     public void Setup(SkillEntry entry, List<SkillEntry> knownPassiveSkillEntries, SkillsPanel skillsPanel) {
@@ -58,7 +61,13 @@ public class PassiveSkillPanel : BasePanel
         for (int i = 0; i < knownPassiveSkillEntries.Count; i++) {
             SkillEntry alreadyActive = skillsPanel.IsPassiveAbilityInActiveList(knownPassiveSkillEntries[i].Ability);
 
-            knownPassiveSkillEntries[i].alreadySelectedDimmer.gameObject.SetActive(alreadyActive != null);
+            //knownPassiveSkillEntries[i].alreadySelectedDimmer.gameObject.SetActive(alreadyActive != null);
+
+
+            Action target = alreadyActive != null ? knownPassiveSkillEntries[i].GrayIcon : knownPassiveSkillEntries[i].ColorIcon;
+
+            target?.Invoke();
+
         }
     }
 

@@ -20,7 +20,15 @@ public class BasePanel : MonoBehaviour
 
     public float fadeTime = 0.25f;
 
+
     public BasePanelState defaultState;
+
+    [Header("SFX")]
+    public float openSoundVolume = 1f;
+    public float closeSoundVolume = 1f;
+    public AudioClip openSound;
+    public AudioClip closeSound;
+
     private CanvasGroup panelFader;
 
     protected virtual void OnEnable() { }
@@ -131,6 +139,10 @@ public class BasePanel : MonoBehaviour
                 FadeIn();
             }
 
+            if(openSound != null && IsOpen == false) {
+                AudioManager.PlaySoundClip(openSound, Vector2.zero, openSoundVolume);
+            }
+
             view.SetActive(true);
             transform.SetAsLastSibling();
             IsOpen = true;
@@ -165,6 +177,7 @@ public class BasePanel : MonoBehaviour
                 view.SetActive(false);
             }
 
+
             //Debug.LogWarning("Closing: " + GetType());
 
             // Only send the close events if we actually closed
@@ -173,6 +186,11 @@ public class BasePanel : MonoBehaviour
                 IsOpen = false;
                 OnClose();
                 onCloseCallback?.Invoke();
+
+                if (closeSound != null) {
+                    AudioManager.PlaySoundClip(closeSound, Vector2.zero, closeSoundVolume);
+                }
+
             }
             else
             {

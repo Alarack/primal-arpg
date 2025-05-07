@@ -28,6 +28,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Image icon;
     public Image dimmer;
     public Image alreadySelectedDimmer;
+    public Material deselectMaterial;
     //public Image buttonPromptImage;
     public Image keyBindImage;
     public Image activeSelectionFrameImage;
@@ -54,6 +55,8 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private List<Image> runePipEntries = new List<Image>();
 
+    private Material defaultMaterial;
+
     //public GameInput.GameButtonType keyBind;
 
     //[Header("Slot Elements")]
@@ -76,6 +79,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         dimmer.fillAmount = 0f;
 
         runePipImageTemplate.gameObject.SetActive(false);
+        defaultMaterial = icon.material;
     }
 
     private void OnDisable() {
@@ -266,18 +270,36 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void SelectActive() {
         activeSelectionFrameImage.gameObject.SetActive(true);
+        //icon.material = defaultMaterial;
     }
 
     public void DeselectActive() {
         activeSelectionFrameImage.gameObject.SetActive(false);
+        //icon.material = deselectMaterial;
     }
 
     public void SelectPassive() {
         selecteFrame.gameObject.SetActive(true);
+        //passiveIcon.material = defaultMaterial;
     }
 
     public void DeselectPassive() {
         selecteFrame.gameObject.SetActive(false);
+        //passiveIcon.material = deselectMaterial;
+    }
+
+    public void GrayIcon() {
+
+        if (deselectMaterial == null)
+            return;
+
+        passiveIcon.material = deselectMaterial;
+        icon.material = deselectMaterial;
+    }
+
+    public void ColorIcon() {
+        passiveIcon.material = defaultMaterial;
+        icon.material = defaultMaterial;
     }
 
     #region UI CALLBACKS

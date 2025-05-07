@@ -25,6 +25,7 @@ public class KnownSkillsSubpanel : BasePanel {
         base.Close();
 
         selectedEntry = null;
+        TooltipManager.Hide();
     }
 
 
@@ -37,7 +38,12 @@ public class KnownSkillsSubpanel : BasePanel {
         for (int i = 0; i < knownSkillEntries.Count; i++) {
             SkillEntry alreadyActive = skillsPanel.IsAbilityInActiveList(knownSkillEntries[i].Ability);
 
-            knownSkillEntries[i].alreadySelectedDimmer.gameObject.SetActive(alreadyActive != null);
+
+            Action target = alreadyActive != null ? knownSkillEntries[i].GrayIcon : knownSkillEntries[i].ColorIcon;
+
+            target?.Invoke();
+
+            //knownSkillEntries[i].alreadySelectedDimmer.gameObject.SetActive(alreadyActive != null);
         }
     }
     public void AssignKnownSkill(SkillEntry entry) {
