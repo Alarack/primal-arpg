@@ -109,7 +109,7 @@ public static class PanelManager
         currentPanels.Add(targetPanel.panelID, activePanel);
 
         if (activePanel.defaultState == BasePanelState.Closed) {
-            activePanel.Close();
+            activePanel.Hide();
         }
 
         return activePanel as T;

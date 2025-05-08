@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Michsky.MUIP;
 using System;
+using System.Text;
 
 public class PassiveSkillPanel : BasePanel
 {
 
-    public SkillEntry selectedActiveEntry;
-    public SkillEntry selectedKnownEntry;
+    //public SkillEntry selectedActiveEntry;
+    //public SkillEntry selectedKnownEntry;
 
-    public TextMeshProUGUI buttonText;
+    //public TextMeshProUGUI buttonText;
 
-    public ButtonManager equipButton;
+    //public ButtonManager equipButton;
 
-    public SkillsPanel skillPanel;
+    //public SkillsPanel skillPanel;
 
     private SkillEntry selectedEntry;
     private SkillsPanel skillsPanel;
@@ -40,8 +40,8 @@ public class PassiveSkillPanel : BasePanel
     public override void Close() {
         base.Close();
 
-        selectedActiveEntry = null;
-        selectedKnownEntry = null;
+        //selectedActiveEntry = null;
+        //selectedKnownEntry = null;
         selectedEntry = null;
 
         TooltipManager.Hide();
@@ -70,9 +70,6 @@ public class PassiveSkillPanel : BasePanel
 
         }
     }
-
-
-
     public void AssignKnownPassiveSkill(SkillEntry entry) {
 
         SkillEntry existingSkill = skillsPanel.IsPassiveAbilityInActiveList(selectedEntry.Ability);
@@ -95,68 +92,82 @@ public class PassiveSkillPanel : BasePanel
         Close();
     }
 
+    public void ShowInfoTooltip() {
+        StringBuilder builder = new StringBuilder();
+        builder.AppendLine("Here you can view your Passive Skills collection.");
+        builder.AppendLine();
+        builder.AppendLine("Grayed out Skills are already assigned.");
+        builder.AppendLine();
+        builder.AppendLine("Click a unassigned Passive Skill to assign it.");
 
-    public void OnSlotClicked(SkillEntry slot) {
-        selectedActiveEntry = slot;
-
-        if(selectedActiveEntry.Ability != null) {
-            buttonText.text = "Unequip";
-            equipButton.SetText("Unequip");
-            //skillPanel.SetPassiveHighlights(slot)
-        }
-        else {
-            buttonText.text = "Equip";
-            equipButton.SetText("Equip");
-
-        }
+        TooltipManager.Show(builder.ToString(), "Known Passive Skills Info");
     }
 
-    public void OnKnownEntryClicked(SkillEntry knownEntry) {
-        //Debug.Log(knownEntry.Ability.Data.abilityName + " is being passed in");
-        //Debug.Log(selectedKnownEntry.Ability.Data.abilityName + " is currently selected");
-
-        if (selectedActiveEntry.Ability != null && selectedActiveEntry.Ability == knownEntry.Ability) {
-            buttonText.text = "Unequip";
-            equipButton.SetText("Unequip");
-        }
-        else {
-            buttonText.text = "Equip";
-            equipButton.SetText("Equip");
-        }
-
+    public void HideInfoTooltip() {
         TooltipManager.Hide();
-        OnEquipClicked();
     }
 
-    public void OnEquipClicked() {
+    //public void OnSlotClicked(SkillEntry slot) {
+    //    selectedActiveEntry = slot;
+
+    //    if(selectedActiveEntry.Ability != null) {
+    //        buttonText.text = "Unequip";
+    //        equipButton.SetText("Unequip");
+    //        //skillPanel.SetPassiveHighlights(slot)
+    //    }
+    //    else {
+    //        buttonText.text = "Equip";
+    //        equipButton.SetText("Equip");
+
+    //    }
+    //}
+
+    //public void OnKnownEntryClicked(SkillEntry knownEntry) {
+    //    //Debug.Log(knownEntry.Ability.Data.abilityName + " is being passed in");
+    //    //Debug.Log(selectedKnownEntry.Ability.Data.abilityName + " is currently selected");
+
+    //    if (selectedActiveEntry.Ability != null && selectedActiveEntry.Ability == knownEntry.Ability) {
+    //        buttonText.text = "Unequip";
+    //        equipButton.SetText("Unequip");
+    //    }
+    //    else {
+    //        buttonText.text = "Equip";
+    //        equipButton.SetText("Equip");
+    //    }
+
+    //    TooltipManager.Hide();
+    //    OnEquipClicked();
+    //}
+
+    //public void OnEquipClicked() {
         
-        if(selectedKnownEntry == null) {
-            return;
-        }
+    //    if(selectedKnownEntry == null) {
+    //        return;
+    //    }
 
 
-        if(selectedActiveEntry.Ability != null && selectedKnownEntry.Ability == selectedActiveEntry.Ability) {
-            selectedActiveEntry.Ability.Uneqeuip();
-            selectedActiveEntry.AssignNewAbility(null);
-            Close();
-            return;
-        }
+    //    if(selectedActiveEntry.Ability != null && selectedKnownEntry.Ability == selectedActiveEntry.Ability) {
+    //        selectedActiveEntry.Ability.Uneqeuip();
+    //        selectedActiveEntry.AssignNewAbility(null);
+    //        Close();
+    //        return;
+    //    }
 
-        if (selectedKnownEntry.Ability.IsEquipped == true) {
-            Debug.LogWarning(selectedKnownEntry.Ability.Data.abilityName + " needs to be moved");
+    //    if (selectedKnownEntry.Ability.IsEquipped == true) {
+    //        Debug.LogWarning(selectedKnownEntry.Ability.Data.abilityName + " needs to be moved");
 
-            Close();
-            return;
-        }
+    //        Close();
+    //        return;
+    //    }
 
 
-        if (selectedActiveEntry.Ability != null) {
-            selectedActiveEntry.Ability.Uneqeuip();
-        }
+    //    if (selectedActiveEntry.Ability != null) {
+    //        selectedActiveEntry.Ability.Uneqeuip();
+    //    }
  
-        selectedActiveEntry.AssignNewAbility(selectedKnownEntry.Ability);
-        selectedKnownEntry.Ability.Equip();
-        Close();
-    }
+    //    selectedActiveEntry.AssignNewAbility(selectedKnownEntry.Ability);
+    //    selectedKnownEntry.Ability.Equip();
+    //    Close();
+    //}
 
 }

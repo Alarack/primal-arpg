@@ -83,9 +83,9 @@ public class ItemAffixEntry : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
         if(statIcon != null) {
             this.statIcon.gameObject.SetActive(true);
-            Color tierColor = affixData.GetTierColor(affixData.tier);
+            //Color tierColor = affixData.GetTierColor(affixData.tier);
             this.statIcon.sprite = statIcon;
-            this.statIcon.color = tierColor;
+            //this.statIcon.color = tierColor;
         }
         else {
             this.statIcon.gameObject.SetActive(false);

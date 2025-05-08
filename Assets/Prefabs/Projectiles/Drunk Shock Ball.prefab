@@ -50,12 +50,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Shockball
   entityType: 2
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 0
   subtypes: 
   innerSprite: {fileID: 0}
+  mainSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: 781e7ec556fe8214495fd49b8aa7df94, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 1996017431227444, guid: 58ac3aada3d952a4ebf80c7fb5c94f0a, type: 3}
   spawnEffectPrefab: {fileID: 1774190906356354, guid: b4324d93cce3d3a4084ca2de6fd5f2de, type: 3}
+  facingIndicator: {fileID: 0}
+  castingVFXPosition: {fileID: 0}
+  statusVFXPosition: {fileID: 0}
+  spawnSFXVolume: 1
+  spawnSFX: []
+  hurtSFXVolume: 1
+  hurtSFX: []
+  deathSFXVolume: 1
+  deathSFX: []
+  spriteProgression:
+    _serializedList: []
+  healthBar: {fileID: 0}
   textColorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -97,10 +113,11 @@ MonoBehaviour:
   projectileHitMask:
     serializedVersion: 2
     m_Bits: 0
-  cloneSelfOnSplit: 0
+  cloneSelfOnSplit: 1
   childSplitCount: 0
   splitPrefab: {fileID: 0}
   smoothScaleSpeed: 10
+  varyInitalSpeed: 1
 --- !u!58 &7296967104059247677
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -181,6 +198,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   seekRadius: 0
+  seekForwardWithoutTarget: 0
+  seekDuration: -1
+  forwardPointDistance: 8
   drunkInterval: 0.1
   drunkVariance: 180
 --- !u!1 &1817189792561413044

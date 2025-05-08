@@ -55,6 +55,7 @@ public class ItemData
     public List<AbilityTag> abilityTags = new List<AbilityTag>();
     public string targetedAbilityName;
     public Sprite itemIcon;
+    public bool invertIcon;
     public Sprite pickupIcon;
     public bool pickupOnCollision;
     public int tier;

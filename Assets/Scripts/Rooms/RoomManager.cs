@@ -49,7 +49,7 @@ public class RoomManager : Singleton<RoomManager> {
     private void Update() {
 
 #if UNITY_EDITOR
-        if(Input.GetKeyDown(KeyCode.R) &&  CurrentRoom.Type == Room.RoomType.ItemShop ) {
+        if(Input.GetKeyDown(KeyCode.R) && CurrentRoom != null &&  CurrentRoom.Type == Room.RoomType.ItemShop ) {
             ShopRoom shop = CurrentRoom as ShopRoom;
             shop.RerollShop();
         }

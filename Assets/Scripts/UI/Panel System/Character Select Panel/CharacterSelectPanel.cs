@@ -148,7 +148,7 @@ public class CharacterSelectPanel : BasePanel {
         new Task(FadeoutInfoPanels());
         ShowStarterPackages();
 
-        //ItemSpawner.SpawnItem(entry.ClassItem, transform.position, true);
+        ItemSpawner.SpawnItem(entry.ClassItem, transform.position, true);
         //ItemSpawner.SpawnItem(entry.ChosenItem, transform.position, true);
         //Close();
 

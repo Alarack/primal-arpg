@@ -14,6 +14,8 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     //public Image affixBG;
     public Image borderImage;
     public Image affixIconImage;
+    public Image rarityGemImage;
+    public GameObject rarityHolder;
     public GameObject selectorArrow;
 
 
@@ -24,6 +26,10 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     private Color baseBorderColor;
 
     public ItemData AffixData { get; private set; }
+
+    private void Awake() {
+        rarityHolder.SetActive(false);
+    }
 
     public void Setup(InventoryPanel inventoryPanel, Item item, ItemData affixData) {
         this.inventoryPanel = inventoryPanel;
@@ -58,11 +64,17 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
                 affixText.text = "Empty";
             if (affixIconImage != null)
                 affixIconImage.gameObject.SetActive(false);
+
+            rarityHolder.SetActive(false);
             return;
         }
 
         if(affixText != null)
             affixText.text = AffixData.GetShortTooltip();
+
+        rarityHolder.SetActive(true);
+
+        rarityGemImage.sprite = AffixData.GetAffixRarityGem();
 
         if(affixIconImage != null) {
             Sprite icon = AffixData.GetAffixIcon();
@@ -70,7 +82,7 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
             if(icon != null) {
                 affixIconImage.gameObject.SetActive(true);
                 affixIconImage.sprite = icon;
-                affixIconImage.color = AffixData.GetTierColor(AffixData.tier);
+                //affixIconImage.color = AffixData.GetTierColor(AffixData.tier);
             }
             else {
                 affixIconImage.gameObject.SetActive(false);

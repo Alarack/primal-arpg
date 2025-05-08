@@ -22,6 +22,10 @@ public class OptionsPanel : BasePanel
     [Header("Game speed")]
     public Slider gameSpeedSlider;
 
+
+    [Header("Gameplay Stuff")]
+    public Toggle confirmSkillInvestmentToggle;
+
     public ColorSwatchHelper edgeColorOneSwatch;
     public ColorSwatchHelper edgeColorTwoSwatch;
 
@@ -72,6 +76,10 @@ public class OptionsPanel : BasePanel
 
         if(music != 0f)
             musicVolumeSlider.value = music;
+
+        int confirmSkillInvestment = PlayerPrefs.GetInt("ConfirmSkillInvest");
+
+        confirmSkillInvestmentToggle.isOn = confirmSkillInvestment == 0;
     }
 
     private void SetupDefaultCursorEdgeColors()
@@ -206,6 +214,14 @@ public class OptionsPanel : BasePanel
     private void ConfirmDeleteSavedata() {
         SaveLoadUtility.ResetSaveData();
         PlayerPrefs.DeleteAll();
+    }
+
+    #endregion
+
+    #region Gameplay Methods
+
+    public void OnConfirmSkillInvestmentToggle() {
+        PlayerPrefs.SetInt("ConfirmSkillInvest", confirmSkillInvestmentToggle.isOn == true ? 0 : 1);
     }
 
     #endregion

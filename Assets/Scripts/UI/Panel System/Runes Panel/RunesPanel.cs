@@ -252,14 +252,37 @@ public class RunesPanel : BasePanel {
         
         float skillPoints = EntityManager.ActivePlayer.Stats[StatName.SkillPoint];
         if(skillPoints < 1f) {
+            PanelManager.OpenPanel<PopupPanel>().Setup("Insufficent Skill Points", "You don't have any Skill Points. Level up your character to gain more.");
             return;
         }
+
+        int confirmSkillInvestment = PlayerPrefs.GetInt("ConfirmSkillInvest");
+
+        if(confirmSkillInvestment == 0) {
+            PanelManager.OpenPanel<PopupPanel>().Setup("Confirm Skill Investment", "Are you sure you want to invest a Skill Point into " + CurrentAbility.Data.abilityName + "?", ConfirmLevelUp);
+        }
+        else {
+            ConfirmLevelUp();
+        }
+
+
+        //StatAdjustmentManager.AdjustSkillPoints(EntityManager.ActivePlayer, -1f);
+
+        //CurrentAbility.LevelUp();
+        //OnSkillLevelUp();
+        //AudioManager.PlayAbilityLevelUp();
+
+    }
+
+
+
+
+    private void ConfirmLevelUp() {
         StatAdjustmentManager.AdjustSkillPoints(EntityManager.ActivePlayer, -1f);
 
         CurrentAbility.LevelUp();
         OnSkillLevelUp();
         AudioManager.PlayAbilityLevelUp();
-
     }
 
     public void ShowInfoTooltip() {

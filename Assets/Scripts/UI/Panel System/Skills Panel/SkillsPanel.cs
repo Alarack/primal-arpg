@@ -23,6 +23,7 @@ public class SkillsPanel : SkillBasePanel {
     public GameObject tutorialOverlay;
 
     [Header("Other UI Bits")]
+    public GameObject unspentSkillPointsHolder;
     public UnspentSkillPointIndicator unspentIndicator;
 
   
@@ -122,11 +123,11 @@ public class SkillsPanel : SkillBasePanel {
         passiveCollectionPanel.Setup(entry, knownPassiveSkillEntries, this);
     }
 
-    public void OnPassiveSlotClicked(SkillEntry slot) {
-        passiveCollectionPanel.OnSlotClicked(slot);
-        //passiveCollectionPanel.selectedActiveEntry = slot;
-        passiveCollectionPanel.Open();
-    }
+    //public void OnPassiveSlotClicked(SkillEntry slot) {
+    //    passiveCollectionPanel.OnSlotClicked(slot);
+    //    //passiveCollectionPanel.selectedActiveEntry = slot;
+    //    passiveCollectionPanel.Open();
+    //}
 
     public void OnKnownPassiveSelected(SkillEntry entry) {
         passiveCollectionPanel.AssignKnownPassiveSkill(entry);
@@ -253,9 +254,9 @@ public class SkillsPanel : SkillBasePanel {
     public void CheckForUnspentSkillPoints() {
         float skillPoints = EntityManager.ActivePlayer.Stats[StatName.SkillPoint];
         
-        unspentIndicator.gameObject.SetActive(skillPoints > 0);
+        unspentSkillPointsHolder.SetActive(skillPoints > 0);
 
-        if (unspentIndicator.gameObject.activeSelf) {
+        if (unspentSkillPointsHolder.activeSelf) {
             unspentIndicator.UpdateSkillPoints(skillPoints);
         }
     }
@@ -265,11 +266,11 @@ public class SkillsPanel : SkillBasePanel {
         StringBuilder builder = new StringBuilder();
         builder.AppendLine("Here you can view all your currently assigned Skills.");
         builder.AppendLine();
-        builder.AppendLine("Left click any skill, or an empty skill slot to assign a skill to that slot.");
+        builder.AppendLine("Left click any Skill, or an empty Skill Slot, to assign a Skill to that slot.");
         builder.AppendLine();
-        builder.AppendLine("You drag assigned skills around in the Active Skills Section to change their posiitons.");
+        builder.AppendLine("You can drag assigned Active Skills around in the Active Skills Section to change their positions.");
         builder.AppendLine();
-        builder.AppendLine("Right Click any Skill to customize that Skill's Runes.");
+        builder.AppendLine("Right click any Skill to customize that Skill's Runes.");
 
         TooltipManager.Show(builder.ToString(), "Skills Info");
     }

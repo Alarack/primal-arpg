@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using static SkillEntry;
 using static UnityEngine.Rendering.DebugUI;
@@ -62,6 +63,21 @@ public class KnownSkillsSubpanel : BasePanel {
         //Debug.Log("Assigning: " + entry.Ability.Data.abilityName + " to slot " + selectedEntry.Index);
 
         Close();
+    }
+
+    public void ShowInfoTooltip() {
+        StringBuilder builder = new StringBuilder();
+        builder.AppendLine("Here you can view your Active Skills collection.");
+        builder.AppendLine();
+        builder.AppendLine("Grayed out Skills are already assigned on your Hotbar.");
+        builder.AppendLine();
+        builder.AppendLine("Click a colorized Skill to assign it.");
+
+        TooltipManager.Show(builder.ToString(), "Known Active Skills Info");
+    }
+
+    public void HideInfoTooltip() {
+        TooltipManager.Hide();
     }
 }
 

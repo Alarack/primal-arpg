@@ -73,7 +73,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 341}
-  m_SizeDelta: {x: 828.55, y: 128.06}
+  m_SizeDelta: {x: 1465.04, y: 128.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3226051207370769633
 CanvasRenderer:
@@ -224,6 +224,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeTime: 0.25
   defaultState: 0
+  openSoundVolume: 1
+  closeSoundVolume: 1
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
   OnOpenEvent:
     m_PersistentCalls:
       m_Calls: []

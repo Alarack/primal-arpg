@@ -151,6 +151,13 @@ public class Inventory : MonoBehaviour {
             if (existingItem == null) {
                 EquipItemToSlot(item, item.Data.validSlots[0]);
             }
+
+            if (item.Data.validSlots.Contains(ItemSlot.Ring1)) {
+                Item otherRing = GetItemInSlot(item.Data.validSlots[1]);
+                if (otherRing == null) {
+                    EquipItemToSlot(item, item.Data.validSlots[1]);
+                }
+            }
         }
 
         if(item.Data.Type == ItemType.ClassSelection) {

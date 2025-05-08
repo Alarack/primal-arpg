@@ -50,11 +50,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Blazing Star Projectile
   entityType: 2
+  entityLevel: 1
+  levelsStored: 0
   ownerType: 0
   subtypes: 
+  innerSprite: {fileID: 0}
+  mainSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: bec6a4aaf1137074ba26f4a9219e020b, type: 2}
+  vfxScalar: 1
   deathEffectPrefab: {fileID: 1027116103833860, guid: 6fb67c529e0173c47857b2a860bde40c, type: 3}
   spawnEffectPrefab: {fileID: 1027116103833860, guid: 6fb67c529e0173c47857b2a860bde40c, type: 3}
+  facingIndicator: {fileID: 0}
+  castingVFXPosition: {fileID: 0}
+  statusVFXPosition: {fileID: 0}
+  spawnSFXVolume: 1
+  spawnSFX: []
+  hurtSFXVolume: 1
+  hurtSFX: []
+  deathSFXVolume: 1
+  deathSFX: []
+  spriteProgression:
+    _serializedList: []
+  healthBar: {fileID: 0}
   textColorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -96,10 +113,11 @@ MonoBehaviour:
   projectileHitMask:
     serializedVersion: 2
     m_Bits: 0
-  cloneSelfOnSplit: 0
+  cloneSelfOnSplit: 1
   childSplitCount: 0
   splitPrefab: {fileID: 0}
   smoothScaleSpeed: 10
+  varyInitalSpeed: 1
 --- !u!58 &2428786216548617761
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -180,6 +198,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   seekRadius: 0
+  seekForwardWithoutTarget: 0
+  seekDuration: -1
+  forwardPointDistance: 8
   drunkInterval: 0
   drunkVariance: 0
 --- !u!1001 &5982613497141616403

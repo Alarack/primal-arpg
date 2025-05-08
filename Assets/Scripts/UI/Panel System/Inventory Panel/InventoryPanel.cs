@@ -220,7 +220,19 @@ public class InventoryPanel : BasePanel {
             AddToFirstEmptySlot(item);
 
         if(item.Data.Type == ItemType.ClassSelection) {
-            characterImage.sprite = EntityManager.ActivePlayer.Inventory.GetItems(ItemType.ClassSelection)[0].Data.itemIcon;
+            Item classItem = EntityManager.ActivePlayer.Inventory.GetItems(ItemType.ClassSelection)[0];
+            //Debug.Log("Assigning an image: " + classItem.Data.itemIcon.name + " From Class: " + classItem.Data.itemName);
+            
+            
+            characterImage.sprite = classItem.Data.itemIcon;
+
+            if(classItem.Data.invertIcon == true) {
+                characterImage.transform.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            else {
+                characterImage.transform.localScale = new Vector3(1f, 1f, 1f);
+
+            }
         }
     }
 
@@ -487,7 +499,7 @@ public class InventoryPanel : BasePanel {
         builder.AppendLine();
         builder.AppendLine("Choose an enhancment slot above the Forge Button and click Forge.");
         builder.AppendLine();
-        builder.AppendLine("If you can afford the gold cost, you can forge any number of times in the same slot to re-roll for a desired affix.");
+        builder.AppendLine("If you can afford the cost, you can forge any number of times in the same slot to re-roll for a desired affix.");
         builder.AppendLine();
         builder.AppendLine("Click on a desired Affix from the list to attach it to the current item.");
         builder.AppendLine();

@@ -115,10 +115,10 @@ MonoBehaviour:
   projectileHitMask:
     serializedVersion: 2
     m_Bits: 0
-  cloneSelfOnSplit: 0
+  cloneSelfOnSplit: 1
   childSplitCount: 0
   splitPrefab: {fileID: 0}
-  smoothScaleSpeed: 0
+  smoothScaleSpeed: 10
   varyInitalSpeed: 1
 --- !u!58 &3328762737159297223
 CircleCollider2D:
