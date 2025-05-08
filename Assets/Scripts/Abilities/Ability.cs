@@ -200,7 +200,8 @@ public class Ability {
         EventManager.SendEvent(GameEvent.AbilityEquipped, data);
 
         for (int i = 0; i < ChildAbilities.Count; i++) {
-            ChildAbilities[i].Equip();
+            if (ChildAbilities[i].IsEquipped == false)
+                ChildAbilities[i].Equip();
         }
 
         if(Data.category == AbilityCategory.PassiveSkill || Data.category == AbilityCategory.Item)
