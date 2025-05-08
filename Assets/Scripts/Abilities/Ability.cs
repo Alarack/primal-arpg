@@ -1055,7 +1055,7 @@ public class Ability {
 
         for (int i = 0; i < runes.Count; i++) {
             //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
-            builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).AppendLine(runes[i].Data.abilityName);
+            builder.Append(TextHelper.ColorizeText("Rune: ", ColorDataManager.Instance["Rune Tooltip Color"])).AppendLine(runes[i].Data.abilityName);
 
             //for (int j = 0; j < runes[i].effects.Count; j++) {
             //    string effectTooltip = runes[i].effects[j].GetTooltip();

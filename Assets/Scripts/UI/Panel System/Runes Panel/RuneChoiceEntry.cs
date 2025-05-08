@@ -63,6 +63,7 @@ public class RuneChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
             //runesPanel.CurrentAbility.equippedRunes.Remove(RuneItem);
 
             //Debug.Log("Unequipping: " + RuneItem.Data.itemName);
+            parentGroup.RefreshRunePips();
         }
 
     }

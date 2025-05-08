@@ -82,9 +82,9 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     public static void CheckLevelUp() {
-        if(EntityManager.ActivePlayer.levelsStored > 0) {
-            PanelManager.OpenPanel<LevelUpPanel>();
-        }
+        //if(EntityManager.ActivePlayer.levelsStored > 0) {
+        //    PanelManager.OpenPanel<LevelUpPanel>();
+        //}
     }
 
     public static void AdjustDifficulty(float difficulty) {

@@ -71,7 +71,7 @@ public class KnownSkillsSubpanel : BasePanel {
         builder.AppendLine();
         builder.AppendLine("Grayed out Skills are already assigned on your Hotbar.");
         builder.AppendLine();
-        builder.AppendLine("Click a colorized Skill to assign it.");
+        builder.AppendLine("Click an unassigned Skill to assign it.");
 
         TooltipManager.Show(builder.ToString(), "Known Active Skills Info");
     }

@@ -98,7 +98,7 @@ public class PassiveSkillPanel : BasePanel
         builder.AppendLine();
         builder.AppendLine("Grayed out Skills are already assigned.");
         builder.AppendLine();
-        builder.AppendLine("Click a unassigned Passive Skill to assign it.");
+        builder.AppendLine("Click an unassigned Passive Skill to assign it.");
 
         TooltipManager.Show(builder.ToString(), "Known Passive Skills Info");
     }

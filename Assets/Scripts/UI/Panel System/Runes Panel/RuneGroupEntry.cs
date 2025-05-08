@@ -93,6 +93,10 @@ public class RuneGroupEntry : MonoBehaviour {
 
         currentChoice.Select();
 
+        RefreshRunePips();
+    }
+
+    public void RefreshRunePips() {
         SkillEntry currentEntry = PanelManager.GetPanel<SkillsPanel>().GetSkillEntryByAbility(runesPanel.CurrentAbility);
         currentEntry.SetupRunePips();
     }
