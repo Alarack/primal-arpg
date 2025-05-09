@@ -128,7 +128,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 128
-  collectVFX: {fileID: 1197010802093610, guid: 9512773bce5218343a8e521647e7865f, type: 3}
+  collectVFX: {fileID: 1197010802093610, guid: 3ec4ac8b950a9094a9884e077e2511ed, type: 3}
   spawnVFX: {fileID: 0}
   vfxScale: 0.5
   soundVolume: 0.33
@@ -1263,6 +1263,10 @@ PrefabInstance:
     - target: {fileID: 198392393371232998, guid: 0fc50fd3faa65944ea9ebd10b28a67ed, type: 3}
       propertyPath: moveWithTransform
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198392393371232998, guid: 0fc50fd3faa65944ea9ebd10b28a67ed, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 198392393371232998, guid: 0fc50fd3faa65944ea9ebd10b28a67ed, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar

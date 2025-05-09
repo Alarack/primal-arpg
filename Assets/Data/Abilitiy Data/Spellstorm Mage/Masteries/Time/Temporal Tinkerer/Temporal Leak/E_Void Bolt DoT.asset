@@ -69,6 +69,7 @@ MonoBehaviour:
       derivedTargetStat: 0
       invertDerivedValue: 1
       scaleFromAbilityLevel: 0
+      displayAsPercent: 0
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
@@ -136,7 +137,7 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 3
       m_NumAlphaKeys: 3
-    effectDesignation: 0
+    effectDesignation: 1
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     statusModifiers: []
@@ -145,6 +146,7 @@ MonoBehaviour:
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
+    showTrail: 0
     targetDestination: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}

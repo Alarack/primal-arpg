@@ -265,24 +265,6 @@ public abstract class Effect {
 
     public virtual void ResetEffectTargets() {
 
-        //switch (Data.targeting) {
-        //    case EffectTarget.LogicSelected:
-        //        List<Entity> validEntityTargets = targeter.GatherValidTargets();
-
-        //        for (int i = 0; i < validEntityTargets.Count; i++) {
-
-        //        }
-
-        //        break;
-        //    case EffectTarget.LogicSelectedAbility:
-        //        List<Ability> validAbilityTargets = targeter.GatherValidAbilities();
-        //        break;
-        //    case EffectTarget.LogicSelectedEffect:
-        //        List<Effect> validEffectTargets = targeter.GatherValidEffectTargets();
-        //        break;
-        //}
-
-
         RemoveFromAllTargets();
         targeter.Apply();
 
@@ -333,6 +315,16 @@ public abstract class Effect {
 
     public bool HasProjectile(string projectileName) {
         return PayloadPrefab != null && PayloadPrefab.EntityName == projectileName;
+    }
+
+    public T HasTargetConstraint<T>() where T : AbilityConstraint {
+        for (int i = 0; i < targetConstraints.Count; i++) {
+            if (targetConstraints[i] is T) {
+                return targetConstraints[i] as T;
+            }
+        }
+
+        return null;
     }
 
     private bool CheckNonStacking(Entity target) {
@@ -1722,7 +1714,7 @@ public class ModifyProjectileEffect : Effect {
     public override void Remove(Entity target) {
         base.Remove(target);
 
-        Debug.LogError("Removing Projectile Modifications is not yet supported");
+        Debug.LogWarning("Removing Projectile Modifications is not yet supported. Ignore this warning if you're modifying projeciles as they're created.");
     }
 }
 
@@ -2095,7 +2087,7 @@ public class AddEffectEffect : Effect {
     public override string GetTooltip() {
         StringBuilder builder = new StringBuilder();
 
-        Debug.Log("Showing a tooltip for an Add Effect Effect On " + Data.effectName + ". " + activeDisplayEffects.Count + " effects found to add");
+        Debug.Log("Showing a tooltip for an [Add Effect Effect] on " + Data.effectName + ". " + activeDisplayEffects.Count + " effects found to add");
 
         for (int i = 0; i < activeDisplayEffects.Count; i++) {
 
@@ -2737,12 +2729,12 @@ public class AddStatusEffect : Effect {
                     }
 
 
-                    if (Data.statusToAdd[0].maxStacks > 0) {
+                    //if (Data.statusToAdd[0].maxStacks > 0) {
                         builder.AppendLine();
                         builder.Append(GetStatusStackingTooltip());
                         builder.AppendLine();
                         //builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
-                    }
+                    //}
 
                     if (activeStatusEffects[i].Data.canOverload == true) {
                         float overloadChance = ParentAbility != null ? ParentAbility.GetAbilityOverloadChance() : Source.Stats[StatName.OverloadChance];
@@ -4106,6 +4098,13 @@ public class StatAdjustmentEffect : Effect {
             return builder.ToString();
         }
 
+        RangeConstraint rangeConstraint = HasTargetConstraint<RangeConstraint>();
+        if (rangeConstraint != null) {
+            string rangeString = TextHelper.ColorizeText(rangeConstraint.Data.maxRange.ToString(), ColorDataManager.Instance["Stat Bonus Color"]);
+            replacement.Replace("{RL}", rangeString);
+        }
+
+
         builder.Append(replacement);
 
         if (Data.showScalers == true) {
@@ -4120,6 +4119,19 @@ public class StatAdjustmentEffect : Effect {
 
 
         return builder.ToString();
+    }
+
+
+    public string GetRangeReplacmentText(string desctiption) {
+        RangeConstraint rangeConstraint = HasTargetConstraint<RangeConstraint>();
+        if (rangeConstraint != null) {
+            string rangeString = TextHelper.ColorizeText(rangeConstraint.Data.maxRange.ToString(), ColorDataManager.Instance["Stat Bonus Color"]);
+            string replacment = desctiption.Replace("{RL}", rangeString);
+
+            return replacment;
+        }
+
+        return desctiption;
     }
 
     public string GetDamageOverTimeTooltip() {

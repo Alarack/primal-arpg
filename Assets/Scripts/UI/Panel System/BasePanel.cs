@@ -206,6 +206,7 @@ public class BasePanel : MonoBehaviour
 
     protected virtual void OnFadeOutComplete() {
         view.SetActive(false);
+        TooltipManager.Hide();
     }
 
     public virtual void Hide()

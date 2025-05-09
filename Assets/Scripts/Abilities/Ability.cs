@@ -918,8 +918,6 @@ public class Ability {
             float effectDuration = Stats[StatName.EffectLifetime] * (1 + Source.Stats[StatName.GlobalEffectDurationModifier]);
             string effectDureationText = TextHelper.ColorizeText(TextHelper.FormatStat(StatName.EffectLifetime, MathF.Round(effectDuration, 2)), Color.yellow);
             string effectDurationReplacement = triggerCountReplacement.Replace("{EL}", effectDureationText);
-            
-
 
             builder.Append(effectDurationReplacement);
 
@@ -988,7 +986,15 @@ public class Ability {
                     builder.AppendLine("Overload Chance: " + TextHelper.ColorizeText( TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
                 }
 
+
+                if(adj.HasTargetConstraint<RangeConstraint>() != null) {
+                    string currentString = builder.ToString();
+                    builder.Replace(currentString, adj.GetRangeReplacmentText(currentString));
+                }
+
+
             }
+
         }
 
         float cooldown = GetCooldown();

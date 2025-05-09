@@ -7,8 +7,10 @@ using UnityEngine;
 /// </summary>
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
+#pragma warning disable UDR0001 // Domain Reload Analyzer
     private static object m_Lock = new object();
     private static T m_Instance;
+#pragma warning restore UDR0001 // Domain Reload Analyzer
 
     public bool dontDestroyOnLoad = true;
 

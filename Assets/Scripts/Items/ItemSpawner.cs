@@ -20,6 +20,12 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
     public static Vector2 defaultSpawnLocation = Vector2.zero;
 
+
+    [RuntimeInitializeOnLoadMethod]
+    private static void InitStatic() {
+        defaultSpawnLocation = Vector2.zero;
+    }
+
     private void Start() {
 
         for (int i = 0; i < Instance.testItems.Count; i++) {

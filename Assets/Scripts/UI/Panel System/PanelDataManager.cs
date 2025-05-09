@@ -11,6 +11,12 @@ public class PanelDataManager : Singleton<PanelDataManager>
     public static List<string> closeOnEscapePanels = new List<string>();
 
 
+    [RuntimeInitializeOnLoadMethod]
+    private static void InitStatic() {
+        blockingPanels = new List<string>();
+        closeOnEscapePanels = new List<string>();
+    }
+
     private void Start() {
         for (int i = 0; i < panelMapData.panelPrefabs.Count; i++) {
             if (panelMapData.panelPrefabs[i].autoOpen == true) {

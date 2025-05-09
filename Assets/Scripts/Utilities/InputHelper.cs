@@ -23,7 +23,10 @@ public static class InputHelper
     public static Dictionary<GameButtonType, CustomBind> bindDict = new Dictionary<GameButtonType, CustomBind>();
     public static bool initBinds;
 
+    [RuntimeInitializeOnLoadMethod]
     public static void InitDefaultBinds() {
+
+        bindDict = new Dictionary<GameButtonType, CustomBind>();
 
         GameButtonType[] buttons = System.Enum.GetValues(typeof(GameButtonType)) as GameButtonType[];
 

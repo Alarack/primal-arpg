@@ -25,6 +25,7 @@ public class OptionsPanel : BasePanel
 
     [Header("Gameplay Stuff")]
     public Toggle confirmSkillInvestmentToggle;
+    public Toggle healOnRoomEndToggle;
 
     public ColorSwatchHelper edgeColorOneSwatch;
     public ColorSwatchHelper edgeColorTwoSwatch;
@@ -80,6 +81,10 @@ public class OptionsPanel : BasePanel
         int confirmSkillInvestment = PlayerPrefs.GetInt("ConfirmSkillInvest");
 
         confirmSkillInvestmentToggle.isOn = confirmSkillInvestment == 0;
+
+        int healOnRoomEnd = PlayerPrefs.GetInt("HealOnRoomEnd");
+
+        healOnRoomEndToggle.isOn = healOnRoomEnd == 1;
     }
 
     private void SetupDefaultCursorEdgeColors()
@@ -222,6 +227,10 @@ public class OptionsPanel : BasePanel
 
     public void OnConfirmSkillInvestmentToggle() {
         PlayerPrefs.SetInt("ConfirmSkillInvest", confirmSkillInvestmentToggle.isOn == true ? 0 : 1);
+    }
+
+    public void OnHealOrbsToggle() {
+        PlayerPrefs.SetInt("HealOnRoomEnd", healOnRoomEndToggle.isOn ? 1 : 0);
     }
 
     #endregion

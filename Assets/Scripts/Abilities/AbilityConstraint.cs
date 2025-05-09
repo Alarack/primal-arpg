@@ -9,6 +9,9 @@ public abstract class AbilityConstraint {
 
     protected bool inverse;
     protected ConstraintData data;
+
+    public ConstraintData Data { get { return data; } }
+
     protected Ability parentAbility;
     protected Effect parentEffect;
     protected Entity source;

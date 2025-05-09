@@ -10,6 +10,12 @@ public static class PanelManager
 
     public static BasePanel LastOpenedPanel { get; private set; }
 
+    [RuntimeInitializeOnLoadMethod]
+    private static void InitStatic() {
+        currentPanels = new Dictionary<string, BasePanel>();
+    }
+
+
     public static T OpenPanel<T>() where T : BasePanel
     {
         var panel = GetPanel<T>();

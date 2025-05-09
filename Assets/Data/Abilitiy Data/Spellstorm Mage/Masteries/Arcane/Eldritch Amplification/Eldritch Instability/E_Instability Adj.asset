@@ -59,7 +59,7 @@ MonoBehaviour:
       m_Bits: 0
     modData:
     - targetStat: 2
-      value: 0.25
+      value: 0.15
       modifierType: 2
       variantTarget: 0
       modValueSetMethod: 0
@@ -69,6 +69,7 @@ MonoBehaviour:
       derivedTargetStat: 0
       invertDerivedValue: 0
       scaleFromAbilityLevel: 0
+      displayAsPercent: 0
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
@@ -142,6 +143,7 @@ MonoBehaviour:
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
+    showTrail: 0
     targetDestination: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}

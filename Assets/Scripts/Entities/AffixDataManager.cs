@@ -12,13 +12,15 @@ public class AffixDataManager : Singleton<AffixDataManager>
 
 
 
-    private void Awake() {
-        InitAffixDict();
-    }
+    [RuntimeInitializeOnLoadMethod]
+    private static void InitAffixDict() {
 
-    private void InitAffixDict() {
-        for (int i = 0; i < affixDatabase.eliteAffixdata.Count; i++) {
-            eliteAffixDict.Add(affixDatabase.eliteAffixdata[i].type, affixDatabase.eliteAffixdata[i]);
+        //Debug.Log("Initing Elite Affix Dict");
+        
+        eliteAffixDict = new Dictionary<EliteAffixType, NPCEliteAffixData>();
+        
+        for (int i = 0; i < Instance.affixDatabase.eliteAffixdata.Count; i++) {
+            eliteAffixDict.Add(Instance.affixDatabase.eliteAffixdata[i].type, Instance.affixDatabase.eliteAffixdata[i]);
         }
     }
 

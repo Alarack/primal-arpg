@@ -69,8 +69,6 @@ public class RoomManager : Singleton<RoomManager> {
             room.Type == Room.RoomType.SurvivalCombat) {
             
             AdjustDifficulty(1f);
-
-            //CheckLevelUp();
         }
 
     }
@@ -377,6 +375,21 @@ public class RoomManager : Singleton<RoomManager> {
 
 
         Instance.rewardSpawnTask = new Task(Instance.SpawnRewardsOnDelay(rewardItems, shopMode));
+
+        if(CurrentRoom != null && (
+            CurrentRoom.Type == Room.RoomType.EliminationCombat 
+            || CurrentRoom.Type == Room.RoomType.SurvivalCombat 
+            || CurrentRoom.Type == Room.RoomType.BossRoom)) {
+
+            if (PlayerPrefs.GetInt("HealOnRoomEnd") == 1) {
+                ItemSpawner.SpawnHealthOrbs(2, Vector2.zero);
+            }
+
+        }
+
+
+
+
 
     }
 

@@ -8,7 +8,9 @@ public static class SaveLoadUtility
 
     public static SaveData SaveData { get { return GetSaveData(); } }
 
+#pragma warning disable UDR0001 // Domain Reload Analyzer
     private static SaveData playerData;
+#pragma warning restore UDR0001 // Domain Reload Analyzer
 
     private static SaveData GetSaveData() {
         if (playerData == null) {

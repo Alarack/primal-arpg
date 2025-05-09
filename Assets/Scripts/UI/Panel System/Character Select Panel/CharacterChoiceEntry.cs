@@ -63,7 +63,7 @@ public class CharacterChoiceEntry : MonoBehaviour {
         infoButton.onClick.AddListener(Deselect);
         infoButton.SetText("Back");
 
-        Debug.Log("Selecting: " + ClassItem.itemData.itemName);
+        //Debug.Log("Selecting: " + ClassItem.itemData.itemName);
 
     }
 
@@ -75,7 +75,7 @@ public class CharacterChoiceEntry : MonoBehaviour {
         infoButton.onClick.AddListener(OnInfoClicked);
         infoButton.SetText("Info");
 
-        Debug.Log("Deselecting: " + ClassItem.itemData.itemName);
+        //Debug.Log("Deselecting: " + ClassItem.itemData.itemName);
         selectionPanel.UnhideAllEntries(this);
         new Task(selectionPanel.FadeoutInfoPanels());
 
@@ -83,12 +83,12 @@ public class CharacterChoiceEntry : MonoBehaviour {
 
     public void Hide() {
         fader.DOFade(0f, 0.6f);
-        Debug.Log("Hiding: " + ClassItem.itemData.itemName);
+        //Debug.Log("Hiding: " + ClassItem.itemData.itemName);
     }
 
     public void Show() {
         fader.DOFade(1f, 0.6f);
-        Debug.Log("Showing: " + ClassItem.itemData.itemName);
+        //Debug.Log("Showing: " + ClassItem.itemData.itemName);
     }
 
     private void SetupDisplay() {

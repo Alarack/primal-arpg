@@ -5,7 +5,10 @@ using UnityEngine;
 public class HitStopManager : Singleton<HitStopManager>
 {
 
+#pragma warning disable UDR0001 // Domain Reload Analyzer
     private static bool waiting;
+#pragma warning restore UDR0001 // Domain Reload Analyzer
+
 
     public static void Stop(float duration = 0.1f) {
         if (waiting == true)

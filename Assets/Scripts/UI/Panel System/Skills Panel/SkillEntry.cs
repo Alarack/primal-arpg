@@ -66,7 +66,9 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Ability Ability { get; protected set; }
     public int Index { get; protected set; }
 
+#pragma warning disable UDR0001 // Domain Reload Analyzer
     public static SkillEntry draggedEntry;
+#pragma warning restore UDR0001 // Domain Reload Analyzer
 
     public bool IsPassive { get; protected set; }
 

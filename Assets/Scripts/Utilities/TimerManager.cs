@@ -13,6 +13,14 @@ public class TimerManager : Singleton<TimerManager> {
 
     private static List<Action> removeList = new List<Action>();
 
+
+    [RuntimeInitializeOnLoadMethod]
+    private static void InitStatic() {
+        activeTimers = new List<Timer>();
+        timerActions = new List<Action>();
+        removeList = new List<Action>();
+    }
+
     private void Update() {
         UpdateTimers();
 
