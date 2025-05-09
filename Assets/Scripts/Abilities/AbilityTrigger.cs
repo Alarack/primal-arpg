@@ -1560,7 +1560,7 @@ public class TimedTrigger : AbilityTrigger {
         base.TearDown();
 
         TimerManager.RemoveTimerAction(UpdateClock);
-        EventManager.RemoveMyListeners(this);
+        //EventManager.RemoveMyListeners(this);
     }
 
 

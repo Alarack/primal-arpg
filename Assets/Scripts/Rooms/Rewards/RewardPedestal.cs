@@ -13,6 +13,8 @@ public class RewardPedestal : MonoBehaviour
     public GameObject shopAura;
     public Mask passiveMask;
     public Image maskImage;
+    public GameObject skillPointVFX;
+    public AudioClip skillPointAudio;
 
     public bool enforceCost;
 
@@ -57,7 +59,9 @@ public class RewardPedestal : MonoBehaviour
                 break;
             case ItemType.SkillPoint:
                 StatAdjustmentManager.AdjustSkillPoints(EntityManager.ActivePlayer, 1f);
-                Debug.LogWarning("TODO: Show a fanfare effect here for when skill points are awarded");
+                //Debug.LogWarning("TODO: Show a fanfare effect here for when skill points are awarded");
+                VFXUtility.SpawnVFX(skillPointVFX, EntityManager.ActivePlayer.transform.position, Quaternion.identity, null, 3f);
+                AudioManager.PlaySoundClip(skillPointAudio, Vector2.zero, 1f);
                 break;
 
             case ItemType.HealthPotion:

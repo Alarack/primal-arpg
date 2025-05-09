@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using LL.Events;
 using Michsky.MUIP;
+using DG.Tweening;
 
 public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
     
@@ -15,6 +15,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
     public ButtonManager masteryLearnButton;
     public Image dimmer;
     public Image selectedFrame;
+    public CanvasGroup dimmerFader;
 
     public MasteryData.MasteryFeatureData FeatureData { get; private set; }
     public string ParentMasteryName { get { return parentEntry.MasteryName; } }
@@ -67,10 +68,12 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
     private void SetDimmer() {
         if(FeatureAbility == null || FeatureAbility.IsEquipped == false) {
             dimmer.gameObject.SetActive(true);
+            dimmerFader.DOFade(1, 0.5f);
         }
 
         if (FeatureAbility != null && FeatureAbility.IsEquipped == true) {
             dimmer.gameObject.SetActive(false);
+            dimmerFader.DOFade(0, 0.5f);
         }
     }
 
@@ -178,7 +181,8 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
             return;
 
         FeatureAbility.Uneqeuip();
-        UnequipPathAbilities();
+        //UnequipPathAbilities();
+        FullyUnlearnPathAbilities();
 
         //SaveLoadUtility.SaveData.RemoveMasteryPath(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
         SaveLoadUtility.SaveData.RemoveMasteryFeature(ParentMasteryName,FeatureData.featureName);
@@ -190,6 +194,12 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         SetDimmer();
         UpdateButtonText();
 
+    }
+
+    private void FullyUnlearnPathAbilities() {
+        for (int i = 0; i < pathEntries.Count; i++) {
+            pathEntries[i].UnlearnCompletely();
+        }
     }
 
     private void UnequipPathAbilities() {

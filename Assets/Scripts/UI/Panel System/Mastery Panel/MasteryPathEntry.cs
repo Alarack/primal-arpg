@@ -106,9 +106,29 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
         //rankText.text = PathAbility.AbilityLevel.ToString();
     }
 
-    private void UnInvest() {
+    public void UnlearnCompletely() {
         if (PathAbility == null || PathAbility.IsEquipped == false)
             return;
+
+        //Debug.Log("Fully Unlearning: " + PathAbility.Data.abilityName + " from level: " + PathAbility.AbilityLevel);
+
+        int count = PathAbility.AbilityLevel;
+
+        for (int i = 0; i < count; i++) {
+            UnInvest();
+        }
+
+    }
+
+    private void UnInvest() {
+        if (PathAbility == null || PathAbility.IsEquipped == false) {
+            //Debug.Log("Can't uninvest: " + PathAbility.Data.abilityName + " because it is null or not equipped.");
+            return;
+        }
+            
+
+        //Debug.Log("UnInvesting in: " + PathAbility.Data.abilityName);
+
 
         if(PathAbility.AbilityLevel >= 1)
             PathAbility.LevelDown();

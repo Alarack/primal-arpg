@@ -195,6 +195,10 @@ public class MasteryPanel : BasePanel {
         UpdatePrimalEssenceText();
     }
 
+    public void RefundMetaPointsFromFullPath(string masteryName, string featureName, string abilityName) {
+
+    }
+
 
 
     public void ShowInfoTooltip() {

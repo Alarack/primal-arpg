@@ -5351,6 +5351,7 @@ Transform:
   - {fileID: 1734127656}
   - {fileID: 1579779806}
   - {fileID: 7896268088642458546}
+  - {fileID: 8799091829596008021}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -71656,6 +71657,76 @@ Transform:
   m_Father: {fileID: 7915836976630423820}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &8799091829596008020
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 910547454}
+    m_Modifications:
+    - target: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334258111, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_Name
+      value: LevelupCylinderBlue 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 931352995334258111, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+--- !u!4 &8799091829596008021 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 931352995334049593, guid: 9e4a9ec9b57a1fa42b0a542c42c17340, type: 3}
+  m_PrefabInstance: {fileID: 8799091829596008020}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8803896164311206596
 Transform:
   m_ObjectHideFlags: 0
