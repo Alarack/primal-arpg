@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using Michsky.MUIP;
+using UnityEngine.Events;
 
-public class PopupPanel : BasePanel
-{
+public class PopupPanel : BasePanel {
 
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI bodyText;
 
     public GameObject cancelButton;
+    public ModalWindowManager modalWindoManager;
 
 
     private Action confirmCallback;
@@ -21,7 +23,23 @@ public class PopupPanel : BasePanel
         this.confirmCallback = confirmCallback;
 
         cancelButton.SetActive(confirmCallback != null);
+
+
         
+        modalWindoManager.Open();
+        modalWindoManager.titleText = title;
+        modalWindoManager.descriptionText = body;
+        modalWindoManager.UpdateUI();
+        modalWindoManager.confirmButton.onClick.AddListener(OnConfirmClicked);
+        modalWindoManager.cancelButton.gameObject.SetActive(confirmCallback != null);
+
+
+
+    }
+
+    public override void Close() {
+        base.Close();
+        modalWindoManager.confirmButton.onClick.RemoveAllListeners();
     }
 
 

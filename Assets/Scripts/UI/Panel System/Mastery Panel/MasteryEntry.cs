@@ -152,6 +152,10 @@ public class MasteryEntry : MonoBehaviour
             return;
         }
 
+        if (PanelManager.GetPanel<MasteryPanel>().CheckMaxFeatures() == true)
+            return;
+
+
         if (featureExists == false ||  (featureExists && featureEquipped == false)) {
             PanelManager.OpenPanel<PopupPanel>().Setup("Learning: "
             + feature.FeatureData.featureName, "Are you sure you want to learn this mastery?"
@@ -162,8 +166,8 @@ public class MasteryEntry : MonoBehaviour
 
 
     private void ConfirmLearnMastery() {
-        if (PanelManager.GetPanel<MasteryPanel>().CheckMaxFeatures() == true)
-            return;
+        //if (PanelManager.GetPanel<MasteryPanel>().CheckMaxFeatures() == true)
+        //    return;
 
         if (SaveLoadUtility.SaveData.CheckForDuplicateMastery(MasteryName) == true)
             return;

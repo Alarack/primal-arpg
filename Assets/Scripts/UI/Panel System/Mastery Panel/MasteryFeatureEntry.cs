@@ -11,11 +11,14 @@ using DG.Tweening;
 public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
     
     public Image featureIcon;
-    public TextMeshProUGUI learnButtonText;
+    //public TextMeshProUGUI learnButtonText;
     public ButtonManager masteryLearnButton;
     public Image dimmer;
     public Image selectedFrame;
     public CanvasGroup dimmerFader;
+    public Sprite defaultButtonImage;
+    public Sprite unlearnButtonImage;
+    public Color unlearnButtonTextColor;
 
     public MasteryData.MasteryFeatureData FeatureData { get; private set; }
     public string ParentMasteryName { get { return parentEntry.MasteryName; } }
@@ -155,14 +158,8 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
 
     public void Learn() {
 
-        //if (SaveLoadUtility.SaveData.CountOfMasteries >= 2) {
-        //    PanelManager.OpenPanel<PopupPanel>().Setup("Maximum Masteries", "You can only have 2 Masteries at a time. Right Click one of your existing Masteries to unlearn it.");
-        //    return;
-        //}
-
         if (FeatureAbility == null)
             CreateFeatureAbility();
-
 
         FeatureAbility.Equip();
         EquipPathAbilities();
@@ -170,7 +167,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         SaveLoadUtility.SaveData.AddMastery(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
         SaveLoadUtility.SavePlayerData();
 
-        PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);
+        //PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);
 
         SetDimmer();
         UpdateButtonText();
@@ -188,7 +185,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         SaveLoadUtility.SaveData.RemoveMasteryFeature(ParentMasteryName,FeatureData.featureName);
         SaveLoadUtility.SavePlayerData();
 
-        PanelManager.GetPanel<MasteryPanel>().RemoveFeature(this);
+        //PanelManager.GetPanel<MasteryPanel>().RemoveFeature(this);
 
 
         SetDimmer();
@@ -217,17 +214,21 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
     private void UpdateButtonText() {
         if (FeatureAbility != null) {
             if (FeatureAbility.IsEquipped == true) {
-                learnButtonText.text = "Unlearn";
                 masteryLearnButton.SetText("Unlearn");
+                masteryLearnButton.normalText.enableVertexGradient = false;
+                masteryLearnButton.normalText.color = unlearnButtonTextColor;
+                masteryLearnButton.normalBackgroundImage.sprite = unlearnButtonImage;
             }
             else {
-                learnButtonText.text = "Learn";
                 masteryLearnButton.SetText("Learn");
+                masteryLearnButton.normalBackgroundImage.sprite = defaultButtonImage;
+                masteryLearnButton.normalText.enableVertexGradient = true;
             }
         }
         else {
-            learnButtonText.text = "Learn";
             masteryLearnButton.SetText("Learn");
+            masteryLearnButton.normalBackgroundImage.sprite = defaultButtonImage;
+            masteryLearnButton.normalText.enableVertexGradient = true;
         }
     }
 

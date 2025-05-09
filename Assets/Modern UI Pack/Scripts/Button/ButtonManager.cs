@@ -41,6 +41,9 @@ namespace Michsky.MUIP
         public Image normalImage;
         public Image highlightImage;
         public Image disabledImage;
+        public Image normalBackgroundImage;
+        public Image highlightBackgroundImage;
+        public Image disabledBackgroundImage;
         public AudioSource soundSource;
         [SerializeField] private GameObject rippleParent;
 

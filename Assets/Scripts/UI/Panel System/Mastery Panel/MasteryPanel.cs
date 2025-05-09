@@ -62,7 +62,7 @@ public class MasteryPanel : BasePanel {
     public bool CheckMaxFeatures() {
 
         if (SaveLoadUtility.SaveData.CountOfMasteries >= 2) {
-            PanelManager.OpenPanel<PopupPanel>().Setup("Maximum Masteries", "You can only have 2 Masteries at a time. Right Click one of your existing Masteries to unlearn it.");
+            PanelManager.OpenPanel<PopupPanel>().Setup("Maximum Masteries", "You can only have 2 Masteries at a time.");
             return true;
         }
 
@@ -82,10 +82,10 @@ public class MasteryPanel : BasePanel {
             
         }
 
-        for (int i = 0; i < loadedEntries.Count; i++) {
-            //loadedEntries[i].LoadFeature();
-            CreateActiveFeatureEntry(loadedEntries[i]);
-        }
+        //for (int i = 0; i < loadedEntries.Count; i++) {
+        //    //loadedEntries[i].LoadFeature();
+        //    CreateActiveFeatureEntry(loadedEntries[i]);
+        //}
     }
 
     private List<MasteryFeatureEntry> GetFeatureEntiresFromLoadedMasteries(List<SaveData.MasteryFeatureDistirbutionData> loadedDistributionData) {
