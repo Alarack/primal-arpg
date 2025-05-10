@@ -655,6 +655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6176898004706476842}
   - component: {fileID: 4716659474118621612}
+  - component: {fileID: 5932664455833312655}
   m_Layer: 5
   m_Name: Mastery Panel
   m_TagString: Untagged
@@ -712,6 +713,18 @@ MonoBehaviour:
   activeFeatureTemplate: {fileID: 3091260355013647773}
   activeFeatureHolder: {fileID: 396489246471428978}
   primalEssenceText: {fileID: 4520302208401570475}
+--- !u!225 &5932664455833312655
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334415968191608460}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2335642007200471763
 GameObject:
   m_ObjectHideFlags: 0
