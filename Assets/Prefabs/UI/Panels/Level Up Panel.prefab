@@ -17107,6 +17107,7 @@ GameObject:
   - component: {fileID: 8053560878343148178}
   - component: {fileID: 7543386513477431219}
   - component: {fileID: 3363983538190666684}
+  - component: {fileID: 2478506694495390614}
   m_Layer: 5
   m_Name: Level Up Panel
   m_TagString: Untagged
@@ -17205,6 +17206,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &2478506694495390614
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6468269085902754368}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6507742749585508582
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,8 +16,6 @@ public class EntityPlayer : Entity {
 
     public float CurrentDamageRoll { get { return GetDamgeRoll(); } }
 
-
-
     protected override void Awake() {
         base.Awake();
         Inventory = GetComponent<Inventory>();

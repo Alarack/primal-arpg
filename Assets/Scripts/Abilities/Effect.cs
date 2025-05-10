@@ -273,7 +273,7 @@ public abstract class Effect {
     public virtual bool Apply(Entity target) {
 
         if (target == null) {
-            Debug.LogError(ParentAbility.Data.abilityName + " is trying to affect a null target");
+            Debug.LogWarning(ParentAbility.Data.abilityName + " is trying to affect a null target");
             return false;
         }
 

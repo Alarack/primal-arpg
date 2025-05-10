@@ -15,6 +15,8 @@ public class PlayerMovement : EntityMovement
 
     private Timer dashCooldownTimer;
 
+    public float DashCooldownRatio { get { return dashCooldownTimer.Ratio; } }
+
     protected override void Awake() {
         base.Awake();
         dashTrail = GetComponentInChildren<TrailRenderer>();
@@ -126,7 +128,18 @@ public class PlayerMovement : EntityMovement
         CanDash = false;
         IsDashing = true;
         dashTrail.emitting = true;
-        Vector2 dashForce = MyBody.velocity.normalized * Owner.Stats[StatName.DashSpeed];
+
+        Vector2 dashForce;
+
+        if (MyBody.velocity.magnitude <= 0f) {
+            Vector2 lookDirection = Owner.facingIndicator.transform.up;
+
+            dashForce = lookDirection.normalized * Owner.Stats[StatName.DashSpeed];
+        }
+        else {
+            dashForce = MyBody.velocity.normalized * Owner.Stats[StatName.DashSpeed];
+        }
+
         MyBody.AddForce(dashForce, ForceMode2D.Impulse);
 
         EventData data = new EventData();
@@ -148,6 +161,10 @@ public class PlayerMovement : EntityMovement
 
     private void OnDashCooldownFinished(EventData data) {
         CanDash = true;
+
+        EventData eventData = new EventData();
+
+        EventManager.SendEvent(GameEvent.DashCooldownFinished, eventData);
     }
 
 

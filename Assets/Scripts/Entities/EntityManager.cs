@@ -42,11 +42,11 @@ public class EntityManager : Singleton<EntityManager> {
     private void Update() {
 #if UNITY_EDITOR
 
-        if (Input.GetKeyDown(KeyCode.P)) {
-            //SpawnWave();
+        //if (Input.GetKeyDown(KeyCode.P)) {
+        //    //SpawnWave();
 
-            SpawnGeneratedWave();
-        }
+        //    SpawnGeneratedWave();
+        //}
 
 
         if (Input.GetKeyDown(KeyCode.Keypad0)) {

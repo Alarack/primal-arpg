@@ -65,7 +65,7 @@ public class SkillBasePanel : BasePanel
     }
 
     public int GetFirstEmptySlot() {
-        for (int i = 0; i < activeSkillEntries.Count; i++) {
+        for (int i = activeSkillEntries.Count -1; i >= 0; i--) {
             if (activeSkillEntries[i].Ability == null) {
                 return i;
             }

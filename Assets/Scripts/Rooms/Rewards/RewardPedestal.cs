@@ -13,8 +13,12 @@ public class RewardPedestal : MonoBehaviour
     public GameObject shopAura;
     public Mask passiveMask;
     public Image maskImage;
+    public Image skillFrameImage;
+    public Sprite passiveFrameSprite;
+    public Sprite activeFrameSprite;
     public GameObject skillPointVFX;
     public AudioClip skillPointAudio;
+    public GameObject collectionVFX;
 
     public bool enforceCost;
 
@@ -26,17 +30,25 @@ public class RewardPedestal : MonoBehaviour
         blueAura.gameObject.SetActive(enforceCost == false);
         shopAura.gameObject.SetActive(enforceCost == true);
         passiveMask.enabled = false;
+        
         if(rewardItem.Type == ItemType.Skill) {
             if(rewardItem.learnableAbilities.Count > 0) {
+                skillFrameImage.enabled = true;
+
                 if (rewardItem.learnableAbilities[0].AbilityData.category == AbilityCategory.PassiveSkill) {
                     maskImage.enabled = true;
                     passiveMask.enabled = true;
+                    skillFrameImage.sprite = passiveFrameSprite;
+                }
+                else {
+                    skillFrameImage.sprite = activeFrameSprite;
                 }
             }
         }
         else {
             maskImage.enabled = false;
             passiveMask.enabled = false;
+            skillFrameImage.enabled = false;
         }
 
     }
@@ -69,6 +81,7 @@ public class RewardPedestal : MonoBehaviour
                 break;
             default:
                 ItemSpawner.SpawnItem(rewardItem, transform.position, true);
+                VFXUtility.SpawnVFX(collectionVFX, transform.position, Quaternion.identity, null, 2f);
                 break;
         }
 

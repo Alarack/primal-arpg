@@ -4,9 +4,9 @@ using UnityEngine;
 using LL.Events;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
 
-public class HUDPanel : BasePanel
-{
+public class HUDPanel : BasePanel {
     [Header("Currency")]
     public TextMeshProUGUI goldText;
 
@@ -23,7 +23,11 @@ public class HUDPanel : BasePanel
 
     [Header("Potion UI")]
     public HealthPotionUIManager healthPotionUIManager;
-   
+
+    [Header("Dashes UI")]
+    public Image dashImage;
+    public Transform dashShimmer;
+
 
     [Header("Status Bar")]
     public Transform buffHolder;
@@ -31,6 +35,7 @@ public class HUDPanel : BasePanel
     public StatusIndicatorEntry statusTemplate;
 
     private List<StatusIndicatorEntry> statusIndicators = new List<StatusIndicatorEntry>();
+    private PlayerMovement playerMovement;
 
     protected override void Awake() {
         base.Awake();
@@ -47,11 +52,13 @@ public class HUDPanel : BasePanel
         base.OnEnable();
         EventManager.RegisterListener(GameEvent.CurrencyChanged, OnCurrencyChanged);
         EventManager.RegisterListener(GameEvent.UnitStatAdjusted, OnStatAdjusted);
-        
+
         EventManager.RegisterListener(GameEvent.EntityLeveled, OnEntityLeveled);
         EventManager.RegisterListener(GameEvent.StatusApplied, OnStatusApplied);
         EventManager.RegisterListener(GameEvent.StatusRemoved, OnStatusRemoved);
-        EventManager.RegisterListener(GameEvent.StatusStacked, OnStatusStacked); 
+        EventManager.RegisterListener(GameEvent.StatusStacked, OnStatusStacked);
+
+        EventManager.RegisterListener(GameEvent.DashCooldownFinished, OnDashCooldownFinished);
     }
 
     protected override void OnDisable() {
@@ -60,11 +67,20 @@ public class HUDPanel : BasePanel
         EventManager.RemoveMyListeners(this);
     }
 
+    protected override void Update() {
+        base.Update();
+
+        UpdateDashUI();
+
+
+    }
+
     public override void Open() {
         base.Open();
 
         healthGlobe.Setup(EntityManager.ActivePlayer.Stats.GetStat<StatRange>(StatName.Health));
         essenceGlobe.Setup(EntityManager.ActivePlayer.Stats.GetStat<StatRange>(StatName.Essence));
+        playerMovement = EntityManager.ActivePlayer.Movement as PlayerMovement;
 
         UpdateEXPBar();
         UpdateStockpile();
@@ -75,6 +91,24 @@ public class HUDPanel : BasePanel
 
     public void ClearStatusUI() {
         statusIndicators.ClearList();
+    }
+
+    private void UpdateDashUI() {
+        if (playerMovement == null)
+            return;
+        
+        dashImage.fillAmount = Mathf.Abs(playerMovement.DashCooldownRatio - 1);
+
+        if (dashImage.fillAmount != 0f && playerMovement.CanDash == true) {
+            dashImage.fillAmount = 0f;
+        }
+
+    }
+
+    private void OnDashCooldownFinished(EventData data) {
+        dashShimmer.localPosition = new Vector2(-50f, 0f);
+        dashShimmer.DOLocalMove(new Vector2(50f, 0f), 0.5f);
+
     }
 
     private void OnStatusApplied(EventData data) {
@@ -103,7 +137,7 @@ public class HUDPanel : BasePanel
 
         StatusIndicatorEntry targetStatus = GetStatusIndicator(status);
 
-        if(targetStatus != null) {
+        if (targetStatus != null) {
             targetStatus.UpdateStackCount();
         }
     }
@@ -117,7 +151,7 @@ public class HUDPanel : BasePanel
 
         StatusIndicatorEntry targetStatus = GetStatusIndicator(status);
 
-        if(targetStatus != null) {
+        if (targetStatus != null) {
             statusIndicators.Remove(targetStatus);
             Destroy(targetStatus.gameObject);
         }
@@ -174,9 +208,9 @@ public class HUDPanel : BasePanel
     private void OnEntityLeveled(EventData data) {
         Entity target = data.GetEntity("Target");
         int level = data.GetInt("Level");
-    
 
-        if(target != EntityManager.ActivePlayer) 
+
+        if (target != EntityManager.ActivePlayer)
             return;
 
         UpdateLevel(level);
@@ -216,7 +250,7 @@ public class HUDPanel : BasePanel
 
 
     public void OnLevelUpClicked() {
-        if(EntityManager.ActivePlayer.levelsStored > 0) {
+        if (EntityManager.ActivePlayer.levelsStored > 0) {
             PanelManager.OpenPanel<LevelUpPanel>();
         }
     }

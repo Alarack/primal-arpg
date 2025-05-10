@@ -154,6 +154,7 @@ public class BasePanel : MonoBehaviour
     protected virtual void FadeIn() {
         panelFader.alpha = 0f;
         Tween fadeIn = panelFader.DOFade(1f, fadeTime);
+        fadeIn.SetUpdate(true);
         fadeIn.onComplete += OnFadeInComplete;
     }
 
@@ -201,6 +202,7 @@ public class BasePanel : MonoBehaviour
 
     protected virtual void FadeOut() {
         Tween fadeOut = panelFader.DOFade(0f, fadeTime);
+        fadeOut.SetUpdate(true);
         fadeOut.onComplete += OnFadeOutComplete;
     }
 

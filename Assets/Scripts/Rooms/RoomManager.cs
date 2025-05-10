@@ -104,7 +104,7 @@ public class RoomManager : Singleton<RoomManager> {
 
         //Debug.Log("Room Index: " + Instance.currentRoomIndex);
 
-        PanelManager.OpenPanel<TextDisplayPanel>().Setup("Choose a Room");
+        //PanelManager.OpenPanel<TextDisplayPanel>().Setup("Choose a Room");
         Room.RoomType roomType = Instance.GetRoomType();
 
         //List<ItemType> rewardTypes = new List<ItemType> { ItemType.Skill, ItemType.Equipment, ItemType.Currency, ItemType.SkillPoint };
@@ -298,7 +298,7 @@ public class RoomManager : Singleton<RoomManager> {
 
         //Instance.currentPortals.Clear();
 
-        PanelManager.ClosePanel<TextDisplayPanel>();
+        //PanelManager.ClosePanel<TextDisplayPanel>();
     }
 
     private void CleanUpRoomPortals() {
@@ -364,7 +364,7 @@ public class RoomManager : Singleton<RoomManager> {
         
         MultiReward = multiReward;
 
-        PanelManager.OpenPanel<TextDisplayPanel>().Setup(displayText);
+        //PanelManager.OpenPanel<TextDisplayPanel>().Setup(displayText);
         EntityManager.ActivePlayer.ActivateBigVacum();
 
         if (rewardItems.Count == 0) {
@@ -396,6 +396,7 @@ public class RoomManager : Singleton<RoomManager> {
     private IEnumerator SpawnRewardsOnDelay(List<ItemDefinition> rewardItems, bool shopMode = false) {
         WaitForSeconds waiter = new WaitForSeconds(0.2f);
 
+        yield return new WaitForSeconds(0.35f);
 
         for (int i = 0; i < rewardItems.Count; i++) {
             Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rewardItems.Count);
@@ -423,7 +424,7 @@ public class RoomManager : Singleton<RoomManager> {
         if (MultiReward == false) {
 
             reward.DispenseReward();
-            PanelManager.ClosePanel<TextDisplayPanel>();
+            //PanelManager.ClosePanel<TextDisplayPanel>();
 
             Instance.CleanUpRewardPedestals();
 
@@ -444,7 +445,7 @@ public class RoomManager : Singleton<RoomManager> {
             Destroy(reward.gameObject);
 
             if (Instance.currentRewards.Count == 0) {
-                PanelManager.ClosePanel<TextDisplayPanel>();
+                //PanelManager.ClosePanel<TextDisplayPanel>();
                 CurrentRoom.EndRoom();
 
             }

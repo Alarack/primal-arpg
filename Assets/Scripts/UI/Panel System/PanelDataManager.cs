@@ -30,11 +30,11 @@ public class PanelDataManager : Singleton<PanelDataManager>
 
     private void Update() {
 
-        if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.I)) {
+        if (Input.GetKeyDown(KeyCode.V)) {
             PanelManager.TogglePanel<InventoryPanel>();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) {
+        if (Input.GetKeyDown(KeyCode.P)) {
             PanelManager.TogglePanel<SkillsPanel>();
         }
 

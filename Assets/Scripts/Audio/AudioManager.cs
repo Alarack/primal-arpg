@@ -123,7 +123,7 @@ public class AudioManager : Singleton<AudioManager>
 
 
     private IEnumerator ResolveSound(AudioClip clip, AudioSource source) {
-        WaitForSeconds waiter = new WaitForSeconds( clip.length);
+        WaitForSecondsRealtime waiter = new WaitForSecondsRealtime( clip.length);
 
         yield return waiter;
 
