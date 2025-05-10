@@ -7,7 +7,9 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : EntityMovement
 {
 
-    private TrailRenderer dashTrail;
+    //private TrailRenderer dashTrail;
+    [SerializeField]
+    private ParticleSystem dashParticles;
 
     private Vector2 direction;
 
@@ -19,7 +21,7 @@ public class PlayerMovement : EntityMovement
 
     protected override void Awake() {
         base.Awake();
-        dashTrail = GetComponentInChildren<TrailRenderer>();
+        //dashTrail = GetComponentInChildren<TrailRenderer>();
 
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
@@ -127,7 +129,8 @@ public class PlayerMovement : EntityMovement
         CanMove = false;
         CanDash = false;
         IsDashing = true;
-        dashTrail.emitting = true;
+        //dashTrail.emitting = true;
+        dashParticles.Play();
 
         Vector2 dashForce;
 
@@ -156,7 +159,8 @@ public class PlayerMovement : EntityMovement
         MyBody.velocity = Vector2.zero;
         CanMove = true;
         IsDashing = false;
-        dashTrail.emitting = false;
+        //dashTrail.emitting = false;
+        dashParticles.Stop();
     }
 
     private void OnDashCooldownFinished(EventData data) {
