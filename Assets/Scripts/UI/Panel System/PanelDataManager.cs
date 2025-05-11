@@ -49,6 +49,10 @@ public class PanelDataManager : Singleton<PanelDataManager>
             PanelManager.OpenPanel<MasteryPanel>();
         }
 
+        if (Input.GetKeyDown(KeyCode.T)) {
+            PanelManager.OpenPanel<TransitionPanel>().Setup(DEV_TransitionTest);
+        }
+
 
 #if UNITY_EDITOR
 
@@ -67,7 +71,10 @@ public class PanelDataManager : Singleton<PanelDataManager>
 
     }
 
+    private void DEV_TransitionTest() {
 
+        Debug.Log("Doing Transtion callback");
+    }
     private bool ClosePanelsOnEscape() {
         bool closed = false;
 

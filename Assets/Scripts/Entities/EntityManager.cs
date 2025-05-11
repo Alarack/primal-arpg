@@ -309,6 +309,7 @@ public class EntityManager : Singleton<EntityManager> {
             WaitForSeconds waiter = new WaitForSeconds(spanwDelay);
 
             //Debug.LogWarning("Spawning a wave: " + entries.Count + " entries found");
+            yield return new WaitForSeconds(0.3f);
 
             foreach (var entry in entries) {
                 for (int i = 0; i < entry.count; i++) {

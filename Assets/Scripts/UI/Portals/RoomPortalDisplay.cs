@@ -8,12 +8,11 @@ using UnityEngine.UI;
 public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
 
-    [Header("Icons")]
-    public Sprite combatIcon;
-    public Sprite shopIcon;
-    public Sprite bossIcon;
 
 
+    [Header("Portals")]
+    public GameObject defaultPortal;
+    public SerializableDictionary<Room.RoomType, GameObject> portals = new SerializableDictionary<Room.RoomType, GameObject>();
 
     public Image roomRewardIcon;
 
@@ -32,6 +31,17 @@ public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 roomRewardIcon.sprite = rewardSprite;
             }
         }
+
+
+
+        if(portals.ContainsKey(room.Type) == false) {
+            defaultPortal.SetActive(true);
+        }
+        else {
+            portals[room.Type].SetActive(true);
+            defaultPortal.SetActive(false);
+        }
+
 
 
     }
@@ -76,8 +86,14 @@ public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        RoomManager.OnRoomSelected(room);
+        PanelManager.OpenPanel<TransitionPanel>().Setup(FinishRoomTransition);
+
+       
         TooltipManager.Hide();
+    }
+
+    private void FinishRoomTransition() {
+        RoomManager.OnRoomSelected(room);
     }
 
     #endregion

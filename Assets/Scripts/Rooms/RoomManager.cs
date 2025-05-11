@@ -360,7 +360,7 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     public static void CreateRewards(List<ItemDefinition> rewardItems, string displayText, bool multiReward = false, bool shopMode = false) {
-        CheckLevelUp();
+        //CheckLevelUp();
         
         MultiReward = multiReward;
 
@@ -396,7 +396,7 @@ public class RoomManager : Singleton<RoomManager> {
     private IEnumerator SpawnRewardsOnDelay(List<ItemDefinition> rewardItems, bool shopMode = false) {
         WaitForSeconds waiter = new WaitForSeconds(0.2f);
 
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.75f);
 
         for (int i = 0; i < rewardItems.Count; i++) {
             Vector2 targetPos = Vector2.Lerp(Instance.pedestalHolderLeft.position, Instance.pedistalHolderRight.position, (i + 0.5f) / rewardItems.Count);
