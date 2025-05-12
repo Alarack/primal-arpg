@@ -15,6 +15,7 @@ public class BasePanel : MonoBehaviour
 {
     public bool IsOpen { get; private set; }
     public bool CloseOnEscape { get; private set; }
+    public bool BlockPause {  get; private set; }
 
     public string PanelID { get; protected set; }
 
@@ -99,10 +100,11 @@ public class BasePanel : MonoBehaviour
         }
     }
 
-    public void Initialize(string id, bool closeOnEscape = false)
+    public void Initialize(string id, bool closeOnEscape = false, bool blockPause = false)
     {
         PanelID = id;
         this.CloseOnEscape = closeOnEscape;
+        this.BlockPause = blockPause;
 
         if (view.activeInHierarchy == true)
             IsOpen = true;

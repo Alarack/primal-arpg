@@ -39,7 +39,7 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
         if (PathAbility == null) {
             Debug.LogError("Couldn't find: " + PathAbilityDef.AbilityData.abilityName + " on player, learning it fresh. Level will be wrong");
 
-            PathAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(PathAbilityDef.AbilityData, true);
+            PathAbility = EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(PathAbilityDef.AbilityData, true);
         }
 
         UpdateRankText();
@@ -87,7 +87,7 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
       
         
         if(PathAbility == null) {
-            PathAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(PathAbilityDef.AbilityData, true);
+            PathAbility = EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(PathAbilityDef.AbilityData, true);
             PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.ParentMasteryName, parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, 1);
         }
         else {

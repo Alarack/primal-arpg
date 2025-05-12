@@ -75,9 +75,29 @@ public class NPC : Entity
     }
 
     private void OnSpawnInComplete(EventData data) {
+        CheckHandicap();
         active = true;
         if(myCollider != null) 
             myCollider.enabled = true;
+    }
+
+    private void CheckHandicap() {
+        if (ownerType != OwnerConstraintType.Enemy)
+            return;
+
+        float enemySpeed = PlayerPrefs.GetFloat("EnemySpeed");
+        if (enemySpeed > 0) {
+            StatModifier handiCapSpeed = new StatModifier(enemySpeed -1f, StatModType.PercentMult, StatName.MoveSpeed, this, StatModifierData.StatVariantTarget.Simple);
+            StatModifier handiCapCooldown = new StatModifier(enemySpeed -1f, StatModType.PercentMult, StatName.CooldownReduction, this, StatModifierData.StatVariantTarget.Simple);
+
+            if(Stats.Contains(StatName.CooldownReduction) == false) {
+                Stats.AddStat(new SimpleStat(StatName.CooldownReduction, 0f));
+            }
+
+            StatAdjustmentManager.ApplyStatAdjustment(this, handiCapSpeed, handiCapSpeed.VariantTarget, this, null);
+            StatAdjustmentManager.ApplyStatAdjustment(this, handiCapCooldown, handiCapCooldown.VariantTarget, this, null);
+        }
+
     }
 
     public void BecomeElite(EliteAffixType type) {

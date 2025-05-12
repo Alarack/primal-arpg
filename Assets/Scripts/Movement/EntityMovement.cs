@@ -33,14 +33,14 @@ public class EntityMovement : MonoBehaviour
 
     public virtual float IsMoving() {
         if(MyBody != null) {
-            return MyBody.velocity.magnitude;
+            return MyBody.linearVelocity.magnitude;
         }
 
         return 0f;
     }
 
     public void StopMovement() {
-        MyBody.velocity = Vector3.zero;
+        MyBody.linearVelocity = Vector3.zero;
         CanMove = false;
     }
 

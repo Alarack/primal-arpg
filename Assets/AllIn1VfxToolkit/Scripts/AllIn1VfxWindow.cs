@@ -741,7 +741,7 @@ namespace AllIn1VfxToolkit
             string targetShader = "AllIn1Vfx";
         
             string pipeline = "Built-In";
-            RenderPipelineAsset renderPipelineAsset = GraphicsSettings.renderPipelineAsset;
+            RenderPipelineAsset renderPipelineAsset = GraphicsSettings.defaultRenderPipeline;
             if(renderPipelineAsset != null) {
                 switch(renderPipelineAsset.GetType().Name) {
                     case "UniversalRenderPipelineAsset": pipeline = "URP";

@@ -172,7 +172,10 @@ public class Ability {
             return;
         }
 
-        Debug.Log("Equipping: " + Data.abilityName);
+#if UNITY_EDITOR
+        if(Source.entityType == Entity.EntityType.Player)
+            Debug.Log("Equipping: " + Data.abilityName);
+#endif
 
         SetupActivationTriggers();
         RegisterResetEvents();

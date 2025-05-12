@@ -264,7 +264,7 @@ public abstract class Entity : MonoBehaviour {
     #region ABILIITES
 
     public Ability GetAbilityByName(string name, AbilityCategory category) {
-        return AbilityManager.GetAbilityByName(name, category);
+        return AbilityManager.GetAbilityByName(name);
     }
 
     public void ActivateFirstAbility() {

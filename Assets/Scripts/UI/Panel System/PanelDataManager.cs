@@ -41,6 +41,9 @@ public class PanelDataManager : Singleton<PanelDataManager>
         if(Input.GetKeyDown(KeyCode.Escape)) {
             if (PanelManager.IsEscapeClosingPanelOpen() == true)
                 return;
+
+            if (PanelManager.IsPauseBlockingPanelOpen() == true)
+                return;
             
             PanelManager.TogglePanel<PausePanel>();
         }

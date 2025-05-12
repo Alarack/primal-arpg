@@ -30,7 +30,7 @@ public class AbilityManager : MonoBehaviour {
     public Action<Ability, int, Ability, int> onAbilitySwapped;
 
 
-    private List<Ability> learnedAbilities = new List<Ability>();
+    private List<Ability> learnedUseableAbilitiesFromItems = new List<Ability>();
 
     public Entity Owner { get; private set; }
 
@@ -45,11 +45,11 @@ public class AbilityManager : MonoBehaviour {
     }
 
     public void ResetAbilities() {
-        
+
         foreach (var entry in Abilities) {
             for (int i = 0; i < entry.Value.Count; i++) {
                 if (entry.Value[i].Tags.Contains(AbilityTag.Mastery))
-                   continue;
+                    continue;
 
                 entry.Value[i].ResetLevel();
                 entry.Value[i].ResetRunes();
@@ -65,12 +65,12 @@ public class AbilityManager : MonoBehaviour {
 
         //Debug.Log("Count of Actives: " + ActiveAbilities.Count);
 
-        for (int i = ActiveAbilities.Count -1; i >= 0; i--) {
+        for (int i = ActiveAbilities.Count - 1; i >= 0; i--) {
             int currentSlot = PanelManager.GetPanel<HotbarPanel>().GetAbilitySlotIndex(ActiveAbilities[i]);
 
             //Debug.Log("Slot for: " + ActiveAbilities[i].Data.abilityName + " :: " + currentSlot);
 
-            if(currentSlot > -1) {
+            if (currentSlot > -1) {
                 UnequipAbility(ActiveAbilities[i], currentSlot);
             }
         }
@@ -78,12 +78,12 @@ public class AbilityManager : MonoBehaviour {
         for (int i = PassiveAbilities.Count - 1; i >= 0; i--) {
             if (PassiveAbilities[i].Tags.Contains(AbilityTag.Mastery))
                 continue;
-            
+
             if (PassiveAbilities[i].IsEquipped == true)
                 PassiveAbilities[i].Uneqeuip();
         }
 
-        new Task( AutoEquipStartingSkill());
+        new Task(AutoEquipStartingSkill());
 
     }
 
@@ -106,36 +106,24 @@ public class AbilityManager : MonoBehaviour {
             //for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
             //    LearnAbility(item.Data.learnableAbilities[i].AbilityData);
             //}
-            LearnItemAbilities(item);
+            //LearnItemAbilities(item);
+            LearnSkillFromScroll(item);
         }
-    }
-
-    private List<Ability> LearnItemAbilities(Item item) {
-        List<Ability> newItemAbilities = new List<Ability>();
-
-        for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
-            Ability learnedAbility = LearnAbility(item.Data.learnableAbilities[i].AbilityData);
-
-            if(learnedAbility != null) {
-                newItemAbilities.Add(learnedAbility);
-                AutoEquipToFirstEmptySlot(learnedAbility);
-            }
-        }
-
-        learnedAbilities.AddRange(newItemAbilities);
-
-        return newItemAbilities;
     }
 
     private void OnItemEquipped(EventData data) {
         Item item = data.GetItem("Item");
 
-        if (item is ItemWeapon) {
-            List<Ability> newWeaponAbilities = LearnItemAbilities(item);
+        LearnUsableItemAbilities(item);
 
-            if (newWeaponAbilities.Count > 0)
-                EquipWeaponAbility(newWeaponAbilities[0]);
-        }
+        //if (item is ItemWeapon) {
+        //    LearnUsableItemAbilities(item);
+            
+        //    //List<Ability> newWeaponAbilities = LearnItemAbilities(item);
+
+        //    //if (newWeaponAbilities.Count > 0)
+        //    //    EquipWeaponAbility(newWeaponAbilities[0]);
+        //}
     }
 
     public void OnItemUnequipped(EventData data) {
@@ -178,11 +166,6 @@ public class AbilityManager : MonoBehaviour {
         return null;
     }
 
-    //private void Setup(Entity owner) {
-    //    Owner = owner;
-    //    SetupPreloadedAbilities();
-    //}
-
     private void SetupPreloadedAbilities() {
         AbilityUtilities.SetupAbilities(preloadedAbilities, KnownAbilities, Owner, false, true);
 
@@ -208,24 +191,65 @@ public class AbilityManager : MonoBehaviour {
 
     #region LEARNING AND EQUIPPING
 
+
+    private void LearnUsableItemAbilities(Item item) {
+        for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
+
+            Ability existingAbility = GetAbilityByName(item.Data.learnableAbilities[i].AbilityData.abilityName);
+
+            if (existingAbility != null) {
+                Debug.LogError("Ability from Item " + item.Data.itemName + " already exists: " + item.Data.learnableAbilities[i].AbilityData.abilityName);
+                continue;
+            }
+
+            Ability newItemAbility = CreateAndLearnAbility(item.Data.learnableAbilities[i].AbilityData);
+            learnedUseableAbilitiesFromItems.Add(newItemAbility);
+            if(item is ItemWeapon) {
+                EquipActiveWeaponAbility(newItemAbility);
+            }
+        }
+    }
+
+    //private List<Ability> LearnItemAbilities(Item item) {
+    //    List<Ability> newItemAbilities = new List<Ability>();
+
+    //    for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
+    //        Ability learnedAbility = LearnAbility(item.Data.learnableAbilities[i].AbilityData);
+
+    //        if (learnedAbility != null) {
+    //            newItemAbilities.Add(learnedAbility);
+    //            AutoEquipToFirstEmptySlot(learnedAbility);
+    //        }
+    //    }
+
+    //    learnedAbilities.AddRange(newItemAbilities);
+
+    //    return newItemAbilities;
+    //}
+
+    private void LearnSkillFromScroll(Item item) {
+        for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
+            Ability existingAbility = GetAbilityByName(item.Data.learnableAbilities[i].AbilityData.abilityName);
+            if (existingAbility != null) {
+                UnlockAbility(existingAbility);
+            }
+            else {
+                Debug.LogError("A skill: " + item.Data.learnableAbilities[i].AbilityData.abilityName + " did not exist.");
+            }
+        }
+    }
+
     public void LearnAbility(Ability ability, AbilityCategory category, bool autoEquip = false) {
 
 
         Abilities[category].AddUnique(ability);
-        
-        if(AbilitiesByName.ContainsKey(ability.Data.abilityName) == false) {
+
+        if (AbilitiesByName.ContainsKey(ability.Data.abilityName) == false) {
             AbilitiesByName.Add(ability.Data.abilityName, ability);
         }
 
-        if(autoEquip == true)
+        if (autoEquip == true)
             ability.Equip();
-        //if (category == AbilityCategory.ActiveSkill || category == AbilityCategory.KnownSkill) {
-
-        //    if (KnownAbilities.AddUnique(ability) == true) {
-        //        onAbilityLearned?.Invoke(ability);
-        //    }
-
-        //}
 
         ability.Locked = false;
 
@@ -234,21 +258,29 @@ public class AbilityManager : MonoBehaviour {
         EventManager.SendEvent(GameEvent.AbilityLearned, data);
     }
 
-    public Ability LearnAbility(AbilityData abilityData, bool autoEquip = false, int startingLevel = 1) {
-        Ability existingAbility = GetAbilityByName(abilityData.abilityName, AbilityCategory.Any);
-        if(existingAbility != null) {
-            existingAbility.Locked = false;
-            
-            if(abilityData.category == AbilityCategory.KnownSkill)
-                AutoEquipToFirstEmptySlot(existingAbility);
-            if (abilityData.category == AbilityCategory.PassiveSkill)
-                PanelManager.GetPanel<SkillsPanel>().AutoEquipPassiveToFirstEmptySlot(existingAbility);
+    private void UnlockAbility(Ability ability) {
+
+        ability.Locked = false;
+
+        if (ability.Data.category == AbilityCategory.KnownSkill)
+            AutoEquipToFirstEmptySlot(ability);
+        if (ability.Data.category == AbilityCategory.PassiveSkill)
+            PanelManager.GetPanel<SkillsPanel>().AutoEquipPassiveToFirstEmptySlot(ability);
+    }
 
 
-            return null;
+    public void LearnAndEquipAbility(AbilityData abilityData, int startingLevel) {
+        Ability existingAbility = GetAbilityByName(abilityData.abilityName);
+        
+        if (existingAbility != null) 
+            UnlockAbility(existingAbility);
+        else {
+            CreateAndLearnAbility(abilityData, true, startingLevel);
         }
-        
-        
+
+    }
+
+    public Ability CreateAndLearnAbility(AbilityData abilityData, bool autoEquip = false, int startingLevel = 1) {
         Ability newAbility = AbilityFactory.CreateAbility(abilityData, Owner);
         newAbility.SetLevel(startingLevel);
         LearnAbility(newAbility, abilityData.category, autoEquip);
@@ -257,23 +289,48 @@ public class AbilityManager : MonoBehaviour {
     }
 
 
+    //public Ability LearnAbility(AbilityData abilityData, bool autoEquip = false, int startingLevel = 1) {
+    //    Ability existingAbility = GetAbilityByName(abilityData.abilityName, AbilityCategory.Any);
+    //    if (existingAbility != null) {
+    //        existingAbility.Locked = false;
+
+    //        if (abilityData.category == AbilityCategory.KnownSkill)
+    //            AutoEquipToFirstEmptySlot(existingAbility);
+    //        if (abilityData.category == AbilityCategory.PassiveSkill)
+    //            PanelManager.GetPanel<SkillsPanel>().AutoEquipPassiveToFirstEmptySlot(existingAbility);
+
+
+    //        return null;
+    //    }
+
+    //    //Debug.LogWarning("An Ability: " + abilityData.abilityName + " doesn't exist, so we have to create it fresh");
+
+
+    //    Ability newAbility = AbilityFactory.CreateAbility(abilityData, Owner);
+    //    newAbility.SetLevel(startingLevel);
+    //    LearnAbility(newAbility, abilityData.category, autoEquip);
+
+    //    return newAbility;
+    //}
+
+
     public void UnlearnAbility(AbilityDefinition abilityDef) {
 
-        for (int i = learnedAbilities.Count - 1; i >= 0; i--) {
-            if (learnedAbilities[i].Data.abilityName == abilityDef.AbilityData.abilityName) {
+        for (int i = learnedUseableAbilitiesFromItems.Count - 1; i >= 0; i--) {
+            if (learnedUseableAbilitiesFromItems[i].Data.abilityName == abilityDef.AbilityData.abilityName) {
 
                 //Debug.Log("Unearling a weapon ability: " + learnedAbilities[i].Data.abilityName);
 
-                Abilities[AbilityCategory.KnownSkill].RemoveIfContains(learnedAbilities[i]);
+                Abilities[AbilityCategory.KnownSkill].RemoveIfContains(learnedUseableAbilitiesFromItems[i]);
 
-                int currentSlot = PanelManager.GetPanel<HotbarPanel>().GetAbilitySlotIndex(learnedAbilities[i]);
+                int currentSlot = PanelManager.GetPanel<HotbarPanel>().GetAbilitySlotIndex(learnedUseableAbilitiesFromItems[i]);
 
                 if (currentSlot > -1) {
-                    UnequipAbility(learnedAbilities[i], currentSlot);
+                    UnequipAbility(learnedUseableAbilitiesFromItems[i], currentSlot);
                 }
 
-                AbilitiesByName.Remove(learnedAbilities[i].Data.abilityName);
-                learnedAbilities.Remove(learnedAbilities[i]);
+                AbilitiesByName.Remove(learnedUseableAbilitiesFromItems[i].Data.abilityName);
+                learnedUseableAbilitiesFromItems.Remove(learnedUseableAbilitiesFromItems[i]);
             }
         }
     }
@@ -294,10 +351,10 @@ public class AbilityManager : MonoBehaviour {
                 Debug.LogError(ability.Data.abilityName + " is already equipped.");
         }
         else
-            Debug.LogError("Tried to equip a skill you didn't know");
+            Debug.LogError("Tried to equip a skill you didn't know: " + ability.Data.abilityName);
     }
 
-    public void EquipWeaponAbility(Ability ability) {
+    public void EquipActiveWeaponAbility(Ability ability) {
         Ability currentWeaponAbility = PanelManager.GetPanel<HotbarPanel>().GetActiveAbilityBySlot(4);
 
         if (currentWeaponAbility == null) {
@@ -306,9 +363,16 @@ public class AbilityManager : MonoBehaviour {
     }
 
     public void AutoEquipToFirstEmptySlot(Ability ability) {
+
+        if (ability.Data.category == AbilityCategory.PassiveSkill) {
+            Debug.LogError("A passive Ability: " + ability.Data.abilityName + " was passed to auto equip to first empty slot");
+            return;
+        }
+
+
         int firstEmptySlot = PanelManager.GetPanel<HotbarPanel>().GetFirstEmptySlot();
 
-        if(firstEmptySlot > -1) {
+        if (firstEmptySlot > -1) {
             EquipAbility(ability, firstEmptySlot);
         }
     }
@@ -376,13 +440,13 @@ public class AbilityManager : MonoBehaviour {
     }
 
     public void UnlockAbility(string abilityName) {
-        Ability target = GetAbilityByName(abilityName, AbilityCategory.Any);
+        Ability target = GetAbilityByName(abilityName);
 
-        if(target != null) {
+        if (target != null) {
             target.Locked = false;
-            if(target.Data.category == AbilityCategory.KnownSkill)
+            if (target.Data.category == AbilityCategory.KnownSkill)
                 AutoEquipToFirstEmptySlot(target);
-            if(target.Data.category == AbilityCategory.PassiveSkill) {
+            if (target.Data.category == AbilityCategory.PassiveSkill) {
                 PanelManager.GetPanel<SkillsPanel>().AutoEquipPassiveToFirstEmptySlot(target);
             }
         }
@@ -447,6 +511,15 @@ public class AbilityManager : MonoBehaviour {
         return results;
     }
 
+
+    public Ability GetAbilityByName(string name) {
+        if(AbilitiesByName.TryGetValue(name, out Ability ability)) 
+            return ability;
+
+        return null;
+    }
+
+
     public Ability GetAbilityByName(string name, AbilityCategory category) {
 
         if (category == AbilityCategory.Any) {
@@ -489,7 +562,7 @@ public class AbilityManager : MonoBehaviour {
     }
 
     public void ActivateAbilityByName(string name, AbilityCategory category) {
-        Ability targetAbility = GetAbilityByName(name, category);
+        Ability targetAbility = GetAbilityByName(name);
         if (targetAbility == null) {
             Debug.LogError("An abiity: " + name + " could not be found on: " + Owner.EntityName + " and it was told to activate");
             return;
@@ -499,7 +572,7 @@ public class AbilityManager : MonoBehaviour {
     }
 
     public bool HasAbility(AbilityDefinition ability) {
-        Ability target = GetAbilityByName(ability.AbilityData.abilityName, AbilityCategory.Any);
+        Ability target = GetAbilityByName(ability.AbilityData.abilityName);
 
         //if (target != null && target.Locked == false) {
         //    Debug.Log(target.Data.abilityName + " is not locked");
@@ -517,7 +590,7 @@ public class AbilityManager : MonoBehaviour {
     }
 
     public bool HasAbility(string abilityName) {
-        Ability target = GetAbilityByName(abilityName, AbilityCategory.Any);
+        Ability target = GetAbilityByName(abilityName);
 
         return target != null && target.Locked == false;
     }

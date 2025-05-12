@@ -467,7 +467,7 @@ public class Projectile : Entity {
         myCollider.enabled = false;
         Movement.CanMove = false;
         Movement.MyBody.freezeRotation = false;
-        Movement.MyBody.velocity = Vector2.zero;
+        Movement.MyBody.linearVelocity = Vector2.zero;
 
         SpawnDeathVFX();
 

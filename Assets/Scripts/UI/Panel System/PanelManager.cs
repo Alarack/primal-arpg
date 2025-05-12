@@ -72,6 +72,7 @@ public static class PanelManager
     private static BasePanel CreatePanel(Transform canvasRoot, string panelId)
     {
         BasePanel targetPanel = PanelDataManager.Instance.panelMapData.GetPanelPrefab(panelId);
+        PanelMapData.PanelMapEntry targetPanelData = PanelDataManager.Instance.panelMapData.GetPanelMapEntry(panelId);
 
         if (targetPanel == null)
         {
@@ -85,7 +86,7 @@ public static class PanelManager
             canvasRoot = PanelDataManager.Instance.canvasRoot;
 
         BasePanel activePanel = GameObject.Instantiate(targetPanel, canvasRoot) as BasePanel;
-        activePanel.Initialize(panelId);
+        activePanel.Initialize(panelId, targetPanelData.closeOnEscape, targetPanelData.blockPause);
         currentPanels.Add(panelId, activePanel);
 
         return activePanel;
@@ -111,7 +112,7 @@ public static class PanelManager
         }
 
         BasePanel activePanel = GameObject.Instantiate(targetPanel.panelPrefab, canvasRoot) as BasePanel;
-        activePanel.Initialize(targetPanel.panelID, targetPanel.closeOnEscape);
+        activePanel.Initialize(targetPanel.panelID, targetPanel.closeOnEscape, targetPanel.blockPause);
         currentPanels.Add(targetPanel.panelID, activePanel);
 
         if (activePanel.defaultState == BasePanelState.Closed) {
@@ -156,6 +157,19 @@ public static class PanelManager
 
                 //Debug.Log(panel.Key + " is open");
                 
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static bool IsPauseBlockingPanelOpen() {
+        foreach (var panel in currentPanels) {
+            if (panel.Value != null && panel.Value.IsOpen == true && panel.Value.BlockPause == true) {
+
+                //Debug.Log(panel.Key + " is open");
+
                 return true;
             }
         }

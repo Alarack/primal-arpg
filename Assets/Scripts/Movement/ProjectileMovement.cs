@@ -107,12 +107,12 @@ public class ProjectileMovement : EntityMovement
             //Debug.Log(Owner.EntityName + "has had their speed changed by " + value);
 
             float speedHack = 1 + value;
-            MyBody.velocity *= speedHack;
+            MyBody.linearVelocity *= speedHack;
         }
         else {
             //Debug.Log(Owner.EntityName + "has a stat mod of " + value + " removed");
             float speedHack = 1 - value;
-            MyBody.velocity *= speedHack;
+            MyBody.linearVelocity *= speedHack;
         }
 
 

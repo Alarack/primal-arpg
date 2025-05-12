@@ -421,6 +421,8 @@ public class RoomManager : Singleton<RoomManager> {
         }
 
 
+        //Debug.Log("Selected Reward: " + reward.rewardItem.itemName);
+
         if (MultiReward == false) {
 
             reward.DispenseReward();

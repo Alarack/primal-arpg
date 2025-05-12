@@ -24,6 +24,8 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
     private Item displayItem;
     private Ability displayAbility;
 
+    private bool chosen;
+
     private void Awake() {
         GetComponent<Canvas>().worldCamera = Camera.main;
     }
@@ -103,7 +105,12 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        
+
+        if (chosen == true)
+            return;
+
+        chosen = true;
+
         if(pedestal.enforceCost == false) {
             RoomManager.OnRewardSelected(pedestal);
             TooltipManager.Hide();

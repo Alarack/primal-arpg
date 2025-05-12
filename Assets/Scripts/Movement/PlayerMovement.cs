@@ -134,13 +134,13 @@ public class PlayerMovement : EntityMovement
 
         Vector2 dashForce;
 
-        if (MyBody.velocity.magnitude <= 0f) {
+        if (MyBody.linearVelocity.magnitude <= 0f) {
             Vector2 lookDirection = Owner.facingIndicator.transform.up;
 
             dashForce = lookDirection.normalized * Owner.Stats[StatName.DashSpeed];
         }
         else {
-            dashForce = MyBody.velocity.normalized * Owner.Stats[StatName.DashSpeed];
+            dashForce = MyBody.linearVelocity.normalized * Owner.Stats[StatName.DashSpeed];
         }
 
         MyBody.AddForce(dashForce, ForceMode2D.Impulse);
@@ -156,7 +156,7 @@ public class PlayerMovement : EntityMovement
     private IEnumerator DashTimer() {
         WaitForSeconds waiter = new WaitForSeconds(Owner.Stats[StatName.DashDuration]);
         yield return waiter;
-        MyBody.velocity = Vector2.zero;
+        MyBody.linearVelocity = Vector2.zero;
         CanMove = true;
         IsDashing = false;
         //dashTrail.emitting = false;

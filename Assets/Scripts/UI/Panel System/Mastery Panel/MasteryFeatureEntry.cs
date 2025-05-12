@@ -57,7 +57,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
 
         if (FeatureAbility == null) {
             Debug.LogError("Couldn't find: " + FeatureData.featureAbility.AbilityData.abilityName + " on player, learning it fresh. Level will be wrong");
-            FeatureAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(FeatureData.featureAbility.AbilityData, true);
+            FeatureAbility = EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(FeatureData.featureAbility.AbilityData, true);
         }
 
         SetDimmer();
@@ -150,7 +150,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
     //}
 
     private void CreateFeatureAbility() {
-        FeatureAbility = EntityManager.ActivePlayer.AbilityManager.LearnAbility(FeatureData.featureAbility.AbilityData, false);
+        FeatureAbility = EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(FeatureData.featureAbility.AbilityData, false);
         //SaveLoadUtility.SaveData.AddMastery(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
         //SaveLoadUtility.SavePlayerData();
         //PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);

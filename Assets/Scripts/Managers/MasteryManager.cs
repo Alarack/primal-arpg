@@ -29,11 +29,11 @@ public class MasteryManager : Singleton<MasteryManager>
             foreach (var masteryDistribution in savedMasteries[i].distirbutionData) {
 
                 MasteryData.MasteryFeatureData featureData = masteryData.GetFeatureByName(masteryDistribution.featureName);
-                EntityManager.ActivePlayer.AbilityManager.LearnAbility(featureData.featureAbility.AbilityData, true);
+                EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(featureData.featureAbility.AbilityData, true);
 
                 foreach (var pathAbilitData in masteryDistribution.abilityDistribution) {
                     AbilityData targetAbilityData = featureData.GetPathAbilityByName(pathAbilitData.Key).AbilityData;
-                    EntityManager.ActivePlayer.AbilityManager.LearnAbility(targetAbilityData, true, pathAbilitData.Value);
+                    EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(targetAbilityData, true, pathAbilitData.Value);
                 }
             }
         }

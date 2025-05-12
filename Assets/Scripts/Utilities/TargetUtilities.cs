@@ -131,7 +131,7 @@ public static class TargetUtilities
             self.transform.rotation = GetRotationTowardTarget(nearest.transform, self.transform);
 
             if(resetVelocity == true) {
-                self.Movement.MyBody.velocity = Vector2.zero;
+                self.Movement.MyBody.linearVelocity = Vector2.zero;
             }
         }
 
@@ -144,7 +144,7 @@ public static class TargetUtilities
             self.transform.rotation = GetRotationTowardTarget(randomNearby.transform, self.transform);
 
             if (resetVelocity == true) {
-                self.Movement.MyBody.velocity = Vector2.zero;
+                self.Movement.MyBody.linearVelocity = Vector2.zero;
             }
 
             return true;

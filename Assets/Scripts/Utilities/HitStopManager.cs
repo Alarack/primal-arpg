@@ -22,14 +22,15 @@ public class HitStopManager : Singleton<HitStopManager>
         waiting = true;
         yield return new WaitForSecondsRealtime(duration);
         waiting = false;
-        float savedSpeed = PlayerPrefs.GetFloat("GameSpeed");
+        Time.timeScale = 1f;
+        //float savedSpeed = PlayerPrefs.GetFloat("GameSpeed");
 
-        if (savedSpeed > 0f) {
-            Time.timeScale = savedSpeed;
-        }
-        else {
-            Time.timeScale = 1f;
-        }
+        //if (savedSpeed > 0f) {
+        //    Time.timeScale = savedSpeed;
+        //}
+        //else {
+        //    Time.timeScale = 1f;
+        //}
 
     }
 

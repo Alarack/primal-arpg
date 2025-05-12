@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class OptionsPanel : BasePanel
 {
@@ -19,8 +20,9 @@ public class OptionsPanel : BasePanel
     public TMP_Dropdown cursorModeDropdown;
     private CustomCursor customCursor;
 
-    [Header("Game speed")]
-    public Slider gameSpeedSlider;
+    [Header("Enemy speed")]
+    public Slider enemySpeedSlider;
+    public TextMeshProUGUI enemySpeedText;
 
 
     [Header("Gameplay Stuff")]
@@ -43,7 +45,7 @@ public class OptionsPanel : BasePanel
 
         colorPickerSubPanel = GetComponentInChildren<ColorPickerSubPanel>();
 
-        customCursor = GameObject.FindObjectOfType<CustomCursor>();
+        customCursor = FindFirstObjectByType<CustomCursor>();
 
         if(customCursor == null)
         {
@@ -68,8 +70,9 @@ public class OptionsPanel : BasePanel
         float master = PlayerPrefs.GetFloat("masterVolume");
         float sfx = PlayerPrefs.GetFloat("soundEffectsVolume");
         float music = PlayerPrefs.GetFloat("musicVolume");
+        float enemySpeed = PlayerPrefs.GetFloat("EnemySpeed");
 
-        if(master != 0f) 
+        if (master != 0f) 
             masterVolumeSlider.value = master;
         
         if(sfx != 0f)
@@ -77,6 +80,11 @@ public class OptionsPanel : BasePanel
 
         if(music != 0f)
             musicVolumeSlider.value = music;
+
+        if(enemySpeed != 0f) {
+            enemySpeedSlider.value = enemySpeed;
+            enemySpeedText.text = "Enemy Speed: " + (MathF.Round(enemySpeedSlider.value * 100f, 0)) + "%";
+        }
 
         int confirmSkillInvestment = PlayerPrefs.GetInt("ConfirmSkillInvest");
 
@@ -204,8 +212,8 @@ public class OptionsPanel : BasePanel
     #region Game Speed Methods
 
     public void OnGameSpeedChanged() {
-        Time.timeScale = gameSpeedSlider.value;
-        PlayerPrefs.SetFloat("GameSpeed", Time.timeScale);
+        PlayerPrefs.SetFloat("EnemySpeed", enemySpeedSlider.value);
+        enemySpeedText.text = "Enemy Speed: " + (MathF.Round(enemySpeedSlider.value * 100f, 0)) + "%";
     }
 
     #endregion

@@ -178,9 +178,9 @@ public class LevelUpPanel : BasePanel
         EntityManager.ActivePlayer.AbilityManager.UnlockAbility(entry.AbilityChoice.Data.abilityName);
         
 
-        EventData data = new EventData();
-        data.AddAbility("Ability", entry.AbilityChoice);
-        EventManager.SendEvent(GameEvent.LevelUpAbilitySelected, data);
+        //EventData data = new EventData();
+        //data.AddAbility("Ability", entry.AbilityChoice);
+        //EventManager.SendEvent(GameEvent.LevelUpAbilitySelected, data);
 
         selectionVFXTask = new Task(ShowSelectionEffect(entry));
 

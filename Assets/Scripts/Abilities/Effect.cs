@@ -1072,7 +1072,7 @@ public class ForcedMovementEffect : Effect {
         if (targetBody != null) {
 
             if (Data.resetMovement == true)
-                targetBody.velocity = Vector2.zero;
+                targetBody.linearVelocity = Vector2.zero;
 
             targetBody.AddForce(force, ForceMode2D.Impulse);
         }
@@ -2258,7 +2258,7 @@ public class AddAbilityEffect : Effect {
 
             }
             else {
-                Ability newChild = target.AbilityManager.LearnAbility(Data.abilitiesToAdd[i].AbilityData, true);
+                Ability newChild = target.AbilityManager.CreateAndLearnAbility(Data.abilitiesToAdd[i].AbilityData, true);
 
                 if (newChild == null) {
                     Debug.LogError("Alrady leared an ability, just unlock it: " + Data.abilitiesToAdd[i].AbilityData.abilityName);

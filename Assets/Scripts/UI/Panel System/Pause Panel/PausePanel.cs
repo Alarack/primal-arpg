@@ -14,18 +14,24 @@ public class PausePanel : BasePanel
     public override void Close() {
         base.Close();
 
-        float savedSpeed = PlayerPrefs.GetFloat("GameSpeed");
+        Time.timeScale = 1f;
 
-        if(savedSpeed > 0f) {
-            Time.timeScale = savedSpeed;
-        }
-        else {
-            Time.timeScale = 1f;
-        }
+        //float savedSpeed = PlayerPrefs.GetFloat("GameSpeed");
+
+        //if(savedSpeed > 0f) {
+        //    Time.timeScale = savedSpeed;
+        //}
+        //else {
+        //    Time.timeScale = 1f;
+        //}
     }
 
 
     public void OnStarOverClicked() {
+        PanelManager.OpenPanel<PopupPanel>().Setup("End Run", "Are you sure you want to end this run?", ConfirmReturnToMenu);
+    }
+
+    private void ConfirmReturnToMenu() {
         EntityManager.GameOver();
         EntityManager.ActivePlayer.Inventory.ClearInventory();
 

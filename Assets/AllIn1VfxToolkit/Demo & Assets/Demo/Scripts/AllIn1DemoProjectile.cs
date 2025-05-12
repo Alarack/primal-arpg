@@ -20,7 +20,7 @@ namespace AllIn1VfxToolkit.Demo.Scripts
             this.impactScaleSize = impactScaleSize;
 
             ApplyPrecisionOffsetToProjectileDir(ref projectileDir);
-            GetComponent<Rigidbody>().velocity = projectileDir * speed;
+            GetComponent<Rigidbody>().linearVelocity = projectileDir * speed;
         }
         
         public void AddScreenShakeOnImpact(float projectileImpactShakeAmount)
