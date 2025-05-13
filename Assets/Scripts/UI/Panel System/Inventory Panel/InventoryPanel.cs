@@ -397,7 +397,7 @@ public class InventoryPanel : BasePanel {
             return;
 
         if(EntityManager.ActivePlayer.Inventory.TrySpendCoins(25f, "Forge") == false) {
-            Debug.Log("Not enough money");
+            PanelManager.OpenPanel<PopupPanel>().Setup("Insufficient Aetherium", "You can't afford that.");
             return;
         }
 

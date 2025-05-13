@@ -150,18 +150,21 @@ public static class AbilityUtilities {
         return null;
     }
 
-    public static Ability GetAbilityByName(string name, Entity source, AbilityCategory category) {
-        return source.GetAbilityByName(name, category);
-    }
+    //public static Ability GetAbilityByName(string name, Entity source, AbilityCategory category) {
+    //    return source.GetAbilityByName(name);
+    //}
 
     public static Ability GetAbilityByName(string name, Entity source) {
 
-        if (source.AbilityManager.AbilitiesByName.ContainsKey(name) == false) {
-            Debug.LogError("Ability: " + name + " not found in dict. Source: " + source.EntityName);
-            return null;
-        }
 
-        return source.AbilityManager.AbilitiesByName[name];
+        return source.GetAbilityByName(name);
+
+        //if (source.AbilityManager.AbilitiesByName.ContainsKey(name) == false) {
+        //    Debug.LogError("Ability: " + name + " not found in dict. Source: " + source.EntityName);
+        //    return null;
+        //}
+
+        //return source.AbilityManager.AbilitiesByName[name];
     }
 
     public static Effect GetEffectByName(string name, Ability ability) {

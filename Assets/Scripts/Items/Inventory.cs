@@ -230,6 +230,7 @@ public class Inventory : MonoBehaviour {
 
             if (difference < 0) {
                 Debug.LogWarning("Not enough coins to buy: " + purchase);
+                PanelManager.OpenPanel<PopupPanel>().Setup("Insufficient Aetherium", "You can't afford that.");
                 return false;
             }
 

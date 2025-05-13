@@ -827,7 +827,7 @@ public class AbilityActiveConstraint : AbilityConstraint {
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
         Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
 
-        Ability targetAbility = target.GetAbilityByName(data.targetAbiltyName, AbilityCategory.Any);
+        Ability targetAbility = target.GetAbilityByName(data.targetAbiltyName);
 
         if(targetAbility == null) {
             Debug.LogWarning("Could not find an Ability: " + data.targetAbiltyName + " whne checking for an active ability on: " + target.EntityName);
@@ -840,7 +840,7 @@ public class AbilityActiveConstraint : AbilityConstraint {
     }
 
     public override bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
-        Ability targetAbility = effect.Source.GetAbilityByName(data.targetAbiltyName, AbilityCategory.Any);
+        Ability targetAbility = effect.Source.GetAbilityByName(data.targetAbiltyName);
 
         if (targetAbility == null) {
             Debug.LogWarning("Could not find an Ability: " + data.targetAbiltyName + " whne checking for an active ability on: " + effect.Data.effectName);

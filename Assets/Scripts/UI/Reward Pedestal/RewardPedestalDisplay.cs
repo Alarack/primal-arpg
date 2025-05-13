@@ -110,6 +110,7 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
             return;
 
         chosen = true;
+        Debug.Log("Clicked On: " + displayItem.Data.itemName);
 
         if(pedestal.enforceCost == false) {
             RoomManager.OnRewardSelected(pedestal);

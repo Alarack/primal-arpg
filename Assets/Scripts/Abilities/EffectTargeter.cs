@@ -495,7 +495,7 @@ public class EffectTargeter {
     }
 
     public Vector2 GetLastAbilityPayloadLocation() {
-        Ability targetAbility = parentEffect.Source.GetAbilityByName(parentEffect.Data.targetAbilityForLastPayload, AbilityCategory.Any);
+        Ability targetAbility = parentEffect.Source.GetAbilityByName(parentEffect.Data.targetAbilityForLastPayload);
 
         return targetAbility.LastPayloadLocation;
 

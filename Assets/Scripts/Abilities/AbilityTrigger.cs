@@ -1698,7 +1698,7 @@ public class RiderTrigger : AbilityTrigger {
         Effect targetEffect = data.GetEffect("Effect");
         Effect parentEffect = data.GetEffect("Parent Effect");
 
-        Ability targetAbility = SourceEntity.GetAbilityByName(Data.riderAbilityName, AbilityCategory.Any);
+        Ability targetAbility = SourceEntity.GetAbilityByName(Data.riderAbilityName);
 
 
 

@@ -972,7 +972,7 @@ public class ActivateAbilityEffect : Effect {
         if (base.Apply(target) == false)
             return false;
 
-        Ability targetAbility = target.GetAbilityByName(Data.nameOfAbilityToActivate, AbilityCategory.Any);
+        Ability targetAbility = target.GetAbilityByName(Data.nameOfAbilityToActivate);
 
         if (targetAbility != null) {
 
@@ -1971,7 +1971,7 @@ public class AddEffectEffect : Effect {
         }
 
 
-        Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
+        Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo);
 
         if (targetAbility == null) {
             Debug.LogError("Could not find the ability: " + Data.targetAbilityToAddEffectsTo + " on the Entity: " + target.EntityName);
@@ -2022,7 +2022,7 @@ public class AddEffectEffect : Effect {
 
         if (entityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
 
-            Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
+            Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo);
 
             if (targetAbility == null) {
                 Debug.LogError("Could not find the ability: " + Data.targetAbilityToAddEffectsTo + " on the Entity: " + target.EntityName);
@@ -2125,7 +2125,7 @@ public class RemoveEffectEffect : Effect {
         if (base.Apply(target) == false)
             return false;
 
-        Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
+        Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo);
 
         if (targetAbility == null) {
             Debug.LogError("Could not find the ability: " + Data.targetAbilityToAddEffectsTo + " on the Entity: " + target.EntityName);
@@ -2153,7 +2153,7 @@ public class RemoveEffectEffect : Effect {
 
         if (entityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
 
-            Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo, AbilityCategory.Any);
+            Ability targetAbility = target.GetAbilityByName(Data.targetAbilityToAddEffectsTo);
 
             if (targetAbility == null) {
                 Debug.LogError("Could not find the ability: " + Data.targetAbilityToAddEffectsTo + " on the Entity: " + target.EntityName);

@@ -107,6 +107,8 @@ public class AbilityManager : MonoBehaviour {
             //    LearnAbility(item.Data.learnableAbilities[i].AbilityData);
             //}
             //LearnItemAbilities(item);
+
+            Debug.Log("Item aquired: " + item.Data.itemName);
             LearnSkillFromScroll(item);
         }
     }
@@ -259,6 +261,15 @@ public class AbilityManager : MonoBehaviour {
     }
 
     private void UnlockAbility(Ability ability) {
+
+
+        if (ability.Tags.Contains(AbilityTag.Mastery)) {
+            if(ability.IsEquipped == false)
+                ability.Equip();
+            
+            return;
+        }
+
 
         ability.Locked = false;
 
