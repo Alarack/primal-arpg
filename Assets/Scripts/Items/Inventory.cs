@@ -143,7 +143,7 @@ public class Inventory : MonoBehaviour {
         data.AddItem("Item", item);
 
         EventManager.SendEvent(GameEvent.ItemAquired, data);
-
+        Debug.Log("Sending Item Aquired Event for: " + item.Data.itemName);
 
         if (item.Data.Type == ItemType.Equipment) {
             Item existingItem = GetItemInSlot(item.Data.validSlots[0]);

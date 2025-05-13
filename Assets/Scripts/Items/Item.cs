@@ -247,7 +247,7 @@ public class Item
         for (int i = 0; i < Data.statModifierData.Count; i++) {
             StatModifierData modData = Data.statModifierData[i]; 
             
-            builder.Append(modData.targetStat.ToString().SplitCamelCase()).Append(": ").Append(TextHelper.FormatStat(modData.targetStat, modData.value)).AppendLine();
+            builder.Append(modData.targetStat.ToString().SplitCamelCase()).Append(": ").Append(TextHelper.FormatStat(modData.targetStat, modData.value, modData.displayAsPercent)).AppendLine();
         }
 
         if(Affixes.Count > 0) {

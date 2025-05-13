@@ -126,8 +126,15 @@ public static class TextHelper
             StatName.GlobalEffectSizeModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalProjectileSizeModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalProjectileSizeModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
-            StatName.EssenceRegenerationRate when value >= 0 => $"<color=#{bonusColor}>" + (value) + "</color>",
-            StatName.EssenceRegenerationRate when value < 0 => $"<color=#{penaltyColor}>" + (value) + "</color>",
+            
+            
+            //StatName.EssenceRegenerationRate when value >= 0 => $"<color=#{bonusColor}>" + (value) + "</color>",
+            //StatName.EssenceRegenerationRate when value < 0 => $"<color=#{penaltyColor}>" + (value) + "</color>",
+
+            StatName.EssenceRegenerationRate when value >= 0 => bonusFormat,
+            StatName.EssenceRegenerationRate when value < 0 => penaltyFormat,
+
+
             StatName.EssenceRegenerationValue when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.EssenceRegenerationValue when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.Armor when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",

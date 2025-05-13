@@ -157,11 +157,8 @@ public class InventoryPanel : BasePanel {
             return;
         }
 
-        //Dictionary<StatName, string> allStatDisplays = EntityManager.ActivePlayer.Stats.GetStatDisplays(exceptions);
         Dictionary<string, Tuple<string, StatName>> allStatDisplaysFormatted = EntityManager.ActivePlayer.Stats.GetStatDisplaysAsStrings(exceptions);
-
         allStatDisplaysFormatted = allStatDisplaysFormatted.OrderBy(s => s.Key.ToString()).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-        //relevantStats.Sort();
 
         statDisplayEntries.PopulateList(allStatDisplaysFormatted.Count, statDisplayTemplate, statDisplayHolder, true);
 
@@ -171,10 +168,6 @@ public class InventoryPanel : BasePanel {
             statDisplayEntries[count].Setup(statDisplay.Value.Item1, statDisplay.Key, statDisplay.Value.Item2);
             count++;
         }
-
-
-        //cdrText.text = "Cooldown Reduction: " + TextHelper.FormatStat(StatName.CooldownReduction, EntityManager.ActivePlayer.Stats[StatName.CooldownReduction]);
-
     }
 
     private void CreateEmptySlots() {

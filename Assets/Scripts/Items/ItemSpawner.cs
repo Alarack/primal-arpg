@@ -91,17 +91,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
     #endregion
 
     public static void SpawnItem(ItemDefinition item, Vector2 location, bool autoPickup = false) {
-        
         SpawnItem(item.itemData, location, autoPickup);
-
-        //if(autoPickup == false) {
-        //    ItemPickup testPickup = Instantiate(Instance.pickupPrefab, location, Quaternion.identity);
-        //    testPickup.Setup(item.itemData);
-        //}
-        //else {
-        //    EntityManager.ActivePlayer.Inventory.Add(ItemFactory.CreateItem(item, EntityManager.ActivePlayer));
-        //}
-
     }
 
     public static void SpawnItem(ItemData item, Vector2 location, bool autoPickup = false) {
