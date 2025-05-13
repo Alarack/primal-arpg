@@ -121,6 +121,9 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
                 RoomManager.OnRewardSelected(pedestal);
                 TooltipManager.Hide();
             }
+            else {
+                chosen = false;
+            }
         }
         
       

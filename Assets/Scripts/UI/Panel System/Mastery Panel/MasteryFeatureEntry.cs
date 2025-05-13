@@ -51,18 +51,18 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
         UpdateButtonText();
     }
 
-    public void LoadFeature() {
+    //public void LoadFeature() {
 
-        FeatureAbility = EntityManager.ActivePlayer.AbilityManager.GetAbilityByName(FeatureData.featureAbility.AbilityData.abilityName, AbilityCategory.PassiveSkill);
+    //    FeatureAbility = EntityManager.ActivePlayer.AbilityManager.GetAbilityByName(FeatureData.featureAbility.AbilityData.abilityName, AbilityCategory.PassiveSkill);
 
-        if (FeatureAbility == null) {
-            Debug.LogError("Couldn't find: " + FeatureData.featureAbility.AbilityData.abilityName + " on player, learning it fresh. Level will be wrong");
-            FeatureAbility = EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(FeatureData.featureAbility.AbilityData, true);
-        }
+    //    if (FeatureAbility == null) {
+    //        Debug.LogError("Couldn't find: " + FeatureData.featureAbility.AbilityData.abilityName + " on player, learning it fresh. Level will be wrong");
+    //        FeatureAbility = EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(FeatureData.featureAbility.AbilityData, true);
+    //    }
 
-        SetDimmer();
-        UpdateButtonText();
-    }
+    //    SetDimmer();
+    //    UpdateButtonText();
+    //}
 
     private void SetupDisplay() {
         featureIcon.sprite = FeatureData.featureAbility.AbilityData.abilityIcon;
@@ -151,9 +151,6 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
 
     private void CreateFeatureAbility() {
         FeatureAbility = EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(FeatureData.featureAbility.AbilityData, false);
-        //SaveLoadUtility.SaveData.AddMastery(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
-        //SaveLoadUtility.SavePlayerData();
-        //PanelManager.GetPanel<MasteryPanel>().TrackFeature(this);
     }
 
     public void Learn() {

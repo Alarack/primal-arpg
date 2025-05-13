@@ -21,6 +21,15 @@ public class HitStopManager : Singleton<HitStopManager>
     private static IEnumerator Wait(float duration) {
         waiting = true;
         yield return new WaitForSecondsRealtime(duration);
+
+        PausePanel pausePanel = PanelManager.GetPanel<PausePanel>();
+
+        if (pausePanel.IsOpen) {
+            waiting = false;
+            yield break;
+        }
+        
+        
         waiting = false;
         Time.timeScale = 1f;
         //float savedSpeed = PlayerPrefs.GetFloat("GameSpeed");

@@ -6,6 +6,7 @@ using LL.Events;
 using TMPro;
 using System.Linq;
 using System.Text;
+using DG.Tweening;
 
 public class InventoryPanel : BasePanel {
 
@@ -456,16 +457,35 @@ public class InventoryPanel : BasePanel {
 
     private IEnumerator ShowSelectionEffect(ItemAffixEntry entry) {
         WaitForEndOfFrame waiter = new WaitForEndOfFrame();
+        WaitForSeconds secondsWaiter = new WaitForSeconds(0.2f);
 
         entry.ShowSelectionEffects();
         forgeSelectionVFX.Play();
         AudioManager.PlayForgeSelect();
 
-        yield return waiter;    
+        yield return secondsWaiter;    
 
-        while(entry.selectionEffect.particleCount > 0) {
-            yield return waiter;
+        //while(entry.selectionEffect.particleCount > 0) {
+        //    yield return waiter;
+        //}
+
+        //itemAffixEntries.ClearList();
+        new Task(FadeOutList(entry));
+    }
+
+    private IEnumerator FadeOutList(ItemAffixEntry selectedAffix) {
+
+        for (int i = 0; i < itemAffixEntries.Count; i++) {
+            if(itemAffixEntries[i] != selectedAffix) {
+                itemAffixEntries[i].fader.DOFade(0f, 0.35f);
+            }
         }
+
+        //yield return new WaitForSeconds(0.5f);
+
+        selectedAffix.fader.DOFade(0f, 0.75f);
+
+        yield return new WaitForSeconds(0.75f);
 
         itemAffixEntries.ClearList();
     }

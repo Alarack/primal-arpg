@@ -25,8 +25,8 @@ public class AbilityManager : MonoBehaviour {
 
     public Action<Ability, int> onAbilityEquipped;
     public Action<Ability, int> onAbilityUnequipped;
-    public Action<Ability> onAbilityLearned;
-    public Action<Ability> onAbilityUnlearned;
+    //public Action<Ability> onAbilityLearned;
+    //public Action<Ability> onAbilityUnlearned;
     public Action<Ability, int, Ability, int> onAbilitySwapped;
 
 
@@ -292,6 +292,14 @@ public class AbilityManager : MonoBehaviour {
     }
 
     public Ability CreateAndLearnAbility(AbilityData abilityData, bool autoEquip = false, int startingLevel = 1) {
+
+        Ability existingAbility = GetAbilityByName(abilityData.abilityName);
+
+        if(existingAbility != null) {
+            Debug.LogError("An ability: " + abilityData.abilityName + " already existed on: " + Owner.EntityName);
+            return existingAbility;
+        }
+
         Ability newAbility = AbilityFactory.CreateAbility(abilityData, Owner);
         newAbility.SetLevel(startingLevel);
         LearnAbility(newAbility, abilityData.category, autoEquip);
@@ -348,7 +356,7 @@ public class AbilityManager : MonoBehaviour {
 
     public void UnlearnAbility(Ability ability) {
         if (KnownAbilities.RemoveIfContains(ability) == true) {
-            onAbilityUnlearned?.Invoke(ability);
+            //onAbilityUnlearned?.Invoke(ability);
         }
     }
 

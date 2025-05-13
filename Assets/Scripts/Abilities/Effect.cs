@@ -2260,9 +2260,9 @@ public class AddAbilityEffect : Effect {
             else {
                 Ability newChild = target.AbilityManager.CreateAndLearnAbility(Data.abilitiesToAdd[i].AbilityData, true);
 
-                if (newChild == null) {
-                    Debug.LogError("Alrady leared an ability, just unlock it: " + Data.abilitiesToAdd[i].AbilityData.abilityName);
-                }
+                //if (newChild == null) {
+                //    Debug.LogError("Alrady leared an ability, just unlock it: " + Data.abilitiesToAdd[i].AbilityData.abilityName);
+                //}
 
                 TrackAbilties(target, newChild);
 

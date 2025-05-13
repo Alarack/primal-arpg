@@ -673,6 +673,10 @@ public class Ability {
         foreach (var entry in runeItemsByTier) {
             for (int i = 0; i < entry.Value.Count; i++) {
                 Item rune = entry.Value[i];
+
+                if(rune.Equipped == false)
+                    continue;
+
                 EntityManager.ActivePlayer.Inventory.UnEquipRune(rune, this);
             }
         }

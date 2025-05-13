@@ -32,18 +32,18 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
         SetupDisplay();
     }
 
-    public void LoadPathAbility() {
+    //public void LoadPathAbility() {
 
-        PathAbility = EntityManager.ActivePlayer.AbilityManager.GetAbilityByName(PathAbilityDef.AbilityData.abilityName, AbilityCategory.PassiveSkill);
+    //    PathAbility = EntityManager.ActivePlayer.AbilityManager.GetAbilityByName(PathAbilityDef.AbilityData.abilityName, AbilityCategory.PassiveSkill);
 
-        if (PathAbility == null) {
-            Debug.LogError("Couldn't find: " + PathAbilityDef.AbilityData.abilityName + " on player, learning it fresh. Level will be wrong");
+    //    if (PathAbility == null) {
+    //        Debug.LogError("Couldn't find: " + PathAbilityDef.AbilityData.abilityName + " on player, learning it fresh. Level will be wrong");
 
-            PathAbility = EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(PathAbilityDef.AbilityData, true);
-        }
+    //        PathAbility = EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(PathAbilityDef.AbilityData, true);
+    //    }
 
-        UpdateRankText();
-    }
+    //    UpdateRankText();
+    //}
 
     private void SetupDisplay() {
         pathIcon.sprite = PathAbilityDef.AbilityData.abilityIcon;
