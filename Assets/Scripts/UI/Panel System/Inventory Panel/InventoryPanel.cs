@@ -7,6 +7,7 @@ using TMPro;
 using System.Linq;
 using System.Text;
 using DG.Tweening;
+using System;
 
 public class InventoryPanel : BasePanel {
 
@@ -156,18 +157,18 @@ public class InventoryPanel : BasePanel {
             return;
         }
 
-        Dictionary<StatName, string> allStatDisplays = EntityManager.ActivePlayer.Stats.GetStatDisplays(exceptions);
-        //List<StatName> relevantStats = EntityManager.ActivePlayer.Stats.GetListOfStatNames(exceptions);
+        //Dictionary<StatName, string> allStatDisplays = EntityManager.ActivePlayer.Stats.GetStatDisplays(exceptions);
+        Dictionary<string, Tuple<string, StatName>> allStatDisplaysFormatted = EntityManager.ActivePlayer.Stats.GetStatDisplaysAsStrings(exceptions);
 
-        allStatDisplays = allStatDisplays.OrderBy(s => s.Key.ToString()).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        allStatDisplaysFormatted = allStatDisplaysFormatted.OrderBy(s => s.Key.ToString()).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         //relevantStats.Sort();
 
-        statDisplayEntries.PopulateList(allStatDisplays.Count, statDisplayTemplate, statDisplayHolder, true);
+        statDisplayEntries.PopulateList(allStatDisplaysFormatted.Count, statDisplayTemplate, statDisplayHolder, true);
 
         int count = 0;
-        foreach (var statDisplay in allStatDisplays) {
-            string displayText = TextHelper.PretifyStatName(statDisplay.Key) + ": " + statDisplay.Value;
-            statDisplayEntries[count].Setup(displayText, statDisplay.Key);
+        foreach (var statDisplay in allStatDisplaysFormatted) {
+            //string displayText = TextHelper.PretifyStatName(statDisplay.Key) + ": " + statDisplay.Value;
+            statDisplayEntries[count].Setup(statDisplay.Value.Item1, statDisplay.Key, statDisplay.Value.Item2);
             count++;
         }
 

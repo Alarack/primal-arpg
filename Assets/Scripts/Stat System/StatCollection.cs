@@ -213,6 +213,23 @@ public class StatCollection {
         return results;
     }
 
+    public Dictionary<string, Tuple<string, StatName>> GetStatDisplaysAsStrings(List<StatName> exceptions = null) {
+        Dictionary<string, Tuple<string, StatName>> results = new Dictionary<string, Tuple<string, StatName>> ();
+
+        foreach (var entry in statDictionary) {
+            if (exceptions != null && exceptions.Contains(entry.Key))
+                continue;
+
+            string value = TextHelper.FormatStat(entry.Key, entry.Value.ModifiedValue);
+
+            Tuple<string, StatName> info = new Tuple<string, StatName>(value, entry.Key);
+
+            results.Add(TextHelper.PretifyStatName(entry.Key), info);
+        }
+
+        return results;
+    }
+
     public List<StatName> GetListOfStatNames(List<StatName> exceptions = null) {
         List<StatName> stats = new List<StatName>();
 
