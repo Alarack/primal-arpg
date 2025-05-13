@@ -143,10 +143,10 @@ public class Projectile : Entity {
         if (Source == null)
             return;
 
-        float ownerPierce = Source.Stats[StatName.ProjectilePierceCount] + ParentEffect.ParentAbility.Stats[StatName.ProjectilePierceCount];
-        float ownerChain = Source.Stats[StatName.ProjectileChainCount] + ParentEffect.ParentAbility.Stats[StatName.ProjectileChainCount];
-        float ownerSplit = Source.Stats[StatName.ProjectileSplitCount] + ParentEffect.ParentAbility.Stats[StatName.ProjectileSplitCount];
-        float splitAmount = Source.Stats[StatName.ProjectileSplitQuantity] + ParentEffect.ParentAbility.Stats[StatName.ProjectileSplitQuantity];
+        float ownerPierce = Source.Stats[StatName.ProjectilePierceCount] + ParentEffect.Source.Stats[StatName.ProjectilePierceCount];
+        float ownerChain = Source.Stats[StatName.ProjectileChainCount] + ParentEffect.Source.Stats[StatName.ProjectileChainCount];
+        float ownerSplit = Source.Stats[StatName.ProjectileSplitCount] + ParentEffect.Source.Stats[StatName.ProjectileSplitCount];
+        float splitAmount = Source.Stats[StatName.ProjectileSplitQuantity] + ParentEffect.Source.Stats[StatName.ProjectileSplitQuantity];
         if(ownerPierce > 0) 
             Stats.AddModifier(StatName.ProjectilePierceCount, ownerPierce, StatModType.Flat, Source);
         if (ownerChain > 0)
@@ -159,7 +159,8 @@ public class Projectile : Entity {
         if (Stats[StatName.ProjectileSplitCount] > 0 && Stats[StatName.ProjectileSplitQuantity] <=0)
             Stats.AddModifier(StatName.ProjectileSplitQuantity, 1, StatModType.Flat, Source);
 
-
+        //Debug.Log("Projectile: " + EntityName + " has " + Stats[StatName.ProjectileChainCount] + " Chain count");
+        //Debug.Log("Owner and effect chain combined: " + ownerChain);
     }
 
     private void SendProjectileCreatedEvent() {
@@ -275,11 +276,11 @@ public class Projectile : Entity {
                 return;
             }
 
-            if (Stats[StatName.ProjectilePierceCount] > 0) {
+            if (Stats[StatName.ProjectilePierceCount] >= 1) {
                 return;
             }
 
-            if (Stats[StatName.ProjectileChainCount] > 0) {
+            if (Stats[StatName.ProjectileChainCount] >= 1) {
                 return;
             }
         }
@@ -440,7 +441,8 @@ public class Projectile : Entity {
         data.AddEffect("Parent Effect", ParentEffect);
         data.AddAbility("Ability", ParentEffect.ParentAbility);
 
-        //Debug.Log("Chaining has occured");
+        //Debug.Log("Chaining has occured. Chain Count: " + Stats[StatName.ProjectileChainCount]);
+
 
         EventManager.SendEvent(GameEvent.ProjectileChained, data);
     }

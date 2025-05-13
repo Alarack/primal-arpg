@@ -315,6 +315,8 @@ public class ItemSpawner : Singleton<ItemSpawner>
             StatName.TimeDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Time),
             StatName.VoidDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Void),
             StatName.SpatialDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Space),
+            StatName.GlobalStatusDurationModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Affliction),
+            StatName.GlobalStatusIntervalModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Affliction),
             _ => false,
         };
 

@@ -236,8 +236,8 @@ MonoBehaviour:
       classPreviewAbilities: []
       startingItemOptions: []
   - stat: 22
-    baseValue: 0.1
-    tierIncrament: 0.1
+    baseValue: 0.05
+    tierIncrament: 0.05
     baseAffixItem:
       Type: 6
       affixStatTarget: 22
@@ -1340,9 +1340,9 @@ MonoBehaviour:
     tierIncrament: 0.2
     baseAffixItem:
       Type: 6
-      affixStatTarget: 10
+      affixStatTarget: 82
       entityClass: 0
-      itemName: ProjectileLifetime Booster
+      itemName: GlobalProjectileLifetimeModifier Booster
       itemDescription: 
       secondaryDescription: 
       itemValue: 0
@@ -1359,7 +1359,7 @@ MonoBehaviour:
       minDamage: 0
       maxDamage: 0
       statModifierData:
-      - targetStat: 10
+      - targetStat: 82
         value: 0.2
         modifierType: 0
         variantTarget: 0
@@ -1407,6 +1407,94 @@ MonoBehaviour:
         value: 3
         modifierType: 0
         variantTarget: 3
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        scaleFromAbilityLevel: 0
+        displayAsPercent: 0
+        abilityLevelCoefficient: 1
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
+  - stat: 84
+    baseValue: 0.2
+    tierIncrament: 0.2
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 84
+      entityClass: 0
+      itemName: Global Status Duratio Mod Booster
+      itemDescription: 
+      secondaryDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      targetedAbilityName: 
+      itemIcon: {fileID: 0}
+      invertIcon: 0
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      baseAffixSlots: 2
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 84
+        value: 0.2
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        scaleFromAbilityLevel: 0
+        displayAsPercent: 0
+        abilityLevelCoefficient: 1
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
+  - stat: 85
+    baseValue: -0.1
+    tierIncrament: -0.1
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 85
+      entityClass: 0
+      itemName: Global Status Interval Mod Booster
+      itemDescription: 
+      secondaryDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      targetedAbilityName: 
+      itemIcon: {fileID: 0}
+      invertIcon: 0
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      baseAffixSlots: 2
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 85
+        value: -0.1
+        modifierType: 0
+        variantTarget: 0
         modValueSetMethod: 0
         weaponDamagePercent: 1
         deriveStatMultiplier: 1

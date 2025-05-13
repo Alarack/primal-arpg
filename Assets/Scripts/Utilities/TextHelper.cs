@@ -21,6 +21,10 @@ public static class TextHelper
         //string penaltyColor = ColorUtility.ToHtmlStringRGB(new Color(0.839f, 0.235f, 0.11f));
         string penaltyColor = ColorUtility.ToHtmlStringRGB(penalty);
 
+        if (stat == StatName.GlobalStatusIntervalModifier)
+            displayAsPercent = true;
+
+
         string bonusFormat = displayAsPercent == true ? $"<color=#{bonusColor}>" + (value * 100) + "% </color>" : $"<color=#{bonusColor}>" + value + "</color>";
         string penaltyFormat = displayAsPercent == true ? $"<color=#{penaltyColor}>" + (value * 100) + "% </color>" : $"<color=#{penaltyColor}>" + value + "</color>";
 
@@ -145,8 +149,8 @@ public static class TextHelper
             StatName.GlobalProjectileSpeedModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalStatusDurationModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalStatusDurationModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
-            StatName.GlobalStatusIntervalModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
-            StatName.GlobalStatusIntervalModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalStatusIntervalModifier when value >= 0 => penaltyFormat,
+            StatName.GlobalStatusIntervalModifier when value < 0 => bonusFormat,
             StatName.GlobalEssenceCostModifier when value >= 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalEssenceCostModifier when value < 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.CastingMoveSpeedModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",

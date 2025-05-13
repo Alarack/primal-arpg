@@ -625,19 +625,19 @@ public abstract class Effect {
         StringBuilder builder = new StringBuilder();
 
         if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
-            string chainCount = TextHelper.FormatStat(StatName.ProjectileChainCount, Stats[StatName.ProjectileChainCount]);
+            string chainCount = TextHelper.FormatStat(StatName.ProjectileChainCount, Stats[StatName.ProjectileChainCount] + Source.Stats[StatName.ProjectileChainCount]);
 
             builder.AppendLine("Chains up to: " + chainCount + " times");
         }
 
         if (Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
-            string pierceCount = TextHelper.FormatStat(StatName.ProjectilePierceCount, Stats[StatName.ProjectilePierceCount]);
+            string pierceCount = TextHelper.FormatStat(StatName.ProjectilePierceCount, Stats[StatName.ProjectilePierceCount] + Source.Stats[StatName.ProjectilePierceCount]);
 
             builder.AppendLine("Pierces up to: " + pierceCount + " times");
         }
 
         if (Stats.Contains(StatName.ProjectileSplitCount) && Stats[StatName.ProjectileSplitCount] > 0) {
-            string splitCount = TextHelper.FormatStat(StatName.ProjectileSplitCount, Stats[StatName.ProjectileSplitCount]);
+            string splitCount = TextHelper.FormatStat(StatName.ProjectileSplitCount, Stats[StatName.ProjectileSplitCount] + Source.Stats[StatName.ProjectileSplitCount]);
 
             builder.AppendLine("Splits up to: " + splitCount + " times");
         }
