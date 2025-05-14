@@ -186,12 +186,12 @@ public class ItemSpawner : Singleton<ItemSpawner>
     }
 
 
-    public static List<ItemData> CreateItemAffixSet(int count) {
+    public static List<ItemData> CreateItemAffixSet(int count, ItemSlot itemSlot) {
         List<StatName> usedStats = new List<StatName>();
         //List<ItemData> baseAffixItems = new List<ItemData>();
 
         List<LootDatabase.ItemStatAffixData> affixList = new List<LootDatabase.ItemStatAffixData>();
-        List<StatName> allStats = Instance.lootDatabase.itemAffixes.Keys.ToList();
+        List<StatName> allStats = Instance.lootDatabase.GetRelavantStatsBySlot(itemSlot); //Instance.lootDatabase.itemAffixes.Keys.ToList();
         Instance.FilterStats(allStats, ref usedStats);
         allStats.Shuffle();
 
@@ -217,9 +217,22 @@ public class ItemSpawner : Singleton<ItemSpawner>
         }
 
 
+        if(results.Count < 1) {
+            Debug.LogError("No Affixes found for: " + itemSlot);
+        }
+
 
         return results;
     }
+
+    private List<StatName> GetRelevantStatsBySlot(ItemSlot slot) {
+        List<StatName> results = new List<StatName>();
+
+
+
+        return results;
+    }
+
 
     private ItemData RollAffixTier(LootDatabase.ItemStatAffixData data, int currentTier) {
         float roll = Random.Range(0f, 1f);
@@ -275,9 +288,6 @@ public class ItemSpawner : Singleton<ItemSpawner>
         return results;
     }
 
-
-
-
     private bool IsStatRelevant(StatName stat) {
 
         bool result = stat switch {
@@ -319,6 +329,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
             //StatName.GlobalStatusIntervalModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Affliction),
             StatName.GlobalComboDurationModifier => true,
             StatName.GlobalComboIntervalModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.DamageOverTime),
+            StatName.CastingMoveSpeedModifier => true,
             _ => false,
         };
 

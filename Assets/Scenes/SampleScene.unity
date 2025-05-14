@@ -17766,7 +17766,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8629ddd18a937e14baa161b583ac5c6b, type: 2}
   - {fileID: 11400000, guid: 887f025240c0f0c4085260a445586676, type: 2}
   - {fileID: 11400000, guid: 46324e51e9dcc1245bc2cbfd8b59bf8d, type: 2}
-  testItems: []
+  testItems:
+  - {fileID: 11400000, guid: 21b63737a6fa4a943901fdd6020565b8, type: 2}
+  - {fileID: 11400000, guid: f3b81c129c26cb640b7ba8e6376de71f, type: 2}
+  - {fileID: 11400000, guid: 8a063dc60691726498759aec8275ddaf, type: 2}
+  - {fileID: 11400000, guid: a1ceb6543b119e24dae0bd9d73adab6a, type: 2}
+  - {fileID: 11400000, guid: 32a9008a51b7d6c419093460b81a4236, type: 2}
+  - {fileID: 11400000, guid: a41f1bae189a33341a92f21f97e64c8f, type: 2}
   pickupPrefab: {fileID: 777966188710461411, guid: 8809ef3536d1e574e9eccf68d35e5f08, type: 3}
   coinPickupPrefab: {fileID: 4481293274202257508, guid: 4886ae56ae035f949839f56ebc45901d, type: 3}
   expPickupPrefab: {fileID: 2448004172980267282, guid: 41e4ab46877027447b2437fd7bcd0084, type: 3}
@@ -44641,7 +44647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4847343806409805204, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 479.03497
+      value: 479.035
       objectReference: {fileID: 0}
     - target: {fileID: 5547596630885879225, guid: b723f64db31e1d74c987e0e3c7dd5f93, type: 3}
       propertyPath: m_AnchorMax.y

@@ -125,6 +125,15 @@ public class InventoryItemEntry : InventoryBaseEntry {
             Debug.Log("Forging: " + draggedItem.Data.itemName);
             Add(draggedItem);
             parentPanel.SetupItemAffixSlots();
+
+# if UNITY_EDITOR
+
+            List<StatName> relevantStatsBySlot = ItemSpawner.Instance.lootDatabase.GetRelavantStatsBySlot(draggedItem.Data.validSlots[0]);
+            for (int i = 0; i < relevantStatsBySlot.Count; i++) {
+                Debug.Log(relevantStatsBySlot[i]);
+            }
+#endif
+
             return;
         }
 

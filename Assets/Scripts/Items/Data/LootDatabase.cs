@@ -364,6 +364,31 @@ public class LootDatabase : ScriptableObject {
         }
     }
 
+
+    public List<StatName> GetRelavantStatsBySlot(ItemSlot slot) {
+        List<StatName> results = new List<StatName>();
+
+        foreach (var item in itemAffixes) {
+            if (item.Value.validSlots.Contains(slot)) {
+                results.Add(item.Value.stat);
+            }
+        }
+
+
+        return results;
+    }
+
+    public List<ItemStatAffixData> GetAffixesBySlot(ItemSlot slot) {
+        List < ItemStatAffixData> results = new List<ItemStatAffixData >();
+        foreach (var item in itemAffixes) {
+            if (item.Value.validSlots.Contains(slot)) {
+                results.Add(item.Value);
+            }
+        }
+
+        return results;
+    }
+
     private void CreateBaseStatBoosters() {
         StatName[] allStats = System.Enum.GetValues(typeof(StatName)) as StatName[];
 
@@ -431,6 +456,9 @@ public class LootDatabase : ScriptableObject {
         public StatName stat;
         public float baseValue;
         public float tierIncrament;
+        [Header("Valid Slots")]
+        public List<ItemSlot> validSlots = new List<ItemSlot>();
+        [HideInInspector]
         public ItemData baseAffixItem;
 
         public float GetTierValue(int tier) {

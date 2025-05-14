@@ -16,8 +16,9 @@ MonoBehaviour:
   metaUnlockValue: 50
   itemStatAffixes:
   - stat: 0
-    baseValue: 3
-    tierIncrament: 3
+    baseValue: 5
+    tierIncrament: 5
+    validSlots: 020000000c00000008000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 0
@@ -62,6 +63,7 @@ MonoBehaviour:
   - stat: 61
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 04000000050000000600000008000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 61
@@ -106,6 +108,7 @@ MonoBehaviour:
   - stat: 23
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 
     baseAffixItem:
       Type: 6
       affixStatTarget: 23
@@ -150,6 +153,7 @@ MonoBehaviour:
   - stat: 14
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 030000000600000001000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 14
@@ -194,6 +198,7 @@ MonoBehaviour:
   - stat: 21
     baseValue: 0.05
     tierIncrament: 0.05
+    validSlots: 010000000400000005000000020000000c00000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 21
@@ -238,6 +243,7 @@ MonoBehaviour:
   - stat: 22
     baseValue: 0.05
     tierIncrament: 0.05
+    validSlots: 010000000300000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 22
@@ -282,6 +288,7 @@ MonoBehaviour:
   - stat: 24
     baseValue: 0.1
     tierIncrament: 0.1
+    validSlots: 0100000004000000050000000600000003000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 24
@@ -326,6 +333,7 @@ MonoBehaviour:
   - stat: 25
     baseValue: 0.05
     tierIncrament: 0.05
+    validSlots: 0100000004000000050000000300000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 25
@@ -370,6 +378,7 @@ MonoBehaviour:
   - stat: 26
     baseValue: 0.25
     tierIncrament: 0.25
+    validSlots: 010000000600000003000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 26
@@ -414,6 +423,7 @@ MonoBehaviour:
   - stat: 29
     baseValue: 0.5
     tierIncrament: 0.5
+    validSlots: 010000000300000004000000050000000c000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 29
@@ -458,6 +468,7 @@ MonoBehaviour:
   - stat: 32
     baseValue: -0.1
     tierIncrament: -0.1
+    validSlots: 
     baseAffixItem:
       Type: 6
       affixStatTarget: 32
@@ -502,6 +513,7 @@ MonoBehaviour:
   - stat: 33
     baseValue: 0.1
     tierIncrament: 0.1
+    validSlots: 080000000200000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 33
@@ -546,6 +558,7 @@ MonoBehaviour:
   - stat: 34
     baseValue: 0.5
     tierIncrament: 0.5
+    validSlots: 010000000300000004000000050000000c000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 34
@@ -590,6 +603,7 @@ MonoBehaviour:
   - stat: 35
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 010000000300000004000000050000000c000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 35
@@ -634,6 +648,7 @@ MonoBehaviour:
   - stat: 39
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 020000000c0000000600000008000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 39
@@ -678,6 +693,7 @@ MonoBehaviour:
   - stat: 43
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 010000000c0000000200000008000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 43
@@ -722,6 +738,7 @@ MonoBehaviour:
   - stat: 48
     baseValue: 2
     tierIncrament: 2
+    validSlots: 020000000c00000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 48
@@ -766,6 +783,7 @@ MonoBehaviour:
   - stat: 49
     baseValue: 0.01
     tierIncrament: 0.01
+    validSlots: 02000000060000000c000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 49
@@ -810,6 +828,7 @@ MonoBehaviour:
   - stat: 52
     baseValue: 0.1
     tierIncrament: 0.1
+    validSlots: 010000000400000005000000060000000c00000008000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 52
@@ -854,6 +873,7 @@ MonoBehaviour:
   - stat: 53
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 020000000c00000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 53
@@ -898,6 +918,7 @@ MonoBehaviour:
   - stat: 55
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 0100000004000000050000000300000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 55
@@ -942,6 +963,7 @@ MonoBehaviour:
   - stat: 56
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 0100000004000000050000000600000003000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 56
@@ -986,6 +1008,7 @@ MonoBehaviour:
   - stat: 57
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 0100000004000000050000000600000003000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 57
@@ -1030,6 +1053,7 @@ MonoBehaviour:
   - stat: 58
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 0100000004000000050000000600000003000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 58
@@ -1074,6 +1098,7 @@ MonoBehaviour:
   - stat: 59
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 0100000004000000050000000600000003000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 59
@@ -1118,6 +1143,7 @@ MonoBehaviour:
   - stat: 60
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 
     baseAffixItem:
       Type: 6
       affixStatTarget: 60
@@ -1162,6 +1188,7 @@ MonoBehaviour:
   - stat: 73
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 0100000004000000050000000300000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 73
@@ -1206,6 +1233,7 @@ MonoBehaviour:
   - stat: 74
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 0100000003000000040000000500000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 74
@@ -1250,6 +1278,7 @@ MonoBehaviour:
   - stat: 80
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 0100000003000000040000000500000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 80
@@ -1294,6 +1323,7 @@ MonoBehaviour:
   - stat: 75
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 0100000003000000040000000500000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 75
@@ -1338,6 +1368,7 @@ MonoBehaviour:
   - stat: 82
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 01000000020000000c0000000400000005000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 82
@@ -1380,8 +1411,9 @@ MonoBehaviour:
       classPreviewAbilities: []
       startingItemOptions: []
   - stat: 47
-    baseValue: 3
-    tierIncrament: 3
+    baseValue: 5
+    tierIncrament: 5
+    validSlots: 02000000080000000c000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 47
@@ -1426,6 +1458,7 @@ MonoBehaviour:
   - stat: 92
     baseValue: 0.2
     tierIncrament: 0.2
+    validSlots: 02000000060000000c000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 92
@@ -1470,6 +1503,7 @@ MonoBehaviour:
   - stat: 91
     baseValue: -0.1
     tierIncrament: -0.1
+    validSlots: 02000000060000000c000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 91

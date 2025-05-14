@@ -416,7 +416,7 @@ public class InventoryPanel : BasePanel {
     private IEnumerator CreateAffixEntries() {
         WaitForSeconds waiter = new WaitForSeconds(0.2f);
         
-        List<ItemData> affixData = ItemSpawner.CreateItemAffixSet(5);
+        List<ItemData> affixData = ItemSpawner.CreateItemAffixSet(5, forgeSlot.MyItem.Data.validSlots[0]);
 
         itemAffixEntries.PopulateList(affixData.Count, affixTemplate, affixHolder, false);
 
