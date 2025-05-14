@@ -143,10 +143,10 @@ public class Projectile : Entity {
         if (Source == null)
             return;
 
-        float ownerPierce = Source.Stats[StatName.ProjectilePierceCount] + ParentEffect.Source.Stats[StatName.ProjectilePierceCount];
-        float ownerChain = Source.Stats[StatName.ProjectileChainCount] + ParentEffect.Source.Stats[StatName.ProjectileChainCount];
-        float ownerSplit = Source.Stats[StatName.ProjectileSplitCount] + ParentEffect.Source.Stats[StatName.ProjectileSplitCount];
-        float splitAmount = Source.Stats[StatName.ProjectileSplitQuantity] + ParentEffect.Source.Stats[StatName.ProjectileSplitQuantity];
+        float ownerPierce = Source.Stats[StatName.ProjectilePierceCount] /*+ ParentEffect.Stats[StatName.ProjectilePierceCount]*/;
+        float ownerChain = Source.Stats[StatName.ProjectileChainCount] /*+ ParentEffect.Stats[StatName.ProjectileChainCount]*/;
+        float ownerSplit = Source.Stats[StatName.ProjectileSplitCount] /*+ ParentEffect.Stats[StatName.ProjectileSplitCount]*/;
+        float splitAmount = Source.Stats[StatName.ProjectileSplitQuantity] /*+ ParentEffect.Stats[StatName.ProjectileSplitQuantity]*/;
         if(ownerPierce > 0) 
             Stats.AddModifier(StatName.ProjectilePierceCount, ownerPierce, StatModType.Flat, Source);
         if (ownerChain > 0)

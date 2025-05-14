@@ -101,11 +101,11 @@ public class RunesPanel : BasePanel {
     }
 
     private void DeselectAllActiveEntries() {
-        Debug.Log("Deselecting Actives");
+        //Debug.Log("Deselecting Actives");
         
         for (int i = 0; i < activeSkillEntries.Count; i++) {
-            Debug.Log("Index: " + i);
-            Debug.Log("Count of Active Skills: " + activeSkillEntries.Count);
+            //Debug.Log("Index: " + i);
+            //Debug.Log("Count of Active Skills: " + activeSkillEntries.Count);
             
             activeSkillEntries[i].Deselect();
         }

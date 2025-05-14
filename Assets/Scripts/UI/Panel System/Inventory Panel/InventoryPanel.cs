@@ -60,6 +60,9 @@ public class InventoryPanel : BasePanel {
     [Header("Images")]
     public Image characterImage;
 
+
+    private bool selectionVFXRunning;
+
     protected override void Awake() {
         base.Awake();
         CreateEmptySlots();
@@ -430,7 +433,7 @@ public class InventoryPanel : BasePanel {
         if (createAffixTask != null && createAffixTask.Running == true)
             return;
 
-        if (selectAffixTask != null && selectAffixTask.Running == true)
+        if (selectionVFXRunning == true)
             return;
 
         if (selectedSlot == null) {
@@ -450,7 +453,8 @@ public class InventoryPanel : BasePanel {
     }
 
     private IEnumerator ShowSelectionEffect(ItemAffixEntry entry) {
-        WaitForEndOfFrame waiter = new WaitForEndOfFrame();
+        selectionVFXRunning = true;
+        
         WaitForSeconds secondsWaiter = new WaitForSeconds(0.2f);
 
         entry.ShowSelectionEffects();
@@ -459,11 +463,7 @@ public class InventoryPanel : BasePanel {
 
         yield return secondsWaiter;    
 
-        //while(entry.selectionEffect.particleCount > 0) {
-        //    yield return waiter;
-        //}
 
-        //itemAffixEntries.ClearList();
         new Task(FadeOutList(entry));
     }
 
@@ -475,13 +475,12 @@ public class InventoryPanel : BasePanel {
             }
         }
 
-        //yield return new WaitForSeconds(0.5f);
-
         selectedAffix.fader.DOFade(0f, 0.75f);
 
         yield return new WaitForSeconds(0.75f);
 
         itemAffixEntries.ClearList();
+        selectionVFXRunning = false;
     }
 
 

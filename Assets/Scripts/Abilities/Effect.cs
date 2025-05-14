@@ -314,6 +314,12 @@ public abstract class Effect {
     }
 
     public bool HasProjectile(string projectileName) {
+        
+        //if(Data.effectName == "Arcane Missles Damage") {
+        //    Debug.Log("Checking for: " + projectileName);
+        //    Debug.Log("Current projectile: " + PayloadPrefab.EntityName);
+        //}
+        
         return PayloadPrefab != null && PayloadPrefab.EntityName == projectileName;
     }
 
@@ -2087,7 +2093,7 @@ public class AddEffectEffect : Effect {
     public override string GetTooltip() {
         StringBuilder builder = new StringBuilder();
 
-        Debug.Log("Showing a tooltip for an [Add Effect Effect] on " + Data.effectName + ". " + activeDisplayEffects.Count + " effects found to add");
+        //Debug.Log("Showing a tooltip for an [Add Effect Effect] on " + Data.effectName + ". " + activeDisplayEffects.Count + " effects found to add");
 
         for (int i = 0; i < activeDisplayEffects.Count; i++) {
 
@@ -2527,7 +2533,14 @@ public class AddStatusEffect : Effect {
     public float GetModifiedIntervalDuration() {
         float effectIntervalModifier = 1 + Source.Stats[StatName.GlobalStatusIntervalModifier];
 
-        return Stats[StatName.StatusInterval] * effectIntervalModifier;
+        float result = Stats[StatName.StatusInterval] * effectIntervalModifier;
+
+        if (result <= 0.1f) {
+            Debug.LogError("A status interval is very very low: " + result);
+            return 0.1f;
+        }
+
+        return result;
     }
 
     public void ForceTickOnTarget(Entity target) {
@@ -2563,6 +2576,7 @@ public class AddStatusEffect : Effect {
 
             for (int j = 0; j < statusList.Count; j++) {
                 statusList[j].Stack();
+                //Debug.Log("stacking a status to: " + target.EntityName);
             }
 
         }

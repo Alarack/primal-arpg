@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
+using UnityEngine.Rendering;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
 
 public class Ability {
@@ -173,8 +173,8 @@ public class Ability {
         }
 
 #if UNITY_EDITOR
-        if(Source.entityType == Entity.EntityType.Player)
-            Debug.Log("Equipping: " + Data.abilityName);
+        //if(Source.entityType == Entity.EntityType.Player)
+        //    Debug.Log("Equipping: " + Data.abilityName);
 #endif
 
         SetupActivationTriggers();
@@ -201,6 +201,12 @@ public class Ability {
         data.AddAbility("Ability", this);
 
         EventManager.SendEvent(GameEvent.AbilityEquipped, data);
+
+#if UNITY_EDITOR
+        if (Source.entityType == Entity.EntityType.Player)
+            Debug.Log("[Equipped]: " + Data.abilityName);
+#endif
+
 
         for (int i = 0; i < ChildAbilities.Count; i++) {
             if (ChildAbilities[i].IsEquipped == false)
@@ -1551,6 +1557,12 @@ public class Ability {
         if(ability == null || ability == this) {
             return;
         }
+
+//#if UNITY_EDITOR
+//        if(Source.entityType == Entity.EntityType.Player) {
+//            Debug.Log("Reseting Target Effects for: " + Data.abilityName);
+//        }
+//#endif
 
         for (int i = 0; i < effects.Count; i++) {
             effects[i].ResetEffectTargets();
