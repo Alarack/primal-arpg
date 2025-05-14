@@ -2526,19 +2526,23 @@ public class AddStatusEffect : Effect {
 
     public float GetModifiedStatusDuration() {
         float effectDurationModifier = 1 + Source.Stats[StatName.GlobalStatusDurationModifier];
+        float comboDurationModifier = 1 + Source.Stats[StatName.GlobalComboDurationModifier];
 
-        return Stats[StatName.StatusLifetime] * effectDurationModifier;
+        return Stats[StatName.StatusLifetime] * effectDurationModifier * comboDurationModifier;
     }
 
     public float GetModifiedIntervalDuration() {
         float effectIntervalModifier = 1 + Source.Stats[StatName.GlobalStatusIntervalModifier];
+        float comboIntervalModifer = 1 + Source.Stats[StatName.GlobalComboIntervalModifier];
 
-        float result = Stats[StatName.StatusInterval] * effectIntervalModifier;
+        float result = Stats[StatName.StatusInterval] * effectIntervalModifier * comboIntervalModifer;
 
-        if (result <= 0.1f) {
-            Debug.LogError("A status interval is very very low: " + result);
-            return 0.1f;
-        }
+        //if (result <= 0.1f) {
+        //    Debug.LogError("A status interval is very very low: " + result);
+        //    return 0.1f;
+        //}
+
+        //Debug.Log(Data.effectName + " has an Status Interval Of: " + result);
 
         return result;
     }
@@ -4162,10 +4166,12 @@ public class StatAdjustmentEffect : Effect {
         float damageRatio = GetWeaponScaler();
 
         float effectDurationModifier = 1 + Source.Stats[StatName.GlobalEffectDurationModifier];
-        float duration = Stats[StatName.EffectLifetime] * effectDurationModifier;
+        float comboDurationModifier = 1 + Source.Stats[StatName.GlobalComboDurationModifier];
+        float duration = Stats[StatName.EffectLifetime] * effectDurationModifier * comboDurationModifier;
 
         float intervalDurationModifier = 1 + Source.Stats[StatName.GlobalEffectIntervalModifier];
-        float interval = Stats[StatName.EffectInterval] * intervalDurationModifier;
+        float comboIntervalModifier = 1 + Source.Stats[StatName.GlobalComboIntervalModifier];
+        float interval = Stats[StatName.EffectInterval] * intervalDurationModifier * comboIntervalModifier;
 
         string durationText = TextHelper.ColorizeText(duration.ToString(), Color.yellow) + " seconds";
         string intervalText = TextHelper.ColorizeText(interval.ToString(), Color.yellow) + " seconds";

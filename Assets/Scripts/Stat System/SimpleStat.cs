@@ -95,7 +95,9 @@ public enum StatName
     HeathPotions,
     ChannelingMoveSpeedModifier,
     CastingMoveSpeedModifier,
-    DoubleTickChance
+    DoubleTickChance,
+    GlobalComboIntervalModifier,
+    GlobalComboDurationModifier
 
 
 }

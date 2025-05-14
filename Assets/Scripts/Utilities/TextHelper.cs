@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-
 using UnityEngine;
 
 
@@ -21,7 +20,14 @@ public static class TextHelper
         //string penaltyColor = ColorUtility.ToHtmlStringRGB(new Color(0.839f, 0.235f, 0.11f));
         string penaltyColor = ColorUtility.ToHtmlStringRGB(penalty);
 
-        if (stat == StatName.GlobalStatusIntervalModifier)
+        List<StatName> displayPercentStats = new List<StatName> {
+            StatName.GlobalComboDurationModifier,
+            StatName.GlobalComboIntervalModifier,
+            StatName.GlobalStatusIntervalModifier
+        };
+
+
+        if (displayPercentStats.Contains(stat))
             displayAsPercent = true;
 
 
@@ -61,8 +67,8 @@ public static class TextHelper
             StatName.CooldownReduction when value < 0 => $"<color=#{penaltyColor}>" + (value * 100) + "% </color>",
             StatName.GlobalDamageModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.GlobalDamageModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "% </color>",
-            StatName.GlobalEffectDurationModifier when value >= 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
-            StatName.GlobalEffectDurationModifier when value < 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
+            //StatName.GlobalEffectDurationModifier when value >= 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
+            //StatName.GlobalEffectDurationModifier when value < 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.MeleeDamageModifier when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.MeleeDamageModifier when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "% </color>",
             StatName.OverloadChance when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
@@ -75,8 +81,8 @@ public static class TextHelper
             StatName.ProjectilePierceCount when value > 0 => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.AbilityRuneSlots when value > 0 => $"<color=#{bonusColor}>" + value + "</color> more",
             StatName.AbilityRuneSlots when value < 0 => $"<color=#{penaltyColor}>" + value + "</color> less",
-            StatName.GlobalEffectIntervalModifier when value < 0 => $"<color=#{bonusColor}>-" + (Mathf.Abs(value) * 100) + "% </color>",
-            StatName.GlobalEffectIntervalModifier when value > 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
+            //StatName.GlobalEffectIntervalModifier when value < 0 => $"<color=#{bonusColor}>-" + (Mathf.Abs(value) * 100) + "% </color>",
+            //StatName.GlobalEffectIntervalModifier when value > 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.GlobalEffectSizeModifier when value > 0 => $"<color=#{bonusColor}>+" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.GlobalEffectSizeModifier when value < 0 => $"<color=#{penaltyColor}>-" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.GlobalProjectileSizeModifier when value > 0 => $"<color=#{bonusColor}>+" + (Mathf.Abs(value) * 100) + "% </color>",
@@ -124,8 +130,8 @@ public static class TextHelper
             StatName.GlobalEssenceCostModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.MeleeDamageModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.MeleeDamageModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
-            StatName.GlobalEffectIntervalModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
-            StatName.GlobalEffectIntervalModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            //StatName.GlobalEffectIntervalModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            //StatName.GlobalEffectIntervalModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalEffectSizeModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalEffectSizeModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalProjectileSizeModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
@@ -147,10 +153,10 @@ public static class TextHelper
             StatName.GlobalProjectileLifetimeModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalProjectileSpeedModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalProjectileSpeedModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
-            StatName.GlobalStatusDurationModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
-            StatName.GlobalStatusDurationModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
-            StatName.GlobalStatusIntervalModifier when value >= 0 => penaltyFormat,
-            StatName.GlobalStatusIntervalModifier when value < 0 => bonusFormat,
+            //StatName.GlobalStatusDurationModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
+            //StatName.GlobalStatusDurationModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            //StatName.GlobalStatusIntervalModifier when value >= 0 => penaltyFormat,
+            //StatName.GlobalStatusIntervalModifier when value < 0 => bonusFormat,
             StatName.GlobalEssenceCostModifier when value >= 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalEssenceCostModifier when value < 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.CastingMoveSpeedModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
@@ -160,6 +166,12 @@ public static class TextHelper
 
             StatName.EffectRange when value >= 0 => bonusFormat,
             StatName.EffectRange when value < 0 => penaltyFormat,
+
+            StatName.GlobalComboDurationModifier when value >= 0 => bonusFormat,
+            StatName.GlobalComboDurationModifier when value < 0 => penaltyFormat,
+
+            StatName.GlobalComboIntervalModifier when value <= 0 => bonusFormat,
+            StatName.GlobalComboIntervalModifier when value > 0 => penaltyFormat,
 
 
             StatName.DoubleTickChance when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
@@ -244,6 +256,8 @@ public static class TextHelper
             StatName.GlobalStatusIntervalModifier => "Status Interval Modifier",
             StatName.CastingMoveSpeedModifier => "Casting Move Speed",
             StatName.ChannelingMoveSpeedModifier => "Channeling Move Speed",
+            StatName.GlobalComboDurationModifier => "Effect Duration Modifier",
+            StatName.GlobalComboIntervalModifier => "Effect Interval Modifier",
 
   
             _ => stat.ToString().SplitCamelCase(),

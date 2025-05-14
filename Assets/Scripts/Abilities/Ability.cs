@@ -905,7 +905,7 @@ public class Ability {
 
             string procReplacement = chainCountReplacement.Replace("{PR}", TextHelper.FormatStat(StatName.ProcChance, MathF.Round(procChance, 2)));
 
-            float statusDuration = Stats[StatName.StatusLifetime] * (1 + Source.Stats[StatName.GlobalStatusDurationModifier]);
+            float statusDuration = Stats[StatName.StatusLifetime] * (1 + Source.Stats[StatName.GlobalStatusDurationModifier]) * (1 + Source.Stats[StatName.GlobalComboDurationModifier]);
 
             //float statusLife = Stats[StatName.StatusLifetime] > 0f ? Stats[StatName.StatusLifetime] : -1f;
             string statusLifeText = statusDuration > 0 ? TextHelper.ColorizeText(statusDuration.ToString(), Color.yellow) : TextHelper.ColorizeText( "Infintie", Color.yellow);
@@ -928,7 +928,7 @@ public class Ability {
             }
 
 
-            float effectDuration = Stats[StatName.EffectLifetime] * (1 + Source.Stats[StatName.GlobalEffectDurationModifier]);
+            float effectDuration = Stats[StatName.EffectLifetime] * (1 + Source.Stats[StatName.GlobalEffectDurationModifier]) * (1 + Source.Stats[StatName.GlobalComboDurationModifier]);
             string effectDureationText = TextHelper.ColorizeText(TextHelper.FormatStat(StatName.EffectLifetime, MathF.Round(effectDuration, 2)), Color.yellow);
             string effectDurationReplacement = triggerCountReplacement.Replace("{EL}", effectDureationText);
 

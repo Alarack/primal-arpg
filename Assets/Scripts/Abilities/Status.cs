@@ -107,7 +107,7 @@ public class Status {
             return;
         }
 
-        if (stat == StatName.GlobalStatusDurationModifier) {
+        if (stat == StatName.GlobalStatusDurationModifier || stat == StatName.GlobalComboDurationModifier) {
             CreateTimers();
         }
 

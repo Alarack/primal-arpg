@@ -80,14 +80,19 @@ public class EffectZone : Entity {
         }
 
         float effectDurationModifier = parentEffect.Source.Stats[StatName.GlobalEffectDurationModifier];
-        if (effectDurationModifier != 0) {
+        float comboDurationModifier = parentEffect.Source.Stats[StatName.GlobalComboDurationModifier];
+        float totalDurationModifier = effectDurationModifier + comboDurationModifier;
+
+        if (totalDurationModifier != 0) {
             Stats.AddModifier(StatName.EffectLifetime, effectDurationModifier, StatModType.PercentAdd, parentEffect.Source);
         }
 
         if (info.applyOnInterval == true) {
 
             float effectIntervalModifier = parentEffect.Source.Stats[StatName.GlobalEffectIntervalModifier];
-            if (effectIntervalModifier != 0) {
+            float comboIntervalModifier = parentEffect.Source.Stats[StatName.GlobalComboIntervalModifier];
+            float totalIntervalModifier = effectDurationModifier + comboDurationModifier;
+            if (totalIntervalModifier != 0) {
                 Stats.AddModifier(StatName.EffectInterval, effectIntervalModifier, StatModType.PercentAdd, parentEffect.Source);
             }
             persistantZoneTimer = new Timer(Stats[StatName.EffectInterval], OnEffectInterval, true);

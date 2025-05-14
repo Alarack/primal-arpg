@@ -130,7 +130,9 @@ public class ItemData
     public string GetShortTooltip() {
         StringBuilder builder = new StringBuilder();
 
-        builder.Append(TextHelper.ColorizeText(statModifierData[0].targetStat.ToString().SplitCamelCase(), GetTierColor(tier)))
+        string prettyStatName = TextHelper.PretifyStatName(statModifierData[0].targetStat);
+
+        builder.Append(TextHelper.ColorizeText(prettyStatName, GetTierColor(tier)))
             .Append(TextHelper.ColorizeText(" ", GetTierColor(tier))).Append(GetTier());
 
 
@@ -147,7 +149,7 @@ public class ItemData
 
         builder.Append(TextHelper.ColorizeText(rarityName + " ", GetTierColor(tier), 15f)).AppendLine()/*.Append(GetTier())*/
                .Append(" ")
-               .Append(maxPrefix + statModifierData[0].targetStat.ToString().SplitCamelCase())
+               .Append(maxPrefix + TextHelper.PretifyStatName( statModifierData[0].targetStat))
                .Append(": ")
                .Append(TextHelper.FormatStat(statModifierData[0].targetStat, statModifierData[0].value))
 

@@ -154,6 +154,10 @@ public class InventoryPanel : BasePanel {
             StatName.EssenceShield,
             StatName.SkillPoint,
             StatName.HeathPotions,
+            StatName.GlobalStatusDurationModifier,
+            StatName.GlobalStatusIntervalModifier,
+            StatName.GlobalEffectDurationModifier,
+            StatName.GlobalEffectIntervalModifier
         };
 
         if(exceptions.Contains(stat)) {
