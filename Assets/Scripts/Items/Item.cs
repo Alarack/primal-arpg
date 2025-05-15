@@ -72,9 +72,6 @@ public class Item
         if (Data.Type != ItemType.Equipment)
             return;
 
-
-        Debug.Log("Rolling init afixes for: " + Data.itemName + " In slot: " + CurrentSlot);
-
         float affixRoll = UnityEngine.Random.Range(0f, 1f);
 
         if (affixRoll < 0.5f && affixRoll > 0.25f) {

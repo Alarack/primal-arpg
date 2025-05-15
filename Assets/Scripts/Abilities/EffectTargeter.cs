@@ -24,6 +24,8 @@ public class EffectTargeter {
     private List<Ability> abilityTargets;
     private int numberOfTargets = -1;
 
+    private float shotRemainder;
+
     public EffectTargeter(Effect parentEffect) {
         this.parentEffect = parentEffect;
         numberOfTargets = (int)parentEffect.Stats[StatName.EffectMaxTargets];
@@ -542,18 +544,19 @@ public class EffectTargeter {
 
         //Debug.Log(parentEffect.Stats[StatName.ShotCount] + " projectiles on " + parentEffect.ParentAbility.Data.abilityName);
 
-        int baseShotCount = (int)parentEffect.Stats[StatName.ShotCount];
+        float baseShotCount = parentEffect.Stats[StatName.ShotCount];
 
         if(baseShotCount == 0) {
             Debug.LogError("Shot Count of 0 on " + parentEffect.Data.effectName + " add a Shot Count Stat to it or its parent ability");
         }
 
-        int totalShots = baseShotCount;
+        float totalShots = baseShotCount;
 
+      
 
 
         if (parentEffect.ParentAbility.Tags.Contains(AbilityTag.Projectile)) {
-            int ownerShotCount = (int)parentEffect.Source.Stats[StatName.ShotCount];
+            float ownerShotCount = parentEffect.Source.Stats[StatName.ShotCount];
             //int abilityShotCount = (int)parentEffect.ParentAbility.Stats[StatName.ShotCount];
 
             totalShots += ownerShotCount;
@@ -562,10 +565,22 @@ public class EffectTargeter {
         }
 
 
+        shotRemainder += totalShots % 1;
+        //Debug.Log("Total shot: " + totalShots);
+        //Debug.Log("leftover: " + shotRemainder);
+
+        if(shotRemainder >= 1) {
+            totalShots += shotRemainder;
+            shotRemainder = totalShots % 1;
+        }
+
+        int trunkatedShots = (int)totalShots;
+
+
 
         if (parentEffect.Data.spawnLocation == DeliverySpawnLocation.WorldPositionSequence) {
 
-            List<Vector2> deliveryPoints = GetPayloadSpawnlocationSequence(totalShots);
+            List<Vector2> deliveryPoints = GetPayloadSpawnlocationSequence(trunkatedShots);
 
             //Debug.Log("Creating a world position sequence for: " + parentEffect.Data.effectName + ". " + totalShots + " shots");
 
@@ -580,7 +595,7 @@ public class EffectTargeter {
 
 
 
-        for (int i = 0; i < totalShots; i++) {
+        for (int i = 0; i < trunkatedShots; i++) {
 
             Vector2 payloadLocation = GetPayloadSpawnLocation(parentEffect.Data.spawnLocation);
 

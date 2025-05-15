@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Cooldown Ring
+  m_Name: Shot Count Ring
   m_EditorClassIdentifier: 
   devItem: 1
   startingItem: 0
@@ -18,8 +18,8 @@ MonoBehaviour:
     Type: 1
     affixStatTarget: 1
     entityClass: 0
-    itemName: Cool Ring
-    itemDescription: This ring is just the cool
+    itemName: Shot Count Ring
+    itemDescription: This is the shot caller
     secondaryDescription: 
     itemValue: 150
     runeAbilityTarget: 
@@ -35,7 +35,7 @@ MonoBehaviour:
     minDamage: 0
     maxDamage: 0
     statModifierData:
-    - targetStat: 21
+    - targetStat: 14
       value: 0.25
       modifierType: 0
       variantTarget: 0

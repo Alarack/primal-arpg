@@ -49,15 +49,17 @@ public class PanelDataManager : Singleton<PanelDataManager>
         }
 
         if (Input.GetKeyDown(KeyCode.M)) {
-            PanelManager.OpenPanel<MasteryPanel>();
+            PanelManager.TogglePanel<MasteryPanel>();
         }
+
+
+
+
+#if UNITY_EDITOR
 
         if (Input.GetKeyDown(KeyCode.T)) {
             PanelManager.OpenPanel<TransitionPanel>().Setup(DEV_TransitionTest);
         }
-
-
-#if UNITY_EDITOR
 
         //if (Input.GetKeyDown(KeyCode.M)) {
         //    PanelManager.OpenPanel<MasteryPanel>();
