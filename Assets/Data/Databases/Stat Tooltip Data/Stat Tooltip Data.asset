@@ -55,7 +55,7 @@ MonoBehaviour:
     icon: {fileID: 0}
   - stat: 14
     decription: The number of bonus projectiles created for all Skills that create
-      projectiles.
+      projectiles. (Fractional values will add up to create a new Projectile eventually)
     icon: {fileID: 21300000, guid: ed98cec6b93c7224caf91cf7b65588be, type: 3}
   - stat: 61
     decription: Multipler on your Move Speed.
@@ -65,8 +65,7 @@ MonoBehaviour:
       Skill.
     icon: {fileID: 0}
   - stat: 29
-    decription: The number of times your projectiles can pierce. Sacks with Skill
-      that produce naturally piercing projectiles.
+    decription: The number of times Projectiles will Pierce on hit.
     icon: {fileID: 0}
   - stat: 52
     decription: Multiplier on your cast time for Skills with cast times.
@@ -99,7 +98,7 @@ MonoBehaviour:
     decription: Speed Modifier while using a Skill with a Cast Time.
     icon: {fileID: 0}
   - stat: 34
-    decription: Modifier to the number of Chains for Chaining projectiles.
+    decription: The number of times Projectiles will Chain to a new target on hit.
     icon: {fileID: 0}
   - stat: 73
     decription: Multiplier on all Arcane damage dealt.
@@ -110,4 +109,7 @@ MonoBehaviour:
     icon: {fileID: 0}
   - stat: 92
     decription: Increases the duration of ongoing effects such as Statuses and Zones.
+    icon: {fileID: 0}
+  - stat: 35
+    decription: The number of times Projectiles will Split on hit.
     icon: {fileID: 0}
