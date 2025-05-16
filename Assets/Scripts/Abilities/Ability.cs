@@ -860,7 +860,10 @@ public class Ability {
 
 
         if(Stats.Contains(StatName.AbilityWindupTime) == true && Stats[StatName.AbilityWindupTime] > 0f) {
-            builder.AppendLine("Cast Time: " + TextHelper.ColorizeText(Stats[StatName.AbilityWindupTime].ToString(), Color.yellow) + " Seconds");
+            float castSpeedMod = 1 - Source.Stats[StatName.CastSpeedModifier];
+            float castTime = MathF.Round(Stats[StatName.AbilityWindupTime] * castSpeedMod, 2);
+            
+            builder.AppendLine("Cast Time: " + TextHelper.ColorizeText(castTime.ToString(), Color.yellow) + " Seconds");
         }
 
         if (string.IsNullOrEmpty(Data.abilityDescription) == false) {
@@ -1316,13 +1319,13 @@ public class Ability {
         if (Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
 
             if (currentWindup == null) {
-                //Debug.LogWarning("Starting windup for: " + Data.abilityName);
+                Debug.LogWarning("Starting windup for: " + Data.abilityName);
                 currentWindup = new Task(StartAbilityWindup(activationInstance));
                 Source.ActivelyCastingAbility = this;
                 return true;
             }
             else {
-                //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
+                Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
                 return true;
             }
         }
@@ -1497,17 +1500,19 @@ public class Ability {
 
 
         float windupTime = Stats[StatName.AbilityWindupTime];
-        float ownerCastSpeed = Source.Stats[StatName.CastSpeedModifier] > 0f ? Source.Stats[StatName.CastSpeedModifier] : 1f;
+        float ownerCastSpeed = 1 - Source.Stats[StatName.CastSpeedModifier];
 
-        if (windupTime <= 0) {
+        float castTime = windupTime * ownerCastSpeed;
+
+        if (castTime <= 0) {
             Debug.LogError("0 Cast time detected on " + Data.abilityName);
             ResumeActivation(activationInstance);
             yield break;
         }
 
-        float waitTime = windupTime / ownerCastSpeed;
+        //float waitTime = windupTime / ownerCastSpeed;
 
-        WaitForSeconds waiter = new WaitForSeconds(waitTime);
+        WaitForSeconds waiter = new WaitForSeconds(castTime);
 
         //Debug.Log("Winding up: " + Data.abilityName);
 

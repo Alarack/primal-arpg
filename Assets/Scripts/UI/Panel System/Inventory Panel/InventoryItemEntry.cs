@@ -36,11 +36,11 @@ public class InventoryItemEntry : InventoryBaseEntry {
             Add(item);
         }
 
-        if (MyItem != null && item == MyItem && slot == ItemSlot.Inventory ) {
+        if (MyItem != null && item == MyItem && slot == ItemSlot.Inventory) {
             Remove();
         }
 
-        if(MyItem != null && slot != ItemSlot.Inventory && slot != ItemSlot.ForgeSlot) {
+        if (MyItem != null && slot != ItemSlot.Inventory && slot != ItemSlot.ForgeSlot) {
             parentPanel.CheckForDupeEquips(this);
         }
     }
@@ -48,7 +48,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
     protected override void OnItemUnequipped(EventData data) {
         Item item = data.GetItem("Item");
 
-        if(slot == item.CurrentSlot && MyItem != null && item == MyItem) {
+        if (slot == item.CurrentSlot && MyItem != null && item == MyItem) {
             Remove();
         }
 
@@ -68,7 +68,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
 
             Remove();
 
-            if(drop == true)
+            if (drop == true)
                 ItemSpawner.SpawnItem(item, Vector2.zero);
         }
     }
@@ -93,7 +93,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
     public override void OnBeginDrag(PointerEventData eventData) {
         if (slot == ItemSlot.ForgeSlot)
             return;
-        
+
         DraggedInventoryItem = this;
 
         //DraggedInventoryItem.canvas.sortingOrder = 100;
@@ -118,11 +118,18 @@ public class InventoryItemEntry : InventoryBaseEntry {
 
         Item draggedItem = DraggedInventoryItem.MyItem;
 
-        if(draggedItem == null) 
+        if (draggedItem == null)
             return;
-        
-        if(slot == ItemSlot.ForgeSlot) {
+
+        if (slot == ItemSlot.ForgeSlot) {
             Debug.Log("Forging: " + draggedItem.Data.itemName);
+            
+            if(PanelManager.GetPanel<InventoryPanel>().IsForgingInProgress() == true) {
+                PanelManager.OpenPanel<PopupPanel>().Setup("Already Forging", "Choose an Affix, or Right Click the Forge Slot to cancel Forging");
+                return;
+            }
+            
+            
             Add(draggedItem);
             parentPanel.SetupItemAffixSlots();
 
@@ -139,13 +146,13 @@ public class InventoryItemEntry : InventoryBaseEntry {
 
 
         if (slot == ItemSlot.Inventory) {
-            
-            if(draggedItem.Equipped == true) {
-                
-                if(MyItem == null) {
+
+            if (draggedItem.Equipped == true) {
+
+                if (MyItem == null) {
                     Add(draggedItem);
                     EntityManager.ActivePlayer.Inventory.UnEquipItem(draggedItem);
-                    
+
                 }
                 else {
                     Debug.LogWarning("Dragged an equipped item onto a non-null inventory item");
@@ -154,7 +161,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
             }
             else {
 
-                if(MyItem == null) {
+                if (MyItem == null) {
                     DraggedInventoryItem.Remove();
                     Add(draggedItem);
                 }
@@ -171,7 +178,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
             }
 
         }
-        else if(slot != ItemSlot.ForgeSlot) {
+        else if (slot != ItemSlot.ForgeSlot) {
             if (draggedItem.Data.validSlots.Contains(slot)) {
                 EntityManager.ActivePlayer.Inventory.EquipItemToSlot(draggedItem, slot);
             }
@@ -193,8 +200,17 @@ public class InventoryItemEntry : InventoryBaseEntry {
                 return;
 
             if (slot == ItemSlot.ForgeSlot) {
-                Remove();
-                return;
+                
+                if(PanelManager.GetPanel<InventoryPanel>().IsForgingInProgress() == true) {
+                    ConfirmCancelForging();
+                    return;
+                }
+                else {
+                    Remove();
+                    return;
+                }
+                
+
             }
 
 
@@ -208,6 +224,15 @@ public class InventoryItemEntry : InventoryBaseEntry {
         }
     }
 
+    private void ConfirmCancelForging() {
+        PanelManager.OpenPanel<PopupPanel>().Setup("Cancel Forge", "Are you sure you want to cancel forging?", CancelForgeing);
+    }
+
+    private void CancelForgeing() {
+        Remove();
+        PanelManager.GetPanel<InventoryPanel>().CancelForging();
+    }
+
     public override void OnPointerEnter(PointerEventData eventData) {
         base.OnPointerEnter(eventData);
 
@@ -219,7 +244,7 @@ public class InventoryItemEntry : InventoryBaseEntry {
     }
 
 
-    
+
 
     #endregion
 }

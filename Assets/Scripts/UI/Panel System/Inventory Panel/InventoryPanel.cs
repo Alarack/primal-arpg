@@ -45,6 +45,7 @@ public class InventoryPanel : BasePanel {
     [Header("Stat Display")]
     public StatDisplayEntry statDisplayTemplate;
     public Transform statDisplayHolder;
+    public PossibleAffixManager possibleAffixManager;
 
     private List<StatDisplayEntry> statDisplayEntries = new List<StatDisplayEntry>();
 
@@ -336,6 +337,10 @@ public class InventoryPanel : BasePanel {
         if (forgeSlot.MyItem == null)
             return;
 
+
+        List<StatName> relevantStats = ItemSpawner.Instance.lootDatabase.GetRelavantStatsBySlot(forgeSlot.MyItem.Data.validSlots[0]);
+        possibleAffixManager.Show(relevantStats);
+
         itemAffixSlots.PopulateList(forgeSlot.MyItem.AffixSlots, affixSlotTemplate, affixSlotHolder, true);
 
         for (int i = 0; i < itemAffixSlots.Count; i++) {
@@ -428,6 +433,11 @@ public class InventoryPanel : BasePanel {
         }
     }
 
+
+    public bool IsForgingInProgress() {
+        return itemAffixEntries.Count > 0;
+    }
+
     public void OnAffixSelected(ItemData affixdata, ItemAffixEntry entry) {
         if(forgeSlot.MyItem == null) {
             itemAffixEntries.ClearList();
@@ -471,6 +481,11 @@ public class InventoryPanel : BasePanel {
         new Task(FadeOutList(entry));
     }
 
+    public void CancelForging() {
+        selectionVFXRunning = true;
+        new Task(FadeOutList(null));
+    }
+
     private IEnumerator FadeOutList(ItemAffixEntry selectedAffix) {
 
         for (int i = 0; i < itemAffixEntries.Count; i++) {
@@ -479,9 +494,14 @@ public class InventoryPanel : BasePanel {
             }
         }
 
-        selectedAffix.fader.DOFade(0f, 0.75f);
+        if (selectedAffix != null) {
+            selectedAffix.fader.DOFade(0f, 0.75f);
 
-        yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(0.75f);
+        }
+        else {
+            yield return new WaitForSeconds(0.35f);
+        }
 
         itemAffixEntries.ClearList();
         selectionVFXRunning = false;

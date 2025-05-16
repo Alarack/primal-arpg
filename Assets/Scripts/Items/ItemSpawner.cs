@@ -288,7 +288,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
         return results;
     }
 
-    private bool IsStatRelevant(StatName stat) {
+    public bool IsStatRelevant(StatName stat) {
 
         bool result = stat switch {
             StatName.Health => true,
@@ -312,7 +312,6 @@ public class ItemSpawner : Singleton<ItemSpawner>
             StatName.EssenceRegenerationRate => true,
             StatName.EssenceRegenerationValue => true,
             //StatName.OverloadRecieveChance => new ItemData(stat, 0.1f),
-            StatName.CastSpeedModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.CastTime),
             StatName.MaxMinionCount => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Summoning),
             StatName.MinionDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Summoning),
             StatName.FireDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Fire),
@@ -330,6 +329,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
             StatName.GlobalComboDurationModifier => true,
             StatName.GlobalComboIntervalModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.DamageOverTime),
             StatName.CastingMoveSpeedModifier => true,
+            StatName.CastSpeedModifier => true,
             _ => false,
         };
 
@@ -346,6 +346,8 @@ public class ItemSpawner : Singleton<ItemSpawner>
             }
         }
     }
+
+
 
 
 }

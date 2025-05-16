@@ -97,6 +97,10 @@ public class InventoryBaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
 
         MyItem = null;
         SetupDisplay();
+
+        if(slot == ItemSlot.ForgeSlot) {
+            PanelManager.GetPanel<InventoryPanel>().possibleAffixManager.Hide();
+        }
     }
 
 

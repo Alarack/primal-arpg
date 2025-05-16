@@ -41,7 +41,7 @@ MonoBehaviour:
       maxDamage: 0
       statModifierData:
       - targetStat: 0
-        value: 3
+        value: 5
         modifierType: 0
         variantTarget: 3
         modValueSetMethod: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
   - stat: 61
     baseValue: 0.2
     tierIncrament: 0.2
-    validSlots: 04000000050000000600000008000000
+    validSlots: 0600000008000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 61
@@ -266,7 +266,7 @@ MonoBehaviour:
       maxDamage: 0
       statModifierData:
       - targetStat: 22
-        value: 0.1
+        value: 0.05
         modifierType: 0
         variantTarget: 0
         modValueSetMethod: 0
@@ -1436,7 +1436,7 @@ MonoBehaviour:
       maxDamage: 0
       statModifierData:
       - targetStat: 47
-        value: 3
+        value: 5
         modifierType: 0
         variantTarget: 3
         modValueSetMethod: 0
@@ -1463,7 +1463,7 @@ MonoBehaviour:
       Type: 6
       affixStatTarget: 92
       entityClass: 0
-      itemName: Global Combo Duratio Mod Booster
+      itemName: GlobalComboDurationModifier Booster
       itemDescription: 
       secondaryDescription: 
       itemValue: 0
@@ -1508,7 +1508,52 @@ MonoBehaviour:
       Type: 6
       affixStatTarget: 91
       entityClass: 0
-      itemName: Global Combo Interval Mod Booster
+      itemName: GlobalComboIntervalModifier Booster
+      itemDescription: 
+      secondaryDescription: 
+      itemValue: 0
+      runeAbilityTarget: 
+      validSlots: 
+      abilityTags: 
+      targetedAbilityName: 
+      itemIcon: {fileID: 0}
+      invertIcon: 0
+      pickupIcon: {fileID: 0}
+      pickupOnCollision: 0
+      tier: 1
+      baseAffixSlots: 2
+      minDamage: 0
+      maxDamage: 0
+      statModifierData:
+      - targetStat: 91
+        value: -0.1
+        modifierType: 0
+        variantTarget: 0
+        modValueSetMethod: 0
+        weaponDamagePercent: 1
+        deriveStatMultiplier: 1
+        deriveTarget: 0
+        derivedTargetStat: 0
+        invertDerivedValue: 0
+        scaleFromAbilityLevel: 0
+        displayAsPercent: 0
+        abilityLevelCoefficient: 1
+        otherTargetAbility: 
+        otherTagetEffect: 
+        scalers: []
+      abilityDefinitions: []
+      learnableAbilities: []
+      classPreviewAbilities: []
+      startingItemOptions: []
+  - stat: 89
+    baseValue: 0.2
+    tierIncrament: 0.2
+    validSlots: 020000000600000008000000
+    baseAffixItem:
+      Type: 6
+      affixStatTarget: 91
+      entityClass: 0
+      itemName: GlobalComboIntervalModifier Booster
       itemDescription: 
       secondaryDescription: 
       itemValue: 0
