@@ -73,11 +73,11 @@ public class Ability {
         //    Debug.Log(data.abilityName + " has a " + Tags[i] + " tag");
         //}
 
-        if(data.category == AbilityCategory.KnownSkill || data.category == AbilityCategory.PassiveSkill) {
+        if (data.category == AbilityCategory.KnownSkill || data.category == AbilityCategory.PassiveSkill) {
             Locked = true;
         }
 
-        if(data.startingAbility == true) {
+        if (data.startingAbility == true) {
             Locked = false;
         }
 
@@ -102,9 +102,9 @@ public class Ability {
     }
 
     private void SetupChannelTimer() {
-        if(IsChanneled == true) {
+        if (IsChanneled == true) {
             float channelInterval = Stats.Contains(StatName.ChannelInterval) ? Stats[StatName.ChannelInterval] : 1f;
-            
+
             channelingCostTimer = new Timer(channelInterval, ApplyCost, true);
 
             EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnStatChanged);
@@ -112,13 +112,13 @@ public class Ability {
     }
 
     private void SetupIgnoreCasting() {
-        
-        if(Data.ignoreOtherCasting == true) {
+
+        if (Data.ignoreOtherCasting == true) {
             SetIgnoreCastings(true);
             return;
         }
-        
-        if(Data.HasManualActivation() == true) {
+
+        if (Data.HasManualActivation() == true) {
             SetIgnoreCastings(false);
             //Debug.Log(Data.abilityName + " has manual castings");
         }
@@ -126,19 +126,19 @@ public class Ability {
             SetIgnoreCastings(true);
             //Debug.Log(Data.abilityName + " has NO manual castings");
         }
-        
+
 
     }
 
     private void SetupStats() {
         Stats = new StatCollection(this, Data.abilityStatData);
 
-        if(Stats.Contains(StatName.AbilityRuneSlots) == false) {
+        if (Stats.Contains(StatName.AbilityRuneSlots) == false) {
             SimpleStat runeSlots = new SimpleStat(StatName.AbilityRuneSlots, 2);
             Stats.AddStat(runeSlots);
         }
 
-        if(Stats.Contains(StatName.AbilityCharge) == false) {
+        if (Stats.Contains(StatName.AbilityCharge) == false) {
             StatRange charges = new StatRange(StatName.AbilityCharge, 0, Data.startingRecoveryCharges, Data.startingRecoveryCharges);
             Stats.AddStat(charges);
         }
@@ -155,7 +155,7 @@ public class Ability {
             foreach (ItemDefinition runedata in runeDataGroup.runes) {
                 Item runeItem = ItemFactory.CreateItem(runedata.itemData, EntityManager.ActivePlayer);
 
-                if(runeItemsByTier.TryGetValue(runeDataGroup.tier, out List<Item> runeItems) == true) {
+                if (runeItemsByTier.TryGetValue(runeDataGroup.tier, out List<Item> runeItems) == true) {
                     runeItemsByTier[runeDataGroup.tier].Add(runeItem);
                 }
                 else {
@@ -186,7 +186,7 @@ public class Ability {
         RegisterAbility();
 
 
-        if(Data.waitForAnimToResolve == true) {
+        if (Data.waitForAnimToResolve == true) {
             EventManager.RegisterListener(GameEvent.AbilityAnimReceived, OnAnimEventRecieved);
         }
 
@@ -213,7 +213,7 @@ public class Ability {
                 ChildAbilities[i].Equip();
         }
 
-        if(Data.category == AbilityCategory.PassiveSkill || Data.category == AbilityCategory.Item)
+        if (Data.category == AbilityCategory.PassiveSkill || Data.category == AbilityCategory.Item)
             IsActive = true;
 
         if (IsChanneled == true)
@@ -250,12 +250,12 @@ public class Ability {
         if (IsChanneled == true)
             TimerManager.RemoveTimerAction(HandleChannelingCost);
 
-        
+
     }
 
     private void RegisterAbility() {
 
-        if(Source is NPC) {
+        if (Source is NPC) {
             return;
         }
 
@@ -354,7 +354,7 @@ public class Ability {
             Effect effect = AbilityFactory.CreateEffect(Data.effectDefinitions[i].effectData, Source, this);
             effects.Add(effect);
 
-            
+
             //Debug.LogWarning("An ability: " + Data.abilityName + " is creating an effect: " + effect.Data.effectName);
 
         }
@@ -559,7 +559,7 @@ public class Ability {
         if (target != this)
             return;
 
-        if(stat == StatName.ChannelInterval && Tags.Contains(AbilityTag.Channeled)) {
+        if (stat == StatName.ChannelInterval && Tags.Contains(AbilityTag.Channeled)) {
             channelingCostTimer.SetDuration(Stats[StatName.ChannelInterval]);
         }
 
@@ -605,13 +605,13 @@ public class Ability {
     #region TAGS
 
     public void AddTag(AbilityTag tag, Ability cause = null) {
-    
-        if(Tags.AddUnique(tag) == false) {
+
+        if (Tags.AddUnique(tag) == false) {
             Debug.LogError("Tried To add a tag: " + tag + " to " + Data.abilityName + ", but it was already present");
             return;
         }
 
-        if(tag == AbilityTag.Channeled) {
+        if (tag == AbilityTag.Channeled) {
             IsActive = false;
             SetupChannelTimer();
         }
@@ -626,7 +626,7 @@ public class Ability {
             return;
         }
 
-        if(tag == AbilityTag.Channeled) {
+        if (tag == AbilityTag.Channeled) {
             if (channelingCostTimer != null)
                 channelingCostTimer = null;
         }
@@ -638,7 +638,7 @@ public class Ability {
 
     #region OPTIONS
 
-    public void SetIgnoreCastings(bool ignoreCastings) { 
+    public void SetIgnoreCastings(bool ignoreCastings) {
         this.IgnoreOtherCasting = ignoreCastings;
     }
 
@@ -655,7 +655,7 @@ public class Ability {
     public void LevelUp() {
         if (IsMaxRank() == true)
             return;
-        
+
         AbilityLevel++;
         SendLevelChangedEvent();
     }
@@ -680,7 +680,7 @@ public class Ability {
             for (int i = 0; i < entry.Value.Count; i++) {
                 Item rune = entry.Value[i];
 
-                if(rune.Equipped == false)
+                if (rune.Equipped == false)
                     continue;
 
                 EntityManager.ActivePlayer.Inventory.UnEquipRune(rune, this);
@@ -774,7 +774,7 @@ public class Ability {
 
     public void ModifyCooldownElasped(float amount) {
         AbilityRecoveryCooldown cooldownRecovery = GetCooldownRecovery();
-        if(cooldownRecovery == null) 
+        if (cooldownRecovery == null)
             return;
 
         cooldownRecovery.ModifiyCooldownElapsed(amount);
@@ -790,11 +790,11 @@ public class Ability {
     }
 
     public float GetTotalEssenceCost() {
-        if(Stats.Contains(StatName.EssenceCost) == false) 
+        if (Stats.Contains(StatName.EssenceCost) == false)
             return 0f;
 
         if (Stats[StatName.EssenceCost] < 0f) {
-            return Stats[StatName.EssenceCost]; 
+            return Stats[StatName.EssenceCost];
         }
 
         float cost = Stats[StatName.EssenceCost] * (1f + Source.Stats[StatName.GlobalEssenceCostModifier]);
@@ -822,6 +822,15 @@ public class Ability {
         }
 
         return -1f;
+    }
+
+    public float GetTotalCastTime() {
+        float windupTime = Stats[StatName.AbilityWindupTime];
+        float ownerCastSpeed = 1 - Source.Stats[StatName.CastSpeedModifier];
+
+        float castTime = windupTime * ownerCastSpeed;
+
+        return castTime;
     }
 
     public float GetAbilityOverloadChance() {
@@ -859,10 +868,10 @@ public class Ability {
         }
 
 
-        if(Stats.Contains(StatName.AbilityWindupTime) == true && Stats[StatName.AbilityWindupTime] > 0f) {
+        if (Stats.Contains(StatName.AbilityWindupTime) == true && Stats[StatName.AbilityWindupTime] > 0f) {
             float castSpeedMod = 1 - Source.Stats[StatName.CastSpeedModifier];
             float castTime = MathF.Round(Stats[StatName.AbilityWindupTime] * castSpeedMod, 2);
-            
+
             builder.AppendLine("Cast Time: " + TextHelper.ColorizeText(castTime.ToString(), Color.yellow) + " Seconds");
         }
 
@@ -911,7 +920,7 @@ public class Ability {
             float statusDuration = Stats[StatName.StatusLifetime] * (1 + Source.Stats[StatName.GlobalStatusDurationModifier]) * (1 + Source.Stats[StatName.GlobalComboDurationModifier]);
 
             //float statusLife = Stats[StatName.StatusLifetime] > 0f ? Stats[StatName.StatusLifetime] : -1f;
-            string statusLifeText = statusDuration > 0 ? TextHelper.ColorizeText(statusDuration.ToString(), Color.yellow) : TextHelper.ColorizeText( "Infintie", Color.yellow);
+            string statusLifeText = statusDuration > 0 ? TextHelper.ColorizeText(statusDuration.ToString(), Color.yellow) : TextHelper.ColorizeText("Infintie", Color.yellow);
             string statusLifeReplacement = procReplacement.Replace("{SL}", statusLifeText);
 
 
@@ -924,7 +933,7 @@ public class Ability {
             string triggerCountReplacement = timerIntervalReplacment;
             if (Data.counterData.minTriggerCount > 0) {
                 int triggerCount = GetMinTriggerCount();
-                if(triggerCount > 0) {
+                if (triggerCount > 0) {
                     string triggerCountText = TextHelper.ColorizeText(triggerCount.ToString(), "Stat Bonus Color");
                     triggerCountReplacement = timerIntervalReplacment.Replace("{TC}", triggerCountText);
                 }
@@ -937,7 +946,7 @@ public class Ability {
 
             builder.Append(effectDurationReplacement);
 
-            if(Data.showChildAbilitiesInTooltip == false) {
+            if (Data.showChildAbilitiesInTooltip == false) {
                 builder.AppendLine();
             }
         }
@@ -961,8 +970,8 @@ public class Ability {
                 string scalarTooltip = adj.ScalarTooltip();
                 if (scalarTooltip == "No Scalers Found") {
                     //Debug.LogWarning("No scalers on: " + Data.abilityName);
-                    
-                    if(string.IsNullOrEmpty(Data.abilityDescription) == false || addLine == true) {
+
+                    if (string.IsNullOrEmpty(Data.abilityDescription) == false || addLine == true) {
                         Debug.LogWarning("Instering 2 blank lines for: " + Data.abilityName);
                         builder.AppendLine().AppendLine();
                     }
@@ -971,7 +980,7 @@ public class Ability {
 
                     builder.AppendLine(adj.GetTooltip());
                 }
-                else if(adj.ZoneInfo.applyOnInterval == false) {
+                else if (adj.ZoneInfo.applyOnInterval == false) {
                     builder.AppendLine();
                     builder.AppendLine("Scales From: ");
 
@@ -985,12 +994,12 @@ public class Ability {
 
                 float effectRange = effects[0].Stats[StatName.EffectRange];
 
-                if(effectRange > 0f) {
+                if (effectRange > 0f) {
                     builder.AppendLine($"Range: {TextHelper.FormatStat(StatName.EffectRange, effectRange)} Meters");
                 }
 
 
-                if(adj.Data.showRiderTooltip == true) {
+                if (adj.Data.showRiderTooltip == true) {
                     for (int i = 0; i < adj.RiderEffects.Count; i++) {
                         builder.AppendLine(adj.RiderEffects[i].GetTooltip());
                     }
@@ -999,11 +1008,11 @@ public class Ability {
                 if (effects[0].Data.canOverload == true) {
                     float overloadChance = GetAbilityOverloadChance();
 
-                    builder.AppendLine("Overload Chance: " + TextHelper.ColorizeText( TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
+                    builder.AppendLine("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
                 }
 
 
-                if(adj.HasTargetConstraint<RangeConstraint>() != null) {
+                if (adj.HasTargetConstraint<RangeConstraint>() != null) {
                     string currentString = builder.ToString();
                     builder.Replace(currentString, adj.GetRangeReplacmentText(currentString));
                 }
@@ -1017,7 +1026,7 @@ public class Ability {
 
         if (Data.includeEffectsInTooltip == true) {
             builder.AppendLine();
-            
+
             foreach (Effect effect in effects) {
 
                 if (effect.Data.onlyShowTooltipInRune == true) {
@@ -1038,7 +1047,7 @@ public class Ability {
             if (totalCost > 0) {
                 builder.AppendLine("Cost: " + TextHelper.ColorizeText(totalCost.ToString(), Color.cyan) + " Essence");
             }
-            else if (totalCost < 0){
+            else if (totalCost < 0) {
                 builder.AppendLine("Generates: " + TextHelper.ColorizeText(Mathf.Abs(totalCost).ToString(), Color.cyan) + " Essence");
 
             }
@@ -1100,20 +1109,20 @@ public class Ability {
 
         for (int i = 0; i < runes.Count; i++) {
             //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
-            
-            
+
+
             //builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName).AppendLine();
-            
-            
+
+
             //builder.Append(runes[i].GetTooltip());
-            
+
             //Debug.Log("Displaing tooltip for: " + runes[i].effects.Count + " effects on the ability: " + runes[i].Data.abilityName);
-            
+
             for (int j = 0; j < runes[i].effects.Count; j++) {
                 //Debug.Log("Getting tooltip for the effect: " + runes[i].effects[j].Data.effectName);
                 string effectTooltip = runes[i].effects[j].GetTooltip();
 
-                if(string.IsNullOrEmpty (effectTooltip) == false)
+                if (string.IsNullOrEmpty(effectTooltip) == false)
                     builder.Append(effectTooltip).AppendLine();
             }
         }
@@ -1138,14 +1147,14 @@ public class Ability {
 
     public float GetTimerTriggerInterval() {
         foreach (AbilityTrigger trigger in activationTriggers) {
-            if(trigger is TimedTrigger) {
+            if (trigger is TimedTrigger) {
                 TimedTrigger timer = trigger as TimedTrigger;
                 return timer.TriggerInterval;
             }
         }
 
         foreach (TriggerData triggerData in Data.activationTriggerData) {
-            if(triggerData.type == TriggerType.Timed) {
+            if (triggerData.type == TriggerType.Timed) {
                 return triggerData.triggerTimerDuration;
             }
         }
@@ -1154,7 +1163,7 @@ public class Ability {
     }
 
     public int GetMaxTargets() {
-        if(effects.Count == 0) 
+        if (effects.Count == 0)
             return 0;
 
         return (int)effects[0].Stats[StatName.EffectMaxTargets]; ;
@@ -1163,9 +1172,9 @@ public class Ability {
     public int GetMinTriggerCount() {
         if (Data.counterData.minTriggerCount <= 0)
             return -1;
-        
-        int targetMinTriggerCount = Data.counterData.reduceTriggerCountByAbilityLevel == false ? 
-            Data.counterData.minTriggerCount : Data.counterData.minTriggerCount - (AbilityLevel -1);
+
+        int targetMinTriggerCount = Data.counterData.reduceTriggerCountByAbilityLevel == false ?
+            Data.counterData.minTriggerCount : Data.counterData.minTriggerCount - (AbilityLevel - 1);
 
         return targetMinTriggerCount;
     }
@@ -1210,7 +1219,7 @@ public class Ability {
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
         //if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
-            //Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is trying to start. Source: " + Source.EntityName, Color.green));
+        //Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is trying to start. Source: " + Source.EntityName, Color.green));
 
         if (IsChanneled == true && IsActive == true) {
             return;
@@ -1227,10 +1236,10 @@ public class Ability {
             return;
         }
 
-        if(IgnoreOtherCasting == false) {
+        if (IgnoreOtherCasting == false) {
             Ability castingAbility = Source.ActivelyCastingAbility;
 
-            if(castingAbility != null) {
+            if (castingAbility != null) {
                 return;
             }
         }
@@ -1240,8 +1249,8 @@ public class Ability {
 
 
 
-        if(HasWindup() == true) {
-            
+        if (HasWindup() == true) {
+
             if (CheckForWindup(activationInstance) == true) {
                 return;
             }
@@ -1314,18 +1323,18 @@ public class Ability {
 
             return true;
         }
-        
-        
+
+
         if (Stats.Contains(StatName.AbilityWindupTime) && Stats[StatName.AbilityWindupTime] > 0f) {
 
             if (currentWindup == null) {
-                Debug.LogWarning("Starting windup for: " + Data.abilityName);
+                //Debug.LogWarning("Starting windup for: " + Data.abilityName);
                 currentWindup = new Task(StartAbilityWindup(activationInstance));
                 Source.ActivelyCastingAbility = this;
                 return true;
             }
             else {
-                Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
+                //Debug.LogWarning(Data.abilityName + " is mid windup and cannot trigger again");
                 return true;
             }
         }
@@ -1348,7 +1357,7 @@ public class Ability {
     }
 
     protected void HandleChannelingCost() {
-        if(IsActive == false || IsChanneled == false) 
+        if (IsActive == false || IsChanneled == false)
             return;
 
         channelingCostTimer.UpdateClock();
@@ -1375,15 +1384,15 @@ public class Ability {
     }
 
     protected void SendAbilityInitiatedEvent(TriggerInstance triggerInstance) {
-        
-        if(Data.initiationSounds != null && Data.initiationSounds.Count > 0) {
+
+        if (Data.initiationSounds != null && Data.initiationSounds.Count > 0) {
             AudioManager.PlayRandomClip(Data.initiationSounds, Source.transform.position, Data.initSFXVolume);
         }
         //else {
         //    Debug.LogWarning(Data.abilityName + " has no sounds");
         //}
-        
-        
+
+
         EventData data = new EventData();
         data.AddAbility("Ability", this);
         data.AddEntity("Source", Source);
@@ -1395,12 +1404,12 @@ public class Ability {
     private bool CheckCost() {
         if (Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] != 0f) {
             //Debug.Log("Cost: " + Stats[StatName.EssenceCost]);
-            
-            if(EntityManager.ActivePlayer == null) {
+
+            if (EntityManager.ActivePlayer == null) {
                 Debug.LogError("Null Active Player: " + Data.abilityName);
                 return false;
             }
-            
+
             if (EntityManager.ActivePlayer.TrySpendEssence(GetTotalEssenceCost()) == false) {
                 //Debug.LogWarning("Not enough essence for " + Data.abilityName);
                 return false;
@@ -1411,12 +1420,12 @@ public class Ability {
     }
 
     private bool CheckCostWithoutSpending() {
-        
-        if(Source is EntityPlayer == false) {
+
+        if (Source is EntityPlayer == false) {
             //Debug.Log("Non player is checking cost of ability: " + Data.abilityName);
             return true;
         }
-        
+
         if (EntityManager.ActivePlayer.HasEnoughEssence(GetTotalEssenceCost()) == false) {
             //Debug.LogWarning("Not enough essence for " + Data.abilityName);
             return false;
@@ -1441,11 +1450,11 @@ public class Ability {
 
     private void ResumeActivation(TriggerInstance activationInstance) {
 
-        if(Source == null || Source.IsDead == true) {
+        if (Source == null || Source.IsDead == true) {
             //Debug.LogWarning("The Source of an Ability: " + Data.abilityName + " is dead or null when resolving a cast time.");
             currentWindup = null;
             Source.ActivelyCastingAbility = null;
-            if(IsChanneled == true)
+            if (IsChanneled == true)
                 Source.ActiveChannelingAbility = null;
             return;
         }
@@ -1481,9 +1490,9 @@ public class Ability {
     }
 
     public void AbortAbilityWindup() {
-        if(currentWindup != null && currentWindup.Running == true) {
+        if (currentWindup != null && currentWindup.Running == true) {
             currentWindup.Stop();
-            if(currentWindupVFX != null)
+            if (currentWindupVFX != null)
                 GameObject.Destroy(currentWindupVFX);
 
             currentWindup = null;
@@ -1499,13 +1508,15 @@ public class Ability {
         SendAbilityInitiatedEvent(activationInstance);
 
 
-        float windupTime = Stats[StatName.AbilityWindupTime];
-        float ownerCastSpeed = 1 - Source.Stats[StatName.CastSpeedModifier];
+        //float windupTime = Stats[StatName.AbilityWindupTime];
+        //float ownerCastSpeed = 1 - Source.Stats[StatName.CastSpeedModifier];
 
-        float castTime = windupTime * ownerCastSpeed;
+        //float castTime = windupTime * ownerCastSpeed;
+
+        float castTime = GetTotalCastTime();
 
         if (castTime <= 0) {
-            Debug.LogError("0 Cast time detected on " + Data.abilityName);
+            //Debug.LogError("0 Cast time detected on " + Data.abilityName);
             ResumeActivation(activationInstance);
             yield break;
         }
@@ -1516,10 +1527,10 @@ public class Ability {
 
         //Debug.Log("Winding up: " + Data.abilityName);
 
-        if(Source == null)
+        if (Source == null)
             yield break;
 
-        if(Data.windupVFX != null) {
+        if (Data.windupVFX != null) {
             currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.GetCastingVFXPosition());
             currentWindupVFX.transform.localPosition = Vector3.zero;
             GameObject.Destroy(currentWindupVFX, 3f);
@@ -1546,7 +1557,7 @@ public class Ability {
         IsActive = false;
         //new Task(EndAllEffectsWithDelay(endInstance));
 
-        if(IsChanneled == true) {
+        if (IsChanneled == true) {
             channelingCostTimer.ResetTimer();
             Source.ActiveChannelingAbility = null;
         }
@@ -1558,16 +1569,16 @@ public class Ability {
 
     private void ResetEffectTargets(EventData data) {
         Ability ability = data.GetAbility("Ability");
-        
-        if(ability == null || ability == this) {
+
+        if (ability == null || ability == this) {
             return;
         }
 
-//#if UNITY_EDITOR
-//        if(Source.entityType == Entity.EntityType.Player) {
-//            Debug.Log("Reseting Target Effects for: " + Data.abilityName);
-//        }
-//#endif
+        //#if UNITY_EDITOR
+        //        if(Source.entityType == Entity.EntityType.Player) {
+        //            Debug.Log("Reseting Target Effects for: " + Data.abilityName);
+        //        }
+        //#endif
 
         for (int i = 0; i < effects.Count; i++) {
             effects[i].ResetEffectTargets();

@@ -63,6 +63,10 @@ public class AnimHelper : MonoBehaviour {
         data.AddTriggerInstance("Instance", nextInstance.triggerInstance);
 
         EventManager.SendEvent(GameEvent.AbilityAnimReceived, data);
+
+        Debug.Log("Recieveing event for: " + nextInstance.ability.Data.abilityName);
+
+        animator.SetFloat("AnimSpeed", 1f);
     }
 
 
@@ -122,8 +126,21 @@ public class AnimHelper : MonoBehaviour {
 
         bool readyCheck = entity is EntityPlayer;
 
-        SetAttackAnim(ability, readyCheck);
 
+        //float timeToAttackEvent = 0.07f;
+        //float castTime = ability.GetTotalCastTime();
+
+        //if(castTime <= 0) {
+        //    SetAttackAnim(ability, readyCheck, 1f);
+        //    return;
+        //}
+
+        //float normalizedAttackTime = 1f / timeToAttackEvent;
+        //float modifiedAttackTime = normalizedAttackTime * castTime;
+        //float animSpeedMod = 1f / modifiedAttackTime;
+
+
+        SetAttackAnim(ability, readyCheck);
     }
 
     private void StartChannelAnim(Ability ability) {
@@ -154,7 +171,7 @@ public class AnimHelper : MonoBehaviour {
 
     }
 
-    private void SetAttackAnim(Ability ability, bool readyCheck = false) {
+    private void SetAttackAnim(Ability ability, bool readyCheck = false, float speed = 1f) {
         if (string.IsNullOrEmpty(ability.Data.animationString) == true) {
             //Debug.Log("No animation for: " + ability.Data.abilityName);
             return;
@@ -167,9 +184,20 @@ public class AnimHelper : MonoBehaviour {
         if (readyCheck == true && ability.IsReady == false)
             return;
 
-        //Debug.Log("Recieving activation for: " + ability.Data.abilityName);
+        //Debug.Log("Recieving activation for: " + ability.Data.abilityName + ". Setting speed to: " + speed);
+        animator.SetFloat("AnimSpeed", speed);
 
         SetTrigger(ability.Data.animationString);
+
+        //float castTime = ability.Stats[StatName.AbilityWindupTime];
+
+        //AnimatorClipInfo clipInfo = animator.GetCurrentAnimatorClipInfo(0)[0];
+        //float clipLength = clipInfo.clip.length;
+
+        //Debug.Log("Clip Name: " + clipInfo.clip.name);
+        //Debug.Log("Clip Length: " + clipLength);
+
+
     }
 
     public bool IsAnimRunning(string animName) {

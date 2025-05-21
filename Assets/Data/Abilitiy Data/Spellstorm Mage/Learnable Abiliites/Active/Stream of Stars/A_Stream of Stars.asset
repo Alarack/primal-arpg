@@ -16,29 +16,30 @@ MonoBehaviour:
     category: 1
     abilityIcon: {fileID: -5964658899659097264, guid: f144f869e2e085f49aad85800a0fd63e, type: 3}
     abilityName: Stream of Stars
-    abilityDescription: Launch a series of {SC} Spatial Projectiles
+    abilityDescription: Launch a series of {SC} Spatial Projectiles. Regain Essence
+      as long as you Channel this Skill.
     resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 1
+    autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
-    recastOnChannelCost: 0
+    recastOnChannelCost: 1
     normalizedProcRate: 0
     startingAbility: 1
     scaleProcByLevel: 0
     runeAbilityTarget: 
-    animationString: Attack
-    waitForAnimToResolve: 1
+    animationString: 
+    waitForAnimToResolve: 0
     initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 0e00000008000000
+    tags: 0e0000000800000012000000
     resetEvents: 
     activationTriggerData:
     - type: 6
@@ -143,7 +144,109 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
-    endTriggerData: []
+    endTriggerData:
+    - type: 32
+      overrideProcStat: 0
+      procChance: 1
+      triggerDelay: 0
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
+      delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
+      allConstraints:
+      - focus: 1
+        constraintData:
+        - type: 7
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+      - focus: 4
+        constraintData:
+        - type: 7
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -194,17 +297,17 @@ MonoBehaviour:
     abilityStatData:
     - variant: 0
       statName: 46
-      value: -0.5
+      value: -0.2
       maxValue: 0
       minValue: 0
     - variant: 0
-      statName: 50
-      value: 2
+      statName: 68
+      value: 0.25
       maxValue: 0
       minValue: 0
     - variant: 0
       statName: 14
-      value: 6
+      value: 2
       maxValue: 0
       minValue: 0
     - variant: 0
@@ -212,4 +315,27 @@ MonoBehaviour:
       value: 0.1
       maxValue: 0
       minValue: 0
-    recoveryData: []
+    recoveryData:
+    - type: 0
+      recoveryTriggers: []
+      counterData:
+        useCustomRefreshTrigger: 0
+        customRefreshTriggerData:
+          type: 0
+          overrideProcStat: 0
+          procChance: 1
+          triggerDelay: 0
+          riderAbilityName: 
+          riderEffectName: 
+          triggerTimerDuration: 0
+          chainTriggerDelay: 0.1
+          delay1Frame: 0
+          autoActivateTimer: 0
+          resetTimerOnParentAbilityEnd: 0
+          allConstraints: []
+        limitedNumberOfTriggers: 0
+        maxTriggerCount: 0
+        requireMultipleTriggers: 0
+        reduceTriggerCountByAbilityLevel: 0
+        minTriggerCount: 0
+      cooldown: 0.75
