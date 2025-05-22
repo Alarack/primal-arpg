@@ -42,6 +42,9 @@ MonoBehaviour:
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
+    offsetSpawnLocation: 1
+    offsetSpawnLocationMin: {x: -2, y: -2}
+    offsetSpawnLocationMax: {x: 2, y: 2}
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
@@ -76,7 +79,7 @@ MonoBehaviour:
       scalers:
       - targetStat: 28
         deriveTarget: 15
-        statScaleBaseValue: 0.75
+        statScaleBaseValue: 0.33
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 0, g: 1, b: 1, a: 1}

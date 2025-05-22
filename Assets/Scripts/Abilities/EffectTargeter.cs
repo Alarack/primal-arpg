@@ -611,8 +611,15 @@ public class EffectTargeter {
             Debug.LogWarning("null source for: " + parentEffect.Data.effectName + " when creating delivery payload");
             return;
         }
-        
-        Entity delivery = GameObject.Instantiate(parentEffect.PayloadPrefab, payloadLocation, parentEffect.Source.FacingRotation);
+        Vector2 offset = Vector2.zero;
+        if(parentEffect.Data.offsetSpawnLocation == true) {
+            float offsetX = Random.Range(parentEffect.Data.offsetSpawnLocationMin.x, parentEffect.Data.offsetSpawnLocationMax.x);
+            float offsetY = Random.Range(parentEffect.Data.offsetSpawnLocationMin.y, parentEffect.Data.offsetSpawnLocationMax.y);
+            offset = new Vector2(offsetX, offsetY);
+        }
+
+
+        Entity delivery = GameObject.Instantiate(parentEffect.PayloadPrefab, payloadLocation + offset, parentEffect.Source.FacingRotation);
 
         Projectile projectile = delivery as Projectile;
         if (projectile != null) {

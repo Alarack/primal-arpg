@@ -562,6 +562,13 @@ public static class AbilityEditorHelper {
             entry.targetAbilityForLastPayload = EditorGUILayout.TextField("Target Ability", entry.targetAbilityForLastPayload);
         }
 
+        entry.offsetSpawnLocation = EditorGUILayout.Toggle("Offset", entry.offsetSpawnLocation);
+
+        if(entry.offsetSpawnLocation == true) {
+            entry.offsetSpawnLocationMin = EditorGUILayout.Vector2Field("Min Values", entry.offsetSpawnLocationMin);
+            entry.offsetSpawnLocationMax = EditorGUILayout.Vector2Field("Max Values", entry.offsetSpawnLocationMax);
+        }
+
         EditorGUILayout.Separator();
         EditorGUILayout.LabelField("Effect Zone: ", EditorStyles.boldLabel);
 

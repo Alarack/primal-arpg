@@ -149,6 +149,9 @@ public class EffectData
     public WorldPositionConstant spawnLocationEnd;
     public Vector2 minViewportValues;
     public Vector2 maxViewportValues;
+    public bool offsetSpawnLocation;
+    public Vector2 offsetSpawnLocationMin;
+    public Vector2 offsetSpawnLocationMax;
     public EffectZoneInfo effectZoneInfo;
     public LayerMask projectileHitMask;
 
