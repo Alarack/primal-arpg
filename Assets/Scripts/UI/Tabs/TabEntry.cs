@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class TabEntry : MonoBehaviour, IPointerClickHandler
 {
 
     public GameObject selectedHighlight;
     public GameObject showableArea;
+    private CanvasGroup showableAreaFader;
 
     public UnityEvent onSelect;
 
@@ -17,14 +19,20 @@ public class TabEntry : MonoBehaviour, IPointerClickHandler
 
     private TabManager tabManager;
 
+
+    private void Awake() {
+        showableAreaFader = showableArea.GetComponent<CanvasGroup>();
+    }
+
     public void Setup(TabManager manager) {
         tabManager = manager;
     }
 
 
     public void Select() {
+        IsSelected = true;
         if (showableArea != null)
-            showableArea.SetActive(true);
+            FadeIn();
         
         if (selectedHighlight != null)
             selectedHighlight.SetActive(true);
@@ -33,14 +41,50 @@ public class TabEntry : MonoBehaviour, IPointerClickHandler
     }
 
     public void Deselect() {
+        if (IsSelected == false)
+            return;
+        
+        IsSelected = false;
         if(showableArea != null)
-            showableArea.SetActive(false);
+            FadeOut();
 
         if(selectedHighlight != null)
             selectedHighlight.SetActive(false);
     }
 
+    private void FadeIn() {
+        tabManager.transitionInProgress = true;
+        showableArea.SetActive(true);
+        showableAreaFader.alpha = 0f;
+        Tween fadeIn = showableAreaFader.DOFade(1f, 0.3f);
+        fadeIn.onComplete += OnFadeInComplete;
+    }
+
+    private void FadeOut() {
+        Tween fadeOut = showableAreaFader.DOFade(0f, 0.3f);
+        fadeOut.onComplete += OnFadeOutComplete;
+    }
+
+    private void OnFadeOutComplete() {
+        showableArea.SetActive(false);
+    }
+
+    private void OnFadeInComplete() {
+        tabManager.transitionInProgress = false;
+    }
+
+
+    public void OnClick() {
+        if (IsSelected == true)
+            return;
+
+        tabManager.OnTabSelected(this);
+    }
+
     public void OnPointerClick(PointerEventData eventData) {
+        if (IsSelected == true)
+            return;
+
         tabManager.OnTabSelected(this);
     }
 }

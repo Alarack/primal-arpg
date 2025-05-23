@@ -10,6 +10,8 @@ public class TabManager : MonoBehaviour
 
     public TabEntry selectedTab;
 
+    public bool transitionInProgress;
+
     private void Awake() {
         tabs = GetComponentsInChildren<TabEntry>(true);
 
@@ -22,6 +24,9 @@ public class TabManager : MonoBehaviour
 
 
     public void OnTabSelected(TabEntry tab) {
+        if (transitionInProgress == true)
+            return;
+        
         selectedTab = tab;
         for (int i = 0; i < tabs.Length; i++) {
             if(tab != tabs[i]) {
