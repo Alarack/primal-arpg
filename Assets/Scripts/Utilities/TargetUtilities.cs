@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public static class TargetUtilities
 {
@@ -117,6 +118,18 @@ public static class TargetUtilities
         rot.x = 0;
         rot.y = 0;
         return rot.eulerAngles.z;
+    }
+
+
+    public static Quaternion GetRotationTowardMouse(Transform transform) {
+
+
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); //New Input System
+        //Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //OLD Input System
+
+        return GetRotationTowardTarget(mousePos, transform.position);
+
+
     }
 
 

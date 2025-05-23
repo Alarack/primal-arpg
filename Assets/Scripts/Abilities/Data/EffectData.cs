@@ -152,6 +152,8 @@ public class EffectData
     public bool offsetSpawnLocation;
     public Vector2 offsetSpawnLocationMin;
     public Vector2 offsetSpawnLocationMax;
+    public bool rotatePayloadTowardMouse;
+
     public EffectZoneInfo effectZoneInfo;
     public LayerMask projectileHitMask;
 

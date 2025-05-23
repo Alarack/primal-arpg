@@ -2,6 +2,7 @@ using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class ProjectileMovement : EntityMovement
 {
@@ -23,8 +24,17 @@ public class ProjectileMovement : EntityMovement
     public float forwardPointDistance = 8f;
 
     private Vector2 seekPoint;
-
     private Timer seekTimer;
+
+    [Header("Delay Variables")]
+    public float delayTime = 0f;
+    public float hoverSpeed = 25f;
+    private Timer delayTimer;
+    private bool hovering;
+
+    private float hoverDirection = 1f;
+    Tween hoverTween;
+
 
     [Header("Drunk Variables")]
     public float drunkInterval;
@@ -53,6 +63,16 @@ public class ProjectileMovement : EntityMovement
         if (movementBehavior == MovementBehavior.Seeking && seekDuration > 0f) {
             seekTimer = new Timer(seekDuration, OnSeekTimerFinished);
         }
+
+        if (delayTime > 0f) {
+            hovering = true;
+            delayTimer = new Timer(delayTime, OnDelayTimerFinished);
+
+
+            hoverTween = DOTween.To(() => hoverDirection, x => hoverDirection = x, -1f, 1f).
+                SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+  
+        }
     }
 
     public void ChangeBehaviour(MovementBehavior newBehavior, float seektimer = -1, float drunkTimer = 0.5f) {
@@ -68,16 +88,11 @@ public class ProjectileMovement : EntityMovement
     }
 
     private void Start() {
-
-
-
         projectileOwner = Owner as Projectile;
         projectileSource = projectileOwner != null ? projectileOwner.Source : null;
 
         if (seekForwardWithoutTarget == true)
             SetSeekPoint();
-
-
     }
 
     private void OnEnable() {
@@ -142,6 +157,10 @@ public class ProjectileMovement : EntityMovement
         movementBehavior = MovementBehavior.Straight;
     }
 
+    private void OnDelayTimerFinished(EventData data) {
+        hovering = false;
+    }
+
     private void Update()
     {
         if (movementBehavior == MovementBehavior.Drunk && drunkTimer != null)
@@ -152,10 +171,20 @@ public class ProjectileMovement : EntityMovement
         if(movementBehavior == MovementBehavior.Seeking && seekTimer != null) {
             seekTimer.UpdateClock();
         }
+
+        if(hovering == true && delayTimer != null) {
+            delayTimer.UpdateClock();
+        }
     }
 
     protected override void Move()
     {
+
+        if(hovering == true) {
+            Hover();
+            return;
+        }
+
         switch (movementBehavior)
         {
             case MovementBehavior.Straight:
@@ -181,6 +210,12 @@ public class ProjectileMovement : EntityMovement
         //Debug.Log("Projectile Source is Null: " + projectileSource);
 
         MyBody.AddForce(transform.up * Owner.Stats[StatName.MoveSpeed] * globalProjectileSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
+    }
+
+    private void Hover() {
+        Vector2 moveForce = new Vector2(0f, hoverDirection) * Time.fixedDeltaTime * hoverSpeed;
+
+        MyBody.AddForce(moveForce, ForceMode2D.Force);
     }
 
     private void MoveSeeking()

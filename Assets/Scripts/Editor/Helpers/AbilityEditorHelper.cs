@@ -562,6 +562,8 @@ public static class AbilityEditorHelper {
             entry.targetAbilityForLastPayload = EditorGUILayout.TextField("Target Ability", entry.targetAbilityForLastPayload);
         }
 
+        entry.rotatePayloadTowardMouse = EditorGUILayout.Toggle("Face Mouse", entry.rotatePayloadTowardMouse);
+
         entry.offsetSpawnLocation = EditorGUILayout.Toggle("Offset", entry.offsetSpawnLocation);
 
         if(entry.offsetSpawnLocation == true) {

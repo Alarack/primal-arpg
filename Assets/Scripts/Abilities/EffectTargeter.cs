@@ -621,6 +621,8 @@ public class EffectTargeter {
 
         Entity delivery = GameObject.Instantiate(parentEffect.PayloadPrefab, payloadLocation + offset, parentEffect.Source.FacingRotation);
 
+
+
         Projectile projectile = delivery as Projectile;
         if (projectile != null) {
             //projectile.Stats.SetParentCollection(parentEffect.Stats); removed because it messes up pierce / chain / split counts
@@ -650,6 +652,10 @@ public class EffectTargeter {
 
             if (target != null) {
                 projectile.transform.rotation = TargetUtilities.GetRotationTowardTarget(target.transform, projectile.transform);
+            }
+
+            if (parentEffect.Data.rotatePayloadTowardMouse == true) {
+                projectile.transform.rotation = TargetUtilities.GetRotationTowardMouse(projectile.transform);
             }
 
             projectile.transform.eulerAngles += new Vector3(0f, 0f, UnityEngine.Random.Range(-totalInaccuracy, totalInaccuracy));
