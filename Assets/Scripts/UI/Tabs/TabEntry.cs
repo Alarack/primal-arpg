@@ -5,13 +5,16 @@ using UnityEngine.EventSystems;
 using System;
 using UnityEngine.Events;
 using DG.Tweening;
+using Michsky.MUIP;
 
 public class TabEntry : MonoBehaviour, IPointerClickHandler
 {
 
-    public GameObject selectedHighlight;
+    //public GameObject selectedHighlight;
     public GameObject showableArea;
     private CanvasGroup showableAreaFader;
+    public UIGradient selectedHighlightGradient;
+
 
     public UnityEvent onSelect;
 
@@ -22,6 +25,7 @@ public class TabEntry : MonoBehaviour, IPointerClickHandler
 
     private void Awake() {
         showableAreaFader = showableArea.GetComponent<CanvasGroup>();
+        selectedHighlightGradient.Offset = -0.6f;
     }
 
     public void Setup(TabManager manager) {
@@ -34,8 +38,8 @@ public class TabEntry : MonoBehaviour, IPointerClickHandler
         if (showableArea != null)
             FadeIn();
         
-        if (selectedHighlight != null)
-            selectedHighlight.SetActive(true);
+        //if (selectedHighlight != null)
+        //    selectedHighlight.SetActive(true);
 
         onSelect?.Invoke();
     }
@@ -48,8 +52,8 @@ public class TabEntry : MonoBehaviour, IPointerClickHandler
         if(showableArea != null)
             FadeOut();
 
-        if(selectedHighlight != null)
-            selectedHighlight.SetActive(false);
+        //if(selectedHighlight != null)
+        //    selectedHighlight.SetActive(false);
     }
 
     private void FadeIn() {
@@ -58,11 +62,21 @@ public class TabEntry : MonoBehaviour, IPointerClickHandler
         showableAreaFader.alpha = 0f;
         Tween fadeIn = showableAreaFader.DOFade(1f, 0.3f);
         fadeIn.onComplete += OnFadeInComplete;
+
+        
+        if (selectedHighlightGradient != null) {
+            selectedHighlightGradient.Offset = -0.6f;
+            DOTween.To(() => selectedHighlightGradient.Offset, x => selectedHighlightGradient.Offset = x, 0f, 0.3f);
+        }
+
     }
 
     private void FadeOut() {
         Tween fadeOut = showableAreaFader.DOFade(0f, 0.3f);
         fadeOut.onComplete += OnFadeOutComplete;
+
+        if (selectedHighlightGradient != null)
+            DOTween.To(() => selectedHighlightGradient.Offset, x => selectedHighlightGradient.Offset = x, -0.6f, 0.3f);
     }
 
     private void OnFadeOutComplete() {
