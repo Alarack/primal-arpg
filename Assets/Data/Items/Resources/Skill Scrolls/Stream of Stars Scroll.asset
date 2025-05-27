@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Stream of Stars Scroll
+  m_EditorClassIdentifier: 
+  devItem: 0
+  startingItem: 0
+  itemData:
+    Type: 4
+    affixStatTarget: 1
+    entityClass: 0
+    itemName: Stream of Stars
+    itemDescription: 
+    secondaryDescription: 
+    itemValue: 50
+    runeAbilityTarget: 
+    validSlots: 
+    abilityTags: 
+    targetedAbilityName: 
+    itemIcon: {fileID: -5964658899659097264, guid: f144f869e2e085f49aad85800a0fd63e, type: 3}
+    invertIcon: 0
+    pickupIcon: {fileID: -5964658899659097264, guid: f144f869e2e085f49aad85800a0fd63e, type: 3}
+    pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
+    minDamage: 0
+    maxDamage: 0
+    statModifierData: []
+    abilityDefinitions: []
+    learnableAbilities:
+    - {fileID: 11400000, guid: ac16324d52c55464fb7a9def8b84022b, type: 2}
+    classPreviewAbilities: []
+    startingItemOptions: []

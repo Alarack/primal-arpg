@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 1
     abilityIcon: {fileID: -5964658899659097264, guid: f144f869e2e085f49aad85800a0fd63e, type: 3}
     abilityName: Stream of Stars
-    abilityDescription: Launch a series of {SC} Spatial Projectiles. Regain Essence
-      as long as you Channel this Skill.
+    abilityDescription: Conjure {SC} stars evey {CI} seconds as you channel. Each
+      star hoves for 1 second before it launches.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 1
     normalizedProcRate: 0
-    startingAbility: 1
+    startingAbility: 0
     scaleProcByLevel: 0
     runeAbilityTarget: 
     animationString: 

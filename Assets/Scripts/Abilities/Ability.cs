@@ -903,14 +903,17 @@ public class Ability {
 
             string durationReplacment = radiusReplacement.Replace("{D}", TextHelper.ColorizeText(lifetime.ToString(), Color.yellow));
 
-            int shotCount = (int)effects[0].Stats[StatName.ShotCount];
+            float shotCount = effects[0].Stats[StatName.ShotCount] + Source.Stats[StatName.ShotCount];
 
             string shotCountReplacement = durationReplacment.Replace("{SC}", TextHelper.ColorizeText(shotCount.ToString(), "Stat Bonus Color"));
+
+            float channelInterval = Stats[StatName.ChannelInterval];
+
+            shotCountReplacement = shotCountReplacement.Replace("{CI}", TextHelper.ColorizeText(channelInterval.ToString(), Color.yellow));
 
             int chainCount = (int)effects[0].Stats[StatName.ProjectileChainCount];
 
             string chainCountReplacement = shotCountReplacement.Replace("{CC}", TextHelper.ColorizeText(chainCount.ToString(), "Stat Bonus Color"));
-
 
 
             float procChance = Data.scaleProcByLevel == false ? Stats[StatName.ProcChance] : Stats[StatName.ProcChance] * AbilityLevel;
