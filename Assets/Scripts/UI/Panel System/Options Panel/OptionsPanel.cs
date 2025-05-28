@@ -14,6 +14,7 @@ public class OptionsPanel : BasePanel
     public Slider masterVolumeSlider;
     public Slider soundEffectsVolumeSlider;
     public Slider musicVolumeSlider;
+    public TextMeshProUGUI masterVolumeText;
 
     [Header("Cursor Stuff")]
     public Slider cursorThicknessSlider;
@@ -72,8 +73,11 @@ public class OptionsPanel : BasePanel
         float music = PlayerPrefs.GetFloat("musicVolume");
         float enemySpeed = PlayerPrefs.GetFloat("EnemySpeed");
 
-        if (master != 0f) 
+        if (master != 0f) {
             masterVolumeSlider.value = master;
+            masterVolumeText.text = (MathF.Round(masterVolumeSlider.value * 100f, 0)) + "%";
+        }
+
         
         if(sfx != 0f)
             soundEffectsVolumeSlider.value = sfx;
@@ -196,6 +200,7 @@ public class OptionsPanel : BasePanel
 
     public void OnMasterVolumeChanged(float value) {
         AudioManager.SetMasterVolume(value);
+        masterVolumeText.text = (MathF.Round(masterVolumeSlider.value * 100f, 0)) + "%";
     }
 
     public void OnSoundEffectsVolumeChanged(float value) {

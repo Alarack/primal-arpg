@@ -464,6 +464,20 @@ public class Projectile : Entity {
         CleanUp(true);
     }
 
+
+    public override void EndGameCleanUp() {
+        if (killTimer != null && killTimer.Running == true)
+            killTimer.Stop();
+
+        if (impactTask != null && impactTask.Running == true)
+            impactTask.Stop();
+
+        if (smoothScale != null && smoothScale.Running == true)
+            smoothScale.Stop();
+
+        Destroy(gameObject);
+    }
+
     public void StartCleanUp() {
 
         myCollider.enabled = false;

@@ -60,7 +60,7 @@ public class TabEntry : MonoBehaviour, IPointerClickHandler
         tabManager.transitionInProgress = true;
         showableArea.SetActive(true);
         showableAreaFader.alpha = 0f;
-        Tween fadeIn = showableAreaFader.DOFade(1f, 0.3f);
+        Tween fadeIn = showableAreaFader.DOFade(1f, 0.3f).SetUpdate(true);
         fadeIn.onComplete += OnFadeInComplete;
 
         
@@ -72,11 +72,11 @@ public class TabEntry : MonoBehaviour, IPointerClickHandler
     }
 
     private void FadeOut() {
-        Tween fadeOut = showableAreaFader.DOFade(0f, 0.3f);
+        Tween fadeOut = showableAreaFader.DOFade(0f, 0.3f).SetUpdate(true);
         fadeOut.onComplete += OnFadeOutComplete;
 
         if (selectedHighlightGradient != null)
-            DOTween.To(() => selectedHighlightGradient.Offset, x => selectedHighlightGradient.Offset = x, -0.6f, 0.3f);
+            DOTween.To(() => selectedHighlightGradient.Offset, x => selectedHighlightGradient.Offset = x, -0.6f, 0.3f).SetUpdate(true);
     }
 
     private void OnFadeOutComplete() {

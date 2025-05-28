@@ -206,6 +206,11 @@ public class EntityManager : Singleton<EntityManager> {
             enemies.Clear();
         }
 
+        Projectile[] leftoverProjectiles = GameObject.FindObjectsByType<Projectile>(FindObjectsSortMode.None);
+        for (int i = 0; i < leftoverProjectiles.Length; i++) {
+            Debug.Log("Purging a Projectile: " + leftoverProjectiles[i].EntityName);
+            leftoverProjectiles[i].EndGameCleanUp();
+        }
        
         
         RoomManager.ClearRooms();
