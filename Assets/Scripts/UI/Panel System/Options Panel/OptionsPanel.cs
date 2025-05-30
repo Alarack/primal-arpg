@@ -15,6 +15,8 @@ public class OptionsPanel : BasePanel
     public Slider soundEffectsVolumeSlider;
     public Slider musicVolumeSlider;
     public TextMeshProUGUI masterVolumeText;
+    public TextMeshProUGUI soundEffectsVolumeText;
+    public TextMeshProUGUI musicVolumeText;
 
     [Header("Cursor Stuff")]
     public Slider cursorThicknessSlider;
@@ -77,13 +79,16 @@ public class OptionsPanel : BasePanel
             masterVolumeSlider.value = master;
             masterVolumeText.text = (MathF.Round(masterVolumeSlider.value * 100f, 0)) + "%";
         }
-
         
-        if(sfx != 0f)
+        if(sfx != 0f) {
             soundEffectsVolumeSlider.value = sfx;
+            soundEffectsVolumeText.text = (MathF.Round(soundEffectsVolumeSlider.value * 100f, 0)) + "%";
+        }
 
-        if(music != 0f)
+        if(music != 0f) {
             musicVolumeSlider.value = music;
+            musicVolumeText.text = (MathF.Round(musicVolumeSlider.value * 100f, 0)) + "%";
+        }
 
         if(enemySpeed != 0f) {
             enemySpeedSlider.value = enemySpeed;
@@ -205,10 +210,12 @@ public class OptionsPanel : BasePanel
 
     public void OnSoundEffectsVolumeChanged(float value) {
         AudioManager.SetSoundEffectsVolume(value);
+        soundEffectsVolumeText.text = (MathF.Round(soundEffectsVolumeSlider.value * 100f, 0)) + "%";
     }
 
     public void OnMusicVolumeChanged(float value) {
         AudioManager.SetMusicVolume(value);
+        musicVolumeText.text = (MathF.Round(musicVolumeSlider.value * 100f, 0)) + "%";
     }
 
 
