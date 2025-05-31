@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Michsky.MUIP;
 
 public class OptionsPanel : BasePanel
 {
@@ -20,7 +21,8 @@ public class OptionsPanel : BasePanel
 
     [Header("Cursor Stuff")]
     public Slider cursorThicknessSlider;
-    public TMP_Dropdown cursorModeDropdown;
+    //public TMP_Dropdown cursorModeDropdown;
+    public CustomDropdown cursorModeDropdown;
     private CustomCursor customCursor;
 
     [Header("Enemy speed")]
@@ -92,7 +94,7 @@ public class OptionsPanel : BasePanel
 
         if(enemySpeed != 0f) {
             enemySpeedSlider.value = enemySpeed;
-            enemySpeedText.text = "Enemy Speed: " + (MathF.Round(enemySpeedSlider.value * 100f, 0)) + "%";
+            enemySpeedText.text = (MathF.Round(enemySpeedSlider.value * 100f, 0)) + "%";
         }
 
         int confirmSkillInvestment = PlayerPrefs.GetInt("ConfirmSkillInvest");
@@ -166,7 +168,7 @@ public class OptionsPanel : BasePanel
     public void OnCursorModeChanged()
     {
 
-        CursorMode selectedMode = (CursorMode)cursorModeDropdown.value;
+        CursorMode selectedMode = (CursorMode)cursorModeDropdown.selectedItemIndex;
 
         customCursor.ChangeCursorMode(selectedMode);
 
@@ -225,7 +227,7 @@ public class OptionsPanel : BasePanel
 
     public void OnGameSpeedChanged() {
         PlayerPrefs.SetFloat("EnemySpeed", enemySpeedSlider.value);
-        enemySpeedText.text = "Enemy Speed: " + (MathF.Round(enemySpeedSlider.value * 100f, 0)) + "%";
+        enemySpeedText.text = (MathF.Round(enemySpeedSlider.value * 100f, 0)) + "%";
     }
 
     #endregion

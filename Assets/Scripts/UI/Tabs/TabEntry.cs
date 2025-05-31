@@ -45,7 +45,7 @@ public class TabEntry : MonoBehaviour, IPointerClickHandler
     }
 
     public void Deselect() {
-        if (IsSelected == false)
+        if (IsSelected == false && showableArea.activeSelf == false)
             return;
         
         IsSelected = false;
