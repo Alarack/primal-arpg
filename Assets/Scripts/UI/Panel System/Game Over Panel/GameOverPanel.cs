@@ -39,6 +39,19 @@ public class GameOverPanel : BasePanel
         sessionScoreText.text = "Total Score: " + sessionScore;
 
         ShowMetaProgress();
+
+        List<string> items = EntityManager.ActivePlayer.Inventory.GetEquipmentNames();
+        List<ItemDefinition> foundItems = ItemSpawner.Instance.lootDatabase.GetItemsByNames(items);
+        foreach (ItemDefinition item in foundItems) {
+            if (item.startingItem == true)
+                continue;
+
+            if(SaveLoadUtility.SaveData.recoveredItems.Contains(item.itemData.itemName))
+                 continue; 
+
+            Debug.Log(item.itemData.itemName + " is a valid chose to save");
+        }
+
     }
 
 

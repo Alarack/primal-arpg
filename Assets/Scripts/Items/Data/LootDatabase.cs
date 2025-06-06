@@ -12,6 +12,8 @@ public class LootDatabase : ScriptableObject {
 
     public Dictionary<AbilityTag, List<ItemDefinition>> itemsByTag = new Dictionary<AbilityTag, List<ItemDefinition>>();
 
+    public Dictionary<string, ItemDefinition> itemsByName = new Dictionary<string, ItemDefinition>();
+
     public Dictionary<StatName, ItemData> statBoosters = new Dictionary<StatName, ItemData>();
 
 
@@ -48,6 +50,48 @@ public class LootDatabase : ScriptableObject {
         //};
     }
 
+
+    public ItemDefinition GetItemByName(string name) {
+        ItemDefinition result = null;
+
+        itemsByName.TryGetValue(name, out result);
+
+        return result;
+    }
+
+    public List<ItemDefinition> GetItemsByNames(List<string> names) {
+        List<ItemDefinition> results = new List<ItemDefinition>();
+        foreach (string name in names) {
+            ItemDefinition item = GetItemByName(name);
+            if (item != null) {
+                results.Add(item);
+            }
+        }
+
+        return results;
+    }
+
+    public List<ItemDefinition> GetStarterSkills() {
+        List<ItemDefinition> results = new List<ItemDefinition>();
+
+        foreach (var entry in itemDict[ItemType.Skill]) {
+            if (entry.startingItem == true)
+                results.Add(entry);
+        }
+
+        return results;
+    }
+
+    public List<ItemDefinition> GetStarterWeapons() {
+        List<ItemDefinition> results = new List<ItemDefinition> ();
+
+        foreach (var entry in itemsBySlot[ItemSlot.Weapon]) {
+            if(entry.startingItem == true)
+                results.Add(entry);
+        }
+
+        return results;
+    }
 
     private ItemDefinition GetRandomEquipment<TKey>(Dictionary<TKey, List<ItemDefinition>> dict, TKey key, List<ItemDefinition> exclusions) where TKey : struct {
         List<ItemDefinition> allPossibleItems = dict[key];
@@ -341,6 +385,10 @@ public class LootDatabase : ScriptableObject {
                 foreach (AbilityTag tag in tags) {
                     itemsByTag[tag].AddUnique(allItems[i]);
                 }
+            }
+
+            if (itemsByName.ContainsKey(allItems[i].itemData.itemName) == false) {
+                itemsByName.Add(allItems[i].itemData.itemName, allItems[i]);
             }
 
         }

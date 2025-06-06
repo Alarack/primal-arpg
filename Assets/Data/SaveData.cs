@@ -11,6 +11,9 @@ public class SaveData
 
     public List<MasteryDistributionData> savedMasteries = new List<MasteryDistributionData>();
 
+    public List<string> recoveredItems = new List<string>();
+
+
     public int CountOfMasteries { get { return savedMasteries.Count; } }
 
     public void SetMasteryPoints(int value) {
@@ -27,6 +30,16 @@ public class SaveData
         }
 
         return false;
+    }
+
+
+    public void AddRecoveredItem(ItemDefinition item) {
+        recoveredItems.AddUnique(item.itemData.itemName);
+    }
+
+    public void ClearRecoveredItems() {
+        recoveredItems.Clear();
+        
     }
 
     public void AddMastery(string masteryName, string featureName, string mainAbilityName) {
@@ -186,8 +199,6 @@ public class SaveData
             }
         }
     }
-
-
 
 }
 

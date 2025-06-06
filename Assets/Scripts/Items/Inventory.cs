@@ -475,6 +475,21 @@ public class Inventory : MonoBehaviour {
         return weapon;
     }
 
+    public List<string> GetEquipmentNames() {
+        List<string> results = new List<string>();
+        
+        foreach (Item item in ownedItems) {
+            if (item.Data.Type != ItemType.Equipment)
+                continue;
+
+            results.Add(item.Data.itemName);
+
+            
+        }
+
+        return results;
+    }
+
 }
 
 
