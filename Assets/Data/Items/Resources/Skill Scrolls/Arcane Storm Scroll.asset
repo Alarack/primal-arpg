@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Stream of Stars Scroll
+  m_Name: Arcane Storm Scroll
   m_EditorClassIdentifier: 
   devItem: 0
   startingItem: 1
@@ -18,7 +18,7 @@ MonoBehaviour:
     Type: 4
     affixStatTarget: 1
     entityClass: 0
-    itemName: Stream of Stars
+    itemName: Arcane Storm
     itemDescription: 
     secondaryDescription: 
     itemValue: 50
@@ -26,9 +26,9 @@ MonoBehaviour:
     validSlots: 
     abilityTags: 
     targetedAbilityName: 
-    itemIcon: {fileID: -5964658899659097264, guid: f144f869e2e085f49aad85800a0fd63e, type: 3}
+    itemIcon: {fileID: 21300000, guid: 15ca7b6add360d04998e7f9d4ed7a8df, type: 3}
     invertIcon: 0
-    pickupIcon: {fileID: -5964658899659097264, guid: f144f869e2e085f49aad85800a0fd63e, type: 3}
+    pickupIcon: {fileID: 21300000, guid: 15ca7b6add360d04998e7f9d4ed7a8df, type: 3}
     pickupOnCollision: 1
     tier: 0
     baseAffixSlots: 2
@@ -37,6 +37,6 @@ MonoBehaviour:
     statModifierData: []
     abilityDefinitions: []
     learnableAbilities:
-    - {fileID: 11400000, guid: ac16324d52c55464fb7a9def8b84022b, type: 2}
+    - {fileID: 11400000, guid: 5d61b22b053d1b346b92ea05c07d8773, type: 2}
     classPreviewAbilities: []
     startingItemOptions: []

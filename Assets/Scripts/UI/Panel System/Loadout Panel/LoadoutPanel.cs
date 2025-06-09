@@ -1,16 +1,33 @@
 using UnityEngine;
 
-public class LoadoutPanel : MonoBehaviour
+public class LoadoutPanel : BasePanel
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+
+
+    private LoadoutEntry[] loadouts;
+
+
+
+    protected override void Awake() {
+        base.Awake();
+
+        loadouts = GetComponentsInChildren<LoadoutEntry>(true);
+        for (int i = 0; i < loadouts.Length; i++) {
+            loadouts[i].Setup();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+
+
+
+    public void OnStartClicked() {
+        for (int i = 0; i < loadouts.Length; i++) {
+            loadouts[i].SpawnSelectedItem();
+        }
+
+        PanelManager.GetPanel<CharacterSelectPanel>().StartGame();
+        Close();
     }
+
 }

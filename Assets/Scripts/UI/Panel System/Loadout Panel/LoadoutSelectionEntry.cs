@@ -7,6 +7,10 @@ public class LoadoutSelectionEntry : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public Image itemImage;
 
+
+    public GameObject selectionHighlight;
+
+
     private Item displayItem;
     private Ability displayAbility;
 
@@ -29,6 +33,15 @@ public class LoadoutSelectionEntry : MonoBehaviour, IPointerEnterHandler, IPoint
     }
 
 
+    public void Select() {
+        selectionHighlight.SetActive(true);
+    }
+
+    public void Deselect() {
+        selectionHighlight.SetActive(false);
+    }
+
+
     public void OnPointerEnter(PointerEventData eventData) {
 
         switch (displayItem.Data.Type) {
@@ -48,6 +61,6 @@ public class LoadoutSelectionEntry : MonoBehaviour, IPointerEnterHandler, IPoint
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        
+        parentEntry.OnItemSelected(this);
     }
 }

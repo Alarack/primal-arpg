@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,28 +19,74 @@ public class LoadoutEntry : MonoBehaviour
 
     private List<LoadoutSelectionEntry> selectionOptions = new List<LoadoutSelectionEntry>();
 
+    public LoadoutSelectionEntry SelectedEntry { get; private set; }
 
+
+    private List<ItemDefinition> items = new List<ItemDefinition>();
 
     private void Awake() {
         template.gameObject.SetActive(false);
     }
 
-    private void SetupDisplay() {
+    public void Setup() {
+        CreateItems();
+
+        if(selectionOptions.Count > 0 )
+            OnItemSelected(selectionOptions[0]);
+    }
+
+
+    public void OnItemSelected(LoadoutSelectionEntry entry) {
+        SelectedEntry = entry;
+
+        entry.Select();
+
+        for (int i = 0; i < selectionOptions.Count; i++) {
+            if (SelectedEntry != selectionOptions[i]) {
+                selectionOptions[i].Deselect();
+            }
+        
+        }
+
+    }
+
+
+    private void CreateItems() {
+        Action creationMethod = loadoutType switch {
+            LoadoutEntryType.Weapon => GetStartingWeapons,
+            LoadoutEntryType.Skill => GetStartingSkills,
+            LoadoutEntryType.Item => GetRecoveredItems,
+            _ => null
+        };
+
+        creationMethod?.Invoke();
+
+        selectionOptions.PopulateList(items.Count, template, holder, true);
+        for (int i = 0; i < items.Count; i++) {
+            selectionOptions[i].Setup(items[i], this);
+        }
 
     }
 
 
     private void GetStartingWeapons() {
-        List<ItemDefinition> items = ItemSpawner.Instance.lootDatabase.GetStarterWeapons();
-
+        items = ItemSpawner.Instance.lootDatabase.GetStarterWeapons();
     }
 
     private void GetStartingSkills() {
-        List<ItemDefinition> items = ItemSpawner.Instance.lootDatabase.GetStarterSkills();
+        items = ItemSpawner.Instance.lootDatabase.GetStarterSkills();
     }
 
     private void GetRecoveredItems() {
-        List<ItemDefinition> items = ItemSpawner.Instance.lootDatabase.GetItemsByNames(SaveLoadUtility.SaveData.recoveredItems);
+        items = ItemSpawner.Instance.lootDatabase.GetItemsByNames(SaveLoadUtility.SaveData.recoveredItems);
 
     }
+
+    public void SpawnSelectedItem() {
+        if (SelectedEntry == null)
+            return;
+        
+        ItemSpawner.SpawnItem(SelectedEntry.ItemDef, transform.position, true);
+    }
+
 }

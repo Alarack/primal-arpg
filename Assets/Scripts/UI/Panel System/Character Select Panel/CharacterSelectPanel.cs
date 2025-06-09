@@ -27,8 +27,10 @@ public class CharacterSelectPanel : BasePanel {
     [Header("Class Data")]
     public List<ItemDefinition> classItems = new List<ItemDefinition>();
 
-    private List<CharacterChoiceEntry> entries = new List<CharacterChoiceEntry>();
+    [SerializeField]
+    private LoadoutPanel loadoutPanel;
 
+    private List<CharacterChoiceEntry> entries = new List<CharacterChoiceEntry>();
 
     private CharacterChoiceEntry selectedClass;
 
@@ -146,7 +148,8 @@ public class CharacterSelectPanel : BasePanel {
 
         HideAllEntries();
         new Task(FadeoutInfoPanels());
-        ShowStarterPackages();
+        //ShowStarterPackages();
+        ShowLoadoutPanel();
 
         ItemSpawner.SpawnItem(entry.ClassItem, transform.position, true);
         //ItemSpawner.SpawnItem(entry.ChosenItem, transform.position, true);
@@ -161,6 +164,8 @@ public class CharacterSelectPanel : BasePanel {
         //PanelManager.OpenPanel<LevelUpPanel>();
     }
 
+
+
     public void StartGame() {
         Close();
         MasteryManager.Instance.LoadSavedMasteries();
@@ -174,6 +179,9 @@ public class CharacterSelectPanel : BasePanel {
     }
 
 
+    private void ShowLoadoutPanel() {
+        loadoutPanel.Open();
+    }
 
     private void ShowStarterPackages() {
         //WaitForSeconds waiter = new WaitForSeconds(0.3f);

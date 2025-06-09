@@ -54,8 +54,8 @@ public class AbilityManager : MonoBehaviour {
                 entry.Value[i].ResetLevel();
                 entry.Value[i].ResetRunes();
 
-                if (entry.Value[i].Data.startingAbility == false)
-                    entry.Value[i].Locked = true;
+                //if (entry.Value[i].Data.startingAbility == false)
+                entry.Value[i].Locked = true;
             }
         }
 
@@ -83,7 +83,7 @@ public class AbilityManager : MonoBehaviour {
                 PassiveAbilities[i].Uneqeuip();
         }
 
-        new Task(AutoEquipStartingSkill());
+        //new Task(AutoEquipStartingSkill());
 
     }
 
@@ -173,7 +173,7 @@ public class AbilityManager : MonoBehaviour {
 
         AbilityUtilities.SetupAbilities(preloadedPassives, PassiveAbilities, Owner, false, true);
 
-        new Task(AutoEquipStartingSkill());
+        //new Task(AutoEquipStartingSkill());
     }
 
     private IEnumerator AutoEquipStartingSkill() {
@@ -186,7 +186,9 @@ public class AbilityManager : MonoBehaviour {
                 break;
             }
         }
+    }
 
+    public void EquipStartingSkill() {
 
     }
 
@@ -236,7 +238,10 @@ public class AbilityManager : MonoBehaviour {
                 UnlockAbility(existingAbility);
             }
             else {
-                Debug.LogError("A skill: " + item.Data.learnableAbilities[i].AbilityData.abilityName + " did not exist.");
+                Debug.LogWarning("A skill: " + item.Data.learnableAbilities[i].AbilityData.abilityName + " did not exist. Creating it fresh");
+                Ability createdAbility = AbilityFactory.CreateAbility(item.Data.learnableAbilities[0].AbilityData, Owner);
+                LearnAbility(createdAbility, createdAbility.Data.category);
+                UnlockAbility(createdAbility);
             }
         }
     }
@@ -385,6 +390,11 @@ public class AbilityManager : MonoBehaviour {
 
         if (ability.Data.category == AbilityCategory.PassiveSkill) {
             Debug.LogError("A passive Ability: " + ability.Data.abilityName + " was passed to auto equip to first empty slot");
+            return;
+        }
+
+        if(ability.Data.startingAbility == true) {
+            AutoEquipAbilityToHotbar(ability, 4);
             return;
         }
 

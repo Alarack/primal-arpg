@@ -86,6 +86,9 @@ public class LootDatabase : ScriptableObject {
         List<ItemDefinition> results = new List<ItemDefinition> ();
 
         foreach (var entry in itemsBySlot[ItemSlot.Weapon]) {
+            if (entry.devItem == true)
+                continue;
+            
             if(entry.startingItem == true)
                 results.Add(entry);
         }
