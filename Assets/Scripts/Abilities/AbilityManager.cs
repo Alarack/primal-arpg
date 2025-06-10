@@ -214,23 +214,6 @@ public class AbilityManager : MonoBehaviour {
         }
     }
 
-    //private List<Ability> LearnItemAbilities(Item item) {
-    //    List<Ability> newItemAbilities = new List<Ability>();
-
-    //    for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
-    //        Ability learnedAbility = LearnAbility(item.Data.learnableAbilities[i].AbilityData);
-
-    //        if (learnedAbility != null) {
-    //            newItemAbilities.Add(learnedAbility);
-    //            AutoEquipToFirstEmptySlot(learnedAbility);
-    //        }
-    //    }
-
-    //    learnedAbilities.AddRange(newItemAbilities);
-
-    //    return newItemAbilities;
-    //}
-
     private void LearnSkillFromScroll(Item item) {
         for (int i = 0; i < item.Data.learnableAbilities.Count; i++) {
             Ability existingAbility = GetAbilityByName(item.Data.learnableAbilities[i].AbilityData.abilityName);
@@ -241,14 +224,22 @@ public class AbilityManager : MonoBehaviour {
                 Debug.LogWarning("A skill: " + item.Data.learnableAbilities[i].AbilityData.abilityName + " did not exist. Creating it fresh");
                 Ability createdAbility = AbilityFactory.CreateAbility(item.Data.learnableAbilities[0].AbilityData, Owner);
                 LearnAbility(createdAbility, createdAbility.Data.category);
-                UnlockAbility(createdAbility);
+                EquipSkillFromScroll(createdAbility);
+                //UnlockAbility(createdAbility);
             }
         }
     }
 
+    private void EquipSkillFromScroll(Ability ability) {
+
+        if (ability.Data.category == AbilityCategory.KnownSkill)
+            AutoEquipToFirstEmptySlot(ability);
+        if (ability.Data.category == AbilityCategory.PassiveSkill)
+            PanelManager.GetPanel<SkillsPanel>().AutoEquipPassiveToFirstEmptySlot(ability);
+
+    }
+
     public void LearnAbility(Ability ability, AbilityCategory category, bool autoEquip = false) {
-
-
         Abilities[category].AddUnique(ability);
 
         if (AbilitiesByName.ContainsKey(ability.Data.abilityName) == false) {
@@ -266,8 +257,6 @@ public class AbilityManager : MonoBehaviour {
     }
 
     private void UnlockAbility(Ability ability) {
-
-
         if (ability.Tags.Contains(AbilityTag.Mastery)) {
             if(ability.IsEquipped == false)
                 ability.Equip();
@@ -275,13 +264,15 @@ public class AbilityManager : MonoBehaviour {
             return;
         }
 
-
         ability.Locked = false;
 
-        if (ability.Data.category == AbilityCategory.KnownSkill)
-            AutoEquipToFirstEmptySlot(ability);
-        if (ability.Data.category == AbilityCategory.PassiveSkill)
-            PanelManager.GetPanel<SkillsPanel>().AutoEquipPassiveToFirstEmptySlot(ability);
+
+        EquipSkillFromScroll(ability);
+
+        //if (ability.Data.category == AbilityCategory.KnownSkill)
+        //    AutoEquipToFirstEmptySlot(ability);
+        //if (ability.Data.category == AbilityCategory.PassiveSkill)
+        //    PanelManager.GetPanel<SkillsPanel>().AutoEquipPassiveToFirstEmptySlot(ability);
     }
 
 
@@ -393,13 +384,18 @@ public class AbilityManager : MonoBehaviour {
             return;
         }
 
-        if(ability.Data.startingAbility == true) {
+        HotbarPanel hotbar = PanelManager.GetPanel<HotbarPanel>();
+
+
+        Ability leftClickAbility = hotbar.GetActiveAbilityBySlot(4);
+
+        if(ability.Data.startingAbility == true && leftClickAbility == null) {
             AutoEquipAbilityToHotbar(ability, 4);
             return;
         }
 
 
-        int firstEmptySlot = PanelManager.GetPanel<HotbarPanel>().GetFirstEmptySlot();
+        int firstEmptySlot = hotbar.GetFirstEmptySlot();
 
         if (firstEmptySlot > -1) {
             EquipAbility(ability, firstEmptySlot);

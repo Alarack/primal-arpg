@@ -178,6 +178,12 @@ public class SkillsPanel : SkillBasePanel {
 
         if (ability.Data.tags.Contains(AbilityTag.Mastery))
             return;
+
+        if (IsPassiveAbilityInActiveList(ability) == true) {
+            Debug.LogWarning("A passive skill: " + ability.Data.abilityName + " is already on the active passive bar");
+            return;
+        }
+
         
         int firstEmpty = GetFirstEmptyPassiveSlot();
 

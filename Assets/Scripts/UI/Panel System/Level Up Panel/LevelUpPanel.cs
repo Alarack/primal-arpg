@@ -70,6 +70,8 @@ public class LevelUpPanel : BasePanel
         List<Ability> lockedAbilities = EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.KnownSkill);
         lockedAbilities.AddRange(EntityManager.ActivePlayer.AbilityManager.GetLockedAbilities(AbilityCategory.PassiveSkill));
         
+
+
         List<Ability> choices = new List<Ability>();
 
         List<string> currentRewardSkills = RoomManager.GetSKillRewardNames();

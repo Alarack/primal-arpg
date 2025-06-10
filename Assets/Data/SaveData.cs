@@ -35,6 +35,11 @@ public class SaveData
 
     public void AddRecoveredItem(ItemDefinition item) {
         recoveredItems.AddUnique(item.itemData.itemName);
+
+    }
+
+    public bool IsItemAlreadyRecovered(Item item) {
+        return recoveredItems.Contains(item.Data.itemName);
     }
 
     public void ClearRecoveredItems() {

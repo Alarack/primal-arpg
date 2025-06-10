@@ -53,6 +53,28 @@ public class Inventory : MonoBehaviour {
         //return results;
     }
 
+
+    public List<ItemDefinition> GetRecoverableItems() {
+        List<ItemDefinition> results = new List<ItemDefinition>();
+
+        foreach(Item item in ownedItems) {
+            if (item.Data.Type != ItemType.Equipment)
+                continue;
+
+            if (SaveLoadUtility.SaveData.IsItemAlreadyRecovered(item) == true)
+                continue;
+
+            if(ItemSpawner.Instance.lootDatabase.GetItemByName(item.Data.itemName).startingItem == true)
+                continue;
+
+            ItemDefinition validItem = ItemSpawner.Instance.lootDatabase.GetItemByName(item.Data.itemName);
+            results.Add(validItem);
+        }
+
+
+        return results;
+    }
+
     public void ClearInventory() {
 
         for (int i = ownedItems.Count -1; i >= 0; i--) {

@@ -64,7 +64,7 @@ public class AnimHelper : MonoBehaviour {
 
         EventManager.SendEvent(GameEvent.AbilityAnimReceived, data);
 
-        Debug.Log("Recieveing event for: " + nextInstance.ability.Data.abilityName);
+        //Debug.Log("Recieveing event for: " + nextInstance.ability.Data.abilityName);
 
         animator.SetFloat("AnimSpeed", 1f);
     }

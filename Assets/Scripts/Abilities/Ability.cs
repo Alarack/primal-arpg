@@ -77,9 +77,9 @@ public class Ability {
             Locked = true;
         }
 
-        if (data.startingAbility == true) {
-            Locked = false;
-        }
+        //if (data.startingAbility == true) {
+        //    Locked = false;
+        //}
 
         SetupStats();
         SetupRecoveries();
@@ -170,6 +170,15 @@ public class Ability {
         if (IsEquipped == true) {
             Debug.LogError("Tried to equip " + Data.abilityName + " but it was alread equipped");
             return;
+        }
+
+        if (Source.entityType == Entity.EntityType.Player) {
+            Ability existingAbility = Source.AbilityManager.GetAbilityByName(Data.abilityName);
+
+            if (existingAbility != null && existingAbility.IsEquipped == true) {
+                Debug.LogError("Tried to equip a duplicate of " + Data.abilityName);
+                return;
+            }
         }
 
 #if UNITY_EDITOR

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,6 +8,16 @@ using UnityEngine.UI;
 public class GameOverPanel : BasePanel
 {
 
+    [Header("Recovred Items")]
+    public RecoveredItemEntry template;
+    public Transform holder;
+    public CanvasGroup recoveredItemsFader;
+    public GameObject recoveredItemsArea;
+
+    private bool selectingRecoveredItems;
+
+
+    [Header("Meta Progress")]
     public ParticleSystem starsParticles;
     public TextMeshProUGUI progressText;
     public TextMeshProUGUI pointsGainText;
@@ -21,15 +32,30 @@ public class GameOverPanel : BasePanel
 
     private MasteryPanel masteryPanel;
 
+    private List<RecoveredItemEntry> recoveredItemEntries = new List<RecoveredItemEntry>();
+    private List<ItemDefinition> recoveredItems = new List<ItemDefinition>();
+
 
     protected override void Awake() {
         base.Awake();
 
         masteryPanel = PanelManager.GetPanel<MasteryPanel>();
+        template.gameObject.SetActive(false);
     }
 
     public override void Open() {
         base.Open();
+        recoveredItems = EntityManager.ActivePlayer.Inventory.GetRecoverableItems();
+        if (recoveredItems.Count > 0) {
+            recoveredItemsArea.SetActive(true);
+            recoveredItemsFader.alpha = 0f;
+            ShowRecoveredItems();
+            selectingRecoveredItems = true;
+        }
+        else {
+            recoveredItemsArea.SetActive(false);
+        }
+
         savedThreat = PlayerPrefs.GetInt("Total Threat");
         currentThreat = GameManager.Instance.totalThreatFromKilledEnemies;
         sessionScore = currentThreat;
@@ -117,6 +143,32 @@ public class GameOverPanel : BasePanel
 
       
     }
+
+
+    public void ShowRecoveredItems() {
+        recoveredItemEntries.PopulateList(recoveredItems.Count, template, holder, true);
+        for (int i = 0; i < recoveredItems.Count; i++) {
+            recoveredItemEntries[i].Setup(recoveredItems[i], this);
+        }
+        recoveredItemsFader.DOFade(1f, 0.2f);
+    }
+
+    public void OnRecoveredItemSelected(RecoveredItemEntry entry) {
+        if (selectingRecoveredItems == false)
+            return;
+
+        selectingRecoveredItems = false;
+
+        entry.Select();
+        HideRecoveredItems();
+
+    }
+
+    public void HideRecoveredItems() {
+        Tween fadeout = recoveredItemsFader.DOFade(0f, 0.2f);
+        fadeout.OnComplete(() => recoveredItemsArea.SetActive(false));
+    }
+
 
 
     public void OnStarOverClicked() {
