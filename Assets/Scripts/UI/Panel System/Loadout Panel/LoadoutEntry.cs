@@ -17,6 +17,9 @@ public class LoadoutEntry : MonoBehaviour
     public LoadoutSelectionEntry template;
     public Transform holder;
 
+    [Header("No Items Text")]
+    public GameObject noItemsText;
+
     private List<LoadoutSelectionEntry> selectionOptions = new List<LoadoutSelectionEntry>();
 
     public LoadoutSelectionEntry SelectedEntry { get; private set; }
@@ -79,6 +82,13 @@ public class LoadoutEntry : MonoBehaviour
 
     private void GetRecoveredItems() {
         items = ItemSpawner.Instance.lootDatabase.GetItemsByNames(SaveLoadUtility.SaveData.recoveredItems);
+
+        if(items.Count < 1) {
+            noItemsText.SetActive(true);
+        }
+        else {
+            noItemsText.SetActive(false);
+        }
 
     }
 
