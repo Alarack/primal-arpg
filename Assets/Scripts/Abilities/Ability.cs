@@ -173,11 +173,13 @@ public class Ability {
         }
 
         if (Source.entityType == Entity.EntityType.Player) {
-            Ability existingAbility = Source.AbilityManager.GetAbilityByName(Data.abilityName);
+            if (Source.AbilityManager != null) {
+                Ability existingAbility = Source.AbilityManager.GetAbilityByName(Data.abilityName);
 
-            if (existingAbility != null && existingAbility.IsEquipped == true) {
-                Debug.LogError("Tried to equip a duplicate of " + Data.abilityName);
-                return;
+                if (existingAbility != null && existingAbility.IsEquipped == true) {
+                    Debug.LogError("Tried to equip a duplicate of " + Data.abilityName);
+                    return;
+                }
             }
         }
 

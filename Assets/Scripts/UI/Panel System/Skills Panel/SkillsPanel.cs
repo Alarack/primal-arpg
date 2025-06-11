@@ -73,6 +73,7 @@ public class SkillsPanel : SkillBasePanel {
 
     public override void Close() {
         base.Close();
+        passiveCollectionPanel.Close();
         TooltipManager.Hide();
     }
 

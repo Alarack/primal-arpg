@@ -250,20 +250,32 @@ public class HUDPanel : BasePanel {
 
 
     public void OnLevelUpClicked() {
+        if (RoomManager.InCombat == true)
+            return;
+        
         if (EntityManager.ActivePlayer.levelsStored > 0) {
             PanelManager.OpenPanel<LevelUpPanel>();
         }
     }
 
     public void OnSkillsClicked() {
+        if (RoomManager.InCombat == true)
+            return;
+
         PanelManager.TogglePanel<SkillsPanel>();
     }
 
     public void OnMasteryClicked() {
+        if (RoomManager.InCombat == true)
+            return;
+
         PanelManager.OpenPanel<MasteryPanel>();
     }
 
     public void OnInventoryClicked() {
+        if (RoomManager.InCombat == true)
+            return;
+
         PanelManager.TogglePanel<InventoryPanel>();
     }
 
