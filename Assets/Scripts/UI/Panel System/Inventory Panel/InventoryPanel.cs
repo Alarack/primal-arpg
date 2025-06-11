@@ -411,6 +411,9 @@ public class InventoryPanel : BasePanel {
         if (createAffixTask != null && createAffixTask.Running == true)
             return;
 
+        if (selectionVFXRunning == true)
+            return;
+
         AudioManager.PlayForgeSound();
 
         createAffixTask = new Task(CreateAffixEntries());

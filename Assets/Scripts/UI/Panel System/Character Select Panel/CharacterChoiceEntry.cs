@@ -73,7 +73,7 @@ public class CharacterChoiceEntry : MonoBehaviour {
 
         infoButton.onClick.RemoveListener(Deselect);
         infoButton.onClick.AddListener(OnInfoClicked);
-        infoButton.SetText("Info");
+        infoButton.SetText("Details");
 
         //Debug.Log("Deselecting: " + ClassItem.itemData.itemName);
         selectionPanel.UnhideAllEntries(this);

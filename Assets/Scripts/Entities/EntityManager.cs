@@ -195,30 +195,19 @@ public class EntityManager : Singleton<EntityManager> {
         PanelManager.ClosePanel<LevelUpPanel>();
         RoomManager.Instance.CleanUpRewardPedestals();
 
-      
 
+        ClearRemainingEnemies();
+        ClearRemainingProjectiles();
 
-        if (ActiveEntities.TryGetValue(Entity.EntityType.Enemy, out List<Entity> enemies)){
-            for (int i = 0; i < enemies.Count; i++) {
-                enemies[i].EndGameCleanUp();
-            }
-
-            enemies.Clear();
-        }
-
-        Projectile[] leftoverProjectiles = GameObject.FindObjectsByType<Projectile>(FindObjectsSortMode.None);
-        for (int i = 0; i < leftoverProjectiles.Length; i++) {
-            Debug.Log("Purging a Projectile: " + leftoverProjectiles[i].EntityName);
-            leftoverProjectiles[i].EndGameCleanUp();
-        }
-       
-        
         RoomManager.ClearRooms();
         RoomManager.SetDifficulty(5f);
     }
 
 
     public void CreatePlayer() {
+
+        ClearRemainingEnemies();
+
         if (ActivePlayer != null) {
 
             ActivePlayer.transform.position = Vector3.zero;
@@ -235,6 +224,26 @@ public class EntityManager : Singleton<EntityManager> {
 
         new Task(OpenDefaultPanels());
     }
+
+    public static void ClearRemainingEnemies() {
+        if (ActiveEntities.TryGetValue(Entity.EntityType.Enemy, out List<Entity> enemies)) {
+            for (int i = 0; i < enemies.Count; i++) {
+                enemies[i].EndGameCleanUp();
+            }
+
+            enemies.Clear();
+        }
+    }
+
+    private static void ClearRemainingProjectiles() {
+        Projectile[] leftoverProjectiles = GameObject.FindObjectsByType<Projectile>(FindObjectsSortMode.None);
+        for (int i = 0; i < leftoverProjectiles.Length; i++) {
+            Debug.Log("Purging a Projectile: " + leftoverProjectiles[i].EntityName);
+            leftoverProjectiles[i].EndGameCleanUp();
+        }
+    }
+
+
 
     private IEnumerator OpenDefaultPanels() {
         yield return new WaitForEndOfFrame();

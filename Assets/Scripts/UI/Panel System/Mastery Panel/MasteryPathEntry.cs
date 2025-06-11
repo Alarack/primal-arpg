@@ -89,20 +89,38 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
         if(PathAbility == null) {
             PathAbility = EntityManager.ActivePlayer.AbilityManager.CreateAndLearnAbility(PathAbilityDef.AbilityData, true);
             PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.ParentMasteryName, parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, 1);
+            UpdateRankText();
         }
         else {
-            if (PathAbility.IsEquipped == false)
-                PathAbility.Equip();
-            
-            if(PathAbility.IsMaxRank() == true) {
+            if (PathAbility.IsMaxRank() == true) {
+                UpdateRankText();
                 return;
             }
 
-            PathAbility.LevelUp();
             PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.ParentMasteryName, parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
+
+
+            if (PathAbility.IsEquipped == false) {
+                PathAbility.Equip();
+
+                //if (PathAbility.AbilityLevel != 1) {
+                //    PathAbility.LevelUp();
+                //}
+
+                UpdateRankText();
+                return;
+            }
+
+
+
+            PathAbility.LevelUp();
+            UpdateRankText();
+
+            //PathAbility.LevelUp();
+            //PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.ParentMasteryName, parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
         }
 
-        UpdateRankText();
+        //UpdateRankText();
         //rankText.text = PathAbility.AbilityLevel.ToString();
     }
 
@@ -130,10 +148,9 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
         //Debug.Log("UnInvesting in: " + PathAbility.Data.abilityName);
 
 
-        if(PathAbility.AbilityLevel >= 1)
+        if(PathAbility.AbilityLevel > 1)
             PathAbility.LevelDown();
-
-        if (PathAbility.AbilityLevel <= 0)
+        else if (PathAbility.AbilityLevel <= 1)
             PathAbility.Uneqeuip();
 
         PanelManager.GetPanel<MasteryPanel>().RefundMetaPoints(parentFeature.ParentMasteryName, parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
@@ -143,6 +160,12 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     private void UpdateRankText() {
         
+        if(PathAbility.IsEquipped == false) {
+            rankText.text = "0/" + PathAbility.Data.maxRanks.ToString();
+            rankText.color = Color.white;
+            return;
+        }
+
         string text = PathAbility.Data.maxRanks > 0 ? PathAbility.AbilityLevel.ToString() + "/" + PathAbility.Data.maxRanks.ToString() : PathAbility.AbilityLevel.ToString();
 
 
@@ -174,7 +197,7 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
 
     public void OnParentFeatureEquipped() {
-        if(PathAbility != null && PathAbility.AbilityLevel >= 1) { 
+        if (PathAbility != null && PathAbility.AbilityLevel >= 1) {
             PathAbility.Equip();
         }
     }

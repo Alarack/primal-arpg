@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 2
     abilityIcon: {fileID: 0}
     abilityName: Rising Tide
-    abilityDescription: Every {TI} Seconds, increase your Overload Threshold. This
-      Status resets when you score an Overload.
+    abilityDescription: Every {TI} Seconds, increase your Critical Hit Chance. This
+      Status resets when you Critcally Hit.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -28,35 +28,53 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
+    startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: 
+    animationString: 
+    waitForAnimToResolve: 0
+    initSFXVolume: 1
+    initiationSounds: []
+    channelSFXVolume: 1
+    channeledSounds: []
     childAbilities: []
     runeGroupData: []
     tags: 
+    resetEvents: 
     activationTriggerData:
     - type: 7
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0.5
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 1
       resetTimerOnParentAbilityEnd: 1
       allConstraints: []
     endTriggerData:
     - type: 18
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
       allConstraints: []
     - type: 28
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
@@ -104,14 +122,19 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
@@ -119,15 +142,19 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
@@ -135,12 +162,14 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: 3d11de8e906ba254ba0d04035e454f78, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
+    maxRanks: -1
     windupVFX: {fileID: 0}
     abilityStatData: []
     recoveryData: []

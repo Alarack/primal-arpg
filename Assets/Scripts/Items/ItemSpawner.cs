@@ -319,7 +319,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
             StatName.AirDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Air),
             StatName.ForceDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Force),
             StatName.PoisonDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Poison),
-            StatName.ProjectileLifetime => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
+            //StatName.ProjectileLifetime => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
             StatName.ArcaneDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Arcane),
             StatName.TimeDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Time),
             StatName.VoidDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Void),
@@ -329,7 +329,9 @@ public class ItemSpawner : Singleton<ItemSpawner>
             StatName.GlobalComboDurationModifier => true,
             StatName.GlobalComboIntervalModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.DamageOverTime),
             StatName.CastingMoveSpeedModifier => true,
-            StatName.CastSpeedModifier => true,
+            StatName.CastSpeedModifier => false,
+            StatName.GlobalProjectileLifetimeModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
+
             _ => false,
         };
 

@@ -658,6 +658,11 @@ public class Ability {
     #region LEVELING
 
     public bool IsMaxRank() {
+        
+        if(Data.maxRanks == 1) {
+            return IsEquipped;
+        }
+        
         return Data.maxRanks > 0 && AbilityLevel >= Data.maxRanks;
     }
 

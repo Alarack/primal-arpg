@@ -18,6 +18,8 @@ public class RoomManager : Singleton<RoomManager> {
 
     public static float CurrentDifficulty { get; private set; } = 5f;
 
+    public static bool InCombat { get; private set; }
+
     private int currentRoomIndex;
     //private List<Room> roomList = new List<Room>();
 
@@ -36,6 +38,13 @@ public class RoomManager : Singleton<RoomManager> {
         Instance.currentRoomIndex++;
         Debug.Log("Starting a room: " + room.Type.ToString());
         room.StartRoom();
+
+        if (room.Type == Room.RoomType.EliminationCombat ||
+           room.Type == Room.RoomType.BossRoom ||
+           room.Type == Room.RoomType.SurvivalCombat) {
+
+            InCombat = true;
+        }
     }
 
     private void OnEnable() {
@@ -69,6 +78,7 @@ public class RoomManager : Singleton<RoomManager> {
             room.Type == Room.RoomType.SurvivalCombat) {
             
             AdjustDifficulty(1f);
+            InCombat = false;
         }
 
     }

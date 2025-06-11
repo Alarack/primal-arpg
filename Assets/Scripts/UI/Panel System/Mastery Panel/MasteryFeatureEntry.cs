@@ -159,7 +159,7 @@ public class MasteryFeatureEntry : MonoBehaviour, IPointerClickHandler, IPointer
             CreateFeatureAbility();
 
         FeatureAbility.Equip();
-        EquipPathAbilities();
+        //EquipPathAbilities();
 
         SaveLoadUtility.SaveData.AddMastery(ParentMasteryName, FeatureData.featureName, FeatureAbility.Data.abilityName);
         SaveLoadUtility.SavePlayerData();

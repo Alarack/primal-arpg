@@ -30,11 +30,17 @@ public class PanelDataManager : Singleton<PanelDataManager>
 
     private void Update() {
 
-        if (Input.GetKeyDown(KeyCode.V)) {
+        if (Input.GetKeyDown(KeyCode.I)) {
+            if (RoomManager.InCombat == true)
+                return;
+            
             PanelManager.TogglePanel<InventoryPanel>();
         }
 
-        if (Input.GetKeyDown(KeyCode.P)) {
+        if (Input.GetKeyDown(KeyCode.K)) {
+            if (RoomManager.InCombat == true)
+                return;
+
             PanelManager.TogglePanel<SkillsPanel>();
         }
 
@@ -49,30 +55,29 @@ public class PanelDataManager : Singleton<PanelDataManager>
         }
 
         if (Input.GetKeyDown(KeyCode.M)) {
+            if (RoomManager.InCombat == true)
+                return;
+
             PanelManager.TogglePanel<MasteryPanel>();
         }
 
 
+        if (EntityManager.ActivePlayer != null && EntityManager.ActivePlayer.levelsStored > 0 && Input.GetKeyDown(KeyCode.L)) {
+            if (RoomManager.InCombat == true)
+                return;
+
+            PanelManager.OpenPanel<LevelUpPanel>();
+        }
 
 
 #if UNITY_EDITOR
 
-        if (Input.GetKeyDown(KeyCode.T)) {
-            PanelManager.OpenPanel<TransitionPanel>().Setup(DEV_TransitionTest);
-        }
-
-        //if (Input.GetKeyDown(KeyCode.M)) {
-        //    PanelManager.OpenPanel<MasteryPanel>();
+        //if (Input.GetKeyDown(KeyCode.T)) {
+        //    PanelManager.OpenPanel<TransitionPanel>().Setup(DEV_TransitionTest);
         //}
 
-        //if(Input.GetKeyDown(KeyCode.L)) {
-        //    PanelManager.OpenPanel<LevelUpPanel>();
-        //}
 #endif
 
-        if (EntityManager.ActivePlayer != null && EntityManager.ActivePlayer.levelsStored > 0 && Input.GetKeyDown(KeyCode.L)) {
-            PanelManager.OpenPanel<LevelUpPanel>();
-        }
 
     }
 
