@@ -234,6 +234,10 @@ public class Item
     public string GetTooltip() {
         StringBuilder builder = new StringBuilder();
 
+        if (Data.Type == ItemType.Equipment) {
+            builder.Append(GetSlotForTooltip()).AppendLine();
+        }
+
         if(string.IsNullOrEmpty( Data.itemDescription) == false) {
             builder.Append("<i>" +Data.itemDescription +"</i>").AppendLine().AppendLine();
         } 
@@ -291,6 +295,20 @@ public class Item
         return builder.ToString();
     }
 
+    private string GetSlotForTooltip() {
+        string slot = Data.validSlots[0] switch {
+            ItemSlot.Weapon => "Weapon",
+            ItemSlot.Armor => "Armor",
+            ItemSlot.Gloves => "Gloves",
+            ItemSlot.Ring1 => "Ring",
+            ItemSlot.Ring2 => "Ring",
+            ItemSlot.Neck => "Neck",
+            ItemSlot.Boots => "Boots",
+            ItemSlot.Head => "Head",
+            _ => ""
+        };
 
+        return TextHelper.ColorizeText( "[" + slot + "]", Color.gray);
+    }
 
 }

@@ -147,17 +147,37 @@ public class Projectile : Entity {
         float ownerChain = Source.Stats[StatName.ProjectileChainCount] /*+ ParentEffect.Stats[StatName.ProjectileChainCount]*/;
         float ownerSplit = Source.Stats[StatName.ProjectileSplitCount] /*+ ParentEffect.Stats[StatName.ProjectileSplitCount]*/;
         float splitAmount = Source.Stats[StatName.ProjectileSplitQuantity] /*+ ParentEffect.Stats[StatName.ProjectileSplitQuantity]*/;
-        if(ownerPierce > 0) 
+        if(ownerPierce > 0) {
+            if(Stats.Contains(StatName.ProjectilePierceCount) == false) {
+                Stats.AddStat(new SimpleStat(StatName.ProjectilePierceCount, 0));
+            }
             Stats.AddModifier(StatName.ProjectilePierceCount, ownerPierce, StatModType.Flat, Source);
-        if (ownerChain > 0)
+        } 
+            
+        if (ownerChain > 0) {
+            if (Stats.Contains(StatName.ProjectileChainCount) == false) {
+                Stats.AddStat(new SimpleStat(StatName.ProjectileChainCount, 0));
+            }
             Stats.AddModifier(StatName.ProjectileChainCount, ownerChain, StatModType.Flat, Source);
-        if (ownerSplit > 0)
+        }
+            
+        if (ownerSplit > 0) {
+            if (Stats.Contains(StatName.ProjectileSplitCount) == false) {
+                Stats.AddStat(new SimpleStat(StatName.ProjectileSplitCount, 0));
+            }
             Stats.AddModifier(StatName.ProjectileSplitCount, ownerSplit, StatModType.Flat, Source);
-        if (splitAmount > 0)
+        }
+            
+        if (splitAmount > 0) {
+            if (Stats.Contains(StatName.ProjectileSplitQuantity) == false) {
+                Stats.AddStat(new SimpleStat(StatName.ProjectileSplitQuantity, 0));
+            }
             Stats.AddModifier(StatName.ProjectileSplitQuantity, splitAmount, StatModType.Flat, Source);
+        }
+            
 
         if (Stats[StatName.ProjectileSplitCount] > 0 && Stats[StatName.ProjectileSplitQuantity] <=0)
-            Stats.AddModifier(StatName.ProjectileSplitQuantity, 1, StatModType.Flat, Source);
+            Stats.AddModifier(StatName.ProjectileSplitQuantity, 2, StatModType.Flat, Source);
 
         //Debug.Log("Projectile: " + EntityName + " has " + Stats[StatName.ProjectileChainCount] + " Chain count");
         //Debug.Log("Owner and effect chain combined: " + ownerChain);
