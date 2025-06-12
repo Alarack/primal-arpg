@@ -16,6 +16,7 @@ public class HUDPanel : BasePanel {
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI stockPileText;
     public GameObject levelUpButton;
+    public ParticleSystem levelUpParticles;
 
     [Header("Globes")]
     public ResourceGlobeDisplay healthGlobe;
@@ -222,6 +223,7 @@ public class HUDPanel : BasePanel {
         if (EntityManager.ActivePlayer.levelsStored > 0) {
             stockPileText.text = "Stockpile: " + EntityManager.ActivePlayer.levelsStored;
             levelUpButton.SetActive(true);
+            levelUpParticles.Play();
         }
         else {
             stockPileText.text = "";
