@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using TriggerInstance = AbilityTrigger.TriggerInstance;
@@ -1079,6 +1080,23 @@ public class Ability {
 
         builder.Append(GetRunesTooltip());
 
+
+        if(Data.category == AbilityCategory.KnownSkill) {
+            if(Source.AbilityManager != null) {
+                List<Ability> showableTriggers = Source.AbilityManager.GetAbilitiesToShowOnOtherSkills();
+
+                for (int i = 0; i < showableTriggers.Count; i++) {
+
+                    float procChance = MathF.Round( showableTriggers[i].GetNormalizedProcChance(this) * 100f, 1);
+
+                    builder.AppendLine(TextHelper.ColorizeText(procChance.ToString() + "%", Color.yellow) + " Chance to trigger: " + showableTriggers[i].Data.abilityName);
+                }
+
+            }
+
+
+        }
+
         return builder.ToString();
     }
 
@@ -1218,6 +1236,21 @@ public class Ability {
         }
 
         return false;
+    }
+
+    public float GetNormalizedProcChance(Ability triggeringAbility) {
+        
+        float cooldown = triggeringAbility.Stats[StatName.Cooldown];
+        
+        if (cooldown <= 0f) {
+            return 0.05f;
+        }
+
+        if (cooldown >= 2f) {
+            return 1f;
+        }
+
+        return cooldown / 2f;
     }
 
     //public List<Entity> GetFirstEffectTargets() {

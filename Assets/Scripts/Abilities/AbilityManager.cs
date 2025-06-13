@@ -523,6 +523,19 @@ public class AbilityManager : MonoBehaviour {
         return results;
     }
 
+    public List<Ability> GetAbilitiesToShowOnOtherSkills() {
+        List<Ability> results = new List<Ability> ();
+
+        foreach (var entry in AbilitiesByName.Values) {
+            if (entry.Data.showProcChanceOnOtherSkills == true && entry.Locked == false) {
+                results.Add (entry);
+            }
+
+        }
+
+        return results;
+    }
+
     public List<AbilityTag> GetRelevantTags() {
         List<AbilityTag> results = new List<AbilityTag>();
 

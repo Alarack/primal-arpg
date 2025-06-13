@@ -67,6 +67,7 @@ public class AbilityData
     public bool ignoreTooltip;
     public bool recastOnChannelCost;
     public bool normalizedProcRate;
+    public bool showProcChanceOnOtherSkills;
     public bool startingAbility;
     public bool scaleProcByLevel;
     public string runeAbilityTarget;

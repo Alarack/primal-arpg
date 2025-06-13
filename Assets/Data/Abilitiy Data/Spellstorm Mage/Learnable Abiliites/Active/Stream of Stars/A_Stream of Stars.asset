@@ -28,6 +28,7 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 1
     normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
     startingAbility: 1
     scaleProcByLevel: 0
     runeAbilityTarget: 
@@ -38,7 +39,10 @@ MonoBehaviour:
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
-    runeGroupData: []
+    runeGroupData:
+    - runes:
+      - {fileID: 11400000, guid: 3aa11e53488082a4d9f44bbe4f604686, type: 2}
+      tier: 1
     tags: 0e0000000800000012000000
     resetEvents: 
     activationTriggerData:
@@ -315,6 +319,11 @@ MonoBehaviour:
       value: 0.1
       maxValue: 0
       minValue: 0
+    - variant: 0
+      statName: 44
+      value: 1
+      maxValue: 0
+      minValue: 0
     recoveryData:
     - type: 0
       recoveryTriggers: []
@@ -338,4 +347,4 @@ MonoBehaviour:
         requireMultipleTriggers: 0
         reduceTriggerCountByAbilityLevel: 0
         minTriggerCount: 0
-      cooldown: 0.75
+      cooldown: 0.25

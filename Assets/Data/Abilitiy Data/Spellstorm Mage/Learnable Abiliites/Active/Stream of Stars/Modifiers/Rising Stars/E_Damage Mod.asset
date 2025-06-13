@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Adjust Missle Stats
+  m_Name: E_Damage Mod
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Piercing Star Stat ADJ Effect
-    effectDescription: Arcane Missiles now Pierce up to {} times.
+    effectName: Rising Stars Damage Mod
+    effectDescription: Increase Weapon Damage by {}
     type: 1
-    targeting: 8
-    subTarget: 4
+    targeting: 9
+    subTarget: 5
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -30,11 +30,11 @@ MonoBehaviour:
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     chainTargetDelay: 0.1
-    otherAbilityName: 
-    otherEffectName: 
+    otherAbilityName: Ignite
+    otherEffectName: Ignite Add Status
     targetAbilityForLastPayload: 
     targetConstraints:
-    - type: 18
+    - type: 19
       inverse: 0
       statChangeTarget: 0
       changeDirection: 0
@@ -67,9 +67,52 @@ MonoBehaviour:
       stateEntered: 
       stateExited: 
       targetAbilityTag: 0
-      targetAbiltyName: Arcane Missiles
-      targetEffectName: 
+      targetAbiltyName: Ignite
+      targetEffectName: Stream of Stars Damage
       effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+      abilitySlot: 0
+      projectileToCheck: {fileID: 0}
+    - type: 20
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: Ignite
+      targetEffectName: Ignite Add Status
+      effectDesigantion: 1
       targetEffectType: 0
       targetStatus: 0
       statRatioTarget: 0
@@ -105,18 +148,18 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 29
-      value: 2
-      modifierType: 0
+    - targetStat: 28
+      value: 0.2
+      modifierType: 1
       variantTarget: 0
       modValueSetMethod: 0
-      weaponDamagePercent: 1
+      weaponDamagePercent: 0
       deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
       scaleFromAbilityLevel: 0
-      displayAsPercent: 0
+      displayAsPercent: 1
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
@@ -181,8 +224,8 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    effectDesignation: 0
-    addMissingStatIfNotPresent: 1
+    effectDesignation: 1
+    addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     statusModifiers: []
     statusToAdd: []
@@ -202,8 +245,7 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
-    abilitiesToAdd:
-    - {fileID: 11400000, guid: 655501ff749af5246ad9c9357ff407bc, type: 2}
+    abilitiesToAdd: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
     ridersToAdd: []

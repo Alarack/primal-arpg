@@ -16,7 +16,7 @@ MonoBehaviour:
     category: 6
     abilityIcon: {fileID: 21300000, guid: 1011dc932fa0eb44eb3bf47a61ec32f6, type: 3}
     abilityName: Breaching Anomalies
-    abilityDescription: Your Arcane Anomalies periodicly create Void Bolts.
+    abilityDescription: Your Minions periodicly create Void Bolts.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -28,6 +28,7 @@ MonoBehaviour:
     recastOnChannelCost: 0
     normalizedProcRate: 0
     startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -38,6 +39,7 @@ MonoBehaviour:
     childAbilities: []
     runeGroupData: []
     tags: 1a000000
+    resetEvents: 
     activationTriggerData:
     - type: 33
       overrideProcStat: 0
@@ -94,7 +96,9 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
-        - type: 10
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+        - type: 8
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -118,7 +122,7 @@ MonoBehaviour:
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: Amorphous Vestige
-          targetSubtype: 0
+          targetSubtype: 3
           targetPrimaryType: 0
           targetActiveAbilityName: 
           appliedEffectType: 0
@@ -135,6 +139,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -154,6 +160,7 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
@@ -173,6 +180,7 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: bd2398d9e13f5ea43b5533be169ea889, type: 2}

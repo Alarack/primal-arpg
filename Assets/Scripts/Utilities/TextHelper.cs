@@ -75,7 +75,7 @@ public static class TextHelper
             StatName.OverloadChance when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "% </color>",
             StatName.OverloadDamageModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.OverloadDamageModifier when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "% </color>",
-            StatName.StatModifierValue => $"<color=#{bonusColor}>" + value + "</color>",
+            StatName.StatModifierValue => bonusFormat, /*$"<color=#{bonusColor}>" + value + "</color>",*/
             StatName.AbilityWeaponCoefficicent when value < 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.AbilityWeaponCoefficicent when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "% </color>",
             StatName.ProjectilePierceCount when value > 0 => $"<color=#{bonusColor}>" + value + "</color>",

@@ -825,25 +825,27 @@ public class AbilityActiveConstraint : AbilityConstraint {
     }
 
     public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
-        Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
+        //Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
 
-        Ability targetAbility = target.GetAbilityByName(data.targetAbiltyName);
+        Ability targetAbility = target.GetAbilityByName(data.targetActiveAbilityName);
 
         if(targetAbility == null) {
-            Debug.LogWarning("Could not find an Ability: " + data.targetAbiltyName + " whne checking for an active ability on: " + target.EntityName);
+            Debug.LogWarning("Could not find an Ability: " + data.targetActiveAbilityName + " whne checking for an active ability on: " + target.EntityName);
             return false;
         }
 
         bool result = targetAbility.IsActive;
 
+        Debug.Log(targetAbility.IsActive + " Active: " + targetAbility.Data.abilityName);
+
         return inverse == false ? result : !result;
     }
 
     public override bool Evaluate(Effect effect, TriggerInstance triggerInstance) {
-        Ability targetAbility = effect.Source.GetAbilityByName(data.targetAbiltyName);
+        Ability targetAbility = effect.Source.GetAbilityByName(data.targetActiveAbilityName);
 
         if (targetAbility == null) {
-            Debug.LogWarning("Could not find an Ability: " + data.targetAbiltyName + " whne checking for an active ability on: " + effect.Data.effectName);
+            Debug.LogWarning("Could not find an Ability: " + data.targetActiveAbilityName + " whne checking for an active ability on: " + effect.Data.effectName);
             return false;
         }
 
