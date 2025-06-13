@@ -8,16 +8,15 @@ public class PlayerMovement : EntityMovement
 {
 
     //private TrailRenderer dashTrail;
-    [SerializeField]
-    private ParticleSystem dashParticles;
+
 
     private Vector2 direction;
 
     private PlayerInputActions playerInputActions;
 
-    private Timer dashCooldownTimer;
+    //private Timer dashCooldownTimer;
 
-    public float DashCooldownRatio { get { return dashCooldownTimer.Ratio; } }
+    //public float DashCooldownRatio { get { return dashCooldownTimer.Ratio; } }
 
     protected override void Awake() {
         base.Awake();
@@ -29,12 +28,12 @@ public class PlayerMovement : EntityMovement
     }
 
     private void Start() {
-        dashCooldownTimer = new Timer(Owner.Stats[StatName.DashCooldown], OnDashCooldownFinished, true);
+        //dashCooldownTimer = new Timer(Owner.Stats[StatName.DashCooldown], OnDashCooldownFinished, true);
 
     }
 
     private void OnEnable() {
-        playerInputActions.Player.Dash.performed += OnDash;
+        //playerInputActions.Player.Dash.performed += OnDash;
         playerInputActions.Player.Potion.performed += OnPotion;
         //playerInputActions.Player.Look.performed += OnLook;
         //playerInputActions.Player.Move.performed += OnMove;
@@ -42,7 +41,7 @@ public class PlayerMovement : EntityMovement
     }
 
     private void OnDisable() {
-        playerInputActions.Player.Dash.performed -= OnDash;
+        //playerInputActions.Player.Dash.performed -= OnDash;
         playerInputActions.Player.Potion.performed -= OnPotion;
     }
 
@@ -50,14 +49,14 @@ public class PlayerMovement : EntityMovement
     {
         GetInput();
 
-        if(CanDash == false && dashCooldownTimer != null) {
-            dashCooldownTimer.UpdateClock();
-        }
+        //if(CanDash == false && dashCooldownTimer != null) {
+        //    dashCooldownTimer.UpdateClock();
+        //}
     }
 
-    private void OnDash(InputAction.CallbackContext context) {
-        Dash();
-    }
+    //private void OnDash(InputAction.CallbackContext context) {
+    //    Dash();
+    //}
 
     private void OnPotion(InputAction.CallbackContext context) {
 
@@ -122,51 +121,52 @@ public class PlayerMovement : EntityMovement
 
     }
 
-    private void Dash() {
-        if (CanMove == false || CanDash == false)
-            return;
+    //private void Dash() {
+    //    if (CanMove == false || CanDash == false)
+    //        return;
 
-        CanMove = false;
-        CanDash = false;
-        IsDashing = true;
-        //dashTrail.emitting = true;
-        dashParticles.Play();
+    //    CanMove = false;
+    //    CanDash = false;
+    //    IsDashing = true;
+    //    //dashTrail.emitting = true;
+    //    dashParticles.Play();
 
-        Vector2 dashForce;
+    //    Vector2 dashForce;
 
-        if (MyBody.linearVelocity.magnitude <= 0f) {
-            Vector2 lookDirection = Owner.facingIndicator.transform.up;
+    //    if (MyBody.linearVelocity.magnitude <= 0f) {
+    //        Vector2 lookDirection = Owner.facingIndicator.transform.up;
 
-            dashForce = lookDirection.normalized * Owner.Stats[StatName.DashSpeed];
-        }
-        else {
-            dashForce = MyBody.linearVelocity.normalized * Owner.Stats[StatName.DashSpeed];
-        }
+    //        dashForce = lookDirection.normalized * Owner.Stats[StatName.DashSpeed];
+    //    }
+    //    else {
+    //        dashForce = MyBody.linearVelocity.normalized * Owner.Stats[StatName.DashSpeed];
+    //    }
 
-        MyBody.AddForce(dashForce, ForceMode2D.Impulse);
+    //    MyBody.AddForce(dashForce, ForceMode2D.Impulse);
 
-        EventData data = new EventData();
-        data.AddEntity("Entity", Owner);
+    //    EventData data = new EventData();
+    //    data.AddEntity("Entity", Owner);
 
-        EventManager.SendEvent(GameEvent.DashStarted, data);
+    //    EventManager.SendEvent(GameEvent.DashStarted, data);
 
-        StartCoroutine(DashTimer());
-    }
+    //    StartCoroutine(DashTimer());
+    //}
 
-    private IEnumerator DashTimer() {
-        WaitForSeconds waiter = new WaitForSeconds(Owner.Stats[StatName.DashDuration]);
-        yield return waiter;
-        MyBody.linearVelocity = Vector2.zero;
-        CanMove = true;
-        IsDashing = false;
-        //dashTrail.emitting = false;
-        dashParticles.Stop();
-    }
+    //private IEnumerator DashTimer() {
+    //    WaitForSeconds waiter = new WaitForSeconds(Owner.Stats[StatName.DashDuration]);
+    //    yield return waiter;
+    //    MyBody.linearVelocity = Vector2.zero;
+    //    CanMove = true;
+    //    IsDashing = false;
+    //    //dashTrail.emitting = false;
+    //    dashParticles.Stop();
+    //}
 
     private void OnDashCooldownFinished(EventData data) {
         CanDash = true;
 
         EventData eventData = new EventData();
+        eventData.AddEntity("Owner", Owner);
 
         EventManager.SendEvent(GameEvent.DashCooldownFinished, eventData);
     }

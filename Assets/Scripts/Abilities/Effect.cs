@@ -1,9 +1,11 @@
 using LL.Events;
+using LL.FSM;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 using static AbilityTrigger;
 using static Status;
@@ -1060,6 +1062,10 @@ public class ForcedMovementEffect : Effect {
             case MovementDestination.AwayFromSource:
                 ApplyForceAwayFromSource(target);
                 break;
+            case MovementDestination.Dash:
+                PerformDash(target);
+                break;
+
             default:
                 break;
 
@@ -1172,6 +1178,16 @@ public class ForcedMovementEffect : Effect {
         }
 
         ActivateTrail(target);
+    }
+
+
+
+    private void PerformDash(Entity target) {
+        EntityMovement targetMovement = target.Movement;
+
+        targetMovement.BeginDash();
+
+        //StartCoroutine(DashTimer());
     }
 
 

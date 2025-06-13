@@ -32,6 +32,9 @@ public class HotbarPanel : SkillBasePanel {
         playerInputActions.Player.SecondaryFire.performed += OnSecondaryFirePerformed;
         playerInputActions.Player.SecondaryFire.canceled += OnsecondaryFireCanceled;
 
+        playerInputActions.Player.Dash.performed += OnDashPerformed;
+        playerInputActions.Player.Dash.canceled += OnDashCanceled;
+
         playerInputActions.Player.Skill1.performed += OnSkill1Performed;
         playerInputActions.Player.Skill1.canceled += OnSkill1Canceled;  
 
@@ -54,6 +57,9 @@ public class HotbarPanel : SkillBasePanel {
 
         playerInputActions.Player.SecondaryFire.performed -= OnSecondaryFirePerformed;
         playerInputActions.Player.SecondaryFire.canceled -= OnsecondaryFireCanceled;
+
+        playerInputActions.Player.Dash.performed -= OnDashPerformed;
+        playerInputActions.Player.Dash.canceled -= OnDashCanceled;
         
         playerInputActions.Player.Skill1.performed -= OnSkill1Performed;
         playerInputActions.Player.Skill1.canceled -= OnSkill1Canceled;
@@ -123,6 +129,15 @@ public class HotbarPanel : SkillBasePanel {
     private void OnsecondaryFireCanceled(InputAction.CallbackContext context) {
         OnSkillBindCanceled(GameButtonType.SecondaryAttack);
     }
+
+    private void OnDashPerformed(InputAction.CallbackContext context) {
+        OnSkillBindPressed(GameButtonType.Dash, DoesAbilityAutoFire(GameButtonType.Dash));
+    }
+
+    private void OnDashCanceled(InputAction.CallbackContext contect) {
+        OnSkillBindCanceled(GameButtonType.Dash);
+    }
+
 
     private void OnSkill1Performed(InputAction.CallbackContext context) {
         OnSkillBindPressed(GameButtonType.Skill1, DoesAbilityAutoFire(GameButtonType.Skill1));

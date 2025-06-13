@@ -37,6 +37,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public TextMeshProUGUI skillNameText;
     public SkillEntryLocation location;
     public GameButtonType keybind;
+    public AbilityTag abilityRestriction = AbilityTag.None;
 
     [Header("Holders")]
     public GameObject activeHolder;
@@ -115,6 +116,10 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             if (keyBindImage != null) {
                 keyBindImage.gameObject.SetActive(true);
                 keyBindImage.sprite = GameManager.Instance.buttonDict[keyBind];
+            }
+
+            if(keyBind == GameButtonType.Dash) {
+                abilityRestriction = AbilityTag.Utility;
             }
         }
 
@@ -230,6 +235,13 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
     public void AssignNewAbility(Ability ability) {
+
+        if (ability != null && abilityRestriction != AbilityTag.None && ability.Tags.Contains(abilityRestriction) == false) {
+            Debug.LogWarning("You can only equip: " + abilityRestriction + " Skills in this slot");
+            return;
+        }
+        
+        
         this.Ability = ability;
         SetupAbilityIcon(ability);
         SetupCharges();
@@ -414,6 +426,14 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         if (location != SkillEntryLocation.ActiveSkill)
             return;
+
+
+        if(abilityRestriction != AbilityTag.None) {
+            if(draggedEntry.Ability.Tags.Contains(abilityRestriction) == false) {
+                PanelManager.OpenPanel<PopupPanel>().Setup("Invalid Slot", "You can only assign " + abilityRestriction + " Skills in this slot");
+                return;
+            }
+        }
 
         //Debug.Log("Dropping " + draggedEntry.Ability.Data.abilityName + " onto " + Index);
 

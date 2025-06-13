@@ -176,21 +176,17 @@ public class AbilityManager : MonoBehaviour {
         //new Task(AutoEquipStartingSkill());
     }
 
-    private IEnumerator AutoEquipStartingSkill() {
+    //private IEnumerator AutoEquipStartingSkill() {
 
-        yield return new WaitForSeconds(0.5f);
+    //    yield return new WaitForSeconds(0.5f);
 
-        for (int i = 0; i < KnownAbilities.Count; i++) {
-            if (KnownAbilities[i].Data.startingAbility == true) {
-                AutoEquipAbilityToHotbar(KnownAbilities[i], 4);
-                break;
-            }
-        }
-    }
-
-    public void EquipStartingSkill() {
-
-    }
+    //    for (int i = 0; i < KnownAbilities.Count; i++) {
+    //        if (KnownAbilities[i].Data.startingAbility == true) {
+    //            AutoEquipAbilityToHotbar(KnownAbilities[i], 4);
+    //            break;
+    //        }
+    //    }
+    //}
 
 
     #region LEARNING AND EQUIPPING
@@ -387,6 +383,17 @@ public class AbilityManager : MonoBehaviour {
         HotbarPanel hotbar = PanelManager.GetPanel<HotbarPanel>();
 
 
+        if (ability.Tags.Contains(AbilityTag.Utility)) {
+            var abilityBindInfo = hotbar.GetAbilityByKeybind(InputHelper.GameButtonType.Dash);
+            if (abilityBindInfo.Item1 == null) {
+                AutoEquipAbilityToHotbar(ability, abilityBindInfo.Item2);
+            }
+
+            return;
+        }
+
+
+
         Ability leftClickAbility = hotbar.GetActiveAbilityBySlot(4);
 
         if(ability.Data.startingAbility == true && leftClickAbility == null) {
@@ -408,6 +415,15 @@ public class AbilityManager : MonoBehaviour {
         if (existingAbility == null) {
             EquipAbility(ability, slot);
         }
+    }
+
+    public void AutoEquipAbilityToHotbar(Ability ability, InputHelper.GameButtonType keyBind) {
+        Tuple<Ability, int> existingAbility = PanelManager.GetPanel<HotbarPanel>().GetAbilityByKeybind(keyBind);
+
+        if (existingAbility.Item1 == null) {
+            EquipAbility(ability, existingAbility.Item2);
+        }
+
     }
 
     public void UnequipAbility(Ability ability, int index) {

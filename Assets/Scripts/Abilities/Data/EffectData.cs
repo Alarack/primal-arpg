@@ -90,7 +90,8 @@ public enum MovementDestination {
     AwayFromSource,
     SourcePerpendicular,
     Dodge,
-    SourceBackward
+    SourceBackward,
+    Dash
 }
 
 public enum TeleportDestination {

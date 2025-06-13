@@ -630,11 +630,6 @@ public class EffectTargeter {
             projectile.Stats.AddMissingStats(parentEffect.Stats);
             projectile.Stats.AddMissingStats(parentEffect.ParentAbility.Stats);
 
-            
-
-            Debug.Log("Parent Ability Projectile Size: " + parentEffect.ParentAbility.Stats[StatName.ProjectileSize]);
-            Debug.Log("Effect Projectile Size: " + parentEffect.Stats[StatName.ProjectileSize]);
-
             projectile.Setup(parentEffect.Source, parentEffect, parentEffect.Data.projectileHitMask, parentEffect.Data.maskTargeting);
 
             if (parentEffect.Data.spawnLocation == DeliverySpawnLocation.Trigger) {

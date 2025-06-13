@@ -1,11 +1,11 @@
 using LL.Events;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static InputHelper;
 
-public class SkillBasePanel : BasePanel
-{
+public class SkillBasePanel : BasePanel {
 
     [Header("Template")]
     public Transform holder;
@@ -31,7 +31,7 @@ public class SkillBasePanel : BasePanel
     protected override void OnEnable() {
         base.OnEnable();
 
-        if(EntityManager.ActivePlayer == null) {
+        if (EntityManager.ActivePlayer == null) {
             Debug.LogError("No player exists when opening skill panel");
             return;
         }
@@ -55,17 +55,46 @@ public class SkillBasePanel : BasePanel
     }
 
     public Ability GetActiveAbilityBySlot(int index) {
-        
-        if(index >= activeSkillEntries.Count) {
+
+        if (index >= activeSkillEntries.Count) {
             Debug.LogError("Index out of range. Tried to get the " + index + " item, but there are only " + activeSkillEntries.Count);
             return null;
         }
-        
+
         return activeSkillEntries[index].Ability;
     }
 
+
+    public int GetSlotIndexByKeybind(GameButtonType keybind) {
+
+        for (int i = 0; i < activeSkillEntries.Count; i++) {
+            if (activeSkillEntries[i].keybind == keybind)
+                return i;
+        }
+
+        return -1;
+    }
+
+    public Tuple<Ability, int> GetAbilityByKeybind(InputHelper.GameButtonType keybind) {
+
+        Tuple<Ability, int> results = null;
+
+        for (int i = 0; i < activeSkillEntries.Count; i++) {
+            if (activeSkillEntries[i].keybind == keybind) {
+
+                results = new Tuple<Ability, int>(activeSkillEntries[i].Ability, i);
+
+                return results;
+            }
+        }
+
+        results = new Tuple<Ability, int>(null, GetSlotIndexByKeybind(keybind));
+
+        return results;
+    }
+
     public int GetFirstEmptySlot() {
-        for (int i = activeSkillEntries.Count -1; i >= 0; i--) {
+        for (int i = activeSkillEntries.Count - 1; i >= 0; i--) {
             if (activeSkillEntries[i].Ability == null) {
                 return i;
             }
@@ -77,15 +106,15 @@ public class SkillBasePanel : BasePanel
     public int GetAbilitySlotIndex(Ability ability) {
 
         //Debug.Log("Checking: " + ability.Data.abilityName);
-        
+
         for (int i = 0; i < activeSkillEntries.Count; i++) {
 
             //if (activeSkillEntries[i].Ability != null)
             //    Debug.Log("Found: " + activeSkillEntries[i].Ability.Data.abilityName);
-            
+
             if (activeSkillEntries[i].Ability == ability) {
                 //Debug.Log("Match!");
-                
+
                 return i;
             }
         }
@@ -96,8 +125,8 @@ public class SkillBasePanel : BasePanel
     }
 
     public virtual SkillEntry GetSkillEntryByAbility(Ability ability) {
-        
-        if(ability.Data.category == AbilityCategory.KnownSkill) {
+
+        if (ability.Data.category == AbilityCategory.KnownSkill) {
             for (int i = 0; i < activeSkillEntries.Count; i++) {
                 if (activeSkillEntries[i].Ability == ability) {
                     return activeSkillEntries[i];

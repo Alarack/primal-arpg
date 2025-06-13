@@ -71,7 +71,7 @@ public class HUDPanel : BasePanel {
     protected override void Update() {
         base.Update();
 
-        UpdateDashUI();
+        //UpdateDashUI();
 
 
     }
@@ -94,17 +94,17 @@ public class HUDPanel : BasePanel {
         statusIndicators.ClearList();
     }
 
-    private void UpdateDashUI() {
-        if (playerMovement == null)
-            return;
+    //private void UpdateDashUI() {
+    //    if (playerMovement == null)
+    //        return;
         
-        dashImage.fillAmount = Mathf.Abs(playerMovement.DashCooldownRatio - 1);
+    //    dashImage.fillAmount = Mathf.Abs(playerMovement.DashCooldownRatio - 1);
 
-        if (dashImage.fillAmount != 0f && playerMovement.CanDash == true) {
-            dashImage.fillAmount = 0f;
-        }
+    //    if (dashImage.fillAmount != 0f && playerMovement.CanDash == true) {
+    //        dashImage.fillAmount = 0f;
+    //    }
 
-    }
+    //}
 
     private void OnDashCooldownFinished(EventData data) {
         dashShimmer.localPosition = new Vector2(-50f, 0f);

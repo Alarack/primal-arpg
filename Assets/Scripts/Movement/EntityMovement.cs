@@ -1,9 +1,9 @@
+using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityMovement : MonoBehaviour
-{
+public class EntityMovement : MonoBehaviour {
 
     public Entity Owner { get; protected set; }
     public Rigidbody2D MyBody { get; protected set; }
@@ -11,28 +11,28 @@ public class EntityMovement : MonoBehaviour
     public bool IsDashing { get; protected set; }
     public bool CanDash { get; set; } = true;
 
-    protected virtual void Awake()
-    {
+    [Header("Dash Fields")]
+    public ParticleSystem dashParticles;
+
+    protected virtual void Awake() {
         CanMove = true;
         MyBody = GetComponent<Rigidbody2D>();
         Owner = GetComponent<Entity>();
     }
 
 
-    protected virtual void FixedUpdate()
-    {
-        if(CanMove == true)
+    protected virtual void FixedUpdate() {
+        if (CanMove == true)
             Move();
     }
 
 
-    protected virtual void Move()
-    {
+    protected virtual void Move() {
 
     }
 
     public virtual float IsMoving() {
-        if(MyBody != null) {
+        if (MyBody != null) {
             return MyBody.linearVelocity.magnitude;
         }
 
@@ -43,5 +43,71 @@ public class EntityMovement : MonoBehaviour
         MyBody.linearVelocity = Vector3.zero;
         CanMove = false;
     }
+
+
+
+
+    #region DASHING
+
+    public void BeginDash() {
+        if (CanMove == false || CanDash == false)
+            return;
+
+        CanMove = false;
+        CanDash = false;
+        IsDashing = true;
+
+        ToggleDashTrail(true);
+
+        Vector2 dashForce;
+
+        if (MyBody.linearVelocity.magnitude <= 0f) {
+            Vector2 lookDirection = Owner.facingIndicator.transform.up;
+
+            dashForce = lookDirection.normalized * Owner.Stats[StatName.DashSpeed];
+        }
+        else {
+            dashForce = MyBody.linearVelocity.normalized * Owner.Stats[StatName.DashSpeed];
+        }
+
+        MyBody.AddForce(dashForce, ForceMode2D.Impulse);
+
+        EventData data = new EventData();
+        data.AddEntity("Entity", Owner);
+
+        EventManager.SendEvent(GameEvent.DashStarted, data);
+
+        StartCoroutine(DashTimer());
+    }
+
+    protected IEnumerator DashTimer() {
+        WaitForSeconds waiter = new WaitForSeconds(Owner.Stats[StatName.DashDuration]);
+        yield return waiter;
+        MyBody.linearVelocity = Vector2.zero;
+        CanMove = true;
+        IsDashing = false;
+        CanDash = true;
+        //dashTrail.emitting = false;
+        ToggleDashTrail(false);
+    }
+
+    public void ToggleDashTrail(bool toggle) {
+        if (dashParticles == null) {
+            Debug.LogWarning(Owner.EntityName + " has no dash particles");
+            return;
+        }
+
+        if(toggle == true)
+            dashParticles.Play();
+        else
+            dashParticles.Stop();
+
+    }
+
+
+    #endregion
+
+
+
 
 }
