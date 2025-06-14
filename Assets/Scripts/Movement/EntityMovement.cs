@@ -78,6 +78,8 @@ public class EntityMovement : MonoBehaviour {
         EventManager.SendEvent(GameEvent.DashStarted, data);
 
         StartCoroutine(DashTimer());
+
+        Physics2D.IgnoreLayerCollision(Owner.gameObject.layer, LayerMask.NameToLayer("Enemy"), true);
     }
 
     protected IEnumerator DashTimer() {
@@ -87,6 +89,7 @@ public class EntityMovement : MonoBehaviour {
         CanMove = true;
         IsDashing = false;
         CanDash = true;
+        Physics2D.IgnoreLayerCollision(Owner.gameObject.layer, LayerMask.NameToLayer("Enemy"), false);
         //dashTrail.emitting = false;
         ToggleDashTrail(false);
     }

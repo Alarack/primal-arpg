@@ -16,7 +16,8 @@ MonoBehaviour:
     category: 1
     abilityIcon: {fileID: 6201607243973417181, guid: 1a6cfb474ec44bd4cb7ec8ca1ba6c589, type: 3}
     abilityName: Dash
-    abilityDescription: Dash forward in the direciton you're moving.
+    abilityDescription: Dash forward in the direciton you're moving. You can dash
+      through enemies, but you are not invincible while dashing.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -176,4 +177,4 @@ MonoBehaviour:
         requireMultipleTriggers: 0
         reduceTriggerCountByAbilityLevel: 0
         minTriggerCount: 0
-      cooldown: 1
+      cooldown: 0.75

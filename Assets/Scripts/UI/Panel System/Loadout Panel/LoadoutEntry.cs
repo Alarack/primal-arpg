@@ -8,7 +8,8 @@ public class LoadoutEntry : MonoBehaviour
     public enum LoadoutEntryType {
         Weapon,
         Skill,
-        Item
+        Item,
+        UtilitySkill
     }
 
     public LoadoutEntryType loadoutType;
@@ -59,6 +60,7 @@ public class LoadoutEntry : MonoBehaviour
             LoadoutEntryType.Weapon => GetStartingWeapons,
             LoadoutEntryType.Skill => GetStartingSkills,
             LoadoutEntryType.Item => GetRecoveredItems,
+            LoadoutEntryType.UtilitySkill => GetStartingUtilitySkills,
             _ => null
         };
 
@@ -78,6 +80,10 @@ public class LoadoutEntry : MonoBehaviour
 
     private void GetStartingSkills() {
         items = ItemSpawner.Instance.lootDatabase.GetStarterSkills();
+    }
+
+    private void GetStartingUtilitySkills() {
+        items = ItemSpawner.Instance.lootDatabase.GetStarterUtilitySkills();
     }
 
     private void GetRecoveredItems() {

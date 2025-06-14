@@ -1197,16 +1197,22 @@ public class ForcedMovementEffect : Effect {
         if (target == null)
             return;
 
-        TrailRenderer trail = target.GetComponentInChildren<TrailRenderer>();
-        if (trail != null) {
-            trail.emitting = active;
+        target.Movement.ToggleDashTrail(active);
+
+        if (active == true)
+            new Task(DelayTrailDeactivate(target));
+
+
+        //TrailRenderer trail = target.GetComponentInChildren<TrailRenderer>();
+        //if (trail != null) {
+        //    trail.emitting = active;
             
-            if(active == true)
-                new Task(DelayTrailDeactivate(target));
-        }
-        else {
-            Debug.LogError("No Trail found on: " + target.EntityName);
-        }
+        //    if(active == true)
+        //        new Task(DelayTrailDeactivate(target));
+        //}
+        //else {
+        //    Debug.LogError("No Trail found on: " + target.EntityName);
+        //}
     }
 
 
@@ -1214,7 +1220,9 @@ public class ForcedMovementEffect : Effect {
 
         if (Data.showTrail == false)
             return;
-        
+
+        //target.Movement.ToggleDashTrail(true);
+
         ToggleTrail(target, true);
     }
 

@@ -75,7 +75,18 @@ public class LootDatabase : ScriptableObject {
         List<ItemDefinition> results = new List<ItemDefinition>();
 
         foreach (var entry in itemDict[ItemType.Skill]) {
-            if (entry.startingItem == true)
+            if (entry.startingItem == true && entry.itemData.IsUtilitySkillScroll() == false)
+                results.Add(entry);
+        }
+
+        return results;
+    }
+
+    public List<ItemDefinition> GetStarterUtilitySkills() {
+        List<ItemDefinition> results = new List<ItemDefinition>();
+
+        foreach (var entry in itemDict[ItemType.Skill]) {
+            if (entry.startingItem == true && entry.itemData.IsUtilitySkillScroll() == true)
                 results.Add(entry);
         }
 

@@ -27,7 +27,9 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
-    startingAbility: 0
+    showProcChanceOnOtherSkills: 0
+    startingAbility: 1
+    scaleProcByLevel: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -47,7 +49,8 @@ MonoBehaviour:
     - runes:
       - {fileID: 11400000, guid: c3263ef78edcf314892bf77f103092c7, type: 2}
       tier: 3
-    tags: 0e0000000f000000
+    tags: 1e0000000e0000000f000000
+    resetEvents: 
     activationTriggerData:
     - type: 6
       overrideProcStat: 0
@@ -105,6 +108,7 @@ MonoBehaviour:
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0

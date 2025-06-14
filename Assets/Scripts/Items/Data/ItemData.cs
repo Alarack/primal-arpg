@@ -24,7 +24,7 @@ public enum ItemSlot {
     ForgeSlot
 }
 
-public enum ItemType { 
+public enum ItemType {
     None,
     Equipment,
     Rune,
@@ -41,8 +41,7 @@ public enum ItemType {
 
 
 [System.Serializable]
-public class ItemData 
-{
+public class ItemData {
     public ItemType Type;
     public StatName affixStatTarget = StatName.Vitality;
     public Entity.EntityClass entityClass;
@@ -80,7 +79,7 @@ public class ItemData
     }
 
 
-    public ItemData (StatName stat, float value, int tier = 1) {
+    public ItemData(StatName stat, float value, int tier = 1) {
         Type = ItemType.StatBooster;
         affixStatTarget = stat;
         this.tier = tier;
@@ -149,7 +148,7 @@ public class ItemData
 
         builder.Append(TextHelper.ColorizeText(rarityName + " ", GetTierColor(tier), 15f)).AppendLine()/*.Append(GetTier())*/
                .Append(" ")
-               .Append(maxPrefix + TextHelper.PretifyStatName( statModifierData[0].targetStat))
+               .Append(maxPrefix + TextHelper.PretifyStatName(statModifierData[0].targetStat))
                .Append(": ")
                .Append(TextHelper.FormatStat(statModifierData[0].targetStat, statModifierData[0].value))
 
@@ -197,10 +196,41 @@ public class ItemData
         //return result;
     }
 
+    public bool IsStarterSkillScroll() {
+        if (Type != ItemType.Skill)
+            return false;
+
+
+        if (learnableAbilities[0].AbilityData.startingAbility == false)
+            return false;
+
+
+        if (learnableAbilities[0].AbilityData.tags.Contains(AbilityTag.Utility) == true)
+            return false;
+
+        return true;
+
+    }
+
+    public bool IsUtilitySkillScroll() {
+        if (Type != ItemType.Skill)
+            return false;
+
+        if (learnableAbilities[0].AbilityData.startingAbility == false)
+            return false;
+
+        if (learnableAbilities[0].AbilityData.tags.Contains(AbilityTag.Utility) == false)
+            return false;
+
+        return true;
+
+    }
+
+
     public string GetItemInfo() {
 
-        if(Type == ItemType.Equipment) {
-            if(validSlots.Count > 0) {
+        if (Type == ItemType.Equipment) {
+            if (validSlots.Count > 0) {
 
                 if (validSlots[0] == ItemSlot.Ring1 || validSlots[0] == ItemSlot.Ring2) {
                     return "Ring";
@@ -214,8 +244,8 @@ public class ItemData
             }
         }
 
-        if(Type == ItemType.Skill) {
-            for(int i = 0; i < learnableAbilities.Count; i++) {
+        if (Type == ItemType.Skill) {
+            for (int i = 0; i < learnableAbilities.Count; i++) {
                 if (learnableAbilities[i].AbilityData.tags.Count > 0) {
                     string result = learnableAbilities[i].AbilityData.tags[0].ToString() + " Skill";
                     return result;
@@ -223,7 +253,7 @@ public class ItemData
             }
         }
 
-        if(Type == ItemType.Rune) {
+        if (Type == ItemType.Rune) {
             return abilityDefinitions[0].AbilityData.runeAbilityTarget + " Rune";
         }
 
