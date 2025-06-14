@@ -90,6 +90,7 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             return;
 
         Ability.RemoveChargesChangedListener(OnAbilityChargesChanges);
+        Ability.RemoveMaxChargesChangedListener(OnMaxChargedChanged);
 
     }
 
@@ -176,17 +177,35 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
     private void SetupCharges() {
-        if (Ability == null || location != SkillEntryLocation.Hotbar || Ability.MaxCharges < 2) {
+        if (Ability == null || location != SkillEntryLocation.Hotbar) {
             chargesText.gameObject.SetActive(false);
             //Debug.Log("NO Charges");
             return;
         }
 
-        chargesText.gameObject.SetActive(true);
-        chargesText.text = Ability.MaxCharges.ToString();
+        if(Ability.MaxCharges > 1) {
+            chargesText.gameObject.SetActive(true);
+            chargesText.text = Ability.MaxCharges.ToString();
+        }
+
 
         Ability.AddChargesChangedListener(OnAbilityChargesChanges);
+        Ability.AddMaxChargedChangedListener(OnMaxChargedChanged);
 
+    }
+
+    private void OnMaxChargedChanged(BaseStat stat, object source, float value) {
+        if (Ability == null) {
+            chargesText.gameObject.SetActive(false);
+            return;
+        }
+
+        if (Ability.MaxCharges > 1) {
+            chargesText.gameObject.SetActive(true);
+        }
+        else {
+            chargesText.gameObject.SetActive(false);
+        }
     }
 
     private void OnAbilityChargesChanges(BaseStat stat, object source, float value) {

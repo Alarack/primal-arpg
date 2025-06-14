@@ -169,7 +169,8 @@ namespace LL.Events {
         AbilityLevelChanged,
         ProjectileDetected,
         MasterySelected,
-        DashCooldownFinished
+        DashCooldownFinished,
+        DashEnded
     }
 
 

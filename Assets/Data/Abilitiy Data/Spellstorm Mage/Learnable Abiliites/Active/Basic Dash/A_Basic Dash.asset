@@ -39,7 +39,11 @@ MonoBehaviour:
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
-    runeGroupData: []
+    runeGroupData:
+    - runes:
+      - {fileID: 11400000, guid: 11639b5f72f9cbd4e919a1eceaa73eb2, type: 2}
+      - {fileID: 11400000, guid: 59a65f56b276d844dab8259c4392cb3b, type: 2}
+      tier: 1
     tags: 1e0000001d000000
     resetEvents: 
     activationTriggerData:
@@ -177,4 +181,4 @@ MonoBehaviour:
         requireMultipleTriggers: 0
         reduceTriggerCountByAbilityLevel: 0
         minTriggerCount: 0
-      cooldown: 0.75
+      cooldown: 1.25

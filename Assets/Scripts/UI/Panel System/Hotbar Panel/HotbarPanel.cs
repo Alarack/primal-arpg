@@ -184,7 +184,7 @@ public class HotbarPanel : SkillBasePanel {
 
         Vector2 mouseViewportPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
-        if (mouseViewportPos.y < 0.2f)
+        if (mouseViewportPos.y < 0.2f && button != GameButtonType.Dash)
             return;
 
         Ability ability = GetAbilityBykeyBind(button);

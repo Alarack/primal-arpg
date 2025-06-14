@@ -74,7 +74,18 @@ public static class StatAdjustmentManager {
     }
 
     public static void RemoveAbilityModifier(Ability ability, StatModifier mod) {
-        ability.Stats.RemoveModifier(mod.TargetStat, mod);
+
+        Action<StatName, StatModifier> statModAction = mod.VariantTarget switch {
+            StatModifierData.StatVariantTarget.Simple => ability.Stats.RemoveModifier,
+            //StatModifierData.StatVariantTarget.RangeCurrent => ability.Stats.AdjustStatRangeCurrentValue,
+            StatModifierData.StatVariantTarget.RangeMin => ability.Stats.RemoveMinValueModifier,
+            StatModifierData.StatVariantTarget.RangeMax => ability.Stats.RemoveMaxValueModifier,
+            _ => null,
+        };
+
+        statModAction?.Invoke(mod.TargetStat, mod);
+
+        //ability.Stats.RemoveModifier(mod.TargetStat, mod);
 
         SendAbilityStatChangeEvent(mod.TargetStat, ability, mod.Value);
     }

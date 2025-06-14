@@ -547,13 +547,23 @@ public class Ability {
         Stats.RemoveMaxValueModifier(StatName.AbilityCharge, mod);
     }
 
+    public void AddMaxChargedChangedListener(Action<BaseStat, object, float> callback) {
+        Stats.AddStatRangeMaxListener(StatName.AbilityCharge, callback);
+    }
+
+    public void RemoveMaxChargesChangedListener(Action<BaseStat, object, float> callback) {
+        Stats.RemoveStatRangeMaxListener(StatName.AbilityCharge, callback);
+    }
+
     public void AddChargesChangedListener(Action<BaseStat, object, float> callback) {
         Stats.AddStatListener(StatName.AbilityCharge, callback);
+        //Stats.AddStatRangeMaxListener(StatName.AbilityCharge, callback);
         recoveryStatListeners.Add(callback);
     }
 
     public void RemoveChargesChangedListener(Action<BaseStat, object, float> callback) {
         Stats.RemoveStatListener(StatName.AbilityCharge, callback);
+        //Stats.RemoveStatRangeMaxListener(StatName.AbilityCharge, callback);
         recoveryStatListeners.Remove(callback);
     }
 

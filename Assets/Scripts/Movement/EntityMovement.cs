@@ -54,7 +54,7 @@ public class EntityMovement : MonoBehaviour {
             return;
 
         CanMove = false;
-        CanDash = false;
+        //CanDash = false;
         IsDashing = true;
 
         ToggleDashTrail(true);
@@ -88,10 +88,16 @@ public class EntityMovement : MonoBehaviour {
         MyBody.linearVelocity = Vector2.zero;
         CanMove = true;
         IsDashing = false;
-        CanDash = true;
+        //CanDash = true;
         Physics2D.IgnoreLayerCollision(Owner.gameObject.layer, LayerMask.NameToLayer("Enemy"), false);
         //dashTrail.emitting = false;
         ToggleDashTrail(false);
+
+        EventData data = new EventData();
+        data.AddEntity("Entity", Owner);
+
+        EventManager.SendEvent(GameEvent.DashEnded, data);
+
     }
 
     public void ToggleDashTrail(bool toggle) {
