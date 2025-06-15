@@ -10,7 +10,8 @@ public class ProjectileMovement : EntityMovement
     {
         Straight,
         Seeking,
-        Drunk
+        Drunk,
+        Orbiting
     }
 
     public MovementBehavior movementBehavior;
@@ -64,6 +65,12 @@ public class ProjectileMovement : EntityMovement
             seekTimer = new Timer(seekDuration, OnSeekTimerFinished);
         }
 
+        if(movementBehavior == MovementBehavior.Orbiting) {
+            
+            MyBody.AddForce(transform.up * 250f * Time.fixedDeltaTime, ForceMode2D.Impulse);
+
+        }
+
         if (delayTime > 0f) {
             hovering = true;
             delayTimer = new Timer(delayTime, OnDelayTimerFinished);
@@ -74,6 +81,8 @@ public class ProjectileMovement : EntityMovement
   
         }
     }
+
+
 
     public void ChangeBehaviour(MovementBehavior newBehavior, float seektimer = -1, float drunkTimer = 0.5f) {
         
@@ -196,6 +205,9 @@ public class ProjectileMovement : EntityMovement
             case MovementBehavior.Drunk:
                 MoveDrunk();
                 break;
+            case MovementBehavior.Orbiting:
+                MoveOrbiting();
+                break;
 
         }
     }
@@ -210,6 +222,14 @@ public class ProjectileMovement : EntityMovement
         //Debug.Log("Projectile Source is Null: " + projectileSource);
 
         MyBody.AddForce(transform.up * Owner.Stats[StatName.MoveSpeed] * globalProjectileSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
+    }
+
+    private void MoveOrbiting() {
+        MoveStraight();
+
+
+        seekTarget = projectileOwner.Source.transform;
+        TargetUtilities.RotateSmoothlyTowardTarget(seekTarget, transform, Owner.Stats[StatName.RotationSpeed]);
     }
 
     private void Hover() {
@@ -229,9 +249,6 @@ public class ProjectileMovement : EntityMovement
         else {
             RotateTowardForwardPoint();
         }
-        
-       
-
     }
 
     private void RotateTowardTarget() {

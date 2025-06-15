@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
+  m_Name: A_R_Galactic Center
+  m_EditorClassIdentifier: 
+  AbilityData:
+    category: 3
+    abilityIcon: {fileID: 0}
+    abilityName: Galactic Center
+    abilityDescription: Stars no longer hover for a second before launching and now
+      orbit around you instead of shooting forward.
+    resourceCost: 0
+    toBestow: 0
+    suspend: 0
+    autoFire: 0
+    ignoreOtherCasting: 0
+    includeEffectsInTooltip: 0
+    showChildAbilitiesInTooltip: 0
+    ignoreTooltip: 0
+    recastOnChannelCost: 0
+    normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
+    startingAbility: 0
+    scaleProcByLevel: 0
+    runeAbilityTarget: Stream of Stars
+    animationString: 
+    waitForAnimToResolve: 0
+    initSFXVolume: 1
+    initiationSounds: []
+    channelSFXVolume: 1
+    channeledSounds: []
+    childAbilities: []
+    runeGroupData: []
+    tags: 
+    resetEvents: 
+    activationTriggerData:
+    - type: 17
+      overrideProcStat: 0
+      procChance: 1
+      triggerDelay: 0
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
+      delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
+      allConstraints:
+      - focus: 1
+        constraintData: []
+    endTriggerData:
+    - type: 18
+      overrideProcStat: 0
+      procChance: 1
+      triggerDelay: 0
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
+      delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
+      allConstraints: []
+    counterData:
+      useCustomRefreshTrigger: 0
+      customRefreshTriggerData:
+        type: 0
+        overrideProcStat: 0
+        procChance: 1
+        triggerDelay: 0
+        riderAbilityName: 
+        riderEffectName: 
+        triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
+        delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
+        allConstraints: []
+      limitedNumberOfTriggers: 0
+      maxTriggerCount: 0
+      requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
+      minTriggerCount: 0
+    endCounterData:
+      useCustomRefreshTrigger: 0
+      customRefreshTriggerData:
+        type: 0
+        overrideProcStat: 0
+        procChance: 1
+        triggerDelay: 0
+        riderAbilityName: 
+        riderEffectName: 
+        triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
+        delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
+        allConstraints: []
+      limitedNumberOfTriggers: 0
+      maxTriggerCount: 0
+      requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
+      minTriggerCount: 0
+    effectDefinitions:
+    - {fileID: 11400000, guid: c28fddd39cac8924f8d8a57012b04127, type: 2}
+    effectData: []
+    startingRecoveryCharges: 1
+    baseRuneSlots: 2
+    maxRanks: -1
+    windupVFX: {fileID: 0}
+    abilityStatData: []
+    recoveryData: []
