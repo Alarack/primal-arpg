@@ -33,7 +33,8 @@ public class Status {
         MoveHaste,
         TimeRip,
         SpaceRipped,
-        EldritchInstability
+        EldritchInstability,
+        Inivincible
     }
 
     #endregion

@@ -3654,6 +3654,12 @@ public class StatAdjustmentEffect : Effect {
 
         //Debug.LogWarning("applying a stat adjustment: " + activeMod.Value + " from " + ParentAbility.Data.abilityName);
 
+        if (target.HasStatus(StatusName.Inivincible) == true) {
+            if(activeMod.Value < 0f) {
+                return;
+            }
+        }
+
 
         float vulnerabilityMod = GetVulnerabilityModifier(target, activeMod.Value);
 

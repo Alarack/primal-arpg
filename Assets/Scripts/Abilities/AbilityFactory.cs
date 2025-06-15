@@ -50,6 +50,7 @@ public static class AbilityFactory {
             TriggerType.StatusStacked => new StatusStackedTrigger(data, source, parentAbility),
             TriggerType.Chain => new ChainTrigger(data, source, parentAbility),
             TriggerType.ProjectileDetected => new ProjectileDetectedTrigger(data, source, parentAbility),
+            TriggerType.DashEnded => new DashEndedTrigger(data, source, parentAbility),
             _ => null,
         };
 

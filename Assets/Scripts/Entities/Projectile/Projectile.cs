@@ -263,6 +263,10 @@ public class Projectile : Entity {
             return;
         }
 
+        //if (other.GetComponent<Entity>().HasStatus(Status.StatusName.Inivincible))
+        //    return;
+        
+
         DeployZoneEffect(other);
 
         ApplyImpact(other);

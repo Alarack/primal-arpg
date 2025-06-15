@@ -850,6 +850,28 @@ public class DashStartedTrigger : AbilityTrigger {
     }
 }
 
+public class DashEndedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.DashEnded;
+    public override GameEvent TargetEvent => GameEvent.DashEnded;
+    public override Action<EventData> EventReceiver => OnDashEnded;
+
+    public DashEndedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnDashEnded(EventData data) {
+
+        Entity dasher = data.GetEntity("Entity");
+
+        TriggeringEntity = dasher;
+        CauseOfTrigger = dasher;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
 public class OverloadTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.OverloadTriggered;
