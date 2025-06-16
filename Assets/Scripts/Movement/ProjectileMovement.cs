@@ -41,6 +41,7 @@ public class ProjectileMovement : EntityMovement
     public float drunkInterval;
     public float drunkVariance;
     private Timer drunkTimer;
+    public bool haltSpeedOnDrunkChange;
 
     private Quaternion lastDrunkRotation;
 
@@ -283,6 +284,10 @@ public class ProjectileMovement : EntityMovement
         Vector3 drunkVector = new Vector3(0f, 0f, alterdZ);
 
         lastDrunkRotation = Quaternion.Euler(drunkVector);
+
+        if(haltSpeedOnDrunkChange == true) {
+            MyBody.linearVelocity = Vector2.zero;
+        }
 
         //transform.eulerAngles = drunkVector;
 

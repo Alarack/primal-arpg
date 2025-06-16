@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Buff Missle Damage
+  m_Name: E_Aracne Vulnerable Status
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Chaotic Barrage Buff Missle Damage
-    effectDescription: Increase Weapon Damage by {}
-    type: 1
-    targeting: 9
-    subTarget: 5
+    effectName: Penetrating Missiles - Apply Arcane Vulnerable Status
+    effectDescription: 
+    type: 3
+    targeting: 2
+    subTarget: 1
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -30,53 +30,10 @@ MonoBehaviour:
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     chainTargetDelay: 0.1
-    otherAbilityName: Test Sword Swipe
-    otherEffectName: Sword Swipe Damage
+    otherAbilityName: 
+    otherEffectName: 
     targetAbilityForLastPayload: 
-    targetConstraints:
-    - type: 19
-      inverse: 0
-      statChangeTarget: 0
-      changeDirection: 0
-      minStatChangeRequired: 0
-      statChangeDelta: 0
-      constrainByDelivery: 0
-      deliveryConstraint: {fileID: 0}
-      minRange: 0
-      maxRange: 0
-      rangeToWhat: 0
-      ownerTarget: 0
-      mostStatTarget: 0
-      mostStatEffectName: 
-      mostStatAbilityName: 
-      leastStatTarget: 0
-      leastStatEffectName: 
-      leastStatAbilityName: 
-      minStatTarget: 0
-      minStatValue: 0
-      nonZero: 0
-      maxStatTarget: 0
-      maxStatValue: 0
-      targetEntityName: 
-      targetSubtype: 0
-      targetPrimaryType: 0
-      targetActiveAbilityName: 
-      appliedEffectType: 0
-      appliedEffectName: 0
-      targetStateData: {fileID: 0}
-      stateEntered: 
-      stateExited: 
-      targetAbilityTag: 0
-      targetAbiltyName: Test Sword Swipe
-      targetEffectName: Arcane Missles Damage
-      effectDesigantion: 1
-      targetEffectType: 0
-      targetStatus: 0
-      statRatioTarget: 0
-      targetRatio: 0
-      movementMagnitudeLimit: 0.1
-      abilitySlot: 0
-      projectileToCheck: {fileID: 0}
+    targetConstraints: []
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadStatData: []
@@ -104,23 +61,7 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData:
-    - targetStat: 28
-      value: 1
-      modifierType: 1
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 0
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
+    modData: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -181,11 +122,21 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    effectDesignation: 1
+    effectDesignation: 0
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     statusModifiers: []
-    statusToAdd: []
+    statusToAdd:
+    - statusName: 10
+      stackMethod: 1
+      maxStacks: 3
+      initialStackCount: 1
+      duration: 0
+      interval: 0
+      VFXPrefab: {fileID: 119216, guid: e85f4a610ef9e5b4aa9cedce76136489, type: 3}
+      statusSprite: {fileID: 0}
+      vfxScaleModifier: 1
+      statusEffectDef: {fileID: 11400000, guid: 3f4722468e8d97e4ea7a8bfef9897c41, type: 2}
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0

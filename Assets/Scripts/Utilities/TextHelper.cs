@@ -48,7 +48,8 @@ public static class TextHelper
             //StatName.Money => throw new System.NotImplementedException(),
             StatName.DetectionRange => throw new System.NotImplementedException(),
             StatName.Knockback => throw new System.NotImplementedException(),
-            StatName.ProjectileLifetime => $"<color=#{bonusColor}>" + value + " </color>",
+            StatName.ProjectileLifetime when value >= 0 => bonusFormat,
+            StatName.ProjectileLifetime when value < 0 => penaltyFormat,
             StatName.EffectLifetime => $"<color=#{bonusColor}>" + value  + " </color>",
             //StatName.EffectIntensity_Percent => throw new System.NotImplementedException(),
             StatName.Cooldown when value < 0 => $"<color=#{bonusColor}>" + (value * 100) + "% </color>",
@@ -137,7 +138,8 @@ public static class TextHelper
             StatName.GlobalEffectSizeModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalProjectileSizeModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalProjectileSizeModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
-            
+            StatName.ProjectileEffectContrabution when value >= 0 => bonusFormat,
+            StatName.ProjectileEffectContrabution when value < 0 => penaltyFormat,
             
             //StatName.EssenceRegenerationRate when value >= 0 => $"<color=#{bonusColor}>" + (value) + "</color>",
             //StatName.EssenceRegenerationRate when value < 0 => $"<color=#{penaltyColor}>" + (value) + "</color>",
@@ -229,7 +231,7 @@ public static class TextHelper
             StatName.ProjectileChainCount => "Chain Count",
             StatName.ProjectileSplitCount => "Split Count",
             StatName.ProjectileSplitQuantity => "Split Quantity",
-            //StatName.ProjectileEffectContrabution => throw new System.NotImplementedException(),
+            StatName.ProjectileEffectContrabution => "Projectile Damage",
             StatName.EffectMaxTargets => "Targets",
             StatName.GlobalEffectSizeModifier => "Effect Size Modifier",
             StatName.GlobalEffectRangeModifier => "Range Modifier",

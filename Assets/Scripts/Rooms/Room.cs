@@ -61,6 +61,7 @@ public abstract class Room {
             return;
         }
 
+        RoomManager.InCombat = false;
         RoomManager.CreateRewards(GetAllItemRewards(), displayText, multiReward, shopMode);
     }
 

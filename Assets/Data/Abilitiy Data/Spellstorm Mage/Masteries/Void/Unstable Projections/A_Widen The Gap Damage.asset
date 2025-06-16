@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_M_Unstable Projections
+  m_Name: A_Widen The Gap Damage
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 21300000, guid: 2502e47dcc46d554682969478b6b5721, type: 3}
-    abilityName: Unstable Projections
-    abilityDescription: Whenever you create a Non-Void Projectile, you have a {PR}
-      chance to also spawn a Void-Bolt.
+    category: 5
+    abilityIcon: {fileID: 21300000, guid: 8a2aa77ce50c65b43a70f8268e4c2ab0, type: 3}
+    abilityName: Widen The Gap Damage
+    abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
-    ignoreOtherCasting: 1
+    ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
-    showChildAbilitiesInTooltip: 1
+    showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
@@ -40,7 +39,7 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 170000001a00000008000000
+    tags: 1a000000
     resetEvents: 
     activationTriggerData:
     - type: 29
@@ -101,7 +100,7 @@ MonoBehaviour:
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
         - type: 10
-          inverse: 1
+          inverse: 0
           statChangeTarget: 0
           changeDirection: 0
           minStatChangeRequired: 0
@@ -134,7 +133,7 @@ MonoBehaviour:
           stateExited: 
           targetAbilityTag: 0
           targetAbiltyName: 
-          targetEffectName: Void Bolt
+          targetEffectName: 
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
@@ -185,21 +184,11 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: d171a6bad7f30fb4695e77edabb21f13, type: 2}
+    - {fileID: 11400000, guid: e708fc18432a04543a78a1c8d1c7f042, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    maxRanks: -1
+    maxRanks: 5
     windupVFX: {fileID: 0}
-    abilityStatData:
-    - variant: 0
-      statName: 65
-      value: 0.15
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 44
-      value: 1.5
-      maxValue: 0
-      minValue: 0
+    abilityStatData: []
     recoveryData: []

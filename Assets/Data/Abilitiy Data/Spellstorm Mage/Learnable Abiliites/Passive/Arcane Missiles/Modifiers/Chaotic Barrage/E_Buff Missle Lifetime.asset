@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Buff Missle Damage
+  m_Name: E_Buff Missle Lifetime
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Chaotic Barrage Buff Missle Damage
-    effectDescription: Increase Weapon Damage by {}
+    effectName: Chaotic Barrage Buff Missle Lifetime
+    effectDescription: Increase Projectile Lifetime by {}
     type: 1
     targeting: 9
-    subTarget: 5
+    subTarget: 2
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -105,9 +105,9 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 28
+    - targetStat: 10
       value: 1
-      modifierType: 1
+      modifierType: 2
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
       derivedTargetStat: 0
       invertDerivedValue: 0
       scaleFromAbilityLevel: 0
-      displayAsPercent: 0
+      displayAsPercent: 1
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
@@ -181,7 +181,7 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    effectDesignation: 1
+    effectDesignation: 0
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     statusModifiers: []

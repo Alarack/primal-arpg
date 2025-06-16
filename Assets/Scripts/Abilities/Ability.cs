@@ -685,21 +685,36 @@ public class Ability {
 
         AbilityLevel++;
         SendLevelChangedEvent();
+
+        for (int i = 0; i < ChildAbilities.Count; i++) {
+            ChildAbilities[i].LevelUp();
+        }
     }
 
     public void LevelDown() {
         AbilityLevel--;
         SendLevelChangedEvent();
+
+        for (int i = 0; i < ChildAbilities.Count; i++) {
+            ChildAbilities[i].LevelDown();
+        }
     }
 
     public void SetLevel(int level) {
         AbilityLevel = level;
         SendLevelChangedEvent();
+
+        for(int i = 0;i < ChildAbilities.Count;i++)
+            ChildAbilities[i].SetLevel(level);
     }
 
     public void ResetLevel() {
         AbilityLevel = 1;
         SendLevelChangedEvent();
+
+        for (int i = 0; i < ChildAbilities.Count; i++) {
+            ChildAbilities[i].ResetLevel();
+        }
     }
 
     public void ResetRunes() {

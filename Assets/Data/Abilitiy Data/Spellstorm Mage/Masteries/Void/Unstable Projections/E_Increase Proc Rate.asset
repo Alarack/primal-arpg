@@ -75,6 +75,8 @@ MonoBehaviour:
       statRatioTarget: 0
       targetRatio: 0
       movementMagnitudeLimit: 0.1
+      abilitySlot: 0
+      projectileToCheck: {fileID: 0}
     riderEffects: []
     payloadPrefab: {fileID: 2110540755119051525, guid: d04327aff5edaa348acb76e3f331968a, type: 3}
     payloadStatData: []
@@ -83,6 +85,10 @@ MonoBehaviour:
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
+    offsetSpawnLocation: 0
+    offsetSpawnLocationMin: {x: 0, y: 0}
+    offsetSpawnLocationMax: {x: 0, y: 0}
+    rotatePayloadTowardMouse: 0
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
@@ -100,7 +106,7 @@ MonoBehaviour:
       m_Bits: 0
     modData:
     - targetStat: 65
-      value: 0.1
+      value: 0.05
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -110,6 +116,7 @@ MonoBehaviour:
       derivedTargetStat: 0
       invertDerivedValue: 0
       scaleFromAbilityLevel: 1
+      displayAsPercent: 0
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
@@ -183,10 +190,12 @@ MonoBehaviour:
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
+    showTrail: 0
     targetDestination: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0
+    teleportSequenceDelay: 0.2
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -221,3 +230,7 @@ MonoBehaviour:
     cooldownElapsedModifier: 0
     statusScalingData: []
     scaleFromAbilityLevel: 0
+    spawnedItemType: 0
+    itemSpawnLocation: 0
+    itemsToSpawn: []
+    itemSpawnAmount: 0

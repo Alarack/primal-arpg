@@ -27,6 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5410372377733784116}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.459, y: -1.2058418, z: -0.06526358}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   m_Children:
   - {fileID: 3283185116339871905}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &286713208447769744
 MonoBehaviour:
@@ -56,7 +56,7 @@ MonoBehaviour:
   subtypes: 
   innerSprite: {fileID: 0}
   mainSprite: {fileID: 0}
-  statDefinitions: {fileID: 11400000, guid: 8173634ab71f663478685987309b3ef0, type: 2}
+  statDefinitions: {fileID: 11400000, guid: 3ede06e9c93db784ebbad6f314520a6a, type: 2}
   vfxScalar: 1
   deathEffectPrefab: {fileID: 1773673519030548, guid: 6e3db7afa59301e48bc3999ec41f1410, type: 3}
   spawnEffectPrefab: {fileID: 1773673519030548, guid: 6e3db7afa59301e48bc3999ec41f1410, type: 3}
@@ -128,6 +128,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5410372377733784116}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -151,13 +152,13 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
   m_Radius: 0.5
 --- !u!50 &3222622102623114974
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -168,8 +169,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
-  m_AngularDrag: 0.05
+  m_LinearDamping: 1
+  m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -194,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9670d1d7faba6414ab0b12e338ef9f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashParticles: {fileID: 0}
   movementBehavior: 2
   seekTarget: {fileID: 0}
   targetLayers:
@@ -203,8 +205,11 @@ MonoBehaviour:
   seekForwardWithoutTarget: 0
   seekDuration: 2
   forwardPointDistance: 8
-  drunkInterval: 0.25
-  drunkVariance: 180
+  delayTime: 0
+  hoverSpeed: 25
+  drunkInterval: 0.2
+  drunkVariance: 360
+  haltSpeedOnDrunkChange: 1
 --- !u!1001 &3287301288478278205
 PrefabInstance:
   m_ObjectHideFlags: 0

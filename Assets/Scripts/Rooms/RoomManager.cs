@@ -18,7 +18,7 @@ public class RoomManager : Singleton<RoomManager> {
 
     public static float CurrentDifficulty { get; private set; } = 5f;
 
-    public static bool InCombat { get; private set; }
+    public static bool InCombat { get; set; }
 
     private int currentRoomIndex;
     //private List<Room> roomList = new List<Room>();

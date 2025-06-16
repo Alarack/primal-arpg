@@ -97,23 +97,19 @@ public class MasteryPathEntry : MonoBehaviour, IPointerClickHandler, IPointerEnt
                 return;
             }
 
-            PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.ParentMasteryName, parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
 
 
             if (PathAbility.IsEquipped == false) {
                 PathAbility.Equip();
 
-                //if (PathAbility.AbilityLevel != 1) {
-                //    PathAbility.LevelUp();
-                //}
-
+                PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.ParentMasteryName, parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
                 UpdateRankText();
                 return;
             }
 
-
-
             PathAbility.LevelUp();
+            PanelManager.GetPanel<MasteryPanel>().TrySpendMetaPoints(parentFeature.ParentMasteryName, parentFeature.FeatureData.featureName, PathAbility.Data.abilityName, PathAbility.AbilityLevel);
+
             UpdateRankText();
 
             //PathAbility.LevelUp();
