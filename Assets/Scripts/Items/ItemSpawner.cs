@@ -13,6 +13,8 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
     public ItemPickup pickupPrefab;
     public ItemPickup coinPickupPrefab;
+    public ItemPickup unstableAetheriumPickup;
+    public ItemPickup aetheriumIngotPickup;
     public ItemPickup expPickupPrefab;
     public ItemPickup heathOrbPickup;
     public LootDatabase lootDatabase;
@@ -43,6 +45,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
         if (Input.GetKeyDown(KeyCode.E)) {
             SpawnEXP(25, EntityManager.ActivePlayer.transform.position);
             SpawnCoins(25, EntityManager.ActivePlayer.transform.position, 5f, 10f);
+            SpawnCoins(5, EntityManager.ActivePlayer.transform.position, 1f, 2f, CurrencyType.UnstableAetherium);
         }
 #endif
     }
@@ -125,7 +128,15 @@ public class ItemSpawner : Singleton<ItemSpawner>
         SpawnItem(newItem, location);
     }
 
-    public static void SpawnCoins(int count, Vector2 location, float valueMin = 1f, float valueMax = 1f) {
+
+    public static void SpawnCoins(int count, Vector2 location, float valueMin = 1f, float valueMax = 1f, CurrencyType currencyType = CurrencyType.CrystalizedAetherium) {
+
+        ItemPickup prefab = currencyType switch {
+            CurrencyType.CrystalizedAetherium => Instance.coinPickupPrefab,
+            CurrencyType.AethriumIngot => Instance.aetheriumIngotPickup,
+            CurrencyType.UnstableAetherium => Instance.unstableAetheriumPickup,
+            _ => null,
+        };
 
         for (int i = 0; i < count; i++) {
             ItemData coinData = new ItemData();
@@ -133,11 +144,11 @@ public class ItemSpawner : Singleton<ItemSpawner>
             int valueRange = Random.Range((int)valueMin, (int)(valueMax + 1));
             
             coinData.itemValue = valueRange;
-            coinData.itemName = "Coin";
+            coinData.itemName = currencyType.ToString();
             coinData.Type = ItemType.Currency;
             coinData.pickupOnCollision = true;
 
-            ItemPickup pickup = Instantiate(Instance.coinPickupPrefab, location, Quaternion.identity);
+            ItemPickup pickup = Instantiate(prefab, location, Quaternion.identity);
             pickup.Setup(coinData);
         }
     }

@@ -187,7 +187,9 @@ public class HUDPanel : BasePanel {
         string currencyType = data.GetString("Currency Name");
         float balance = data.GetFloat("Current Balance");
 
-        goldText.text = TextHelper.RoundTimeToPlaces(balance, 2);
+        if(currencyType == "CrystalizedAetherium") {
+            goldText.text = TextHelper.RoundTimeToPlaces(balance, 2);
+        }
     }
 
     private void OnStatAdjusted(EventData data) {

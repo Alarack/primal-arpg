@@ -39,6 +39,12 @@ public enum ItemType {
 
 }
 
+public enum CurrencyType {
+    CrystalizedAetherium,
+    AethriumIngot,
+    UnstableAetherium
+}
+
 
 [System.Serializable]
 public class ItemData {

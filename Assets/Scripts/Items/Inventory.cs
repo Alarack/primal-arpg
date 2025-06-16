@@ -246,19 +246,19 @@ public class Inventory : MonoBehaviour {
         //return false;
     }
 
-    public bool TrySpendCoins(float cost, string purchase = "") {
-        if (currencyDictionary.TryGetValue("Coin", out float count) == true) {
+    public bool TrySpendCoins(float cost, string currencyType, string purchase = "") {
+        if (currencyDictionary.TryGetValue(currencyType, out float count) == true) {
             float difference = count - cost;
 
             if (difference < 0) {
-                Debug.LogWarning("Not enough coins to buy: " + purchase);
+                Debug.LogWarning("Not enough " + currencyType + " to buy: " + purchase);
                 PanelManager.OpenPanel<PopupPanel>().Setup("Insufficient Aetherium", "You can't afford that.");
                 return false;
             }
 
-            currencyDictionary["Coin"] -= cost;
+            currencyDictionary[currencyType] -= cost;
 
-            SendCurrencyChangedEvent(count, "Coin");
+            SendCurrencyChangedEvent(count, currencyType);
             return true;
         }
         return false;
