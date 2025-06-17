@@ -134,6 +134,12 @@ public abstract class AbilityTrigger {
                 case ConstraintFocus.AbilityTrigger:
                 case ConstraintFocus.AbiityCause:
 
+                    if (foci.Item2 == null) {
+                        Debug.LogWarning("An ability focus on a " + GetType() + " trigger for: " + ParentAbility.Data.abilityName + " was null when targeting " + entry.Key);
+                        return false;
+                    }
+
+
                     if (foci.Item2 != null) {
                         bool abilitycheck = CheckAbilityFocusConstraints(entry.Key, foci.Item2, activationInstance);
 
@@ -1295,6 +1301,22 @@ public class StatChangedTrigger : AbilityTrigger {
         //    Debug.Log("Ability Cause: " + abilityCause);
         //}
 
+        //if(ParentAbility != null && ParentAbility.Data.abilityName == "Living Void") {
+
+        //    if (targetStat != StatName.Essence) {
+                
+        //        Debug.Log("Stat: " + targetStat);
+                
+        //        if (causeOfChange != null)
+        //            Debug.Log("Cause: " + causeOfChange.EntityName);
+        //        else
+        //            Debug.Log("Cause is null");
+        //        if (affectedTarget != null)
+        //            Debug.Log("Trigger: " + affectedTarget.EntityName);
+        //        else
+        //            Debug.Log("Trigger is null");
+        //    }
+        //}
 
 
         StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(affectedTarget, causeOfChange, Type, targetStat, changeValue, ability, delivery, isRemoval);

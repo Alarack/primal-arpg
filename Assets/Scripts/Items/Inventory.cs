@@ -297,7 +297,7 @@ public class Inventory : MonoBehaviour {
 
         if(currencyType == "UnstableAetherium") {
             //Debug.Log("Saving: " + value + " " + currencyType);
-            SaveLoadUtility.SaveData.unstableAetherium = (int)currencyDictionary[currencyType];
+            SaveLoadUtility.SaveData.unstableAetherium += (int)value;
             SaveLoadUtility.SavePlayerData();
         }
 

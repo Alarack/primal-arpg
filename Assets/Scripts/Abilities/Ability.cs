@@ -389,6 +389,7 @@ public class Ability {
 
     public void TearDown() {
         //End all current Effects
+        //TriggerInstance tearDownEndTrigger = new TriggerInstance(Source, Source, TriggerType.None);
         ForceEndTrigger(null);
         AbortAbilityWindup();
 
@@ -1017,11 +1018,11 @@ public class Ability {
                     //Debug.LogWarning("No scalers on: " + Data.abilityName);
 
                     if (string.IsNullOrEmpty(Data.abilityDescription) == false || addLine == true) {
-                        Debug.LogWarning("Instering 2 blank lines for: " + Data.abilityName);
+                        Debug.LogWarning("Inserting 2 blank lines for: " + Data.abilityName + " tooltip.");
                         builder.AppendLine().AppendLine();
                     }
 
-                    Debug.LogWarning("Instering another blank lines for: " + adj.Data.effectName);
+                    //Debug.LogWarning("Instering another blank lines for: " + adj.Data.effectName);
 
                     builder.AppendLine(adj.GetTooltip());
                 }

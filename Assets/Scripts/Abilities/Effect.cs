@@ -290,7 +290,7 @@ public abstract class Effect {
         if (CheckNonStacking(target) == true)
             return false;
 
-        if (EntityTargets.Contains(target) == false) {
+        if (Data.untracked == false && EntityTargets.Contains(target) == false) {
             EntityTargets.Add(target);
         }
 

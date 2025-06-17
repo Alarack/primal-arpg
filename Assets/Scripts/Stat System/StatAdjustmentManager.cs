@@ -308,6 +308,9 @@ public static class StatAdjustmentManager {
         eventData.AddInt("Stat", (int)targetStat);
         eventData.AddBool("Removal", isRemoveal);
 
+
+
+
         EventManager.SendEvent(GameEvent.UnitStatAdjusted, eventData);
 
         //if(sourceAbility != null && target.ownerType == OwnerConstraintType.Enemy && targetStat == StatName.Health) {

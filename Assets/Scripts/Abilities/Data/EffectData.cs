@@ -124,6 +124,7 @@ public class EffectData
     public bool canOverload;
     public bool canAffectDeadTargets;
     public bool nonStacking;
+    public bool untracked;
     //public bool hideTooltip;
     public bool onlyShowTooltipInRune;
     public bool showRiderTooltip;
@@ -277,6 +278,7 @@ public class EffectData
         this.numberOfTargets = copy.numberOfTargets;
         this.otherAbilityName = copy.otherAbilityName;
         this.otherEffectName = copy.otherEffectName;
+        this.untracked = copy.untracked;
         CopyStatModData(copy.modData);
         CloneTargetConstraints(copy.targetConstraints);
         //this.forcedRemoveal = copy.forcedRemoveal;

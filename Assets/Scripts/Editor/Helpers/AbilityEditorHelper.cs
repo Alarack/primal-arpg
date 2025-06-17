@@ -495,6 +495,7 @@ public static class AbilityEditorHelper {
         entry.canOverload = EditorGUILayout.Toggle("Can Overload?", entry.canOverload);
         entry.canAffectDeadTargets = EditorGUILayout.Toggle("Can Affect Dead", entry.canAffectDeadTargets);
         entry.nonStacking = EditorGUILayout.Toggle("Non Stacking", entry.nonStacking);
+        entry.untracked = EditorGUILayout.Toggle("Untracked", entry.untracked);
         entry.onlyShowTooltipInRune = EditorGUILayout.Toggle("Rune Only Tooltip", entry.onlyShowTooltipInRune);
         entry.showRiderTooltip = EditorGUILayout.Toggle("Show Rider Tooltip", entry.showRiderTooltip);
         
