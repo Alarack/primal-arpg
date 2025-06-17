@@ -1297,8 +1297,8 @@ public class StatChangedTrigger : AbilityTrigger {
 
 
 
-        StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, targetStat, changeValue, CauseOfAbilityTrigger, delivery, isRemoval);
-        triggerInstance.CausingAbility = CauseOfAbilityTrigger;
+        StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(affectedTarget, causeOfChange, Type, targetStat, changeValue, ability, delivery, isRemoval);
+        triggerInstance.CausingAbility = ability;
         triggerInstance.SourceAbility = ParentAbility;
         triggerInstance.TriggeringAbility = ParentAbility;
 

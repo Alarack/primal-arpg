@@ -326,6 +326,7 @@ public abstract class Entity : MonoBehaviour {
     protected void SendEssenceChangedEvent(float value) {
         EventData data = new EventData();
         data.AddEntity("Target", this);
+        data.AddEntity("Source", this);
         data.AddFloat("Value", value);
         data.AddInt("Stat", (int)StatName.Essence);
 
