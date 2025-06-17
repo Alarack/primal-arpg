@@ -447,12 +447,12 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             return;
 
 
-        if(abilityRestriction != AbilityTag.None) {
-            if(draggedEntry.Ability.Tags.Contains(abilityRestriction) == false) {
-                PanelManager.OpenPanel<PopupPanel>().Setup("Invalid Slot", "You can only assign " + abilityRestriction + " Skills in this slot");
-                return;
-            }
-        }
+        //if(abilityRestriction != AbilityTag.None) {
+        //    if(draggedEntry.Ability.Tags.Contains(abilityRestriction) == false) {
+        //        PanelManager.OpenPanel<PopupPanel>().Setup("Invalid Slot", "You can only assign " + abilityRestriction + " Skills in this slot");
+        //        return;
+        //    }
+        //}
 
         //Debug.Log("Dropping " + draggedEntry.Ability.Data.abilityName + " onto " + Index);
 

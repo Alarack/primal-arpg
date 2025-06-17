@@ -15,6 +15,7 @@ public class LoadoutSelectionEntry : MonoBehaviour, IPointerEnterHandler, IPoint
     private Ability displayAbility;
 
     public ItemDefinition ItemDef { get; private set; }
+    public bool IsSelected { get { return selectionHighlight.activeSelf == true; } }
 
 
     private LoadoutEntry parentEntry;
@@ -61,6 +62,15 @@ public class LoadoutSelectionEntry : MonoBehaviour, IPointerEnterHandler, IPoint
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        parentEntry.OnItemSelected(this);
+
+        if (eventData.button == PointerEventData.InputButton.Left) {
+            parentEntry.OnItemSelected(this);
+        }
+
+        if (eventData.button ==  PointerEventData.InputButton.Right && parentEntry.loadoutType == LoadoutEntry.LoadoutEntryType.Item) {
+            if(IsSelected == true)
+                parentEntry.Unselect(this);
+        }
+        
     }
 }

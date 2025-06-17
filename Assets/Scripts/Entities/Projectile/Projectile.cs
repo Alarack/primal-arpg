@@ -481,6 +481,10 @@ public class Projectile : Entity {
         float lifeTimer = baseLifetime * (1 + globalModifier);
 
         //Debug.Log(baseLifetime + " " + globalModifier + " " + lifeTimer);  
+
+        if(lifeTimer <= 0f) {
+            Debug.LogError(EntityName + " has a 0 or less lifetime");
+        }
         
         WaitForSeconds waiter = new WaitForSeconds(lifeTimer);
         yield return waiter;

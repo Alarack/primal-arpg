@@ -421,7 +421,6 @@ public class OwnerConstraint : AbilityConstraint {
             _ => throw new System.NotImplementedException(),
         };
 
-
         //bool result = target.ownerType == ownerTarget;
 
         //Debug.Log(target.EntityName + " is owned by " + ownerTarget + ": " + result);

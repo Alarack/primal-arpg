@@ -228,7 +228,7 @@ public class Inventory : MonoBehaviour {
     public bool TryBuyItem(Item item) {
         float cost = item.Data.itemValue;
 
-        return TrySpendCoins(cost, item.Data.itemName);
+        return TrySpendCoins(cost, CurrencyType.CrystalizedAetherium, item.Data.itemName);
 
         //if(currencyDictionary.TryGetValue("Coin", out float count) == true) {
         //    float difference = count - cost;
@@ -246,8 +246,11 @@ public class Inventory : MonoBehaviour {
         //return false;
     }
 
-    public bool TrySpendCoins(float cost, string currencyType, string purchase = "") {
-        if (currencyDictionary.TryGetValue(currencyType, out float count) == true) {
+    public bool TrySpendCoins(float cost, CurrencyType currencyType, string purchase = "") {
+        
+        string currencyString = currencyType.ToString();
+
+        if (currencyDictionary.TryGetValue(currencyString, out float count) == true) {
             float difference = count - cost;
 
             if (difference < 0) {
@@ -256,15 +259,15 @@ public class Inventory : MonoBehaviour {
                 return false;
             }
 
-            currencyDictionary[currencyType] -= cost;
+            currencyDictionary[currencyString] -= cost;
 
-            SendCurrencyChangedEvent(count, currencyType);
+            SendCurrencyChangedEvent(count, currencyString);
             return true;
         }
         return false;
     }
 
-    public float GetCurrencyAmount(string  currency = "Coin") {
+    public float GetCurrencyAmount(string  currency = "CrystalizedAetherium") {
         if(currencyDictionary.ContainsKey(currency) == false) {
             return 0f;
         }
@@ -291,6 +294,12 @@ public class Inventory : MonoBehaviour {
         
         data.AddString("Currency Name", currencyType);
         //data.AddItem("Item Purchased", purchase);
+
+        if(currencyType == "UnstableAetherium") {
+            //Debug.Log("Saving: " + value + " " + currencyType);
+            SaveLoadUtility.SaveData.unstableAetherium = (int)currencyDictionary[currencyType];
+            SaveLoadUtility.SavePlayerData();
+        }
 
 
         EventManager.SendEvent(GameEvent.CurrencyChanged, data);

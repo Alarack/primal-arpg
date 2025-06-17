@@ -1296,6 +1296,7 @@ public class Ability {
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
         //if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
+
         //Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is trying to start. Source: " + Source.EntityName, Color.green));
 
         if (IsChanneled == true && IsActive == true) {

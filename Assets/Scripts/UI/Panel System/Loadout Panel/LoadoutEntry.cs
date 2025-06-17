@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LoadoutEntry : MonoBehaviour
@@ -52,6 +53,11 @@ public class LoadoutEntry : MonoBehaviour
         
         }
 
+    }
+
+    public void Unselect(LoadoutSelectionEntry entry) {
+        entry.Deselect();
+        SelectedEntry = null;
     }
 
 

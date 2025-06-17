@@ -83,7 +83,7 @@ public class EntityMovement : MonoBehaviour {
     }
 
     protected IEnumerator DashTimer() {
-        WaitForSeconds waiter = new WaitForSeconds(Owner.Stats[StatName.DashDuration]);
+        WaitForSecondsRealtime waiter = new WaitForSecondsRealtime(Owner.Stats[StatName.DashDuration]);
         yield return waiter;
         MyBody.linearVelocity = Vector2.zero;
         CanMove = true;

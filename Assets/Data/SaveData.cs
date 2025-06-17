@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class SaveData
 {
 
     public int primalEssencePoints;
+    public int unstableAetherium;
 
     public List<MasteryDistributionData> savedMasteries = new List<MasteryDistributionData>();
 
@@ -115,7 +117,26 @@ public class SaveData
     }
 
 
+    [Serializable]
+    public class ResearchResourceData {
+        public CurrencyType resourceName;
+        public float currentCostToInvest;
+        public float costIncrement;
+        public float baseCost;
+        public float startingResourceAmount;
+        public float resourceIncrement;
+        public int investmentCount;
 
+        public void Invest() {
+            investmentCount++;
+            startingResourceAmount += resourceIncrement;
+            currentCostToInvest *= costIncrement;
+        }
+
+        public void Uninvest() {
+
+        }
+    }
 
 
     public class MasteryDistributionData {

@@ -103,16 +103,21 @@ public abstract class AbilityTrigger {
                 return false;
             }
 
-
             switch (entry.Key) {
                 case ConstraintFocus.Source:
                 case ConstraintFocus.Trigger:
                 case ConstraintFocus.Cause:
 
+                    if(foci.Item1 == null) {
+                        Debug.LogWarning("An entity focus on a " + GetType() + " trigger for: " + ParentAbility.Data.abilityName + " was null when targeting " + entry.Key);
+                        return false;
+                    }
+
                     if (foci.Item1 != null) {
                         bool entityCheck = CheckFocusConstraints(entry.Key, foci.Item1, activationInstance);
 
                         if (entityCheck == false) {
+
                             //if (ParentAbility != null && ParentAbility.Data.abilityName == "Reaping Summon")
                             //    Debug.Log("an ability: " + ParentAbility.Data.abilityName + " failed an entity constraint");
                             //else
@@ -120,7 +125,9 @@ public abstract class AbilityTrigger {
 
                             return false;
                         }
+  
                     }
+
 
                     break;
                 case ConstraintFocus.AbilitySource:
@@ -174,16 +181,9 @@ public abstract class AbilityTrigger {
 
         foreach (AbilityConstraint constraint in constraintDict[focus]) {
             bool result = constraint.Evaluate(target, activationInstance);
-
-            //if (this is StateEnteredTrigger && constraint is IsInStateConstraint) {
-            //    Debug.LogWarning(result + " is the state check result for: " + GetType().ToString());
-            //}
-
+            
             if (result == false) {
-                //if (this is StateEnteredTrigger) {
-                //    Debug.LogWarning("A trigger of type: " + GetType().ToString() + " failed a constraint: " + constraint.Type);
 
-                //}
                 return false;
             }
         }
@@ -220,11 +220,11 @@ public abstract class AbilityTrigger {
     public Tuple<Entity, Ability, Effect> GetConstraintFocus(ConstraintFocus focus, TriggerInstance instance) {
         Tuple<Entity, Ability, Effect> result = focus switch {
             ConstraintFocus.Source => new Tuple<Entity, Ability, Effect>(SourceEntity, instance.SourceAbility, instance.SourceEffect),
-            ConstraintFocus.Trigger => new Tuple<Entity, Ability, Effect>(TriggeringEntity, instance.TriggeringAbility, instance.TriggeringEffect),
-            ConstraintFocus.Cause => new Tuple<Entity, Ability, Effect>(CauseOfTrigger, instance.CausingAbility, instance.CausingEffect),
+            ConstraintFocus.Trigger => new Tuple<Entity, Ability, Effect>(instance.TriggeringEntity, instance.TriggeringAbility, instance.TriggeringEffect),
+            ConstraintFocus.Cause => new Tuple<Entity, Ability, Effect>(instance.CauseOfTrigger, instance.CausingAbility, instance.CausingEffect),
             ConstraintFocus.AbilitySource => new Tuple<Entity, Ability, Effect>(SourceEntity, instance.SourceAbility, instance.SourceEffect),
-            ConstraintFocus.AbilityTrigger => new Tuple<Entity, Ability, Effect>(TriggeringEntity, instance.TriggeringAbility, instance.TriggeringEffect),
-            ConstraintFocus.AbiityCause => new Tuple<Entity, Ability, Effect>(CauseOfTrigger, instance.CausingAbility, instance.CausingEffect),
+            ConstraintFocus.AbilityTrigger => new Tuple<Entity, Ability, Effect>(instance.TriggeringEntity, instance.TriggeringAbility, instance.TriggeringEffect),
+            ConstraintFocus.AbiityCause => new Tuple<Entity, Ability, Effect>(instance.CauseOfTrigger, instance.CausingAbility, instance.CausingEffect),
             _ => null,
         };
 
@@ -281,9 +281,10 @@ public abstract class AbilityTrigger {
         //    return false;
 
 
+
+
         if (CheckMultiTypeConstraints(activationInstance) == false)
             return false;
-
 
         return true;
     }

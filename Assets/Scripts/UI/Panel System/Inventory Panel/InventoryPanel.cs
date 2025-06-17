@@ -403,7 +403,7 @@ public class InventoryPanel : BasePanel {
         if (forgeSlot.MyItem == null)
             return;
 
-        if(EntityManager.ActivePlayer.Inventory.TrySpendCoins(25f, "Forge") == false) {
+        if(EntityManager.ActivePlayer.Inventory.TrySpendCoins(25f, CurrencyType.CrystalizedAetherium, "Forge") == false) {
             PanelManager.OpenPanel<PopupPanel>().Setup("Insufficient Aetherium", "You can't afford that.");
             return;
         }

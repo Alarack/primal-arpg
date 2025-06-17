@@ -77,6 +77,17 @@ public class ItemSpawner : Singleton<ItemSpawner>
                 SpawnEXP(threat, target.transform.position, 1f, Mathf.Min(1f, expValue));
             }
 
+            float unstableAetheriumRoll = Random.Range(0f, 1f);
+
+            if(RoomManager.CurrentBiome != null && RoomManager.CurrentRoom.Type != Room.RoomType.BossRoom && unstableAetheriumRoll >= 0.99f) {
+                SpawnCoins(Random.Range(1, 3), target.transform.position, 1f, 1f, CurrencyType.UnstableAetherium);
+            }
+
+            if(RoomManager.CurrentBiome != null && RoomManager.CurrentRoom.Type == Room.RoomType.BossRoom && target.subtypes.Contains(Entity.EntitySubtype.Boss) == true) {
+                SpawnCoins(Random.Range(5, 10), target.transform.position, 3f, 3f, CurrencyType.UnstableAetherium);
+            }
+
+
 
             Entity player = EntityManager.ActivePlayer;
 
