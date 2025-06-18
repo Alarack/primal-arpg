@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Arcane Missiles
+  m_Name: A_Null Implosion
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
-    abilityName: Arcane Missiles
-    abilityDescription: Whenever you use an Active Skill, you have a chance based
-      on the Cooldown of that Skill to fire {SC} Arcane Missiles which curve toward
-      your aiming position.
-    resourceCost: 35
+    category: 1
+    abilityIcon: {fileID: -4844775014474123662, guid: 42efcf3d3adfdd4428724001a435c0d3, type: 3}
+    abilityName: Null Implosion
+    abilityDescription: Collase the fabric of reality around you in a {ES} meter
+      diamater. Enemies killed by this Skill release a Void Bolt.
+    resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 1
@@ -28,37 +27,27 @@ MonoBehaviour:
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
-    normalizedProcRate: 1
-    showProcChanceOnOtherSkills: 1
+    normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
     runeAbilityTarget: 
-    animationString: 
-    waitForAnimToResolve: 0
+    animationString: Attack
+    waitForAnimToResolve: 1
     initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities: []
+    childAbilities:
+    - {fileID: 11400000, guid: b0c0c89c5d3a84c4c90a244502042869, type: 2}
     runeGroupData:
     - runes:
-      - {fileID: 11400000, guid: e602cdcf4eec5204da6ea0e88677e9ac, type: 2}
-      - {fileID: 11400000, guid: 5f2ab723f084e7b4e851941b22a880a3, type: 2}
+      - {fileID: 11400000, guid: dec05d5d4f0da28419913baf17624e03, type: 2}
       tier: 1
-    - runes:
-      - {fileID: 11400000, guid: 753751ab228ecfc4ea579c0567e699b9, type: 2}
-      - {fileID: 11400000, guid: e5475fac560ba144989315e55878dcca, type: 2}
-      - {fileID: 11400000, guid: 7d9d5d9f258b14b408056c4c46576d06, type: 2}
-      tier: 2
-    - runes:
-      - {fileID: 11400000, guid: 513ea4df4ac71b64d9b4a18ddc37883d, type: 2}
-      - {fileID: 11400000, guid: 712379830daed21459a3b2e920e83219, type: 2}
-      - {fileID: 11400000, guid: 02588b30bec32554ca10d442bf326706, type: 2}
-      tier: 3
-    tags: 190000001600000008000000
+    tags: 1700000006000000
     resetEvents: 
     activationTriggerData:
-    - type: 11
+    - type: 6
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -72,7 +61,7 @@ MonoBehaviour:
       allConstraints:
       - focus: 1
         constraintData:
-        - type: 4
+        - type: 7
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -117,50 +106,7 @@ MonoBehaviour:
           projectileToCheck: {fileID: 0}
       - focus: 4
         constraintData:
-        - type: 18
-          inverse: 1
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: Arcane Missiles
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-          abilitySlot: 0
-          projectileToCheck: {fileID: 0}
-        - type: 29
+        - type: 7
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -245,36 +191,54 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: fa10c0124945d8b4999d5fc79bf9ef42, type: 2}
+    - {fileID: 11400000, guid: a7d49cef12062374b93006f661cd80ef, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
-    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
+    windupVFX: {fileID: 2850867436185079738, guid: 3d083b7a5bb635a439cf31a0cf85784f, type: 3}
     abilityStatData:
     - variant: 0
       statName: 46
-      value: 0
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 44
-      value: 1
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 14
       value: 2
       maxValue: 0
       minValue: 0
     - variant: 0
-      statName: 15
-      value: 0
+      statName: 41
+      value: 4
       maxValue: 0
       minValue: 0
     - variant: 0
-      statName: 65
-      value: 1
+      statName: 11
+      value: 0.1
       maxValue: 0
       minValue: 0
-    recoveryData: []
+    - variant: 0
+      statName: 50
+      value: 0.2
+      maxValue: 0
+      minValue: 0
+    recoveryData:
+    - type: 0
+      recoveryTriggers: []
+      counterData:
+        useCustomRefreshTrigger: 0
+        customRefreshTriggerData:
+          type: 0
+          overrideProcStat: 0
+          procChance: 1
+          triggerDelay: 0
+          riderAbilityName: 
+          riderEffectName: 
+          triggerTimerDuration: 0
+          chainTriggerDelay: 0.1
+          delay1Frame: 0
+          autoActivateTimer: 0
+          resetTimerOnParentAbilityEnd: 0
+          allConstraints: []
+        limitedNumberOfTriggers: 0
+        maxTriggerCount: 0
+        requireMultipleTriggers: 0
+        reduceTriggerCountByAbilityLevel: 0
+        minTriggerCount: 0
+      cooldown: 1

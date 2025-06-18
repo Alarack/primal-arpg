@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Fracture Bolt Effect
+  m_Name: E_Create Null Bolt
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Fracture Bolt
+    effectName: Null Bolt Damage
     effectDescription: 
     type: 1
     targeting: 5
@@ -39,7 +39,7 @@ MonoBehaviour:
     riderEffects: []
     payloadPrefab: {fileID: 2110540755119051525, guid: d04327aff5edaa348acb76e3f331968a, type: 3}
     payloadStatData: []
-    spawnLocation: 0
+    spawnLocation: 1
     spawnLocationStart: 0
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
@@ -82,7 +82,7 @@ MonoBehaviour:
       scalers:
       - targetStat: 28
         deriveTarget: 15
-        statScaleBaseValue: 3
+        statScaleBaseValue: 2
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 0, g: 1, b: 1, a: 1}

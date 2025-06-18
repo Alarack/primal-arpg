@@ -10,29 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Arcane Missiles
+  m_Name: A_R_Vestigial Essence
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
-    abilityName: Arcane Missiles
-    abilityDescription: Whenever you use an Active Skill, you have a chance based
-      on the Cooldown of that Skill to fire {SC} Arcane Missiles which curve toward
-      your aiming position.
-    resourceCost: 35
+    category: 3
+    abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
+    abilityName: Vestigial Essence
+    abilityDescription: Enemies killed by Null Imposion also Summon an Amorphous
+      Vestige.
+    resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 1
+    autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
-    normalizedProcRate: 1
-    showProcChanceOnOtherSkills: 1
+    normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Null Implosion
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -40,25 +39,11 @@ MonoBehaviour:
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: e602cdcf4eec5204da6ea0e88677e9ac, type: 2}
-      - {fileID: 11400000, guid: 5f2ab723f084e7b4e851941b22a880a3, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: 753751ab228ecfc4ea579c0567e699b9, type: 2}
-      - {fileID: 11400000, guid: e5475fac560ba144989315e55878dcca, type: 2}
-      - {fileID: 11400000, guid: 7d9d5d9f258b14b408056c4c46576d06, type: 2}
-      tier: 2
-    - runes:
-      - {fileID: 11400000, guid: 513ea4df4ac71b64d9b4a18ddc37883d, type: 2}
-      - {fileID: 11400000, guid: 712379830daed21459a3b2e920e83219, type: 2}
-      - {fileID: 11400000, guid: 02588b30bec32554ca10d442bf326706, type: 2}
-      tier: 3
-    tags: 190000001600000008000000
+    runeGroupData: []
+    tags: 170000000c000000
     resetEvents: 
     activationTriggerData:
-    - type: 11
+    - type: 2
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -83,7 +68,7 @@ MonoBehaviour:
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
-          ownerTarget: 0
+          ownerTarget: 1
           mostStatTarget: 0
           mostStatEffectName: 
           mostStatAbilityName: 
@@ -115,52 +100,9 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
-      - focus: 4
+      - focus: 5
         constraintData:
         - type: 18
-          inverse: 1
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: Arcane Missiles
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-          abilitySlot: 0
-          projectileToCheck: {fileID: 0}
-        - type: 29
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -193,7 +135,7 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: 
+          targetAbiltyName: Null Implosion
           targetEffectName: 
           effectDesigantion: 0
           targetEffectType: 0
@@ -245,36 +187,11 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: fa10c0124945d8b4999d5fc79bf9ef42, type: 2}
+    - {fileID: 11400000, guid: 3048815e184039c40bdfa1aa8dfaafab, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
-    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
-    abilityStatData:
-    - variant: 0
-      statName: 46
-      value: 0
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 44
-      value: 1
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 14
-      value: 2
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 15
-      value: 0
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 65
-      value: 1
-      maxValue: 0
-      minValue: 0
+    windupVFX: {fileID: 0}
+    abilityStatData: []
     recoveryData: []

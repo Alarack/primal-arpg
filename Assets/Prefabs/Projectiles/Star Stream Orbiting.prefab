@@ -209,6 +209,7 @@ MonoBehaviour:
   hoverSpeed: 300
   drunkInterval: 0
   drunkVariance: 0
+  haltSpeedOnDrunkChange: 0
 --- !u!1001 &5524466668814216940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -260,6 +261,26 @@ PrefabInstance:
     - target: {fileID: 4187409472758428, guid: baa5ec1b7a9824a4bb74a49e44e8fd5f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198776939981646108, guid: baa5ec1b7a9824a4bb74a49e44e8fd5f, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.9200754
+      objectReference: {fileID: 0}
+    - target: {fileID: 198776939981646108, guid: baa5ec1b7a9824a4bb74a49e44e8fd5f, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198776939981646108, guid: baa5ec1b7a9824a4bb74a49e44e8fd5f, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.m_ColorSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198951365250966520, guid: baa5ec1b7a9824a4bb74a49e44e8fd5f, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198951365250966520, guid: baa5ec1b7a9824a4bb74a49e44e8fd5f, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

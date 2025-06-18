@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Null Implosion Scroll
+  m_EditorClassIdentifier: 
+  devItem: 0
+  startingItem: 0
+  itemData:
+    Type: 4
+    affixStatTarget: 1
+    entityClass: 0
+    itemName: Null Implosion
+    itemDescription: 
+    secondaryDescription: 
+    itemValue: 200
+    runeAbilityTarget: 
+    validSlots: 
+    abilityTags: 
+    targetedAbilityName: 
+    itemIcon: {fileID: -4844775014474123662, guid: 42efcf3d3adfdd4428724001a435c0d3, type: 3}
+    invertIcon: 0
+    pickupIcon: {fileID: -4844775014474123662, guid: 42efcf3d3adfdd4428724001a435c0d3, type: 3}
+    pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
+    minDamage: 0
+    maxDamage: 0
+    statModifierData: []
+    abilityDefinitions: []
+    learnableAbilities:
+    - {fileID: 11400000, guid: 7f797ef7fb70eb945a1b45843bb01241, type: 2}
+    classPreviewAbilities: []
+    startingItemOptions: []
