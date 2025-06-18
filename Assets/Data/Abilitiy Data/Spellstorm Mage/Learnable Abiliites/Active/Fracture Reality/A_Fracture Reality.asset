@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 1
     abilityIcon: {fileID: 21300000, guid: 7f043036a149568428143c68bfb26561, type: 3}
     abilityName: Fracture Reality
-    abilityDescription: Break open the boundary to the Void, drawing in unstable
-      Void Bolts
+    abilityDescription: Break open the boundary to the Void, drawing in {SC} unstable
+      Void Bolts every {CI} seconds.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -28,7 +28,9 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 1
     normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
     startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -46,12 +48,16 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 27b8d88f9542a88448394836562b4148, type: 2}
       tier: 2
     tags: 170000000800000012000000
+    resetEvents: 
     activationTriggerData:
     - type: 6
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
@@ -99,6 +105,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
       - focus: 4
         constraintData:
         - type: 7
@@ -142,12 +150,17 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData:
     - type: 32
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
@@ -195,6 +208,8 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
       - focus: 4
         constraintData:
         - type: 7
@@ -238,14 +253,19 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
@@ -253,15 +273,19 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
@@ -269,12 +293,14 @@ MonoBehaviour:
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: 7de94a8ff6a3fb34296bae27f9207458, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
+    maxRanks: -1
     windupVFX: {fileID: 0}
     abilityStatData:
     - variant: 0
@@ -294,7 +320,7 @@ MonoBehaviour:
       minValue: 0
     - variant: 0
       statName: 44
-      value: 2.5
+      value: 1.5
       maxValue: 0
       minValue: 0
     recoveryData:
@@ -304,10 +330,13 @@ MonoBehaviour:
         useCustomRefreshTrigger: 0
         customRefreshTriggerData:
           type: 0
+          overrideProcStat: 0
           procChance: 1
+          triggerDelay: 0
           riderAbilityName: 
           riderEffectName: 
           triggerTimerDuration: 0
+          chainTriggerDelay: 0.1
           delay1Frame: 0
           autoActivateTimer: 0
           resetTimerOnParentAbilityEnd: 0
@@ -315,5 +344,6 @@ MonoBehaviour:
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0
         requireMultipleTriggers: 0
+        reduceTriggerCountByAbilityLevel: 0
         minTriggerCount: 0
       cooldown: 1

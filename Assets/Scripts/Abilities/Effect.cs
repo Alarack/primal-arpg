@@ -3634,12 +3634,6 @@ public class StatAdjustmentEffect : Effect {
             if (activeDelivery != null) {
                 float projectileContrabution = 1f + activeDelivery.Stats[StatName.ProjectileEffectContrabution];
                 targetValue *= projectileContrabution;
-
-                if(activeDelivery.EntityName == "Arcane Bolt") {
-                    Debug.Log(projectileContrabution);
-                }
-
-
             }
         }
 

@@ -321,7 +321,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
             StatName.OverloadDamageModifier => true,
             StatName.ProjectilePierceCount => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
             //StatName.GlobalEffectIntervalModifier => true,
-            StatName.DashCooldown => true,
+            StatName.DashCooldown => false,
             StatName.ProjectileChainCount => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
             StatName.ProjectileSplitCount => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
             StatName.ProjectileSplitQuantity => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),

@@ -87,6 +87,7 @@ public class EntityPlayer : Entity {
     public override bool HasAbilityOfTag(AbilityTag tag) {
 
         List<Ability> targetAbilities = AbilityManager.GetAbilitiesByTag(tag, AbilityCategory.KnownSkill);
+        targetAbilities.AddRange(AbilityManager.GetAbilitiesByTag(tag, AbilityCategory.PassiveSkill));
         bool unlocked = false;
         foreach (Ability ability in targetAbilities) {
             if(ability.Locked == false) {

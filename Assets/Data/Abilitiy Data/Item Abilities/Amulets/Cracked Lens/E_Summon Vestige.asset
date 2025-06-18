@@ -24,25 +24,30 @@ MonoBehaviour:
     canOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
+    untracked: 0
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
     showScalers: 0
+    scaleDamageFromTriggeringAbility: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
+    chainTargetDelay: 0.1
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
     payloadPrefab: {fileID: 0}
-    payloadCount: 1
-    shotDelay: 0.2
     payloadStatData: []
     spawnLocation: 0
     spawnLocationStart: 0
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
+    offsetSpawnLocation: 0
+    offsetSpawnLocationMin: {x: 0, y: 0}
+    offsetSpawnLocationMax: {x: 0, y: 0}
+    rotatePayloadTowardMouse: 0
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
@@ -121,15 +126,19 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     effectDesignation: 0
     addMissingStatIfNotPresent: 0
+    scaleFromStatus: 0
+    statusModifiers: []
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
+    showTrail: 0
     targetDestination: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0
+    teleportSequenceDelay: 0.2
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -148,7 +157,7 @@ MonoBehaviour:
     applyTriggeringEffect: 0
     statScalersToAdd: []
     entityPrefab: {fileID: 2255447116764801849, guid: c92f322fb79c1604e8b4cdba0e4b535e, type: 3}
-    percentOfPlayerDamage: 0.5
+    percentOfPlayerDamage: 1
     destroyPreviousSummonAtCap: 0
     inheritParentLayer: 1
     spawnType: 0
@@ -158,3 +167,13 @@ MonoBehaviour:
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
     newEffectZonePrefab: {fileID: 0}
+    modifiedMovementBehavior: 0
+    modifiedSeekDuration: -1
+    modifiedDrunkInterval: 0.2
+    cooldownElapsedModifier: 0
+    statusScalingData: []
+    scaleFromAbilityLevel: 0
+    spawnedItemType: 0
+    itemSpawnLocation: 0
+    itemsToSpawn: []
+    itemSpawnAmount: 0

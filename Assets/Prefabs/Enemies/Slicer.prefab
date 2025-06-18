@@ -1905,6 +1905,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2654961993901783890, guid: 58d66209e5171e64f92005d53cd6c2cb, type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3218016610449664155, guid: 58d66209e5171e64f92005d53cd6c2cb, type: 3}
       propertyPath: m_Name
       value: ShadowDash 2
@@ -1942,7 +1946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4462680094885674921, guid: 8dd943b77ff2a6f4bad736cfb3acbb78, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9153788196139291065, guid: 8dd943b77ff2a6f4bad736cfb3acbb78, type: 3}
       propertyPath: m_RootOrder

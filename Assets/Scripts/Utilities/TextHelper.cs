@@ -23,7 +23,8 @@ public static class TextHelper
         List<StatName> displayPercentStats = new List<StatName> {
             StatName.GlobalComboDurationModifier,
             StatName.GlobalComboIntervalModifier,
-            StatName.GlobalStatusIntervalModifier
+            StatName.GlobalStatusIntervalModifier,
+            StatName.ChannelingMoveSpeedModifier,
         };
 
 
@@ -41,7 +42,7 @@ public static class TextHelper
             //StatName.Vitality => throw new System.NotImplementedException(),
             StatName.MoveSpeed when value < 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.MoveSpeed when value > 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
-            StatName.RotationSpeed => throw new System.NotImplementedException(),
+            StatName.RotationSpeed => bonusFormat,
             //StatName.BaseDamage => throw new System.NotImplementedException(),
             //StatName.Stamina => throw new System.NotImplementedException(),
             //StatName.Mana => throw new System.NotImplementedException(),

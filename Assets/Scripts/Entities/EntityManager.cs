@@ -194,6 +194,7 @@ public class EntityManager : Singleton<EntityManager> {
         PanelManager.GetPanel<HUDPanel>().ClearStatusUI();
         PanelManager.ClosePanel<LevelUpPanel>();
         RoomManager.Instance.CleanUpRewardPedestals();
+        RoomManager.InCombat = false;
 
 
         ClearRemainingEnemies();
@@ -207,11 +208,13 @@ public class EntityManager : Singleton<EntityManager> {
     public void CreatePlayer() {
 
         ClearRemainingEnemies();
+        RoomManager.Instance.CleanUpRewardPedestals();
 
         if (ActivePlayer != null) {
 
             ActivePlayer.transform.position = Vector3.zero;
             ActivePlayer.gameObject.SetActive(true);
+            ActivePlayer.Stats.Refresh(StatName.Health);
             PanelManager.OpenPanel<CharacterSelectPanel>();
             PanelManager.ClosePanel<MainMenuPanel>();
             

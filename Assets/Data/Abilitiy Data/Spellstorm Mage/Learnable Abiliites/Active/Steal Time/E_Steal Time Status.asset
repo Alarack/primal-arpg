@@ -24,9 +24,11 @@ MonoBehaviour:
     canOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
+    untracked: 0
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
     showScalers: 0
+    scaleDamageFromTriggeringAbility: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     chainTargetDelay: 0.1
@@ -42,6 +44,10 @@ MonoBehaviour:
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
+    offsetSpawnLocation: 0
+    offsetSpawnLocationMin: {x: 0, y: 0}
+    offsetSpawnLocationMax: {x: 0, y: 0}
+    rotatePayloadTowardMouse: 0
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
@@ -125,7 +131,7 @@ MonoBehaviour:
     statusToAdd:
     - statusName: 11
       stackMethod: 1
-      maxStacks: 3
+      maxStacks: 2
       initialStackCount: 1
       duration: 0
       interval: 0

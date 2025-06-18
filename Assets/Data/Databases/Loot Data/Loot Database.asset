@@ -198,7 +198,7 @@ MonoBehaviour:
   - stat: 21
     baseValue: 0.05
     tierIncrament: 0.05
-    validSlots: 010000000400000005000000020000000c00000006000000
+    validSlots: 0100000004000000050000000c000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 21
@@ -603,7 +603,7 @@ MonoBehaviour:
   - stat: 35
     baseValue: 0.2
     tierIncrament: 0.2
-    validSlots: 010000000300000004000000050000000c000000
+    validSlots: 01000000030000000c000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 35
@@ -1551,9 +1551,9 @@ MonoBehaviour:
     validSlots: 020000000600000008000000
     baseAffixItem:
       Type: 6
-      affixStatTarget: 91
+      affixStatTarget: 89
       entityClass: 0
-      itemName: GlobalComboIntervalModifier Booster
+      itemName: CastingMoveSpeedModifier Booster
       itemDescription: 
       secondaryDescription: 
       itemValue: 0
@@ -1570,8 +1570,8 @@ MonoBehaviour:
       minDamage: 0
       maxDamage: 0
       statModifierData:
-      - targetStat: 91
-        value: -0.1
+      - targetStat: 89
+        value: 0.2
         modifierType: 0
         variantTarget: 0
         modValueSetMethod: 0

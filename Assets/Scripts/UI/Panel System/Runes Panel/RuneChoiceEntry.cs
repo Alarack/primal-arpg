@@ -56,7 +56,7 @@ public class RuneChoiceEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public void Deselect() {
         selectionImage.gameObject.SetActive(false);
         IsSelected = false;
-        imagefader.DOFade(0.5f, 1f);
+        imagefader.DOFade(0.3f, 1f);
 
         if(RuneItem.Equipped == true) {
             EntityManager.ActivePlayer.Inventory.UnEquipRune(RuneItem, runesPanel.CurrentAbility);

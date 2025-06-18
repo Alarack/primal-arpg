@@ -317,14 +317,20 @@ public class ProjectileMovement : EntityMovement
             Debug.LogError("Projectile owner is null on: " + Owner.EntityName);
         }
 
+        if (seekTarget != null)
+            return;
+
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, seekRadius, targetLayers);
 
         if (colliders != null && colliders.Length > 0)
         {
             Collider2D nearest = TargetUtilities.FindNearestTarget(colliders, transform);
 
-            if (nearest != null)
+            if (nearest != null) {
                 seekTarget = nearest.transform;
+                MyBody.linearVelocity *= 0.25f;
+            }
+
         }
     }
 

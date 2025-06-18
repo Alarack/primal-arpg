@@ -28,6 +28,7 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
     startingAbility: 1
     scaleProcByLevel: 0
     runeAbilityTarget: 
@@ -223,7 +224,7 @@ MonoBehaviour:
       minValue: 0
     - variant: 0
       statName: 34
-      value: 2
+      value: 1
       maxValue: 0
       minValue: 0
     recoveryData:

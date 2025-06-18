@@ -61,7 +61,7 @@ public class Projectile : Entity {
         myCollider = GetComponent<Collider2D>();
 
         if(varyInitalSpeed == true) {
-            float speedVariance = UnityEngine.Random.Range(-0.2f, 0.2f);
+            float speedVariance = UnityEngine.Random.Range(-0.1f, 0.1f);
             Stats.AddModifier(StatName.MoveSpeed, speedVariance, StatModType.PercentAdd, this);
         }
        
@@ -180,6 +180,15 @@ public class Projectile : Entity {
 
         if (Stats[StatName.ProjectileSplitCount] > 0 && Stats[StatName.ProjectileSplitQuantity] <=0)
             Stats.AddModifier(StatName.ProjectileSplitQuantity, 2, StatModType.Flat, Source);
+
+
+        float parentRotationSpeed = ParentEffect.ParentAbility.Stats[StatName.RotationSpeed];
+        if (ParentEffect.ParentAbility.Stats[StatName.RotationSpeed] > 0) {
+            if(Stats.Contains(StatName.RotationSpeed) == false)
+                Stats.AddStat(new SimpleStat(StatName.RotationSpeed, 0));
+            
+            Stats.AddModifier(StatName.RotationSpeed, parentRotationSpeed, StatModType.Flat, Source);
+        }
 
         //Debug.Log("Projectile: " + EntityName + " has " + Stats[StatName.ProjectileChainCount] + " Chain count");
         //Debug.Log("Owner and effect chain combined: " + ownerChain);
@@ -470,7 +479,7 @@ public class Projectile : Entity {
         data.AddEffect("Parent Effect", ParentEffect);
         data.AddAbility("Ability", ParentEffect.ParentAbility);
 
-        //Debug.Log("Chaining has occured. Chain Count: " + Stats[StatName.ProjectileChainCount]);
+        ///Debug.Log("Chaining has occured. Chain Count: " + Stats[StatName.ProjectileChainCount]);
 
 
         EventManager.SendEvent(GameEvent.ProjectileChained, data);
@@ -543,7 +552,7 @@ public class Projectile : Entity {
         }
 
 
-        Destroy(gameObject);
+        Destroy(gameObject, 0.01f);
 
         //new Task(CleanUpNextFrame(deployZone));
     }
