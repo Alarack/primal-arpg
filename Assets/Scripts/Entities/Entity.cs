@@ -179,7 +179,7 @@ public abstract class Entity : MonoBehaviour {
 
     #region ESSENCE
 
-    public bool TrySpendEssence(float value) {
+    public bool TrySpendEssence(float value, Ability cause = null) {
         float difference = Stats[StatName.Essence] - value;
 
         if (difference < 0)
@@ -188,7 +188,7 @@ public abstract class Entity : MonoBehaviour {
         //Debug.Log("Spending: " + value + " Essence");
 
         Stats.AdjustStatRangeCurrentValue(StatName.Essence, -value, StatModType.Flat, this);
-        SendEssenceChangedEvent(-value);
+        SendEssenceChangedEvent(-value, cause);
 
         return true;
     }
@@ -323,12 +323,13 @@ public abstract class Entity : MonoBehaviour {
         EventManager.SendEvent(GameEvent.EntitySpawned, data);
     }
 
-    protected void SendEssenceChangedEvent(float value) {
+    protected void SendEssenceChangedEvent(float value, Ability cause = null) {
         EventData data = new EventData();
         data.AddEntity("Target", this);
         data.AddEntity("Source", this);
         data.AddFloat("Value", value);
         data.AddInt("Stat", (int)StatName.Essence);
+        data.AddAbility("Ability", cause);
 
         EventManager.SendEvent(GameEvent.UnitStatAdjusted, data);
     }

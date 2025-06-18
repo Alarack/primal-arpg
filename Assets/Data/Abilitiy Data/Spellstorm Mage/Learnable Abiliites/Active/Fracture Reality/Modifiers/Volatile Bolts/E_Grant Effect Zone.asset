@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Buff Damage Status
+  m_Name: E_Grant Effect Zone
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Altered Timeline Buffed Damage
+    effectName: Volatile Bolts - Change Effect Zone
     effectDescription: 
-    type: 3
-    targeting: 1
-    subTarget: 1
-    maskTargeting: 0
+    type: 23
+    targeting: 9
+    subTarget: 2
+    maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
@@ -35,7 +35,50 @@ MonoBehaviour:
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
-    targetConstraints: []
+    targetConstraints:
+    - type: 19
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: Fracture Bolt
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: 
+      targetEffectName: Fracture Bolt
+      effectDesigantion: 0
+      targetEffectType: 0
+      targetStatus: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+      abilitySlot: 0
+      projectileToCheck: {fileID: 0}
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadStatData: []
@@ -52,14 +95,14 @@ MonoBehaviour:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
       parentToTarget: 0
-      applyOncePerTarget: 0
-      applyOnInterval: 0
+      applyOncePerTarget: 1
+      applyOnInterval: 1
       affectProjectiles: 0
       affectSource: 0
-      spawnVFX: {fileID: 0}
+      spawnVFX: {fileID: 182802, guid: 57ac5680dabf21944b5c2d0366061eb9, type: 3}
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
-      effectZonePrefab: {fileID: 0}
+      effectZonePrefab: {fileID: 1593382238141744661, guid: 797fca91ce791fa4caf4f49f7bf1b64c, type: 3}
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
@@ -128,17 +171,7 @@ MonoBehaviour:
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     statusModifiers: []
-    statusToAdd:
-    - statusName: 12
-      stackMethod: 1
-      maxStacks: 3
-      initialStackCount: 1
-      duration: 0
-      interval: 0
-      VFXPrefab: {fileID: 189378, guid: 6419d3d589b2c4249a00a738ba8a870f, type: 3}
-      statusSprite: {fileID: 21300000, guid: 187996d5c8957b34696a53f0ffa7dc88, type: 3}
-      vfxScaleModifier: 0.5
-      statusEffectDef: {fileID: 11400000, guid: c7b40ec34d45f8643ab8bf2d974ff7c3, type: 2}
+    statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0

@@ -1489,7 +1489,7 @@ public class Ability {
                 return false;
             }
 
-            if (EntityManager.ActivePlayer.TrySpendEssence(GetTotalEssenceCost()) == false) {
+            if (EntityManager.ActivePlayer.TrySpendEssence(GetTotalEssenceCost(), this) == false) {
                 //Debug.LogWarning("Not enough essence for " + Data.abilityName);
                 return false;
             }

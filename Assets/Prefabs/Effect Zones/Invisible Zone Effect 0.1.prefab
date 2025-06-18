@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7661616566570303864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2874040573598466741}
+  - component: {fileID: 7202313647100482620}
+  - component: {fileID: 1593382238141744661}
+  m_Layer: 10
+  m_Name: Invisible Zone Effect 0.1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2874040573598466741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7661616566570303864}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &7202313647100482620
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7661616566570303864}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 1
+--- !u!114 &1593382238141744661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7661616566570303864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e46c3487f408cbb4bbbbf11b0d428bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityName: Invisible Effect Zone
+  entityType: 3
+  entityLevel: 1
+  levelsStored: 0
+  ownerType: 0
+  subtypes: 
+  innerSprite: {fileID: 0}
+  mainSprite: {fileID: 0}
+  statDefinitions: {fileID: 11400000, guid: f2a4e559b0ca96f4e861fe29c0a614f6, type: 2}
+  vfxScalar: 1
+  deathEffectPrefab: {fileID: 0}
+  spawnEffectPrefab: {fileID: 0}
+  facingIndicator: {fileID: 0}
+  castingVFXPosition: {fileID: 0}
+  statusVFXPosition: {fileID: 0}
+  spawnSFXVolume: 1
+  spawnSFX: []
+  hurtSFXVolume: 1
+  hurtSFX: []
+  deathSFXVolume: 1
+  deathSFX: []
+  spriteProgression:
+    _serializedList: []
+  healthBar: {fileID: 0}
+  vfxParticles: {fileID: 0}
+  particleSpeed: 1
+  windupFinishedVFX: {fileID: 0}
+  effectTelegraph: {fileID: 0}
+  growStartVFX: {fileID: 0}
+  tweenHelper: {fileID: 0}
