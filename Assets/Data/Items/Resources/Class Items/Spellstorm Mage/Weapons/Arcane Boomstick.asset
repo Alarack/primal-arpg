@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Arcane Boomstick
+  m_EditorClassIdentifier: 
+  devItem: 0
+  startingItem: 1
+  itemData:
+    Type: 1
+    affixStatTarget: 1
+    entityClass: 0
+    itemName: Arcane Boomstick
+    itemDescription: An otherworldly product of eldritch artifice, this assemblage
+      of tubes and triggers evokes the sensation of wild power.
+    secondaryDescription: 
+    itemValue: 0
+    runeAbilityTarget: 
+    validSlots: 01000000
+    abilityTags: 
+    targetedAbilityName: 
+    itemIcon: {fileID: 7416299919886373891, guid: 0a4ed561e63adc64991dc43a84024eaf, type: 3}
+    invertIcon: 0
+    pickupIcon: {fileID: 7416299919886373891, guid: 0a4ed561e63adc64991dc43a84024eaf, type: 3}
+    pickupOnCollision: 0
+    tier: 0
+    baseAffixSlots: 2
+    minDamage: 5
+    maxDamage: 7
+    statModifierData:
+    - targetStat: 43
+      value: 0.8
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 0
+      deriveStatMultiplier: 0
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 0
+      abilityLevelCoefficient: 1
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
+    - targetStat: 82
+      value: -0.8
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 0
+      deriveStatMultiplier: 0
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 0
+      abilityLevelCoefficient: 1
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
+    abilityDefinitions:
+    - {fileID: 11400000, guid: aae2ce9f14760ba4bbe6fdd9ee22af34, type: 2}
+    learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

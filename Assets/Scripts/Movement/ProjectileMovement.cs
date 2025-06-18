@@ -257,6 +257,9 @@ public class ProjectileMovement : EntityMovement
 
         if (seekTarget == null)
             return;
+
+        Debug.Log(Owner.EntityName + " is seeking " + seekTarget.gameObject.name);
+
         TargetUtilities.RotateSmoothlyTowardTarget(seekTarget, transform, Owner.Stats[StatName.RotationSpeed]);
     }
 
@@ -314,7 +317,7 @@ public class ProjectileMovement : EntityMovement
             Debug.LogError("Projectile owner is null on: " + Owner.EntityName);
         }
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, seekRadius, projectileOwner.projectileHitMask);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, seekRadius, targetLayers);
 
         if (colliders != null && colliders.Length > 0)
         {

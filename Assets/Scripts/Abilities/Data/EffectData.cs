@@ -129,6 +129,7 @@ public class EffectData
     public bool onlyShowTooltipInRune;
     public bool showRiderTooltip;
     public bool showScalers;
+    public bool scaleDamageFromTriggeringAbility;
     public bool inheritStatsFromParentAbility = true;
 
     public int numberOfTargets = -1;

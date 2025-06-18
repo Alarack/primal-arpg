@@ -16,8 +16,9 @@ MonoBehaviour:
     category: 6
     abilityIcon: {fileID: 21300000, guid: 78bb2dd9430288540ac40c8fb0943b11, type: 3}
     abilityName: Spatial Distortion
-    abilityDescription: Whenever one of your Projectiles Pierces an enemy, cause
-      an explosion of Spatial energy around the target in a {ES} meter Diameter.
+    abilityDescription: When your Projectiles Pierce, cause an explosion of Spatial
+      energy around the target in a {ES} meter Diameter, and that Projectile gains
+      +50% damage.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -28,6 +29,7 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
     runeAbilityTarget: 
@@ -37,7 +39,8 @@ MonoBehaviour:
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities: []
+    childAbilities:
+    - {fileID: 11400000, guid: 0b07c4906901667489933b59df30c047, type: 2}
     runeGroupData:
     - runes:
       - {fileID: 11400000, guid: cd212a1c7a2bb1046a3485ccc2652a0e, type: 2}

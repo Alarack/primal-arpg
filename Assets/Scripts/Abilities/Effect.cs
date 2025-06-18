@@ -3634,6 +3634,12 @@ public class StatAdjustmentEffect : Effect {
             if (activeDelivery != null) {
                 float projectileContrabution = 1f + activeDelivery.Stats[StatName.ProjectileEffectContrabution];
                 targetValue *= projectileContrabution;
+
+                if(activeDelivery.EntityName == "Arcane Bolt") {
+                    Debug.Log(projectileContrabution);
+                }
+
+
             }
         }
 
@@ -3992,6 +3998,19 @@ public class StatAdjustmentEffect : Effect {
             return 1f;
 
         float globalDamageMultiplier = 1 + Source.Stats[StatName.GlobalDamageModifier];
+
+        if (Data.scaleDamageFromTriggeringAbility == true) {
+            Ability triggeringAbility = targeter.ActivationInstance.TriggeringAbility;
+            if (triggeringAbility != null) {
+
+                float cooldownOfTrigger = triggeringAbility.GetCooldown();
+                if (cooldownOfTrigger > 0f) {
+                   globalDamageMultiplier *= cooldownOfTrigger;
+
+                }
+
+            }
+        }
 
         //Debug.Log(globalDamageMultiplier + " is the global mod");
 

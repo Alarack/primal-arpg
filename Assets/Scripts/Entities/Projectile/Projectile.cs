@@ -49,6 +49,7 @@ public class Projectile : Entity {
     private float projectileSize;
 
     private int parentLayer;
+    private bool isSplitChild;
     protected override void Awake() {
         base.Awake();
 
@@ -93,12 +94,13 @@ public class Projectile : Entity {
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
     }
 
-    public void Setup(Entity source, Effect parentEffect, LayerMask hitMask, MaskTargeting maskTargeting = MaskTargeting.Opposite) {
+    public void Setup(Entity source, Effect parentEffect, LayerMask hitMask, MaskTargeting maskTargeting = MaskTargeting.Opposite, bool isSplitChild = false) {
         this.Source = source;
         this.ParentEffect = parentEffect;
         this.projectileHitMask = hitMask;
         this.parentLayer = parentEffect.Source.gameObject.layer;
         this.ownerType = source.ownerType;
+        this.isSplitChild = isSplitChild;
 
         //Stats.SetParentCollection(parentEffect.ParentAbility.Stats);
         //SetupHitMask();
@@ -240,6 +242,7 @@ public class Projectile : Entity {
 
     }
 
+
     public void IgnoreCollision(Entity target) {
         SetupCollisionIgnore(target.GetComponent<Collider2D>());
     }
@@ -265,7 +268,6 @@ public class Projectile : Entity {
 
         //if (other.GetComponent<Entity>().HasStatus(Status.StatusName.Inivincible))
         //    return;
-        
 
         DeployZoneEffect(other);
 
@@ -394,7 +396,7 @@ public class Projectile : Entity {
     }
     public void ForceProjectileSplit(Entity ignoreTarget = null) {
         Projectile child = Instantiate(ParentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
-        child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting);
+        child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting, true);
         child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
 
         if (ignoreTarget != null) {
@@ -411,13 +413,16 @@ public class Projectile : Entity {
             return false;
         }
 
+        if (isSplitChild == true)
+            return false;
+
         Stats.AddModifier(StatName.ProjectileSplitCount, -1, StatModType.Flat, this);
 
         for (int i = 0; i < Stats[StatName.ProjectileSplitQuantity]; i++) {
 
             if (cloneSelfOnSplit == true) {
                 Projectile child = Instantiate(ParentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
-                child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting);
+                child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting, true);
                 child.SetupChildCollision(recentHit);
                 child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
 
@@ -538,7 +543,7 @@ public class Projectile : Entity {
         }
 
 
-        Destroy(gameObject, 0.05f);
+        Destroy(gameObject);
 
         //new Task(CleanUpNextFrame(deployZone));
     }

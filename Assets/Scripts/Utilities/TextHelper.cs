@@ -31,8 +31,8 @@ public static class TextHelper
             displayAsPercent = true;
 
 
-        string bonusFormat = displayAsPercent == true ? $"<color=#{bonusColor}>" + (value * 100) + "% </color>" : $"<color=#{bonusColor}>" + value + "</color>";
-        string penaltyFormat = displayAsPercent == true ? $"<color=#{penaltyColor}>" + (value * 100) + "% </color>" : $"<color=#{penaltyColor}>" + value + "</color>";
+        string bonusFormat = displayAsPercent == true ? $"<color=#{bonusColor}>" + (value * 100) + "%</color>" : $"<color=#{bonusColor}>" + value + "</color>";
+        string penaltyFormat = displayAsPercent == true ? $"<color=#{penaltyColor}>" + (value * 100) + "%</color>" : $"<color=#{penaltyColor}>" + value + "</color>";
 
 
         string result = stat switch {
@@ -176,6 +176,8 @@ public static class TextHelper
             StatName.GlobalComboIntervalModifier when value <= 0 => bonusFormat,
             StatName.GlobalComboIntervalModifier when value > 0 => penaltyFormat,
 
+            StatName.ChannelingMoveSpeedModifier when value >= 0 => bonusFormat,
+            StatName.ChannelingMoveSpeedModifier when value <0 => penaltyFormat,
 
             StatName.DoubleTickChance when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.DoubleTickChance when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
@@ -261,7 +263,6 @@ public static class TextHelper
             StatName.ChannelingMoveSpeedModifier => "Channeling Move Speed",
             StatName.GlobalComboDurationModifier => "Effect Duration Modifier",
             StatName.GlobalComboIntervalModifier => "Effect Interval Modifier",
-
   
             _ => stat.ToString().SplitCamelCase(),
         };

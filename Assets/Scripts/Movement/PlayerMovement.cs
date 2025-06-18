@@ -78,8 +78,8 @@ public class PlayerMovement : EntityMovement
     {
         RotateTowardMouse();
 
-        if (Owner.IsChanneling() == true)
-            return;
+        //if (Owner.IsChanneling() == true)
+        //    return;
 
 
         float baseSpeed = Owner.Stats[StatName.MoveSpeed];
@@ -88,6 +88,14 @@ public class PlayerMovement : EntityMovement
 
         if(Owner.IsCasting() == true) {
             modifiedSpeed *= 1 + Owner.Stats[StatName.CastingMoveSpeedModifier];
+        }
+
+        if(Owner.IsChanneling() == true) {
+            float channelSpeed = Owner.Stats[StatName.ChannelingMoveSpeedModifier];
+            float abilitySpeed = Owner.ActiveChannelingAbility.Stats[StatName.ChannelingMoveSpeedModifier];
+            float sum = channelSpeed + abilitySpeed;
+
+            modifiedSpeed *= (1 + sum);
         }
 
 

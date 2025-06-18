@@ -504,6 +504,10 @@ public static class AbilityEditorHelper {
 
         }
 
+        if(entry.type == EffectType.StatAdjustment) {
+            entry.scaleDamageFromTriggeringAbility = EditorGUILayout.Toggle("Scale from Triggering Cooldown", entry.scaleDamageFromTriggeringAbility);
+        }
+
         entry.inheritStatsFromParentAbility = EditorGUILayout.Toggle("Inherit Stats", entry.inheritStatsFromParentAbility);
 
         if (entry.canOverload == true) {
