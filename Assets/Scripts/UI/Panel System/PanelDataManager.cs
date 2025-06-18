@@ -11,6 +11,8 @@ public class PanelDataManager : Singleton<PanelDataManager>
     public static List<string> closeOnEscapePanels = new List<string>();
 
 
+    private DebugPanel debugPanel;
+
     [RuntimeInitializeOnLoadMethod]
     private static void InitStatic() {
         blockingPanels = new List<string>();
@@ -26,6 +28,9 @@ public class PanelDataManager : Singleton<PanelDataManager>
 
         blockingPanels = panelMapData.GetBlockingPanels();
         closeOnEscapePanels = panelMapData.GetEscapeClosingPanels();
+        
+        if(GameManager.Instance.debugMode == true) 
+            debugPanel = GameObject.FindAnyObjectByType<DebugPanel>();
     }
 
     private void Update() {
@@ -33,13 +38,23 @@ public class PanelDataManager : Singleton<PanelDataManager>
         if (Input.GetKeyDown(KeyCode.I)) {
             if (RoomManager.InCombat == true)
                 return;
-            
+
+            if (GameManager.Instance.debugMode == true) {
+                if (debugPanel.IsOpen == true)
+                    return;
+            }
+
             PanelManager.TogglePanel<InventoryPanel>();
         }
 
         if (Input.GetKeyDown(KeyCode.K)) {
             if (RoomManager.InCombat == true)
                 return;
+
+            if(GameManager.Instance.debugMode == true) {
+                if (debugPanel.IsOpen == true)
+                    return;
+            }
 
             PanelManager.TogglePanel<SkillsPanel>();
         }
@@ -58,6 +73,11 @@ public class PanelDataManager : Singleton<PanelDataManager>
             if (RoomManager.InCombat == true)
                 return;
 
+            if (GameManager.Instance.debugMode == true) {
+                if (debugPanel.IsOpen == true)
+                    return;
+            }
+
             PanelManager.TogglePanel<MasteryPanel>();
         }
 
@@ -65,6 +85,11 @@ public class PanelDataManager : Singleton<PanelDataManager>
         if (EntityManager.ActivePlayer != null && EntityManager.ActivePlayer.levelsStored > 0 && Input.GetKeyDown(KeyCode.L)) {
             if (RoomManager.InCombat == true)
                 return;
+
+            if (GameManager.Instance.debugMode == true) {
+                if (debugPanel.IsOpen == true)
+                    return;
+            }
 
             PanelManager.OpenPanel<LevelUpPanel>();
         }

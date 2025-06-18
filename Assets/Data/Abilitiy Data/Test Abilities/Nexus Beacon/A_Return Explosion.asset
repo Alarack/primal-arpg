@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: A_Return Explosion
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 1
+    category: 5
     abilityIcon: {fileID: 21300000, guid: 1c1372e6c4b93bd4d918300a53015161, type: 3}
     abilityName: Return Explosion
     abilityDescription: ', then cause an explosion in a {ES} meter radius'
@@ -25,15 +25,34 @@ MonoBehaviour:
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
+    recastOnChannelCost: 0
+    normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
+    startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: 
+    animationString: 
+    waitForAnimToResolve: 0
+    initSFXVolume: 1
+    initiationSounds: []
+    channelSFXVolume: 1
+    channeledSounds: []
     childAbilities: []
+    runeGroupData: []
     tags: 
+    resetEvents: 
     activationTriggerData:
     - type: 5
+      overrideProcStat: 0
+      procChance: 1
+      triggerDelay: 0
       riderAbilityName: Return to Beacon
       riderEffectName: Teleport to Beacon
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 4
         constraintData: []
@@ -42,33 +61,48 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
+        procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
+        procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
+        autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: bda688df36a6af7408cd6cf2900e3908, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
+    maxRanks: -1
     windupVFX: {fileID: 0}
     abilityStatData: []
     recoveryData: []

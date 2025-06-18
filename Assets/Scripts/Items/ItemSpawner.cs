@@ -43,9 +43,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
     private void Update() {
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.E)) {
-            SpawnEXP(25, EntityManager.ActivePlayer.transform.position);
-            SpawnCoins(25, EntityManager.ActivePlayer.transform.position, 5f, 10f);
-            SpawnCoins(5, EntityManager.ActivePlayer.transform.position, 1f, 2f, CurrencyType.UnstableAetherium);
+            Dev_SpawnResources();
         }
 #endif
     }
@@ -372,6 +370,10 @@ public class ItemSpawner : Singleton<ItemSpawner>
     }
 
 
-
+    public void Dev_SpawnResources() {
+        SpawnEXP(25, EntityManager.ActivePlayer.transform.position);
+        SpawnCoins(25, EntityManager.ActivePlayer.transform.position, 5f, 10f);
+        SpawnCoins(5, EntityManager.ActivePlayer.transform.position, 1f, 2f, CurrencyType.UnstableAetherium);
+    }
 
 }

@@ -13,18 +13,25 @@ MonoBehaviour:
   m_Name: Siege Mages Signet
   m_EditorClassIdentifier: 
   devItem: 0
+  startingItem: 0
   itemData:
     Type: 1
+    affixStatTarget: 1
     entityClass: 0
     itemName: Siege Mages' Signet
     itemDescription: Your Area Effects and Projectiles become HUGE
+    secondaryDescription: 
     itemValue: 250
     runeAbilityTarget: 
     validSlots: 0400000005000000
     abilityTags: 0600000008000000
+    targetedAbilityName: 
     itemIcon: {fileID: 21300000, guid: a067f0c64576507408c51a4e16331d27, type: 3}
+    invertIcon: 0
     pickupIcon: {fileID: 21300000, guid: a067f0c64576507408c51a4e16331d27, type: 3}
     pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
     statModifierData:
@@ -38,11 +45,14 @@ MonoBehaviour:
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 0
+      abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
       scalers: []
     - targetStat: 43
-      value: 2
+      value: 1
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -51,8 +61,13 @@ MonoBehaviour:
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 0
+      abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
       scalers: []
     abilityDefinitions: []
     learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

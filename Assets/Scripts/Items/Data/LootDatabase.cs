@@ -51,6 +51,33 @@ public class LootDatabase : ScriptableObject {
     }
 
 
+    public List<ItemDefinition> SearchItems(string input) {
+        List<ItemDefinition> results = new List<ItemDefinition>();
+        
+        foreach (ItemDefinition item in allItems) {
+            if (item.devItem == true)
+                continue;
+            if (item.itemData.Type == ItemType.Rune)
+                continue;
+            if (item.itemData.Type == ItemType.ClassSelection)
+                continue;
+            if (item.itemData.Type == ItemType.StatBooster)
+                continue;
+            if (item.itemData.Type == ItemType.Experience)
+                continue;
+            if (item.itemData.Type == ItemType.Currency)
+                continue;
+            if (item.itemData.Type == ItemType.SkillPoint)
+                continue;
+
+            if (item.itemData.itemName.CaseInsensitiveContains(input)) {
+                results.Add(item);
+            }
+        }
+
+        return results;
+    }
+
     public ItemDefinition GetItemByName(string name) {
         ItemDefinition result = null;
 

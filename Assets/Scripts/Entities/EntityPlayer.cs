@@ -40,8 +40,11 @@ public class EntityPlayer : Entity {
         }
 
 #if UNITY_EDITOR
-        if(Input.GetKeyDown(KeyCode.K)) {
-            Die(this);
+
+        if (Input.GetKey(KeyCode.LeftControl)) {
+            if (Input.GetKeyDown(KeyCode.K)) {
+                Die(this);
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.H)) {

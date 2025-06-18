@@ -6,7 +6,8 @@ using static InputHelper;
 
 public class GameManager : Singleton<GameManager>
 {
-
+    public bool debugMode;
+    public DebugPanel debugPanel;
     public TileDatabase tileDatabase;
     public StatTooltipData tooltipData;
     public MasteryDefiniiton masteryDatabase;
@@ -24,7 +25,17 @@ public class GameManager : Singleton<GameManager>
         return dupeSkills == 1;
     }
 
+    private void Update() {
+        if(debugMode == false) 
+            return;
 
+        if (Input.GetKeyDown(KeyCode.KeypadPlus)) {
+            debugPanel.Toggle();
+        }
+    }
+
+
+    
 
     public static void StartGame() {
         //EntityManager.Instance.CreatePlayer();

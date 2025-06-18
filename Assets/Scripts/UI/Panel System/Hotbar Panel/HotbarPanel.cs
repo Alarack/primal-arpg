@@ -257,6 +257,7 @@ public class HotbarPanel : SkillBasePanel {
             GameButtonType.Skill2 => playerInputActions.Player.Skill2,
             GameButtonType.Skill3 => playerInputActions.Player.Skill3,
             GameButtonType.Skill4 => playerInputActions.Player.Skill4,
+            GameButtonType.Dash => playerInputActions.Player.Dash,
             _ => null,
         };
 

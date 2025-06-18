@@ -255,10 +255,10 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void AssignNewAbility(Ability ability) {
 
-        if (ability != null && abilityRestriction != AbilityTag.None && ability.Tags.Contains(abilityRestriction) == false) {
-            Debug.LogWarning("You can only equip: " + abilityRestriction + " Skills in this slot");
-            return;
-        }
+        //if (ability != null && abilityRestriction != AbilityTag.None && ability.Tags.Contains(abilityRestriction) == false) {
+        //    Debug.LogWarning("You can only equip: " + abilityRestriction + " Skills in this slot");
+        //    return;
+        //}
         
         
         this.Ability = ability;
