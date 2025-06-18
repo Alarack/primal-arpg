@@ -27,18 +27,32 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
+    startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: 
+    animationString: 
+    waitForAnimToResolve: 0
+    initSFXVolume: 1
+    initiationSounds: []
+    channelSFXVolume: 1
+    channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 040000000600000009000000
+    tags: 040000000600000017000000
+    resetEvents: 
     activationTriggerData:
     - type: 31
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 0
         constraintData:
@@ -83,42 +97,55 @@ MonoBehaviour:
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: 5b5708d9e324f02418c6fda82272c73f, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
+    maxRanks: -1
     windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
     abilityStatData:
     - variant: 0
@@ -143,15 +170,20 @@ MonoBehaviour:
         useCustomRefreshTrigger: 0
         customRefreshTriggerData:
           type: 0
+          overrideProcStat: 0
           procChance: 1
+          triggerDelay: 0
           riderAbilityName: 
           riderEffectName: 
           triggerTimerDuration: 0
+          chainTriggerDelay: 0.1
           delay1Frame: 0
           autoActivateTimer: 0
+          resetTimerOnParentAbilityEnd: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0
         requireMultipleTriggers: 0
+        reduceTriggerCountByAbilityLevel: 0
         minTriggerCount: 0
       cooldown: 0.5

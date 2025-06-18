@@ -258,7 +258,7 @@ public class ProjectileMovement : EntityMovement
         if (seekTarget == null)
             return;
 
-        Debug.Log(Owner.EntityName + " is seeking " + seekTarget.gameObject.name);
+        //Debug.Log(Owner.EntityName + " is seeking " + seekTarget.gameObject.name);
 
         TargetUtilities.RotateSmoothlyTowardTarget(seekTarget, transform, Owner.Stats[StatName.RotationSpeed]);
     }

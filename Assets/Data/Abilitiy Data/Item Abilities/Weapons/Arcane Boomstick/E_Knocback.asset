@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Vestige Damage
+  m_Name: E_Knocback
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Vestige Damage
+    effectName: Arcane Boomstick - knockback
     effectDescription: 
-    type: 1
-    targeting: 5
-    subTarget: 0
+    type: 5
+    targeting: 2
+    subTarget: 1
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
-    canOverload: 1
+    canOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
-    untracked: 0
+    untracked: 1
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
     showScalers: 0
@@ -37,11 +37,11 @@ MonoBehaviour:
     targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
-    payloadPrefab: {fileID: 5357787465864582416, guid: d503327d1e829df40b60be4a53262018, type: 3}
+    payloadPrefab: {fileID: 0}
     payloadStatData:
     - variant: 0
-      statName: 41
-      value: 2
+      statName: 9
+      value: 50
       maxValue: 0
       minValue: 0
     spawnLocation: 0
@@ -55,52 +55,49 @@ MonoBehaviour:
     rotatePayloadTowardMouse: 0
     effectZoneInfo:
       removeEffectOnExit: 0
-      parentEffectToOrigin: 1
+      parentEffectToOrigin: 0
       parentToTarget: 0
-      applyOncePerTarget: 1
+      applyOncePerTarget: 0
       applyOnInterval: 0
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
-      applyVFX: {fileID: 5591243758346380215, guid: ca9c94ff75e9802488778534d6dabe07, type: 3}
+      applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 0
-      value: -10
-      modifierType: 0
-      variantTarget: 1
-      modValueSetMethod: 6
-      weaponDamagePercent: 0.75
+    - targetStat: 2
+      value: 1.5
+      modifierType: 2
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
       deriveStatMultiplier: 1
       deriveTarget: 0
       derivedTargetStat: 0
-      invertDerivedValue: 1
+      invertDerivedValue: 0
       scaleFromAbilityLevel: 0
-      displayAsPercent: 0
+      displayAsPercent: 1
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
-      scalers:
-      - targetStat: 28
-        deriveTarget: 15
-        statScaleBaseValue: 1
+      scalers: []
     floatingTextColor:
       serializedVersion: 2
-      key0: {r: 1, g: 0.6077585, b: 0, a: 1}
-      key1: {r: 1, g: 0.2105867, b: 0, a: 1}
-      key2: {r: 0.4245283, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 33924
-      ctime2: 65535
+      ctime1: 65535
+      ctime2: 0
       ctime3: 0
       ctime4: 0
       ctime5: 0
@@ -108,7 +105,7 @@ MonoBehaviour:
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 65535
+      atime2: 0
       atime3: 0
       atime4: 0
       atime5: 0
@@ -116,39 +113,39 @@ MonoBehaviour:
       atime7: 0
       m_Mode: 0
       m_ColorSpace: -1
-      m_NumColorKeys: 3
+      m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     overloadFloatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 0.54377365, b: 0, a: 1}
-      key2: {r: 0.2924528, g: 0, b: 0, a: 0}
-      key3: {r: 0.3647059, g: 0.454902, b: 0.64705884, a: 0}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 32768
-      ctime2: 61295
-      ctime3: 65535
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 55705
-      atime2: 65342
+      atime1: 65535
+      atime2: 0
       atime3: 0
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: 0
-      m_NumColorKeys: 3
-      m_NumAlphaKeys: 3
-    effectDesignation: 1
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    effectDesignation: 0
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     statusModifiers: []
@@ -156,9 +153,9 @@ MonoBehaviour:
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
-    resetMovement: 0
+    resetMovement: 1
     showTrail: 0
-    targetDestination: 0
+    targetDestination: 3
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0

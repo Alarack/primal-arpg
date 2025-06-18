@@ -16,7 +16,7 @@ MonoBehaviour:
     category: 2
     abilityIcon: {fileID: 0}
     abilityName: Arcane Boomstick
-    abilityDescription: 
+    abilityDescription: Your attacks cause Knockback.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -37,7 +37,8 @@ MonoBehaviour:
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities: []
+    childAbilities:
+    - {fileID: 11400000, guid: 7473c9245f08463459230e36097b388e, type: 2}
     runeGroupData: []
     tags: 
     resetEvents: 
