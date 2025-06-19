@@ -282,7 +282,9 @@ public class EffectTargeter {
                 + parentEffect.ParentAbility.Data.abilityName
                 + ":: on the entity: "
                 + parentEffect.Source.EntityName
-                + " triggered an effect and had 0 valid targets");
+                + " triggered an effect: " 
+                + parentEffect.Data.effectName
+                + " that had 0 valid targets");
         }
 
         for (int i = 0; i < validEffectTargets.Count; i++) {

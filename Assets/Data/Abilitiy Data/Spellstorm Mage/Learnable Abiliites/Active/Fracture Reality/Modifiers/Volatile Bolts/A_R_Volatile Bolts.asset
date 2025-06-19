@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
     abilityName: Volatile Bolts
-    abilityDescription: Void Bolts created from Fracture Reality now cause damage
-      in a {ES} diameter radius.
+    abilityDescription: Void Bolts created from Channeling Fracture Reality now cause
+      damage in a {ES} diameter radius.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -38,7 +38,8 @@ MonoBehaviour:
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities: []
+    childAbilities:
+    - {fileID: 11400000, guid: 24fc25febcbcd18408f190ae7d312358, type: 2}
     runeGroupData: []
     tags: 0e00000017000000
     resetEvents: 
@@ -115,6 +116,7 @@ MonoBehaviour:
     effectDefinitions:
     - {fileID: 11400000, guid: 5a9b442de2b1c2c4ca404cff6a1f210d, type: 2}
     - {fileID: 11400000, guid: 2c11fc5d6eda3834bbff9e0dec4f1cae, type: 2}
+    - {fileID: 11400000, guid: bb09de56cb8493c40a1ed89c3430f4e9, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

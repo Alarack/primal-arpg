@@ -1288,9 +1288,18 @@ public class StatChangedTrigger : AbilityTrigger {
         Ability ability = data.GetAbility("Ability");
         bool isRemoval = data.GetBool("Removal");
 
+        if(ability != null) {
+            if (ability.ParentAbility != null) {
+                CauseOfAbilityTrigger = ability.ParentAbility;
+            }
+            else {
+                CauseOfAbilityTrigger = ability;
+            }
+        }
+
         TriggeringEntity = affectedTarget;
         CauseOfTrigger = causeOfChange;
-        CauseOfAbilityTrigger = ability;
+        //CauseOfAbilityTrigger = ability;
 
 
         //if(ParentAbility != null && ParentAbility.Source.ownerType == OwnerConstraintType.Friendly) {
@@ -1303,24 +1312,9 @@ public class StatChangedTrigger : AbilityTrigger {
 
         //if(ParentAbility != null && ParentAbility.Data.abilityName == "Living Void") {
 
-        //    if (targetStat != StatName.Essence) {
-                
-        //        Debug.Log("Stat: " + targetStat);
-                
-        //        if (causeOfChange != null)
-        //            Debug.Log("Cause: " + causeOfChange.EntityName);
-        //        else
-        //            Debug.Log("Cause is null");
-        //        if (affectedTarget != null)
-        //            Debug.Log("Trigger: " + affectedTarget.EntityName);
-        //        else
-        //            Debug.Log("Trigger is null");
-        //    }
-        //}
-
 
         StatChangeTriggerInstance triggerInstance = new StatChangeTriggerInstance(affectedTarget, causeOfChange, Type, targetStat, changeValue, ability, delivery, isRemoval);
-        triggerInstance.CausingAbility = ability;
+        triggerInstance.CausingAbility = CauseOfAbilityTrigger;
         triggerInstance.SourceAbility = ParentAbility;
         triggerInstance.TriggeringAbility = ParentAbility;
 

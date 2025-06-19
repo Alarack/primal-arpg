@@ -458,6 +458,10 @@ public class AbilityManager : MonoBehaviour {
         foreach (var entry in Abilities) {
             for (int i = 0; i < entry.Value.Count; i++) {
                 results.AddUnique(entry.Value[i]);
+
+                for (int j = 0; j < entry.Value[i].ChildAbilities.Count; j++) {
+                    results.AddUnique(entry.Value[i].ChildAbilities[j]);
+                }
             }
         }
         return results;
@@ -518,6 +522,8 @@ public class AbilityManager : MonoBehaviour {
 
             for (int i = 0; i < effects.Count; i++) {
                 results.AddUnique(effects[i]);
+                
+                //Debug.Log("Found an effect: " + effects[i].Data.effectName + " on " + entry.Data.abilityName);
             }
 
             //results.AddRange(entry.GetAllEffects());

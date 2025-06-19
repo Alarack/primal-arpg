@@ -96,13 +96,13 @@ MonoBehaviour:
       parentEffectToOrigin: 0
       parentToTarget: 0
       applyOncePerTarget: 1
-      applyOnInterval: 1
+      applyOnInterval: 0
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 182802, guid: 57ac5680dabf21944b5c2d0366061eb9, type: 3}
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
-      effectZonePrefab: {fileID: 1593382238141744661, guid: 797fca91ce791fa4caf4f49f7bf1b64c, type: 3}
+      effectZonePrefab: {fileID: 1593382238141744661, guid: 11a3168e6b5c96c4686b1cd71f5e9ae1, type: 3}
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
@@ -209,7 +209,8 @@ MonoBehaviour:
     tagsToAdd: 
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
-    newEffectZonePrefab: {fileID: 0}
+    changeEffectZoneByProjectileName: 
+    changeEffectZoneByEffectName: 
     modifiedMovementBehavior: 0
     modifiedSeekDuration: -1
     modifiedDrunkInterval: 0.2

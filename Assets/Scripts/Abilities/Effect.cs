@@ -856,9 +856,47 @@ public class EffectChangeEffectZpme : Effect {
         if (base.ApplyToAbility(target) == false)
             return false;
 
+        if(string.IsNullOrEmpty(Data.changeEffectZoneByEffectName) == false) {
+            Effect targetEffect = target.GetEffectByName(Data.changeEffectZoneByEffectName);
 
-        Debug.LogError("Changing Payloads at the Ability level is not yet supported");
+            if(target != null) {
+                ApplyToEffect(targetEffect);
+                return true;
+            }
+            else {
+                Debug.LogError("Could not find an effect: " + Data.changeEffectZoneByEffectName + " on the ability: " + target.Data.abilityName + " when changing an effect zone");
+                return false;
+            }
+        }
+
+        if(string.IsNullOrEmpty (Data.changeEffectZoneByProjectileName) == false) {
+            List<Effect> allEffectsOntargetAbility = target.GetAllEffects();
+            int successCount = 0;
+            for (int i = 0; i < allEffectsOntargetAbility.Count; i++) {
+                Entity payloadPrefab = allEffectsOntargetAbility[i].PayloadPrefab;
+
+                if(payloadPrefab == null) 
+                    continue;
+
+                if (payloadPrefab.EntityName != Data.changeEffectZoneByProjectileName)
+                    continue;
+                else {
+                    ApplyToEffect(allEffectsOntargetAbility[i]);
+                    successCount++;
+                }
+            }
+
+            if (successCount > 0)
+                return true;
+        }
+
+
+        //Debug.LogError("Changing Payloads at the Ability level is not yet supported");
         return false;
+    }
+
+    public override void RemoveFromAbility(Ability target) {
+        base.RemoveFromAbility(target);
 
 
     }

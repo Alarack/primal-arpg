@@ -245,7 +245,9 @@ public class EffectData
     public Entity newPayloadPrefab;
 
     //Change Effect Zone
-    public EffectZone newEffectZonePrefab;
+    //public EffectZone newEffectZonePrefab;
+    public string changeEffectZoneByProjectileName;
+    public string changeEffectZoneByEffectName;
 
     //Modify Projectile;
     public ProjectileMovement.MovementBehavior modifiedMovementBehavior;

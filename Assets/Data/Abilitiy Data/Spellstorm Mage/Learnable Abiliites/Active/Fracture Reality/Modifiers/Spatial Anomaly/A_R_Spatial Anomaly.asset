@@ -15,7 +15,7 @@ MonoBehaviour:
   AbilityData:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
-    abilityName: Spatial Anomaly Rune
+    abilityName: Spatial Anomaly
     abilityDescription: When you Teleport you have a chance to release Void Bolts
       and a smaller chance to open a Spatial Breach
     resourceCost: 0
@@ -27,28 +27,48 @@ MonoBehaviour:
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
+    normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
+    startingAbility: 0
+    scaleProcByLevel: 0
     runeAbilityTarget: Fracture Reality
+    animationString: 
+    waitForAnimToResolve: 0
+    initSFXVolume: 1
+    initiationSounds: []
+    channelSFXVolume: 1
+    channeledSounds: []
     childAbilities: []
+    runeGroupData: []
     tags: 0e00000017000000
+    resetEvents: 
     activationTriggerData:
     - type: 17
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 0
         constraintData: []
     endTriggerData:
     - type: 18
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       allConstraints:
       - focus: 0
         constraintData: []
@@ -56,37 +76,48 @@ MonoBehaviour:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
         type: 0
+        overrideProcStat: 0
         procChance: 1
+        triggerDelay: 0
         riderAbilityName: 
         riderEffectName: 
         triggerTimerDuration: 0
+        chainTriggerDelay: 0.1
         delay1Frame: 0
         autoActivateTimer: 0
+        resetTimerOnParentAbilityEnd: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
       requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
     - {fileID: 11400000, guid: 3b4ff4d6be4a3754fb4a9e3ce1ab8aee, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
+    maxRanks: -1
     windupVFX: {fileID: 0}
     abilityStatData: []
     recoveryData: []
