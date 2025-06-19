@@ -522,7 +522,8 @@ public class AbilityManager : MonoBehaviour {
 
             for (int i = 0; i < effects.Count; i++) {
                 results.AddUnique(effects[i]);
-                
+                results.AddRange(effects[i].RiderEffects);
+
                 //Debug.Log("Found an effect: " + effects[i].Data.effectName + " on " + entry.Data.abilityName);
             }
 

@@ -108,7 +108,7 @@ MonoBehaviour:
       m_Bits: 0
     modData:
     - targetStat: 41
-      value: 4
+      value: 5
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -225,7 +225,8 @@ MonoBehaviour:
     tagsToAdd: 
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
-    newEffectZonePrefab: {fileID: 0}
+    changeEffectZoneByProjectileName: 
+    changeEffectZoneByEffectName: 
     modifiedMovementBehavior: 0
     modifiedSeekDuration: -1
     modifiedDrunkInterval: 0.2
