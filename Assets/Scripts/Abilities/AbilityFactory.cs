@@ -97,6 +97,7 @@ public static class AbilityFactory {
             ConstraintType.AbilityInSlot => new AbilityInSlotConstraint(data, source, parentAbility),
             ConstraintType.HasDot => new HasDOTConstraint(data, source, parentAbility),
             ConstraintType.HasProjectile => new HasProjectileConstraint(data, source, parentAbility),
+            ConstraintType.StatusApplied => new StatusAppliedConstraint(data, source, parentAbility),
             _ => null,
         };
 

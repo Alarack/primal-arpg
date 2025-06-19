@@ -2597,7 +2597,15 @@ public class AddStatusEffect : Effect {
         float effectIntervalModifier = 1 + Source.Stats[StatName.GlobalStatusIntervalModifier];
         float comboIntervalModifer = 1 + Source.Stats[StatName.GlobalComboIntervalModifier];
 
-        float result = Stats[StatName.StatusInterval] * effectIntervalModifier * comboIntervalModifer;
+        float resulstingIntervalMod = effectIntervalModifier * comboIntervalModifer;
+
+        if(resulstingIntervalMod <= 0.2f) {
+            //Debug.LogError("A status interval is too low: " + resulstingIntervalMod);
+            resulstingIntervalMod = 0.2f;
+        }
+
+
+        float result = Stats[StatName.StatusInterval] * resulstingIntervalMod;
 
         //if (result <= 0.1f) {
         //    Debug.LogError("A status interval is very very low: " + result);

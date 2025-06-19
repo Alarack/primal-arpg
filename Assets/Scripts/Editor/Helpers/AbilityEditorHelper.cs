@@ -422,6 +422,10 @@ public static class AbilityEditorHelper {
                 entry.targetStatus = EditorHelper.EnumPopup("Status", entry.targetStatus);
                 break;
 
+            case ConstraintType.StatusApplied:
+                entry.appliedStatusType = EditorHelper.EnumPopup("Status", entry.appliedStatusType);
+                break;
+
             case ConstraintType.AbilityTag:
                 entry.targetAbilityTag = EditorHelper.EnumPopup("Tag", entry.targetAbilityTag);
                 break;

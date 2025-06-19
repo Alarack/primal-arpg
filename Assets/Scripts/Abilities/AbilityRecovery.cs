@@ -144,6 +144,10 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
         //if (cdrPercent <= 0)
         //    return;
 
+        if(cdrPercent > 0.9f) {
+            cdrPercent = 0.9f;
+        }
+
         StatModifier cdrMod = new StatModifier(-cdrPercent, StatModType.PercentAdd, StatName.Cooldown, this, StatModifierData.StatVariantTarget.Simple);
 
         ParentAbility.Stats.AddModifier(StatName.Cooldown, cdrMod);

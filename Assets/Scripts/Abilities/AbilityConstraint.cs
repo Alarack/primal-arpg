@@ -589,6 +589,30 @@ public class HasStatusConstraint : AbilityConstraint {
 
 }
 
+public class StatusAppliedConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.StatusApplied;
+
+    public StatusAppliedConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        StatusAppliedTrigger.StatusAppliedTriggerInstance trigger = triggerInstance as StatusAppliedTrigger.StatusAppliedTriggerInstance;
+        if(trigger == null) {
+            Debug.LogError("A non status applied trigger: " + triggerInstance.GetType() + " has been sent to a Status Applied constraint");
+            return false;
+        }
+
+        bool result = data.appliedStatusType == trigger.statusApplied.statusName;
+        
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
 public class HasDOTConstraint : AbilityConstraint {
 
     public override ConstraintType Type => ConstraintType.HasDot;

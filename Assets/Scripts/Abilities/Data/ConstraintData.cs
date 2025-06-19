@@ -43,7 +43,8 @@ public enum ConstraintType {
     CauseOnly,
     AbilityInSlot,
     HasDot,
-    HasProjectile
+    HasProjectile,
+    StatusApplied
 }
 
 public enum GainedOrLost {
@@ -153,6 +154,9 @@ public class ConstraintData
 
     //Has Status
     public Status.StatusName targetStatus;
+
+    //Status Applied
+    public Status.StatusName appliedStatusType;
 
     //Stat Ratio
     public StatName statRatioTarget;

@@ -235,13 +235,11 @@ public static class StatAdjustmentManager {
 
         statModAction?.Invoke(targetStat, mod);
 
-
         //if(delivery != null) {
         //    if(delivery.EntityName == "Void Bolt") {
         //        Debug.LogWarning("Void bolt is changing " + targetStat + " on " + target.EntityName + " by a value of " + mod.Value);
         //    }
         //}
-
 
         //if (targetStat == StatName.GlobalStatusDurationModifier) {
         //    Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
