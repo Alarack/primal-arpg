@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
 using System.Linq;
+using static UnityEngine.GraphicsBuffer;
 
 public class ItemSpawner : Singleton<ItemSpawner>
 {
@@ -83,6 +84,13 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
                 if(RoomManager.CurrentRoom.Type == Room.RoomType.BossRoom && target.subtypes.Contains(Entity.EntitySubtype.Boss) == true)
                     SpawnCoins(Random.Range(5, 10), target.transform.position, 3f, 3f, CurrencyType.UnstableAetherium);
+            }
+
+            NPC npcTarget = target as NPC;
+            if (npcTarget != null) {
+                if(npcTarget.IsElite == true) {
+                    SpawnCoins(Random.Range(2, 5), target.transform.position, 1f, 3f, CurrencyType.AethriumIngot);
+                }
             }
 
 
@@ -381,8 +389,9 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
     public void Dev_SpawnResources() {
         SpawnEXP(25, EntityManager.ActivePlayer.transform.position);
-        SpawnCoins(25, EntityManager.ActivePlayer.transform.position, 5f, 10f);
-        SpawnCoins(5, EntityManager.ActivePlayer.transform.position, 1f, 2f, CurrencyType.UnstableAetherium);
+        SpawnCoins(25, EntityManager.ActivePlayer.transform.position, 10f, 10f);
+        SpawnCoins(5, EntityManager.ActivePlayer.transform.position, 10f, 10f, CurrencyType.UnstableAetherium);
+        SpawnCoins(5, EntityManager.ActivePlayer.transform.position, 10f, 10f, CurrencyType.AethriumIngot);
     }
 
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
 using static AffixDatabase;
-using System;
-using static UnityEngine.GraphicsBuffer;
+//using System;
+
 
 public class NPC : Entity
 {
@@ -18,6 +18,7 @@ public class NPC : Entity
     public List<NPCEliteAffixData> currentEliteAffixes = new List<NPCEliteAffixData>();
 
     public Entity MinionMaster { get; set; }
+    public bool IsElite { get { return currentEliteAffixes.Count > 0; } }
 
     public bool active;
 
@@ -76,6 +77,7 @@ public class NPC : Entity
 
     private void OnSpawnInComplete(EventData data) {
         CheckHandicap();
+        CheckElite();
         active = true;
         if(myCollider != null) 
             myCollider.enabled = true;
@@ -100,6 +102,21 @@ public class NPC : Entity
 
     }
 
+    private void CheckElite() {
+
+        if (Brain == null)
+            return;
+
+        if(entityType != EntityType.Enemy) 
+            return;
+        
+        float eliteRoll = Random.Range(0f, 1f);
+
+        if(eliteRoll <= 0.2f) {
+            BecomeElite(EliteAffixType.Overcharged);
+        }
+    }
+
     public void BecomeElite(EliteAffixType type) {
         NPCEliteAffixData eliteData = AffixDataManager.GetEliteAffixDataByType(type);
         currentEliteAffixes.Add(eliteData);
@@ -107,6 +124,11 @@ public class NPC : Entity
         for (int i = 0; i < eliteData.abilities.Count; i++) {
             Brain.AddAbility(eliteData.abilities[i]);
         }
+        StatModifier mod = new StatModifier(2f, StatModType.PercentMult, StatName.Health, this, StatModifierData.StatVariantTarget.RangeMax);
+        StatAdjustmentManager.ApplyStatAdjustment(this, mod, mod.VariantTarget, this, null);
+        Stats.Refresh(StatName.Health);
+
+        transform.localScale *= 1.2f;
 
         VFXUtility.SpawnVFX(eliteData.vfxPrefab, transform, 0f, 2f);
     }

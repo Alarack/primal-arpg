@@ -428,16 +428,19 @@ public class InventoryPanel : BasePanel {
         if (selectedSlot.AffixData == null)
             return;
 
-        if(selectedSlot.AffixData.tier < 5) {
+        if(selectedSlot.AffixData.tier >= 5) {
+            PanelManager.OpenPanel<PopupPanel>().Setup("Max Rank", "This Affix cannot be upgraded any further");
+            return;
 
-            ItemData upgradedAffix = ItemSpawner.Instance.UpgradeItemAffixTier(selectedSlot.AffixData);
-
-            forgeSlot.MyItem.ReplaceAffix(selectedSlot.AffixData, upgradedAffix);
-            
-            selectedSlot.UpdateAffix(upgradedAffix);
-            AudioManager.PlayForgeSound();
-            selectedSlot.upgradeVFX.Play();
         }
+
+        ItemData upgradedAffix = ItemSpawner.Instance.UpgradeItemAffixTier(selectedSlot.AffixData);
+
+        forgeSlot.MyItem.ReplaceAffix(selectedSlot.AffixData, upgradedAffix);
+
+        selectedSlot.UpdateAffix(upgradedAffix);
+        AudioManager.PlayForgeSound();
+        selectedSlot.upgradeVFX.Play();
 
     }
 
