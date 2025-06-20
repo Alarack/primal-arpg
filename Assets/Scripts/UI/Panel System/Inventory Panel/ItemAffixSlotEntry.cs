@@ -17,7 +17,7 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     public Image rarityGemImage;
     public GameObject rarityHolder;
     public GameObject selectorArrow;
-
+    public ParticleSystem upgradeVFX;
 
 
     private Item currentItem;

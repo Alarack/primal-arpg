@@ -436,6 +436,7 @@ public class InventoryPanel : BasePanel {
             
             selectedSlot.UpdateAffix(upgradedAffix);
             AudioManager.PlayForgeSound();
+            selectedSlot.upgradeVFX.Play();
         }
 
     }

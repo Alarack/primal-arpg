@@ -241,10 +241,10 @@ public static class StatAdjustmentManager {
         //    }
         //}
 
-        //if (targetStat == StatName.GlobalStatusDurationModifier) {
-        //    Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
-        //    Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
-        //}
+        if (targetStat != StatName.Essence) {
+            Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
+            Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
+        }
 
         //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
 

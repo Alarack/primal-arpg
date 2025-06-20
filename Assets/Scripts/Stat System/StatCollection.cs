@@ -220,7 +220,7 @@ public class StatCollection {
             if (exceptions != null && exceptions.Contains(entry.Key))
                 continue;
 
-            string value = TextHelper.FormatStat(entry.Key, MathF.Round(entry.Value.ModifiedValue, 1));
+            string value = TextHelper.FormatStat(entry.Key, entry.Value.ModifiedValue);
 
             Tuple<string, StatName> info = new Tuple<string, StatName>(value, entry.Key);
 
