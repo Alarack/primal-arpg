@@ -253,6 +253,16 @@ public class ItemSpawner : Singleton<ItemSpawner>
     }
 
 
+    public ItemData UpgradeItemAffixTier(ItemData affixData) {
+        if(affixData.tier < 5) {
+            return new ItemData(affixData, affixData.tier +1);
+        }
+        else {
+            Debug.LogError("Max tier for: " + affixData.GetAffixTooltip());
+            return null;
+        }
+    }
+
     private ItemData RollAffixTier(LootDatabase.ItemStatAffixData data, int currentTier) {
         float roll = Random.Range(0f, 1f);
 

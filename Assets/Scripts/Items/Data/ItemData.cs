@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 
 public enum ItemSlot {
@@ -91,6 +92,17 @@ public class ItemData {
         this.tier = tier;
         itemName = stat.ToString() + " Booster";
         StatModifierData modData = StatModifierData.CreateBaseStatBooster(stat, value);
+        statModifierData.Add(modData);
+    }
+
+    public ItemData (ItemData clone, int tierOverride) {
+        Type = clone.Type;
+        affixStatTarget = clone.affixStatTarget;
+        this.tier = tierOverride;
+        itemName = affixStatTarget.ToString() + " Booster";
+        LootDatabase.ItemStatAffixData affixData = ItemSpawner.Instance.lootDatabase.itemAffixes[affixStatTarget];
+
+        StatModifierData modData = StatModifierData.CreateBaseStatBooster(affixStatTarget, affixData.GetTierValue(tierOverride));
         statModifierData.Add(modData);
     }
 

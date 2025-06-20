@@ -421,6 +421,25 @@ public class InventoryPanel : BasePanel {
 
     }
 
+    public void OnUpgradeClicked() {
+        if(selectedSlot == null) 
+            return;
+
+        if (selectedSlot.AffixData == null)
+            return;
+
+        if(selectedSlot.AffixData.tier < 5) {
+
+            ItemData upgradedAffix = ItemSpawner.Instance.UpgradeItemAffixTier(selectedSlot.AffixData);
+
+            forgeSlot.MyItem.ReplaceAffix(selectedSlot.AffixData, upgradedAffix);
+            
+            selectedSlot.UpdateAffix(upgradedAffix);
+            AudioManager.PlayForgeSound();
+        }
+
+    }
+
     private IEnumerator CreateAffixEntries() {
         WaitForSeconds waiter = new WaitForSeconds(0.2f);
         

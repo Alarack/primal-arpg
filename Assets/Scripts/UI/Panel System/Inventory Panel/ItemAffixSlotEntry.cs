@@ -45,6 +45,14 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
         SetupDisplay();
     }
 
+    public void UpgradeAffix() {
+        if (AffixData == null)
+            return;
+        
+        AffixData.tier++;
+        SetupDisplay();
+    }
+
 
     public void Select() {
         borderImage.color = Color.white;
