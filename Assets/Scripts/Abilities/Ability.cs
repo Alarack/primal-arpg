@@ -429,17 +429,17 @@ public class Ability {
         EventManager.RemoveMyListeners(this);
     }
 
-    public void EndAllGlobalEffects() {
-        int count = endTriggers.Count;
-        for (int i = 0; i < count; i++) {
+    //public void EndAllGlobalEffects() {
+    //    int count = endTriggers.Count;
+    //    for (int i = 0; i < count; i++) {
 
 
-            //This doesn't make sense. Why is this in a for loop? End all effects multiple times?
-            ForceEndTrigger(null);
-        }
+    //        //This doesn't make sense. Why is this in a for loop? End all effects multiple times?
+    //        ForceEndTrigger(null);
+    //    }
 
-        IsActive = false;
-    }
+    //    IsActive = false;
+    //}
 
     #endregion
 
@@ -1026,7 +1026,7 @@ public class Ability {
 
                     builder.AppendLine(adj.GetTooltip());
                 }
-                else if (adj.ZoneInfo.applyOnInterval == false) {
+                else if (adj.ZoneInfo.applyOnInterval == false && adj.Data.effectDesignation == StatModifierData.StatModDesignation.PrimaryDamage) {
                     builder.AppendLine();
                     builder.AppendLine("Scales From: ");
 
@@ -1051,16 +1051,27 @@ public class Ability {
                     }
                 }
 
-                if (effects[0].Data.canOverload == true) {
+                if (effects[0].Data.canOverload == true && adj.Data.hideOverload == false) {
                     float overloadChance = GetAbilityOverloadChance();
 
-                    builder.AppendLine("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
+                    builder.AppendLine("Critical Hit Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
                 }
 
 
                 if (adj.HasTargetConstraint<RangeConstraint>() != null) {
                     string currentString = builder.ToString();
                     builder.Replace(currentString, adj.GetRangeReplacmentText(currentString));
+                }
+
+
+                if (adj.Data.showRiderTooltip == true && adj.RiderEffects.Count > 0) {
+                    for (int i = 0; i < adj.RiderEffects.Count; i++) {
+                        if (adj.RiderEffects[i].Type == EffectType.AddStatus) {
+                            string statusName = adj.RiderEffects[i].Data.statusToAdd[0].statusName.ToString();
+
+                            builder.Replace(statusName, TextHelper.ColorizeText(statusName, Color.magenta));
+                        }
+                    }
                 }
 
 
@@ -1299,10 +1310,23 @@ public class Ability {
         //if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
 
         //Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is trying to start. Source: " + Source.EntityName, Color.green));
+        if (Source.HasStatus(Status.StatusName.Stunned) == true && Data.HasManualActivation() == true) {
+            //Debug.Log(Source.EntityName + " cannot use: " + Data.abilityName + " because they're stunned");
+            return;
+        }
+
 
         if (IsChanneled == true && IsActive == true) {
             return;
         }
+
+        if (Source.ActiveChannelingAbility != null && Source.ActiveChannelingAbility != this && IgnoreOtherCasting == false)
+            return;
+
+        if(Source.ActiveChannelingAbility != null && IgnoreOtherCasting == true && Data.category == AbilityCategory.KnownSkill) {
+            Source.ActiveChannelingAbility.ForceEndChannelling();
+        }
+            
 
         if (IsReady == false) {
             //Debug.Log("An ability: " + Data.abilityName + " tried to trigger, but is not ready.");
@@ -1643,6 +1667,16 @@ public class Ability {
 
         EndAllEffectsInstantly(endInstance);
 
+    }
+
+    public void ForceEndChannelling () {
+        if (IsChanneled == false)
+            return;
+
+        IsActive = false;
+        channelingCostTimer.ResetTimer();
+        Source.ActiveChannelingAbility = null;
+        EndAllEffectsInstantly(null);
     }
 
 

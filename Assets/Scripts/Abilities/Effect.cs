@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static AbilityTrigger;
 using static Status;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 using Random = UnityEngine.Random;
 
 
@@ -141,7 +142,9 @@ public abstract class Effect {
                 continue;
             }
 
-            Effect rider = AbilityFactory.CreateEffect(Data.riderEffects[i].effectData, Source, ParentAbility);
+            Ability parentAbility = parentEffect == null ? ParentAbility : parentEffect.ParentAbility;
+
+            Effect rider = AbilityFactory.CreateEffect(Data.riderEffects[i].effectData, Source, parentAbility);
             rider.parentEffect = this;
             RiderEffects.Add(rider);
             //Debug.Log("Creating a rider: " + rider.Data.effectName + " for " + Data.effectName);
@@ -1296,6 +1299,7 @@ public class TeleportEffect : Effect {
                 TeleportToMousePointer(target);
                 break;
             case TeleportDestination.RandomViewport:
+                ApplyRandomViewport(target);
                 break;
             case TeleportDestination.RandomNearTarget:
                 break;
@@ -1308,6 +1312,10 @@ public class TeleportEffect : Effect {
 
             case TeleportDestination.OtherTarget:
                 Entity other = targeter.GetLastTargetFromOtherEffect(Data.otherAbilityName, Data.otherEffectName, AbilityCategory.Any);
+                
+                if(other == null) 
+                    return false;
+                
                 TeleportToEntity(target, other);
                 break;
 
@@ -1326,6 +1334,12 @@ public class TeleportEffect : Effect {
 
                     targeter.ClearOtherEffectTargets(Data.otherAbilityName, Data.otherEffectName, AbilityCategory.Any);
                 }
+
+                break;
+
+
+            case TeleportDestination.AwayFromSource:
+                ApplyAwayFromSource(target);
 
                 break;
 
@@ -1369,7 +1383,6 @@ public class TeleportEffect : Effect {
     }
 
 
-
     private void ExecuteTeleport(Entity target, Vector2 destination) {
 
         VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
@@ -1388,14 +1401,6 @@ public class TeleportEffect : Effect {
 
         ExecuteTeleport(target, other.transform.position);
 
-
-        //VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
-        //SendTeleportInitiatedEvent(target);
-
-        //target.transform.position = other.transform.position;
-
-        //VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
-        //SendTeleportConcludedEvent(target);
     }
 
     private void TeleportToCenter(Entity target) {
@@ -1423,19 +1428,59 @@ public class TeleportEffect : Effect {
         }
 
         ExecuteTeleport(target, mousePos);
+    }
 
 
-        //VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
-        //SendTeleportInitiatedEvent(target);
+    private bool IsDestinationInGameField(Vector2 destination) {
+        Vector2 viewportCheck = Camera.main.ScreenToViewportPoint(destination);
 
-        //target.transform.position = mousePos;
+        //Debug.Log(viewportCheck + " is the viewport checker");
 
-        //VFXUtility.SpawnVFX(Data.teleportVFX, target.transform, null, 1f);
-        //SendTeleportConcludedEvent(target);
+        if (viewportCheck.x < 0.05f || viewportCheck.x > 0.95f) {
+            //ParentAbility.RecoveryCharge(1);
+            return false;
 
+        }
+
+        if (viewportCheck.y < 0.22f || viewportCheck.y > 0.95f) {
+            //ParentAbility.RecoveryCharge(1);
+            return false;
+        }
+
+        return true;
     }
 
     private void ApplySourceForward(Entity target) {
+
+    }
+
+    private void ApplyRandomViewport(Entity target) {
+        Vector2 randomPosition = TargetHelper.GetRandomWorldPosition();
+
+        ExecuteTeleport(target, randomPosition);
+    }
+
+    private void ApplyAwayFromSource(Entity target) {
+        Vector2 direction = target.transform.position - Source.transform.position;
+
+        LayerMask environmentMask = new LayerMask();
+        environmentMask = LayerTools.AddToMask(environmentMask, LayerMask.NameToLayer("Environment"));
+
+        RaycastHit2D hit = Physics2D.Raycast(Source.transform.position, direction.normalized, 5f, environmentMask);
+        if(hit.collider != null) {
+            Debug.Log("Hit wall, moving to hit location");
+
+            Vector2 adjustedDestination = (Vector2)Source.transform.position + direction.normalized * (hit.distance - 0.25f);
+
+            //Vector2 adjustedDestination = hit.point - hit.normal * 2f;
+
+            ExecuteTeleport(target, adjustedDestination);
+        }
+        else {
+            
+            Vector2 destination = direction.normalized * 5f;
+            ExecuteTeleport(target, destination);
+        }
 
     }
 
@@ -2628,6 +2673,11 @@ public class AddStatusEffect : Effect {
     public void ForceTick() {
 
         for (int i = activeStatusDict.Count - 1; i >= 0; i--) {
+            var entry = activeStatusDict.ElementAt(i);
+
+            if(entry.Key == null)
+                 continue; 
+
             List<Status> checks = activeStatusDict.ElementAt(i).Value;
 
             for (int j = checks.Count - 1; j >= 0; j--) {
@@ -2805,12 +2855,17 @@ public class AddStatusEffect : Effect {
 
                     string durationReplacement = GetModifiedStatusDuration() > 0f ? durationText : TextHelper.ColorizeText("Eternity", Color.yellow);
 
-
                     if (damageRatio > 0) {
-                        builder.Append("Causes " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", "Stat Bonus Color")
-                       + " of Weapon Damage every " + intervalText + " for "
-                       + durationReplacement);
-
+                        if (GetModifiedIntervalDuration() <= 0f) {
+                            builder.Append("Causes " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", "Stat Bonus Color")
+                            + " of Weapon Damage on tick. Lasts "
+                            + durationReplacement);
+                        }
+                        else {
+                            builder.Append("Causes " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", "Stat Bonus Color")
+                            + " of Weapon Damage every " + intervalText + " for "
+                            + durationReplacement);
+                        }
                     }
                     else {
                         builder.Append(activeStatusEffects[i].GetTooltip() + "for " + durationText);
@@ -2828,7 +2883,7 @@ public class AddStatusEffect : Effect {
                         float overloadChance = ParentAbility != null ? ParentAbility.GetAbilityOverloadChance() : Source.Stats[StatName.OverloadChance];
 
                         builder.AppendLine();
-                        builder.Append("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
+                        builder.Append("Critical Hit Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
                     }
 
 
@@ -4208,9 +4263,8 @@ public class StatAdjustmentEffect : Effect {
         RangeConstraint rangeConstraint = HasTargetConstraint<RangeConstraint>();
         if (rangeConstraint != null) {
             string rangeString = TextHelper.ColorizeText(rangeConstraint.Data.maxRange.ToString(), ColorDataManager.Instance["Stat Bonus Color"]);
-            replacement.Replace("{RL}", rangeString);
+            replacement = replacement.Replace("{RL}", rangeString);
         }
-
 
         builder.Append(replacement);
 

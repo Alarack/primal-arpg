@@ -94,6 +94,14 @@ public class TargetHelper : Singleton<TargetHelper>
         return Vector2.Lerp(GetWorldPoint(pointA), GetWorldPoint(pointB), 0.5f);
     }
 
+    public static Vector2 GetRandomWorldPosition() {
+        float randomX = Random.Range(0.2f, 0.8f);
+        float randomY = Random.Range(0.25f, 0.8f);
+
+        return Camera.main.ViewportToWorldPoint(new Vector3(randomX, randomY, 0));  
+
+    }
+
     public static List<Vector2> GetPointSequence(Vector2 startLocation, Vector2 direction, int count, float step) {
         //Vector2 viewportStart = Camera.main.WorldToViewportPoint(startLocation);
 

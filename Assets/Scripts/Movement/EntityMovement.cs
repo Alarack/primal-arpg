@@ -61,7 +61,7 @@ public class EntityMovement : MonoBehaviour {
 
         Vector2 dashForce;
 
-        if (MyBody.linearVelocity.magnitude <= 0f) {
+        if (MyBody.linearVelocity.magnitude <= 0.02f) {
             Vector2 lookDirection = Owner.facingIndicator.transform.up;
 
             dashForce = lookDirection.normalized * Owner.Stats[StatName.DashSpeed];
@@ -85,6 +85,11 @@ public class EntityMovement : MonoBehaviour {
     protected IEnumerator DashTimer() {
         WaitForSecondsRealtime waiter = new WaitForSecondsRealtime(Owner.Stats[StatName.DashDuration]);
         yield return waiter;
+        EndDash();
+
+    }
+
+    private void EndDash() {
         MyBody.linearVelocity = Vector2.zero;
         CanMove = true;
         IsDashing = false;
@@ -97,7 +102,13 @@ public class EntityMovement : MonoBehaviour {
         data.AddEntity("Entity", Owner);
 
         EventManager.SendEvent(GameEvent.DashEnded, data);
+    }
 
+    public void ForceDashEnd() {
+        if (IsDashing == false)
+            return;
+
+        EndDash();
     }
 
     public void ToggleDashTrail(bool toggle) {

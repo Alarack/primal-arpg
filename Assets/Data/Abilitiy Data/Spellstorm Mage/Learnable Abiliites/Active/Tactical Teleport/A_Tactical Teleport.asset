@@ -21,7 +21,7 @@ MonoBehaviour:
     toBestow: 0
     suspend: 0
     autoFire: 0
-    ignoreOtherCasting: 0
+    ignoreOtherCasting: 1
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
     - runes:
       - {fileID: 11400000, guid: c3263ef78edcf314892bf77f103092c7, type: 2}
       tier: 3
-    tags: 1e0000000e0000000f000000
+    tags: 1e0000000e0000000f0000001f000000
     resetEvents: 
     activationTriggerData:
     - type: 6
@@ -104,6 +104,7 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1

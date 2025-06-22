@@ -169,6 +169,22 @@ public class ProjectileMovement : EntityMovement
 
     private void OnDelayTimerFinished(EventData data) {
         hovering = false;
+
+        RecalculateRotation();
+
+        
+    }
+
+
+    private void RecalculateRotation() {
+        float sourceInaccuracy = (1f - projectileOwner.ParentEffect.Source.Stats[StatName.Accuracy]) * 360f;
+        float projectileInaccuracy = (1f - projectileOwner.Stats[StatName.Accuracy]) * 360f;
+        float totalInaccuracy = (projectileInaccuracy + sourceInaccuracy) / 2f;
+
+        transform.rotation = TargetUtilities.GetRotationTowardMouse(transform);
+
+        transform.eulerAngles += new Vector3(0f, 0f, UnityEngine.Random.Range(-totalInaccuracy, totalInaccuracy));
+
     }
 
     private void Update()

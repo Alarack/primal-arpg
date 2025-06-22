@@ -353,7 +353,8 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnPointerClick(PointerEventData eventData) {
 
         if (eventData.button == PointerEventData.InputButton.Right) {
-            if (location == SkillEntryLocation.RunePanel) {
+            if (location == SkillEntryLocation.RunePanel && Ability != null) {
+                PanelManager.GetPanel<RunesPanel>().Setup(Ability);
                 return;
             }
 

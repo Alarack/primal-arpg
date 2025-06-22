@@ -497,6 +497,7 @@ public static class AbilityEditorHelper {
         entry.effectDesignation = EditorHelper.EnumPopup("Effect Designation", entry.effectDesignation);
         entry.floatingTextColor = EditorGUILayout.GradientField("Floating Text Color", entry.floatingTextColor);
         entry.canOverload = EditorGUILayout.Toggle("Can Overload?", entry.canOverload);
+        entry.hideOverload = EditorGUILayout.Toggle("Hide Overload?", entry.hideOverload);
         entry.canAffectDeadTargets = EditorGUILayout.Toggle("Can Affect Dead", entry.canAffectDeadTargets);
         entry.nonStacking = EditorGUILayout.Toggle("Non Stacking", entry.nonStacking);
         entry.untracked = EditorGUILayout.Toggle("Untracked", entry.untracked);

@@ -267,7 +267,12 @@ public class Inventory : MonoBehaviour {
         return false;
     }
 
-    public float GetCurrencyAmount(string  currency = "CrystalizedAetherium") {
+
+    public float GetCurrencyAmount(CurrencyType type) {
+        return GetCurrencyAmount(type.ToString());
+    }
+
+    public float GetCurrencyAmount(string currency = "CrystalizedAetherium") {
         if(currencyDictionary.ContainsKey(currency) == false) {
             return 0f;
         }

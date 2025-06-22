@@ -101,7 +101,8 @@ public enum TeleportDestination {
     SourceForward,
     OtherTarget,
     TargetSequence,
-    CenterStage
+    CenterStage,
+    AwayFromSource
 }
 
 public enum EntitySpawnType {
@@ -122,6 +123,7 @@ public class EffectData
     public bool hideFloatingText;
     public bool deliveryPayloadToTarget;
     public bool canOverload;
+    public bool hideOverload;
     public bool canAffectDeadTargets;
     public bool nonStacking;
     public bool untracked;

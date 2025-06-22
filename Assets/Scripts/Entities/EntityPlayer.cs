@@ -22,7 +22,7 @@ public class EntityPlayer : Entity {
     }
 
     protected override void Start() {
-        base.Start(); 
+        base.Start();
     }
 
     protected override void OnEnable() {
@@ -41,13 +41,11 @@ public class EntityPlayer : Entity {
 
 #if UNITY_EDITOR
 
-        if (Input.GetKey(KeyCode.LeftControl)) {
-            if (Input.GetKeyDown(KeyCode.K)) {
-                Die(this);
-            }
+        if (Input.GetKeyDown(KeyCode.Keypad9)) {
+            Die(this);
         }
 
-        if(Input.GetKeyDown(KeyCode.H)) {
+        if (Input.GetKeyDown(KeyCode.H)) {
             StatAdjustmentManager.ApplyStatAdjustment(this, -1, StatName.Health, StatModType.Flat, StatModifierData.StatVariantTarget.RangeCurrent, this, null);
         }
 
@@ -90,7 +88,7 @@ public class EntityPlayer : Entity {
         targetAbilities.AddRange(AbilityManager.GetAbilitiesByTag(tag, AbilityCategory.PassiveSkill));
         bool unlocked = false;
         foreach (Ability ability in targetAbilities) {
-            if(ability.Locked == false) {
+            if (ability.Locked == false) {
                 unlocked = true;
                 break;
             }
@@ -118,7 +116,7 @@ public class EntityPlayer : Entity {
             return;
         }
 
-        if(iFrameTask == null) {
+        if (iFrameTask == null) {
             iFrameTask = new Task(OnDamageInvincible());
         }
 
@@ -146,7 +144,7 @@ public class EntityPlayer : Entity {
         //Show Gameover Screen PanelManager.OpenPanel<GameOverPanel>();
         //GameOverPanel panel = FindObjectOfType<GameOverPanel>();
         //panel.Open();
-
+        Movement.ForceDashEnd();
         gameObject.SetActive(false);
         EntityManager.GameOver();
         PanelManager.OpenPanel<GameOverPanel>();

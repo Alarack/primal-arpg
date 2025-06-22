@@ -345,6 +345,7 @@ public abstract class Entity : MonoBehaviour {
 
     protected virtual void OnStatChanged(EventData data) {
         StatName stat = (StatName)data.GetInt("Stat");
+        float value = data.GetFloat("Value");
 
         Entity target = data.GetEntity("Target");
 
@@ -359,6 +360,12 @@ public abstract class Entity : MonoBehaviour {
 
         HandleHealthSpriteChange();
         UpdateHealthBar();
+
+        Status stun = GetStatus(Status.StatusName.Stunned);
+        if (stun != null && value < 0f) {
+            stun.Remove();
+        }
+
 
         if (Stats[StatName.Health] <= 0) {
             Die(cause, sourceAbility);
@@ -438,6 +445,16 @@ public abstract class Entity : MonoBehaviour {
         }
 
         return false;
+    }
+
+    public Status GetStatus(Status.StatusName status) {
+        for (int i = 0; i < ActiveStatuses.Count; i++) {
+            if (ActiveStatuses[i].statusName == status) {
+                return ActiveStatuses[i];
+            }
+        }
+
+        return null;
     }
 
     public bool HasDot() {

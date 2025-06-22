@@ -112,7 +112,7 @@ public class NPC : Entity
         
         float eliteRoll = Random.Range(0f, 1f);
 
-        if(eliteRoll <= 0.2f) {
+        if(eliteRoll <= 0.1f) {
             BecomeElite(EliteAffixType.Overcharged);
         }
     }

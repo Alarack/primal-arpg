@@ -68,7 +68,7 @@ public class BasePanel : MonoBehaviour
     }
 
     protected virtual void Update() {
-        if(CloseOnEscape == true && Input.GetKey(KeyCode.Escape)) {
+        if(CloseOnEscape == true && Input.GetKeyDown(KeyCode.Escape)) {
             Close();
         }
     }
@@ -136,6 +136,9 @@ public class BasePanel : MonoBehaviour
     {
         if (view != null)
         {
+#if UNITY_EDITOR
+            //Debug.Log(GetType() + " is calling open");
+#endif
 
             if(panelFader != null) {
                 FadeIn();
@@ -173,7 +176,11 @@ public class BasePanel : MonoBehaviour
         if (view != null)
         {
 
-            if(panelFader != null) {
+#if UNITY_EDITOR
+            //Debug.Log(GetType() + " is calling close");
+#endif
+
+            if (panelFader != null) {
                 FadeOut();
             }
             else {
@@ -186,6 +193,12 @@ public class BasePanel : MonoBehaviour
             // Only send the close events if we actually closed
             if (IsOpen)
             {
+#if UNITY_EDITOR
+                //Debug.Log(GetType() + " was open, so is closing");
+#endif
+
+
+
                 IsOpen = false;
                 OnClose();
                 onCloseCallback?.Invoke();

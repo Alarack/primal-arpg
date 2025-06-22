@@ -35,7 +35,8 @@ public class Status {
         SpaceRipped,
         EldritchInstability,
         Inivincible,
-        Unraveling
+        Unraveling,
+        Stunned
     }
 
     #endregion

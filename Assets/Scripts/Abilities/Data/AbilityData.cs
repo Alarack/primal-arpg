@@ -36,7 +36,8 @@ public enum AbilityTag {
     Lightning,
     DamageOverTime,
     Dash,
-    Utility
+    Utility,
+    Interrupt
 }
 
 public enum AbilityCategory {

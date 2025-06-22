@@ -37,6 +37,13 @@ public class PopupPanel : BasePanel {
 
     }
 
+    protected override void Update() {
+        base.Update();
+        if (Input.GetKeyDown(KeyCode.Escape) && IsOpen == true) {
+            OnConfirmClicked();
+        }
+    }
+
     public override void Close() {
         base.Close();
         modalWindoManager.confirmButton.onClick.RemoveAllListeners();

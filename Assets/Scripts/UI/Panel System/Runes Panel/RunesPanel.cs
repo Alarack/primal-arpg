@@ -50,6 +50,8 @@ public class RunesPanel : BasePanel {
     public override void Open() {
         base.Open();
 
+        PanelManager.ClosePanel<InventoryPanel>();
+
     }
 
     public override void Close() {

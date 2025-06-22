@@ -54,7 +54,9 @@ public class InventoryPanel : BasePanel {
 
     [Header("Text Fields")]
     public TextMeshProUGUI goldText;
+    public TextMeshProUGUI ingotsText;
     public TextMeshProUGUI forgeCostText;
+    public TextMeshProUGUI upgradeCostText;
     //[Header("Testing Debug Things")]
     //public TextMeshProUGUI cdrText;
 
@@ -111,6 +113,22 @@ public class InventoryPanel : BasePanel {
 
     private void UpdateForgeCost() {
         forgeCostText.text = defaultForgeCost + ": ";
+
+
+        if (selectedSlot == null) {
+            upgradeCostText.text = "0: ";
+            return;
+        }
+
+        if (selectedSlot.AffixData == null) {
+            upgradeCostText.text = "0: ";
+            return;
+        }
+
+        float cost = GetCurrentUpgradeCost();
+        upgradeCostText.text = cost + ": ";
+
+
     }
 
     public override void Close() {
@@ -158,7 +176,8 @@ public class InventoryPanel : BasePanel {
             StatName.GlobalStatusDurationModifier,
             StatName.GlobalStatusIntervalModifier,
             StatName.GlobalEffectDurationModifier,
-            StatName.GlobalEffectIntervalModifier
+            StatName.GlobalEffectIntervalModifier,
+            StatName.DashCooldown,
         };
 
         if(exceptions.Contains(stat)) {
@@ -376,6 +395,18 @@ public class InventoryPanel : BasePanel {
         }
 
         goldText.text = currentCoins.ToString();
+
+        float currentIngots = EntityManager.ActivePlayer != null ? EntityManager.ActivePlayer.Inventory.GetCurrencyAmount(CurrencyType.AethriumIngot) : 0f;
+
+        if (currentIngots >= GetCurrentUpgradeCost()) {
+            ingotsText.color = Color.white;
+        }
+        else {
+            ingotsText.color = ColorDataManager.Instance["Stat Penalty Color"];
+        }
+
+        ingotsText.text = currentIngots.ToString();
+
     }
 
     public void UpdateAffixSlot(ItemAffixSlotEntry slot) {
@@ -421,17 +452,41 @@ public class InventoryPanel : BasePanel {
 
     }
 
+    private float GetCurrentUpgradeCost() {
+        if (selectedSlot == null)
+            return 10f;
+
+        if (forgeSlot.MyItem == null)
+            return 10f;
+
+        if (selectedSlot.AffixData == null)
+            return 10f;
+
+        float cost = (selectedSlot.AffixData.tier +1) * 5f;
+
+        return cost;
+    }
+
     public void OnUpgradeClicked() {
         if(selectedSlot == null) 
+            return;
+
+        if(forgeSlot.MyItem == null) 
             return;
 
         if (selectedSlot.AffixData == null)
             return;
 
-        if(selectedSlot.AffixData.tier >= 5) {
+        if (selectedSlot.AffixData.tier >= 5) {
             PanelManager.OpenPanel<PopupPanel>().Setup("Max Rank", "This Affix cannot be upgraded any further");
             return;
+        }
 
+        float cost = GetCurrentUpgradeCost();
+
+        if (EntityManager.ActivePlayer.Inventory.TrySpendCoins(cost, CurrencyType.AethriumIngot, "Forge") == false) {
+            PanelManager.OpenPanel<PopupPanel>().Setup("Insufficient Aetherium Ingots", "You can't afford that.");
+            return;
         }
 
         ItemData upgradedAffix = ItemSpawner.Instance.UpgradeItemAffixTier(selectedSlot.AffixData);
@@ -441,6 +496,9 @@ public class InventoryPanel : BasePanel {
         selectedSlot.UpdateAffix(upgradedAffix);
         AudioManager.PlayForgeSound();
         selectedSlot.upgradeVFX.Play();
+
+        UpdateForgeCost();
+        UpdateGoldText();
 
     }
 
@@ -490,6 +548,8 @@ public class InventoryPanel : BasePanel {
         selectedSlot.UpdateAffix(affixdata);
 
         selectAffixTask = new Task(ShowSelectionEffect(entry));
+
+        UpdateForgeCost();
     }
 
     private IEnumerator ShowSelectionEffect(ItemAffixEntry entry) {
@@ -542,6 +602,9 @@ public class InventoryPanel : BasePanel {
                 itemAffixSlots[i].Deselect();
             }
         }
+
+        UpdateForgeCost();
+        UpdateGoldText();
     }
 
     public void RemoveAllItems() {

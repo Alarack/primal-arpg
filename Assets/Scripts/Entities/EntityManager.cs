@@ -199,6 +199,7 @@ public class EntityManager : Singleton<EntityManager> {
 
         ClearRemainingEnemies();
         ClearRemainingProjectiles();
+        ClearRemainingPickups();
 
         RoomManager.ClearRooms();
         RoomManager.SetDifficulty(5f);
@@ -208,6 +209,7 @@ public class EntityManager : Singleton<EntityManager> {
     public void CreatePlayer() {
 
         ClearRemainingEnemies();
+        ClearRemainingPickups();
         RoomManager.Instance.CleanUpRewardPedestals();
 
         if (ActivePlayer != null) {
@@ -224,7 +226,7 @@ public class EntityManager : Singleton<EntityManager> {
 
         Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
 
-
+        //OpenDefaultPanelsWithoutDelay();
         new Task(OpenDefaultPanels());
     }
 
@@ -246,6 +248,22 @@ public class EntityManager : Singleton<EntityManager> {
         }
     }
 
+    private static void ClearRemainingPickups() {
+        ItemPickup[] allPickups = FindObjectsByType<ItemPickup>(FindObjectsSortMode.None);
+        for(int i = 0;i < allPickups.Length; i++) {
+            Destroy(allPickups[i]);
+        }
+    }
+
+
+
+    private void OpenDefaultPanelsWithoutDelay() {
+        PanelManager.GetPanel<InventoryPanel>();
+        PanelManager.GetPanel<SkillsPanel>();
+        PanelManager.OpenPanel<CharacterSelectPanel>();
+        PanelManager.GetPanel<HotbarPanel>();
+        PanelManager.GetPanel<HUDPanel>();
+    }
 
 
     private IEnumerator OpenDefaultPanels() {
