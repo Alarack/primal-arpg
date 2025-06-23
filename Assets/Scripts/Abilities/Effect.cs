@@ -3036,7 +3036,7 @@ public class AddStatusScalingEffect : Effect {
 
             float damageValue = Data.scaleFromAbilityLevel == false ? entry.modifierValue : entry.modifierValue * ParentAbility.AbilityLevel;
 
-            string damage = TextHelper.ColorizeText((damageValue * 100).ToString(), new Color(.439f, .839f, 0.11f));
+            string damage = TextHelper.ColorizeText((damageValue * 100).ToString(), ColorDataManager.Instance["Stat Bonus Color"]);
 
             string result = Data.effectDescription + " deals " + damage + "% more damage to " + status + " targets.";
 

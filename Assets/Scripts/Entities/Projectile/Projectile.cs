@@ -427,7 +427,17 @@ public class Projectile : Entity {
 
         Stats.AddModifier(StatName.ProjectileSplitCount, -1, StatModType.Flat, this);
 
+        Vector2 parentVelocity = Movement.MyBody.linearVelocity;
+        Vector2 perpendicular = Vector2.Perpendicular(parentVelocity);
+
+        //Debug.Log("Base Dir: " + perpendicular.normalized * 25f);
+
         for (int i = 0; i < Stats[StatName.ProjectileSplitQuantity]; i++) {
+
+            if(i.IsOdd() == true) {
+                perpendicular = -perpendicular;
+                //Debug.Log(i + " is the odd Index. Flipped Dir: " + perpendicular.normalized * 25f);
+            }
 
             if (cloneSelfOnSplit == true) {
                 Projectile child = Instantiate(ParentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
@@ -435,8 +445,18 @@ public class Projectile : Entity {
                 child.SetupChildCollision(recentHit);
                 child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
 
-                TargetUtilities.RotateToRandomNearbyTarget(recentHit, child, chainRadius, chainMask, true);
 
+                //Vector2 force = perpendicular/*.normalized * (Stats[StatName.MoveSpeed] / 100f)*/;
+
+                //Debug.Log("Resulting Dir: " + perpendicular.normalized * 25f);
+
+                child.Movement.MyBody.AddForce(perpendicular.normalized * 25f, ForceMode2D.Impulse);
+
+                //TargetUtilities.RotateToRandomNearbyTarget(recentHit, child, chainRadius, chainMask, true);
+
+            }
+            else {
+                Debug.LogError("Projectile: " + EntityName + " is not set to clone it self on split, but has no child specified");
             }
         }
         return true;

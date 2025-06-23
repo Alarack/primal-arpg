@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Damage Mod
+  m_Name: E_Increase Split Count
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Rising Stars Damage Mod
-    effectDescription: Increase Weapon Damage by {}
+    effectName: Split Storm - Split ADJ
+    effectDescription: 'Split Count: {}'
     type: 1
-    targeting: 9
-    subTarget: 5
-    maskTargeting: 0
+    targeting: 8
+    subTarget: 4
+    maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
@@ -33,11 +33,11 @@ MonoBehaviour:
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     chainTargetDelay: 0.1
-    otherAbilityName: Ignite
-    otherEffectName: Ignite Add Status
+    otherAbilityName: Test Sword Swipe
+    otherEffectName: Sword Swipe Damage
     targetAbilityForLastPayload: 
     targetConstraints:
-    - type: 19
+    - type: 18
       inverse: 0
       statChangeTarget: 0
       changeDirection: 0
@@ -70,52 +70,8 @@ MonoBehaviour:
       stateEntered: 
       stateExited: 
       targetAbilityTag: 0
-      targetAbiltyName: Ignite
-      targetEffectName: Stream of Stars Damage
-      effectDesigantion: 0
-      targetEffectType: 0
-      targetStatus: 0
-      appliedStatusType: 0
-      statRatioTarget: 0
-      targetRatio: 0
-      movementMagnitudeLimit: 0.1
-      abilitySlot: 0
-      projectileToCheck: {fileID: 0}
-    - type: 20
-      inverse: 0
-      statChangeTarget: 0
-      changeDirection: 0
-      minStatChangeRequired: 0
-      statChangeDelta: 0
-      constrainByDelivery: 0
-      deliveryConstraint: {fileID: 0}
-      minRange: 0
-      maxRange: 0
-      rangeToWhat: 0
-      ownerTarget: 0
-      mostStatTarget: 0
-      mostStatEffectName: 
-      mostStatAbilityName: 
-      leastStatTarget: 0
-      leastStatEffectName: 
-      leastStatAbilityName: 
-      minStatTarget: 0
-      minStatValue: 0
-      nonZero: 0
-      maxStatTarget: 0
-      maxStatValue: 0
-      targetEntityName: 
-      targetSubtype: 0
-      targetPrimaryType: 0
-      targetActiveAbilityName: 
-      appliedEffectType: 0
-      appliedEffectName: 0
-      targetStateData: {fileID: 0}
-      stateEntered: 
-      stateExited: 
-      targetAbilityTag: 0
-      targetAbiltyName: Ignite
-      targetEffectName: Ignite Add Status
+      targetAbiltyName: Arcane Storm
+      targetEffectName: 
       effectDesigantion: 1
       targetEffectType: 0
       targetStatus: 0
@@ -153,9 +109,9 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 28
-      value: 0.2
-      modifierType: 1
+    - targetStat: 35
+      value: 1
+      modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 0
@@ -164,7 +120,7 @@ MonoBehaviour:
       derivedTargetStat: 0
       invertDerivedValue: 0
       scaleFromAbilityLevel: 0
-      displayAsPercent: 1
+      displayAsPercent: 0
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
@@ -230,7 +186,7 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
-    addMissingStatIfNotPresent: 0
+    addMissingStatIfNotPresent: 1
     scaleFromStatus: 0
     statusModifiers: []
     statusToAdd: []

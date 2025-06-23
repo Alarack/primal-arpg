@@ -22,12 +22,14 @@ MonoBehaviour:
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
+    hideOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
     untracked: 1
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
     showScalers: 0
+    scaleDamageFromTriggeringAbility: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
     chainTargetDelay: 0.1
@@ -64,7 +66,7 @@ MonoBehaviour:
       m_Bits: 0
     modData:
     - targetStat: 29
-      value: 1
+      value: 2
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -181,7 +183,8 @@ MonoBehaviour:
     tagsToAdd: 
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
-    newEffectZonePrefab: {fileID: 0}
+    changeEffectZoneByProjectileName: 
+    changeEffectZoneByEffectName: 
     modifiedMovementBehavior: 0
     modifiedSeekDuration: -1
     modifiedDrunkInterval: 0.2

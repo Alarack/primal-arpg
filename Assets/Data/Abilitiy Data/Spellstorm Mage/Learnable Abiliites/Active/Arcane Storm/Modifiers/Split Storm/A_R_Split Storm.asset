@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_M_P_Breach of Convenience
+  m_Name: A_R_Split Storm
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 21300000, guid: 760a53e630ec5f244a4b36d5da4e466a, type: 3}
-    abilityName: Breach of Convenience
-    abilityDescription: Whenever a Void Bolt Pierces, it has a {PR} chance to spawn
-      a new Void Bolt.
+    category: 3
+    abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
+    abilityName: Split Storm
+    abilityDescription: Arcane Storm Projectiles now Split on hit, but cause less
+      damage.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -30,8 +30,8 @@ MonoBehaviour:
     normalizedProcRate: 0
     showProcChanceOnOtherSkills: 0
     startingAbility: 0
-    scaleProcByLevel: 1
-    runeAbilityTarget: 
+    scaleProcByLevel: 0
+    runeAbilityTarget: Arcane Storm
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -40,10 +40,10 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 1a000000
+    tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 24
+    - type: 17
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -54,54 +54,20 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
-      allConstraints:
-      - focus: 1
-        constraintData:
-        - type: 10
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: Void Bolt
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetEffectType: 0
-          targetStatus: 0
-          appliedStatusType: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-          abilitySlot: 0
-          projectileToCheck: {fileID: 0}
-    endTriggerData: []
+      allConstraints: []
+    endTriggerData:
+    - type: 18
+      overrideProcStat: 0
+      procChance: 1
+      triggerDelay: 0
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
+      delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
+      allConstraints: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -143,16 +109,12 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 959b7c8b69ab0424b9d28075dc14624c, type: 2}
+    - {fileID: 11400000, guid: 9f45f3a8996731a48a1b9368488ec43a, type: 2}
+    - {fileID: 11400000, guid: 642b2fcd4076c7b4f8a56b205a62e4c8, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    maxRanks: 3
+    maxRanks: -1
     windupVFX: {fileID: 0}
-    abilityStatData:
-    - variant: 0
-      statName: 65
-      value: 0.2
-      maxValue: 0
-      minValue: 0
+    abilityStatData: []
     recoveryData: []
