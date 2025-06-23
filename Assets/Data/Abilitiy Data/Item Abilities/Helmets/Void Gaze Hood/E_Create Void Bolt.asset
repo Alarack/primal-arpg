@@ -22,13 +22,17 @@ MonoBehaviour:
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 1
+    hideOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
+    untracked: 0
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
     showScalers: 0
+    scaleDamageFromTriggeringAbility: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
+    chainTargetDelay: 0.1
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
@@ -41,6 +45,10 @@ MonoBehaviour:
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
+    offsetSpawnLocation: 0
+    offsetSpawnLocationMin: {x: 0, y: 0}
+    offsetSpawnLocationMax: {x: 0, y: 0}
+    rotatePayloadTowardMouse: 0
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
@@ -67,6 +75,9 @@ MonoBehaviour:
       deriveTarget: 0
       derivedTargetStat: 0
       invertDerivedValue: 1
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 0
+      abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
       scalers:
@@ -135,15 +146,19 @@ MonoBehaviour:
       m_NumAlphaKeys: 3
     effectDesignation: 1
     addMissingStatIfNotPresent: 0
+    scaleFromStatus: 0
+    statusModifiers: []
     statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
+    showTrail: 0
     targetDestination: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0
+    teleportSequenceDelay: 0.2
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -171,4 +186,15 @@ MonoBehaviour:
     tagsToAdd: 
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
-    newEffectZonePrefab: {fileID: 0}
+    changeEffectZoneByProjectileName: 
+    changeEffectZoneByEffectName: 
+    modifiedMovementBehavior: 0
+    modifiedSeekDuration: -1
+    modifiedDrunkInterval: 0.2
+    cooldownElapsedModifier: 0
+    statusScalingData: []
+    scaleFromAbilityLevel: 0
+    spawnedItemType: 0
+    itemSpawnLocation: 0
+    itemsToSpawn: []
+    itemSpawnAmount: 0

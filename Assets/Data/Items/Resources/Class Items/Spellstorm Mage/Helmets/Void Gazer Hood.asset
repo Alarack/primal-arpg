@@ -29,13 +29,30 @@ MonoBehaviour:
     abilityTags: 
     targetedAbilityName: 
     itemIcon: {fileID: 21300000, guid: ef9f06aab0ecd8244acc76f65a9da237, type: 3}
+    invertIcon: 0
     pickupIcon: {fileID: 21300000, guid: ef9f06aab0ecd8244acc76f65a9da237, type: 3}
     pickupOnCollision: 1
     tier: 0
     baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
-    statModifierData: []
+    statModifierData:
+    - targetStat: 74
+      value: 1
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 0
+      deriveStatMultiplier: 0
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 0
+      abilityLevelCoefficient: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
     abilityDefinitions:
     - {fileID: 11400000, guid: 741881d89f4dd26469d9ce9037fcd8f6, type: 2}
     learnableAbilities: []

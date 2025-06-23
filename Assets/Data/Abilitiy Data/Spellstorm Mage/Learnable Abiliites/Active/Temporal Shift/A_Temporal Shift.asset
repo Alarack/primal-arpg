@@ -28,6 +28,7 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
     runeAbilityTarget: 
@@ -42,9 +43,11 @@ MonoBehaviour:
     runeGroupData:
     - runes:
       - {fileID: 11400000, guid: 191228c6e992aef47930feb799d9db94, type: 2}
+      - {fileID: 11400000, guid: 5a6e2dfd68570204c8eb4e31fda556f3, type: 2}
       tier: 1
     - runes:
       - {fileID: 11400000, guid: 0986073b501184049ad469f40e123ee6, type: 2}
+      - {fileID: 11400000, guid: 1070f23bd582869468766bf02b607422, type: 2}
       tier: 2
     - runes:
       - {fileID: 11400000, guid: c3c7c43a80e92b740823968b45196497, type: 2}
@@ -104,6 +107,7 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
@@ -149,6 +153,7 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1

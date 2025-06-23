@@ -112,6 +112,13 @@ public class NPC : Entity
         
         float eliteRoll = Random.Range(0f, 1f);
 
+        if(subtypes.Contains(EntitySubtype.Minion) == true) {
+            if(eliteRoll <= 0.02f)
+                BecomeElite(EliteAffixType.Overcharged);
+
+            return;
+        }
+
         if(eliteRoll <= 0.1f) {
             BecomeElite(EliteAffixType.Overcharged);
         }
@@ -120,6 +127,7 @@ public class NPC : Entity
     public void BecomeElite(EliteAffixType type) {
         NPCEliteAffixData eliteData = AffixDataManager.GetEliteAffixDataByType(type);
         currentEliteAffixes.Add(eliteData);
+        subtypes.Add(EntitySubtype.Elite);
 
         for (int i = 0; i < eliteData.abilities.Count; i++) {
             Brain.AddAbility(eliteData.abilities[i]);

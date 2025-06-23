@@ -58,6 +58,11 @@ public class LevelUpPanel : BasePanel
         if(showControls == 0) {
             PanelManager.OpenPanel<BasicControlsTutorial>();
         }
+
+        SkillsPanel skillsPanel = PanelManager.GetPanel<SkillsPanel>();
+        if (skillsPanel != null && skillsPanel.IsOpen) {
+            skillsPanel.UpdateLevelupButton();
+        }
     }
 
     private void StartLoadingChoicesTask() {

@@ -44,7 +44,7 @@ public class NPCDatabase : ScriptableObject
             List<NPC> bosses = new List<NPC>();
 
             for (int i = 0; i < npcData.Count; i++) {
-                if (npcData[i].subTypes.Contains(Entity.EntitySubtype.Boss)) {
+                if (npcData[i].npcPrefab.subtypes.Contains(Entity.EntitySubtype.Boss)) {
                     bosses.Add(npcData[i].npcPrefab);
                 }
             }

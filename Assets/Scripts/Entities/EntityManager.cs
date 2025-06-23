@@ -255,17 +255,6 @@ public class EntityManager : Singleton<EntityManager> {
         }
     }
 
-
-
-    private void OpenDefaultPanelsWithoutDelay() {
-        PanelManager.GetPanel<InventoryPanel>();
-        PanelManager.GetPanel<SkillsPanel>();
-        PanelManager.OpenPanel<CharacterSelectPanel>();
-        PanelManager.GetPanel<HotbarPanel>();
-        PanelManager.GetPanel<HUDPanel>();
-    }
-
-
     private IEnumerator OpenDefaultPanels() {
         yield return new WaitForEndOfFrame();
 

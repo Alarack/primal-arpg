@@ -86,11 +86,12 @@ public class ItemSpawner : Singleton<ItemSpawner>
                     SpawnCoins(Random.Range(5, 10), target.transform.position, 3f, 3f, CurrencyType.UnstableAetherium);
             }
 
-            NPC npcTarget = target as NPC;
-            if (npcTarget != null) {
-                if(npcTarget.IsElite == true) {
-                    SpawnCoins(Random.Range(2, 5), target.transform.position, 1f, 3f, CurrencyType.AethriumIngot);
-                }
+            if (target.subtypes.Contains(Entity.EntitySubtype.Elite)) {
+                SpawnCoins(Random.Range(2, 5), target.transform.position, 1f, 3f, CurrencyType.AethriumIngot);
+            }
+
+            if (target.subtypes.Contains(Entity.EntitySubtype.Boss)) {
+                SpawnCoins(Random.Range(4, 7), target.transform.position, 1f, 3f, CurrencyType.AethriumIngot);
             }
 
 
@@ -347,7 +348,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
             StatName.GlobalProjectileSizeModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Projectile),
             StatName.Essence => true,
             StatName.EssenceRegenerationRate => true,
-            StatName.EssenceRegenerationValue => true,
+            StatName.EssenceRegenerationValue => false,
             //StatName.OverloadRecieveChance => new ItemData(stat, 0.1f),
             StatName.MaxMinionCount => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Summoning),
             StatName.MinionDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Summoning),

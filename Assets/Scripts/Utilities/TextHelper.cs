@@ -182,6 +182,10 @@ public static class TextHelper
 
             StatName.DoubleTickChance when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.DoubleTickChance when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+
+            StatName.StatusLifetime when value >= 0 => bonusFormat,
+            StatName.StatusLifetime when value < 0 => penaltyFormat,
+
             _ => "No Entry For: " + stat,
         };
 

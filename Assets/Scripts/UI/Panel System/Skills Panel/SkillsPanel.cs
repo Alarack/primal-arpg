@@ -25,6 +25,7 @@ public class SkillsPanel : SkillBasePanel {
     [Header("Other UI Bits")]
     public GameObject unspentSkillPointsHolder;
     public UnspentSkillPointIndicator unspentIndicator;
+    public GameObject levelUpButton;
 
   
 
@@ -51,6 +52,7 @@ public class SkillsPanel : SkillBasePanel {
         //ShowTutorial();
 
         CheckForUnspentSkillPoints();
+        UpdateLevelupButton();
     }
 
     public override void Show() {
@@ -285,6 +287,19 @@ public class SkillsPanel : SkillBasePanel {
 
     public void HideInfoTooltip() {
         TooltipManager.Hide();
+    }
+
+    public void OnLevelUpClicked() {
+        PanelManager.OpenPanel<LevelUpPanel>();
+    }
+
+    public void UpdateLevelupButton() {
+        if (EntityManager.ActivePlayer.levelsStored > 0) {
+            levelUpButton.SetActive(true);
+        }
+        else {
+            levelUpButton.SetActive(false);
+        }
     }
 
 }
