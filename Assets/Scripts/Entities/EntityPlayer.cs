@@ -105,6 +105,7 @@ public class EntityPlayer : Entity {
         StatName stat = (StatName)data.GetInt("Stat");
         float value = data.GetFloat("Value");
         Entity target = data.GetEntity("Target");
+        Entity source = data.GetEntity("source");
 
         if (target != this)
             return;
@@ -120,8 +121,11 @@ public class EntityPlayer : Entity {
             iFrameTask = new Task(OnDamageInvincible());
         }
 
-        AllIn1Shaker.i.DoCameraShake(0.05f);
-        HitStopManager.Stop();
+        if (source != null && source != this) {
+
+            AllIn1Shaker.i.DoCameraShake(0.05f);
+            HitStopManager.Stop();
+        }
     }
 
     #endregion

@@ -266,7 +266,8 @@ public class Status {
 
         Debug.LogWarning(statusName + " from " + ParentEffect.ParentAbility.Data.abilityName + " is being purged by: " + causingAbility.Data.abilityName);
 
-        Remove();
+        ParentEffect.Remove(Target);
+        //Remove();
     }
 
     private void SendStatusRemovedEvent() {

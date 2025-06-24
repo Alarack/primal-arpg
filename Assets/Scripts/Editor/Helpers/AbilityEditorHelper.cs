@@ -674,6 +674,11 @@ public static class AbilityEditorHelper {
                 entry.abilitiesToAdd = EditorHelper.DrawList("Child Abilities", entry.abilitiesToAdd, null, DrawAbilityDefinitionList);
                 break;
 
+            case EffectType.RemoveChildAbility:
+                EditorGUILayout.LabelField("Abilities to Remove: ", EditorStyles.boldLabel);
+                entry.abilitiesToRemove = EditorHelper.DrawList("Child Abilities", entry.abilitiesToRemove, null, DrawAbilityDefinitionList);
+                break;
+
 
             case EffectType.AddRider:
                 EditorGUILayout.LabelField("Riders to Add: ", EditorStyles.boldLabel);

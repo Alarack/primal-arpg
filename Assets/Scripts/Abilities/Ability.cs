@@ -463,6 +463,15 @@ public class Ability {
         return newChild;
     }
 
+    public void RestoreChildAbility(Ability childAbility) {
+        ChildAbilities.Add(childAbility);
+
+        if (IsEquipped == true) {
+            childAbility.Equip();
+        }
+
+    }
+
     public Ability AddChildAbility(AbilityDefinition abilityDef) {
         return AddChildAbility(abilityDef.AbilityData);
     }
@@ -750,6 +759,14 @@ public class Ability {
                 return effects[i];
         }
 
+        return null;
+    }
+
+    public Ability GetChildAbilityByName(string name) {
+        for (int i = 0; i < ChildAbilities.Count; i++) {
+            if (ChildAbilities[i].Data.abilityName == name)
+                return ChildAbilities[i];
+        }
         return null;
     }
 

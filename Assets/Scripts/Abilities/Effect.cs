@@ -2559,6 +2559,92 @@ public class AddChildAbilityEffect : Effect {
     }
 }
 
+public class RemoveChildAbilityEffect : Effect {
+
+    public override EffectType Type => EffectType.RemoveChildAbility;
+
+
+    private Dictionary<Ability, List<Ability>> trackedChildAbilities = new Dictionary<Ability, List<Ability>>();
+
+    public RemoveChildAbilityEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+     
+
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        throw new NotImplementedException();
+
+    }
+
+    public override void Remove(Entity target) {
+        base.Remove(target);
+    }
+
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+
+        for (int i = 0; i < Data.abilitiesToRemove.Count; i++) {
+            Ability targetAbility = target.GetChildAbilityByName(Data.abilitiesToRemove[i].AbilityData.abilityName);
+            
+            target.RemoveChildAbility(targetAbility);
+
+            TrackChildAbilties(target, targetAbility);
+
+
+        }
+
+        return true;
+    }
+
+    private void TrackChildAbilties(Ability target, Ability child) {
+        if (trackedChildAbilities.TryGetValue(target, out List<Ability> children) == true) {
+            children.Add(child);
+        }
+        else {
+            trackedChildAbilities.Add(target, new List<Ability> { child });
+        }
+    }
+
+    public override void RemoveFromAbility(Ability target) {
+        base.RemoveFromAbility(target);
+
+        if (trackedChildAbilities.TryGetValue(target, out List<Ability> children) == true) {
+
+            for (int i = 0; i < children.Count; i++) {
+                target.RestoreChildAbility(children[i]);
+            }
+
+            trackedChildAbilities.Remove(target);
+        }
+
+    }
+
+    //public override string GetTooltip() {
+    //    //return base.GetTooltip();
+
+    //    StringBuilder builder = new StringBuilder();
+
+    //    //Debug.Log("Effect: " + Data.effectName + " : Showing tooltip for an Add Child Ability Effect with: " + activeAbilities.Count + " abilites to add");
+
+    //    for (int i = 0; i < activeAbilities.Count; i++) {
+    //        builder.Append(activeAbilities[i].GetTooltip(false));
+
+
+
+    //        if (i != activeAbilities.Count - 1)
+    //            builder.AppendLine();
+    //    }
+
+    //    return builder.ToString();
+    //}
+}
+
 public class ForceStatusTickEffect : Effect {
 
     public override EffectType Type => EffectType.ForceStatusTick;

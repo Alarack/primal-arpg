@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Buff Steal Time Damage
+  m_Name: E_Remove Essence Regen
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Weight of years - buff Dot damage
+    effectName: Remove Drain Regen
     effectDescription: 
-    type: 1
-    targeting: 9
-    subTarget: 5
-    maskTargeting: 1
+    type: 28
+    targeting: 8
+    subTarget: 4
+    maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     otherEffectName: 
     targetAbilityForLastPayload: 
     targetConstraints:
-    - type: 19
+    - type: 18
       inverse: 0
       statChangeTarget: 0
       changeDirection: 0
@@ -70,8 +70,8 @@ MonoBehaviour:
       stateEntered: 
       stateExited: 
       targetAbilityTag: 0
-      targetAbiltyName: 
-      targetEffectName: Steal Time Add Status
+      targetAbiltyName: Steal Time
+      targetEffectName: 
       effectDesigantion: 0
       targetEffectType: 0
       targetStatus: 0
@@ -109,23 +109,7 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData:
-    - targetStat: 28
-      value: 0.5
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
+    modData: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -209,8 +193,10 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
-    abilitiesToAdd: []
-    abilitiesToRemove: []
+    abilitiesToAdd:
+    - {fileID: 11400000, guid: 0c5a21f1bda5c31408b8dfdd1f0adb1f, type: 2}
+    abilitiesToRemove:
+    - {fileID: 11400000, guid: 800c64fa08d2f58489cca4fa269bb6e5, type: 2}
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
     ridersToAdd: []

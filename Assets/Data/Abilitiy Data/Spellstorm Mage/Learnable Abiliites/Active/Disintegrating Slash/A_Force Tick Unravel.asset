@@ -39,7 +39,7 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 
+    tags: 1c000000
     resetEvents: 
     activationTriggerData:
     - type: 1
@@ -94,6 +94,8 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
@@ -137,6 +139,8 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
@@ -182,6 +186,8 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1

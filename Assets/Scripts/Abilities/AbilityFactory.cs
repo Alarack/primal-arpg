@@ -154,6 +154,7 @@ public static class AbilityFactory {
             EffectType.AddStatusScaling => new AddStatusScalingEffect(data, source, parentAbility),
             EffectType.SpawnItem => new SpawnItemEffect(data, source, parentAbility),
             EffectType.PurgeStatus => new PurgeStatusEffect(data, source, parentAbility),
+            EffectType.RemoveChildAbility => new RemoveChildAbilityEffect(data, source, parentAbility),
             _ => null,
         };
 

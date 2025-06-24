@@ -32,7 +32,8 @@ public enum EffectType {
     ModifyProjectile,
     ModifyElapsedCooldown,
     AddStatusScaling,
-    SpawnItem
+    SpawnItem,
+    RemoveChildAbility
 }
 
 public enum EffectTarget {
@@ -203,6 +204,9 @@ public class EffectData
 
     //Add Child Ability
     public List<AbilityDefinition> abilitiesToAdd = new List<AbilityDefinition>();
+
+    //Remove Child Ability
+    public List<AbilityDefinition> abilitiesToRemove = new List<AbilityDefinition>();
 
     //Add Effect
     public List<EffectDefinition> effectsToAdd = new List<EffectDefinition>();

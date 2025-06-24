@@ -1810,7 +1810,7 @@ public class TimedTrigger : AbilityTrigger {
         Entity owner = data.GetEntity("Owner");
 
         if (owner == null) {
-            Debug.LogError("A null owner was passed to a Timer Trigger");
+            Debug.LogError("A null owner was passed to a Timer Trigger. Parent Ability: " + ParentAbility.Data.abilityName);
             return;
         }
 
