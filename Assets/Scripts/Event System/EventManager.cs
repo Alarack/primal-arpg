@@ -170,7 +170,8 @@ namespace LL.Events {
         ProjectileDetected,
         MasterySelected,
         DashCooldownFinished,
-        DashEnded
+        DashEnded,
+        PayloadsDeployed
     }
 
 

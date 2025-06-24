@@ -45,7 +45,8 @@ public enum TriggerType {
     StatusStacked,
     Chain,
     ProjectileDetected,
-    DashEnded
+    DashEnded,
+    PayloadsDeployed
 }
 
 

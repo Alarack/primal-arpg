@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 
 using TriggerInstance = AbilityTrigger.TriggerInstance;
 using static UnityEngine.GraphicsBuffer;
+using LL.Events;
 //using AbilityTriggerInstance = AbilityTrigger.AbilityTriggerInstance;
 
 public class EffectTargeter {
@@ -605,6 +606,13 @@ public class EffectTargeter {
 
             yield return waiter;
         }
+
+        EventData shotsCreatedData = new EventData();
+        shotsCreatedData.AddInt("Shots Fired", trunkatedShots);
+        shotsCreatedData.AddAbility("Ability", parentEffect.ParentAbility);
+        shotsCreatedData.AddEffect("Effect", parentEffect);
+
+        EventManager.SendEvent(GameEvent.PayloadsDeployed, shotsCreatedData);
 
     }
 

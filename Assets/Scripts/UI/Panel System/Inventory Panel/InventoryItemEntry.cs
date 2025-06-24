@@ -135,10 +135,10 @@ public class InventoryItemEntry : InventoryBaseEntry {
 
 # if UNITY_EDITOR
 
-            List<StatName> relevantStatsBySlot = ItemSpawner.Instance.lootDatabase.GetRelavantStatsBySlot(draggedItem.Data.validSlots[0]);
-            for (int i = 0; i < relevantStatsBySlot.Count; i++) {
-                Debug.Log(relevantStatsBySlot[i]);
-            }
+            //List<StatName> relevantStatsBySlot = ItemSpawner.Instance.lootDatabase.GetRelavantStatsBySlot(draggedItem.Data.validSlots[0]);
+            //for (int i = 0; i < relevantStatsBySlot.Count; i++) {
+            //    Debug.Log(relevantStatsBySlot[i]);
+            //}
 #endif
 
             return;

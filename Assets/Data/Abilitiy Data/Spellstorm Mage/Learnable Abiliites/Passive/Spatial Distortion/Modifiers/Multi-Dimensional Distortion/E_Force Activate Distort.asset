@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Banishment Stun Status
+  m_Name: E_Force Activate Distort
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Banishment Stun Status
+    effectName: Force Activate Distorton
     effectDescription: 
-    type: 3
+    type: 12
     targeting: 0
     subTarget: 0
     maskTargeting: 0
@@ -129,17 +129,7 @@ MonoBehaviour:
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     statusModifiers: []
-    statusToAdd:
-    - statusName: 22
-      stackMethod: 0
-      maxStacks: 0
-      initialStackCount: 1
-      duration: 0
-      interval: 0
-      VFXPrefab: {fileID: 6399459981405179663, guid: 43c7c86ee7fab674d89f3b6670e77f6a, type: 3}
-      statusSprite: {fileID: 0}
-      vfxScaleModifier: 1
-      statusEffectDef: {fileID: 11400000, guid: c0851d5089dd81e478d91672048fd76c, type: 2}
+    statusToAdd: []
     statusToRemove: 
     isTeleport: 0
     invertDestination: 0
@@ -172,7 +162,8 @@ MonoBehaviour:
     destroyPreviousSummonAtCap: 0
     inheritParentLayer: 1
     spawnType: 0
-    nameOfAbilityToActivate: 
+    nameOfAbilityToActivate: Spatial Distortion
+    forceActivateRespectCooldown: 1
     targetStateName: 
     tagsToAdd: 
     tagsToRemove: 

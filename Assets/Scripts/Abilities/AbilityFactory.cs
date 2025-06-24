@@ -51,6 +51,8 @@ public static class AbilityFactory {
             TriggerType.Chain => new ChainTrigger(data, source, parentAbility),
             TriggerType.ProjectileDetected => new ProjectileDetectedTrigger(data, source, parentAbility),
             TriggerType.DashEnded => new DashEndedTrigger(data, source, parentAbility),
+            TriggerType.ProjectileSplit => new ProjectileSplitTrigger(data, source, parentAbility),
+            TriggerType.PayloadsDeployed => new PayloadsDeployedTrigger(data, source, parentAbility),
             _ => null,
         };
 

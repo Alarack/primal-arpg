@@ -1472,6 +1472,7 @@ public class Ability {
         data.AddEntity("Source", Source);
 
         EventManager.SendEvent(GameEvent.AbilityResolved, data);
+
     }
 
     public void SendAbilityEndedEvent(EffectZone zone = null) {
@@ -1495,6 +1496,8 @@ public class Ability {
         //    Debug.LogWarning(Data.abilityName + " has no sounds");
         //}
 
+        
+
 
         EventData data = new EventData();
         data.AddAbility("Ability", this);
@@ -1502,6 +1505,7 @@ public class Ability {
         data.AddTriggerInstance("Instance", triggerInstance);
 
         EventManager.SendEvent(GameEvent.AbilityInitiated, data);
+        
     }
 
     private bool CheckCost() {
@@ -1769,8 +1773,11 @@ public class Ability {
         IsActive = active;
     }
 
-    public void ForceActivate(TriggerInstance triggerInstance = null) {
+    public void ForceActivate(TriggerInstance triggerInstance = null, bool respectCooldown = false) {
         //Debug.LogWarning("Force activating: " + Data.abilityName);
+        if (respectCooldown == true && IsReady == false)
+            return;
+
         ReceiveStartActivationInstance(triggerInstance);
     }
 

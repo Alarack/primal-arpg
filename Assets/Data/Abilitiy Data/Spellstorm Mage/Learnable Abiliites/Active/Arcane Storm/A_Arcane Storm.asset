@@ -46,6 +46,7 @@ MonoBehaviour:
       tier: 1
     - runes:
       - {fileID: 11400000, guid: 57cefa56d064d89409788bc970dffa6d, type: 2}
+      - {fileID: 11400000, guid: 86c1a8546d429184d9aa7d61c9cc3150, type: 2}
       tier: 2
     - runes:
       - {fileID: 11400000, guid: 598107a90f62ac445a24eaaf130c403f, type: 2}
@@ -219,6 +220,11 @@ MonoBehaviour:
     - variant: 0
       statName: 50
       value: 0.2
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 14
+      value: 1
       maxValue: 0
       minValue: 0
     recoveryData:

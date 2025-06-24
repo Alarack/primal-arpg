@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 1
     abilityIcon: {fileID: 6201607243973417181, guid: 1a6cfb474ec44bd4cb7ec8ca1ba6c589, type: 3}
     abilityName: Dash
-    abilityDescription: Dash forward in the direciton you're moving. You can dash
-      through enemies, but you are not invincible while dashing.
+    abilityDescription: Dash forward in the direciton you're moving.  You are invincible
+      while dashing.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -45,7 +45,6 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 59a65f56b276d844dab8259c4392cb3b, type: 2}
       tier: 1
     - runes:
-      - {fileID: 11400000, guid: 34ff6529c61c74142b3a8cf29942b815, type: 2}
       - {fileID: 11400000, guid: dcff50317bf2c0846bc5e06442de7320, type: 2}
       tier: 2
     - runes:

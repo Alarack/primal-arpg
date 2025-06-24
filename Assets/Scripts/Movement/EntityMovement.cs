@@ -77,9 +77,11 @@ public class EntityMovement : MonoBehaviour {
 
         EventManager.SendEvent(GameEvent.DashStarted, data);
 
+        RemoveCollisison();
+
         StartCoroutine(DashTimer());
 
-        Physics2D.IgnoreLayerCollision(Owner.gameObject.layer, LayerMask.NameToLayer("Enemy"), true);
+        
     }
 
     protected IEnumerator DashTimer() {
@@ -94,14 +96,25 @@ public class EntityMovement : MonoBehaviour {
         CanMove = true;
         IsDashing = false;
         //CanDash = true;
-        Physics2D.IgnoreLayerCollision(Owner.gameObject.layer, LayerMask.NameToLayer("Enemy"), false);
-        //dashTrail.emitting = false;
+        RestoreCollisison();
         ToggleDashTrail(false);
 
         EventData data = new EventData();
         data.AddEntity("Entity", Owner);
 
         EventManager.SendEvent(GameEvent.DashEnded, data);
+    }
+
+    private void RemoveCollisison() {
+        Physics2D.IgnoreLayerCollision(Owner.gameObject.layer, LayerMask.NameToLayer("Enemy"), true);
+        Physics2D.IgnoreLayerCollision(Owner.gameObject.layer, LayerMask.NameToLayer("Projectile"), true);
+        Physics2D.IgnoreLayerCollision(Owner.gameObject.layer, LayerMask.NameToLayer("Effect Zone"), true);
+    }
+
+    private void RestoreCollisison() {
+        Physics2D.IgnoreLayerCollision(Owner.gameObject.layer, LayerMask.NameToLayer("Enemy"), false);
+        Physics2D.IgnoreLayerCollision(Owner.gameObject.layer, LayerMask.NameToLayer("Projectile"), false);
+        Physics2D.IgnoreLayerCollision(Owner.gameObject.layer, LayerMask.NameToLayer("Effect Zone"), false);
     }
 
     public void ForceDashEnd() {

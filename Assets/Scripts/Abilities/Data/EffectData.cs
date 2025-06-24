@@ -233,6 +233,7 @@ public class EffectData
 
     //Activate Other Ability
     public string nameOfAbilityToActivate;
+    public bool forceActivateRespectCooldown;
 
     //NPC State Change
     public string targetStateName;

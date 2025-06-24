@@ -54,8 +54,12 @@ public static class StatAdjustmentManager {
             ability.Stats.AddStat(newStat);
         }
 
-        //Debug.Log("Ability stat change: " + ability.Data.abilityName);
-        //Debug.Log("Target Stat: " + mod.TargetStat);
+        //if(mod.TargetStat == StatName.ShotCount) {
+        //    Debug.Log("Ability stat change add: " + ability.Data.abilityName);
+        //    Debug.Log("Target Stat: " + mod.TargetStat);
+        //}
+
+
 
 
         Action<StatName, StatModifier> statModAction = mod.VariantTarget switch {
@@ -86,6 +90,12 @@ public static class StatAdjustmentManager {
         statModAction?.Invoke(mod.TargetStat, mod);
 
         //ability.Stats.RemoveModifier(mod.TargetStat, mod);
+
+        //if (mod.TargetStat == StatName.ShotCount) {
+        //    Debug.Log("Ability stat change Removal: " + ability.Data.abilityName);
+        //    Debug.Log("Target Stat: " + mod.TargetStat);
+        //}
+
 
         SendAbilityStatChangeEvent(mod.TargetStat, ability, mod.Value);
     }
@@ -241,7 +251,7 @@ public static class StatAdjustmentManager {
         //    }
         //}
 
-        //if (targetStat != StatName.Essence) {
+        //if (targetStat == StatName.ShotCount) {
         //    Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
         //    Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
         //}

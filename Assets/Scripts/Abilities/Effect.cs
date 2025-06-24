@@ -566,6 +566,8 @@ public abstract class Effect {
         data.AddEntity("Source", Source);
 
         EventManager.SendEvent(GameEvent.OverloadTriggered, data);
+
+        //Debug.Log(ParentAbility.Data.abilityName + " has critically hit");
     }
 
     public void CreateVFX(Entity currentTarget) {
@@ -635,19 +637,26 @@ public abstract class Effect {
     public string GetProjectileStatsTooltip() {
         StringBuilder builder = new StringBuilder();
 
-        if (Stats.Contains(StatName.ProjectileChainCount) && Stats[StatName.ProjectileChainCount] > 0) {
+
+        float totalChainCount = ParentAbility.Stats[StatName.ProjectileChainCount] > 0 ? ParentAbility.Stats[StatName.ProjectileChainCount] : Stats[StatName.ProjectileChainCount];
+
+        if (totalChainCount > 0) {
             string chainCount = TextHelper.FormatStat(StatName.ProjectileChainCount, Stats[StatName.ProjectileChainCount] + Source.Stats[StatName.ProjectileChainCount]);
 
             builder.AppendLine("Chains up to: " + chainCount + " times");
         }
 
-        if (Stats.Contains(StatName.ProjectilePierceCount) && Stats[StatName.ProjectilePierceCount] > 0) {
+        float totalPierceCount = ParentAbility.Stats[StatName.ProjectilePierceCount] > 0 ? ParentAbility.Stats[StatName.ProjectilePierceCount] : Stats[StatName.ProjectilePierceCount];
+
+        if (totalPierceCount > 0) {
             string pierceCount = TextHelper.FormatStat(StatName.ProjectilePierceCount, Stats[StatName.ProjectilePierceCount] + Source.Stats[StatName.ProjectilePierceCount]);
 
             builder.AppendLine("Pierces up to: " + pierceCount + " times");
         }
 
-        if (Stats.Contains(StatName.ProjectileSplitCount) && Stats[StatName.ProjectileSplitCount] > 0) {
+        float totalSplitCount = ParentAbility.Stats[StatName.ProjectileSplitCount] > 0 ? ParentAbility.Stats[StatName.ProjectileSplitCount] : Stats[StatName.ProjectileSplitCount];
+
+        if (totalSplitCount > 0) {
             string splitCount = TextHelper.FormatStat(StatName.ProjectileSplitCount, Stats[StatName.ProjectileSplitCount] + Source.Stats[StatName.ProjectileSplitCount]);
 
             builder.AppendLine("Splits up to: " + splitCount + " times");
@@ -1025,8 +1034,15 @@ public class ActivateAbilityEffect : Effect {
 
         if (targetAbility != null) {
 
-            TriggerInstance forcedTriggerInstance = new TriggerInstance(target, ParentAbility.Source, TriggerType.None);
+            TriggerInstance forcedTriggerInstance = new TriggerInstance(targeter.ActivationInstance);
             forcedTriggerInstance.CausingAbility = ParentAbility;
+
+            //TriggerInstance forcedTriggerInstance = new TriggerInstance(target, ParentAbility.Source, TriggerType.None);
+            //forcedTriggerInstance.CausingAbility = ParentAbility;
+
+            if (Data.forceActivateRespectCooldown == true && targetAbility.IsReady == false)
+                return false;
+
 
             targetAbility.ForceActivate(forcedTriggerInstance);
         }
@@ -1041,6 +1057,9 @@ public class ActivateAbilityEffect : Effect {
 
         TriggerInstance forcedTriggerInstance = new TriggerInstance(ParentAbility.Source, ParentAbility.Source, TriggerType.None);
         forcedTriggerInstance.CausingAbility = ParentAbility;
+
+        if (Data.forceActivateRespectCooldown == true && target.IsReady == false)
+            return false;
 
 
         target.ForceActivate(forcedTriggerInstance);

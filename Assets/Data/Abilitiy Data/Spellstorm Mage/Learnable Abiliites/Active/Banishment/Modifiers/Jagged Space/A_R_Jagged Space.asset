@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_R_Deep Distortion
+  m_Name: A_R_Jagged Space
   m_EditorClassIdentifier: 
   AbilityData:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
-    abilityName: Deep Distortion Rune
-    abilityDescription: Spatial Disortion deals more damage and has a wider area,
-      but now has a 0.5 second cooldown.
+    abilityName: Jagged Space
+    abilityDescription: Banishment no longer Stuns, but causes significantly more
+      damage.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
     showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
-    runeAbilityTarget: Spatial Distortion
+    runeAbilityTarget: Banishment
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -40,7 +40,7 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 0e00000017000000
+    tags: 
     resetEvents: 
     activationTriggerData:
     - type: 17
@@ -69,9 +69,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
-      allConstraints:
-      - focus: 0
-        constraintData: []
+      allConstraints: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -113,8 +111,8 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 38f081821ea241a40bd88a9ada403ee0, type: 2}
-    - {fileID: 11400000, guid: a55cde319c79d4743847f7b5f1a77d6b, type: 2}
+    - {fileID: 11400000, guid: 11e4934e5bc1eb94c81112862ad6ffd1, type: 2}
+    - {fileID: 11400000, guid: ae6756d0ff29e8445896bcae5a5817e2, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

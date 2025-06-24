@@ -177,9 +177,9 @@ public class Projectile : Entity {
             Stats.AddModifier(StatName.ProjectileSplitQuantity, splitAmount, StatModType.Flat, Source);
         }
             
-
+        float splitQuantity = Source.Stats[StatName.ProjectileSplitQuantity];
         if (Stats[StatName.ProjectileSplitCount] > 0 && Stats[StatName.ProjectileSplitQuantity] <=0)
-            Stats.AddModifier(StatName.ProjectileSplitQuantity, 2, StatModType.Flat, Source);
+            Stats.AddModifier(StatName.ProjectileSplitQuantity, 2 + splitQuantity, StatModType.Flat, Source);
 
 
         float parentRotationSpeed = ParentEffect.ParentAbility.Stats[StatName.RotationSpeed];
@@ -264,10 +264,25 @@ public class Projectile : Entity {
     }
 
     private void SetupChildCollision(Collider2D other) {
-        Physics2D.IgnoreCollision(myCollider, other);
+        //Physics2D.IgnoreCollision(myCollider, other);
+
+        SetTempCollisionIgnore(other);
     }
 
+    private void SetTempCollisionIgnore(Collider2D other) {
+        Physics2D.IgnoreCollision(myCollider, other);
+        StartCoroutine(RestoreCollision(other));
+    }
 
+    private IEnumerator RestoreCollision(Collider2D other) {
+        yield return new WaitForSeconds(0.3f);
+
+        if (myCollider == null || other == null)
+            yield break;
+
+        Physics2D.IgnoreCollision(myCollider, other, false);
+
+    }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (LayerTools.IsLayerInMask(projectileHitMask, other.gameObject.layer) == false) {
@@ -430,37 +445,49 @@ public class Projectile : Entity {
         Vector2 parentVelocity = Movement.MyBody.linearVelocity;
         Vector2 perpendicular = Vector2.Perpendicular(parentVelocity);
 
-        //Debug.Log("Base Dir: " + perpendicular.normalized * 25f);
-
         for (int i = 0; i < Stats[StatName.ProjectileSplitQuantity]; i++) {
 
             if(i.IsOdd() == true) {
                 perpendicular = -perpendicular;
-                //Debug.Log(i + " is the odd Index. Flipped Dir: " + perpendicular.normalized * 25f);
             }
 
             if (cloneSelfOnSplit == true) {
                 Projectile child = Instantiate(ParentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
                 child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting, true);
                 child.SetupChildCollision(recentHit);
-                child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
-
-
-                //Vector2 force = perpendicular/*.normalized * (Stats[StatName.MoveSpeed] / 100f)*/;
-
-                //Debug.Log("Resulting Dir: " + perpendicular.normalized * 25f);
-
+                //child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
+                child.transform.localScale *= 0.8f;
                 child.Movement.MyBody.AddForce(perpendicular.normalized * 25f, ForceMode2D.Impulse);
-
                 //TargetUtilities.RotateToRandomNearbyTarget(recentHit, child, chainRadius, chainMask, true);
-
             }
             else {
                 Debug.LogError("Projectile: " + EntityName + " is not set to clone it self on split, but has no child specified");
             }
         }
+
+        SendSplitEvent(recentHit.GetComponent<Entity>());
+
         return true;
     }
+
+
+    private void SendSplitEvent(Entity cause) {
+        //yield return new WaitForSeconds(0.05f);
+
+        //Stats.AddModifier(StatName.ProjectilePierceCount, -1, StatModType.Flat, this);
+        EventData data = new EventData();
+
+        data.AddEntity("Projectile", this);
+        data.AddEntity("Owner", Source);
+        data.AddEntity("Cause", cause);
+        data.AddEffect("Parent Effect", ParentEffect);
+        data.AddAbility("Ability", ParentEffect.ParentAbility);
+
+        //Debug.Log("Split has occured");
+
+        EventManager.SendEvent(GameEvent.ProjectileSplit, data);
+    }
+
 
     private bool HandleProjectileChain(Collider2D recentHit) {
         if (Stats[StatName.ProjectileChainCount] < 1f) {

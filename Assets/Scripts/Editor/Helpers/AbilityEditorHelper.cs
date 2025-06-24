@@ -735,6 +735,7 @@ public static class AbilityEditorHelper {
 
             case EffectType.ActivateOtherAbility:
                 entry.nameOfAbilityToActivate = EditorGUILayout.TextField("Ability Name", entry.nameOfAbilityToActivate);
+                entry.forceActivateRespectCooldown = EditorGUILayout.Toggle("Respect Cooldown", entry.forceActivateRespectCooldown);
                 break;
 
             case EffectType.NPCStateChange:

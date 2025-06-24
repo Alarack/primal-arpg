@@ -416,6 +416,19 @@ public abstract class AbilityTrigger {
             this.Type = type;
         }
 
+        public TriggerInstance(TriggerInstance clone) {
+            this.Type = clone.Type;
+            this.TriggeringEntity = clone.TriggeringEntity;
+            this.CauseOfTrigger = clone.CauseOfTrigger;
+            this.TriggeringEffect = clone.TriggeringEffect;
+            this.CausingEffect = clone.CausingEffect;
+            this.SourceEffect = clone.SourceEffect;
+            this.TriggeringAbility = clone.TriggeringAbility;
+            this.CausingAbility = clone.CausingAbility;
+            this.SourceAbility = clone.SourceAbility;
+            this.SavedLocation = clone.SavedLocation;
+        }
+
 
     }
 
@@ -977,6 +990,38 @@ public class ProjectileChainedTrigger : AbilityTrigger {
     }
 }
 
+public class ProjectileSplitTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.ProjectileSplit;
+    public override GameEvent TargetEvent => GameEvent.ProjectileSplit;
+    public override Action<EventData> EventReceiver => OnProjectileSplit;
+
+    public ProjectileSplitTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnProjectileSplit(EventData data) {
+
+        Entity projectile = data.GetEntity("Projectile");
+        Entity owner = data.GetEntity("Owner");
+        Entity cause = data.GetEntity("Cause");
+        Effect parentEffect = data.GetEffect("Parent Effect");
+        Ability parentAbility = data.GetAbility("Ability");
+
+        //Debug.Log(parentAbility.Data.abilityName + " is the piercing ability");
+
+
+        TriggeringEntity = projectile;
+        CauseOfTrigger = cause;
+
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.SourceEffect = parentEffect;
+        triggerInstance.TriggeringAbility = parentAbility;
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
 public class RuneEquippedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.RuneEquipped;
@@ -1208,6 +1253,33 @@ public class ProjectileCreatedTrigger : AbilityTrigger {
         Entity triggeringEntity = data.GetEntity("Projectile");
 
         TriggeringEntity = triggeringEntity;
+
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.CausingEffect = causingEffect;
+        triggerInstance.CausingAbility = causingAbility;
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
+public class PayloadsDeployedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.ProjectileCreated;
+
+    public override GameEvent TargetEvent => GameEvent.PayloadsDeployed;
+
+    public override Action<EventData> EventReceiver => OnPayloadsDeployed;
+
+    public PayloadsDeployedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    }
+
+    private void OnPayloadsDeployed(EventData data) {
+
+        Effect causingEffect = data.GetEffect("Effect");
+        Ability causingAbility = data.GetAbility("Ability");
+        //Entity triggeringEntity = data.GetEntity("Projectile");
+
+        //TriggeringEntity = triggeringEntity;
 
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
