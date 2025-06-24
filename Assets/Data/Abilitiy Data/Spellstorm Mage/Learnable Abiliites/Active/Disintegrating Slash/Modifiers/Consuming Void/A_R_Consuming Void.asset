@@ -10,50 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Disintegrating Slash
+  m_Name: A_R_Consuming Void
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 1
-    abilityIcon: {fileID: -8454673973720829724, guid: 6b60a7e8e34d0aa4cae86c19efa4a07f, type: 3}
-    abilityName: Disintegrating Slash
-    abilityDescription: Tear open the void in front of you, afflicting enemies with
-      Unraveling. Unlike normal Afflictions, Unraveling ticks whenever you spend
-      Essence.
+    category: 3
+    abilityIcon: {fileID: 0}
+    abilityName: Consuming Void
+    abilityDescription: 'When Disintegrating Slash hits a target with a Damage over
+      Time effect other then Unraveling, consume it, violently. '
     resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 1
+    autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
-    showChildAbilitiesInTooltip: 0
+    showChildAbilitiesInTooltip: 1
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
     showProcChanceOnOtherSkills: 0
-    startingAbility: 1
+    startingAbility: 0
     scaleProcByLevel: 0
-    runeAbilityTarget: 
-    animationString: Attack
-    waitForAnimToResolve: 1
-    initSFXVolume: 0.5
-    initiationSounds:
-    - {fileID: 8300000, guid: 234f95106db1df34e8f6407f3f46b67f, type: 3}
+    runeAbilityTarget: Disintegrating Slash
+    animationString: 
+    waitForAnimToResolve: 0
+    initSFXVolume: 1
+    initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities:
-    - {fileID: 11400000, guid: b65252595e637c14ebcf2b3a457cffaa, type: 2}
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: 02c7872ac6148ef4cbd00728a0a7274c, type: 2}
-      - {fileID: 11400000, guid: e126856cf4935b646a1ce00826ccd1d1, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: 562560eb06c668e42af75129158bf734, type: 2}
-      tier: 2
-    tags: 17000000040000000a0000001c000000
+    - {fileID: 11400000, guid: 346944b926c4f854480dd894fe3d0b1c, type: 2}
+    runeGroupData: []
+    tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 6
+    - type: 1
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -67,10 +58,10 @@ MonoBehaviour:
       allConstraints:
       - focus: 1
         constraintData:
-        - type: 7
+        - type: 0
           inverse: 0
           statChangeTarget: 0
-          changeDirection: 0
+          changeDirection: 1
           minStatChangeRequired: 0
           statChangeDelta: 0
           constrainByDelivery: 0
@@ -112,9 +103,54 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
-      - focus: 4
+        - type: 4
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 1
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+      - focus: 5
         constraintData:
-        - type: 7
+        - type: 18
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -147,7 +183,7 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: 
+          targetAbiltyName: Disintegrating Slash
           targetEffectName: 
           effectDesigantion: 0
           targetEffectType: 0
@@ -201,54 +237,11 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 605b96877ca46f644a80e3d8383855dd, type: 2}
+    - {fileID: 11400000, guid: f3c526074f190dc449a61f044b2c1908, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
-    windupVFX: {fileID: 2850867436185079738, guid: 1f8575811c82b604ea6be01808546f71, type: 3}
-    abilityStatData:
-    - variant: 0
-      statName: 46
-      value: -0.75
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 41
-      value: 1.25
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 70
-      value: 5
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 50
-      value: 0.2
-      maxValue: 0
-      minValue: 0
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          overrideProcStat: 0
-          procChance: 1
-          triggerDelay: 0
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          chainTriggerDelay: 0.1
-          delay1Frame: 0
-          autoActivateTimer: 0
-          resetTimerOnParentAbilityEnd: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        reduceTriggerCountByAbilityLevel: 0
-        minTriggerCount: 0
-      cooldown: 0.75
+    windupVFX: {fileID: 0}
+    abilityStatData: []
+    recoveryData: []

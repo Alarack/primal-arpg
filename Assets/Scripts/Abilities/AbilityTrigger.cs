@@ -807,6 +807,48 @@ public class StatusAppliedTrigger : AbilityTrigger {
     }
 }
 
+public class StatusPurgedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.StatusPurged;
+    public override GameEvent TargetEvent => GameEvent.StatusPurged;
+    public override Action<EventData> EventReceiver => OnStatusPurged;
+
+    public StatusPurgedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnStatusPurged(EventData data) {
+
+        Entity target = data.GetEntity("Target");
+        Entity cause = data.GetEntity("Entity");
+        Ability causingAbility = data.GetAbility("Ability");
+        Effect causingEffect = data.GetEffect("Effect");
+        Status status = data.GetStatus("Status");
+
+        TriggeringEntity = target;
+        CauseOfTrigger = cause;
+
+
+        //Debug.Log("Status Trigger: " + status.Data.statusName + " purged on: " + target.EntityName + " from " + cause.EntityName);
+
+        StatusPurgedTriggerInstance triggerInstance = new StatusPurgedTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, status);
+        triggerInstance.CausingAbility = causingAbility;
+        triggerInstance.CausingEffect = causingEffect;
+        triggerInstance.SourceAbility = ParentAbility;
+        TryActivateTrigger(triggerInstance);
+    }
+
+
+    public class StatusPurgedTriggerInstance : TriggerInstance {
+        public Status statusApplied;
+
+        public StatusPurgedTriggerInstance(Entity trigger, Entity cause, TriggerType type, Status statusApplied) : base(trigger, cause, type) {
+            this.statusApplied = statusApplied;
+        }
+    }
+
+}
+
 public class StatusStackedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.StatusStacked;

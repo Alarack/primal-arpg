@@ -339,8 +339,10 @@ public class EffectTargeter {
 
         Entity triggeringEntity = GetTriggerTarget();
 
-        parentEffect.Apply(triggeringEntity);
-        parentEffect.SendEffectAppliedEvent();
+        bool applied = parentEffect.Apply(triggeringEntity);
+
+        if(applied == true)
+            parentEffect.SendEffectAppliedEvent();
     }
 
     private void ApplyToTriggerAbility() {

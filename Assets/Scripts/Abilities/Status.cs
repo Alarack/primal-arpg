@@ -159,7 +159,7 @@ public class Status {
         }
 
         if (ActiveEffect == null) {
-            Debug.LogError("An active effect on the status belonging to: " + ParentEffect.Data.effectName + " is null");
+            Debug.LogError("An active effect on the status belonging to: " + ParentEffect.Data.effectName + " is null when trying to tick");
             return;
         }
 
@@ -202,6 +202,13 @@ public class Status {
     }
 
     public virtual void Stack() {
+
+        if (ActiveEffect == null) {
+            Debug.LogError("An active effect on the status belonging to: " + ParentEffect.Data.effectName + " is null when trying to stack");
+            return;
+        }
+
+
         RefreshDuration();
 
         switch (stackMethod) {
@@ -245,6 +252,21 @@ public class Status {
 
         
         CleanUp(null);
+    }
+
+    public void Purge(Entity cause, Ability causingAbility, Effect causingEffect) {
+        EventData data = new EventData();
+        data.AddEntity("Entity", cause);
+        data.AddEntity("Target", Target);
+        data.AddEffect("Effect", causingEffect);
+        data.AddAbility("Ability", causingAbility);
+        data.AddStatus("Status", this);
+
+        EventManager.SendEvent(GameEvent.StatusPurged, data);
+
+        Debug.LogWarning(statusName + " from " + ParentEffect.ParentAbility.Data.abilityName + " is being purged by: " + causingAbility.Data.abilityName);
+
+        Remove();
     }
 
     private void SendStatusRemovedEvent() {

@@ -171,7 +171,8 @@ namespace LL.Events {
         MasterySelected,
         DashCooldownFinished,
         DashEnded,
-        PayloadsDeployed
+        PayloadsDeployed,
+        StatusPurged
     }
 
 

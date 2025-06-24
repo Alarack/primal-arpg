@@ -48,6 +48,9 @@ MonoBehaviour:
     - runes:
       - {fileID: 11400000, guid: f1d4592c905804c4cac90cbdfdd544df, type: 2}
       tier: 2
+    - runes:
+      - {fileID: 11400000, guid: 7f012df4294889840879574ecb254c34, type: 2}
+      tier: 3
     tags: 18000000080000000a0000001c000000
     resetEvents: 
     activationTriggerData:
@@ -103,6 +106,8 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
@@ -148,6 +153,8 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1

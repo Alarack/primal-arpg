@@ -581,6 +581,16 @@ public class HasStatusConstraint : AbilityConstraint {
 
         bool result = target.HasStatus(data.targetStatus);
 
+        if(data.hasDotStatus == true) {
+            Status targetStatus = target.GetStatus(data.targetStatus);
+            if (targetStatus != null) {
+                bool isDot = targetStatus.IsDot;
+
+                if (isDot == false)
+                    result = false;
+            }
+        }
+
         //Debug.Log(target.EntityName + " has " + data.targetStatus + ": " + result);
 
 

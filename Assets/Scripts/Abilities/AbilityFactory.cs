@@ -53,6 +53,7 @@ public static class AbilityFactory {
             TriggerType.DashEnded => new DashEndedTrigger(data, source, parentAbility),
             TriggerType.ProjectileSplit => new ProjectileSplitTrigger(data, source, parentAbility),
             TriggerType.PayloadsDeployed => new PayloadsDeployedTrigger(data, source, parentAbility),
+            TriggerType.StatusPurged => new StatusPurgedTrigger(data, source, parentAbility),
             _ => null,
         };
 
@@ -152,6 +153,7 @@ public static class AbilityFactory {
             EffectType.ModifyElapsedCooldown => new ModifiyElapsedCooldownEffect(data, source, parentAbility),
             EffectType.AddStatusScaling => new AddStatusScalingEffect(data, source, parentAbility),
             EffectType.SpawnItem => new SpawnItemEffect(data, source, parentAbility),
+            EffectType.PurgeStatus => new PurgeStatusEffect(data, source, parentAbility),
             _ => null,
         };
 

@@ -457,6 +457,18 @@ public abstract class Entity : MonoBehaviour {
         return null;
     }
 
+    public List<Status> GetDots() {
+        List<Status> results = new List<Status>();
+
+        for (int i = 0; i < ActiveStatuses.Count; i++) {
+            if (ActiveStatuses[i].IsDot) {
+                results.Add(ActiveStatuses[i]);
+            }
+        }
+
+        return results;
+    }
+
     public bool HasDot() {
         if (ActiveStatuses.Count == 0)
             return false;

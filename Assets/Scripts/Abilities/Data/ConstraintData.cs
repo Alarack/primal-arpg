@@ -154,6 +154,7 @@ public class ConstraintData
 
     //Has Status
     public Status.StatusName targetStatus;
+    public bool hasDotStatus;
 
     //Status Applied
     public Status.StatusName appliedStatusType;

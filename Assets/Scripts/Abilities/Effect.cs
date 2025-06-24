@@ -319,12 +319,12 @@ public abstract class Effect {
     }
 
     public bool HasProjectile(string projectileName) {
-        
+
         //if(Data.effectName == "Arcane Missles Damage") {
         //    Debug.Log("Checking for: " + projectileName);
         //    Debug.Log("Current projectile: " + PayloadPrefab.EntityName);
         //}
-        
+
         return PayloadPrefab != null && PayloadPrefab.EntityName == projectileName;
     }
 
@@ -868,10 +868,10 @@ public class EffectChangeEffectZpme : Effect {
         if (base.ApplyToAbility(target) == false)
             return false;
 
-        if(string.IsNullOrEmpty(Data.changeEffectZoneByEffectName) == false) {
+        if (string.IsNullOrEmpty(Data.changeEffectZoneByEffectName) == false) {
             Effect targetEffect = target.GetEffectByName(Data.changeEffectZoneByEffectName);
 
-            if(target != null) {
+            if (target != null) {
                 ApplyToEffect(targetEffect);
                 return true;
             }
@@ -881,13 +881,13 @@ public class EffectChangeEffectZpme : Effect {
             }
         }
 
-        if(string.IsNullOrEmpty (Data.changeEffectZoneByProjectileName) == false) {
+        if (string.IsNullOrEmpty(Data.changeEffectZoneByProjectileName) == false) {
             List<Effect> allEffectsOntargetAbility = target.GetAllEffects();
             int successCount = 0;
             for (int i = 0; i < allEffectsOntargetAbility.Count; i++) {
                 Entity payloadPrefab = allEffectsOntargetAbility[i].PayloadPrefab;
 
-                if(payloadPrefab == null) 
+                if (payloadPrefab == null)
                     continue;
 
                 if (payloadPrefab.EntityName != Data.changeEffectZoneByProjectileName)
@@ -1103,7 +1103,7 @@ public class ForcedMovementEffect : Effect {
                 ApplySourceForward(target);
                 break;
 
-                case MovementDestination.SourceBackward: 
+            case MovementDestination.SourceBackward:
                 ApplySourceBackward(target);
                 break;
 
@@ -1181,13 +1181,13 @@ public class ForcedMovementEffect : Effect {
 
         Entity triggering = targeter.ActivationInstance.TriggeringEntity;
 
-        if(triggering != null) {
+        if (triggering != null) {
             Vector2 directionToTrigger = triggering.transform.position - target.transform.position;
             Vector2 normDireciton = directionToTrigger.normalized;
 
             Vector3 cross = Vector3.Cross(normDireciton, target.GetOriginPoint().up);
 
-            if(cross.z < 0f) {
+            if (cross.z < 0f) {
                 perp = -perp;
             }
         }
@@ -1203,7 +1203,7 @@ public class ForcedMovementEffect : Effect {
 
     private void ApplyDodgeMovement(Entity target) {
         Entity triggering = targeter.ActivationInstance.TriggeringEntity;
-        if(triggering == null) {
+        if (triggering == null) {
             ApplySourcePerpendicular(target);
             return;
         }
@@ -1266,7 +1266,7 @@ public class ForcedMovementEffect : Effect {
         //TrailRenderer trail = target.GetComponentInChildren<TrailRenderer>();
         //if (trail != null) {
         //    trail.emitting = active;
-            
+
         //    if(active == true)
         //        new Task(DelayTrailDeactivate(target));
         //}
@@ -1331,10 +1331,10 @@ public class TeleportEffect : Effect {
 
             case TeleportDestination.OtherTarget:
                 Entity other = targeter.GetLastTargetFromOtherEffect(Data.otherAbilityName, Data.otherEffectName, AbilityCategory.Any);
-                
-                if(other == null) 
+
+                if (other == null)
                     return false;
-                
+
                 TeleportToEntity(target, other);
                 break;
 
@@ -1486,7 +1486,7 @@ public class TeleportEffect : Effect {
         environmentMask = LayerTools.AddToMask(environmentMask, LayerMask.NameToLayer("Environment"));
 
         RaycastHit2D hit = Physics2D.Raycast(Source.transform.position, direction.normalized, 5f, environmentMask);
-        if(hit.collider != null) {
+        if (hit.collider != null) {
             Debug.Log("Hit wall, moving to hit location");
 
             Vector2 adjustedDestination = (Vector2)Source.transform.position + direction.normalized * (hit.distance - 0.25f);
@@ -1496,7 +1496,7 @@ public class TeleportEffect : Effect {
             ExecuteTeleport(target, adjustedDestination);
         }
         else {
-            
+
             Vector2 destination = direction.normalized * 5f;
             ExecuteTeleport(target, destination);
         }
@@ -2663,7 +2663,7 @@ public class AddStatusEffect : Effect {
 
         float resulstingIntervalMod = effectIntervalModifier * comboIntervalModifer;
 
-        if(resulstingIntervalMod <= 0.2f) {
+        if (resulstingIntervalMod <= 0.2f) {
             //Debug.LogError("A status interval is too low: " + resulstingIntervalMod);
             resulstingIntervalMod = 0.2f;
         }
@@ -2694,8 +2694,8 @@ public class AddStatusEffect : Effect {
         for (int i = activeStatusDict.Count - 1; i >= 0; i--) {
             var entry = activeStatusDict.ElementAt(i);
 
-            if(entry.Key == null)
-                 continue; 
+            if (entry.Key == null)
+                continue;
 
             List<Status> checks = activeStatusDict.ElementAt(i).Value;
 
@@ -2768,8 +2768,6 @@ public class AddStatusEffect : Effect {
         if (activeStatusDict.ContainsKey(target)) {
             activeStatusDict.Remove(target);
         }
-
-        //activeStatusEffects.Remove(activeEffect);
     }
 
     public override void Remove(Entity target) {
@@ -2782,9 +2780,6 @@ public class AddStatusEffect : Effect {
 
             activeStatusDict.Remove(target);
         }
-        //else {
-        //    Debug.LogError("[ADD STATUS EFFECT] A target: " + target.gameObject.name + " is not tracked.");
-        //}
     }
 
 
@@ -2815,15 +2810,8 @@ public class AddStatusEffect : Effect {
         StringBuilder builder = new StringBuilder();
 
         for (int i = 0; i < activeStatusEffects.Count; i++) {
-            //StatusData statusData = Data.statusToAdd[i];
-            //EffectData effectData = Data.statusToAdd[i].statusEffectDef.effectData;
-
             switch (activeStatusEffects[i].Data.effectDesignation) {
                 case StatModifierData.StatModDesignation.None:
-                    //builder.AppendLine();
-
-                    //Debug.Log("Showing a tooltip for a non damage status");
-                    //Debug.Log(activeStatusEffects[i].GetTooltip());
 
                     builder.AppendLine(activeStatusEffects[i].GetTooltip());
 
@@ -2834,31 +2822,10 @@ public class AddStatusEffect : Effect {
                         builder.AppendLine("Duration: " + TextHelper.ColorizeText(duration.ToString(), Color.yellow) + " seconds");
                     }
 
-
                     builder.Append(GetStatusStackingTooltip());
-
-
-                    //float maxStacks = Stats.GetStatRangeMaxValue(StatName.StackCount);
-
-                    //if(maxStacks < float.MaxValue && Data.statusToAdd[0].stackMethod != StackMethod.None) {
-                    //    builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
-                    //}
-                    //if(Data.statusToAdd[0].stackMethod == StackMethod.Infinite) {
-                    //    builder.Append("Stacks Infinitely");
-                    //}
-
-                    //if (Data.statusToAdd[0].stackMethod == StackMethod.None) {
-                    //    builder.Append("Doesn't Stack");
-                    //}
-
-
-
 
                     break;
                 case StatModifierData.StatModDesignation.PrimaryDamage:
-
-                    //builder.AppendLine();
-
 
                     if (Data.showScalers == true) {
                         string scalarTooltip = activeStatusEffects[i].ScalarTooltip();
@@ -2867,7 +2834,6 @@ public class AddStatusEffect : Effect {
                     }
 
                     float damageRatio = activeStatusEffects[i].GetWeaponScaler();
-                    //TextHelper.ColorizeText((damagePercent * 100).ToString() + "%", Color.green)
 
                     string durationText = TextHelper.ColorizeText(GetModifiedStatusDuration().ToString(), Color.yellow) + " seconds";
                     string intervalText = TextHelper.ColorizeText(GetModifiedIntervalDuration().ToString(), Color.yellow) + " seconds";
@@ -2890,13 +2856,9 @@ public class AddStatusEffect : Effect {
                         builder.Append(activeStatusEffects[i].GetTooltip() + "for " + durationText);
                     }
 
-
-                    //if (Data.statusToAdd[0].maxStacks > 0) {
-                        builder.AppendLine();
-                        builder.Append(GetStatusStackingTooltip());
-                        builder.AppendLine();
-                        //builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
-                    //}
+                    builder.AppendLine();
+                    builder.Append(GetStatusStackingTooltip());
+                    builder.AppendLine();
 
                     if (activeStatusEffects[i].Data.canOverload == true) {
                         float overloadChance = ParentAbility != null ? ParentAbility.GetAbilityOverloadChance() : Source.Stats[StatName.OverloadChance];
@@ -2905,15 +2867,10 @@ public class AddStatusEffect : Effect {
                         builder.Append("Critical Hit Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
                     }
 
-
-
-
-
                     string projectileStats = GetProjectileStatsTooltip();
                     if (string.IsNullOrEmpty(projectileStats) == false) {
                         builder.AppendLine(projectileStats);
                     }
-
 
                     break;
                 case StatModifierData.StatModDesignation.SecondaryDamage:
@@ -2923,25 +2880,59 @@ public class AddStatusEffect : Effect {
                 default:
                     break;
             }
-
-            //for (int j = 0; j < Data.statusToAdd[i].statusEffectDef.effectData.modData.Count; j++) {
-
-            //}
         }
 
         return builder.ToString();
+    }
+}
 
-        //StatModifierData statusModData = Data.statusToAdd[0].statusEffectDef.effectData.modData[0];
+public class PurgeStatusEffect : Effect {
+    public override EffectType Type => EffectType.PurgeStatus;
 
-        //string formated = TextHelper.FormatStat(statusModData.targetStat, statusModData.value);
-
-        //string replacement = Data.effectDescription.Replace("{}", formated);
-
-        //return replacement;
+    public PurgeStatusEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
     }
 
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
 
+        if (Data.removeAllDotStatus == true) {
+            List<Status> targetDots = target.GetDots();
+
+            for (int i = targetDots.Count - 1; i >= 0; i--) {
+                if (targetDots[i] == null)
+                    continue;
+
+                if (Data.statusPurgeExceptions.Contains(targetDots[i].statusName) == true)
+                    continue;
+
+
+                targetDots[i].Purge(Source, ParentAbility, this);
+
+
+            }
+
+            if (targetDots.Count > 0)
+                return true;
+            else
+                return false;
+        }
+
+
+        List<Status> targetStatuses = new List<Status>();
+        for (int i = 0; i < Data.statusToRemove.Count; i++) {
+            Status status = target.GetStatus(Data.statusToRemove[i]);
+            if (status != null)
+                targetStatuses.Add(status);
+        }
+
+        for (int i = 0; i < targetStatuses.Count; i++) {
+            targetStatuses[i].Purge(Source, ParentAbility, this);
+        }
+
+        return true;
+    }
 
 }
 
@@ -3775,7 +3766,7 @@ public class StatAdjustmentEffect : Effect {
         //Debug.LogWarning("applying a stat adjustment: " + activeMod.Value + " from " + ParentAbility.Data.abilityName);
 
         if (target.HasStatus(StatusName.Inivincible) == true) {
-            if(activeMod.Value < 0f) {
+            if (activeMod.Value < 0f) {
                 return;
             }
         }
@@ -4119,7 +4110,7 @@ public class StatAdjustmentEffect : Effect {
 
                 float cooldownOfTrigger = triggeringAbility.GetCooldown();
                 if (cooldownOfTrigger > 0f) {
-                   globalDamageMultiplier *= cooldownOfTrigger;
+                    globalDamageMultiplier *= cooldownOfTrigger;
 
                 }
 

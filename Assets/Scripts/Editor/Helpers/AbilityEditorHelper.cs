@@ -420,6 +420,7 @@ public static class AbilityEditorHelper {
 
             case ConstraintType.HasStatus:
                 entry.targetStatus = EditorHelper.EnumPopup("Status", entry.targetStatus);
+                entry.hasDotStatus = EditorGUILayout.Toggle("Is Dot", entry.hasDotStatus);
                 break;
 
             case ConstraintType.StatusApplied:
@@ -636,8 +637,22 @@ public static class AbilityEditorHelper {
                 entry.statusToAdd = EditorHelper.DrawExtendedList(entry.statusToAdd, "Status", DrawStatusData);
                 EditorGUI.indentLevel--;
                 break;
-            case EffectType.RemoveStatus:
-                EditorGUILayout.LabelField("Not Yet Implemented: ", errorLabel);
+            case EffectType.PurgeStatus:
+
+                entry.removeAllDotStatus = EditorGUILayout.Toggle("Remove Dots", entry.removeAllDotStatus);
+                if(entry.removeAllDotStatus == false) {
+                    EditorGUI.indentLevel++;
+                    entry.statusToRemove = EditorHelper.DrawList("Status to Remove", "Status", entry.statusToRemove, Status.StatusName.None, EditorHelper.DrawListOfEnums);
+                    EditorGUI.indentLevel--;
+
+                }
+
+                EditorGUILayout.Separator();
+
+                EditorGUI.indentLevel++;
+                entry.statusPurgeExceptions = EditorHelper.DrawList("Exceptions", "Status", entry.statusPurgeExceptions, Status.StatusName.None, EditorHelper.DrawListOfEnums);
+                EditorGUI.indentLevel--;
+
                 break;
             case EffectType.Movement:
                 //EditorGUILayout.LabelField("Not Yet Implemented: ", errorLabel);

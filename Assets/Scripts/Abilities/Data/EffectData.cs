@@ -9,7 +9,7 @@ public enum EffectType {
     StatAdjustment,
     SpawnProjectile,
     AddStatus,
-    RemoveStatus,
+    PurgeStatus,
     Movement,
     AddChildAbility,
     ApplyOtherEffect,
@@ -178,6 +178,8 @@ public class EffectData
 
     //Remove Status
     public List<Status.StatusName> statusToRemove = new List<Status.StatusName>();
+    public List<Status.StatusName> statusPurgeExceptions = new List<Status.StatusName>();
+    public bool removeAllDotStatus;
 
     //Movement
     public bool isTeleport;
