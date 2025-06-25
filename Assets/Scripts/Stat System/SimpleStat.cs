@@ -97,7 +97,9 @@ public enum StatName
     CastingMoveSpeedModifier,
     DoubleTickChance,
     GlobalComboIntervalModifier,
-    GlobalComboDurationModifier
+    GlobalComboDurationModifier,
+    HealthRegenerationRate,
+    HealthRegenerationValue,
 
 
 }

@@ -9,6 +9,7 @@ public class StatusIndicatorEntry : MonoBehaviour, IPointerEnterHandler, IPointe
 
 
     public Image statusIconImage;
+    public Image durationDimmer;
     public Status activeStatus;
     public TextMeshProUGUI stackCountText;
 
@@ -18,9 +19,23 @@ public class StatusIndicatorEntry : MonoBehaviour, IPointerEnterHandler, IPointe
         this.activeStatus = status;
         SetupDisplay();
     }
-    
-    
-    
+
+    private void Update() {
+        UpdateDurationDimmer();
+        
+    }
+
+    private void UpdateDurationDimmer() {
+        if (activeStatus == null)
+            return;
+
+        if (activeStatus.TotalDuration <= 0f)
+            return;
+
+        //float durationInverse = 1 - activeStatus.DurationRatio;
+        durationDimmer.fillAmount = activeStatus.DurationRatio;
+    }
+
     private void SetupDisplay() {
         statusIconImage.sprite = activeStatus.Data.statusSprite;
 

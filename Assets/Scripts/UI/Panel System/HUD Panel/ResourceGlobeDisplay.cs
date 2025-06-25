@@ -68,18 +68,24 @@ public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
     private void ShowRegenTooltip() {
         switch (AssosiatedStat.Name) {
             case StatName.Essence:
-                float regenRate = EntityManager.ActivePlayer.Stats[StatName.EssenceRegenerationRate];
-                float regenValue = EntityManager.ActivePlayer.Stats[StatName.EssenceRegenerationValue];
+                float essenceRegenRate = EntityManager.ActivePlayer.Stats[StatName.EssenceRegenerationRate];
+                float essenceRegenValue = EntityManager.ActivePlayer.Stats[StatName.EssenceRegenerationValue];
                 float maxEssence = EntityManager.ActivePlayer.Stats.GetStatRangeMaxValue(StatName.Essence);
 
-                float essencePerSecond = regenValue * maxEssence * regenRate;
+                float essencePerSecond = essenceRegenValue * maxEssence * essenceRegenRate;
 
                 TooltipManager.Show(essencePerSecond + " / Second", "Essence Regeneration");
 
                 break;
 
             case StatName.Health:
+                float healthRegenRate = EntityManager.ActivePlayer.Stats[StatName.EssenceRegenerationRate];
+                float healthRegenValue = EntityManager.ActivePlayer.Stats[StatName.EssenceRegenerationValue];
+                float maxHealth = EntityManager.ActivePlayer.Stats.GetStatRangeMaxValue(StatName.Essence);
 
+                float healthPerSecond = healthRegenValue * maxHealth * healthRegenRate;
+
+                TooltipManager.Show(healthPerSecond + " / Second", "Health Regeneration");
                 break;
         }
     }

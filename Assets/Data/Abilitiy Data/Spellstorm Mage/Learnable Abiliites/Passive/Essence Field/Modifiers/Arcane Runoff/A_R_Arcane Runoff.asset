@@ -16,7 +16,8 @@ MonoBehaviour:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
     abilityName: Arcane Runoff Rune
-    abilityDescription: Whenever you lose Essence, trigger your Arcane Missiles ability.
+    abilityDescription: Whenever you lose Essence, trigger your Arcane Missiles Skill
+      if you have it equipped.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -27,8 +28,10 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
+    nonLethal: 0
     runeAbilityTarget: Essence Field
     animationString: 
     waitForAnimToResolve: 0

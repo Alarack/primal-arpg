@@ -61,6 +61,9 @@ public class Status {
     public Effect ActiveEffect { get; protected set; }
     public AddStatusEffect ParentEffect { get; protected set; }
 
+    public float DurationRatio { get { return durationTimer != null ? durationTimer.Ratio : 0f; } }
+    public float TotalDuration { get { return durationTimer != null ? durationTimer.Duration :-1f; } }
+
     public Status(StatusData data, Entity target, Entity source, Effect activeEffect, AddStatusEffect ParentEffect) {
         this.Data = data;
         this.ParentEffect = ParentEffect;

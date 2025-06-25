@@ -96,6 +96,7 @@ public abstract class Entity : MonoBehaviour {
     public AnimHelper AnimHelper { get; protected set; }
 
     protected Timer essenceRegenTimer;
+    protected Timer healthRegenTimer;
 
     protected virtual void Awake() {
         //Debug.Log(EntityName + " is waking");
@@ -141,6 +142,9 @@ public abstract class Entity : MonoBehaviour {
         if(Stats.Contains(StatName.EssenceRegenerationRate) == true)
             essenceRegenTimer = new Timer(CalculateEssenceRegenRate(), RegenEssence, true);
 
+        if(Stats.Contains(StatName.HealthRegenerationRate) == true) {
+            healthRegenTimer = new Timer(CalculateHealthRegenRate(), RegenHealth, true);
+        }
 
         SendEntitySpawnEvent();
     }
@@ -177,7 +181,7 @@ public abstract class Entity : MonoBehaviour {
 
     }
 
-    #region ESSENCE
+    #region ESSENCE & HEALTH
 
     public bool TrySpendEssence(float value, Ability cause = null) {
         float difference = Stats[StatName.Essence] - value;
@@ -251,8 +255,28 @@ public abstract class Entity : MonoBehaviour {
         SendEssenceChangedEvent(Stats[StatName.EssenceRegenerationValue]);
     }
 
+    protected void OnHealthRegenChange(BaseStat stat, object source, float value) {
+        if (healthRegenTimer == null)
+            return;
+
+        healthRegenTimer.SetDuration(CalculateHealthRegenRate());
+    }
+
+    protected void RegenHealth(EventData data) {
+        Stats.AdjustStatRangeByPercentOfMaxValue(StatName.Health, Stats[StatName.HealthRegenerationValue], this);
+        SendHealthChangedEvent(Stats[StatName.HealthRegenerationValue]);
+    }
+
     public float CalculateEssenceRegenRate() {
         float statValue = Stats[StatName.EssenceRegenerationRate];
+
+        float convertedValue = 1 / statValue;
+
+        return convertedValue;
+    }
+
+    protected float CalculateHealthRegenRate() {
+        float statValue = Stats[StatName.HealthRegenerationRate];
 
         float convertedValue = 1 / statValue;
 
@@ -333,6 +357,18 @@ public abstract class Entity : MonoBehaviour {
 
         EventManager.SendEvent(GameEvent.UnitStatAdjusted, data);
     }
+
+    protected void SendHealthChangedEvent(float value, Ability cause = null) {
+        EventData data = new EventData();
+        data.AddEntity("Target", this);
+        data.AddEntity("Source", this);
+        data.AddFloat("Value", value);
+        data.AddInt("Stat", (int)StatName.Health);
+        data.AddAbility("Ability", cause);
+
+        EventManager.SendEvent(GameEvent.UnitStatAdjusted, data);
+    }
+
 
     protected virtual void RegisterStatListeners() {
         //if(Stats.Contains(StatName.Health) == true) {
