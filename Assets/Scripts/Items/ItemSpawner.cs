@@ -348,6 +348,8 @@ public class ItemSpawner : Singleton<ItemSpawner> {
             StatName.Essence => true,
             StatName.EssenceRegenerationRate => true,
             StatName.EssenceRegenerationValue => false,
+            StatName.HealthRegenerationRate => false,
+            StatName.HealthRegenerationValue => true,
             //StatName.OverloadRecieveChance => new ItemData(stat, 0.1f),
             StatName.MaxMinionCount => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Summoning),
             StatName.MinionDamageModifier => EntityManager.ActivePlayer.HasAbilityOfTag(AbilityTag.Summoning),

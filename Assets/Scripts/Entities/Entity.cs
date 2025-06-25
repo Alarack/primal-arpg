@@ -151,6 +151,9 @@ public abstract class Entity : MonoBehaviour {
 
     protected virtual void Update() {
         //Debug.Log("Moving: " + IsMoving);
+
+        if(healthRegenTimer != null)
+            healthRegenTimer.UpdateClock();
     }
 
     protected virtual void OnEnable() {

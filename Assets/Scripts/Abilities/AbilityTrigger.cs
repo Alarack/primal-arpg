@@ -934,6 +934,40 @@ public class DashEndedTrigger : AbilityTrigger {
     }
 }
 
+public class CombatStartedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.CombatStarted;
+    public override GameEvent TargetEvent => GameEvent.CombatStarted;
+    public override Action<EventData> EventReceiver => OnCombatStarted;
+
+    public CombatStartedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnCombatStarted(EventData data) {
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
+public class CombatFinishedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.CombatStarted;
+    public override GameEvent TargetEvent => GameEvent.CombatStarted;
+    public override Action<EventData> EventReceiver => OnCombatFinished;
+
+    public CombatFinishedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnCombatFinished(EventData data) {
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
 public class OverloadTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.OverloadTriggered;

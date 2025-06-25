@@ -189,6 +189,12 @@ public static class TextHelper
             StatName.EssenceCost when value <= 0 => bonusFormat,
             StatName.EssenceCost when value > 0 => penaltyFormat,
 
+            StatName.HealthRegenerationValue when value >= 0 => bonusFormat,
+            StatName.HealthRegenerationValue when value < 0 => penaltyFormat,
+
+            StatName.HealthRegenerationRate when value >= 0 => bonusFormat,
+            StatName.HealthRegenerationValue when value < 0 => penaltyFormat,
+
             _ => "No Entry For: " + stat,
         };
 

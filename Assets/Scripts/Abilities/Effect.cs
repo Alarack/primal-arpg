@@ -3286,7 +3286,7 @@ public class SpawnItemEffect : Effect {
             case ItemType.Rune:
                 break;
             case ItemType.Currency:
-                ItemSpawner.SpawnCoins(1, spawnLocation, 1f, 5f);
+                ItemSpawner.SpawnCoins(Data.itemSpawnAmount, spawnLocation, 1f, 5f);
                 break;
             case ItemType.Skill:
                 break;
@@ -3295,11 +3295,14 @@ public class SpawnItemEffect : Effect {
             case ItemType.StatBooster:
                 break;
             case ItemType.Experience:
-                ItemSpawner.SpawnEXP(1, spawnLocation, 1f, 5f);
+                ItemSpawner.SpawnEXP(Data.itemSpawnAmount, spawnLocation, 1f, 5f);
                 break;
             case ItemType.SkillPoint:
                 break;
             case ItemType.HealthPotion:
+                break;
+            case ItemType.HealthOrb:
+                ItemSpawner.SpawnHealthOrbs(Data.itemSpawnAmount, spawnLocation);
                 break;
         }
 

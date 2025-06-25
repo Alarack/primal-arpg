@@ -47,7 +47,9 @@ public enum TriggerType {
     ProjectileDetected,
     DashEnded,
     PayloadsDeployed,
-    StatusPurged
+    StatusPurged,
+    CombatStarted,
+    CombatFinished
 }
 
 

@@ -54,6 +54,8 @@ public static class AbilityFactory {
             TriggerType.ProjectileSplit => new ProjectileSplitTrigger(data, source, parentAbility),
             TriggerType.PayloadsDeployed => new PayloadsDeployedTrigger(data, source, parentAbility),
             TriggerType.StatusPurged => new StatusPurgedTrigger(data, source, parentAbility),
+            TriggerType.CombatStarted => new CombatStartedTrigger(data, source, parentAbility),
+            TriggerType.CombatFinished => new CombatFinishedTrigger(data, source, parentAbility),
             _ => null,
         };
 

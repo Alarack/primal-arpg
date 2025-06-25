@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Band of Vibrant Vitality
+  m_EditorClassIdentifier: 
+  devItem: 0
+  startingItem: 0
+  itemData:
+    Type: 1
+    affixStatTarget: 1
+    entityClass: 0
+    itemName: Band of Vibrant Vitality
+    itemDescription: A bright red-gold band which softly pulses with warm energy
+      to the rythym of a heart beat.
+    secondaryDescription: 
+    itemValue: 500
+    runeAbilityTarget: 
+    validSlots: 0400000005000000
+    abilityTags: 
+    targetedAbilityName: 
+    itemIcon: {fileID: 8829876120212544671, guid: e1f8110390f7cda469a345020c3b461c, type: 3}
+    invertIcon: 0
+    pickupIcon: {fileID: 8829876120212544671, guid: e1f8110390f7cda469a345020c3b461c, type: 3}
+    pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
+    minDamage: 0
+    maxDamage: 0
+    statModifierData:
+    - targetStat: 94
+      value: 0.1
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 0
+      deriveStatMultiplier: 0
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 1
+      abilityLevelCoefficient: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
+    abilityDefinitions:
+    - {fileID: 11400000, guid: 4c4707dc1e67b8a47b62c1a5f52e5f63, type: 2}
+    learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

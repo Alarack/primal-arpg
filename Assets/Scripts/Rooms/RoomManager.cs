@@ -44,6 +44,10 @@ public class RoomManager : Singleton<RoomManager> {
            room.Type == Room.RoomType.SurvivalCombat) {
 
             InCombat = true;
+
+            EventData eventData = new EventData();
+            eventData.AddInt("RoomType", (int)room.Type);
+            EventManager.SendEvent(GameEvent.CombatStarted, eventData);
         }
     }
 
@@ -79,6 +83,10 @@ public class RoomManager : Singleton<RoomManager> {
             
             AdjustDifficulty(1f);
             InCombat = false;
+
+            EventData eventData = new EventData();
+            eventData.AddInt("RoomType", (int)room.Type);
+            EventManager.SendEvent(GameEvent.CombatFinished, eventData);
         }
 
     }

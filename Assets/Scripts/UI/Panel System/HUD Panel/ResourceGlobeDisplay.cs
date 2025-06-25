@@ -79,9 +79,9 @@ public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
                 break;
 
             case StatName.Health:
-                float healthRegenRate = EntityManager.ActivePlayer.Stats[StatName.EssenceRegenerationRate];
-                float healthRegenValue = EntityManager.ActivePlayer.Stats[StatName.EssenceRegenerationValue];
-                float maxHealth = EntityManager.ActivePlayer.Stats.GetStatRangeMaxValue(StatName.Essence);
+                float healthRegenRate = EntityManager.ActivePlayer.Stats[StatName.HealthRegenerationRate];
+                float healthRegenValue = EntityManager.ActivePlayer.Stats[StatName.HealthRegenerationValue];
+                float maxHealth = EntityManager.ActivePlayer.Stats.GetStatRangeMaxValue(StatName.Health);
 
                 float healthPerSecond = healthRegenValue * maxHealth * healthRegenRate;
 

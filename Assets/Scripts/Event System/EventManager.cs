@@ -172,7 +172,9 @@ namespace LL.Events {
         DashCooldownFinished,
         DashEnded,
         PayloadsDeployed,
-        StatusPurged
+        StatusPurged,
+        CombatStarted,
+        CombatFinished,
     }
 
 
