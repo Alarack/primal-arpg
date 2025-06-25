@@ -137,7 +137,7 @@ public class GameOverPanel : BasePanel
 
 
     private void MetaPointFanfare() {
-        Debug.Log("Point Unlocked!");
+        //Debug.Log("Point Unlocked!");
        
         starsParticles.Play();
 

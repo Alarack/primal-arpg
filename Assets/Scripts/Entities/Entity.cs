@@ -348,6 +348,7 @@ public abstract class Entity : MonoBehaviour {
         float value = data.GetFloat("Value");
 
         Entity target = data.GetEntity("Target");
+        Ability ability = data.GetAbility("Ability");
 
         if (target != this)
             return;
@@ -368,6 +369,14 @@ public abstract class Entity : MonoBehaviour {
 
 
         if (Stats[StatName.Health] <= 0) {
+            
+            if(ability != null && ability.Data.nonLethal) {
+                float difference = 1 - Stats[StatName.Health];
+
+                Stats.AddStatRangeCurrentModifier(StatName.Health, new StatModifier(difference, StatModType.Flat, StatName.Health, this, StatModifierData.StatVariantTarget.RangeCurrent));
+                return;
+            }
+            
             Die(cause, sourceAbility);
         }
     }

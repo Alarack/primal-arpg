@@ -5,8 +5,7 @@ using LL.Events;
 using System.Linq;
 using static UnityEngine.GraphicsBuffer;
 
-public class ItemSpawner : Singleton<ItemSpawner>
-{
+public class ItemSpawner : Singleton<ItemSpawner> {
 
     public List<ItemDefinition> classSelectionItems = new List<ItemDefinition>();
 
@@ -72,17 +71,17 @@ public class ItemSpawner : Singleton<ItemSpawner>
             float expValue = threat / 1.5f;
             //Debug.Log("EXP from: " +  target.EntityName + " : "  + expValue);
 
-            if(expValue > 0f) {
+            if (expValue > 0f) {
                 SpawnEXP(threat, target.transform.position, 1f, Mathf.Min(1f, expValue));
             }
 
             float unstableAetheriumRoll = Random.Range(0f, 1f);
 
-            if(RoomManager.CurrentRoom != null) {
-                if(RoomManager.CurrentRoom.Type != Room.RoomType.BossRoom && unstableAetheriumRoll >= 0.99f)
+            if (RoomManager.CurrentRoom != null) {
+                if (RoomManager.CurrentRoom.Type != Room.RoomType.BossRoom && unstableAetheriumRoll >= 0.99f)
                     SpawnCoins(Random.Range(1, 3), target.transform.position, 1f, 1f, CurrencyType.UnstableAetherium);
 
-                if(RoomManager.CurrentRoom.Type == Room.RoomType.BossRoom && target.subtypes.Contains(Entity.EntitySubtype.Boss) == true)
+                if (RoomManager.CurrentRoom.Type == Room.RoomType.BossRoom && target.subtypes.Contains(Entity.EntitySubtype.Boss) == true)
                     SpawnCoins(Random.Range(5, 10), target.transform.position, 3f, 3f, CurrencyType.UnstableAetherium);
             }
 
@@ -97,9 +96,9 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
             Entity player = EntityManager.ActivePlayer;
 
-            if(player != null && player.Stats.GetStatRangeRatio(StatName.Health) < 1f) {
+            if (player != null && player.Stats.GetStatRangeRatio(StatName.Health) < 1f) {
                 float roll = Random.Range(0f, 1f);
-                if(roll < 0.15f) {
+                if (roll < 0.15f) {
                     SpawnHealthOrbs(1, target.transform.position);
                 }
             }
@@ -125,7 +124,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
     }
 
     public static void SpawnItem(Item item, Vector2 location) {
-        ItemPickup pickUp = Instantiate(Instance.pickupPrefab, location, Quaternion.identity) ;
+        ItemPickup pickUp = Instantiate(Instance.pickupPrefab, location, Quaternion.identity);
         pickUp.Setup(item);
     }
 
@@ -159,7 +158,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
             ItemData coinData = new ItemData();
 
             int valueRange = Random.Range((int)valueMin, (int)(valueMax + 1));
-            
+
             coinData.itemValue = valueRange;
             coinData.itemName = currencyType.ToString();
             coinData.Type = ItemType.Currency;
@@ -192,7 +191,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
             return;
 
         float maxHealth = EntityManager.ActivePlayer.Stats.GetStatRangeMaxValue(StatName.Health);
-        
+
         for (int i = 0; i < count; i++) {
             ItemData expDataItem = new ItemData();
 
@@ -245,7 +244,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
         }
 
 
-        if(results.Count < 1) {
+        if (results.Count < 1) {
             Debug.LogError("No Affixes found for: " + itemSlot);
         }
 
@@ -263,8 +262,8 @@ public class ItemSpawner : Singleton<ItemSpawner>
 
 
     public ItemData UpgradeItemAffixTier(ItemData affixData) {
-        if(affixData.tier < 5) {
-            return new ItemData(affixData, affixData.tier +1);
+        if (affixData.tier < 5) {
+            return new ItemData(affixData, affixData.tier + 1);
         }
         else {
             Debug.LogError("Max tier for: " + affixData.GetAffixTooltip());
@@ -284,8 +283,8 @@ public class ItemSpawner : Singleton<ItemSpawner>
             _ => 0.2f,
         };
 
-        if(currentTier < 5) {
-            if(roll < chance) {
+        if (currentTier < 5) {
+            if (roll < chance) {
                 return RollAffixTier(data, currentTier + 1);
             }
             else {
@@ -309,7 +308,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
         allStats.Shuffle();
 
 
-        for(int i = 0; i < allStats.Count; i++) {
+        for (int i = 0; i < allStats.Count; i++) {
             if (usedStats.Contains(allStats[i]))
                 continue;
 
@@ -317,7 +316,7 @@ public class ItemSpawner : Singleton<ItemSpawner>
             usedStats.Add(allStats[i]);
 
 
-            if(results.Count >= count) {
+            if (results.Count >= count) {
                 break;
             }
 

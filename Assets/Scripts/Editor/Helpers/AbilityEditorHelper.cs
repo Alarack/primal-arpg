@@ -47,6 +47,7 @@ public static class AbilityEditorHelper {
             entry.windupVFX = EditorHelper.ObjectField("WindupVFX", entry.windupVFX);
         }
         entry.scaleProcByLevel = EditorGUILayout.Toggle("Scale Proc by Level", entry.scaleProcByLevel);
+        entry.nonLethal = EditorGUILayout.Toggle("Non-Lethal", entry.nonLethal);
         entry.startingAbility = EditorGUILayout.Toggle("Starting Ability", entry.startingAbility);
         entry.includeEffectsInTooltip = EditorGUILayout.Toggle("Include Effect Toolip", entry.includeEffectsInTooltip);
         entry.showChildAbilitiesInTooltip = EditorGUILayout.Toggle("Include Child Abilities", entry.showChildAbilitiesInTooltip);
