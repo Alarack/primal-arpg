@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Channel Move Speed ADJ
+  m_Name: E_Swap Projectile
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Galactic Center Channel Move Speed
-    effectDescription: You can move while Channeling Stream of stars at {} of normal
-      speed.
-    type: 1
-    targeting: 8
-    subTarget: 4
-    maskTargeting: 1
+    effectName: Constellation Change Projectile
+    effectDescription: 
+    type: 22
+    targeting: 9
+    subTarget: 2
+    maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
@@ -38,7 +37,7 @@ MonoBehaviour:
     otherEffectName: 
     targetAbilityForLastPayload: 
     targetConstraints:
-    - type: 18
+    - type: 19
       inverse: 0
       statChangeTarget: 0
       changeDirection: 0
@@ -72,7 +71,7 @@ MonoBehaviour:
       stateExited: 
       targetAbilityTag: 0
       targetAbiltyName: Stream of Stars
-      targetEffectName: 
+      targetEffectName: Stream of Stars Damage
       effectDesigantion: 0
       targetEffectType: 0
       targetStatus: 0
@@ -111,8 +110,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 88
-      value: 0.5
+    - targetStat: 34
+      value: 1
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -122,7 +121,23 @@ MonoBehaviour:
       derivedTargetStat: 0
       invertDerivedValue: 0
       scaleFromAbilityLevel: 0
-      displayAsPercent: 1
+      displayAsPercent: 0
+      abilityLevelCoefficient: 1
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
+    - targetStat: 29
+      value: -1
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 0
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
@@ -232,7 +247,7 @@ MonoBehaviour:
     targetStateName: 
     tagsToAdd: 
     tagsToRemove: 
-    newPayloadPrefab: {fileID: 0}
+    newPayloadPrefab: {fileID: 286713208447769744, guid: 8562f784faf0b6248802ce51be4de6d4, type: 3}
     changeEffectZoneByProjectileName: 
     changeEffectZoneByEffectName: 
     modifiedMovementBehavior: 0

@@ -30,6 +30,7 @@ MonoBehaviour:
     showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
+    nonLethal: 0
     runeAbilityTarget: Stream of Stars
     animationString: 
     waitForAnimToResolve: 0
@@ -110,7 +111,7 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: a3fb3b8c3bde23c4f8546c3a862132d9, type: 2}
+    - {fileID: 11400000, guid: ce4148ba9cc658146a3192ffd1d7d2fa, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

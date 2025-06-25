@@ -637,8 +637,9 @@ public abstract class Effect {
     public string GetProjectileStatsTooltip() {
         StringBuilder builder = new StringBuilder();
 
-
-        float totalChainCount = ParentAbility.Stats[StatName.ProjectileChainCount] > 0 ? ParentAbility.Stats[StatName.ProjectileChainCount] : Stats[StatName.ProjectileChainCount];
+        float ownerChainCount = Source.Stats[StatName.ProjectileChainCount];
+        float skillChainCount = ParentAbility.Stats[StatName.ProjectileChainCount] > 0 ? ParentAbility.Stats[StatName.ProjectileChainCount] : Stats[StatName.ProjectileChainCount];
+        float totalChainCount = ownerChainCount + skillChainCount;
 
         if (totalChainCount > 0) {
             string chainCount = TextHelper.FormatStat(StatName.ProjectileChainCount, Stats[StatName.ProjectileChainCount] + Source.Stats[StatName.ProjectileChainCount]);
@@ -646,7 +647,9 @@ public abstract class Effect {
             builder.AppendLine("Chains up to: " + chainCount + " times");
         }
 
-        float totalPierceCount = ParentAbility.Stats[StatName.ProjectilePierceCount] > 0 ? ParentAbility.Stats[StatName.ProjectilePierceCount] : Stats[StatName.ProjectilePierceCount];
+        float ownerPierceCount = Source.Stats[StatName.ProjectilePierceCount];
+        float skillPierceCount = ParentAbility.Stats[StatName.ProjectilePierceCount] > 0 ? ParentAbility.Stats[StatName.ProjectilePierceCount] : Stats[StatName.ProjectilePierceCount];
+        float totalPierceCount = ownerChainCount + skillPierceCount;
 
         if (totalPierceCount > 0) {
             string pierceCount = TextHelper.FormatStat(StatName.ProjectilePierceCount, Stats[StatName.ProjectilePierceCount] + Source.Stats[StatName.ProjectilePierceCount]);
@@ -654,7 +657,9 @@ public abstract class Effect {
             builder.AppendLine("Pierces up to: " + pierceCount + " times");
         }
 
-        float totalSplitCount = ParentAbility.Stats[StatName.ProjectileSplitCount] > 0 ? ParentAbility.Stats[StatName.ProjectileSplitCount] : Stats[StatName.ProjectileSplitCount];
+        float ownerSplitCount = Source.Stats[StatName.ProjectileSplitCount];
+        float skillSplitCount = ParentAbility.Stats[StatName.ProjectileSplitCount] > 0 ? ParentAbility.Stats[StatName.ProjectileSplitCount] : Stats[StatName.ProjectileSplitCount];
+        float totalSplitCount = ownerSplitCount + skillSplitCount;
 
         if (totalSplitCount > 0) {
             string splitCount = TextHelper.FormatStat(StatName.ProjectileSplitCount, Stats[StatName.ProjectileSplitCount] + Source.Stats[StatName.ProjectileSplitCount]);

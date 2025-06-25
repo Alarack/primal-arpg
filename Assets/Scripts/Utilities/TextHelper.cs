@@ -186,6 +186,9 @@ public static class TextHelper
             StatName.StatusLifetime when value >= 0 => bonusFormat,
             StatName.StatusLifetime when value < 0 => penaltyFormat,
 
+            StatName.EssenceCost when value <= 0 => bonusFormat,
+            StatName.EssenceCost when value > 0 => penaltyFormat,
+
             _ => "No Entry For: " + stat,
         };
 

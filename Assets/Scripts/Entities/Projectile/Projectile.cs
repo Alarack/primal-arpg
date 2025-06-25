@@ -31,6 +31,7 @@ public class Projectile : Entity {
     [Header("Misc")]
     public float smoothScaleSpeed;
     public bool varyInitalSpeed = true;
+    public bool convertPierceToChain;
 
     private Collider2D myCollider;
     public Entity Source { get; private set; }
@@ -190,8 +191,26 @@ public class Projectile : Entity {
             Stats.AddModifier(StatName.RotationSpeed, parentRotationSpeed, StatModType.Flat, Source);
         }
 
+        if (convertPierceToChain == true)
+            ConvertPierceToChain();
+            
+
         //Debug.Log("Projectile: " + EntityName + " has " + Stats[StatName.ProjectileChainCount] + " Chain count");
         //Debug.Log("Owner and effect chain combined: " + ownerChain);
+    }
+
+    private void ConvertPierceToChain() {
+        float pierce = Stats[StatName.ProjectilePierceCount];
+
+        StatModifier removePierce = new StatModifier(-1f, StatModType.PercentMult, StatName.ProjectilePierceCount, this, StatModifierData.StatVariantTarget.Simple);
+        Stats.AddModifier(StatName.ProjectilePierceCount, removePierce);
+
+        if (Stats.Contains(StatName.ProjectileChainCount) == false) {
+            Stats.AddStat(new SimpleStat(StatName.ProjectileChainCount, 0));
+        }
+
+        StatModifier chainConversion = new StatModifier(pierce, StatModType.Flat, StatName.ProjectileChainCount, this, StatModifierData.StatVariantTarget.Simple);
+        Stats.AddModifier(StatName.ProjectileChainCount, chainConversion);
     }
 
     private void SendProjectileCreatedEvent() {

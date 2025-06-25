@@ -16,9 +16,9 @@ MonoBehaviour:
     category: 1
     abilityIcon: {fileID: -8454673973720829724, guid: 6b60a7e8e34d0aa4cae86c19efa4a07f, type: 3}
     abilityName: Disintegrating Slash
-    abilityDescription: Tear open the void in front of you, afflicting enemies with
-      Unraveling. Unlike normal Afflictions, Unraveling ticks whenever you spend
-      Essence.
+    abilityDescription: Tear open the void around you in a {ES} meter diameter, afflicting
+      enemies with Unraveling. Unlike normal Afflictions, Unraveling ticks whenever
+      you spend Essence.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -32,6 +32,7 @@ MonoBehaviour:
     showProcChanceOnOtherSkills: 0
     startingAbility: 1
     scaleProcByLevel: 0
+    nonLethal: 0
     runeAbilityTarget: 
     animationString: Attack
     waitForAnimToResolve: 1

@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System;
+using Michsky.MUIP;
 
-public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-{
+public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     public float smoothSpeed = 10f;
     public Image globeFillImage;
@@ -42,7 +42,7 @@ public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
 
         desiredRatio = AssosiatedStat.Ratio;
 
-        if(globeFillImage.fillAmount != desiredRatio /*&& smoothFill.Running == false*/) {
+        if (globeFillImage.fillAmount != desiredRatio /*&& smoothFill.Running == false*/) {
             smoothFill = new Task(SmoothlyAdjustFill());
         }
 
@@ -64,9 +64,29 @@ public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
 
     }
 
+
+    private void ShowRegenTooltip() {
+        switch (AssosiatedStat.Name) {
+            case StatName.Essence:
+                float regenRate = EntityManager.ActivePlayer.Stats[StatName.EssenceRegenerationRate];
+                float regenValue = EntityManager.ActivePlayer.Stats[StatName.EssenceRegenerationValue];
+                float maxEssence = EntityManager.ActivePlayer.Stats.GetStatRangeMaxValue(StatName.Essence);
+
+                float essencePerSecond = regenValue * maxEssence * regenRate;
+
+                TooltipManager.Show(essencePerSecond + " / Second", "Essence Regeneration");
+
+                break;
+
+            case StatName.Health:
+
+                break;
+        }
+    }
+
     private void UpdateStatText() {
         if (resourceStatText != null) {
-            resourceStatText.text = MathF.Round( AssosiatedStat.ModifiedValue, 1) + "/" + MathF.Round(AssosiatedStat.MaxValueStat.ModifiedValue, 1);
+            resourceStatText.text = MathF.Round(AssosiatedStat.ModifiedValue, 1) + "/" + MathF.Round(AssosiatedStat.MaxValueStat.ModifiedValue, 1);
         }
     }
 
@@ -75,6 +95,7 @@ public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
     public void OnPointerEnter(PointerEventData eventData) {
         if (resourceStatText != null) {
             resourceStatText.gameObject.SetActive(true);
+            ShowRegenTooltip();
             //resourceStatText.text = AssosiatedStat.ModifiedValue + " / " + AssosiatedStat.MaxValueStat.ModifiedValue;
         }
     }
@@ -84,6 +105,8 @@ public class ResourceGlobeDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
             resourceStatText.gameObject.SetActive(false);
             //resourceStatText.text = AssosiatedStat.ModifiedValue + " / " + AssosiatedStat.MaxValueStat.ModifiedValue;
         }
+
+        TooltipManager.Hide();
     }
 
 

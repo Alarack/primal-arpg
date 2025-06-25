@@ -20,7 +20,7 @@ MonoBehaviour:
     resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 0
+    autoFire: 1
     ignoreOtherCasting: 1
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
@@ -30,6 +30,7 @@ MonoBehaviour:
     showProcChanceOnOtherSkills: 0
     startingAbility: 1
     scaleProcByLevel: 0
+    nonLethal: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -104,6 +105,7 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
           appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0

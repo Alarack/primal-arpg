@@ -1734,6 +1734,7 @@ public class TimedTrigger : AbilityTrigger {
         data.AddTrigger("Trigger", this);
         data.AddEntity("Owner", SourceEntity);
 
+
         myTimer = new Timer(Data.triggerTimerDuration, OnTriggerTimerCompleted, true, data);
         TimerManager.AddTimerAction(UpdateClock);
 
@@ -1823,7 +1824,7 @@ public class TimedTrigger : AbilityTrigger {
         //}
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
-
+        triggerInstance.TriggeringAbility = ParentAbility;
         TryActivateTrigger(triggerInstance);
     }
 

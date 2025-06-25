@@ -17,7 +17,7 @@ MonoBehaviour:
     abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
     abilityName: Heavy Missiles
     abilityDescription: Arcane Missile Projectiles are now larger and cause more
-      damage, but the Skill drains 1 Essence whenever it triggers.
+      damage, but the Skill drains Essence whenever it triggers.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -28,8 +28,10 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
+    nonLethal: 0
     runeAbilityTarget: Arcane Missiles
     animationString: 
     waitForAnimToResolve: 0

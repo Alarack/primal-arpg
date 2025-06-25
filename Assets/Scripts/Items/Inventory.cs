@@ -282,7 +282,7 @@ public class Inventory : MonoBehaviour {
 
     public void ResetCurrency() {
         currencyDictionary.Clear();
-        SendCurrencyChangedEvent(0, "Coin");
+        SendCurrencyChangedEvent(0, "CrystalizedAetherium");
     }
 
     private void SendCurrencyChangedEvent(float value, string currencyType) {
