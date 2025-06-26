@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: E_Alternate Missles Stat Adj
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Alternate Missles Damage
+    effectName: Arcane Missles Damage
     effectDescription: 
     type: 1
     targeting: 5
@@ -22,6 +22,7 @@ MonoBehaviour:
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 1
+    hideOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
     untracked: 0
@@ -164,6 +165,8 @@ MonoBehaviour:
     statusModifiers: []
     statusToAdd: []
     statusToRemove: 
+    statusPurgeExceptions: 
+    removeAllDotStatus: 0
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
@@ -180,6 +183,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    abilitiesToRemove: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
     ridersToAdd: []
@@ -196,11 +200,13 @@ MonoBehaviour:
     inheritParentLayer: 1
     spawnType: 0
     nameOfAbilityToActivate: 
+    forceActivateRespectCooldown: 0
     targetStateName: 
     tagsToAdd: 
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
-    newEffectZonePrefab: {fileID: 0}
+    changeEffectZoneByProjectileName: 
+    changeEffectZoneByEffectName: 
     modifiedMovementBehavior: 0
     modifiedSeekDuration: -1
     modifiedDrunkInterval: 0.2

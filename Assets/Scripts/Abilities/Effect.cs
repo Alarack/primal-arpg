@@ -4207,9 +4207,12 @@ public class StatAdjustmentEffect : Effect {
                 float cooldownOfTrigger = triggeringAbility.GetCooldown();
                 if (cooldownOfTrigger > 0f) {
                     globalDamageMultiplier *= cooldownOfTrigger;
-
+                    //Debug.Log("Total Damage Multiplier for: " + ParentAbility.Data.abilityName + " : " + globalDamageMultiplier);
                 }
 
+            }
+            else {
+                //Debug.LogWarning("Triggering ability was null on the effect: " + Data.effectName + " on " + ParentAbility.Data.abilityName);
             }
         }
 

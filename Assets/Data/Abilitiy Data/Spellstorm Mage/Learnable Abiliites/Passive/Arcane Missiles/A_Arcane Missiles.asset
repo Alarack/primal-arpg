@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityData:
     category: 6
-    abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
-    abilityName: Arcane Missiles
+    abilityIcon: {fileID: -3737912782630592773, guid: 61cfe949dcbd1ba47936f968bed9fb7a, type: 3}
+    abilityName: Arcane Missiles_Old
     abilityDescription: Whenever you use an Active Skill, you have a chance based
       on the Cooldown of that Skill to fire {SC} Arcane Missiles which curve toward
       your aiming position.
@@ -32,6 +32,7 @@ MonoBehaviour:
     showProcChanceOnOtherSkills: 1
     startingAbility: 0
     scaleProcByLevel: 0
+    nonLethal: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -110,6 +111,8 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
@@ -155,6 +158,8 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
@@ -198,6 +203,8 @@ MonoBehaviour:
           effectDesigantion: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
