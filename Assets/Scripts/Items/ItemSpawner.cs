@@ -208,16 +208,32 @@ public class ItemSpawner : Singleton<ItemSpawner> {
     }
 
 
-    public static void CreateStatBooster(StatName stat) {
 
+
+    private static void FilterExistingStats(ref List<StatName> usedStats, Item currentItem, ItemAffixSlotEntry selectedSlot) {
+        if (selectedSlot == null) {
+            foreach (var affix in currentItem.Affixes.Keys) {
+                usedStats.Add(affix.affixStatTarget);
+            }
+        }
+        else {
+            List<ItemAffixSlotEntry> otherSlots = PanelManager.GetPanel<InventoryPanel>().GetOtherSlots(selectedSlot);
+
+            for (int i = 0; i < otherSlots.Count; i++) {
+                if (otherSlots[i].AffixData != null) {
+                    usedStats.Add(otherSlots[i].AffixData.affixStatTarget);
+                }
+            }
+        }
     }
 
-
-    public static List<ItemData> CreateItemAffixSet(int count, ItemSlot itemSlot) {
+    public static List<ItemData> CreateItemAffixSet(int count, ItemSlot itemSlot, Item currentItem, ItemAffixSlotEntry selectedSlot = null) {
         List<StatName> usedStats = new List<StatName>();
-        //List<ItemData> baseAffixItems = new List<ItemData>();
 
-        List<LootDatabase.ItemStatAffixData> affixList = new List<LootDatabase.ItemStatAffixData>();
+        FilterExistingStats(ref usedStats, currentItem, selectedSlot);
+        Dictionary<LootDatabase.ItemStatAffixData, int> affixDict = new Dictionary<LootDatabase.ItemStatAffixData, int>();
+        
+        //List<LootDatabase.ItemStatAffixData> affixList = new List<LootDatabase.ItemStatAffixData>();
         List<StatName> allStats = Instance.lootDatabase.GetRelavantStatsBySlot(itemSlot); //Instance.lootDatabase.itemAffixes.Keys.ToList();
         Instance.FilterStats(allStats, ref usedStats);
         allStats.Shuffle();
@@ -226,12 +242,22 @@ public class ItemSpawner : Singleton<ItemSpawner> {
             if (usedStats.Contains(allStats[i]))
                 continue;
 
-            //baseAffixItems.Add(Instance.lootDatabase.itemAffixes[allStats[i]].baseAffixItem);
-            affixList.Add(Instance.lootDatabase.itemAffixes[allStats[i]]);
+
+            int potentialTier = Instance.RollAffixTier(1);
+            ItemData existingAffix = currentItem.GetAffixByStat(allStats[i]);
+
+            if(existingAffix != null && existingAffix.tier > potentialTier) {
+                usedStats.Add(allStats[i]);
+                continue;
+            }
+
+            affixDict.Add(Instance.lootDatabase.itemAffixes[allStats[i]], potentialTier);
+
+            //affixList.Add(Instance.lootDatabase.itemAffixes[allStats[i]]);
             usedStats.Add(allStats[i]);
 
 
-            if (affixList.Count >= count) {
+            if (affixDict.Count >= count) {
                 break;
             }
 
@@ -239,9 +265,15 @@ public class ItemSpawner : Singleton<ItemSpawner> {
 
         List<ItemData> results = new List<ItemData>();
 
-        for (int i = 0; i < affixList.Count; i++) {
-            results.Add(Instance.RollAffixTier(affixList[i], 1));
+        foreach (var potentialAffix in affixDict) {
+            ItemData affixData = Instance.CreateItemAffix(potentialAffix.Key, potentialAffix.Value);
+            results.Add(affixData);
         }
+
+
+        //for (int i = 0; i < affixList.Count; i++) {
+        //    results.Add(Instance.RollAffixTier(affixList[i], 1));
+        //}
 
 
         if (results.Count < 1) {
@@ -269,6 +301,37 @@ public class ItemSpawner : Singleton<ItemSpawner> {
             Debug.LogError("Max tier for: " + affixData.GetAffixTooltip());
             return null;
         }
+    }
+
+
+    private int RollAffixTier(int currentTier) {
+        float roll = Random.Range(0f, 1f);
+
+        float chance = currentTier switch {
+            1 => 0.3f,
+            2 => 0.3f,
+            3 => 0.3f,
+            4 => 0.3f,
+            5 => 0.3f,
+            _ => 0.2f,
+        };
+
+        if (currentTier < 5) {
+            if (roll < chance) {
+                return RollAffixTier(currentTier + 1);
+            }
+            else {
+                return currentTier;
+            }
+        }
+
+        return currentTier;
+
+    }
+
+
+    private ItemData CreateItemAffix(LootDatabase.ItemStatAffixData data, int tier) {
+        return new ItemData(data.stat, data.GetTierValue(tier), tier);
     }
 
     private ItemData RollAffixTier(LootDatabase.ItemStatAffixData data, int currentTier) {

@@ -99,6 +99,26 @@ public class ItemAffixSlotEntry : MonoBehaviour, IPointerClickHandler, IPointerE
     }
 
 
+    public override int GetHashCode() {
+        return base.GetHashCode();
+    }
+
+    public override bool Equals(object other) {
+        ItemAffixSlotEntry otherItem = other as ItemAffixSlotEntry;
+
+
+        if(AffixData != null && otherItem.AffixData != null) {
+            return AffixData.affixStatTarget == otherItem.AffixData.affixStatTarget;
+        }
+
+        if (AffixData == null && otherItem.AffixData == null)
+            return true;
+
+
+
+        return false;
+    }
+
     #region UI CALLBACKS
 
     public void OnPointerClick(PointerEventData eventData) {

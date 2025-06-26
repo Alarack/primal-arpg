@@ -25,6 +25,7 @@ public static class TextHelper
             StatName.GlobalComboIntervalModifier,
             StatName.GlobalStatusIntervalModifier,
             StatName.ChannelingMoveSpeedModifier,
+            StatName.HealthRegenerationValue,
         };
 
 
@@ -262,6 +263,8 @@ public static class TextHelper
             StatName.MinionDamageModifier => "Minion Damage",
             StatName.EssenceRegenerationRate => "Essence Regen Rate",
             StatName.EssenceRegenerationValue => "Essence Regen Amount",
+            StatName.HealthRegenerationRate => "Health Regen Rate",
+            StatName.HealthRegenerationValue => "Health Regen Amount",
             StatName.AirDamageModifier => "Air Damage",
             StatName.PoisonDamageModifier => "Poison Damage",
             StatName.MaxMinionCount => "Max Minions",

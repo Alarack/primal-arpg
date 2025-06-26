@@ -74,13 +74,25 @@ public class Item
 
         float affixRoll = UnityEngine.Random.Range(0f, 1f);
 
-        if (affixRoll < 0.5f && affixRoll > 0.25f) {
-            AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0])[0]);
+        if(affixRoll < 0.5f) {
+            AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0], this)[0]);
+
+            float doublesRoll = UnityEngine.Random.Range(0f, 1f);
+
+            if(doublesRoll < 0.25f) {
+                AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0], this)[0]);
+            }
         }
-        else if (affixRoll < 0.25f) {
-            AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0])[0]);
-            AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0])[0]);
-        }
+
+
+
+        //if (affixRoll < 0.5f && affixRoll > 0.25f) {
+        //    AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0], this)[0]);
+        //}
+        //else if (affixRoll < 0.25f) {
+        //    AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0], this)[0]);
+        //    AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0], this)[0]);
+        //}
     }
 
     private void OnItemDropped(EventData data) {
@@ -160,6 +172,15 @@ public class Item
         foreach (StatModifier mod in affixMods) {
             StatAdjustmentManager.RemoveStatAdjustment(Owner, mod, mod.VariantTarget, Owner, null);
         }
+    }
+
+    public ItemData GetAffixByStat(StatName stat) {
+        foreach (var affix in Affixes) {
+            if (affix.Key.affixStatTarget == stat)
+                return affix.Key;
+        }
+
+        return null;
     }
 
     #endregion

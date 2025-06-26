@@ -504,8 +504,8 @@ public class InventoryPanel : BasePanel {
 
     private IEnumerator CreateAffixEntries() {
         WaitForSeconds waiter = new WaitForSeconds(0.2f);
-        
-        List<ItemData> affixData = ItemSpawner.CreateItemAffixSet(5, forgeSlot.MyItem.Data.validSlots[0]);
+
+        List<ItemData> affixData = ItemSpawner.CreateItemAffixSet(5, forgeSlot.MyItem.Data.validSlots[0], forgeSlot.MyItem, selectedSlot);
 
         itemAffixEntries.PopulateList(affixData.Count, affixTemplate, affixHolder, false);
 
@@ -520,6 +520,17 @@ public class InventoryPanel : BasePanel {
 
     public bool IsForgingInProgress() {
         return itemAffixEntries.Count > 0;
+    }
+
+    public List<ItemAffixSlotEntry> GetOtherSlots(ItemAffixSlotEntry selectedSlot) {
+        List<ItemAffixSlotEntry> results = new List<ItemAffixSlotEntry> ();
+
+        for (int i = 0; i < itemAffixSlots.Count; i++) {
+            if(itemAffixSlots[i] != selectedSlot)
+                results.Add(itemAffixSlots[i]);
+        }
+
+        return results;
     }
 
     public void OnAffixSelected(ItemData affixdata, ItemAffixEntry entry) {
@@ -569,6 +580,7 @@ public class InventoryPanel : BasePanel {
 
     public void CancelForging() {
         selectionVFXRunning = true;
+        itemAffixSlots.ClearList();
         new Task(FadeOutList(null));
     }
 
@@ -595,6 +607,12 @@ public class InventoryPanel : BasePanel {
 
 
     public void OnAffixSlotSelected(ItemAffixSlotEntry slotEntry) {
+
+        if (IsForgingInProgress() == true) {
+            PanelManager.OpenPanel<PopupPanel>().Setup("Forging in Progress", "Finish your current Forgeing Selection before changing slots");
+            return;
+        }
+        
         selectedSlot = slotEntry;
         selectedSlot.Select();
         for (int i = 0; i < itemAffixSlots.Count; i++) {

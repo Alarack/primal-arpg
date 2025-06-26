@@ -953,8 +953,8 @@ public class CombatStartedTrigger : AbilityTrigger {
 
 public class CombatFinishedTrigger : AbilityTrigger {
 
-    public override TriggerType Type => TriggerType.CombatStarted;
-    public override GameEvent TargetEvent => GameEvent.CombatStarted;
+    public override TriggerType Type => TriggerType.CombatFinished;
+    public override GameEvent TargetEvent => GameEvent.CombatFinished;
     public override Action<EventData> EventReceiver => OnCombatFinished;
 
     public CombatFinishedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
