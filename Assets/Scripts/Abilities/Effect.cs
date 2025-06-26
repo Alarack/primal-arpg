@@ -3892,7 +3892,7 @@ public class StatAdjustmentEffect : Effect {
         float targetManaShield = target.Stats[StatName.EssenceShield];
 
         if (targetManaShield > 0f) {
-            float leftoverDamage = target.HandleManaShield(incomingdamage, targetManaShield);
+            float leftoverDamage = target.HandleManaShield(incomingdamage, targetManaShield, ParentAbility);
 
             if (leftoverDamage < 0f) {
                 //Debug.Log("Damage after mana shield: " + leftoverDamage);
@@ -4428,6 +4428,10 @@ public class StatAdjustmentEffect : Effect {
         string durationText = TextHelper.ColorizeText(duration.ToString(), Color.yellow) + " seconds";
         string intervalText = TextHelper.ColorizeText(interval.ToString(), Color.yellow) + " seconds";
 
+        if(duration <= 0f) {
+            durationText = TextHelper.ColorizeText("Eternity", Color.yellow);
+        }
+
 
         if (damageRatio > 0) {
             builder.Append("Causes " + TextHelper.ColorizeText((damageRatio * 100).ToString() + "%", "Stat Bonus Color")
@@ -4443,7 +4447,7 @@ public class StatAdjustmentEffect : Effect {
             float overloadChance = ParentAbility != null ? ParentAbility.GetAbilityOverloadChance() : Source.Stats[StatName.OverloadChance];
 
             builder.AppendLine();
-            builder.Append("Overload Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
+            builder.Append("Critical Hit Chance: " + TextHelper.ColorizeText(TextHelper.FormatStat(StatName.OverloadChance, overloadChance), "Stat Bonus Color"));
         }
 
         return builder.ToString();

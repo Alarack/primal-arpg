@@ -10,22 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_R_Missile Storm
+  m_Name: A_R_Unstable Distortion
   m_EditorClassIdentifier: 
   AbilityData:
     category: 3
-    abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
-    abilityName: Missile Storm Rune
-    abilityDescription: Double the number of Projectiles fired by Arcane Missiles,
-      but reduce their damage. Additionally, missles now fire in a series instead
-      of all at once.
+    abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
+    abilityName: Unstable Distortion
+    abilityDescription: Temporal Distortion ticks faster and has a chance to emit
+      a Void Bolt whenever it deals damage.
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
-    showChildAbilitiesInTooltip: 0
+    showChildAbilitiesInTooltip: 1
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
@@ -33,14 +32,15 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
-    runeAbilityTarget: Arcane Missiles
+    runeAbilityTarget: Temporal Distortion
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities: []
+    childAbilities:
+    - {fileID: 11400000, guid: 4b33456f47e22794baea381f49dcba3c, type: 2}
     runeGroupData: []
     tags: 
     resetEvents: 
@@ -56,7 +56,9 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 0
+        constraintData: []
     endTriggerData:
     - type: 18
       overrideProcStat: 0
@@ -69,7 +71,9 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 0
+        constraintData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -111,8 +115,7 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: c360fbad337da3c47b435143d4dba512, type: 2}
-    - {fileID: 11400000, guid: 2fb40da0c067c7a4a881a99dab7439b3, type: 2}
+    - {fileID: 11400000, guid: 7267c1c9695843d46bdf665d750931ea, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

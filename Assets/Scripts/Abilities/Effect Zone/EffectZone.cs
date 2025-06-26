@@ -2,6 +2,7 @@ using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Status;
 using static UnityEngine.GraphicsBuffer;
 
 public class EffectZone : Entity {
@@ -21,7 +22,7 @@ public class EffectZone : Entity {
     protected List<Entity> targets = new List<Entity>();
     protected EffectZoneInfo zoneInfo;
 
-    protected Timer persistantZoneTimer;
+    protected Timer effectIntervalTimer;
     protected Projectile carrier;
 
     private float effectSize = 1f;
@@ -58,16 +59,9 @@ public class EffectZone : Entity {
         if (info.affectProjectiles == true) {
             mask = LayerTools.AddToMask(mask, LayerMask.NameToLayer("Projectile"));
         }
-        //if (parentEffect.Source == null) {
-        //    Debug.LogWarning("Spawning an effect zone while the source is dead: " + parentEffect.Data.effectName);
-        //}
 
         if (parentEffect != null && parentEffect.Source != null)
             ownerType = parentEffect.Source.ownerType;
-
-
-        //if(Stats.Contains(StatName.EffectLifetime))
-        //    Debug.Log("Lifetime for: " + EntityName + ": " + Stats[StatName.EffectLifetime]);   
 
         SetInfo();
         SetSize();
@@ -79,24 +73,8 @@ public class EffectZone : Entity {
             transform.localPosition = Vector3.zero;
         }
 
-        float effectDurationModifier = parentEffect.Source.Stats[StatName.GlobalEffectDurationModifier];
-        float comboDurationModifier = parentEffect.Source.Stats[StatName.GlobalComboDurationModifier];
-        float totalDurationModifier = effectDurationModifier + comboDurationModifier;
-
-        if (totalDurationModifier != 0) {
-            Stats.AddModifier(StatName.EffectLifetime, effectDurationModifier, StatModType.PercentAdd, parentEffect.Source);
-        }
-
-        if (info.applyOnInterval == true) {
-
-            float effectIntervalModifier = parentEffect.Source.Stats[StatName.GlobalEffectIntervalModifier];
-            float comboIntervalModifier = parentEffect.Source.Stats[StatName.GlobalComboIntervalModifier];
-            float totalIntervalModifier = effectDurationModifier + comboDurationModifier;
-            if (totalIntervalModifier != 0) {
-                Stats.AddModifier(StatName.EffectInterval, effectIntervalModifier, StatModType.PercentAdd, parentEffect.Source);
-            }
-            persistantZoneTimer = new Timer(Stats[StatName.EffectInterval], OnEffectInterval, true);
-        }
+        SetDurationTimer();
+        SetIntervalTimer(); 
 
         if (info.parentEffectToOrigin == true) {
             transform.SetParent(parentEffect.Source.transform, true);
@@ -108,6 +86,31 @@ public class EffectZone : Entity {
 
         SpawnEntranceEffect(effectSize);
     }
+
+    private void SetDurationTimer() {
+        float effectDurationModifier = parentEffect.Source.Stats[StatName.GlobalEffectDurationModifier];
+        float comboDurationModifier = parentEffect.Source.Stats[StatName.GlobalComboDurationModifier];
+        float totalDurationModifier = effectDurationModifier + comboDurationModifier;
+
+        if (totalDurationModifier != 0) {
+            Stats.AddModifier(StatName.EffectLifetime, totalDurationModifier, StatModType.PercentAdd, parentEffect.Source);
+        }
+    }
+
+    private void SetIntervalTimer() {
+        if (zoneInfo.applyOnInterval == false)
+            return;
+
+
+        float effectIntervalModifier = parentEffect.Source.Stats[StatName.GlobalEffectIntervalModifier];
+        float comboIntervalModifier = parentEffect.Source.Stats[StatName.GlobalComboIntervalModifier];
+        float totalIntervalModifier = effectIntervalModifier + comboIntervalModifier;
+        if (totalIntervalModifier != 0) {
+            Stats.AddModifier(StatName.EffectInterval, totalIntervalModifier, StatModType.PercentAdd, parentEffect.Source);
+        }
+        effectIntervalTimer = new Timer(Stats[StatName.EffectInterval], OnEffectInterval, true);
+    }
+
 
 
     public void AddAdditionalEffect(List<Effect> effects) {
@@ -124,8 +127,8 @@ public class EffectZone : Entity {
     protected override void Update() {
         base.Update();
 
-        if (persistantZoneTimer != null) {
-            persistantZoneTimer.UpdateClock();
+        if (effectIntervalTimer != null) {
+            effectIntervalTimer.UpdateClock();
         }
 
         if (windupTimer != null) {
@@ -138,6 +141,69 @@ public class EffectZone : Entity {
 
         if (cleanTask != null && cleanTask.Running == true)
             cleanTask.Stop();
+    }
+
+    protected override void RegisterStatListeners() {
+        base.RegisterStatListeners();
+
+        if(zoneInfo.applyOnInterval == true)
+            EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnAbilityStatChanged);
+    }
+
+    protected override void OnStatChanged(EventData data) {
+        base.OnStatChanged(data);
+
+        if (zoneInfo.applyOnInterval == false)
+            return;
+
+        StatName stat = (StatName)data.GetInt("Stat");
+        Entity target = data.GetEntity("Target");
+
+        if (target != parentEffect.Source)
+            return;
+
+        if(stat == StatName.GlobalEffectSizeModifier) {
+            SetSize();
+        }
+
+        if(stat == StatName.GlobalComboIntervalModifier || stat == StatName.GlobalEffectIntervalModifier) {
+            UpdateIntervalTimer();
+        }
+    }
+
+    private void OnAbilityStatChanged(EventData data) {
+
+        Ability ability = data.GetAbility("Ability");
+        StatName stat = (StatName)data.GetInt("Stat");
+
+        if (ability != parentEffect.ParentAbility)
+            return;
+
+        if (stat == StatName.EffectSize) {
+            SetSize();
+        }
+
+        if(stat == StatName.EffectInterval) {
+            UpdateIntervalTimer();
+        }
+
+    }
+
+    private void UpdateIntervalTimer() {
+        if (zoneInfo.applyOnInterval == false)
+            return;
+
+        Stats.RemoveAllModifiersFromSource(StatName.EffectInterval, parentEffect.Source);
+
+        float effectIntervalModifier = parentEffect.Source.Stats[StatName.GlobalEffectIntervalModifier];
+        float comboIntervalModifier = parentEffect.Source.Stats[StatName.GlobalComboIntervalModifier];
+        float totalIntervalModifier = effectIntervalModifier + comboIntervalModifier;
+
+        if (totalIntervalModifier != 0) {
+            Stats.AddModifier(StatName.EffectInterval, totalIntervalModifier, StatModType.PercentAdd, parentEffect.Source);
+        }
+
+        effectIntervalTimer.SetDuration(Stats[StatName.EffectInterval]);
     }
 
     private void SetInfo() {
@@ -254,6 +320,11 @@ public class EffectZone : Entity {
     protected virtual void OnEffectInterval(EventData data) {
         ApplyToAllTargets();
         CheckDoubleTick();
+
+        if (zoneInfo.intervalVFX == null)
+            return;
+
+        VFXUtility.SpawnVFX(zoneInfo.intervalVFX, transform, 0.5f);
     }
 
     private void CheckDoubleTick() {
@@ -269,13 +340,13 @@ public class EffectZone : Entity {
         }
     }
 
-    protected virtual void Apply(Entity target) {
+    protected virtual void Apply(Entity target, bool ignoreFirstHit = false) {
 
-        ApplyEffect(target, parentEffect);
+        ApplyEffect(target, parentEffect, ignoreFirstHit);
 
         if(additionalEffects.Count > 0) {
             for (int i = 0; i < additionalEffects.Count; i++) {
-                ApplyEffect(target, additionalEffects[i]);
+                ApplyEffect(target, additionalEffects[i], ignoreFirstHit);
             }
         }
         
@@ -295,8 +366,12 @@ public class EffectZone : Entity {
 
     }
 
-    private void ApplyEffect(Entity target, Effect effect) {
+    private void ApplyEffect(Entity target, Effect effect, bool ignoreFirstHit = false) {
         targets.AddUnique(target);
+
+        if (ignoreFirstHit == true)
+            return;
+
 
         effect.TrackActiveDelivery(carrier);
 
@@ -493,7 +568,7 @@ public class EffectZone : Entity {
 
         //Debug.LogWarning("An effect Zone: " + gameObject.name + " for effect: " + parentEffect.Data.effectName + " is applying to: " + otherEntity.EntityName);
 
-        Apply(otherEntity);
+        Apply(otherEntity, zoneInfo.applyOnInterval);
 
     }
 
@@ -536,6 +611,7 @@ public struct EffectZoneInfo {
     public GameObject spawnVFX;
     public GameObject applyVFX;
     public GameObject deathVFX;
+    public GameObject intervalVFX;
 
     [Header("Prefab")]
     public EffectZone effectZonePrefab;

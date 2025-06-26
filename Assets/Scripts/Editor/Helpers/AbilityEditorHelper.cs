@@ -963,6 +963,10 @@ public static class AbilityEditorHelper {
         entry.applyVFX = EditorHelper.ObjectField("Apply VFX", entry.applyVFX);
         entry.deathVFX = EditorHelper.ObjectField("Death VFX", entry.deathVFX);
 
+        if(entry.applyOnInterval == true) {
+            entry.intervalVFX = EditorHelper.ObjectField("Interval VFX", entry.intervalVFX);
+        }
+
         EditorGUILayout.Separator();
 
         entry.effectZonePrefab = EditorHelper.ObjectField("Effect Zone Prefab", entry.effectZonePrefab);

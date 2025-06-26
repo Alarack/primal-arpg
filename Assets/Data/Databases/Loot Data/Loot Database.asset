@@ -41,7 +41,7 @@ MonoBehaviour:
       maxDamage: 0
       statModifierData:
       - targetStat: 0
-        value: 5
+        value: 2.5
         modifierType: 0
         variantTarget: 3
         modValueSetMethod: 0
@@ -646,8 +646,8 @@ MonoBehaviour:
       classPreviewAbilities: []
       startingItemOptions: []
   - stat: 39
-    baseValue: 0.2
-    tierIncrament: 0.2
+    baseValue: 0.1
+    tierIncrament: 0.1
     validSlots: 020000000c0000000600000008000000
     baseAffixItem:
       Type: 6
@@ -691,8 +691,8 @@ MonoBehaviour:
       classPreviewAbilities: []
       startingItemOptions: []
   - stat: 43
-    baseValue: 0.2
-    tierIncrament: 0.2
+    baseValue: 0.1
+    tierIncrament: 0.1
     validSlots: 010000000c0000000200000008000000
     baseAffixItem:
       Type: 6
@@ -1636,8 +1636,8 @@ MonoBehaviour:
       classPreviewAbilities: []
       startingItemOptions: []
   - stat: 94
-    baseValue: 0.02
-    tierIncrament: 0.02
+    baseValue: 0.01
+    tierIncrament: 0.01
     validSlots: 020000000c00000008000000
     baseAffixItem:
       Type: 6
@@ -1661,7 +1661,7 @@ MonoBehaviour:
       maxDamage: 0
       statModifierData:
       - targetStat: 94
-        value: 0.02
+        value: 0.01
         modifierType: 0
         variantTarget: 0
         modValueSetMethod: 0

@@ -1009,7 +1009,7 @@ public class Ability {
 
             builder.Append(effectDurationReplacement);
 
-            if (Data.showChildAbilitiesInTooltip == false) {
+            if (Data.showChildAbilitiesInTooltip == true) {
                 builder.AppendLine();
             }
         }
@@ -1024,6 +1024,8 @@ public class Ability {
         }
 
         if (effects[0] is StatAdjustmentEffect) {
+
+            builder.AppendLine();
 
             StatAdjustmentEffect adj = effects[0] as StatAdjustmentEffect;
             if (Data.category != AbilityCategory.Rune) {

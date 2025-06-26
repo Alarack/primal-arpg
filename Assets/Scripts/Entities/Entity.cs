@@ -163,6 +163,9 @@ public abstract class Entity : MonoBehaviour {
         if (Stats.Contains(StatName.EssenceRegenerationRate) == true)
             Stats.AddStatListener(StatName.EssenceRegenerationRate, OnEssenceRegenChanged);
 
+        if(Stats.Contains(StatName.HealthRegenerationRate) == true)
+            Stats.AddStatListener(StatName.HealthRegenerationRate, OnHealthRegenChange);
+
     }
 
     protected virtual void OnDisable() {
@@ -174,6 +177,8 @@ public abstract class Entity : MonoBehaviour {
         if (Stats.Contains(StatName.EssenceRegenerationRate) == true)
             Stats.RemoveStatListener(StatName.EssenceRegenerationRate, OnEssenceRegenChanged);
 
+        if (Stats.Contains(StatName.HealthRegenerationRate) == true)
+            Stats.RemoveStatListener(StatName.HealthRegenerationRate, OnHealthRegenChange);
 
         EventManager.RemoveMyListeners(this);
     }
@@ -217,7 +222,7 @@ public abstract class Entity : MonoBehaviour {
         SendEssenceChangedEvent(-allMana);
     }
 
-    public float HandleManaShield(float incomingDamage, float conversionRate) {
+    public float HandleManaShield(float incomingDamage, float conversionRate, Ability cause = null) {
 
         if (incomingDamage > 0f)
             return 0f;
@@ -236,7 +241,7 @@ public abstract class Entity : MonoBehaviour {
 
 
         if (Stats[StatName.Essence] > manaCost) {
-            TrySpendEssence(manaCost);
+            TrySpendEssence(manaCost, cause);
             //Debug.LogWarning("Blocked all damage: " + manaCost);
             return 0f;
         }
@@ -535,7 +540,7 @@ public abstract class Entity : MonoBehaviour {
     public virtual void LevelUp() {
         entityLevel++;
         levelsStored++;
-        Stats.AddMaxValueModifier(StatName.Experience, 0.1f, StatModType.PercentMult, this);
+        Stats.AddMaxValueModifier(StatName.Experience, 0.35f, StatModType.PercentMult, this);
         Stats.EmptyStatRange(StatName.Experience, this);
         StatAdjustmentManager.AdjustSkillPoints(this, 1f);
 

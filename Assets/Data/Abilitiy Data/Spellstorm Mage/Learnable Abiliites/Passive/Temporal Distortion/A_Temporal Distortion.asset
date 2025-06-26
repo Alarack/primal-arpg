@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_R_Missile Storm
+  m_Name: A_Temporal Distortion
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 3
-    abilityIcon: {fileID: 21300000, guid: 4ab2589f113ada44a954311b3560feb0, type: 3}
-    abilityName: Missile Storm Rune
-    abilityDescription: Double the number of Projectiles fired by Arcane Missiles,
-      but reduce their damage. Additionally, missles now fire in a series instead
-      of all at once.
+    category: 6
+    abilityIcon: {fileID: -1679088368624627880, guid: bce7d1f439bf9314d95f5346c2d794e0, type: 3}
+    abilityName: Temporal Distortion
+    abilityDescription: An unstable time field surrounds you in a {ES} meter diamater.
+      Enemies in the area suffer damage over time while within the area.
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     ignoreOtherCasting: 0
-    includeEffectsInTooltip: 0
+    includeEffectsInTooltip: 1
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
@@ -33,7 +32,7 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
-    runeAbilityTarget: Arcane Missiles
+    runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -41,8 +40,11 @@ MonoBehaviour:
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
-    runeGroupData: []
-    tags: 
+    runeGroupData:
+    - runes:
+      - {fileID: 11400000, guid: 4a3cf52a8264f9a4dbd574cb3d34c943, type: 2}
+      tier: 1
+    tags: 19000000180000001c000000
     resetEvents: 
     activationTriggerData:
     - type: 17
@@ -56,7 +58,54 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 1
+        constraintData:
+        - type: 4
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetEffectType: 0
+          targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
     endTriggerData:
     - type: 18
       overrideProcStat: 0
@@ -111,12 +160,26 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: c360fbad337da3c47b435143d4dba512, type: 2}
-    - {fileID: 11400000, guid: 2fb40da0c067c7a4a881a99dab7439b3, type: 2}
+    - {fileID: 11400000, guid: 3999da96356972540977437b47c75502, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
     windupVFX: {fileID: 0}
-    abilityStatData: []
+    abilityStatData:
+    - variant: 0
+      statName: 41
+      value: 3
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 19
+      value: 1
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 11
+      value: 0
+      maxValue: 0
+      minValue: 0
     recoveryData: []
