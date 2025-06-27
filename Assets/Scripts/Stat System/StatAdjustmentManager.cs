@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
+using static UnityEngine.Rendering.DebugUI;
 
 public static class StatAdjustmentManager {
 
@@ -206,8 +207,13 @@ public static class StatAdjustmentManager {
     public static float AdjustMaxValueFlat(Entity target, StatName stat, float value, Entity cause, Ability abilityCause = null) {
         StatModifier mod = new StatModifier(value, StatModType.Flat, stat, cause, StatModifierData.StatVariantTarget.RangeMax);
         return ApplyStatAdjustment(target, mod, stat, mod.VariantTarget, abilityCause);
-
     }
+
+    public static float AdjustMaxValuePercentAdd(Entity target, StatName stat, float value, Entity cause, Ability abilityCause = null) {
+        StatModifier mod = new StatModifier(value, StatModType.PercentAdd, stat, cause, StatModifierData.StatVariantTarget.RangeMax);
+        return ApplyStatAdjustment(target, mod, stat, mod.VariantTarget, abilityCause);
+    }
+
     public static void RefreshStat(Entity target, StatName stat, Entity entityCause, Ability abilityCause = null) {
         float change = target.Stats.Refresh(stat);
         SendStatChangeEvent(stat, target, entityCause, abilityCause, change);

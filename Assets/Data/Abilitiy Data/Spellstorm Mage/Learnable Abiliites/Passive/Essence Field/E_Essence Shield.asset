@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Essence Shield Effect
-    effectDescription: You project a field of raw Essence around yourself. Damage
-      you suffer is subtracted from your Essence first at a rate of {} to 1.
+    effectDescription: You project a field of raw Essence around yourself. {ESR}
+      of damage you suffer is subtracted from your Essence first at a rate of {}
+      to 1.
     type: 1
     targeting: 1
     subTarget: 0
@@ -23,6 +24,7 @@ MonoBehaviour:
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
+    hideOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
     untracked: 0
@@ -60,13 +62,14 @@ MonoBehaviour:
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
+      intervalVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
     modData:
     - targetStat: 66
-      value: 3
+      value: 2
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -77,6 +80,22 @@ MonoBehaviour:
       invertDerivedValue: 0
       scaleFromAbilityLevel: 0
       displayAsPercent: 0
+      abilityLevelCoefficient: 1
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
+    - targetStat: 95
+      value: 0.3
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 1
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
@@ -142,11 +161,13 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
-    addMissingStatIfNotPresent: 0
+    addMissingStatIfNotPresent: 1
     scaleFromStatus: 0
     statusModifiers: []
     statusToAdd: []
     statusToRemove: 
+    statusPurgeExceptions: 
+    removeAllDotStatus: 0
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
@@ -163,6 +184,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    abilitiesToRemove: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
     ridersToAdd: []
@@ -179,11 +201,13 @@ MonoBehaviour:
     inheritParentLayer: 1
     spawnType: 0
     nameOfAbilityToActivate: 
+    forceActivateRespectCooldown: 0
     targetStateName: 
     tagsToAdd: 
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
-    newEffectZonePrefab: {fileID: 0}
+    changeEffectZoneByProjectileName: 
+    changeEffectZoneByEffectName: 
     modifiedMovementBehavior: 0
     modifiedSeekDuration: -1
     modifiedDrunkInterval: 0.2

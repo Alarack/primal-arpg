@@ -196,6 +196,8 @@ public static class TextHelper
             StatName.HealthRegenerationRate when value >= 0 => bonusFormat,
             StatName.HealthRegenerationValue when value < 0 => penaltyFormat,
 
+            StatName.EssenceShieldRatio => bonusFormat,
+
             _ => "No Entry For: " + stat,
         };
 

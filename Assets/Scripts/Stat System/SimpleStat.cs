@@ -100,6 +100,7 @@ public enum StatName
     GlobalComboDurationModifier,
     HealthRegenerationRate,
     HealthRegenerationValue,
+    EssenceShieldRatio
 
 
 }

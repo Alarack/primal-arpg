@@ -2572,7 +2572,7 @@ public class RemoveChildAbilityEffect : Effect {
     private Dictionary<Ability, List<Ability>> trackedChildAbilities = new Dictionary<Ability, List<Ability>>();
 
     public RemoveChildAbilityEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
-     
+
 
     }
 
@@ -2596,7 +2596,7 @@ public class RemoveChildAbilityEffect : Effect {
 
         for (int i = 0; i < Data.abilitiesToRemove.Count; i++) {
             Ability targetAbility = target.GetChildAbilityByName(Data.abilitiesToRemove[i].AbilityData.abilityName);
-            
+
             target.RemoveChildAbility(targetAbility);
 
             TrackChildAbilties(target, targetAbility);
@@ -3892,10 +3892,15 @@ public class StatAdjustmentEffect : Effect {
         float targetManaShield = target.Stats[StatName.EssenceShield];
 
         if (targetManaShield > 0f) {
-            float leftoverDamage = target.HandleManaShield(incomingdamage, targetManaShield, ParentAbility);
+
+            float ratio = target.Stats[StatName.EssenceShieldRatio];
+            float damageToEssece = ratio * incomingdamage;
+            float damamgeToHealth = incomingdamage - damageToEssece;
+
+            float leftoverDamage = damamgeToHealth + target.HandleManaShield(damageToEssece, targetManaShield, ParentAbility);
 
             if (leftoverDamage < 0f) {
-                //Debug.Log("Damage after mana shield: " + leftoverDamage);
+                //Debug.Log("Damage after mana shield: " + leftoverDamage + " From: " + Source.EntityName + " : " + Data.effectName);
                 return leftoverDamage;
             }
             else {
@@ -4344,7 +4349,29 @@ public class StatAdjustmentEffect : Effect {
 
         string formated = TextHelper.FormatStat(modData[0].targetStat, value, modData[0].displayAsPercent);
 
-        string replacement = Data.effectDescription.Replace("{}", formated);
+        string replacement = Data.effectDescription;
+
+        if (modData.Count > 1) {
+
+            StatModifierData essenceRatioData = null;
+            for (int i = 0; i < modData.Count; i++) {
+                if (modData[i].targetStat == StatName.EssenceShieldRatio) {
+                    essenceRatioData = modData[i];
+                    break;
+                }
+
+            }
+
+            if (essenceRatioData != null) {
+                float essenceShieldRatio = essenceRatioData.Stats[StatName.StatModifierValue];
+                string essenceshieldFormated = TextHelper.FormatStat(StatName.EssenceShieldRatio, essenceShieldRatio, true);
+
+                replacement = replacement.Replace("{ESR}", essenceshieldFormated);
+            }
+        }
+
+
+        replacement = replacement.Replace("{}", formated);
 
         if (ParentAbility != null) {
             float duration = ParentAbility.GetDuration();
@@ -4428,7 +4455,7 @@ public class StatAdjustmentEffect : Effect {
         string durationText = TextHelper.ColorizeText(duration.ToString(), Color.yellow) + " seconds";
         string intervalText = TextHelper.ColorizeText(interval.ToString(), Color.yellow) + " seconds";
 
-        if(duration <= 0f) {
+        if (duration <= 0f) {
             durationText = TextHelper.ColorizeText("Eternity", Color.yellow);
         }
 

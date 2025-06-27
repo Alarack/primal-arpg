@@ -40,6 +40,10 @@ public class NPC : Entity
         if(Stats.Contains(StatName.NPCLifetime)) {
             selfDestructTimer = new Timer(Stats[StatName.NPCLifetime], SelfDestruct, false);
         }
+
+        if(entityType == EntityType.Enemy) {
+            AdjustStatsByDifficulty();
+        }
     }
 
 
@@ -104,6 +108,20 @@ public class NPC : Entity
 
     private void AdjustStatsByDifficulty() {
         float difficulty = RoomManager.CurrentDifficulty;
+
+        float damageModifier = (difficulty - 5f) / 50f;
+        float healthModifier = (difficulty - 5f) / 30f;
+
+
+        Debug.Log("Adjusting Damage for: " + EntityName + " by " + damageModifier);
+
+        StatAdjustmentManager.ApplyStatAdjustment(this, damageModifier, StatName.GlobalDamageModifier, StatModType.Flat,
+            StatModifierData.StatVariantTarget.Simple, this, null);
+
+        Debug.Log("Adjusting health for: " + EntityName + " by " + healthModifier);
+
+        StatAdjustmentManager.AdjustMaxValuePercentAdd(this, StatName.Health, healthModifier, this, null);
+        StatAdjustmentManager.RefreshStat(this, StatName.Health, this);
 
     }
 
