@@ -1052,10 +1052,13 @@ public class Ability {
                     builder.Append(scalarTooltip).AppendLine();
                 }
 
-                string projectileStats = effects[0].GetProjectileStatsTooltip();
-                if (string.IsNullOrEmpty(projectileStats) == false) {
-                    builder.AppendLine(projectileStats);
+                if (Tags.Contains(AbilityTag.Projectile)) {
+                    string projectileStats = effects[0].GetProjectileStatsTooltip();
+                    if (string.IsNullOrEmpty(projectileStats) == false) {
+                        builder.AppendLine(projectileStats);
+                    }
                 }
+
 
                 float effectRange = effects[0].Stats[StatName.EffectRange];
 

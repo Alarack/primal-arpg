@@ -608,8 +608,8 @@ public class InventoryPanel : BasePanel {
 
     public void OnAffixSlotSelected(ItemAffixSlotEntry slotEntry) {
 
-        if (IsForgingInProgress() == true) {
-            PanelManager.OpenPanel<PopupPanel>().Setup("Forging in Progress", "Finish your current Forgeing Selection before changing slots");
+        if (IsForgingInProgress() == true && selectionVFXRunning == false) {
+            //PanelManager.OpenPanel<PopupPanel>().Setup("Forging in Progress", "Finish your current Forgeing Selection before changing slots");
             return;
         }
         
