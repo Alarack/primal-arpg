@@ -18,7 +18,7 @@ MonoBehaviour:
   - stat: 0
     baseValue: 2.5
     tierIncrament: 2.5
-    validSlots: 020000000c00000008000000
+    validSlots: 0200000006000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 0
@@ -671,7 +671,7 @@ MonoBehaviour:
       maxDamage: 0
       statModifierData:
       - targetStat: 39
-        value: 0.2
+        value: 0.1
         modifierType: 0
         variantTarget: 0
         modValueSetMethod: 0
@@ -716,7 +716,7 @@ MonoBehaviour:
       maxDamage: 0
       statModifierData:
       - targetStat: 43
-        value: 0.2
+        value: 0.1
         modifierType: 0
         variantTarget: 0
         modValueSetMethod: 0
@@ -738,7 +738,7 @@ MonoBehaviour:
   - stat: 48
     baseValue: 1
     tierIncrament: 1
-    validSlots: 020000000c00000006000000
+    validSlots: 0c000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 48
@@ -1413,7 +1413,7 @@ MonoBehaviour:
   - stat: 47
     baseValue: 2.5
     tierIncrament: 2.5
-    validSlots: 02000000080000000c000000
+    validSlots: 060000000c000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 47
@@ -1593,7 +1593,7 @@ MonoBehaviour:
   - stat: 93
     baseValue: 0.2
     tierIncrament: 0.2
-    validSlots: 020000000c00000008000000
+    validSlots: 02000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 93
@@ -1638,7 +1638,7 @@ MonoBehaviour:
   - stat: 94
     baseValue: 0.01
     tierIncrament: 0.01
-    validSlots: 020000000c00000008000000
+    validSlots: 02000000
     baseAffixItem:
       Type: 6
       affixStatTarget: 94

@@ -58,9 +58,11 @@ public class StatRange : BaseStat {
         AdjustValueFlat(resultingAdjustment, source);
     }
 
-    public void Refresh(object source) {
+    public float Refresh(object source) {
         float difference = MaxValueStat.ModifiedValue - currentValue;
         AdjustValueFlat(difference, source);
+
+        return difference;
     }
 
     public void Empty(object source) {

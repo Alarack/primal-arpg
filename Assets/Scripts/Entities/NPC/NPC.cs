@@ -102,6 +102,11 @@ public class NPC : Entity
 
     }
 
+    private void AdjustStatsByDifficulty() {
+        float difficulty = RoomManager.CurrentDifficulty;
+
+    }
+
     private void CheckElite() {
 
         if (Brain == null)

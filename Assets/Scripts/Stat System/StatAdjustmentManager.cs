@@ -203,6 +203,16 @@ public static class StatAdjustmentManager {
         return ApplyStatAdjustment(target, mod, StatName.HeathPotions, StatModifierData.StatVariantTarget.RangeCurrent, null, 1f, true, null);
     }
 
+    public static float AdjustMaxValueFlat(Entity target, StatName stat, float value, Entity cause, Ability abilityCause = null) {
+        StatModifier mod = new StatModifier(value, StatModType.Flat, stat, cause, StatModifierData.StatVariantTarget.RangeMax);
+        return ApplyStatAdjustment(target, mod, stat, mod.VariantTarget, abilityCause);
+
+    }
+    public static void RefreshStat(Entity target, StatName stat, Entity entityCause, Ability abilityCause = null) {
+        float change = target.Stats.Refresh(stat);
+        SendStatChangeEvent(stat, target, entityCause, abilityCause, change);
+    }
+
     //public static float DealDamageOrHeal(Entity target, float value, object source, Ability sourceAbility, float multiplier = 1f) {
     //    StatModifier mod = new StatModifier(value, StatModType.Flat, StatName.Health, source, StatModifierData.StatVariantTarget.RangeCurrent);
     //    return ApplyStatAdjustment(target, mod, StatName.Health, StatModifierData.StatVariantTarget.RangeCurrent, sourceAbility, multiplier);

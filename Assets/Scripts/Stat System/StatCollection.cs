@@ -501,15 +501,15 @@ public class StatCollection {
     }
 
 
-    public void Refresh(StatName name) {
+    public float Refresh(StatName name) {
         if (Contains(name) == false) {
             Debug.LogWarning("Stat: " + name + " was not found");
-            return;
+            return 0f;
         }
 
         StatRange targetStat = GetStat<StatRange>(name);
 
-        targetStat.Refresh(Owner);
+        return targetStat.Refresh(Owner);
 
 
     }
