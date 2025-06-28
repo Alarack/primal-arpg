@@ -199,11 +199,11 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     private Room.RoomType GetRoomType() {
+        if (Instance.currentRoomIndex % 10 == 0 && Instance.currentRoomIndex != 0)
+            return Room.RoomType.BossRoom;
+
         if (Instance.currentRoomIndex % 5 == 0 && Instance.currentRoomIndex != 0)
             return Room.RoomType.ItemShop;
-
-        if (Instance.currentRoomIndex % 7 == 0 && Instance.currentRoomIndex != 0)
-            return Room.RoomType.BossRoom;
 
         return Room.RoomType.EliminationCombat;
     }

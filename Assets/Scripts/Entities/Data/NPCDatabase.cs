@@ -114,8 +114,35 @@ public class NPCDatabase : ScriptableObject
             }
             //Debug.Log("Filled Value: " + filledValue + " : " + totalThreatLevel);
 
+            if (results.Count == 1) {
+                if (results[0].subtypes.Contains(Entity.EntitySubtype.Buffer)) {
+
+                    int threat = (int)NPCDataManager.GetThreatLevel(results[0].EntityName);
+
+                    results.Add(GetTargetOfEqualOrLesserThreat(threat, Entity.EntitySubtype.Buffer));
+                }
+            }
 
             return results;
+        }
+
+
+        private NPC GetTargetOfEqualOrLesserThreat(float threat, params Entity.EntitySubtype[] exceptions) {
+            List<NPC> results = new List<NPC>();
+            
+            foreach (NPCDataEntry npc in npcData) {
+                if (npc.threatValue > threat)
+                    continue;
+
+                if (npc.ContainsSubtype(exceptions))
+                    continue;
+
+                results.Add(npc.npcPrefab);
+            }
+
+            results.Shuffle();
+
+            return results[Random.Range(0, results.Count)];
         }
 
         public void SetupThreatDict() {
@@ -139,6 +166,16 @@ public class NPCDatabase : ScriptableObject
         public float threatValue;
         public List<Entity.EntitySubtype> subTypes = new List<Entity.EntitySubtype>();
         //public string biome;
+
+
+        public bool ContainsSubtype(Entity.EntitySubtype[] subtypes) {
+            for (int i = 0; i < subTypes.Count; i++) {
+                if(subTypes.Contains(subtypes[i])) return 
+                        true;
+            }
+
+            return false;
+        }
     }
 
 }

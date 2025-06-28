@@ -27,7 +27,8 @@ public abstract class Entity : MonoBehaviour {
         Boss,
         MiniBoss,
         Orbital,
-        Obstical
+        Obstical,
+        Buffer
     }
 
     public enum EntityClass {
