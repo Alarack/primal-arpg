@@ -894,6 +894,7 @@ public static class AbilityEditorHelper {
                 entry.displayAsPercent = EditorGUILayout.Toggle("Display As %", entry.displayAsPercent);
                 break;
             case StatModifierData.ModValueSetMethod.DeriveFromOtherStats:
+            case StatModifierData.ModValueSetMethod.DeriveFromOtherStatMaximum:
                 entry.deriveTarget = EditorHelper.EnumPopup("Derive Target", entry.deriveTarget);
                 entry.derivedTargetStat = EditorHelper.EnumPopup("Target Stat", entry.derivedTargetStat);
                 entry.deriveStatMultiplier = EditorGUILayout.FloatField("Multiplier", entry.deriveStatMultiplier);
@@ -904,6 +905,7 @@ public static class AbilityEditorHelper {
                     entry.otherTagetEffect = EditorGUILayout.TextField("Other Effect Name: ", entry.otherTagetEffect);
                 }
 
+                entry.displayAsPercent = EditorGUILayout.Toggle("Display As %", entry.displayAsPercent);
                 break;
             case StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage:
                 entry.weaponDamagePercent = EditorGUILayout.FloatField("Weapon Damage Percent", entry.weaponDamagePercent);

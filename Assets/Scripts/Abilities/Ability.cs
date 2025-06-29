@@ -1025,11 +1025,11 @@ public class Ability {
 
         if (effects[0] is StatAdjustmentEffect) {
 
-            builder.AppendLine();
+            //builder.AppendLine();
 
             StatAdjustmentEffect adj = effects[0] as StatAdjustmentEffect;
             if (Data.category != AbilityCategory.Rune) {
-
+                builder.AppendLine();
                 //Debug.Log("Ability tooltip for an effect: " + effects[0].Data.effectName);
 
                 string scalarTooltip = adj.ScalarTooltip();
@@ -1137,7 +1137,8 @@ public class Ability {
             builder.Append("Cooldown: " + TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(cooldown, 2), Color.yellow)).Append(" Seconds").AppendLine();
         }
 
-        builder.Append(GetRunesTooltip());
+        if(Data.category != AbilityCategory.Rune)
+            builder.Append(GetRunesTooltip());
 
 
         if(Data.category == AbilityCategory.KnownSkill) {
@@ -1199,13 +1200,15 @@ public class Ability {
     public static string GetRunesTooltip(List<Ability> runes) {
         StringBuilder builder = new StringBuilder();
 
-        if (runes.Count > 0) {
-            builder.AppendLine();
-        }
+        //if (runes.Count > 0) {
+        //    builder.AppendLine();
+        //}
 
         for (int i = 0; i < runes.Count; i++) {
             //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
-
+            if (string.IsNullOrEmpty(runes[i].Data.abilityDescription) == false) {
+                builder.AppendLine().AppendLine();
+            }
 
             //builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName).AppendLine();
 

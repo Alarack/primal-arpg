@@ -3755,6 +3755,53 @@ public class StatAdjustmentEffect : Effect {
         return modData.invertDerivedValue == false ? result : -result;
     }
 
+    private float DeriveModValueFromOtherStatMaximum(StatModifierData modData, Entity entityTarget, Effect effectTarget, Ability abilityTarget) {
+
+        float result = modData.deriveTarget switch {
+            StatModifierData.DeriveFromWhom.Source => Source.Stats.GetStatRangeMaxValue(modData.derivedTargetStat),
+            StatModifierData.DeriveFromWhom.Cause => currentTriggerInstance.CauseOfTrigger.Stats.GetStatRangeMaxValue(modData.derivedTargetStat),
+            StatModifierData.DeriveFromWhom.Trigger => currentTriggerInstance.TriggeringEntity.Stats.GetStatRangeMaxValue(modData.derivedTargetStat),
+            StatModifierData.DeriveFromWhom.OtherEntityTarget => throw new NotImplementedException(),
+            StatModifierData.DeriveFromWhom.CurrentEntityTarget => entityTarget.Stats.GetStatRangeMaxValue(modData.derivedTargetStat),
+            StatModifierData.DeriveFromWhom.CurrentAbilityTarget => abilityTarget.Stats.GetStatRangeMaxValue(modData.derivedTargetStat),
+            StatModifierData.DeriveFromWhom.CurrentEffectTarget => GetModifiedStatMaxValue(effectTarget.Stats, modData.derivedTargetStat), /*effectTarget.Stats[modData.derivedTargetStat],*/
+            StatModifierData.DeriveFromWhom.OtherEffect => throw new NotImplementedException(),
+            StatModifierData.DeriveFromWhom.OtherAbility => throw new NotImplementedException(),
+            StatModifierData.DeriveFromWhom.SourceAbility => ParentAbility.Stats.GetStatRangeMaxValue(modData.derivedTargetStat),
+            StatModifierData.DeriveFromWhom.SourceEffect => Stats.GetStatRangeMaxValue(modData.derivedTargetStat),
+            StatModifierData.DeriveFromWhom.TriggerAbility => currentTriggerInstance.TriggeringAbility.Stats.GetStatRangeMaxValue(modData.derivedTargetStat),
+            StatModifierData.DeriveFromWhom.TriggerEffect => currentTriggerInstance.TriggeringEffect.Stats.GetStatRangeMaxValue(modData.derivedTargetStat),
+            StatModifierData.DeriveFromWhom.CauseAbility => currentTriggerInstance.CausingAbility.Stats.GetStatRangeMaxValue(modData.derivedTargetStat),
+            StatModifierData.DeriveFromWhom.CauseEffect => currentTriggerInstance.CausingEffect.Stats.GetStatRangeMaxValue(modData.derivedTargetStat),
+            StatModifierData.DeriveFromWhom.WeaponDamage when Source is EntityPlayer => EntityManager.ActivePlayer.CurrentDamageRoll * modData.Stats[StatName.AbilityWeaponCoefficicent],
+            StatModifierData.DeriveFromWhom.WeaponDamage when Source is NPC => Source.Stats[StatName.AbilityWeaponCoefficicent],
+
+            _ => 0f,
+        };
+
+        result *= modData.deriveStatMultiplier;
+
+        Debug.Log("Mod result: " + result);
+
+        return modData.invertDerivedValue == false ? result : -result;
+    }
+
+
+    private float GetModifiedStatMaxValue(StatCollection stats, StatName stat, bool checkProjectile = false) {
+        float statValue = checkProjectile == true && activeDelivery != null ? activeDelivery.Stats.GetStatRangeMaxValue(stat) : stats.GetStatRangeMaxValue(stat);
+
+        float modifier = stat switch {
+            StatName.EffectSize => Source.Stats[StatName.GlobalEffectSizeModifier],
+            StatName.ProjectileSize => Source.Stats[StatName.GlobalProjectileSizeModifier],
+            _ => 0f,
+        };
+
+        //Debug.Log("Global Mod: " + modifier);
+
+        return statValue * (1f + modifier);
+
+    }
+
     private float GetModifiedStatValue(StatCollection stats, StatName stat, bool checkProjectile = false) {
 
         float statValue = checkProjectile == true && activeDelivery != null ? activeDelivery.Stats[stat] : stats[stat];
@@ -3764,7 +3811,7 @@ public class StatAdjustmentEffect : Effect {
         float modifier = stat switch {
             StatName.EffectSize => Source.Stats[StatName.GlobalEffectSizeModifier],
             StatName.ProjectileSize => Source.Stats[StatName.GlobalProjectileSizeModifier],
-            _ => 1f,
+            _ => 0f,
         };
 
         //Debug.Log("Global Mod: " + modifier);
@@ -3831,6 +3878,7 @@ public class StatAdjustmentEffect : Effect {
             StatModifierData.ModValueSetMethod.HardReset => throw new System.NotImplementedException(),
             StatModifierData.ModValueSetMethod.DeriveFromWeaponDamage => EntityManager.ActivePlayer.CurrentDamageRoll * modData.Stats[StatName.AbilityWeaponCoefficicent],
             StatModifierData.ModValueSetMethod.DerivedFromMultipleSources => GetTotalDerivedValue(entityTarget, effectTarget, abilityTarget, modData),
+            StatModifierData.ModValueSetMethod.DeriveFromOtherStatMaximum => DeriveModValueFromOtherStatMaximum(modData, entityTarget, effectTarget, abilityTarget),
             _ => 0f,
         };
 
@@ -4351,6 +4399,12 @@ public class StatAdjustmentEffect : Effect {
         StringBuilder builder = new StringBuilder();
 
         float value = modData[0].scaleFromAbilityLevel == false ? modData[0].Stats[StatName.StatModifierValue] : modData[0].Stats[StatName.StatModifierValue] * ParentAbility.AbilityLevel;
+
+        if (modData[0].modValueSetMethod == StatModifierData.ModValueSetMethod.DeriveFromOtherStats ||
+            modData[0].modValueSetMethod == StatModifierData.ModValueSetMethod.DeriveFromOtherStatMaximum) {
+            value = modData[0].deriveStatMultiplier;
+        }
+
 
         string formated = TextHelper.FormatStat(modData[0].targetStat, value, modData[0].displayAsPercent);
 

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Improve Essence Drops
+  m_Name: E_Restore Essence
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Efficient Shielding - Improve essence drops
-    effectDescription: Double the chance for enemies to drop Essence Orbs.
+    effectName: Secret Reserve - Restore Essence
+    effectDescription: 'Using a Utility Skill restores {} of your max Essence. '
     type: 1
     targeting: 1
-    subTarget: 0
-    maskTargeting: 0
+    subTarget: 1
+    maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
@@ -66,15 +66,15 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 99
-      value: 0.1
+    - targetStat: 47
+      value: 0
       modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
+      variantTarget: 1
+      modValueSetMethod: 10
       weaponDamagePercent: 1
-      deriveStatMultiplier: 1
+      deriveStatMultiplier: 0.05
       deriveTarget: 0
-      derivedTargetStat: 0
+      derivedTargetStat: 47
       invertDerivedValue: 0
       scaleFromAbilityLevel: 0
       displayAsPercent: 1
@@ -143,7 +143,7 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
-    addMissingStatIfNotPresent: 1
+    addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     statusModifiers: []
     statusToAdd: []

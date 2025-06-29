@@ -24,7 +24,8 @@ public class StatModifierData
         DerivedFromMultipleSources,
         AddScaler,
         RemoveScaler,
-        ModifyScaler
+        ModifyScaler,
+        DeriveFromOtherStatMaximum
     }
     public enum DeriveFromWhom {
         Source,
@@ -131,6 +132,8 @@ public class StatModifierData
         SimpleStat weaponCoeeficientStat = new SimpleStat(StatName.AbilityWeaponCoefficicent, clone.Stats[StatName.AbilityWeaponCoefficicent]);
         Stats.AddStat(modValueStat);
         Stats.AddStat(weaponCoeeficientStat);
+        this.derivedTargetStat = clone.derivedTargetStat;
+        this.deriveStatMultiplier = clone.deriveStatMultiplier;
     }
 
     public void AddScaler(StatScaler scaler) {
@@ -195,6 +198,7 @@ public class StatModifierData
         this.scaleFromAbilityLevel = copy.scaleFromAbilityLevel;
         this.abilityLevelCoefficient = copy.abilityLevelCoefficient;
         this.displayAsPercent = copy.displayAsPercent;
+        this.deriveStatMultiplier = copy.deriveStatMultiplier;
 
         CloneStatScalers(copy);
     }

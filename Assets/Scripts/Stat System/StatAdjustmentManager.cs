@@ -267,10 +267,14 @@ public static class StatAdjustmentManager {
         //    }
         //}
 
-        //if (targetStat == StatName.ShotCount) {
-        //    Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
-        //    Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
-        //}
+        if (targetStat == StatName.Health) {
+            Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
+            
+            if(sourceAbility != null) {
+                Debug.Log("From: " + sourceAbility.Data.abilityName);
+            }
+            //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
+        }
 
         //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
 

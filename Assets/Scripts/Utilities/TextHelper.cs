@@ -43,7 +43,7 @@ public static class TextHelper
 
         string result = stat switch {
             StatName.Health => $"<color=#{bonusColor}>" + value + "</color>",
-            StatName.Essence => $"<color=#{bonusColor}>" + value + "</color>",
+            StatName.Essence => bonusFormat, //$"<color=#{bonusColor}>" + value + "</color>",
             //StatName.Vitality => throw new System.NotImplementedException(),
             StatName.MoveSpeed when value < 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
             StatName.MoveSpeed when value > 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
