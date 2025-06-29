@@ -43,6 +43,7 @@ MonoBehaviour:
     - runes:
       - {fileID: 11400000, guid: 58689ea7ec91a394582f809691954106, type: 2}
       - {fileID: 11400000, guid: 32ccbfe181b222d46bba6e71f408c1d5, type: 2}
+      - {fileID: 11400000, guid: 48adf32da0a02274198123b7c4c4cd68, type: 2}
       tier: 1
     tags: 1900000016000000
     resetEvents: 
@@ -58,6 +59,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 4
         constraintData:
@@ -118,6 +120,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 4
         constraintData:
@@ -180,6 +183,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -200,6 +204,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0

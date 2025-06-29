@@ -179,6 +179,8 @@ public class InventoryPanel : BasePanel {
             StatName.GlobalEffectIntervalModifier,
             StatName.DashCooldown,
             StatName.EssenceShieldRatio,
+            StatName.EssenceOrbValue,
+            StatName.HealthOrbValue,
         };
 
         if(exceptions.Contains(stat)) {

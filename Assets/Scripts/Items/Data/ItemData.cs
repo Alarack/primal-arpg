@@ -36,8 +36,15 @@ public enum ItemType {
     Experience,
     SkillPoint,
     HealthPotion,
-    HealthOrb
+    HealthOrb,
+    EssenceOrb,
 
+}
+
+public enum ItemSubType {
+    None,
+    HealthOrb,
+    EssenceOrb
 }
 
 public enum CurrencyType {
@@ -50,6 +57,7 @@ public enum CurrencyType {
 [System.Serializable]
 public class ItemData {
     public ItemType Type;
+    //public ItemSubType subType;
     public StatName affixStatTarget = StatName.Vitality;
     public Entity.EntityClass entityClass;
     public string itemName;

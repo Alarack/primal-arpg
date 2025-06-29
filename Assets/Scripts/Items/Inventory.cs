@@ -150,8 +150,8 @@ public class Inventory : MonoBehaviour {
             return;
         }
 
-        if (item.Data.Type == ItemType.HealthOrb) {
-            HealFromPickup(item);
+        if (item.Data.Type == ItemType.HealthOrb || item.Data.Type == ItemType.EssenceOrb) {
+            RestoreResourceFromPickup(item);
             return;
         }
 
@@ -211,6 +211,23 @@ public class Inventory : MonoBehaviour {
         Owner.Stats.AdjustStatRangeByPercentOfMaxValue(StatName.Health, item.Data.itemValue, Owner);
     }
 
+    private void RestoreResourceFromPickup(Item item) {
+
+        StatName stat = item.Data.Type switch {
+            ItemType.HealthOrb => StatName.Health,
+            ItemType.EssenceOrb => StatName.Essence,
+            _ => StatName.Vitality,
+        };
+
+        StatModifier mod = new StatModifier(item.Data.itemValue, StatModType.Flat, stat, Owner, StatModifierData.StatVariantTarget.RangeCurrent);
+        StatAdjustmentManager.ApplyStatAdjustment(Owner, mod, mod.VariantTarget, Owner, null);
+
+        EventData data = new EventData();
+        data.AddEntity("Target", Owner);
+        data.AddInt("OrbType", (int)item.Data.Type);
+
+        EventManager.SendEvent(GameEvent.ResourceOrbCollected, data);
+    }
 
     private void AdjustCurrency(Item item) {
 

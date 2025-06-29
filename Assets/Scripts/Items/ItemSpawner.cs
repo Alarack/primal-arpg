@@ -17,6 +17,7 @@ public class ItemSpawner : Singleton<ItemSpawner> {
     public ItemPickup aetheriumIngotPickup;
     public ItemPickup expPickupPrefab;
     public ItemPickup heathOrbPickup;
+    public ItemPickup essenceOrbPickup;
     public LootDatabase lootDatabase;
     public ItemAffixDatabase itemAffixDatabase;
 
@@ -63,6 +64,9 @@ public class ItemSpawner : Singleton<ItemSpawner> {
         Entity target = data.GetEntity("Victim");
         Entity killer = data.GetEntity("Killer");
 
+        if (target.subtypes.Contains(Entity.EntitySubtype.Minion) && target.subtypes.Contains(Entity.EntitySubtype.Elite) == false)
+            return;
+
         if (target.ownerType == OwnerConstraintType.Enemy && killer.ownerType == OwnerConstraintType.Friendly) {
             int threat = (int)NPCDataManager.GetThreatLevel(target.EntityName);
 
@@ -94,16 +98,25 @@ public class ItemSpawner : Singleton<ItemSpawner> {
             }
 
 
-            Entity player = EntityManager.ActivePlayer;
+            CheckForResourceOrbSpawns(target);
 
-            if (player != null && player.Stats.GetStatRangeRatio(StatName.Health) < 1f) {
-                float roll = Random.Range(0f, 1f);
-                if (roll < 0.15f) {
-                    SpawnHealthOrbs(1, target.transform.position);
-                }
-            }
+        }
+    }
 
+    private void CheckForResourceOrbSpawns(Entity target) {
+        Entity player = EntityManager.ActivePlayer;
 
+        if (player == null)
+            return;
+
+        float healthOrbRoll = Random.Range(0f, 1f);
+        if (healthOrbRoll < player.Stats[StatName.HealthOrbChance]) {
+            SpawnResourceOrb(1, target.transform.position, StatName.Health, ItemType.HealthOrb);
+        }
+
+        float essenceOrbRoll = Random.Range(0f, 1f);
+        if (essenceOrbRoll < player.Stats[StatName.EssenceOrbChance]) {
+            SpawnResourceOrb(1, target.transform.position, StatName.Essence, ItemType.EssenceOrb);
         }
     }
 
@@ -185,29 +198,62 @@ public class ItemSpawner : Singleton<ItemSpawner> {
         }
     }
 
-    public static void SpawnHealthOrbs(int count, Vector2 location) {
+    //public static void SpawnHealthOrbs(int count, Vector2 location) {
 
+    //    if (EntityManager.ActivePlayer == null)
+    //        return;
+
+    //    float maxHealth = EntityManager.ActivePlayer.Stats.GetStatRangeMaxValue(StatName.Health);
+
+    //    for (int i = 0; i < count; i++) {
+    //        ItemData orbItemData = new ItemData();
+
+    //        float valueRange = Random.Range(maxHealth * 0.1f, maxHealth * 0.25f);
+
+    //        orbItemData.itemValue = valueRange;
+    //        orbItemData.itemName = "HealthOrb";
+    //        orbItemData.Type = ItemType.HealthOrb;
+    //        orbItemData.pickupOnCollision = true;
+
+    //        ItemPickup pickup = Instantiate(Instance.heathOrbPickup, location, Quaternion.identity);
+    //        pickup.Setup(orbItemData);
+    //    }
+    //}
+
+    public static void SpawnResourceOrb(int count, Vector2 location, StatName stat, ItemType orbType) {
         if (EntityManager.ActivePlayer == null)
             return;
 
-        float maxHealth = EntityManager.ActivePlayer.Stats.GetStatRangeMaxValue(StatName.Health);
+        float maxResource = EntityManager.ActivePlayer.Stats.GetStatRangeMaxValue(stat);
+
+        StatName orbValueStat = stat switch {
+            StatName.Essence => StatName.EssenceOrbValue,
+            StatName.Health => StatName.HealthOrbValue,
+            _ => StatName.Vitality,
+
+        };
+
+        ItemPickup orbPrefab = orbType switch {
+            ItemType.HealthOrb => Instance.heathOrbPickup,
+            ItemType.EssenceOrb => Instance.essenceOrbPickup,
+            _ => null,
+        };
+
+        float orbValue = EntityManager.ActivePlayer.Stats[orbValueStat];
 
         for (int i = 0; i < count; i++) {
-            ItemData expDataItem = new ItemData();
+            ItemData orbItemData = new ItemData();
 
-            float valueRange = Random.Range(maxHealth * 0.1f, maxHealth * 0.25f);
+            orbItemData.itemValue = orbValue * maxResource;
+            orbItemData.itemName = orbType.ToString();
+            orbItemData.Type = orbType;
+            orbItemData.pickupOnCollision = true;
 
-            expDataItem.itemValue = valueRange;
-            expDataItem.itemName = "EXP";
-            expDataItem.Type = ItemType.HealthOrb;
-            expDataItem.pickupOnCollision = true;
-
-            ItemPickup pickup = Instantiate(Instance.heathOrbPickup, location, Quaternion.identity);
-            pickup.Setup(expDataItem);
+            ItemPickup pickup = Instantiate(orbPrefab, location, Quaternion.identity);
+            pickup.Setup(orbItemData);
         }
+
     }
-
-
 
 
     private static void FilterExistingStats(ref List<StatName> usedStats, Item currentItem, ItemAffixSlotEntry selectedSlot) {
@@ -232,7 +278,7 @@ public class ItemSpawner : Singleton<ItemSpawner> {
 
         FilterExistingStats(ref usedStats, currentItem, selectedSlot);
         Dictionary<LootDatabase.ItemStatAffixData, int> affixDict = new Dictionary<LootDatabase.ItemStatAffixData, int>();
-        
+
         //List<LootDatabase.ItemStatAffixData> affixList = new List<LootDatabase.ItemStatAffixData>();
         List<StatName> allStats = Instance.lootDatabase.GetRelavantStatsBySlot(itemSlot); //Instance.lootDatabase.itemAffixes.Keys.ToList();
         Instance.FilterStats(allStats, ref usedStats);
@@ -246,7 +292,7 @@ public class ItemSpawner : Singleton<ItemSpawner> {
             int potentialTier = Instance.RollAffixTier(1);
             ItemData existingAffix = currentItem.GetAffixByStat(allStats[i]);
 
-            if(existingAffix != null && existingAffix.tier > potentialTier) {
+            if (existingAffix != null && existingAffix.tier > potentialTier) {
                 usedStats.Add(allStats[i]);
                 continue;
             }

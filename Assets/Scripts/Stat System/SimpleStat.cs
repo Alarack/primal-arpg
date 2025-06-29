@@ -100,7 +100,11 @@ public enum StatName
     GlobalComboDurationModifier,
     HealthRegenerationRate,
     HealthRegenerationValue,
-    EssenceShieldRatio
+    EssenceShieldRatio,
+    HealthOrbValue,
+    EssenceOrbValue,
+    HealthOrbChance,
+    EssenceOrbChance,
 
 
 }

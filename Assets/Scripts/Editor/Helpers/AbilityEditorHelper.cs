@@ -210,6 +210,10 @@ public static class AbilityEditorHelper {
             entry.resetTimerOnParentAbilityEnd = EditorGUILayout.Toggle("Auto Reset", entry.resetTimerOnParentAbilityEnd);
         }
 
+        if(entry.type == TriggerType.ResourceOrbCollected) {
+            entry.resourceOrbType = EditorHelper.EnumPopup("Orb Type", entry.resourceOrbType);
+        }
+
         EditorGUILayout.LabelField("Constraints", EditorStyles.boldLabel);
         DrawTriggerConstrains(entry);
 

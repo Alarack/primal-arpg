@@ -49,7 +49,8 @@ public enum TriggerType {
     PayloadsDeployed,
     StatusPurged,
     CombatStarted,
-    CombatFinished
+    CombatFinished,
+    ResourceOrbCollected
 }
 
 
@@ -70,6 +71,8 @@ public class TriggerData
     public bool delay1Frame;
     public bool autoActivateTimer;
     public bool resetTimerOnParentAbilityEnd;
+
+    public ItemType resourceOrbType;
 
     public List<ConstraintDataFocus> allConstraints = new List<ConstraintDataFocus>();
 

@@ -968,6 +968,33 @@ public class CombatFinishedTrigger : AbilityTrigger {
     }
 }
 
+public class ResourceOrbCollectedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.ResourceOrbCollected;
+    public override GameEvent TargetEvent => GameEvent.ResourceOrbCollected;
+    public override Action<EventData> EventReceiver => OnResourceOrbCollected;
+
+    public ResourceOrbCollectedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnResourceOrbCollected(EventData data) {
+
+        ItemType orbType = (ItemType)data.GetInt("OrbType");
+        Entity target = data.GetEntity("Target");
+
+        if (orbType != Data.resourceOrbType)
+            return;
+
+        TriggeringEntity = target;
+
+
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        TryActivateTrigger(triggerInstance);
+    }
+}
+
 public class OverloadTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.OverloadTriggered;

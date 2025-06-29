@@ -400,7 +400,9 @@ public class RoomManager : Singleton<RoomManager> {
             || CurrentRoom.Type == Room.RoomType.BossRoom)) {
 
             if (PlayerPrefs.GetInt("HealOnRoomEnd") == 1) {
-                ItemSpawner.SpawnHealthOrbs(2, Vector2.zero);
+                //ItemSpawner.SpawnHealthOrbs(2, Vector2.zero);
+                ItemSpawner.SpawnResourceOrb(2, Vector2.zero, StatName.Health, ItemType.HealthOrb);
+
             }
 
         }

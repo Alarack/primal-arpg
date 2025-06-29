@@ -3302,7 +3302,12 @@ public class SpawnItemEffect : Effect {
             case ItemType.HealthPotion:
                 break;
             case ItemType.HealthOrb:
-                ItemSpawner.SpawnHealthOrbs(Data.itemSpawnAmount, spawnLocation);
+                //ItemSpawner.SpawnHealthOrbs(Data.itemSpawnAmount, spawnLocation);
+                ItemSpawner.SpawnResourceOrb(Data.itemSpawnAmount, spawnLocation, StatName.Health, ItemType.HealthOrb);
+                break;
+
+            case ItemType.EssenceOrb:
+                ItemSpawner.SpawnResourceOrb(Data.itemSpawnAmount, spawnLocation, StatName.Essence, ItemType.EssenceOrb);
                 break;
         }
 
@@ -4352,14 +4357,12 @@ public class StatAdjustmentEffect : Effect {
         string replacement = Data.effectDescription;
 
         if (modData.Count > 1) {
-
             StatModifierData essenceRatioData = null;
             for (int i = 0; i < modData.Count; i++) {
                 if (modData[i].targetStat == StatName.EssenceShieldRatio) {
                     essenceRatioData = modData[i];
                     break;
                 }
-
             }
 
             if (essenceRatioData != null) {

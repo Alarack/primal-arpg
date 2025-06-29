@@ -175,6 +175,7 @@ namespace LL.Events {
         StatusPurged,
         CombatStarted,
         CombatFinished,
+        ResourceOrbCollected
     }
 
 

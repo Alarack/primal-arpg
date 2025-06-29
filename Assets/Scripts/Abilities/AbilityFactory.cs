@@ -56,6 +56,7 @@ public static class AbilityFactory {
             TriggerType.StatusPurged => new StatusPurgedTrigger(data, source, parentAbility),
             TriggerType.CombatStarted => new CombatStartedTrigger(data, source, parentAbility),
             TriggerType.CombatFinished => new CombatFinishedTrigger(data, source, parentAbility),
+            TriggerType.ResourceOrbCollected => new ResourceOrbCollectedTrigger(data, source, parentAbility),
             _ => null,
         };
 

@@ -13,7 +13,7 @@ public class StatTooltipData : ScriptableObject
     public string GetStatTooltip(StatName stat) {
         for (int i = 0; i < tooltipData.Count; i++) {
             if (stat == tooltipData[i].stat)
-                return tooltipData[i].decription;
+                return tooltipData[i].GetDescription();
         }
 
         Debug.LogError("Stat not found in tooltip data: " + stat);
@@ -41,6 +41,27 @@ public class StatTooltipData : ScriptableObject
         public string decription;
         public Sprite icon;
 
+
+        public string GetDescription() {
+            string baseDesc = decription;
+            
+            string result = stat switch { 
+                StatName.EssenceOrbChance => baseDesc.Replace("{}", GetRelatedStatValue(StatName.EssenceOrbValue)),
+                StatName.HealthOrbChance => baseDesc.Replace("{}", GetRelatedStatValue(StatName.HealthOrbValue)),
+
+                _ => decription
+            };
+
+            return result;
+        }
+
+        private string GetRelatedStatValue(StatName stat) {
+            float value = EntityManager.ActivePlayer.Stats[stat];
+
+            string formatted = TextHelper.FormatStat(stat, value);
+
+            return formatted;
+        }
 
     }
 

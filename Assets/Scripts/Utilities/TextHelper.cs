@@ -26,6 +26,10 @@ public static class TextHelper
             StatName.GlobalStatusIntervalModifier,
             StatName.ChannelingMoveSpeedModifier,
             StatName.HealthRegenerationValue,
+            StatName.HealthOrbChance,
+            StatName.EssenceOrbChance,
+            StatName.EssenceOrbValue,
+            StatName.HealthOrbValue
         };
 
 
@@ -197,6 +201,12 @@ public static class TextHelper
             StatName.HealthRegenerationValue when value < 0 => penaltyFormat,
 
             StatName.EssenceShieldRatio => bonusFormat,
+
+            StatName.EssenceOrbChance => bonusFormat,
+            StatName.HealthOrbChance => bonusFormat,
+
+            StatName.EssenceOrbValue => bonusFormat,
+            StatName.HealthOrbValue => bonusFormat,
 
             _ => "No Entry For: " + stat,
         };
