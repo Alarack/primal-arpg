@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Vibrant Vitality
+  m_Name: A_R_Destructive Resonance
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 2
-    abilityIcon: {fileID: 0}
-    abilityName: Vibrant Vitality
-    abilityDescription: At the end of each Combat Room, spawn a Healing Orb.
-    resourceCost: 0
+    category: 3
+    abilityIcon: {fileID: 21300000, guid: 029e7480464d13845ae2d1263b4382e7, type: 3}
+    abilityName: Destructive Resonance
+    abilityDescription: 
+    resourceCost: 35
     toBestow: 0
     suspend: 0
-    autoFire: 0
+    autoFire: 1
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Temporal Distortion
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -43,7 +43,7 @@ MonoBehaviour:
     tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 44
+    - type: 17
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -56,7 +56,20 @@ MonoBehaviour:
       resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
       allConstraints: []
-    endTriggerData: []
+    endTriggerData:
+    - type: 18
+      overrideProcStat: 0
+      procChance: 1
+      triggerDelay: 0
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
+      delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
+      allConstraints: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -100,11 +113,11 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 10329084a339be64f8843f4509f37b07, type: 2}
+    - {fileID: 11400000, guid: 1ed87b9f86e9969499a0c798751dec2d, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    maxRanks: -1
-    windupVFX: {fileID: 0}
+    maxRanks: 1
+    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
     abilityStatData: []
     recoveryData: []

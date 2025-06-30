@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
+  m_Name: Jugglers Gloves
+  m_EditorClassIdentifier: 
+  devItem: 0
+  startingItem: 0
+  itemData:
+    Type: 1
+    affixStatTarget: 1
+    entityClass: 0
+    itemName: Juggler's Gloves
+    itemDescription: A pair of brightly colored gloves, one red, and the other blue.
+    secondaryDescription: 
+    itemValue: 250
+    runeAbilityTarget: 
+    validSlots: 03000000
+    abilityTags: 
+    targetedAbilityName: 
+    itemIcon: {fileID: -4886566269743519655, guid: 50e218550d24b594ba2a44303c932d3b, type: 3}
+    invertIcon: 0
+    pickupIcon: {fileID: -4886566269743519655, guid: 50e218550d24b594ba2a44303c932d3b, type: 3}
+    pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
+    minDamage: 0
+    maxDamage: 0
+    statModifierData: []
+    abilityDefinitions:
+    - {fileID: 11400000, guid: d2d9dfaaea6f2d346bd57016b8b64b33, type: 2}
+    learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []

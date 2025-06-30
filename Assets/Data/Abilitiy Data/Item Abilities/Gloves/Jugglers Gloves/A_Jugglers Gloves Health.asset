@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Vibrant Vitality
+  m_Name: A_Jugglers Gloves Health
   m_EditorClassIdentifier: 
   AbilityData:
     category: 2
     abilityIcon: {fileID: 0}
-    abilityName: Vibrant Vitality
-    abilityDescription: At the end of each Combat Room, spawn a Healing Orb.
+    abilityName: Juggler's Gloves - Health
+    abilityDescription: Every 2 Health Orbs you pick up spawns an Essence Orb
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
     tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 44
+    - type: 45
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
-      resourceOrbType: 0
+      resourceOrbType: 10
       allConstraints: []
     endTriggerData: []
     counterData:
@@ -75,9 +75,9 @@ MonoBehaviour:
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
-      requireMultipleTriggers: 0
+      requireMultipleTriggers: 1
       reduceTriggerCountByAbilityLevel: 0
-      minTriggerCount: 0
+      minTriggerCount: 2
     endCounterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -100,7 +100,7 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 10329084a339be64f8843f4509f37b07, type: 2}
+    - {fileID: 11400000, guid: ccd32f308a59dc44c8e8ce061185c546, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

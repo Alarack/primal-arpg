@@ -3750,7 +3750,7 @@ public class StatAdjustmentEffect : Effect {
 
         result *= modData.deriveStatMultiplier;
 
-        Debug.Log("Mod result: " + result);
+        //Debug.Log("Mod result: " + result);
 
         return  result;
     }
@@ -3781,7 +3781,7 @@ public class StatAdjustmentEffect : Effect {
 
         result *= modData.deriveStatMultiplier;
 
-        Debug.Log("Mod result: " + result);
+        //Debug.Log("Mod result: " + result);
 
         return result;
     }
