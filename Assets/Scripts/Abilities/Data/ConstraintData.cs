@@ -50,7 +50,8 @@ public enum ConstraintType {
 
 public enum GainedOrLost {
     Gained,
-    Lost
+    Lost,
+    None
 }
 
 public enum OwnerConstraintType {

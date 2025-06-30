@@ -15,6 +15,8 @@ public class SaveData
 
     public List<string> recoveredItems = new List<string>();
 
+    public Dictionary<LoadoutEntry.LoadoutEntryType, string> loadoutChoices = new Dictionary<LoadoutEntry.LoadoutEntryType, string>();
+
 
     public int CountOfMasteries { get { return savedMasteries.Count; } }
 
@@ -47,6 +49,25 @@ public class SaveData
     public void ClearRecoveredItems() {
         recoveredItems.Clear();
         
+    }
+
+    public void SaveLoadoutSelection(LoadoutEntry.LoadoutEntryType entry, string itemName) {
+
+        if (loadoutChoices.ContainsKey(entry)) {
+            loadoutChoices[entry] = itemName;
+        }
+        else {
+            loadoutChoices.Add(entry, itemName);
+        }
+
+    }
+
+    public string GetSavedLoadoutItem(LoadoutEntry.LoadoutEntryType entry) {
+        if (loadoutChoices.TryGetValue(entry, out string itemName)) {
+            return itemName;
+        }
+
+        return null;
     }
 
     public void AddMastery(string masteryName, string featureName, string mainAbilityName) {
@@ -115,6 +136,7 @@ public class SaveData
     public static SaveData FromJSON(string json) {
         return JsonConvert.DeserializeObject<SaveData>(json);
     }
+
 
 
     [Serializable]

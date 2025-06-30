@@ -31,6 +31,7 @@ public class LoadoutPanel : BasePanel
             loadouts[i].SpawnSelectedItem();
         }
 
+        SaveLoadUtility.SavePlayerData();
         PanelManager.GetPanel<CharacterSelectPanel>().StartGame();
         Close();
     }

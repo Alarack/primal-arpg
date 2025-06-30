@@ -36,6 +36,8 @@ public class LoadoutSelectionEntry : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void Select() {
         selectionHighlight.SetActive(true);
+
+        SaveLoadUtility.SaveData.SaveLoadoutSelection(parentEntry.loadoutType, ItemDef.itemData.itemName);
     }
 
     public void Deselect() {

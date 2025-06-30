@@ -1,0 +1,205 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
+  m_Name: E_Create Conduit Bolt
+  m_EditorClassIdentifier: 
+  effectData:
+    effectName: Void Conduit - Void Bolt
+    effectDescription: 
+    type: 1
+    targeting: 5
+    subTarget: 1
+    maskTargeting: 0
+    hideFloatingText: 0
+    deliveryPayloadToTarget: 0
+    canOverload: 1
+    hideOverload: 0
+    canAffectDeadTargets: 0
+    nonStacking: 0
+    untracked: 0
+    onlyShowTooltipInRune: 0
+    showRiderTooltip: 0
+    showScalers: 1
+    scaleDamageFromTriggeringAbility: 0
+    inheritStatsFromParentAbility: 1
+    numberOfTargets: -1
+    chainTargetDelay: 0.1
+    otherAbilityName: 
+    otherEffectName: 
+    targetAbilityForLastPayload: 
+    targetConstraints: []
+    riderEffects: []
+    payloadPrefab: {fileID: 2110540755119051525, guid: d04327aff5edaa348acb76e3f331968a, type: 3}
+    payloadStatData: []
+    spawnLocation: 1
+    spawnLocationStart: 0
+    spawnLocationEnd: 0
+    minViewportValues: {x: 0, y: 0}
+    maxViewportValues: {x: 0, y: 0}
+    offsetSpawnLocation: 0
+    offsetSpawnLocationMin: {x: 0, y: 0}
+    offsetSpawnLocationMax: {x: 0, y: 0}
+    rotatePayloadTowardMouse: 0
+    effectZoneInfo:
+      removeEffectOnExit: 0
+      parentEffectToOrigin: 0
+      parentToTarget: 0
+      applyOncePerTarget: 0
+      applyOnInterval: 0
+      affectProjectiles: 0
+      affectSource: 0
+      spawnVFX: {fileID: 0}
+      applyVFX: {fileID: 0}
+      deathVFX: {fileID: 0}
+      intervalVFX: {fileID: 0}
+      effectZonePrefab: {fileID: 0}
+    projectileHitMask:
+      serializedVersion: 2
+      m_Bits: 0
+    modData:
+    - targetStat: 0
+      value: 0
+      modifierType: 0
+      variantTarget: 1
+      modValueSetMethod: 6
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 1
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 0
+      abilityLevelCoefficient: 1
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers:
+      - targetStat: 28
+        deriveTarget: 15
+        statScaleBaseValue: 2
+    floatingTextColor:
+      serializedVersion: 2
+      key0: {r: 0, g: 1, b: 1, a: 1}
+      key1: {r: 0.09019608, g: 0.32941177, b: 0.654902, a: 1}
+      key2: {r: 0.2437284, g: 0.2717546, b: 0.33823532, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 21333
+      ctime2: 65535
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 58982
+      atime2: 65535
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
+    overloadFloatingTextColor:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 0, g: 1, b: 0.9708953, a: 1}
+      key2: {r: 0, g: 0.0055216397, b: 0.42352942, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 33924
+      ctime2: 65535
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 55705
+      atime2: 65342
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
+    effectDesignation: 1
+    addMissingStatIfNotPresent: 0
+    scaleFromStatus: 0
+    statusModifiers: []
+    statusToAdd: []
+    statusToRemove: 
+    statusPurgeExceptions: 
+    removeAllDotStatus: 0
+    isTeleport: 0
+    invertDestination: 0
+    resetMovement: 0
+    showTrail: 0
+    targetDestination: 0
+    teleportDestination: 0
+    teleportVFX: {fileID: 0}
+    forwardDistance: 0
+    teleportSequenceDelay: 0.2
+    tokenPrefabs: []
+    tokenSpawnLocation: 0
+    overlapCircleRadius: 0
+    overlapLayerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    abilitiesToAdd: []
+    abilitiesToRemove: []
+    effectsToAdd: []
+    targetAbilityToAddEffectsTo: 
+    ridersToAdd: []
+    ridersToRemove: []
+    effectsToRemove: []
+    targetAbilityToRemoveEffectsFrom: 
+    targetOtherEffectParentAbilityName: 
+    targetOtherEffectName: 
+    applyTriggeringEffect: 0
+    statScalersToAdd: []
+    entityPrefab: {fileID: 0}
+    percentOfPlayerDamage: 1
+    destroyPreviousSummonAtCap: 0
+    inheritParentLayer: 1
+    spawnType: 0
+    nameOfAbilityToActivate: 
+    forceActivateRespectCooldown: 0
+    targetStateName: 
+    tagsToAdd: 
+    tagsToRemove: 
+    newPayloadPrefab: {fileID: 0}
+    changeEffectZoneByProjectileName: 
+    changeEffectZoneByEffectName: 
+    modifiedMovementBehavior: 0
+    modifiedSeekDuration: -1
+    modifiedDrunkInterval: 0.2
+    cooldownElapsedModifier: 0
+    statusScalingData: []
+    scaleFromAbilityLevel: 0
+    spawnedItemType: 0
+    itemSpawnLocation: 0
+    itemsToSpawn: []
+    itemSpawnAmount: 0

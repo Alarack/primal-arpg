@@ -36,8 +36,25 @@ public class LoadoutEntry : MonoBehaviour
     public void Setup() {
         CreateItems();
 
-        if(selectionOptions.Count > 0 )
-            OnItemSelected(selectionOptions[0]);
+        if(selectionOptions.Count > 0) {
+
+            string savedLoadoutSelection = SaveLoadUtility.SaveData.GetSavedLoadoutItem(loadoutType);
+
+            if (string.IsNullOrEmpty(savedLoadoutSelection) == false) {
+                for (int i = 0; i < selectionOptions.Count; i++) {
+                    if (selectionOptions[i].ItemDef.itemData.itemName == savedLoadoutSelection) {
+                        OnItemSelected(selectionOptions[i]);
+                        break;
+                    }
+                }
+            }
+            else {
+                OnItemSelected(selectionOptions[0]);
+            }
+
+
+        }
+
     }
 
 

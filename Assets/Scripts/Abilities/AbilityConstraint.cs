@@ -166,12 +166,12 @@ public class StatChangedConstraint : AbilityConstraint {
         //Debug.Log(trigger.changeValue + " is the change value");
 
 
-        GainedOrLost statDirection;
+        GainedOrLost statDirection = GainedOrLost.None;
 
         if (trigger.changeValue > 0f) {
             statDirection = GainedOrLost.Gained;
         }
-        else {
+        else if (trigger.changeValue < 0f) {
             statDirection = GainedOrLost.Lost;
         }
 

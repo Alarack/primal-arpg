@@ -29,7 +29,8 @@ public static class TextHelper
             StatName.HealthOrbChance,
             StatName.EssenceOrbChance,
             StatName.EssenceOrbValue,
-            StatName.HealthOrbValue
+            StatName.HealthOrbValue,
+            StatName.Armor,
         };
 
 
@@ -124,8 +125,8 @@ public static class TextHelper
             //StatName.EssenceRegenerationRate when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "% </color>",
             StatName.EssenceShield when value > 0 => $"<color=#{bonusColor}>" + value + "</color>",
             StatName.ProcChance when value > 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
-            StatName.Armor when value > 0 => $"<color=#{bonusColor}>+" + (value) * 100 + "%</color>",
-            StatName.Armor when value < 0 => $"<color=#{penaltyColor}>-" + (value) * 100 + "%</color>",
+            StatName.Armor when value > 0 => bonusFormat,
+            StatName.Armor when value < 0 => penaltyFormat,
             StatName.VulnerableArcane => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.VulnerableSpace => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.VulnerableTime => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
