@@ -10,53 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Steal Time
+  m_Name: A_Apply Slow Status
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 1
-    abilityIcon: {fileID: 21300000, guid: ef7a6e9ca48052440b0f53b360638774, type: 3}
-    abilityName: Steal Time
-    abilityDescription: Launch a shifting chronal projectile. Affected targets suffer
-      damage over time.
+    category: 5
+    abilityIcon: {fileID: 0}
+    abilityName: Chronal Transfer - Apply Slow
+    abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 1
+    autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 1
-    showChildAbilitiesInTooltip: 1
+    showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
     showProcChanceOnOtherSkills: 0
-    startingAbility: 1
+    startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
     runeAbilityTarget: 
-    animationString: Attack
-    waitForAnimToResolve: 1
+    animationString: 
+    waitForAnimToResolve: 0
     initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities:
-    - {fileID: 11400000, guid: 800c64fa08d2f58489cca4fa269bb6e5, type: 2}
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: 3427d8af92180ab4d829e2c2f232bd7b, type: 2}
-      - {fileID: 11400000, guid: 007564d23963b034193d0fbf23c892d7, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: f1d4592c905804c4cac90cbdfdd544df, type: 2}
-      - {fileID: 11400000, guid: eda4be34ea224c54b95a96d632c40513, type: 2}
-      tier: 2
-    - runes:
-      - {fileID: 11400000, guid: 7f012df4294889840879574ecb254c34, type: 2}
-      tier: 3
-    tags: 18000000080000000a0000001c000000
+    childAbilities: []
+    runeGroupData: []
+    tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 6
+    - type: 1
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -71,10 +58,10 @@ MonoBehaviour:
       allConstraints:
       - focus: 1
         constraintData:
-        - type: 7
+        - type: 0
           inverse: 0
           statChangeTarget: 0
-          changeDirection: 0
+          changeDirection: 1
           minStatChangeRequired: 0
           statChangeDelta: 0
           constrainByDelivery: 0
@@ -118,9 +105,56 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
-      - focus: 4
+        - type: 4
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 1
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          checkPercentOfMax: 0
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetAbilityCategory: 0
+          targetEffectType: 0
+          targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+      - focus: 5
         constraintData:
-        - type: 7
+        - type: 18
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -154,7 +188,7 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: 
+          targetAbiltyName: Steal Time
           targetEffectName: 
           effectDesigantion: 0
           targetAbilityCategory: 0
@@ -211,65 +245,17 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 6a06971184907c746a3f011d01db2722, type: 2}
+    - {fileID: 11400000, guid: 5e91af065e3576646973eb7815c94e3a, type: 2}
+    - {fileID: 11400000, guid: 3e3a2ea4f6d7e1c4eba53502b95915a7, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
-    windupVFX: {fileID: 2850867436185079738, guid: 3d083b7a5bb635a439cf31a0cf85784f, type: 3}
+    windupVFX: {fileID: 0}
     abilityStatData:
     - variant: 0
       statName: 70
-      value: 8
+      value: 2
       maxValue: 0
       minValue: 0
-    - variant: 0
-      statName: 71
-      value: 0.5
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 10
-      value: 1
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 50
-      value: 0.2
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 34
-      value: 1
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 46
-      value: 0
-      maxValue: 0
-      minValue: 0
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          overrideProcStat: 0
-          procChance: 1
-          triggerDelay: 0
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          chainTriggerDelay: 0.1
-          delay1Frame: 0
-          autoActivateTimer: 0
-          resetTimerOnParentAbilityEnd: 0
-          resourceOrbType: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        reduceTriggerCountByAbilityLevel: 0
-        minTriggerCount: 0
-      cooldown: 1
+    recoveryData: []

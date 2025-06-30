@@ -68,8 +68,8 @@ public static class TextHelper
             StatName.DashSpeed when value < 0 => penaltyFormat,
             StatName.DashSpeed when value >= 0 => bonusFormat,
             StatName.DashDuration => $"<color=#{bonusColor}>" + (value * 100) + "% </color>",
-            StatName.EffectInterval when value < 0 => $"<color=#{bonusColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
-            StatName.EffectInterval when value > 0 => $"<color=#{penaltyColor}>+" + (value * 100) + "% </color>",
+            StatName.EffectInterval when value < 0 => bonusFormat,
+            StatName.EffectInterval when value > 0 => penaltyFormat,
             StatName.AbilityCharge => "",
             //StatName.CooldownReduction when value > 0 => builder.Append("Cooldown Reduction").Append("-").Append( (value * 100) + "%").ToString(),
             StatName.CooldownReduction when value >= 0 => $"<color=#{bonusColor}>" +(value * 100) + "% </color>",
@@ -191,6 +191,9 @@ public static class TextHelper
 
             StatName.StatusLifetime when value >= 0 => bonusFormat,
             StatName.StatusLifetime when value < 0 => penaltyFormat,
+
+            StatName.StatusInterval when value <= 0 => bonusFormat,
+            StatName.StatusInterval when value > 0 => penaltyFormat,
 
             StatName.EssenceCost when value <= 0 => bonusFormat,
             StatName.EssenceCost when value > 0 => penaltyFormat,

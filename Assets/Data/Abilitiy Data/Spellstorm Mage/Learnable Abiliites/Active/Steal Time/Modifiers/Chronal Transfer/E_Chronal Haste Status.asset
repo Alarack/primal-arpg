@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Steal Time Status
+  m_Name: E_Chronal Haste Status
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Steal Time Add Status
+    effectName: Chronal Transfer - Haste Status
     effectDescription: 
     type: 3
-    targeting: 5
+    targeting: 1
     subTarget: 1
-    maskTargeting: 0
+    maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
     targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
-    payloadPrefab: {fileID: 6030037519985548846, guid: 2b35fa8dedab29a41a9a03d925290ebf, type: 3}
+    payloadPrefab: {fileID: 0}
     payloadStatData: []
     spawnLocation: 0
     spawnLocationStart: 0
@@ -65,7 +65,23 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData: []
+    modData:
+    - targetStat: 19
+      value: 0.5
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 0
+      abilityLevelCoefficient: 1
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -126,21 +142,21 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    effectDesignation: 1
+    effectDesignation: 0
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     statusModifiers: []
     statusToAdd:
-    - statusName: 11
-      stackMethod: 1
-      maxStacks: 2
+    - statusName: 16
+      stackMethod: 0
+      maxStacks: 0
       initialStackCount: 1
       duration: 0
       interval: 0
-      VFXPrefab: {fileID: 1714188259017162, guid: b10b204e41dcd204888d0943b2bf41b5, type: 3}
-      statusSprite: {fileID: 0}
+      VFXPrefab: {fileID: 0}
+      statusSprite: {fileID: 21300000, guid: 8da33b8cf9deebb4daba8fb7f4a714ca, type: 3}
       vfxScaleModifier: 1
-      statusEffectDef: {fileID: 11400000, guid: 4c2e8fbefc12cd84e92e85770b6c042b, type: 2}
+      statusEffectDef: {fileID: 11400000, guid: c8994d64635c8f84a80daf72ae2a20b0, type: 2}
     statusToRemove: 
     statusPurgeExceptions: 
     removeAllDotStatus: 0

@@ -1851,7 +1851,7 @@ public class ModifyProjectileEffect : Effect {
     public override void Remove(Entity target) {
         base.Remove(target);
 
-        Debug.LogWarning("Removing Projectile Modifications is not yet supported. Ignore this warning if you're modifying projeciles as they're created.");
+        Debug.LogWarning(Data.effectName + " :: " + ParentAbility.Data.abilityName + " :: Removing Projectile Modifications is not yet supported. Ignore this warning if you're modifying projeciles as they're created.");
     }
 }
 

@@ -1477,12 +1477,16 @@ public class StatChangedTrigger : AbilityTrigger {
         //CauseOfAbilityTrigger = ability;
 
 
-        //if(ParentAbility != null && ParentAbility.Source.ownerType == OwnerConstraintType.Friendly) {
-        //    string cause = causeOfChange != null ? causeOfChange.EntityName : "null entity";
-        //    Debug.Log(affectedTarget.gameObject.name + " had a stat change: " + targetStat + " :: " + changeValue + " caused by: " + cause);
+        //if (ParentAbility != null && ParentAbility.Source.ownerType == OwnerConstraintType.Friendly) {
+        //    if(ParentAbility.Data.abilityName == "Chronal Transfer - Apply Slow") {
+        //        if(targetStat == StatName.Health && changeValue != 0) {
+        //            string cause = causeOfChange != null ? causeOfChange.EntityName : "null entity";
+        //            Debug.Log(affectedTarget.gameObject.name + " had a stat change: " + targetStat + " :: " + changeValue + " caused by: " + cause);
 
-        //    string abilityCause = ability != null ? ability.Data.abilityName : "Null ability";
-        //    Debug.Log("Ability Cause: " + abilityCause);
+        //            string abilityCause = ability != null ? ability.Data.abilityName : "Null ability";
+        //            Debug.Log("Ability Cause: " + abilityCause);
+        //        }
+        //    }
         //}
 
         //if(ParentAbility != null && ParentAbility.Data.abilityName == "Living Void") {
