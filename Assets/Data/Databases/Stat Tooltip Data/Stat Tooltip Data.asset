@@ -15,7 +15,7 @@ MonoBehaviour:
   tooltipData:
   - stat: 21
     decription: Reduces the time for skills to cooldown. This stat has a soft cap
-      of 90%.
+      of 75%.
     icon: {fileID: 21300000, guid: 2b32f571b069d9e45837b451bb8a9f96, type: 3}
   - stat: 16
     decription: Influences the base accuracy of projectiles. Most Projectiles move
@@ -106,7 +106,7 @@ MonoBehaviour:
     icon: {fileID: 0}
   - stat: 91
     decription: Reduces the time between Ticks of ongoing effects such as Damage
-      Over Time. This stat has a soft cap of -80%.
+      Over Time. This stat has a soft cap of -75%.
     icon: {fileID: 0}
   - stat: 92
     decription: Increases the duration of ongoing effects such as Statuses and Zones.

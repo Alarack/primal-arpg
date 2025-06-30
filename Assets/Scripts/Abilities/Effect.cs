@@ -2754,9 +2754,9 @@ public class AddStatusEffect : Effect {
 
         float resulstingIntervalMod = effectIntervalModifier * comboIntervalModifer;
 
-        if (resulstingIntervalMod <= 0.2f) {
+        if (resulstingIntervalMod <= 0.25f) {
             //Debug.LogError("A status interval is too low: " + resulstingIntervalMod);
-            resulstingIntervalMod = 0.2f;
+            resulstingIntervalMod = 0.25f;
         }
 
 
