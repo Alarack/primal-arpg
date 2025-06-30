@@ -36,7 +36,9 @@ public class Status {
         EldritchInstability,
         Inivincible,
         Unraveling,
-        Stunned
+        Stunned,
+        HealthOrbEmpowermentArmor,
+        EssenceOrbEmpowermentDamage
     }
 
     #endregion

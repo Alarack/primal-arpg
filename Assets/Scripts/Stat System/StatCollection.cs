@@ -494,6 +494,16 @@ public class StatCollection {
         targetStat.RemoveAllModifiersFromSource(source);
     }
 
+    public void RemoveAllMaxValueModifiersFromSource(StatName name, object source) {
+        if (Contains(name) == false) {
+            Debug.LogWarning("Stat: " + name + " was not found");
+            return;
+        }
+
+        StatRange targetStat = GetStat<StatRange>(name);
+        targetStat.RemoveAllMaxModifiersFromSource(source);
+    }
+
     public void RemoveAllModifiersFromSource(object source) {
         foreach (var stat in statDictionary) {
             stat.Value.RemoveAllModifiersFromSource(source);

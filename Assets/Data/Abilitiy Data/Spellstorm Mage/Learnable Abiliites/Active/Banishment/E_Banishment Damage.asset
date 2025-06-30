@@ -62,6 +62,7 @@ MonoBehaviour:
       spawnVFX: {fileID: 1279125013800246, guid: d25631b69b059d64385ac05f70824713, type: 3}
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
+      intervalVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
@@ -152,6 +153,8 @@ MonoBehaviour:
     statusModifiers: []
     statusToAdd: []
     statusToRemove: 
+    statusPurgeExceptions: 
+    removeAllDotStatus: 0
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
@@ -168,6 +171,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    abilitiesToRemove: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
     ridersToAdd: []
@@ -184,6 +188,7 @@ MonoBehaviour:
     inheritParentLayer: 1
     spawnType: 0
     nameOfAbilityToActivate: 
+    forceActivateRespectCooldown: 0
     targetStateName: 
     tagsToAdd: 
     tagsToRemove: 

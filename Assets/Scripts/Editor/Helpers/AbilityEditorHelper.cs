@@ -349,6 +349,7 @@ public static class AbilityEditorHelper {
                 entry.targetSubtype = EditorHelper.EnumPopup("Subtype", entry.targetSubtype);
                 break;
             case ConstraintType.StatMinimum:
+                entry.checkPercentOfMax = EditorGUILayout.Toggle("Percent", entry.checkPercentOfMax);
                 entry.minStatTarget = EditorHelper.EnumPopup("Stat Name", entry.minStatTarget);
                 entry.nonZero = EditorGUILayout.Toggle("Greater than 0", entry.nonZero);
 
@@ -357,6 +358,7 @@ public static class AbilityEditorHelper {
                 
                 break;
             case ConstraintType.StatMaximum:
+                entry.checkPercentOfMax = EditorGUILayout.Toggle("Percent", entry.checkPercentOfMax);
                 entry.maxStatTarget = EditorHelper.EnumPopup("Stat Name", entry.maxStatTarget);
                 entry.maxStatValue = EditorGUILayout.FloatField("Min Value", entry.maxStatValue);
                 break;
@@ -417,6 +419,10 @@ public static class AbilityEditorHelper {
 
             case ConstraintType.AbilityName:
                 entry.targetAbiltyName = EditorGUILayout.TextField("Ability Name", entry.targetAbiltyName);
+                break;
+
+            case ConstraintType.AbilityCategory:
+                entry.targetAbilityCategory = EditorHelper.EnumPopup("Category", entry.targetAbilityCategory);
                 break;
 
             case ConstraintType.EffectDesignation:

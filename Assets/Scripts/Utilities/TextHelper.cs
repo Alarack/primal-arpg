@@ -42,7 +42,7 @@ public static class TextHelper
 
 
         string result = stat switch {
-            StatName.Health => $"<color=#{bonusColor}>" + value + "</color>",
+            StatName.Health => bonusFormat,
             StatName.Essence => bonusFormat, //$"<color=#{bonusColor}>" + value + "</color>",
             //StatName.Vitality => throw new System.NotImplementedException(),
             StatName.MoveSpeed when value < 0 => $"<color=#{penaltyColor}>" + (Mathf.Abs(value) * 100) + "% </color>",
@@ -134,8 +134,8 @@ public static class TextHelper
             StatName.GlobalProjectileLifetimeModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalProjectileSpeedModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.GlobalProjectileSpeedModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
-            StatName.GlobalEssenceCostModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
-            StatName.GlobalEssenceCostModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
+            StatName.GlobalEssenceCostModifier when value >= 0 => penaltyFormat,
+            StatName.GlobalEssenceCostModifier when value < 0 => bonusFormat,
             StatName.MeleeDamageModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",
             StatName.MeleeDamageModifier when value < 0 => $"<color=#{penaltyColor}>" + (value) * 100 + "%</color>",
             //StatName.GlobalEffectIntervalModifier when value >= 0 => $"<color=#{bonusColor}>" + (value) * 100 + "%</color>",

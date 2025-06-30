@@ -47,7 +47,12 @@ MonoBehaviour:
       tier: 1
     - runes:
       - {fileID: 11400000, guid: 9d7d7d6ed62f8ce44912a03a8cb9d5ac, type: 2}
+      - {fileID: 11400000, guid: 2caf2172be3eb4043987674000145f85, type: 2}
+      - {fileID: 11400000, guid: 8d8bb61be6c49a143a107f2ab153b824, type: 2}
       tier: 2
+    - runes:
+      - {fileID: 11400000, guid: 06d32e03453dad5419cfcfc07ee0de26, type: 2}
+      tier: 3
     tags: 1900000016000000
     resetEvents: 
     activationTriggerData:
@@ -84,6 +89,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -102,6 +108,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
           hasDotStatus: 0
@@ -145,6 +152,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -163,6 +171,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
           hasDotStatus: 0

@@ -209,6 +209,8 @@ public class Ability {
             equippedRunes[i].ReactivateEquippedRunes();
         }
 
+        RecalculateCooldown();
+
         EventData data = new EventData();
         data.AddAbility("Ability", this);
 
@@ -819,6 +821,12 @@ public class Ability {
         return null;
     }
 
+    private void RecalculateCooldown() {
+        AbilityRecoveryCooldown cooldownRecovery = GetCooldownRecovery();
+        if (cooldownRecovery != null)
+            cooldownRecovery.RecalculateCooldown();
+    }
+
     protected AbilityRecoveryCooldown GetCooldownRecovery() {
         if (HasRecovery == false)
             return null;
@@ -857,7 +865,9 @@ public class Ability {
             return Stats[StatName.EssenceCost];
         }
 
-        float cost = Stats[StatName.EssenceCost] * (1f + Source.Stats[StatName.GlobalEssenceCostModifier]);
+        float cost = Stats[StatName.EssenceCost] * 
+            (1f + Source.Stats[StatName.GlobalEssenceCostModifier]) * 
+            (1 + Stats[StatName.GlobalEssenceCostModifier]);
 
         //Debug.Log("Total cost for: " + Data.abilityName + " : " + cost);
 
@@ -1235,6 +1245,8 @@ public class Ability {
         if (Stats.Contains(StatName.Cooldown) == true) {
             return Stats[StatName.Cooldown];
         }
+
+        //AbilityRecoveryCooldown cooldownRecovery = GetCooldownRecovery();
 
         //AbilityRecoveryCooldown cooldown = GetCooldownRecovery();
         //if (cooldown != null) {

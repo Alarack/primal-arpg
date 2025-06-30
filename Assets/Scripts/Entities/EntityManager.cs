@@ -177,8 +177,16 @@ public class EntityManager : Singleton<EntityManager> {
 
     public static void GameOver() {
 
-        ActivePlayer.Stats.Refresh(StatName.Health);
-        ActivePlayer.Stats.Refresh(StatName.Essence);
+        //StatAdjustmentManager.ResetStat(ActivePlayer, StatName.Health);
+        //StatAdjustmentManager.ResetStat(ActivePlayer, StatName.Essence);
+
+
+        //ActivePlayer.Stats.Refresh(StatName.Health);
+        //ActivePlayer.Stats.Refresh(StatName.Essence);
+        ActivePlayer.Stats.RemoveAllMaxValueModifiersFromSource(StatName.Health, ActivePlayer);
+        ActivePlayer.Stats.RemoveAllMaxValueModifiersFromSource(StatName.Essence, ActivePlayer);
+
+
         ActivePlayer.Stats.Refresh(StatName.Experience);
         ActivePlayer.Stats.SetStatValue(StatName.StatReroll, 3f, ActivePlayer);
         ActivePlayer.Stats.HardResetStatRange(StatName.HeathPotions, ActivePlayer, 1f);

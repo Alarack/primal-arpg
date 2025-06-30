@@ -109,16 +109,16 @@ public class NPC : Entity
     private void AdjustStatsByDifficulty() {
         float difficulty = RoomManager.CurrentDifficulty;
 
-        float damageModifier = (difficulty - 5f) / 50f;
-        float healthModifier = (difficulty - 5f) / 30f;
+        float damageModifier = (difficulty - 5f) / 5f;
+        float healthModifier = (difficulty - 5f) / 5f;
 
 
-        //Debug.Log("Adjusting Damage for: " + EntityName + " by " + damageModifier);
+        Debug.Log("Adjusting Damage by " + damageModifier);
 
         StatAdjustmentManager.ApplyStatAdjustment(this, damageModifier, StatName.GlobalDamageModifier, StatModType.Flat,
             StatModifierData.StatVariantTarget.Simple, this, null);
 
-        //Debug.Log("Adjusting health for: " + EntityName + " by " + healthModifier);
+        Debug.Log("Adjusting health by " + healthModifier);
 
         StatAdjustmentManager.AdjustMaxValuePercentAdd(this, StatName.Health, healthModifier, this, null);
         StatAdjustmentManager.RefreshStat(this, StatName.Health, this);

@@ -83,7 +83,7 @@ public static class AbilityFactory {
             ConstraintType.Collision => throw new NotImplementedException(),
             ConstraintType.Range => new RangeConstraint(data, source, parentAbility),
             ConstraintType.StatMinimum => new StatMinimumConstraint(data, source, parentAbility),
-            ConstraintType.StatMaximum => throw new NotImplementedException(),
+            ConstraintType.StatMaximum => new StatMaximumConstraint(data, source, parentAbility),
             ConstraintType.EntityName => new EntityNameConstraint(data, source, parentAbility),
             ConstraintType.HasStatus => new HasStatusConstraint(data, source, parentAbility),
             ConstraintType.StateEntered => throw new NotImplementedException(),
@@ -104,6 +104,7 @@ public static class AbilityFactory {
             ConstraintType.HasDot => new HasDOTConstraint(data, source, parentAbility),
             ConstraintType.HasProjectile => new HasProjectileConstraint(data, source, parentAbility),
             ConstraintType.StatusApplied => new StatusAppliedConstraint(data, source, parentAbility),
+            ConstraintType.AbilityCategory => new AbilityCategoryConstraint(data, source, parentAbility),
             _ => null,
         };
 

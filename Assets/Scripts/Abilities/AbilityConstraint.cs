@@ -213,6 +213,7 @@ public class StatRatioConstraint : AbilityConstraint {
 
         bool result = targetStat.Ratio <= data.targetRatio;
 
+
         //Debug.Log("Stat ratio: " + targetStat.Ratio);
         //Debug.Log("Check Ratio: " + data.targetRatio);
         //Debug.Log("Ratio Check: " + target.EntityName + result);
@@ -252,6 +253,19 @@ public class StatMinimumConstraint : AbilityConstraint {
 
         bool result = targetStat.ModifiedValue >= data.minStatValue;
 
+        if (data.checkPercentOfMax == true) {
+            StatRange range = targetStat as StatRange;
+            if (range == null) {
+                Debug.LogError("A stat: " + targetStat.Name + " is being checked for a percentage but it isn't a stat range");
+                return false;
+            }
+
+            float ratio = range.Ratio;
+
+            result = ratio >= data.minStatValue;
+
+        }
+
 
         if (data.nonZero == true) {
             result = targetStat.ModifiedValue > 0f;
@@ -267,11 +281,65 @@ public class StatMinimumConstraint : AbilityConstraint {
 
     public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
 
-        bool result = ability == triggerInstance.SourceAbility;
+        Debug.LogError("Checking stat Min not yet implemented for Abilitiy Stats");
 
-        //Debug.Log("Testing: " + ability.Data.abilityName + " against " + triggerInstance.sourceAbility.Data.abilityName + ". Result: " + result);
+
+        return false;
+
+    }
+}
+
+public class StatMaximumConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.StatMaximum;
+
+    public StatMaximumConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+        BaseStat targetStat = target.Stats.GetStat<BaseStat>(data.maxStatTarget);
+
+        if (targetStat == null) {
+            //Debug.LogWarning("A stat min constraint tried to get a stat and it was null: " + data.minStatTarget);
+            return false;
+        }
+
+        bool result = targetStat.ModifiedValue <= data.maxStatValue;
+
+        if (data.checkPercentOfMax == true) {
+            StatRange range = targetStat as StatRange;
+            if (range == null) {
+                Debug.LogError("A stat: " + targetStat.Name + " is being checked for a percentage but it isn't a stat range");
+                return false;
+            }
+
+            float ratio = range.Ratio;
+
+            result = ratio <= data.maxStatValue;
+
+        }
+
+
+        if (data.nonZero == true) {
+            result = targetStat.ModifiedValue > 0f;
+        }
+
+        //Debug.Log("Stat: " + targetStat.Name + " :: " + targetStat.ModifiedValue);
+
+        //Debug.LogWarning("Result for non 0 stat: " + result + " :: " + parentAbility.Data.abilityName + "  target: " + target.EntityName);
 
         return inverse == false ? result : !result;
+    }
+
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+
+        Debug.LogError("Checking stat Min not yet implemented for Abilitiy Stats");
+
+
+        return false;
 
     }
 }
@@ -843,6 +911,31 @@ public class AbilityNameConstraint : AbilityConstraint {
         bool result = ability.Data.abilityName == data.targetAbiltyName;
 
         //Debug.Log("Result of a name check on: " + ability.Data.abilityName + " : " + result);
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
+public class AbilityCategoryConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.AbilityCategory;
+
+    public AbilityCategoryConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        Debug.LogError("A constraint of type: " + Type + " at trying to target an entity. This is not supported");
+
+
+        return false;
+    }
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+        bool result = ability.Data.category == data.targetAbilityCategory;
+
+        //Debug.Log("Result of a category check on: " + ability.Data.abilityName + " : " + result);
 
         return inverse == false ? result : !result;
     }

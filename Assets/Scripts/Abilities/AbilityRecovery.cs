@@ -127,12 +127,40 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
         if (stat != StatName.CooldownReduction || target != Source)
             return;
 
+
+        RecalculateCooldown();
+
         //Debug.Log(target.EntityName + " has had " + stat + " changed by " + data.GetFloat("Value"));
 
         //Debug.Log(Source.EntityName + " is the owner of an ability with a cooldown: " + ParentAbility.Data.abilityName);
         //Debug.Log(target.EntityName + " : Target Cooldown: " + target.Stats[StatName.CooldownReduction]);
         //Debug.Log(Source.EntityName + " : Source Cooldown: " + Source.Stats[StatName.CooldownReduction]);
 
+        //float cooldownReduction = Source.Stats[StatName.CooldownReduction];
+
+        //ParentAbility.Stats.RemoveAllModifiersFromSource(this);
+
+        //float cdrPercent = cooldownReduction;
+
+        ////Debug.Log("Cooldown Reduction: " + cooldownReduction);
+
+        ////if (cdrPercent <= 0)
+        ////    return;
+
+        //if(cdrPercent > 0.9f) {
+        //    cdrPercent = 0.9f;
+        //}
+
+        //StatModifier cdrMod = new StatModifier(-cdrPercent, StatModType.PercentAdd, StatName.Cooldown, this, StatModifierData.StatVariantTarget.Simple);
+
+        //ParentAbility.Stats.AddModifier(StatName.Cooldown, cdrMod);
+        //Debug.Log("Cooldown Reduction changed. CDR: " + -cdrPercent + ". My Cooldown: " + ParentAbility.Stats[StatName.Cooldown]);
+        //Debug.Log("Modifier Value: " + -cdrPercent);
+
+
+    }
+
+    public void RecalculateCooldown() {
         float cooldownReduction = Source.Stats[StatName.CooldownReduction];
 
         ParentAbility.Stats.RemoveAllModifiersFromSource(this);
@@ -144,17 +172,13 @@ public class AbilityRecoveryCooldown : AbilityRecovery {
         //if (cdrPercent <= 0)
         //    return;
 
-        if(cdrPercent > 0.9f) {
+        if (cdrPercent > 0.9f) {
             cdrPercent = 0.9f;
         }
 
         StatModifier cdrMod = new StatModifier(-cdrPercent, StatModType.PercentAdd, StatName.Cooldown, this, StatModifierData.StatVariantTarget.Simple);
 
         ParentAbility.Stats.AddModifier(StatName.Cooldown, cdrMod);
-        //Debug.Log("Cooldown Reduction changed. CDR: " + -cdrPercent + ". My Cooldown: " + ParentAbility.Stats[StatName.Cooldown]);
-        //Debug.Log("Modifier Value: " + -cdrPercent);
-
-
     }
 
     private void OnCooldownComplete(EventData data) {

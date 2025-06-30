@@ -574,7 +574,8 @@ public abstract class Entity : MonoBehaviour {
     public virtual void ResetLevel() {
         entityLevel = 0;
         levelsStored = 0;
-        Stats.GetStat<StatRange>(StatName.Experience).RemoveAllMaxModifiersFromSource(this);
+        //Stats.GetStat<StatRange>(StatName.Experience).RemoveAllMaxModifiersFromSource(this);
+        Stats.RemoveAllMaxValueModifiersFromSource(StatName.Experience, this);
         Stats.EmptyStatRange(StatName.Experience, this);
         Stats.RemoveAllModifiersFromSource(StatName.SkillPoint, this);
 

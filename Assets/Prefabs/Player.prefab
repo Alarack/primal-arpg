@@ -692,13 +692,13 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4096
-  m_ForceMagnitude: -70
+  m_ForceMagnitude: -100
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
   m_ForceTarget: 0
   m_ForceMode: 0
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0
 --- !u!1 &4489725337288881377
 GameObject:
@@ -1032,6 +1032,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 677d5ed05aa4c2d428a1aa5db2966198, type: 2}
   - {fileID: 11400000, guid: a54bddcbc7448c545bb1c241950a59ea, type: 2}
   - {fileID: 11400000, guid: 4d1110b17ba63b048936be84847ed346, type: 2}
+  - {fileID: 11400000, guid: f1868190d3fe55b48960fbe668b99710, type: 2}
 --- !u!1 &7472874188152556937
 GameObject:
   m_ObjectHideFlags: 0

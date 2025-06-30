@@ -44,7 +44,8 @@ public enum ConstraintType {
     AbilityInSlot,
     HasDot,
     HasProjectile,
-    StatusApplied
+    StatusApplied,
+    AbilityCategory
 }
 
 public enum GainedOrLost {
@@ -106,6 +107,9 @@ public class ConstraintData
     public string leastStatEffectName;
     public string leastStatAbilityName;
 
+    //Min Max Percent of Max
+    public bool checkPercentOfMax;
+
     //Stat Minimum
     public StatName minStatTarget;
     public float minStatValue;
@@ -145,6 +149,7 @@ public class ConstraintData
     public string targetAbiltyName;
     public string targetEffectName;
     public StatModifierData.StatModDesignation effectDesigantion;
+    public AbilityCategory targetAbilityCategory;
 
     //Ability On Hotbar
     //public string targetAbilityOnHotbar;

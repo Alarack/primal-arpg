@@ -209,6 +209,11 @@ public static class StatAdjustmentManager {
         return ApplyStatAdjustment(target, mod, stat, mod.VariantTarget, abilityCause);
     }
 
+    public static void ResetStat(Entity target, StatName stat) {
+        target.Stats.HardResetStatRange(StatName.Health, target);
+        RefreshStat(target, stat, target, null);
+    }
+
     public static float AdjustMaxValuePercentAdd(Entity target, StatName stat, float value, Entity cause, Ability abilityCause = null) {
         StatModifier mod = new StatModifier(value, StatModType.PercentAdd, stat, cause, StatModifierData.StatVariantTarget.RangeMax);
         return ApplyStatAdjustment(target, mod, stat, mod.VariantTarget, abilityCause);
@@ -267,14 +272,14 @@ public static class StatAdjustmentManager {
         //    }
         //}
 
-        if (targetStat == StatName.Health) {
-            Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
+        //if (targetStat == StatName.Health) {
+        //    Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
             
-            if(sourceAbility != null) {
-                Debug.Log("From: " + sourceAbility.Data.abilityName);
-            }
-            //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
-        }
+        //    if(sourceAbility != null) {
+        //        Debug.Log("From: " + sourceAbility.Data.abilityName);
+        //    }
+        //    //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
+        //}
 
         //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
 

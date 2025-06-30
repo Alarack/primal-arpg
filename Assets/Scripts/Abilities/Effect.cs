@@ -3752,7 +3752,7 @@ public class StatAdjustmentEffect : Effect {
 
         Debug.Log("Mod result: " + result);
 
-        return modData.invertDerivedValue == false ? result : -result;
+        return  result;
     }
 
     private float DeriveModValueFromOtherStatMaximum(StatModifierData modData, Entity entityTarget, Effect effectTarget, Ability abilityTarget) {
@@ -3783,7 +3783,7 @@ public class StatAdjustmentEffect : Effect {
 
         Debug.Log("Mod result: " + result);
 
-        return modData.invertDerivedValue == false ? result : -result;
+        return result;
     }
 
 
