@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: Enrage Stat Adjustment
+  m_Name: E_Summon Clone
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Enrage stat Adj
-    effectDescription: Increase Move Speed and Global Damage by {}
-    type: 1
-    targeting: 0
-    subTarget: 0
-    maskTargeting: 1
+    effectName: Spacetime Flux - Summon Clone
+    effectDescription: Create up to {} clones which inherit {P} of your weapon's
+      average damage.
+    type: 10
+    targeting: 2
+    subTarget: 1
+    maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
@@ -65,39 +66,7 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData:
-    - targetStat: 2
-      value: 0.5
-      modifierType: 1
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
-    - targetStat: 22
-      value: 0.5
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
+    modData: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -194,11 +163,11 @@ MonoBehaviour:
     applyTriggeringEffect: 0
     statScalersToAdd: []
     entityPrefab: {fileID: 0}
-    percentOfPlayerDamage: 1
-    destroyPreviousSummonAtCap: 0
+    percentOfPlayerDamage: 0.75
+    destroyPreviousSummonAtCap: 1
     inheritParentLayer: 1
-    spawnType: 0
-    materialDesignation: 0
+    spawnType: 1
+    materialDesignation: 1
     nameOfAbilityToActivate: 
     forceActivateRespectCooldown: 0
     targetStateName: 

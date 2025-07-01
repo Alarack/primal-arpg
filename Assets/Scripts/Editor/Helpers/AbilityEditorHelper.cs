@@ -741,6 +741,7 @@ public static class AbilityEditorHelper {
 
             case EffectType.SpawnEntity:
                 entry.spawnType = EditorHelper.EnumPopup("Spawn Type", entry.spawnType);
+                entry.materialDesignation = EditorHelper.EnumPopup("Material", entry.materialDesignation);
                 if (entry.spawnType == EntitySpawnType.Manual) {
                     entry.entityPrefab = EditorHelper.ObjectField("Prefab", entry.entityPrefab);
                 }

@@ -18956,6 +18956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   debrisTemplate: {fileID: 7058364224103606928, guid: 56d45c1d3cfec5942a29727a1639b0fc, type: 3}
+  materialDatabase: {fileID: 11400000, guid: 25b08f8ae99cc9d4d80eaeba08ffc2d1, type: 2}
 --- !u!4 &1579779806 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1203348490850181552, guid: 48c39459185f33a47a96c0a647f6abcc, type: 3}
@@ -19036,6 +19037,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 683585502}
     m_Modifications:
+    - target: {fileID: 233189745243983084, guid: 97e21ac254f5b764c9e2456aae9ae37a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 233189745243983084, guid: 97e21ac254f5b764c9e2456aae9ae37a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 233189745243983084, guid: 97e21ac254f5b764c9e2456aae9ae37a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1414305292779212288, guid: 97e21ac254f5b764c9e2456aae9ae37a, type: 3}
       propertyPath: m_Name
       value: Spikey Crab
@@ -19050,11 +19063,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4891595655527376990, guid: 97e21ac254f5b764c9e2456aae9ae37a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.62
+      value: -2.56
       objectReference: {fileID: 0}
     - target: {fileID: 4891595655527376990, guid: 97e21ac254f5b764c9e2456aae9ae37a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.63
+      value: 2.33
       objectReference: {fileID: 0}
     - target: {fileID: 4891595655527376990, guid: 97e21ac254f5b764c9e2456aae9ae37a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19088,6 +19101,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5593900755140253594, guid: 97e21ac254f5b764c9e2456aae9ae37a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5593900755140253594, guid: 97e21ac254f5b764c9e2456aae9ae37a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746583380258806249, guid: 97e21ac254f5b764c9e2456aae9ae37a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9422a3fa6eff9864c9227bd025e65839, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

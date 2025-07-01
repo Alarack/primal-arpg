@@ -6,6 +6,12 @@ public class VFXUtility : Singleton<VFXUtility>
 {
 
     public Debris debrisTemplate;
+    public MaterialDatabase materialDatabase;
+
+
+    public static Material GetMaterialByDesignation(MaterialDatabase.MaterialDesignation designation) {
+        return Instance.materialDatabase.GetMaterialByDesignation(designation);
+    }
 
     public static void DesaturateSprite(SpriteRenderer spriteRender, float amount) {
 

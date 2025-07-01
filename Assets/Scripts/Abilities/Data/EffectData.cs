@@ -236,6 +236,7 @@ public class EffectData
     public bool destroyPreviousSummonAtCap;
     public bool inheritParentLayer = true;
     public EntitySpawnType spawnType;
+    public MaterialDatabase.MaterialDesignation materialDesignation;
 
     //Activate Other Ability
     public string nameOfAbilityToActivate;

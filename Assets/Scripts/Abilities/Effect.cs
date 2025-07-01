@@ -3419,6 +3419,12 @@ public class SpawnEntityEffect : Effect {
 
         for (int i = 0; i < unitsToSpawn; i++) {
             Entity spawn = PerformSpawn(target);
+
+            if(spawn == null) {
+                Debug.LogWarning("Null Spawn prefab when creating an entity. Effect: " + Data.effectName + " Ability: " + ParentAbility.Data.abilityName);
+                continue;
+            }
+
             spawn.ownerType = Source.ownerType;
             spawn.entityType = Source.entityType;
             if (spawn is NPC) {
@@ -3430,8 +3436,14 @@ public class SpawnEntityEffect : Effect {
 
             spawn.subtypes.Add(Entity.EntitySubtype.Minion);
 
-            if (spawn.innerSprite != null)
-                VFXUtility.DesaturateSprite(spawn.innerSprite, 0.4f);
+            if (spawn.mainSprite != null) {
+                Material targetMat = VFXUtility.GetMaterialByDesignation(Data.materialDesignation);
+
+                if (targetMat != null) {
+                    spawn.mainSprite.sharedMaterial = targetMat;
+                }
+            }
+                //VFXUtility.DesaturateSprite(spawn.innerSprite, 0.4f);
 
             EntityPlayer player = Source as EntityPlayer;
             if (player != null) {
@@ -3488,11 +3500,14 @@ public class SpawnEntityEffect : Effect {
 
     private Entity PerformSpawn(Entity target) {
 
+        Entity clone = NPCDataManager.GetNPCPrefabByName(target.EntityName);
 
+        if (Data.spawnType == EntitySpawnType.Clone && clone == null)
+            return null;
 
         Entity result = Data.spawnType switch {
             EntitySpawnType.Manual => GameObject.Instantiate(Data.entityPrefab, GetSpawnLocation(), Quaternion.identity),
-            EntitySpawnType.Clone => GameObject.Instantiate(NPCDataManager.GetNPCPrefabByName(target.EntityName), GetSpawnLocation(), Quaternion.identity),
+            EntitySpawnType.Clone => GameObject.Instantiate(clone, GetSpawnLocation(), Quaternion.identity),
             EntitySpawnType.Series => throw new NotImplementedException(),
             _ => null,
         };
