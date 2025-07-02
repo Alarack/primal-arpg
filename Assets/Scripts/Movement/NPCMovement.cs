@@ -95,7 +95,7 @@ public class NPCMovement : EntityMovement
         Vector2 direction = location - (Vector2)transform.position;
 
         float castingModifier = 1 + Owner.Stats[StatName.CastingMoveSpeedModifier];
-        float baseSpeed = Owner.Stats[StatName.MoveSpeed];
+        float baseSpeed = Owner.Stats[StatName.MoveSpeed] * (1 + Owner.Stats[StatName.GlobalMoveSpeedModifier]);
 
         if(Owner.IsCasting() == true) {
             baseSpeed *= castingModifier;

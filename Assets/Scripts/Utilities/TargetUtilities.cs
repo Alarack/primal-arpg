@@ -224,7 +224,7 @@ public static class TargetUtilities
         return nearbyColliders[randomindex].GetComponent<Entity>();
     }
 
-    public static Collider2D FindNearestTarget(Collider2D[] targets, Transform myTransform)
+    public static Collider2D FindNearestTarget(Collider2D[] targets, Transform myTransform, bool ignoreObsticals = false)
     {
         Collider2D result = null;
 
@@ -233,8 +233,18 @@ public static class TargetUtilities
         int count = targets.Length;
         for (int i = 0; i < count; i++)
         {
+            if(ignoreObsticals == true) {
+                if (targets[i].HasSubtype(Entity.EntitySubtype.Obstical) == true)
+                    continue;
+            }
+
+
             float distance = Vector2.Distance(myTransform.position, targets[i].transform.position);
             distances.Add(targets[i], distance);
+        }
+
+        if(distances.Count < 1) {
+            return null;
         }
 
         result = distances.OrderBy(d => d.Value).First().Key;

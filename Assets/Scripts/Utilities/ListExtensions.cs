@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class ListExtensions {
@@ -78,4 +79,14 @@ public static class ListExtensions {
 
         return null;
     }
+
+    public static bool HasSubtype (this Collider2D collider, Entity.EntitySubtype subtype){
+        Entity entity = collider.GetComponent<Entity>();
+
+        if (entity == null)
+            return false;
+
+        return entity.subtypes.Contains(subtype);
+    }
+
 }

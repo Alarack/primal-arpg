@@ -23,6 +23,7 @@ public class ProjectileMovement : EntityMovement
     public bool seekForwardWithoutTarget;
     public float seekDuration = -1f;
     public float forwardPointDistance = 8f;
+    public bool reduceSpeedOnTargetSighted = true;
 
     private Vector2 seekPoint;
     private Timer seekTimer;
@@ -340,10 +341,13 @@ public class ProjectileMovement : EntityMovement
 
         if (colliders != null && colliders.Length > 0)
         {
-            Collider2D nearest = TargetUtilities.FindNearestTarget(colliders, transform);
+            Collider2D nearest = TargetUtilities.FindNearestTarget(colliders, transform, true);
 
             if (nearest != null) {
                 seekTarget = nearest.transform;
+            }
+
+            if(seekTarget != null && reduceSpeedOnTargetSighted == true) {
                 MyBody.linearVelocity *= 0.25f;
             }
 

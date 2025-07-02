@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Violent Death Rune
+  m_Name: Controlled Chaos Rune
   m_EditorClassIdentifier: 
   devItem: 0
   startingItem: 0
@@ -18,17 +18,17 @@ MonoBehaviour:
     Type: 2
     affixStatTarget: 1
     entityClass: 0
-    itemName: Violent Death
+    itemName: Controlled Chaos
     itemDescription: 
     secondaryDescription: 
     itemValue: 200
-    runeAbilityTarget: Living Void
+    runeAbilityTarget: Fracture Reality
     validSlots: 0e000000
     abilityTags: 
     targetedAbilityName: 
-    itemIcon: {fileID: 21300000, guid: a7d991cf5015f2f4aad5cf10648ae107, type: 3}
+    itemIcon: {fileID: 21300000, guid: 6cf60844347bb6849a8931227d37b78a, type: 3}
     invertIcon: 0
-    pickupIcon: {fileID: 21300000, guid: a7d991cf5015f2f4aad5cf10648ae107, type: 3}
+    pickupIcon: {fileID: 21300000, guid: 6cf60844347bb6849a8931227d37b78a, type: 3}
     pickupOnCollision: 1
     tier: 0
     baseAffixSlots: 2
@@ -36,7 +36,7 @@ MonoBehaviour:
     maxDamage: 0
     statModifierData: []
     abilityDefinitions:
-    - {fileID: 11400000, guid: 63cb4c4bcaf8e134da76e17769f816e9, type: 2}
+    - {fileID: 11400000, guid: 2903c69c02bcb9441b555767a543b5ee, type: 2}
     learnableAbilities: []
     classPreviewAbilities: []
     startingItemOptions: []

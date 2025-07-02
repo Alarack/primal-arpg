@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Living Void
+  m_Name: A_R_Aggressive Strain
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 21300000, guid: f0547fc416075a04a87eefc43b21b996, type: 3}
-    abilityName: Living Void
-    abilityDescription: Whenever a Friendly Void Bolt causes damage, it has a {PR}
-      chance to summon an Amorphous Vestige Minion
-    resourceCost: 0
+    category: 3
+    abilityIcon: {fileID: 21300000, guid: 029e7480464d13845ae2d1263b4382e7, type: 3}
+    abilityName: Aggressive Strain
+    abilityDescription: Friendly Vestiges spawn with increased attack speed and movement
+      speed.
+    resourceCost: 35
     toBestow: 0
     suspend: 0
-    autoFire: 0
+    autoFire: 1
     ignoreOtherCasting: 0
-    includeEffectsInTooltip: 1
+    includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Living Void
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -40,18 +40,11 @@ MonoBehaviour:
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: 316d76357597f70479154f7aab6e4be7, type: 2}
-      - {fileID: 11400000, guid: 0e12e9d9a2951ee4bbc2a2eb5f0efdf4, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: 00fa776a872c89f4a9b2ce00874a26e2, type: 2}
-      tier: 2
-    tags: 190000000c000000
+    runeGroupData: []
+    tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 1
+    - type: 33
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -66,14 +59,14 @@ MonoBehaviour:
       allConstraints:
       - focus: 1
         constraintData:
-        - type: 0
+        - type: 4
           inverse: 0
           statChangeTarget: 0
-          changeDirection: 1
+          changeDirection: 0
           minStatChangeRequired: 0
           statChangeDelta: 0
-          constrainByDelivery: 1
-          deliveryConstraint: {fileID: 2110540755119051525, guid: d04327aff5edaa348acb76e3f331968a, type: 3}
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
@@ -113,56 +106,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
-        - type: 4
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 1
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          checkPercentOfMax: 0
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetAbilityCategory: 0
-          targetEffectType: 0
-          targetStatus: 0
-          hasDotStatus: 0
-          appliedStatusType: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-          abilitySlot: 0
-          projectileToCheck: {fileID: 0}
-      - focus: 2
-        constraintData:
-        - type: 4
+        - type: 8
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -187,7 +131,7 @@ MonoBehaviour:
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
-          targetSubtype: 0
+          targetSubtype: 10
           targetPrimaryType: 0
           targetActiveAbilityName: 
           appliedEffectType: 0
@@ -253,16 +197,12 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 08329530144d1e140a1dc2741c14b8b4, type: 2}
+    - {fileID: 11400000, guid: 609de7cf7133734439144dd0850208a8, type: 2}
+    - {fileID: 11400000, guid: 23ab144149a3aa048bc8302827a82c32, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    maxRanks: -1
-    windupVFX: {fileID: 0}
-    abilityStatData:
-    - variant: 0
-      statName: 65
-      value: 0.25
-      maxValue: 0
-      minValue: 0
+    maxRanks: 1
+    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
+    abilityStatData: []
     recoveryData: []

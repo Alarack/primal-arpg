@@ -41,7 +41,13 @@ public class NPC : Entity
             selfDestructTimer = new Timer(Stats[StatName.NPCLifetime], SelfDestruct, false);
         }
 
-        if(entityType == EntityType.Enemy) {
+
+    }
+
+    protected override void Start() {
+        base.Start();
+
+        if (entityType == EntityType.Enemy) {
             AdjustStatsByDifficulty();
         }
     }

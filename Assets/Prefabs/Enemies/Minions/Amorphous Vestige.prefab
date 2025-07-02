@@ -19925,7 +19925,7 @@ MonoBehaviour:
   entityLevel: 1
   levelsStored: 0
   ownerType: 1
-  subtypes: 03000000
+  subtypes: 030000000a000000
   innerSprite: {fileID: 7591836464380366512}
   mainSprite: {fileID: 0}
   statDefinitions: {fileID: 11400000, guid: 3145c591c3a86e1459c2a990a2baca37, type: 2}
@@ -19959,6 +19959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7129bc7847031d94f93d3171f9d517f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashParticles: {fileID: 0}
   moveType: 0
 --- !u!114 &386393340936914110
 MonoBehaviour:

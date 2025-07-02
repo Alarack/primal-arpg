@@ -3512,12 +3512,33 @@ public class SpawnEntityEffect : Effect {
             _ => null,
         };
 
+        if(result != null) {
+            ImbueSpawnWithStats(result);
+        }
+
         result.SpawningAbility = ParentAbility;
 
         return result;
 
     }
 
+    private void ImbueSpawnWithStats(Entity spawn) {
+        if (Stats[StatName.GlobalMoveSpeedModifier] > 0) {
+            StatModifier moveSpeedMod = new StatModifier(Stats[StatName.GlobalMoveSpeedModifier], StatModType.PercentAdd, StatName.MoveSpeed, Source, StatModifierData.StatVariantTarget.Simple);
+            spawn.Stats.AddModifier(StatName.MoveSpeed, moveSpeedMod);
+        }
+
+        if (Stats[StatName.CooldownReduction] > 0) {
+            StatModifier cdrMod = new StatModifier(Stats[StatName.CooldownReduction], StatModType.Flat, StatName.CooldownReduction, Source, StatModifierData.StatVariantTarget.Simple);
+            spawn.Stats.AddModifier(StatName.MoveSpeed, cdrMod);
+        }
+
+        if (Stats[StatName.GlobalDamageModifier] > 0) {
+            StatModifier dmgMod = new StatModifier(Stats[StatName.GlobalDamageModifier], StatModType.Flat, StatName.GlobalDamageModifier, Source, StatModifierData.StatVariantTarget.Simple);
+            spawn.Stats.AddModifier(StatName.MoveSpeed, dmgMod);
+        }
+
+    }
     private Vector2 GetSpawnLocation() {
 
         Vector2 location = targeter.GetPayloadSpawnLocation(Data.spawnLocation);

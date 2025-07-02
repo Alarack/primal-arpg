@@ -272,10 +272,10 @@ public static class StatAdjustmentManager {
         //    }
         //}
 
-        //if (targetStat == StatName.Health) {
+        //if (targetStat == StatName.GlobalMoveSpeedModifier || targetStat == StatName.CooldownReduction) {
         //    Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
-            
-        //    if(sourceAbility != null) {
+
+        //    if (sourceAbility != null) {
         //        Debug.Log("From: " + sourceAbility.Data.abilityName);
         //    }
         //    //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
