@@ -76,16 +76,31 @@ public class Projectile : Entity {
         base.OnEnable();
 
         Stats.AddStatListener(StatName.ProjectileSize, OnSizeChanged);
+        if(Stats.Contains(StatName.ProjectileSplitCount) == true)
+            Stats.AddStatListener(StatName.ProjectileSplitCount, OnSplitChanged);
     }
 
     protected override void OnDisable() {
         base.OnDisable();
 
         Stats.RemoveStatListener(StatName.ProjectileSize, OnSizeChanged);
+
+        if (Stats.Contains(StatName.ProjectileSplitCount) == true)
+            Stats.RemoveStatListener(StatName.ProjectileSplitCount, OnSplitChanged);
     }
 
     private void OnSizeChanged(BaseStat stat, object source, float value) {
         smoothScale = new Task(SmoothScale());
+    }
+
+    private void OnSplitChanged(BaseStat stat, object source, float value) {
+        if(value < 0f) 
+            return;
+
+        if (Stats[StatName.ProjectileSplitQuantity] <= 0f) {
+            float splitQuantity = Source.Stats[StatName.ProjectileSplitQuantity];
+            Stats.AddModifier(StatName.ProjectileSplitQuantity, 2 + splitQuantity, StatModType.Flat, Source);
+        }
     }
 
     public void Setup(Entity source, Weapon parentWeapon, List<Effect> onHitEffects) {

@@ -39,7 +39,8 @@ public class Status {
         Stunned,
         HealthOrbEmpowermentArmor,
         EssenceOrbEmpowermentDamage,
-        CheatDeath_SlipThePlane
+        CheatDeath_SlipThePlane,
+        TemporalCohesion
     }
 
     #endregion

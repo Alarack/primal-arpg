@@ -31,6 +31,7 @@ MonoBehaviour:
     showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
+    nonLethal: 0
     runeAbilityTarget: Spatial Distortion
     animationString: 
     waitForAnimToResolve: 0
@@ -40,7 +41,7 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 0e00000017000000
+    tags: 0e000000
     resetEvents: 
     activationTriggerData:
     - type: 17
@@ -54,6 +55,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 0
         constraintData: []
@@ -69,6 +71,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 0
         constraintData: []
@@ -86,6 +89,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -106,6 +110,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0

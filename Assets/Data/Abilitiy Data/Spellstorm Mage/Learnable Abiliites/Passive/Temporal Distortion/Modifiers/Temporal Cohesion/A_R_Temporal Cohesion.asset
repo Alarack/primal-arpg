@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Spatial Distortion
+  m_Name: A_R_Temporal Cohesion
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 21300000, guid: 78bb2dd9430288540ac40c8fb0943b11, type: 3}
-    abilityName: Spatial Distortion
-    abilityDescription: When your Projectiles Pierce, cause an explosion of Spatial
-      energy around the target in a {ES} meter diameter, and that Projectile gains
-      +50% damage.
-    resourceCost: 0
+    category: 3
+    abilityIcon: {fileID: 21300000, guid: 029e7480464d13845ae2d1263b4382e7, type: 3}
+    abilityName: Temporal Cohesion
+    abilityDescription: Your Critical Hits with Time Skills enhance your Cooldown
+      Reduciton.
+    resourceCost: 35
     toBestow: 0
     suspend: 0
     autoFire: 0
@@ -33,27 +32,19 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Temporal Distortion
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities:
-    - {fileID: 11400000, guid: 0b07c4906901667489933b59df30c047, type: 2}
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: cd212a1c7a2bb1046a3485ccc2652a0e, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: 129bc63aae25ba340b501f3cdadf8bbe, type: 2}
-      - {fileID: 11400000, guid: dea11b0435b64ef4689260c051c5a852, type: 2}
-      tier: 2
-    tags: 190000000e000000
+    childAbilities: []
+    runeGroupData: []
+    tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 24
+    - type: 28
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -66,7 +57,7 @@ MonoBehaviour:
       resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
       allConstraints:
-      - focus: 1
+      - focus: 4
         constraintData:
         - type: 4
           inverse: 0
@@ -102,6 +93,54 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetAbilityCategory: 0
+          targetEffectType: 0
+          targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
+        - type: 17
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          checkPercentOfMax: 0
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 24
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
@@ -160,45 +199,16 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 94083c68675e4804f85859359d118101, type: 2}
+    - {fileID: 11400000, guid: 427792b07baf64b4190de528db89ed97, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    maxRanks: -1
-    windupVFX: {fileID: 0}
+    maxRanks: 1
+    windupVFX: {fileID: 3228593226293199667, guid: cf7de9409f139e74496a96dfed206942, type: 3}
     abilityStatData:
     - variant: 0
-      statName: 11
-      value: 0.1
+      statName: 70
+      value: 5
       maxValue: 0
       minValue: 0
-    - variant: 0
-      statName: 41
-      value: 3.5
-      maxValue: 0
-      minValue: 0
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          overrideProcStat: 0
-          procChance: 1
-          triggerDelay: 0
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          chainTriggerDelay: 0.1
-          delay1Frame: 0
-          autoActivateTimer: 0
-          resetTimerOnParentAbilityEnd: 0
-          resourceOrbType: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        reduceTriggerCountByAbilityLevel: 0
-        minTriggerCount: 0
-      cooldown: 0.01
+    recoveryData: []
