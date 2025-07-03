@@ -57,6 +57,7 @@ public static class AbilityFactory {
             TriggerType.CombatStarted => new CombatStartedTrigger(data, source, parentAbility),
             TriggerType.CombatFinished => new CombatFinishedTrigger(data, source, parentAbility),
             TriggerType.ResourceOrbCollected => new ResourceOrbCollectedTrigger(data, source, parentAbility),
+            TriggerType.CheatDeath => new CheatDeathTrigger(data, source, parentAbility),
             _ => null,
         };
 

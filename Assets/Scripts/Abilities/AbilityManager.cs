@@ -93,6 +93,9 @@ public class AbilityManager : MonoBehaviour {
 
         EventManager.RegisterListener(GameEvent.ItemEquipped, OnItemEquipped);
         EventManager.RegisterListener(GameEvent.ItemUnequipped, OnItemUnequipped);
+
+        EventManager.RegisterListener(GameEvent.RuneEquipped, OnRuneEquipped);
+        EventManager.RegisterListener(GameEvent.RuneUnequipped, OnRuneUnequipped);
     }
 
     private void OnDisable() {
@@ -111,6 +114,35 @@ public class AbilityManager : MonoBehaviour {
             Debug.Log("Item aquired: " + item.Data.itemName);
             LearnSkillFromScroll(item);
         }
+    }
+
+    private void OnRuneEquipped(EventData data) {
+
+        Item runeItem = data.GetItem("Item");
+        //Ability targetAbility = data.GetAbility("Ability");
+
+        if(runeItem.Abilities.Count > 0) {
+            RuneAbilities.AddUnique(runeItem.Abilities[0]);
+        }
+        else {
+            Debug.LogError("A Rune: " +  runeItem.Data.itemName + " has no abilities");
+        }
+
+        if(runeItem.Abilities.Count > 1) {
+            Debug.LogError("A Rune: " + runeItem.Data.itemName + " has more than 1 ability");
+        }
+
+        
+
+    }
+
+    private void OnRuneUnequipped(EventData data) {
+        Item runeItem = data.GetItem("Item");
+        //Ability targetAbility = data.GetAbility("Ability");
+        if (runeItem.Abilities.Count > 0) {
+            RuneAbilities.RemoveIfContains(runeItem.Abilities[0]);
+        }
+
     }
 
     private void OnItemEquipped(EventData data) {
@@ -602,6 +634,19 @@ public class AbilityManager : MonoBehaviour {
         return null;
     }
 
+
+    public Ability GetRuneAbilityByName(string abilityName) {
+        Ability result = null;
+
+        for (int i = 0; i < RuneAbilities.Count; i++) {
+            if (RuneAbilities[i].Data.abilityName == abilityName) {
+                result = RuneAbilities[i];
+                break;
+            }
+        }
+
+        return result;
+    }
     public List<Ability> GetRuneAbilities(string abilityName) {
         List<Ability> results = new List<Ability>();
 

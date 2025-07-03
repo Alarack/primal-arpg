@@ -6,6 +6,7 @@ using LL.Events;
 using DG.Tweening;
 using static Unity.VisualScripting.Member;
 using static UnityEngine.GraphicsBuffer;
+using static StateEnteredTrigger;
 
 public abstract class AbilityTrigger {
     public abstract TriggerType Type { get; }
@@ -21,6 +22,8 @@ public abstract class AbilityTrigger {
     public Ability TriggeringAbility { get; protected set; }
     public Ability CauseOfAbilityTrigger { get; protected set; }
     public TriggerData Data { get; protected set; }
+
+    public Task DelayTriggerTask;
 
     public string AIState { get; set; }
 
@@ -314,7 +317,7 @@ public abstract class AbilityTrigger {
 
         if (Data.triggerDelay > 0f) {
             Debug.Log("Delaying trigger for: " + ParentAbility.Data.abilityName);
-            new Task(CustomDelay(activationInstance));
+            DelayTriggerTask = new Task(CustomDelay(activationInstance));
             return;
         }
 
@@ -392,6 +395,8 @@ public abstract class AbilityTrigger {
         Debug.Log("Resolving delayed trigger for: " + ParentAbility.Data.abilityName);
 
         ActivationCallback?.Invoke(activationInstance);
+
+        DelayTriggerTask = null;
     }
 
     public class TriggerInstance {
@@ -1631,6 +1636,42 @@ public class EntitySpawnedTrigger : AbilityTrigger {
     }
 }
 
+public class CheatDeathTrigger : AbilityTrigger {
+    public override TriggerType Type => TriggerType.CheatDeath;
+
+    public override GameEvent TargetEvent => GameEvent.CheatDeath;
+
+    public override Action<EventData> EventReceiver => OnDeathCheated;
+
+    public CheatDeathTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+    }
+
+
+    private void OnDeathCheated(EventData data) {
+        Entity target = data.GetEntity("Entity");
+        Status status = data.GetStatus("Status");
+
+        TriggeringEntity = target;
+
+
+        DeathCheatedTriggerInstance triggerInstance = new DeathCheatedTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, status);
+        TryActivateTrigger(triggerInstance);
+
+    }
+
+    public class DeathCheatedTriggerInstance : TriggerInstance {
+
+        public Status status;
+
+        public DeathCheatedTriggerInstance(Entity trigger, Entity cause, TriggerType type, Status status) : base(trigger, cause, type) {
+            this.status = status;
+        }
+    }
+
+
+
+}
+
 public class StateEnteredTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.StateEntered;
@@ -1777,6 +1818,11 @@ public class TimedTrigger : AbilityTrigger {
     public override void TearDown() {
         base.TearDown();
 
+        if(DelayTriggerTask != null && DelayTriggerTask.Running == true) {
+            DelayTriggerTask.Stop();
+            DelayTriggerTask = null;
+        }
+
         TimerManager.RemoveTimerAction(UpdateClock);
         //EventManager.RemoveMyListeners(this);
     }
@@ -1919,6 +1965,9 @@ public class RiderTrigger : AbilityTrigger {
 
         Ability targetAbility = SourceEntity.GetAbilityByName(Data.riderAbilityName);
 
+        if(ParentAbility.ParentAbility != null && ParentAbility.ParentAbility.Data.category == AbilityCategory.Rune) {
+            targetAbility = SourceEntity.AbilityManager.GetRuneAbilityByName(Data.riderAbilityName);
+        }
 
 
         if (targetEffect == null) {

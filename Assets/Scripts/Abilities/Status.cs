@@ -38,7 +38,8 @@ public class Status {
         Unraveling,
         Stunned,
         HealthOrbEmpowermentArmor,
-        EssenceOrbEmpowermentDamage
+        EssenceOrbEmpowermentDamage,
+        CheatDeath_SlipThePlane
     }
 
     #endregion

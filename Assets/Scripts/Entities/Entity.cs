@@ -415,16 +415,44 @@ public abstract class Entity : MonoBehaviour {
 
 
         if (Stats[StatName.Health] <= 0) {
-            
             if(ability != null && ability.Data.nonLethal) {
                 float difference = 1 - Stats[StatName.Health];
 
                 Stats.AddStatRangeCurrentModifier(StatName.Health, new StatModifier(difference, StatModType.Flat, StatName.Health, this, StatModifierData.StatVariantTarget.RangeCurrent));
                 return;
             }
-            
+
+            if (HandleCheatDeath() == true)
+                return;
+
+
             Die(cause, sourceAbility);
         }
+    }
+
+    protected virtual bool HandleCheatDeath() {
+
+
+        if(HasStatus(Status.StatusName.CheatDeath_SlipThePlane) == true) {
+            StatAdjustmentManager.RefreshStat(this, StatName.Health, this);
+
+            EventData data = new EventData();
+            data.AddEntity("Entity", this);
+            data.AddStatus("Status", GetStatus(Status.StatusName.CheatDeath_SlipThePlane));
+
+            EventManager.SendEvent(GameEvent.CheatDeath, data);
+            return true;
+        }
+
+
+        //if (Stats[StatName.CheatDeath] > 0f) {
+        //    StatAdjustmentManager.RefreshStat(this, StatName.Health, this);
+        //    StatAdjustmentManager.ApplyStatAdjustment(this, -1f, StatName.CheatDeath, StatModType.Flat, StatModifierData.StatVariantTarget.Simple, this, null);
+        //    return;
+        //}
+
+
+        return false;
     }
 
     protected virtual void UpdateHealthBar() {

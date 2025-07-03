@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Void Conduit Rune
+  m_Name: Slip The Plane Rune
   m_EditorClassIdentifier: 
   devItem: 0
   startingItem: 0
@@ -18,7 +18,7 @@ MonoBehaviour:
     Type: 2
     affixStatTarget: 1
     entityClass: 0
-    itemName: Void Conduit
+    itemName: Slip The Plane
     itemDescription: 
     secondaryDescription: 
     itemValue: 200
@@ -26,9 +26,9 @@ MonoBehaviour:
     validSlots: 0e000000
     abilityTags: 
     targetedAbilityName: 
-    itemIcon: {fileID: 21300000, guid: ef87235250d382b4ba3b2c1bc0066e38, type: 3}
+    itemIcon: {fileID: 21300000, guid: 6cf60844347bb6849a8931227d37b78a, type: 3}
     invertIcon: 0
-    pickupIcon: {fileID: 21300000, guid: ef87235250d382b4ba3b2c1bc0066e38, type: 3}
+    pickupIcon: {fileID: 21300000, guid: 6cf60844347bb6849a8931227d37b78a, type: 3}
     pickupOnCollision: 1
     tier: 0
     baseAffixSlots: 2
@@ -36,7 +36,7 @@ MonoBehaviour:
     maxDamage: 0
     statModifierData: []
     abilityDefinitions:
-    - {fileID: 11400000, guid: ff5ff173f5ced2d498bf87b950412518, type: 2}
+    - {fileID: 11400000, guid: 900ea24db96c8764c934f7a9806b08cc, type: 2}
     learnableAbilities: []
     classPreviewAbilities: []
     startingItemOptions: []

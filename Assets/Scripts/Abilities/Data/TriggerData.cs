@@ -50,7 +50,8 @@ public enum TriggerType {
     StatusPurged,
     CombatStarted,
     CombatFinished,
-    ResourceOrbCollected
+    ResourceOrbCollected,
+    CheatDeath
 }
 
 

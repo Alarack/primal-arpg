@@ -181,6 +181,7 @@ public class InventoryPanel : BasePanel {
             StatName.EssenceShieldRatio,
             StatName.EssenceOrbValue,
             StatName.HealthOrbValue,
+            StatName.CheatDeath,
         };
 
         if(exceptions.Contains(stat)) {

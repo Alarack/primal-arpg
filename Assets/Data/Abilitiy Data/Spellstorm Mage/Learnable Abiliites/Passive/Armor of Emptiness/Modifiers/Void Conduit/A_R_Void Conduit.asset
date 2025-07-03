@@ -16,7 +16,7 @@ MonoBehaviour:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
     abilityName: Void Conduit
-    abilityDescription: Whenever you lose Health. release a Void Bolt.
+    abilityDescription: Whenever you lose Health, release a Void Bolt.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
         - type: 7
           inverse: 0
           statChangeTarget: 0
@@ -152,6 +153,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0

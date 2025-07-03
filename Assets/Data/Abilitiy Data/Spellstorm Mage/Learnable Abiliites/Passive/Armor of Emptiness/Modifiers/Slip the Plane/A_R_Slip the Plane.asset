@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Armor of Emptiness
+  m_Name: A_R_Slip the Plane
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 6271010929343209222, guid: 4e866bae930617d4b800dbfd6ed3c392, type: 3}
-    abilityName: Armor of Emptiness
-    abilityDescription: Your body is partially unreal, making you harder to damage.
+    category: 3
+    abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
+    abilityName: Slip the Plane
+    abilityDescription: When you drop below 1 Health, Cheat Death and emit a blast
+      of Void energy in an {ES} meter diameter, then fully restore your Health. This
+      effect has a 2 Minute Cooldown, not affected by Cooldown Reduction.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -31,25 +33,21 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Armor of Emptiness
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities: []
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: a70f7a866f0ba5649a4ac16bfdd18b05, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: 23eb79c85c0cfce48ac72b335d368f4f, type: 2}
-      tier: 2
+    childAbilities:
+    - {fileID: 11400000, guid: 65c74a9db9279e64d8e35218f0fdef34, type: 2}
+    - {fileID: 11400000, guid: ce63f2ab1b3282949ad0fa3e19a6b871, type: 2}
+    runeGroupData: []
     tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 17
+    - type: 46
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -61,21 +59,58 @@ MonoBehaviour:
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
-      allConstraints: []
-    endTriggerData:
-    - type: 18
-      overrideProcStat: 0
-      procChance: 1
-      triggerDelay: 0
-      riderAbilityName: 
-      riderEffectName: 
-      triggerTimerDuration: 0
-      chainTriggerDelay: 0.1
-      delay1Frame: 0
-      autoActivateTimer: 0
-      resetTimerOnParentAbilityEnd: 0
-      resourceOrbType: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 1
+        constraintData:
+        - type: 11
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          checkPercentOfMax: 0
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
+          targetEffectName: 
+          effectDesigantion: 0
+          targetAbilityCategory: 0
+          targetEffectType: 0
+          targetStatus: 25
+          hasDotStatus: 0
+          appliedStatusType: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
+    endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -119,11 +154,17 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: bdae6d5bcd900b843a8862141081ec39, type: 2}
+    - {fileID: 11400000, guid: 6b8a58138069f494e8668f2178ac516e, type: 2}
+    - {fileID: 11400000, guid: 61a593689feb77249bd0409ecc507835, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
     windupVFX: {fileID: 0}
-    abilityStatData: []
+    abilityStatData:
+    - variant: 0
+      statName: 41
+      value: 8
+      maxValue: 0
+      minValue: 0
     recoveryData: []

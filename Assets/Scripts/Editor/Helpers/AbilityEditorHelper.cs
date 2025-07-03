@@ -468,6 +468,10 @@ public static class AbilityEditorHelper {
             case ConstraintType.HasProjectile:
                 entry.projectileToCheck = EditorHelper.ObjectField("Projectile", entry.projectileToCheck);
                 break;
+
+            case ConstraintType.DeathCheated:
+                entry.cheatDeathStatus = EditorHelper.EnumPopup("Status", entry.cheatDeathStatus);
+                break;
             default:
                 break;
         }

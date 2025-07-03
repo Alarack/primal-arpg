@@ -45,7 +45,8 @@ public enum ConstraintType {
     HasDot,
     HasProjectile,
     StatusApplied,
-    AbilityCategory
+    AbilityCategory,
+    DeathCheated
 }
 
 public enum GainedOrLost {
@@ -177,6 +178,9 @@ public class ConstraintData
 
     //Has Projectile
     public Projectile projectileToCheck;
+
+    //Death Cheated
+    public Status.StatusName cheatDeathStatus;
 
     public ConstraintData() {
 

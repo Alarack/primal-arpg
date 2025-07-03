@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Armor of Emptiness
+  m_Name: A_Restore Status
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 6271010929343209222, guid: 4e866bae930617d4b800dbfd6ed3c392, type: 3}
-    abilityName: Armor of Emptiness
-    abilityDescription: Your body is partially unreal, making you harder to damage.
+    category: 5
+    abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
+    abilityName: Slip the Plane - Restore Status
+    abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Armor of Emptiness
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -39,22 +39,16 @@ MonoBehaviour:
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: a70f7a866f0ba5649a4ac16bfdd18b05, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: 23eb79c85c0cfce48ac72b335d368f4f, type: 2}
-      tier: 2
+    runeGroupData: []
     tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 17
+    - type: 5
       overrideProcStat: 0
       procChance: 1
-      triggerDelay: 0
-      riderAbilityName: 
-      riderEffectName: 
+      triggerDelay: 120
+      riderAbilityName: Slip the Plane
+      riderEffectName: Slip the Plane - Purge Status
       triggerTimerDuration: 0
       chainTriggerDelay: 0.1
       delay1Frame: 0
@@ -62,20 +56,7 @@ MonoBehaviour:
       resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
       allConstraints: []
-    endTriggerData:
-    - type: 18
-      overrideProcStat: 0
-      procChance: 1
-      triggerDelay: 0
-      riderAbilityName: 
-      riderEffectName: 
-      triggerTimerDuration: 0
-      chainTriggerDelay: 0.1
-      delay1Frame: 0
-      autoActivateTimer: 0
-      resetTimerOnParentAbilityEnd: 0
-      resourceOrbType: 0
-      allConstraints: []
+    endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -119,7 +100,7 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: bdae6d5bcd900b843a8862141081ec39, type: 2}
+    - {fileID: 11400000, guid: dcb881addbf5210478125db57c983536, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
