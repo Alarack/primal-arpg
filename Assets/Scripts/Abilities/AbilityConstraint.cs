@@ -908,6 +908,9 @@ public class AbilityNameConstraint : AbilityConstraint {
     }
 
     public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+
+        //string name = string.IsNullOrEmpty(ability.Data.attributionName) == true ? ability.Data.abilityName : ability.Data.attributionName;
+        
         bool result = ability.Data.abilityName == data.targetAbiltyName;
 
         //Debug.Log("Result of a name check on: " + ability.Data.abilityName + " : " + result);
