@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Black Hole - Adjust Cooldown
-    effectDescription: Increases Cooldown by {}
+    effectDescription: Increases Cooldown by {} seconds.
     type: 1
     targeting: 8
     subTarget: 4
@@ -116,8 +116,8 @@ MonoBehaviour:
       m_Bits: 0
     modData:
     - targetStat: 13
-      value: 9
-      modifierType: 1
+      value: 14
+      modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 1
@@ -126,7 +126,7 @@ MonoBehaviour:
       derivedTargetStat: 0
       invertDerivedValue: 0
       scaleFromAbilityLevel: 0
-      displayAsPercent: 1
+      displayAsPercent: 0
       abilityLevelCoefficient: 1
       otherTargetAbility: 
       otherTagetEffect: 
