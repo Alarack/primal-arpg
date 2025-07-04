@@ -335,6 +335,8 @@ public class EffectZone : Entity {
 
         float roll = Random.Range(0f, 1f);
 
+        //Debug.Log("Checking Double tick for: " + parentEffect.ParentAbility.Data.abilityName);
+
         if (roll <= doubleTickStat) {
             ApplyToAllTargets();
         }
@@ -568,7 +570,9 @@ public class EffectZone : Entity {
 
         //Debug.LogWarning("An effect Zone: " + gameObject.name + " for effect: " + parentEffect.Data.effectName + " is applying to: " + otherEntity.EntityName);
 
-        Apply(otherEntity, zoneInfo.applyOnInterval);
+        bool ignoreEnterApply = zoneInfo.applyOnInterval && zoneInfo.dontTickOnEnter;
+
+        Apply(otherEntity, ignoreEnterApply);
 
     }
 
@@ -602,6 +606,7 @@ public struct EffectZoneInfo {
     public bool parentToTarget;
     public bool applyOncePerTarget;
     public bool applyOnInterval;
+    public bool dontTickOnEnter;
     public bool affectProjectiles;
 
     [Header("Collision")]

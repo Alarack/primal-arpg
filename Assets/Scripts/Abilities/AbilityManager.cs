@@ -496,6 +496,10 @@ public class AbilityManager : MonoBehaviour {
                 }
             }
         }
+
+
+        results.AddRange(GetAllRuneAbilities());
+
         return results;
     }
 
@@ -653,6 +657,18 @@ public class AbilityManager : MonoBehaviour {
         for (int i = 0; i < RuneAbilities.Count; i++) {
             if (RuneAbilities[i].Data.runeAbilityTarget == abilityName)
                 results.Add(RuneAbilities[i]);
+        }
+
+        return results;
+    }
+
+    public List<Ability> GetAllRuneAbilities() {
+        List<Ability> results = new List<Ability>();
+
+        results.AddRange(RuneAbilities);
+
+        for (int i = 0; i < RuneAbilities.Count; i++) {
+            results.AddRange(RuneAbilities[i].ChildAbilities);
         }
 
         return results;

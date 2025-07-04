@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 1
     abilityIcon: {fileID: -4844775014474123662, guid: 42efcf3d3adfdd4428724001a435c0d3, type: 3}
     abilityName: Null Implosion
-    abilityDescription: Collase the fabric of reality around you in a {ES} meter
-      diamater. Enemies killed by this Skill release a Void Bolt.
+    abilityDescription: Collapse the fabric of reality around you in a {ES} meter
+      diameter. Enemies killed by this Skill release a Void Bolt.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -31,6 +31,7 @@ MonoBehaviour:
     showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
+    nonLethal: 0
     runeAbilityTarget: 
     animationString: Attack
     waitForAnimToResolve: 1
@@ -43,6 +44,7 @@ MonoBehaviour:
     runeGroupData:
     - runes:
       - {fileID: 11400000, guid: dec05d5d4f0da28419913baf17624e03, type: 2}
+      - {fileID: 11400000, guid: ef79910e47e9e904686af1a3664a91b0, type: 2}
       tier: 1
     tags: 1700000006000000
     resetEvents: 
@@ -58,6 +60,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -79,6 +82,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -97,13 +101,17 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
       - focus: 4
         constraintData:
         - type: 7
@@ -124,6 +132,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -142,13 +151,17 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -164,6 +177,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -184,6 +198,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -235,6 +250,7 @@ MonoBehaviour:
           delay1Frame: 0
           autoActivateTimer: 0
           resetTimerOnParentAbilityEnd: 0
+          resourceOrbType: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0

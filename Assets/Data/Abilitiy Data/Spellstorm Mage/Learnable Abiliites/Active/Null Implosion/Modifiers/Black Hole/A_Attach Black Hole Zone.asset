@@ -10,20 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_R_Vestigial Essence
+  m_Name: A_Attach Black Hole Zone
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 3
+    category: 5
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
-    abilityName: Vestigial Essence
-    abilityDescription: Enemies killed by Null Implosion also Summon an Amorphous
-      Vestige.
+    abilityName: Black Hole - Attach Trigger
+    abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     ignoreOtherCasting: 0
-    includeEffectsInTooltip: 0
+    includeEffectsInTooltip: 1
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
@@ -41,10 +40,10 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 170000000c000000
+    tags: 1c000000
     resetEvents: 
     activationTriggerData:
-    - type: 2
+    - type: 29
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -70,7 +69,7 @@ MonoBehaviour:
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
-          ownerTarget: 1
+          ownerTarget: 0
           mostStatTarget: 0
           mostStatEffectName: 
           mostStatAbilityName: 
@@ -107,9 +106,7 @@ MonoBehaviour:
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
           cheatDeathStatus: 0
-      - focus: 5
-        constraintData:
-        - type: 18
+        - type: 10
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -133,7 +130,7 @@ MonoBehaviour:
           nonZero: 0
           maxStatTarget: 0
           maxStatValue: 0
-          targetEntityName: 
+          targetEntityName: Black Hole
           targetSubtype: 0
           targetPrimaryType: 0
           targetActiveAbilityName: 
@@ -143,7 +140,7 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: Null Implosion
+          targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
           targetAbilityCategory: 0
@@ -201,11 +198,21 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 3048815e184039c40bdfa1aa8dfaafab, type: 2}
+    - {fileID: 11400000, guid: 923e6eede1b070f45b5f51e3de10c1ce, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
     windupVFX: {fileID: 0}
-    abilityStatData: []
+    abilityStatData:
+    - variant: 0
+      statName: 19
+      value: 0.2
+      maxValue: 0
+      minValue: 0
+    - variant: 0
+      statName: 41
+      value: 4
+      maxValue: 0
+      minValue: 0
     recoveryData: []

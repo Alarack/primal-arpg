@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_M_Temporal Tinkerer 1
+  m_Name: A_R_Black Hole
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 21300000, guid: 29cecaec0373f8644af9cecfbc72f8f3, type: 3}
-    abilityName: Temporal Tinkerer
-    abilityDescription: 
+    category: 3
+    abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
+    abilityName: Black Hole
+    abilityDescription: Null Implosion no longer detonates around you. Instead create
+      a large, slow moving projectile that draws in enemies and projectiles,  dealing
+      damage over time to enemies within its area.
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
-    showChildAbilitiesInTooltip: 0
+    showChildAbilitiesInTooltip: 1
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
@@ -31,17 +33,18 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Null Implosion
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities: []
+    childAbilities:
+    - {fileID: 11400000, guid: e00c8eec354ddf040a9831d9abe91d0e, type: 2}
     runeGroupData: []
-    tags: 180000001a000000
-    resetEvents: 180000002f000000300000001b0000001c000000
+    tags: 
+    resetEvents: 
     activationTriggerData:
     - type: 17
       overrideProcStat: 0
@@ -55,9 +58,7 @@ MonoBehaviour:
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
-      allConstraints:
-      - focus: 1
-        constraintData: []
+      allConstraints: []
     endTriggerData:
     - type: 18
       overrideProcStat: 0
@@ -115,11 +116,13 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: a2a832811e77424478f4618514c18c71, type: 2}
+    - {fileID: 11400000, guid: a12501735528b0e47ae4ff77e0ecb6bd, type: 2}
+    - {fileID: 11400000, guid: ef8669720d4dace479b2adcebb897d56, type: 2}
+    - {fileID: 11400000, guid: 22778f8cdc7771e40bb0f0db61c0025a, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    maxRanks: 1
+    maxRanks: -1
     windupVFX: {fileID: 0}
     abilityStatData: []
     recoveryData: []

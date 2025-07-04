@@ -971,6 +971,9 @@ public static class AbilityEditorHelper {
         entry.parentToTarget = EditorGUILayout.Toggle("Parent to target", entry.parentToTarget);
         entry.applyOncePerTarget = EditorGUILayout.Toggle("Apply Once per Target", entry.applyOncePerTarget);
         entry.applyOnInterval = EditorGUILayout.Toggle("Apply on Interval", entry.applyOnInterval);
+        if(entry.applyOnInterval == true) {
+            entry.dontTickOnEnter = EditorGUILayout.Toggle("Don't tick on enter", entry.dontTickOnEnter);
+        }
         entry.affectSource = EditorGUILayout.Toggle("Affect Source?", entry.affectSource);
         entry.affectProjectiles = EditorGUILayout.Toggle("Affect Projectiles?", entry.affectProjectiles);
 

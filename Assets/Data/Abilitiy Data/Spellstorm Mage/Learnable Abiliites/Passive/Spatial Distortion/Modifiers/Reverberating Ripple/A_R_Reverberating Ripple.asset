@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_R_Vestigial Essence
+  m_Name: A_R_Reverberating Ripple
   m_EditorClassIdentifier: 
   AbilityData:
     category: 3
-    abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
-    abilityName: Vestigial Essence
-    abilityDescription: Enemies killed by Null Implosion also Summon an Amorphous
-      Vestige.
+    abilityIcon: {fileID: 0}
+    abilityName: Reverberating Ripple
+    abilityDescription: The explosion from Spatial Distortion reoccurs 1 second later.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -32,7 +31,7 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
-    runeAbilityTarget: Null Implosion
+    runeAbilityTarget: Spatial Distortion
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -41,13 +40,13 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 170000000c000000
+    tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 2
+    - type: 34
       overrideProcStat: 0
       procChance: 1
-      triggerDelay: 0
+      triggerDelay: 1
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
@@ -57,57 +56,7 @@ MonoBehaviour:
       resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
       allConstraints:
-      - focus: 1
-        constraintData:
-        - type: 4
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 1
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          checkPercentOfMax: 0
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetAbilityCategory: 0
-          targetEffectType: 0
-          targetStatus: 0
-          hasDotStatus: 0
-          appliedStatusType: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-          abilitySlot: 0
-          projectileToCheck: {fileID: 0}
-          cheatDeathStatus: 0
-      - focus: 5
+      - focus: 4
         constraintData:
         - type: 18
           inverse: 0
@@ -143,7 +92,7 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: Null Implosion
+          targetAbiltyName: Spatial Distortion
           targetEffectName: 
           effectDesigantion: 0
           targetAbilityCategory: 0
@@ -201,11 +150,16 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 3048815e184039c40bdfa1aa8dfaafab, type: 2}
+    - {fileID: 11400000, guid: ed97ff8280e35ed419fd283462f021e1, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
     windupVFX: {fileID: 0}
-    abilityStatData: []
+    abilityStatData:
+    - variant: 0
+      statName: 41
+      value: 3.5
+      maxValue: 0
+      minValue: 0
     recoveryData: []

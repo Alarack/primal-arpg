@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Temporal Distortion Damage
+  m_Name: E_Reverb Damage
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Temporal Distortion Damage
+    effectName: Distortion Damage Effect
     effectDescription: 
     type: 1
     targeting: 5
@@ -22,13 +22,13 @@ MonoBehaviour:
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 1
-    hideOverload: 1
+    hideOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
     untracked: 0
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
-    showScalers: 0
+    showScalers: 1
     scaleDamageFromTriggeringAbility: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
@@ -38,9 +38,9 @@ MonoBehaviour:
     targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
-    payloadPrefab: {fileID: 1593382238141744661, guid: 7ea58109a65594d4db277e4f466b3a7b, type: 3}
+    payloadPrefab: {fileID: 1593382238141744661, guid: 11a3168e6b5c96c4686b1cd71f5e9ae1, type: 3}
     payloadStatData: []
-    spawnLocation: 0
+    spawnLocation: 9
     spawnLocationStart: 0
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
@@ -51,17 +51,16 @@ MonoBehaviour:
     rotatePayloadTowardMouse: 0
     effectZoneInfo:
       removeEffectOnExit: 0
-      parentEffectToOrigin: 1
+      parentEffectToOrigin: 0
       parentToTarget: 0
-      applyOncePerTarget: 1
-      applyOnInterval: 1
-      dontTickOnEnter: 1
+      applyOncePerTarget: 0
+      applyOnInterval: 0
       affectProjectiles: 0
       affectSource: 0
-      spawnVFX: {fileID: 1279125013800246, guid: d25631b69b059d64385ac05f70824713, type: 3}
-      applyVFX: {fileID: 102984, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      spawnVFX: {fileID: 182802, guid: 57ac5680dabf21944b5c2d0366061eb9, type: 3}
+      applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
-      intervalVFX: {fileID: 185518, guid: 3e40be3319d142646bb5acdc695d0f62, type: 3}
+      intervalVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
