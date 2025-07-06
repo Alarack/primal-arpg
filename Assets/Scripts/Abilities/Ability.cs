@@ -973,7 +973,11 @@ public class Ability {
 
             string durationReplacment = radiusReplacement.Replace("{D}", TextHelper.ColorizeText(lifetime.ToString(), Color.yellow));
 
-            float shotCount = effects[0].Stats[StatName.ShotCount] + Source.Stats[StatName.ShotCount];
+            float shotCount = effects[0].Stats[StatName.ShotCount];
+
+            if (Tags.Contains(AbilityTag.Projectile)) {
+                shotCount += Source.Stats[StatName.ShotCount];
+            }
 
             string shotCountReplacement = durationReplacment.Replace("{SC}", TextHelper.ColorizeText(shotCount.ToString(), "Stat Bonus Color"));
 

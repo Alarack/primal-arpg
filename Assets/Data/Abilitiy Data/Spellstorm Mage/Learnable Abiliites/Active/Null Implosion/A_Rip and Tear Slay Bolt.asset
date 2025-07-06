@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Null Implosion
+  m_Name: A_Rip and Tear Slay Bolt
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 1
-    abilityIcon: {fileID: -4844775014474123662, guid: 42efcf3d3adfdd4428724001a435c0d3, type: 3}
-    abilityName: Null Implosion
-    abilityDescription: Collapse the fabric of reality around you in a {ES} meter
-      diameter. Enemies killed by this Skill release a Void Bolt.
+    category: 5
+    abilityIcon: {fileID: 0}
+    abilityName: Rip and Tear Slay Bolt
+    abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 1
+    autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
@@ -33,28 +32,18 @@ MonoBehaviour:
     scaleProcByLevel: 0
     nonLethal: 0
     runeAbilityTarget: 
-    animationString: Attack
-    waitForAnimToResolve: 1
+    animationString: 
+    waitForAnimToResolve: 0
     initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities:
-    - {fileID: 11400000, guid: b0c0c89c5d3a84c4c90a244502042869, type: 2}
-    - {fileID: 11400000, guid: bfffa5b94e3231742b2b34b61a13e4b0, type: 2}
-    - {fileID: 11400000, guid: f4da5f973c6e1c94792d8f027b8cd9a6, type: 2}
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: dec05d5d4f0da28419913baf17624e03, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: aaeb6e9f33197ed4681c85fe468bbbbf, type: 2}
-      - {fileID: 11400000, guid: ef79910e47e9e904686af1a3664a91b0, type: 2}
-      tier: 2
-    tags: 1700000006000000
+    childAbilities: []
+    runeGroupData: []
+    tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 6
+    - type: 2
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -69,7 +58,7 @@ MonoBehaviour:
       allConstraints:
       - focus: 1
         constraintData:
-        - type: 7
+        - type: 4
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -80,7 +69,7 @@ MonoBehaviour:
           minRange: 0
           maxRange: 0
           rangeToWhat: 0
-          ownerTarget: 0
+          ownerTarget: 1
           mostStatTarget: 0
           mostStatEffectName: 
           mostStatAbilityName: 
@@ -117,9 +106,9 @@ MonoBehaviour:
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
           cheatDeathStatus: 0
-      - focus: 4
+      - focus: 5
         constraintData:
-        - type: 7
+        - type: 18
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -153,7 +142,7 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: 
+          targetAbiltyName: Rip and Tear
           targetEffectName: 
           effectDesigantion: 0
           targetAbilityCategory: 0
@@ -211,55 +200,16 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: a7d49cef12062374b93006f661cd80ef, type: 2}
+    - {fileID: 11400000, guid: dd15b79a73f18d04fb9f5ebedf079f23, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
-    windupVFX: {fileID: 2850867436185079738, guid: 3d083b7a5bb635a439cf31a0cf85784f, type: 3}
+    windupVFX: {fileID: 0}
     abilityStatData:
     - variant: 0
-      statName: 46
+      statName: 44
       value: 2
       maxValue: 0
       minValue: 0
-    - variant: 0
-      statName: 41
-      value: 4
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 11
-      value: 0.1
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 50
-      value: 0.2
-      maxValue: 0
-      minValue: 0
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          overrideProcStat: 0
-          procChance: 1
-          triggerDelay: 0
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          chainTriggerDelay: 0.1
-          delay1Frame: 0
-          autoActivateTimer: 0
-          resetTimerOnParentAbilityEnd: 0
-          resourceOrbType: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        reduceTriggerCountByAbilityLevel: 0
-        minTriggerCount: 0
-      cooldown: 1
+    recoveryData: []
