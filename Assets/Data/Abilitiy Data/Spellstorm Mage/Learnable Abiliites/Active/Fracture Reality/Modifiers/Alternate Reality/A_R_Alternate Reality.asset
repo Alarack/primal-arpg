@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_R_Volatile Bolts
+  m_Name: A_R_Alternate Reality
   m_EditorClassIdentifier: 
   AbilityData:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
-    abilityName: Collapsing Potential
-    abilityDescription: Void Bolts created from Fracture Reality now cause damage
-      in a {ES} diameter radius.
+    abilityName: Alternate Reality
+    abilityDescription: 'Fracture Reality now releases Arcane Missiles instead of
+      Void Bolts. It counts as Arcane instead of Void. Additionally, it triggers
+      your Arcane Missiles Skill an extra time. '
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -39,10 +40,9 @@ MonoBehaviour:
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities:
-    - {fileID: 11400000, guid: 24fc25febcbcd18408f190ae7d312358, type: 2}
+    childAbilities: []
     runeGroupData: []
-    tags: 0e00000017000000
+    tags: 16000000
     resetEvents: 
     activationTriggerData:
     - type: 17
@@ -119,18 +119,15 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 5a9b442de2b1c2c4ca404cff6a1f210d, type: 2}
-    - {fileID: 11400000, guid: 2c11fc5d6eda3834bbff9e0dec4f1cae, type: 2}
-    - {fileID: 11400000, guid: bb09de56cb8493c40a1ed89c3430f4e9, type: 2}
+    - {fileID: 11400000, guid: 1561744380e82014297f873c1ecb2150, type: 2}
+    - {fileID: 11400000, guid: b24393e0d92d38c43b0631e1b803e387, type: 2}
+    - {fileID: 11400000, guid: 485474791ebcf33488596a687f94a2c3, type: 2}
+    - {fileID: 11400000, guid: 8e7b966795e10b041b99e47a04485a64, type: 2}
+    - {fileID: 11400000, guid: 5592bf778f985d3499ec332e18729610, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
     windupVFX: {fileID: 0}
-    abilityStatData:
-    - variant: 0
-      statName: 41
-      value: 5
-      maxValue: 0
-      minValue: 0
+    abilityStatData: []
     recoveryData: []

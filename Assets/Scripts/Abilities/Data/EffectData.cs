@@ -327,6 +327,18 @@ public class EffectData
         return -1f;
     }
 
+    public bool EntityTargeting() {
+
+        if(targeting == EffectTarget.Trigger) return true;
+        if (targeting == EffectTarget.Cause) return true;
+        if (targeting == EffectTarget.Source) return true;
+        if (targeting == EffectTarget.LogicSelected) return true;
+
+
+
+        return false;
+    }
+
 }
 
 [System.Serializable]

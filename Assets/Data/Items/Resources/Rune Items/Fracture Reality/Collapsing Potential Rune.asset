@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb218371f189734dbac08d9430eed8b, type: 3}
-  m_Name: Temporal Anomaly Rune
+  m_Name: Collapsing Potential Rune
   m_EditorClassIdentifier: 
   devItem: 0
   startingItem: 0
@@ -18,7 +18,7 @@ MonoBehaviour:
     Type: 2
     affixStatTarget: 1
     entityClass: 0
-    itemName: Temporal Anomaly Rune
+    itemName: Collapsing Potential
     itemDescription: 
     secondaryDescription: 
     itemValue: 200
@@ -26,9 +26,9 @@ MonoBehaviour:
     validSlots: 0e000000
     abilityTags: 
     targetedAbilityName: 
-    itemIcon: {fileID: 21300000, guid: 065a64940d8e6bf498e40caeb780ba0b, type: 3}
+    itemIcon: {fileID: 21300000, guid: 50343d7a9a9b5ec4db39a865b0b897f5, type: 3}
     invertIcon: 0
-    pickupIcon: {fileID: 21300000, guid: 065a64940d8e6bf498e40caeb780ba0b, type: 3}
+    pickupIcon: {fileID: 21300000, guid: 50343d7a9a9b5ec4db39a865b0b897f5, type: 3}
     pickupOnCollision: 1
     tier: 0
     baseAffixSlots: 2
@@ -36,7 +36,7 @@ MonoBehaviour:
     maxDamage: 0
     statModifierData: []
     abilityDefinitions:
-    - {fileID: 11400000, guid: 09a01967c4f7b924ebcc9354a5d6904a, type: 2}
+    - {fileID: 11400000, guid: 724743464c9536d4f9bb9e4de97211ac, type: 2}
     learnableAbilities: []
     classPreviewAbilities: []
     startingItemOptions: []

@@ -770,7 +770,11 @@ public static class AbilityEditorHelper {
                 break;
 
             case EffectType.ActivateOtherAbility:
-                entry.nameOfAbilityToActivate = EditorGUILayout.TextField("Ability Name", entry.nameOfAbilityToActivate);
+                
+                if(entry.EntityTargeting() == true) {
+                    entry.nameOfAbilityToActivate = EditorGUILayout.TextField("Ability Name", entry.nameOfAbilityToActivate);
+                }
+
                 entry.forceActivateRespectCooldown = EditorGUILayout.Toggle("Respect Cooldown", entry.forceActivateRespectCooldown);
                 break;
 

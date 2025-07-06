@@ -13,21 +13,30 @@ MonoBehaviour:
   m_Name: Stationary Breach Rune
   m_EditorClassIdentifier: 
   devItem: 0
+  startingItem: 0
   itemData:
     Type: 2
+    affixStatTarget: 1
     entityClass: 0
     itemName: Stationary Breach Rune
     itemDescription: 
+    secondaryDescription: 
     itemValue: 200
     runeAbilityTarget: Fracture Reality
     validSlots: 0e000000
     abilityTags: 
-    itemIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
-    pickupIcon: {fileID: 21300000, guid: fb62fa6b64769d5429428f110784dbc3, type: 3}
+    targetedAbilityName: 
+    itemIcon: {fileID: 21300000, guid: ef87235250d382b4ba3b2c1bc0066e38, type: 3}
+    invertIcon: 0
+    pickupIcon: {fileID: 21300000, guid: ef87235250d382b4ba3b2c1bc0066e38, type: 3}
     pickupOnCollision: 1
+    tier: 0
+    baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
     statModifierData: []
     abilityDefinitions:
     - {fileID: 11400000, guid: aceee6addafe1284e829f0b2d7fd3deb, type: 2}
     learnableAbilities: []
+    classPreviewAbilities: []
+    startingItemOptions: []
