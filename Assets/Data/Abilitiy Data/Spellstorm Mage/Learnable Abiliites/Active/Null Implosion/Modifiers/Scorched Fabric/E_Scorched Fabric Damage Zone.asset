@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Rip and Tear Damage
+  m_Name: E_Scorched Fabric Damage Zone
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Rip and Tear Damage
+    effectName: Scorched Fabric Damage Zone
     effectDescription: 
     type: 1
     targeting: 5
@@ -22,7 +22,7 @@ MonoBehaviour:
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 1
-    hideOverload: 0
+    hideOverload: 1
     canAffectDeadTargets: 0
     nonStacking: 0
     untracked: 0
@@ -38,29 +38,29 @@ MonoBehaviour:
     targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
-    payloadPrefab: {fileID: 1593382238141744661, guid: 680f5a5a878dd4e4187f6f960e402f9e, type: 3}
+    payloadPrefab: {fileID: 1593382238141744661, guid: 2ead0386a298ba34fb40e310ee513722, type: 3}
     payloadStatData: []
-    spawnLocation: 0
+    spawnLocation: 9
     spawnLocationStart: 0
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
-    offsetSpawnLocation: 1
-    offsetSpawnLocationMin: {x: -3, y: -3}
-    offsetSpawnLocationMax: {x: 3, y: 3}
+    offsetSpawnLocation: 0
+    offsetSpawnLocationMin: {x: 0, y: 0}
+    offsetSpawnLocationMax: {x: 0, y: 0}
     rotatePayloadTowardMouse: 0
     effectZoneInfo:
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
       parentToTarget: 0
-      applyOncePerTarget: 1
-      applyOnInterval: 0
+      applyOncePerTarget: 0
+      applyOnInterval: 1
       dontTickOnEnter: 0
       affectProjectiles: 0
       affectSource: 0
-      spawnVFX: {fileID: 133642, guid: 721ed883392764d42a3957861e7752c0, type: 3}
+      spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
-      deathVFX: {fileID: 0}
+      deathVFX: {fileID: 1091416279739030, guid: fde1a3f6ce1c3f54d9ad340f91e02ea4, type: 3}
       intervalVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
@@ -85,7 +85,7 @@ MonoBehaviour:
       scalers:
       - targetStat: 28
         deriveTarget: 15
-        statScaleBaseValue: 1.5
+        statScaleBaseValue: 0.5
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 0, g: 1, b: 1, a: 1}
@@ -150,17 +150,7 @@ MonoBehaviour:
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     statusModifiers: []
-    statusToAdd:
-    - statusName: 2
-      stackMethod: 0
-      maxStacks: 1
-      initialStackCount: 1
-      duration: 0
-      interval: 0
-      VFXPrefab: {fileID: 119216, guid: e85f4a610ef9e5b4aa9cedce76136489, type: 3}
-      statusSprite: {fileID: 0}
-      vfxScaleModifier: 1
-      statusEffectDef: {fileID: 11400000, guid: ae3fa78b601019141947284a77d11381, type: 2}
+    statusToAdd: []
     statusToRemove: 
     statusPurgeExceptions: 
     removeAllDotStatus: 0

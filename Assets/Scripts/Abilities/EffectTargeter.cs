@@ -552,7 +552,8 @@ public class EffectTargeter {
         float baseShotCount = parentEffect.Stats[StatName.ShotCount];
 
         if(baseShotCount == 0) {
-            Debug.LogError("Shot Count of 0 on " + parentEffect.Data.effectName + " add a Shot Count Stat to it or its parent ability");
+            Debug.LogWarning("Shot Count of 0 on " + parentEffect.Data.effectName + "Defaulting to 1. Add a Shot Count Stat to it or its parent ability");
+            baseShotCount = 1;
         }
 
         float totalShots = baseShotCount;
