@@ -272,14 +272,14 @@ public static class StatAdjustmentManager {
         //    }
         //}
 
-        //if (targetStat == StatName.GlobalMoveSpeedModifier || targetStat == StatName.CooldownReduction) {
-        //    Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
+        if (targetStat == StatName.Armor) {
+            Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
 
-        //    if (sourceAbility != null) {
-        //        Debug.Log("From: " + sourceAbility.Data.abilityName);
-        //    }
-        //    //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
-        //}
+            if (sourceAbility != null) {
+                Debug.Log("From: " + sourceAbility.Data.abilityName);
+            }
+            //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
+        }
 
         //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
 

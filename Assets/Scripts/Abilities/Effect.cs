@@ -264,6 +264,16 @@ public abstract class Effect {
         targeter.Apply();
     }
 
+    public void ReapplyWithPreviousActivation() {
+        if (currentTriggerInstance != null) {
+            ReceiveStartActivationInstance(currentTriggerInstance);
+        }
+        else {
+            Debug.LogError("No current trigger instnace for: " + Data.effectName);
+            targeter.Apply();
+        }
+    }
+
     public void RecieveEndActivationInstance(TriggerInstance endInstance) {
         RemoveFromAllTargets();
     }
@@ -2185,7 +2195,12 @@ public class AddEffectEffect : Effect {
             target.AddEffect(newEffect);
             TrackEffectsOnAbility(target, newEffect);
 
+            if(target.IsEquipped == true && Data.forceReactiveParentAbility == true) {
+                target.ForceActivate();
+            }
+
         }
+
 
         return true;
     }
@@ -2213,7 +2228,12 @@ public class AddEffectEffect : Effect {
 
         if (abilityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
             for (int i = 0; i < effectsAdded.Count; i++) {
+
+                if(target.IsEquipped == true)
+                    effectsAdded[i].RecieveEndActivationInstance(null);
+
                 target.RemoveEffect(effectsAdded[i]);
+                
             }
 
             abilityTrackedEffects.Remove(target);
@@ -2320,6 +2340,8 @@ public class RemoveEffectEffect : Effect {
                 continue;
             }
 
+            targetEffect.RecieveEndActivationInstance(null);
+
             target.RemoveEffect(targetEffect);
             TrackEffectsOnAbility(target, targetEffect);
         }
@@ -2351,6 +2373,8 @@ public class RemoveEffectEffect : Effect {
         if (abilityTrackedEffects.TryGetValue(target, out List<Effect> effectsRemoved) == true) {
             for (int i = 0; i < effectsRemoved.Count; i++) {
                 target.AddEffect(effectsRemoved[i]);
+
+                effectsRemoved[i].ReapplyWithPreviousActivation();
             }
 
             abilityTrackedEffects.Remove(target);
@@ -4008,8 +4032,11 @@ public class StatAdjustmentEffect : Effect {
 
         float targetArmor = target.Stats[StatName.Armor];
 
-        if (targetArmor == 0f) {
-            return incomingDamage;
+        if (targetArmor <= 0f) {
+
+            float negativeArmor = 1 - targetArmor;
+            
+            return incomingDamage * negativeArmor;
         }
 
         float softCap = targetArmor;

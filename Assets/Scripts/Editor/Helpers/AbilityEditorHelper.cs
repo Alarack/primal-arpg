@@ -715,12 +715,14 @@ public static class AbilityEditorHelper {
                 EditorGUILayout.LabelField("Effects to Add: ", EditorStyles.boldLabel);
                 entry.effectsToAdd = EditorHelper.DrawList("Child Effects", entry.effectsToAdd, null, DrawEffectDefinitionList);
 
+                entry.forceReactiveParentAbility = EditorGUILayout.Toggle("Force Reactivate", entry.forceReactiveParentAbility);
+
                 break;
 
             case EffectType.RemoveEffect:
 
                 if (entry.subTarget == EffectSubTarget.Entity) {
-                    entry.targetAbilityToRemoveEffectsFrom = EditorGUILayout.TextField("Target Ability", entry.targetAbilityToAddEffectsTo);
+                    entry.targetAbilityToRemoveEffectsFrom = EditorGUILayout.TextField("Target Ability", entry.targetAbilityToRemoveEffectsFrom);
                 }
                 //entry.hideTooltip = EditorGUILayout.Toggle("Hide Tooltip", entry.hideTooltip);
                 EditorGUILayout.LabelField("Effects to Remove: ", EditorStyles.boldLabel);

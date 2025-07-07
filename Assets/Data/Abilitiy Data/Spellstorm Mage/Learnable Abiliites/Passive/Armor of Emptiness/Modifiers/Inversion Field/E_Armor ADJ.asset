@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: E_Armor ADJ
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Armor of Emptiness - Armor ADJ
-    effectDescription: 'Increase Armor by: {}'
+    effectName: Inversion Field - Armor ADJ
+    effectDescription: 'Reduce Armor by: {}'
     type: 1
     targeting: 1
     subTarget: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Bits: 0
     modData:
     - targetStat: 67
-      value: 0.15
+      value: -0.2
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0

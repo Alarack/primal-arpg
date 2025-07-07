@@ -211,6 +211,7 @@ public class EffectData
     //Add Effect
     public List<EffectDefinition> effectsToAdd = new List<EffectDefinition>();
     public string targetAbilityToAddEffectsTo;
+    public bool forceReactiveParentAbility;
 
     //Add Rider Effect
     public List<EffectDefinition> ridersToAdd = new List<EffectDefinition>();
