@@ -52,6 +52,24 @@ public class NPC : Entity
         }
     }
 
+    protected override void OnEnable() {
+        base.OnEnable();
+
+        if (Stats.Contains(StatName.NPCLifetime)) {
+            Stats.AddStatListener(StatName.NPCLifetime, OnLifetimeChanged);
+        }
+
+
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        if (Stats.Contains(StatName.NPCLifetime)) {
+            Stats.RemoveStatListener(StatName.NPCLifetime, OnLifetimeChanged);
+        }
+    }
+
 
 
     protected override void Update() {
@@ -172,6 +190,11 @@ public class NPC : Entity
 
     private void SelfDestruct(EventData data) {
         ForceDie(this);
+    }
+
+    private void OnLifetimeChanged(BaseStat stat, object source, float value) {
+        selfDestructTimer.SetDuration(Stats[StatName.NPCLifetime]);
+        selfDestructTimer.ResetTimer();
     }
 
     protected override void Die(Entity source, Ability sourceAbility = null)
