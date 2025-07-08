@@ -17,7 +17,7 @@ MonoBehaviour:
     abilityIcon: {fileID: -5964658899659097264, guid: f144f869e2e085f49aad85800a0fd63e, type: 3}
     abilityName: Stream of Stars
     abilityDescription: Conjure {SC} stars evey {CI} seconds as you channel. Each
-      star hoves for 1 second before it launches.
+      star hovers for 1 second before it launches.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -31,6 +31,7 @@ MonoBehaviour:
     showProcChanceOnOtherSkills: 0
     startingAbility: 1
     scaleProcByLevel: 0
+    nonLethal: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -59,6 +60,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -80,6 +82,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -98,14 +101,17 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
           appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
       - focus: 4
         constraintData:
         - type: 7
@@ -126,6 +132,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -144,14 +151,17 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
           appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
     endTriggerData:
     - type: 32
       overrideProcStat: 0
@@ -164,6 +174,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -185,6 +196,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -203,14 +215,17 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
           appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
       - focus: 4
         constraintData:
         - type: 7
@@ -231,6 +246,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -249,14 +265,17 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
           appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -271,6 +290,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -291,6 +311,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -352,10 +373,11 @@ MonoBehaviour:
           delay1Frame: 0
           autoActivateTimer: 0
           resetTimerOnParentAbilityEnd: 0
+          resourceOrbType: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0
         requireMultipleTriggers: 0
         reduceTriggerCountByAbilityLevel: 0
         minTriggerCount: 0
-      cooldown: 0.5
+      cooldown: 1.25

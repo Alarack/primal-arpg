@@ -136,9 +136,9 @@ public static class TargetUtilities
     #endregion
 
 
-    public static void RotateToNearestTarget(Collider2D initialTarget, Entity self, float radius, LayerMask mask, bool resetVelocity = true) {
+    public static bool RotateToNearestTarget(Collider2D initialTarget, Entity self, float radius, LayerMask mask, bool resetVelocity = true, bool ignoreObsticals = false) {
 
-        Entity nearest = FindNearestTarget(initialTarget, self.transform.position, radius, mask);
+        Entity nearest = FindNearestTarget(initialTarget, self.transform.position, radius, mask, ignoreObsticals);
 
         if(nearest != null) {
             self.transform.rotation = GetRotationTowardTarget(nearest.transform, self.transform);
@@ -146,12 +146,16 @@ public static class TargetUtilities
             if(resetVelocity == true) {
                 self.Movement.MyBody.linearVelocity = Vector2.zero;
             }
+
+            return true;
         }
+
+        return false;
 
     }
 
-    public static bool RotateToRandomNearbyTarget(Collider2D initialTarget, Entity self, float radius, LayerMask mask, bool resetVelocity = true) {
-        Entity randomNearby = GetRandomNearbyEntity(initialTarget, self.transform.position, radius, mask);
+    public static bool RotateToRandomNearbyTarget(Collider2D initialTarget, Entity self, float radius, LayerMask mask, bool resetVelocity = true, bool ignoreObsticals = true) {
+        Entity randomNearby = GetRandomNearbyEntity(initialTarget, self.transform.position, radius, mask, ignoreObsticals);
 
         if(randomNearby != null) {
             self.transform.rotation = GetRotationTowardTarget(randomNearby.transform, self.transform);
@@ -165,12 +169,9 @@ public static class TargetUtilities
 
 
         return false;
-        //else {
-        //    Debug.LogWarning("Nothing nearby in range");
-        //}
     }
 
-    public static Entity FindNearestTarget(Collider2D initialTarget, Vector2 myPosition, float radius, LayerMask mask) {
+    public static Entity FindNearestTarget(Collider2D initialTarget, Vector2 myPosition, float radius, LayerMask mask, bool ignoreObsticals = false) {
         List<Collider2D> nearbyColliders = Physics2D.OverlapCircleAll(myPosition, radius, mask).ToList();
 
         nearbyColliders.RemoveIfContains(initialTarget);
@@ -178,12 +179,28 @@ public static class TargetUtilities
         Entity closest = null;
         float closestDistance = float.MaxValue;
 
+        List<Collider2D> obsticals = new List<Collider2D>();
         for (int i = 0; i < nearbyColliders.Count; i++) {
+            
+            if(ignoreObsticals == true) {
+                if (nearbyColliders[i].HasSubtype(Entity.EntitySubtype.Obstical) == true) {
+                    obsticals.Add(nearbyColliders[i]);
+                    continue;
+                }
+            }
+            
+            
             float distance = Vector2.Distance(myPosition, nearbyColliders[i].transform.position);
             if(distance < closestDistance) {
                 closestDistance = distance;
                 closest = nearbyColliders[i].GetComponent<Entity>();
             }
+        }
+
+
+        if (closest == null && obsticals.Count > 0) {
+            obsticals.Shuffle();
+            return obsticals[0].GetComponent<Entity>();
         }
 
         return closest;
@@ -211,13 +228,33 @@ public static class TargetUtilities
         return closest;
     }
 
-    public static Entity GetRandomNearbyEntity(Collider2D initialTarget, Vector2 myPosition, float radius, LayerMask mask) {
+    public static Entity GetRandomNearbyEntity(Collider2D initialTarget, Vector2 myPosition, float radius, LayerMask mask, bool ignoreObsticals = false) {
+        
+
         List<Collider2D> nearbyColliders = Physics2D.OverlapCircleAll(myPosition, radius, mask).ToList();
 
         nearbyColliders.RemoveIfContains(initialTarget);
 
         if (nearbyColliders.Count == 0)
             return null;
+
+
+        List<Entity> obsticals = new List<Entity>();
+
+        if(ignoreObsticals == true) {
+            for (int i = nearbyColliders.Count - 1; i >= 0; i--) {
+                if(nearbyColliders[i].HasSubtype(Entity.EntitySubtype.Orbital) == true) {
+                    obsticals.Add(nearbyColliders[i].GetComponent<Entity>());
+                    nearbyColliders.RemoveAt(i);
+                }
+            }
+        }
+
+
+        if (nearbyColliders.Count == 0 && obsticals.Count > 0) {
+            return obsticals[0];
+        }
+
 
         int randomindex = Random.Range(0, nearbyColliders.Count);
 

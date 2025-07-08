@@ -530,7 +530,7 @@ public class Projectile : Entity {
 
         float chainRadius = ParentEffect.Stats[StatName.EffectRange] > 0 ? ParentEffect.Stats[StatName.EffectRange] : this.chainRadius;
 
-        bool targetInRange = TargetUtilities.RotateToRandomNearbyTarget(recentHit, this, chainRadius, chainMask, true);
+        bool targetInRange = TargetUtilities.RotateToNearestTarget(recentHit, this, chainRadius, chainMask, true, true);
 
         if (targetInRange == false)
             return false;
