@@ -22,6 +22,7 @@ public class Projectile : Entity {
     [Header("Layer Masks")]
     public LayerMask chainMask;
     public LayerMask projectileHitMask;
+    public LayerMask reboundMask;
 
     [Header("Split Options")]
     public bool cloneSelfOnSplit;
@@ -58,14 +59,15 @@ public class Projectile : Entity {
             Stats.AddStat(new SimpleStat(StatName.ProjectileSize, 1f));
         }
 
+        reboundMask = LayerTools.AddToMask(reboundMask, LayerMask.NameToLayer("Environment"));
 
         myCollider = GetComponent<Collider2D>();
 
-        if(varyInitalSpeed == true) {
+        if (varyInitalSpeed == true) {
             float speedVariance = UnityEngine.Random.Range(-0.1f, 0.1f);
             Stats.AddModifier(StatName.MoveSpeed, speedVariance, StatModType.PercentAdd, this);
         }
-       
+
         //Debug.Log("Projectile: " + EntityName + " has an initial speed of: " + Stats[StatName.MoveSpeed].ToString());
 
         killTimer = new Task(KillAfterLifetime());
@@ -76,7 +78,7 @@ public class Projectile : Entity {
         base.OnEnable();
 
         Stats.AddStatListener(StatName.ProjectileSize, OnSizeChanged);
-        if(Stats.Contains(StatName.ProjectileSplitCount) == true)
+        if (Stats.Contains(StatName.ProjectileSplitCount) == true)
             Stats.AddStatListener(StatName.ProjectileSplitCount, OnSplitChanged);
     }
 
@@ -94,7 +96,7 @@ public class Projectile : Entity {
     }
 
     private void OnSplitChanged(BaseStat stat, object source, float value) {
-        if(value < 0f) 
+        if (value < 0f)
             return;
 
         if (Stats[StatName.ProjectileSplitQuantity] <= 0f) {
@@ -110,23 +112,22 @@ public class Projectile : Entity {
         SetupCollisionIgnore(source.GetComponent<Collider2D>());
     }
 
-    public void Setup(Entity source, Effect parentEffect, LayerMask hitMask, MaskTargeting maskTargeting = MaskTargeting.Opposite, bool isSplitChild = false) {
+    public void Setup(Entity source, Effect parentEffect, LayerMask hitMask, MaskTargeting maskTargeting = MaskTargeting.Opposite) {
         this.Source = source;
         this.ParentEffect = parentEffect;
         this.projectileHitMask = hitMask;
         this.parentLayer = parentEffect.Source.gameObject.layer;
         this.ownerType = source.ownerType;
-        this.isSplitChild = isSplitChild;
 
         //Stats.SetParentCollection(parentEffect.ParentAbility.Stats);
         //SetupHitMask();
         projectileHitMask = LayerTools.SetupHitMask(projectileHitMask, source.gameObject.layer, maskTargeting);
 
         ProjectileMovement move = Movement as ProjectileMovement;
-        if(move != null) {
+        if (move != null) {
             move.SetSeekMask(source.gameObject.layer, maskTargeting);
         }
- 
+
         //projectileHitMask = LayerTools.AddToMask(projectileHitMask, LayerMask.NameToLayer("Environment"));
         StartCoroutine(DelayEnvironmentMask());
 
@@ -165,50 +166,50 @@ public class Projectile : Entity {
         float ownerChain = Source.Stats[StatName.ProjectileChainCount] /*+ ParentEffect.Stats[StatName.ProjectileChainCount]*/;
         float ownerSplit = Source.Stats[StatName.ProjectileSplitCount] /*+ ParentEffect.Stats[StatName.ProjectileSplitCount]*/;
         float splitAmount = Source.Stats[StatName.ProjectileSplitQuantity] /*+ ParentEffect.Stats[StatName.ProjectileSplitQuantity]*/;
-        if(ownerPierce > 0) {
-            if(Stats.Contains(StatName.ProjectilePierceCount) == false) {
+        if (ownerPierce > 0) {
+            if (Stats.Contains(StatName.ProjectilePierceCount) == false) {
                 Stats.AddStat(new SimpleStat(StatName.ProjectilePierceCount, 0));
             }
             Stats.AddModifier(StatName.ProjectilePierceCount, ownerPierce, StatModType.Flat, Source);
-        } 
-            
+        }
+
         if (ownerChain > 0) {
             if (Stats.Contains(StatName.ProjectileChainCount) == false) {
                 Stats.AddStat(new SimpleStat(StatName.ProjectileChainCount, 0));
             }
             Stats.AddModifier(StatName.ProjectileChainCount, ownerChain, StatModType.Flat, Source);
         }
-            
+
         if (ownerSplit > 0) {
             if (Stats.Contains(StatName.ProjectileSplitCount) == false) {
                 Stats.AddStat(new SimpleStat(StatName.ProjectileSplitCount, 0));
             }
             Stats.AddModifier(StatName.ProjectileSplitCount, ownerSplit, StatModType.Flat, Source);
         }
-            
+
         if (splitAmount > 0) {
             if (Stats.Contains(StatName.ProjectileSplitQuantity) == false) {
                 Stats.AddStat(new SimpleStat(StatName.ProjectileSplitQuantity, 0));
             }
             Stats.AddModifier(StatName.ProjectileSplitQuantity, splitAmount, StatModType.Flat, Source);
         }
-            
+
         float splitQuantity = Source.Stats[StatName.ProjectileSplitQuantity];
-        if (Stats[StatName.ProjectileSplitCount] > 0 && Stats[StatName.ProjectileSplitQuantity] <=0)
+        if (Stats[StatName.ProjectileSplitCount] > 0 && Stats[StatName.ProjectileSplitQuantity] <= 0)
             Stats.AddModifier(StatName.ProjectileSplitQuantity, 2 + splitQuantity, StatModType.Flat, Source);
 
 
         float parentRotationSpeed = ParentEffect.ParentAbility.Stats[StatName.RotationSpeed];
         if (ParentEffect.ParentAbility.Stats[StatName.RotationSpeed] > 0) {
-            if(Stats.Contains(StatName.RotationSpeed) == false)
+            if (Stats.Contains(StatName.RotationSpeed) == false)
                 Stats.AddStat(new SimpleStat(StatName.RotationSpeed, 0));
-            
+
             Stats.AddModifier(StatName.RotationSpeed, parentRotationSpeed, StatModType.Flat, Source);
         }
 
         if (convertPierceToChain == true)
             ConvertPierceToChain();
-            
+
 
         //Debug.Log("Projectile: " + EntityName + " has " + Stats[StatName.ProjectileChainCount] + " Chain count");
         //Debug.Log("Owner and effect chain combined: " + ownerChain);
@@ -293,7 +294,7 @@ public class Projectile : Entity {
     private void SetupCollisionIgnore(Collider2D ownerCollider) {
         if (ownerCollider == null)
             return;
-        
+
         Physics2D.IgnoreCollision(ownerCollider, myCollider);
     }
 
@@ -334,7 +335,7 @@ public class Projectile : Entity {
     }
 
     private void ApplyEffectDirectly(Entity target, Effect effect) {
-        if (target == null) 
+        if (target == null)
             return;
 
         bool applied = effect.Apply(target);
@@ -352,10 +353,10 @@ public class Projectile : Entity {
         if (layer != "Environment") {
 
             HandleProjectileSplit(other);
-            
+
             bool successfulPierce = HandleProjectilePierce(other);
             bool successfulChain = HandleProjectileChain(other);
-            if(successfulPierce == false && successfulChain == false) {
+            if (successfulPierce == false && successfulChain == false) {
                 StartCleanUp();
                 return;
             }
@@ -368,6 +369,11 @@ public class Projectile : Entity {
                 return;
             }
         }
+
+        bool successfulRebound = HandleProjectileRebound();
+        if (successfulRebound == true)
+            return;
+
 
         StartCleanUp();
     }
@@ -405,7 +411,7 @@ public class Projectile : Entity {
         EffectZone activeZone = Instantiate(ParentEffect.EffectZonePrefab, transform.position, Quaternion.identity);
         activeZone.Stats.AddMissingStats(ParentEffect.Stats);
         activeZone.Setup(ParentEffect, ParentEffect.ZoneInfo, null, this, parentLayer, ParentEffect.Data.maskTargeting);
-        if(additionalEffects.Count > 0) {
+        if (additionalEffects.Count > 0) {
             activeZone.AddAdditionalEffect(additionalEffects);
         }
     }
@@ -444,7 +450,7 @@ public class Projectile : Entity {
     public void CloneProjectile(Entity ignoreTarget = null) {
         Projectile child = Instantiate(gameObject, transform.position, transform.rotation).GetComponent<Projectile>();
         child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting);
-        child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
+        //child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
 
         if (ignoreTarget != null) {
             Collider2D recentHit = ignoreTarget.GetComponent<Collider2D>();
@@ -454,15 +460,42 @@ public class Projectile : Entity {
     }
     public void ForceProjectileSplit(Entity ignoreTarget = null) {
         Projectile child = Instantiate(ParentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
-        child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting, true);
-        child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
+        child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting);
+        child.subtypes.Add(EntitySubtype.ChildProjectile);
+        //child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
 
         if (ignoreTarget != null) {
             Collider2D recentHit = ignoreTarget.GetComponent<Collider2D>();
             child.SetupChildCollision(recentHit);
             TargetUtilities.RotateToRandomNearbyTarget(recentHit, child, chainRadius, chainMask, true);
         }
-        
+
+    }
+
+
+    private bool HandleProjectileRebound() {
+
+        if (Stats[StatName.ProjectileReboundCount] < 1f)
+            return false;
+
+        Stats.AddModifier(StatName.ProjectileReboundCount, -1f, StatModType.Flat, this);
+
+        Vector2 velocity = Movement.MyBody.linearVelocity.normalized;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, velocity, 1f, reboundMask);
+        if (hit.collider != null) {
+            // Reflect the velocity based on the surface normal
+            Vector2 reflectedVelocity = Vector2.Reflect(Movement.MyBody.linearVelocity, hit.normal);
+            Movement.MyBody.linearVelocity = reflectedVelocity;
+
+            // Optional: Rotate the object to face the new direction
+            float angle = (Mathf.Atan2(reflectedVelocity.y, reflectedVelocity.x) * Mathf.Rad2Deg) -90f;
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+            return true;
+        }
+
+        return false;
+
     }
 
     private bool HandleProjectileSplit(Collider2D recentHit) {
@@ -471,7 +504,7 @@ public class Projectile : Entity {
             return false;
         }
 
-        if (isSplitChild == true)
+        if (subtypes.Contains(EntitySubtype.ChildProjectile) == true)
             return false;
 
         Stats.AddModifier(StatName.ProjectileSplitCount, -1, StatModType.Flat, this);
@@ -481,13 +514,14 @@ public class Projectile : Entity {
 
         for (int i = 0; i < Stats[StatName.ProjectileSplitQuantity]; i++) {
 
-            if(i.IsOdd() == true) {
+            if (i.IsOdd() == true) {
                 perpendicular = -perpendicular;
             }
 
             if (cloneSelfOnSplit == true) {
                 Projectile child = Instantiate(ParentEffect.PayloadPrefab, transform.position, transform.rotation) as Projectile;
-                child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting, true);
+                child.Setup(Source, ParentEffect, projectileHitMask, ParentEffect.Data.maskTargeting);
+                child.subtypes.Add(EntitySubtype.ChildProjectile);
                 child.SetupChildCollision(recentHit);
                 //child.Stats.SetStatValue(StatName.ProjectileSplitCount, childSplitCount, this);
                 child.transform.localScale *= 0.8f;
@@ -534,12 +568,12 @@ public class Projectile : Entity {
 
         if (targetInRange == false)
             return false;
-        
-        
+
+
         Entity otherEntity = recentHit.GetComponent<Entity>();
         new Task(SendChainEvent(otherEntity));
 
-        if(killTimer != null && killTimer.Running == true) {
+        if (killTimer != null && killTimer.Running == true) {
             killTimer.Stop();
             killTimer = new Task(KillAfterLifetime());
         }
@@ -577,10 +611,10 @@ public class Projectile : Entity {
 
         //Debug.Log(baseLifetime + " " + globalModifier + " " + lifeTimer);  
 
-        if(lifeTimer <= 0f) {
+        if (lifeTimer <= 0f) {
             Debug.LogError(EntityName + " has a 0 or less lifetime");
         }
-        
+
         WaitForSeconds waiter = new WaitForSeconds(lifeTimer);
         yield return waiter;
 

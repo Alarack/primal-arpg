@@ -29,7 +29,8 @@ public abstract class Entity : MonoBehaviour {
         Orbital,
         Obstical,
         Buffer,
-        Vestige
+        Vestige,
+        ChildProjectile
     }
 
     public enum EntityClass {

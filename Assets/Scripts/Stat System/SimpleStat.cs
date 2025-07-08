@@ -105,7 +105,8 @@ public enum StatName
     EssenceOrbValue,
     HealthOrbChance,
     EssenceOrbChance,
-    CheatDeath
+    CheatDeath,
+    ProjectileReboundCount
 
 
 }

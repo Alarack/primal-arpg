@@ -10526,11 +10526,16 @@ MonoBehaviour:
   projectileHitMask:
     serializedVersion: 2
     m_Bits: 0
+  reboundMask:
+    serializedVersion: 2
+    m_Bits: 0
   cloneSelfOnSplit: 1
   childSplitCount: 0
   splitPrefab: {fileID: 0}
+  rebound: 1
   smoothScaleSpeed: 10
   varyInitalSpeed: 1
+  convertPierceToChain: 0
 --- !u!58 &3566511432441888462
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10616,6 +10621,7 @@ MonoBehaviour:
   seekForwardWithoutTarget: 0
   seekDuration: -1
   forwardPointDistance: 8
+  reduceSpeedOnTargetSighted: 1
   delayTime: 0
   hoverSpeed: 25
   drunkInterval: 0.5

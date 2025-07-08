@@ -19524,11 +19524,16 @@ MonoBehaviour:
   projectileHitMask:
     serializedVersion: 2
     m_Bits: 0
+  reboundMask:
+    serializedVersion: 2
+    m_Bits: 0
   cloneSelfOnSplit: 1
   childSplitCount: 0
   splitPrefab: {fileID: 0}
+  rebound: 0
   smoothScaleSpeed: 10
   varyInitalSpeed: 1
+  convertPierceToChain: 0
 --- !u!58 &2399256485723182796
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -19604,6 +19609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9670d1d7faba6414ab0b12e338ef9f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashParticles: {fileID: 0}
   movementBehavior: 0
   seekTarget: {fileID: 0}
   targetLayers:
@@ -19613,5 +19619,9 @@ MonoBehaviour:
   seekForwardWithoutTarget: 0
   seekDuration: -1
   forwardPointDistance: 8
+  reduceSpeedOnTargetSighted: 1
+  delayTime: 0
+  hoverSpeed: 25
   drunkInterval: 0.5
   drunkVariance: 180
+  haltSpeedOnDrunkChange: 0
