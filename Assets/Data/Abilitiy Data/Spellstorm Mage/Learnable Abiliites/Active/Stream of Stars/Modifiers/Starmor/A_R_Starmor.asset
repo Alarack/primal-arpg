@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Stream of Stars
+  m_Name: A_R_Starmor
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 1
-    abilityIcon: {fileID: -5964658899659097264, guid: f144f869e2e085f49aad85800a0fd63e, type: 3}
-    abilityName: Stream of Stars
-    abilityDescription: Conjure {SC} stars evey {CI} seconds as you channel. Each
-      star hovers for 1 second before it launches.
+    category: 3
+    abilityIcon: {fileID: 0}
+    abilityName: Starmor
+    abilityDescription: While you Channel Stream of Stars, increase your Armor
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -26,13 +25,13 @@ MonoBehaviour:
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
-    recastOnChannelCost: 1
+    recastOnChannelCost: 0
     normalizedProcRate: 0
     showProcChanceOnOtherSkills: 0
-    startingAbility: 1
+    startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Stream of Stars
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -40,20 +39,11 @@ MonoBehaviour:
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: 3aa11e53488082a4d9f44bbe4f604686, type: 2}
-      - {fileID: 11400000, guid: 5a8b8990e6b73714ba6ac2a102c77937, type: 2}
-      - {fileID: 11400000, guid: 71a2a2a232b3c984eb12d71cf7fc8d01, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: 4e0c453125da76b488d35b3a0804ff5c, type: 2}
-      - {fileID: 11400000, guid: d3911335a14ab6f45a55f2a186c32140, type: 2}
-      tier: 2
-    tags: 0e0000000800000012000000
+    runeGroupData: []
+    tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 6
+    - type: 30
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -66,59 +56,9 @@ MonoBehaviour:
       resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
       allConstraints:
-      - focus: 1
-        constraintData:
-        - type: 7
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          checkPercentOfMax: 0
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetAbilityCategory: 0
-          targetEffectType: 0
-          targetStatus: 0
-          hasDotStatus: 0
-          appliedStatusType: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-          abilitySlot: 0
-          projectileToCheck: {fileID: 0}
-          cheatDeathStatus: 0
       - focus: 4
         constraintData:
-        - type: 7
+        - type: 18
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -152,7 +92,7 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: 
+          targetAbiltyName: Stream of Stars
           targetEffectName: 
           effectDesigantion: 0
           targetAbilityCategory: 0
@@ -167,7 +107,7 @@ MonoBehaviour:
           projectileToCheck: {fileID: 0}
           cheatDeathStatus: 0
     endTriggerData:
-    - type: 32
+    - type: 34
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -180,59 +120,9 @@ MonoBehaviour:
       resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
       allConstraints:
-      - focus: 1
-        constraintData:
-        - type: 7
-          inverse: 0
-          statChangeTarget: 0
-          changeDirection: 0
-          minStatChangeRequired: 0
-          statChangeDelta: 0
-          constrainByDelivery: 0
-          deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 0
-          rangeToWhat: 0
-          ownerTarget: 0
-          mostStatTarget: 0
-          mostStatEffectName: 
-          mostStatAbilityName: 
-          leastStatTarget: 0
-          leastStatEffectName: 
-          leastStatAbilityName: 
-          checkPercentOfMax: 0
-          minStatTarget: 0
-          minStatValue: 0
-          nonZero: 0
-          maxStatTarget: 0
-          maxStatValue: 0
-          targetEntityName: 
-          targetSubtype: 0
-          targetPrimaryType: 0
-          targetActiveAbilityName: 
-          appliedEffectType: 0
-          appliedEffectName: 0
-          targetStateData: {fileID: 0}
-          stateEntered: 
-          stateExited: 
-          targetAbilityTag: 0
-          targetAbiltyName: 
-          targetEffectName: 
-          effectDesigantion: 0
-          targetAbilityCategory: 0
-          targetEffectType: 0
-          targetStatus: 0
-          hasDotStatus: 0
-          appliedStatusType: 0
-          statRatioTarget: 0
-          targetRatio: 0
-          movementMagnitudeLimit: 0.1
-          abilitySlot: 0
-          projectileToCheck: {fileID: 0}
-          cheatDeathStatus: 0
       - focus: 4
         constraintData:
-        - type: 7
+        - type: 18
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -266,7 +156,7 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: 
+          targetAbiltyName: Stream of Stars
           targetEffectName: 
           effectDesigantion: 0
           targetAbilityCategory: 0
@@ -323,65 +213,11 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: ee25221be1015884a86ebe92062dc674, type: 2}
+    - {fileID: 11400000, guid: f283629394c9be443a61a023b46e109a, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
-    windupVFX: {fileID: 2850867436185079738, guid: 3d083b7a5bb635a439cf31a0cf85784f, type: 3}
-    abilityStatData:
-    - variant: 0
-      statName: 46
-      value: -0.2
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 68
-      value: 0.5
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 14
-      value: 2
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 15
-      value: 0.1
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 44
-      value: 1
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 29
-      value: 1
-      maxValue: 0
-      minValue: 0
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          overrideProcStat: 0
-          procChance: 1
-          triggerDelay: 0
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          chainTriggerDelay: 0.1
-          delay1Frame: 0
-          autoActivateTimer: 0
-          resetTimerOnParentAbilityEnd: 0
-          resourceOrbType: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        reduceTriggerCountByAbilityLevel: 0
-        minTriggerCount: 0
-      cooldown: 1.25
+    windupVFX: {fileID: 0}
+    abilityStatData: []
+    recoveryData: []
