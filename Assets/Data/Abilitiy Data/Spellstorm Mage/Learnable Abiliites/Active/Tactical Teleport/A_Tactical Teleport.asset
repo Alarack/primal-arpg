@@ -46,6 +46,7 @@ MonoBehaviour:
       tier: 1
     - runes:
       - {fileID: 11400000, guid: e6335cee18128734499d0384103d1dde, type: 2}
+      - {fileID: 11400000, guid: 37a946edea4a95d43b0c5ee318f872f0, type: 2}
       tier: 2
     - runes:
       - {fileID: 11400000, guid: c3263ef78edcf314892bf77f103092c7, type: 2}
@@ -64,6 +65,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 4
         constraintData:
@@ -85,6 +87,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -103,6 +106,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
           hasDotStatus: 0
@@ -112,6 +116,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -127,6 +132,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -147,6 +153,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -183,6 +190,7 @@ MonoBehaviour:
           delay1Frame: 0
           autoActivateTimer: 0
           resetTimerOnParentAbilityEnd: 0
+          resourceOrbType: 0
           allConstraints: []
         limitedNumberOfTriggers: 0
         maxTriggerCount: 0
