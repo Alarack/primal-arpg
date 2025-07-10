@@ -982,6 +982,7 @@ public static class AbilityEditorHelper {
 
     public static EffectZoneInfo DrawEffectZoneInfo(EffectZoneInfo entry) {
         entry.removeEffectOnExit = EditorGUILayout.Toggle("Remove Effect on Exit", entry.removeEffectOnExit);
+        entry.parentToCarrier = EditorGUILayout.Toggle("Parent to Carrier", entry.parentToCarrier);
         entry.parentEffectToOrigin = EditorGUILayout.Toggle("Parent to Origin", entry.parentEffectToOrigin);
         entry.parentToTarget = EditorGUILayout.Toggle("Parent to target", entry.parentToTarget);
         entry.applyOncePerTarget = EditorGUILayout.Toggle("Apply Once per Target", entry.applyOncePerTarget);

@@ -53,7 +53,7 @@ public class EffectZone : Entity {
         this.carrier = carrier;
         this.ownerType = parentEffect.Source.ownerType;
 
-        Debug.Log("An effect zone: " + EntityName + " is being creating with the parent effect: " + parentEffect.Data.effectName + " on the ability: " + parentEffect.ParentAbility.Data.abilityName);
+        //Debug.Log("An effect zone: " + EntityName + " is being creating with the parent effect: " + parentEffect.Data.effectName + " on the ability: " + parentEffect.ParentAbility.Data.abilityName);
 
 
         if (parentLayer != -1)
@@ -277,7 +277,7 @@ public class EffectZone : Entity {
 
             //Debug.Log(parentEffect.Data.effectName + " is seeing: " + parentEffect.EssenceSpent + " as essence spent");
             
-            effectSize *= sizeMod;
+            effectSize += sizeMod;
         }
 
 
@@ -612,6 +612,7 @@ public class EffectZone : Entity {
 public struct EffectZoneInfo {
 
     [Header("Options")]
+    public bool parentToCarrier;
     public bool removeEffectOnExit;
     public bool parentEffectToOrigin;
     public bool parentToTarget;

@@ -98,6 +98,7 @@ MonoBehaviour:
     offsetSpawnLocationMax: {x: 0, y: 0}
     rotatePayloadTowardMouse: 0
     effectZoneInfo:
+      parentToCarrier: 0
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
       parentToTarget: 0
@@ -118,6 +119,22 @@ MonoBehaviour:
     - targetStat: 13
       value: 14
       modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 1
+      deriveStatMultiplier: 1
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 0
+      abilityLevelCoefficient: 1
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
+    - targetStat: 11
+      value: -1
+      modifierType: 2
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 1
@@ -194,6 +211,7 @@ MonoBehaviour:
     effectDesignation: 0
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
+    scaleFromEssenceSpent: 0
     statusModifiers: []
     statusToAdd: []
     statusToRemove: 
@@ -219,6 +237,7 @@ MonoBehaviour:
     effectsToAdd:
     - {fileID: 11400000, guid: b15cc1687de535244b76932f899da9a2, type: 2}
     targetAbilityToAddEffectsTo: 
+    forceReactiveParentAbility: 0
     ridersToAdd: []
     ridersToRemove: []
     effectsToRemove:

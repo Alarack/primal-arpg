@@ -19,7 +19,7 @@ MonoBehaviour:
     abilityDescription: 
     resourceCost: 0
     toBestow: 0
-    suspend: 0
+    suspend: 1
     autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 1
@@ -31,6 +31,7 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
+    essenceCostPercent: 0
     runeAbilityTarget: Null Implosion
     animationString: 
     waitForAnimToResolve: 0

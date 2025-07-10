@@ -136,6 +136,10 @@ public class Projectile : Entity {
         SetupProjectileStats();
 
         SendProjectileCreatedEvent();
+
+        if(parentEffect.ZoneInfo.parentToCarrier == true) {
+            ParentEffectZoneToCarrier();
+        }
     }
 
     public void AddAdditionalEffect(List<Effect> effects) {
@@ -286,7 +290,6 @@ public class Projectile : Entity {
 
     }
 
-
     public void IgnoreCollision(Entity target) {
         SetupCollisionIgnore(target.GetComponent<Collider2D>());
     }
@@ -380,6 +383,10 @@ public class Projectile : Entity {
 
     private void DeployZoneEffect(Collider2D other) {
         //Debug.Log(gameObject.name + " is tryin to deplay an effect zone");
+        if(ParentEffect.ZoneInfo.parentToCarrier == true) {
+            return;
+        }
+
         if (other != null && ParentEffect.EffectZonePrefab == null) {
             Entity target = other.GetComponent<Entity>();
             ApplyEffectDirectly(target, ParentEffect);
@@ -387,16 +394,6 @@ public class Projectile : Entity {
             for (int i = 0; i < additionalEffects.Count; i++) {
                 ApplyEffectDirectly(target, additionalEffects[i]);
             }
-
-            //Entity otherEntity = other.GetComponent<Entity>();
-            //if (otherEntity != null) {
-            //    bool applied = parentEffect.Apply(otherEntity);
-            //    if(applied == true) {
-            //        CreateApplyVFX(otherEntity.transform.position, false);
-            //        parentEffect.SendEffectAppliedEvent();
-            //    }
-            //}
-
             return;
         }
 
@@ -409,6 +406,15 @@ public class Projectile : Entity {
         //Debug.LogWarning("Creating effect zone: " + parentEffect.EffectZonePrefab.gameObject.name);
 
         EffectZone activeZone = Instantiate(ParentEffect.EffectZonePrefab, transform.position, Quaternion.identity);
+        activeZone.Stats.AddMissingStats(ParentEffect.Stats);
+        activeZone.Setup(ParentEffect, ParentEffect.ZoneInfo, null, this, parentLayer, ParentEffect.Data.maskTargeting);
+        if (additionalEffects.Count > 0) {
+            activeZone.AddAdditionalEffect(additionalEffects);
+        }
+    }
+
+    private void ParentEffectZoneToCarrier() {
+        EffectZone activeZone = Instantiate(ParentEffect.EffectZonePrefab, transform);
         activeZone.Stats.AddMissingStats(ParentEffect.Stats);
         activeZone.Setup(ParentEffect, ParentEffect.ZoneInfo, null, this, parentLayer, ParentEffect.Data.maskTargeting);
         if (additionalEffects.Count > 0) {

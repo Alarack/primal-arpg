@@ -33,6 +33,7 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
+    essenceCostPercent: 0
     runeAbilityTarget: Null Implosion
     animationString: 
     waitForAnimToResolve: 0
@@ -40,8 +41,7 @@ MonoBehaviour:
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities:
-    - {fileID: 11400000, guid: e00c8eec354ddf040a9831d9abe91d0e, type: 2}
+    childAbilities: []
     runeGroupData: []
     tags: 
     resetEvents: 
