@@ -39,6 +39,8 @@ public class Projectile : Entity {
 
     private List<Effect> additionalEffects = new List<Effect>();
 
+    private EffectZone carrierEffectZone;
+
 
     //private Weapon parentWeapon;
     public Effect ParentEffect { get; private set; }
@@ -420,6 +422,7 @@ public class Projectile : Entity {
         if (additionalEffects.Count > 0) {
             activeZone.AddAdditionalEffect(additionalEffects);
         }
+        carrierEffectZone = activeZone;
     }
 
 
@@ -672,6 +675,9 @@ public class Projectile : Entity {
             SpawnDeathVFX();
         }
 
+        if (carrierEffectZone != null) {
+            carrierEffectZone.CleanUp();
+        }
 
         Destroy(gameObject, 0.01f);
 
