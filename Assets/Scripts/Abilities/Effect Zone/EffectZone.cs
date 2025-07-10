@@ -53,6 +53,9 @@ public class EffectZone : Entity {
         this.carrier = carrier;
         this.ownerType = parentEffect.Source.ownerType;
 
+        Debug.Log("An effect zone: " + EntityName + " is being creating with the parent effect: " + parentEffect.Data.effectName + " on the ability: " + parentEffect.ParentAbility.Data.abilityName);
+
+
         if (parentLayer != -1)
             mask = LayerTools.SetupHitMask(mask, parentLayer, targeting);
 
@@ -271,6 +274,9 @@ public class EffectZone : Entity {
 
         if(parentEffect.ParentAbility.EssenceCostAsPercent == true) {
             float sizeMod = parentEffect.EssenceSpent * parentEffect.ParentAbility.Stats[StatName.EssenceScalingMultiplier];
+
+            //Debug.Log(parentEffect.Data.effectName + " is seeing: " + parentEffect.EssenceSpent + " as essence spent");
+            
             effectSize *= sizeMod;
         }
 

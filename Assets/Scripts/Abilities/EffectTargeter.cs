@@ -720,10 +720,10 @@ public class EffectTargeter {
 
     public void Apply() {
 
-        //if(parentEffect.Source.entityType == Entity.EntityType.Enemy) {
-        //    Debug.Log("An effect: " + parentEffect.Data.effectName + " is being applied");
+        //if (parentEffect.Source.entityType == Entity.EntityType.Enemy) {
+            //Debug.Log("An effect: " + parentEffect.Data.effectName + " is being applied");
         //}
-        
+
 
         Action applyAction = parentEffect.Targeting switch {
             EffectTarget.None => ApplyToSource,

@@ -496,7 +496,11 @@ public abstract class Effect {
     }
 
 
-    private void OnEssenceSpent(EventData data) {
+    protected virtual void OnEssenceSpent(EventData data) {
+        float value = data.GetFloat("Value");
+        if (value > 0f)
+            return;
+
         Ability cause = data.GetAbility("Ability");
         if (cause != ParentAbility)
             return;
@@ -509,7 +513,9 @@ public abstract class Effect {
         if (target != Source)
             return;
 
-        float value = data.GetFloat("Value");
+
+
+        //Debug.Log(Data.effectName + " is seeing: " + value + " Essence Spent");
 
         EssenceSpent = MathF.Abs(value);
     }
@@ -2277,10 +2283,13 @@ public class AddEffectEffect : Effect {
     private void TrackEffectsOnAbility(Ability target, Effect newEffect) {
         if (abilityTrackedEffects.TryGetValue(target, out List<Effect> children) == true) {
             children.Add(newEffect);
+            
         }
         else {
             abilityTrackedEffects.Add(target, new List<Effect> { newEffect });
         }
+
+        newEffect.RegisterEvents();
     }
 
     private void TrackEffectsOnEntity(Entity target, Effect newEffect) {
@@ -2290,6 +2299,8 @@ public class AddEffectEffect : Effect {
         else {
             entityTrackedEffects.Add(target, new List<Effect> { newEffect });
         }
+
+        newEffect?.RegisterEvents();
     }
 
     public override void RemoveFromAbility(Ability target) {
@@ -2298,11 +2309,14 @@ public class AddEffectEffect : Effect {
         if (abilityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
             for (int i = 0; i < effectsAdded.Count; i++) {
 
+                effectsAdded[i].UnregisterEvents();
+
                 if (target.IsEquipped == true)
                     effectsAdded[i].RecieveEndActivationInstance(null);
 
                 target.RemoveEffect(effectsAdded[i]);
 
+                
             }
 
             abilityTrackedEffects.Remove(target);
@@ -2387,6 +2401,7 @@ public class RemoveEffectEffect : Effect {
             }
 
             for (int i = 0; i < effectsAdded.Count; i++) {
+                effectsAdded[i].RegisterEvents();
                 targetAbility.AddEffect(effectsAdded[i]);
             }
 
@@ -2425,6 +2440,8 @@ public class RemoveEffectEffect : Effect {
         else {
             abilityTrackedEffects.Add(target, new List<Effect> { newEffect });
         }
+
+        newEffect.UnregisterEvents();
     }
 
     private void TrackEffectsOnEntity(Entity target, Effect newEffect) {
@@ -2434,6 +2451,8 @@ public class RemoveEffectEffect : Effect {
         else {
             entityTrackedEffects.Add(target, new List<Effect> { newEffect });
         }
+
+        newEffect.UnregisterEvents();
     }
 
     public override void RemoveFromAbility(Ability target) {
@@ -2441,9 +2460,12 @@ public class RemoveEffectEffect : Effect {
 
         if (abilityTrackedEffects.TryGetValue(target, out List<Effect> effectsRemoved) == true) {
             for (int i = 0; i < effectsRemoved.Count; i++) {
+                effectsRemoved[i].RegisterEvents();
+                
                 target.AddEffect(effectsRemoved[i]);
 
-                effectsRemoved[i].ReapplyWithPreviousActivation();
+                if (effectsRemoved[i].Targeting != EffectTarget.PayloadDelivered)
+                    effectsRemoved[i].ReapplyWithPreviousActivation();
             }
 
             abilityTrackedEffects.Remove(target);
