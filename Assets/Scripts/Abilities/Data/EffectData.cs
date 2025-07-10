@@ -172,7 +172,6 @@ public class EffectData
     public bool addMissingStatIfNotPresent;
     public bool scaleFromStatus;
     public bool scaleFromEssenceSpent;
-    public float perEssenceMultiplier;
     public List<StatModifierData.StatusModifier> statusModifiers = new List<StatModifierData.StatusModifier>();
     //public List<StatScaler> adjustmentOptions = new List<StatScaler>();
 
@@ -297,7 +296,6 @@ public class EffectData
         this.otherEffectName = copy.otherEffectName;
         this.untracked = copy.untracked;
         this.scaleFromEssenceSpent = copy.scaleFromEssenceSpent;
-        this.perEssenceMultiplier = copy.perEssenceMultiplier;
         CopyStatModData(copy.modData);
         CloneTargetConstraints(copy.targetConstraints);
         //this.forcedRemoveal = copy.forcedRemoveal;
@@ -340,6 +338,15 @@ public class EffectData
         if (targeting == EffectTarget.Source) return true;
         if (targeting == EffectTarget.LogicSelected) return true;
 
+
+
+        return false;
+    }
+
+    public bool EffectTargeting() {
+        if (targeting == EffectTarget.EffectTrigger) return true;
+        if (targeting == EffectTarget.EffectCause) return true;
+        if (targeting == EffectTarget.LogicSelectedEffect) return true;
 
 
         return false;

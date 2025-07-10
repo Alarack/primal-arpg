@@ -32,7 +32,7 @@ public abstract class Effect {
 
     public bool ScaleFromEssenceSpent { get; set; }
     public float EssenceSpent { get; protected set; }
-    public float PerEssenceSpentMultiplier { get; set; }
+    //public float PerEssenceSpentMultiplier { get; set; }
 
     public List<EffectZone> ActiveEffectZones { get; set; } = new List<EffectZone>();
     public Dictionary<Entity, int> PsudoStacks { get; set; } = new Dictionary<Entity, int>();
@@ -60,7 +60,6 @@ public abstract class Effect {
         //this.EffectZonePrefab = data.effectZoneInfo.effectZonePrefab;
         this.ZoneInfo = data.effectZoneInfo;
         this.ScaleFromEssenceSpent = data.scaleFromEssenceSpent;
-        this.PerEssenceSpentMultiplier = data.perEssenceMultiplier;
         SetupStats();
         SetupTargetConstraints();
         SetupRiderEffects();
@@ -776,7 +775,6 @@ public class ToggleEssenceAsPercentEffect : Effect {
             return false;
 
         target.ScaleFromEssenceSpent = !target.ScaleFromEssenceSpent;
-        target.PerEssenceSpentMultiplier = Data.perEssenceMultiplier;
         return true;
     }
 
@@ -4028,8 +4026,8 @@ public class StatAdjustmentEffect : Effect {
             }
         }
 
-        if(ScaleFromEssenceSpent == true) {
-            float essenceModifier = EssenceSpent * PerEssenceSpentMultiplier;
+        if(ParentAbility.EssenceCostAsPercent == true) {
+            float essenceModifier = EssenceSpent * ParentAbility.Stats[StatName.EssenceScalingMultiplier];
             targetValue *= essenceModifier;
         }
 

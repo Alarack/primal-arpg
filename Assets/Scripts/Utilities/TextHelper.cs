@@ -212,6 +212,8 @@ public static class TextHelper
             StatName.EssenceOrbValue => bonusFormat,
             StatName.HealthOrbValue => bonusFormat,
 
+            StatName.EssenceScalingMultiplier => bonusFormat,
+
             _ => "No Entry For: " + stat,
         };
 

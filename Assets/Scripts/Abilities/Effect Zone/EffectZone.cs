@@ -269,8 +269,8 @@ public class EffectZone : Entity {
             tweenHelper.StartTweeing();
         }
 
-        if(parentEffect.ScaleFromEssenceSpent == true) {
-            float sizeMod = parentEffect.EssenceSpent * parentEffect.PerEssenceSpentMultiplier;
+        if(parentEffect.ParentAbility.EssenceCostAsPercent == true) {
+            float sizeMod = parentEffect.EssenceSpent * parentEffect.ParentAbility.Stats[StatName.EssenceScalingMultiplier];
             effectSize *= sizeMod;
         }
 

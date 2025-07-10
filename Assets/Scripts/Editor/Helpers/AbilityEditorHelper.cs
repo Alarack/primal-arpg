@@ -638,11 +638,6 @@ public static class AbilityEditorHelper {
 
                 entry.scaleFromEssenceSpent = EditorGUILayout.Toggle("Scale from Essence", entry.scaleFromEssenceSpent);
 
-                if(entry.scaleFromEssenceSpent == true) {
-                    entry.perEssenceMultiplier = EditorGUILayout.FloatField("Per Essence Multiplier", entry.perEssenceMultiplier);
-                }
-
-
                 EditorGUILayout.LabelField("Status Scaling", EditorHelper2.LoadStyle(abilityHeader));
                 entry.scaleFromStatus = EditorGUILayout.Toggle("Status Scaleing", entry.scaleFromStatus);
 
@@ -860,6 +855,9 @@ public static class AbilityEditorHelper {
 
                 break;
 
+            case EffectType.ToggleEssenceAsPercent:
+                
+                break;
 
             default:
                 break;

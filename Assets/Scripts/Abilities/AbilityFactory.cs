@@ -160,6 +160,7 @@ public static class AbilityFactory {
             EffectType.SpawnItem => new SpawnItemEffect(data, source, parentAbility),
             EffectType.PurgeStatus => new PurgeStatusEffect(data, source, parentAbility),
             EffectType.RemoveChildAbility => new RemoveChildAbilityEffect(data, source, parentAbility),
+            EffectType.ToggleEssenceAsPercent => new ToggleEssenceAsPercentEffect(data, source, parentAbility),
             _ => null,
         };
 
