@@ -33,7 +33,8 @@ public enum EffectType {
     ModifyElapsedCooldown,
     AddStatusScaling,
     SpawnItem,
-    RemoveChildAbility
+    RemoveChildAbility,
+    ToggleEssenceAsPercent
 }
 
 public enum EffectTarget {
@@ -170,6 +171,8 @@ public class EffectData
     public StatModifierData.StatModDesignation effectDesignation;
     public bool addMissingStatIfNotPresent;
     public bool scaleFromStatus;
+    public bool scaleFromEssenceSpent;
+    public float perEssenceMultiplier;
     public List<StatModifierData.StatusModifier> statusModifiers = new List<StatModifierData.StatusModifier>();
     //public List<StatScaler> adjustmentOptions = new List<StatScaler>();
 
@@ -293,6 +296,8 @@ public class EffectData
         this.otherAbilityName = copy.otherAbilityName;
         this.otherEffectName = copy.otherEffectName;
         this.untracked = copy.untracked;
+        this.scaleFromEssenceSpent = copy.scaleFromEssenceSpent;
+        this.perEssenceMultiplier = copy.perEssenceMultiplier;
         CopyStatModData(copy.modData);
         CloneTargetConstraints(copy.targetConstraints);
         //this.forcedRemoveal = copy.forcedRemoveal;

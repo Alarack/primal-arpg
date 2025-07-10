@@ -20,6 +20,7 @@ public class Ability {
     public bool IsEquipped { get; protected set; }
     public bool IgnoreOtherCasting { get; protected set; }
     public bool Locked { get; set; }
+    public bool EssenceCostAsPercent { get; set; }
 
     public Vector2 LastPayloadLocation { get; set; } = Vector2.zero;
 
@@ -68,7 +69,7 @@ public class Ability {
         //SetupActivationTriggers();
         //SetupEndTriggers();
         //SetupTriggerCounters();
-
+        this.EssenceCostAsPercent = data.essenceCostPercent;
 
         //for (int i = 0; i < Tags.Count; i++) {
         //    Debug.Log(data.abilityName + " has a " + Tags[i] + " tag");
@@ -861,15 +862,19 @@ public class Ability {
         if (Stats.Contains(StatName.EssenceCost) == false)
             return 0f;
 
+        float baseCost = EssenceCostAsPercent == false ? Stats[StatName.EssenceCost] : Source.Stats.GetStatRangeMaxValue(StatName.Essence) * Stats[StatName.EssenceCost];
+
         if (Stats[StatName.EssenceCost] < 0f) {
-            return Stats[StatName.EssenceCost];
+            return baseCost;
         }
 
-        float cost = Stats[StatName.EssenceCost] * 
+        float cost = baseCost * 
             (1f + Source.Stats[StatName.GlobalEssenceCostModifier]) * 
             (1 + Stats[StatName.GlobalEssenceCostModifier]);
 
-        //Debug.Log("Total cost for: " + Data.abilityName + " : " + cost);
+        if (EssenceCostAsPercent == true && cost > Source.Stats.GetStatRangeMaxValue(StatName.Essence)) {
+            cost = Source.Stats.GetStatRangeMaxValue(StatName.Essence);
+        }
 
         return cost;
     }
@@ -1138,7 +1143,18 @@ public class Ability {
             float totalCost = GetTotalEssenceCost();
 
             if (totalCost > 0) {
-                builder.AppendLine("Cost: " + TextHelper.ColorizeText(totalCost.ToString(), Color.cyan) + " Essence");
+                if(EssenceCostAsPercent == true) {
+
+                    float ratio = (totalCost / Source.Stats.GetStatRangeMaxValue(StatName.Essence) * 100f);
+                    float rounded = MathF.Round(ratio, 1);
+                    
+                    builder.AppendLine("Cost: " + TextHelper.ColorizeText(rounded.ToString(), Color.cyan) + "% of Max Essence");
+                }
+                else {
+                    builder.AppendLine("Cost: " + TextHelper.ColorizeText(totalCost.ToString(), Color.cyan) + " Essence");
+
+                }
+
             }
             else if (totalCost < 0) {
                 builder.AppendLine("Generates: " + TextHelper.ColorizeText(Mathf.Abs(totalCost).ToString(), Color.cyan) + " Essence");
@@ -1348,14 +1364,11 @@ public class Ability {
 
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
-        //if (Source != null && Source.ownerType == OwnerConstraintType.Enemy)
-
         //Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is trying to start. Source: " + Source.EntityName, Color.green));
         if (Source.HasStatus(Status.StatusName.Stunned) == true && Data.HasManualActivation() == true) {
             //Debug.Log(Source.EntityName + " cannot use: " + Data.abilityName + " because they're stunned");
             return;
         }
-
 
         if (IsChanneled == true && IsActive == true) {
             return;

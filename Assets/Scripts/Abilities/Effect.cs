@@ -5,11 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Unity.VisualScripting;
 using UnityEngine;
 using static AbilityTrigger;
 using static Status;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 using Random = UnityEngine.Random;
 
 
@@ -31,6 +29,10 @@ public abstract class Effect {
     public EffectZoneInfo ZoneInfo { get; set; }
 
     public bool Suppressed { get; set; } = false;
+
+    public bool ScaleFromEssenceSpent { get; set; }
+    public float EssenceSpent { get; protected set; }
+    public float PerEssenceSpentMultiplier { get; set; }
 
     public List<EffectZone> ActiveEffectZones { get; set; } = new List<EffectZone>();
     public Dictionary<Entity, int> PsudoStacks { get; set; } = new Dictionary<Entity, int>();
@@ -57,6 +59,8 @@ public abstract class Effect {
         this.PayloadPrefab = data.payloadPrefab;
         //this.EffectZonePrefab = data.effectZoneInfo.effectZonePrefab;
         this.ZoneInfo = data.effectZoneInfo;
+        this.ScaleFromEssenceSpent = data.scaleFromEssenceSpent;
+        this.PerEssenceSpentMultiplier = data.perEssenceMultiplier;
         SetupStats();
         SetupTargetConstraints();
         SetupRiderEffects();
@@ -483,6 +487,7 @@ public abstract class Effect {
 
     public virtual void RegisterEvents() {
         RegisterRiderEvents();
+        EventManager.RegisterListener(GameEvent.UnitStatAdjusted, OnEssenceSpent);
         //EventManager.RegisterListener(GameEvent.AbilityStatAdjusted, OnAbilityStatChanged);
     }
 
@@ -491,32 +496,48 @@ public abstract class Effect {
         EventManager.RemoveMyListeners(this);
     }
 
-    protected virtual void OnAbilityStatChanged(EventData data) {
-        if (ParentAbility == null)
+
+    private void OnEssenceSpent(EventData data) {
+        Ability cause = data.GetAbility("Ability");
+        if (cause != ParentAbility)
             return;
-
-        Ability ability = data.GetAbility("Ability");
-
-        if (ability != ParentAbility) {
-
-            if (Data.effectName == "Apply Arcane Vulnerable Status")
-                Debug.LogWarning(ability.Data.abilityName + " is not " + ParentAbility.Data.abilityName);
-
-            return;
-        }
 
         StatName stat = (StatName)data.GetInt("Stat");
-
-        if (Stats.Contains(stat) == false)
+        if (stat != StatName.Essence)
             return;
 
-        Stats.SetStatValue(stat, ParentAbility.Stats[stat], ParentAbility);
+        Entity target = data.GetEntity("Target");
+        if (target != Source)
+            return;
 
-        //Debug.Log("Updating: " + stat + " on " + Data.effectName + " because it changed on the parent ability: " + ability.Data.abilityName + ". Value: " + Stats[stat]);
+        float value = data.GetFloat("Value");
 
-
-
+        EssenceSpent = MathF.Abs(value);
     }
+
+    //protected virtual void OnAbilityStatChanged(EventData data) {
+    //    if (ParentAbility == null)
+    //        return;
+
+    //    Ability ability = data.GetAbility("Ability");
+
+    //    if (ability != ParentAbility) {
+
+    //        if (Data.effectName == "Apply Arcane Vulnerable Status")
+    //            Debug.LogWarning(ability.Data.abilityName + " is not " + ParentAbility.Data.abilityName);
+
+    //        return;
+    //    }
+
+    //    StatName stat = (StatName)data.GetInt("Stat");
+
+    //    if (Stats.Contains(stat) == false)
+    //        return;
+
+    //    Stats.SetStatValue(stat, ParentAbility.Stats[stat], ParentAbility);
+
+    //    //Debug.Log("Updating: " + stat + " on " + Data.effectName + " because it changed on the parent ability: " + ability.Data.abilityName + ". Value: " + Stats[stat]);
+    //}
 
     protected void UnRegisterRiderEvents() {
         for (int i = 0; i < RiderEffects.Count; i++) {
@@ -718,6 +739,56 @@ public class EmptyEffect : Effect {
         return true;
     }
 }
+
+public class ToggleEssenceAsPercentEffect : Effect {
+    public override EffectType Type => EffectType.ToggleEssenceAsPercent;
+
+
+    public ToggleEssenceAsPercentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        Debug.LogError("Toggle Essence as Percent Not yet Implemented on Entity targets");
+        return false;
+    }
+
+
+    public override bool ApplyToAbility(Ability target) {
+        if (base.ApplyToAbility(target) == false)
+            return false;
+
+        target.EssenceCostAsPercent = !target.EssenceCostAsPercent;
+        return true;
+    }
+
+    public override void RemoveFromAbility(Ability target) {
+        base.RemoveFromAbility(target);
+        target.EssenceCostAsPercent = !target.EssenceCostAsPercent;
+    }
+
+    public override bool ApplyToEffect(Effect target) {
+        if (base.ApplyToEffect(target) == false)
+            return false;
+
+        target.ScaleFromEssenceSpent = !target.ScaleFromEssenceSpent;
+        target.PerEssenceSpentMultiplier = Data.perEssenceMultiplier;
+        return true;
+    }
+
+    public override void RemoveFromEffect(Effect target) {
+        base.RemoveFromEffect(target);
+
+        target.ScaleFromEssenceSpent = !target.ScaleFromEssenceSpent;
+    }
+
+
+}
+
 
 public class ModifiyElapsedCooldownEffect : Effect {
     public override EffectType Type => EffectType.ModifyElapsedCooldown;
@@ -2195,7 +2266,7 @@ public class AddEffectEffect : Effect {
             target.AddEffect(newEffect);
             TrackEffectsOnAbility(target, newEffect);
 
-            if(target.IsEquipped == true && Data.forceReactiveParentAbility == true) {
+            if (target.IsEquipped == true && Data.forceReactiveParentAbility == true) {
                 target.ForceActivate();
             }
 
@@ -2229,11 +2300,11 @@ public class AddEffectEffect : Effect {
         if (abilityTrackedEffects.TryGetValue(target, out List<Effect> effectsAdded) == true) {
             for (int i = 0; i < effectsAdded.Count; i++) {
 
-                if(target.IsEquipped == true)
+                if (target.IsEquipped == true)
                     effectsAdded[i].RecieveEndActivationInstance(null);
 
                 target.RemoveEffect(effectsAdded[i]);
-                
+
             }
 
             abilityTrackedEffects.Remove(target);
@@ -3391,6 +3462,10 @@ public class SpawnEntityEffect : Effect {
 
         activeSpawns.RemoveIfContains(victim);
 
+        if(activeSpawns.Count == 0) {
+            ParentAbility.SendAbilityEndedEvent();
+        }
+
     }
 
     public override bool Apply(Entity target) {
@@ -3408,25 +3483,20 @@ public class SpawnEntityEffect : Effect {
 
         if (maxSpawns > 0 && activeSpawns.Count >= maxSpawns) {
             //Debug.LogWarning("Spawn count reached");
+            if (Data.destroyPreviousSummonAtCap == false)
+                return false;
 
-            if (Data.destroyPreviousSummonAtCap == true) {
-                Entity oldest = activeSpawns[0];
+            Entity oldest = activeSpawns[0];
 
-                Projectile projectile = oldest as Projectile;
-                if (projectile != null) {
-                    activeSpawns.Remove(projectile);
-                    projectile.StartCleanUp();
-                }
-                else {
-                    activeSpawns.Remove(oldest);
-                    oldest.ForceDie(Source, ParentAbility);
-
-                }
+            Projectile projectile = oldest as Projectile;
+            if (projectile != null) {
+                activeSpawns.Remove(projectile);
+                projectile.StartCleanUp();
             }
             else {
-                return false;
+                activeSpawns.Remove(oldest);
+                oldest.ForceDie(Source, ParentAbility);
             }
-
         }
 
 
@@ -3444,7 +3514,7 @@ public class SpawnEntityEffect : Effect {
         for (int i = 0; i < unitsToSpawn; i++) {
             Entity spawn = PerformSpawn(target);
 
-            if(spawn == null) {
+            if (spawn == null) {
                 Debug.LogWarning("Null Spawn prefab when creating an entity. Effect: " + Data.effectName + " Ability: " + ParentAbility.Data.abilityName);
                 continue;
             }
@@ -3467,7 +3537,7 @@ public class SpawnEntityEffect : Effect {
                     spawn.mainSprite.sharedMaterial = targetMat;
                 }
             }
-                //VFXUtility.DesaturateSprite(spawn.innerSprite, 0.4f);
+            //VFXUtility.DesaturateSprite(spawn.innerSprite, 0.4f);
 
             EntityPlayer player = Source as EntityPlayer;
             if (player != null) {
@@ -3536,7 +3606,7 @@ public class SpawnEntityEffect : Effect {
             _ => null,
         };
 
-        if(result != null) {
+        if (result != null) {
             ImbueSpawnWithStats(result);
         }
 
@@ -3610,6 +3680,8 @@ public class StatAdjustmentEffect : Effect {
     public List<StatModifierData.StatusModifier> statusModifiers = new List<StatModifierData.StatusModifier>();
 
 
+    
+
     public StatAdjustmentEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
 
         modData = new List<StatModifierData>();
@@ -3644,8 +3716,9 @@ public class StatAdjustmentEffect : Effect {
     public override void RegisterEvents() {
         base.RegisterEvents();
         EventManager.RegisterListener(GameEvent.AbilityLevelChanged, OnAbilityLevelChanged);
-
     }
+
+    
 
     private void OnAbilityLevelChanged(EventData data) {
         Ability ability = data.GetAbility("Ability");
@@ -3812,7 +3885,7 @@ public class StatAdjustmentEffect : Effect {
 
         //Debug.Log("Mod result: " + result);
 
-        return  result;
+        return result;
     }
 
     private float DeriveModValueFromOtherStatMaximum(StatModifierData modData, Entity entityTarget, Effect effectTarget, Ability abilityTarget) {
@@ -3955,6 +4028,12 @@ public class StatAdjustmentEffect : Effect {
             }
         }
 
+        if(ScaleFromEssenceSpent == true) {
+            float essenceModifier = EssenceSpent * PerEssenceSpentMultiplier;
+            targetValue *= essenceModifier;
+        }
+
+
         return modData.invertDerivedValue == false ? targetValue : -targetValue;
     }
 
@@ -4035,7 +4114,7 @@ public class StatAdjustmentEffect : Effect {
         if (targetArmor <= 0f) {
 
             float negativeArmor = 1 - targetArmor;
-            
+
             return incomingDamage * negativeArmor;
         }
 

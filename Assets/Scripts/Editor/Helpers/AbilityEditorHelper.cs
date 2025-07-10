@@ -46,6 +46,11 @@ public static class AbilityEditorHelper {
         if (entry.ContainsStat(StatName.AbilityWindupTime)) {
             entry.windupVFX = EditorHelper.ObjectField("WindupVFX", entry.windupVFX);
         }
+
+        if (entry.ContainsStat(StatName.EssenceCost)) {
+            entry.essenceCostPercent = EditorGUILayout.Toggle("Essence Percent", entry.essenceCostPercent);
+        }
+
         entry.scaleProcByLevel = EditorGUILayout.Toggle("Scale Proc by Level", entry.scaleProcByLevel);
         entry.nonLethal = EditorGUILayout.Toggle("Non-Lethal", entry.nonLethal);
         entry.startingAbility = EditorGUILayout.Toggle("Starting Ability", entry.startingAbility);
@@ -630,6 +635,12 @@ public static class AbilityEditorHelper {
                 entry.addMissingStatIfNotPresent = EditorGUILayout.Toggle("Add Missing Stat", entry.addMissingStatIfNotPresent);
                 EditorGUI.indentLevel++;
                 entry.modData = EditorHelper.DrawExtendedList(entry.modData, "Mod", DrawStatModifierData);
+
+                entry.scaleFromEssenceSpent = EditorGUILayout.Toggle("Scale from Essence", entry.scaleFromEssenceSpent);
+
+                if(entry.scaleFromEssenceSpent == true) {
+                    entry.perEssenceMultiplier = EditorGUILayout.FloatField("Per Essence Multiplier", entry.perEssenceMultiplier);
+                }
 
 
                 EditorGUILayout.LabelField("Status Scaling", EditorHelper2.LoadStyle(abilityHeader));

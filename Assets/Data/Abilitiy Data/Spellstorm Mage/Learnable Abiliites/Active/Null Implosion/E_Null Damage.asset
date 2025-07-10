@@ -22,6 +22,7 @@ MonoBehaviour:
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 1
+    hideOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
     untracked: 0
@@ -54,11 +55,13 @@ MonoBehaviour:
       parentToTarget: 0
       applyOncePerTarget: 1
       applyOnInterval: 0
+      dontTickOnEnter: 0
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 133642, guid: 721ed883392764d42a3957861e7752c0, type: 3}
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
+      intervalVFX: {fileID: 0}
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
@@ -146,6 +149,8 @@ MonoBehaviour:
     effectDesignation: 1
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
+    scaleFromEssenceSpent: 0
+    perEssenceMultiplier: 0.1
     statusModifiers: []
     statusToAdd:
     - statusName: 2
@@ -159,6 +164,8 @@ MonoBehaviour:
       vfxScaleModifier: 1
       statusEffectDef: {fileID: 11400000, guid: ae3fa78b601019141947284a77d11381, type: 2}
     statusToRemove: 
+    statusPurgeExceptions: 
+    removeAllDotStatus: 0
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
@@ -175,8 +182,10 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    abilitiesToRemove: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    forceReactiveParentAbility: 0
     ridersToAdd: []
     ridersToRemove: []
     effectsToRemove: []
@@ -190,12 +199,15 @@ MonoBehaviour:
     destroyPreviousSummonAtCap: 0
     inheritParentLayer: 1
     spawnType: 0
+    materialDesignation: 0
     nameOfAbilityToActivate: 
+    forceActivateRespectCooldown: 0
     targetStateName: 
     tagsToAdd: 
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
-    newEffectZonePrefab: {fileID: 0}
+    changeEffectZoneByProjectileName: 
+    changeEffectZoneByEffectName: 
     modifiedMovementBehavior: 0
     modifiedSeekDuration: -1
     modifiedDrunkInterval: 0.2

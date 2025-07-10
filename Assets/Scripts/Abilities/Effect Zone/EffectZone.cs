@@ -269,6 +269,11 @@ public class EffectZone : Entity {
             tweenHelper.StartTweeing();
         }
 
+        if(parentEffect.ScaleFromEssenceSpent == true) {
+            float sizeMod = parentEffect.EssenceSpent * parentEffect.PerEssenceSpentMultiplier;
+            effectSize *= sizeMod;
+        }
+
 
         transform.localScale = new Vector3(effectSize, effectSize, effectSize);
     }

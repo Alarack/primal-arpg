@@ -74,6 +74,7 @@ public class AbilityData
     public bool startingAbility;
     public bool scaleProcByLevel;
     public bool nonLethal;
+    public bool essenceCostPercent;
     public string runeAbilityTarget;
     public string animationString;
     public bool waitForAnimToResolve;
