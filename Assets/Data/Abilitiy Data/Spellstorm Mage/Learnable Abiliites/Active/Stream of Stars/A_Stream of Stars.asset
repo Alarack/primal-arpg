@@ -32,6 +32,7 @@ MonoBehaviour:
     startingAbility: 1
     scaleProcByLevel: 0
     nonLethal: 0
+    essenceCostPercent: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -50,6 +51,9 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 4e0c453125da76b488d35b3a0804ff5c, type: 2}
       - {fileID: 11400000, guid: d3911335a14ab6f45a55f2a186c32140, type: 2}
       tier: 2
+    - runes:
+      - {fileID: 11400000, guid: 593aa5b6bc8c1e346ac216a8e2339420, type: 2}
+      tier: 3
     tags: 0e0000000800000012000000
     resetEvents: 
     activationTriggerData:
