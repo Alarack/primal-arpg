@@ -161,6 +161,7 @@ public static class AbilityFactory {
             EffectType.PurgeStatus => new PurgeStatusEffect(data, source, parentAbility),
             EffectType.RemoveChildAbility => new RemoveChildAbilityEffect(data, source, parentAbility),
             EffectType.ToggleEssenceAsPercent => new ToggleEssenceAsPercentEffect(data, source, parentAbility),
+            EffectType.DestroyEntity => new DestroyEntityEffect(data, source, parentAbility),
             _ => null,
         };
 

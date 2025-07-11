@@ -34,7 +34,8 @@ public enum EffectType {
     AddStatusScaling,
     SpawnItem,
     RemoveChildAbility,
-    ToggleEssenceAsPercent
+    ToggleEssenceAsPercent,
+    DestroyEntity
 }
 
 public enum EffectTarget {

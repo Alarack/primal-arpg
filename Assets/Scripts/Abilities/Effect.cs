@@ -745,6 +745,36 @@ public class EmptyEffect : Effect {
     }
 }
 
+public class DestroyEntityEffect : Effect {
+    public override EffectType Type => EffectType.DestroyEntity;
+
+    public DestroyEntityEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        if(target is Projectile) {
+            Projectile projectile = target as Projectile;
+            projectile.StartCleanUp();
+            return true;
+        }
+
+        if(target is NPC) {
+            NPC npc = target as NPC;
+            npc.ForceDie(Source, ParentAbility);
+            return true;
+        }
+
+
+        return true;
+    }
+
+   
+}
+
 public class ToggleEssenceAsPercentEffect : Effect {
     public override EffectType Type => EffectType.ToggleEssenceAsPercent;
 
@@ -4602,7 +4632,7 @@ public class StatAdjustmentEffect : Effect {
                 string timeReplacment = replacement.Replace("{X}", roundedTime);
 
                 builder.Append(timeReplacment);
-                return timeReplacment;
+                //return timeReplacment;
             }
         }
 
@@ -4612,7 +4642,7 @@ public class StatAdjustmentEffect : Effect {
             string durationReplacement = replacement.Replace("{D}", effectTime);
             builder.Append(durationReplacement);
 
-            return builder.ToString();
+            //return builder.ToString();
         }
 
         RangeConstraint rangeConstraint = HasTargetConstraint<RangeConstraint>();
