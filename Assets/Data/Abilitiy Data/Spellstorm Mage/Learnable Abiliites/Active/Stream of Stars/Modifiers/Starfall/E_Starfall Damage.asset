@@ -59,10 +59,13 @@ MonoBehaviour:
       dontTickOnEnter: 0
       affectProjectiles: 0
       affectSource: 0
-      spawnVFX: {fileID: 4454907048405121482, guid: 6ba90d2fed5e02f4e9cc6ad79df47784, type: 3}
-      applyVFX: {fileID: 0}
+      spawnVFX: {fileID: 800937462916823160, guid: 942ff3dbbbe26ef42830facc36a79b27, type: 3}
+      applyVFX: {fileID: 230651131596242121, guid: d8a8bbe703ee8174e9754da9050b17a9, type: 3}
       deathVFX: {fileID: 0}
       intervalVFX: {fileID: 0}
+      screenShakeOnApply: 1
+      screenShakeAmount: 0.09
+      screenShakeTime: 0
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2

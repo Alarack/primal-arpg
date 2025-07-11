@@ -1003,6 +1003,13 @@ public static class AbilityEditorHelper {
             entry.intervalVFX = EditorHelper.ObjectField("Interval VFX", entry.intervalVFX);
         }
 
+
+        entry.screenShakeOnApply = EditorGUILayout.Toggle("Screm Shake", entry.screenShakeOnApply);
+        if (entry.screenShakeOnApply == true) {
+            entry.screenShakeAmount = EditorGUILayout.FloatField("Amount", entry.screenShakeAmount);
+            entry.screenShakeTime = EditorGUILayout.FloatField("Duration", entry.screenShakeTime);
+        }
+
         EditorGUILayout.Separator();
 
         entry.effectZonePrefab = EditorHelper.ObjectField("Effect Zone Prefab", entry.effectZonePrefab);

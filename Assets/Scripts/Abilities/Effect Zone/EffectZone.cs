@@ -1,3 +1,4 @@
+using AllIn1VfxToolkit.Demo.Scripts;
 using LL.Events;
 using System.Collections;
 using System.Collections.Generic;
@@ -310,6 +311,10 @@ public class EffectZone : Entity {
         //circleCollider.radius = effectSize;
         if(windupFinishedVFX != null) 
             VFXUtility.SpawnVFX(windupFinishedVFX, transform, null, 1f, effectSize);
+
+        if (parentEffect.ZoneInfo.screenShakeOnApply == true) {
+            AllIn1Shaker.i.DoCameraShake(parentEffect.ZoneInfo.screenShakeAmount);
+        }
 
         //Debug.LogWarning("Windup Finished: " + gameObject.name);
 
@@ -634,6 +639,10 @@ public struct EffectZoneInfo {
     public GameObject applyVFX;
     public GameObject deathVFX;
     public GameObject intervalVFX;
+
+    public bool screenShakeOnApply;
+    public float screenShakeAmount;
+    public float screenShakeTime;
 
     [Header("Prefab")]
     public EffectZone effectZonePrefab;
