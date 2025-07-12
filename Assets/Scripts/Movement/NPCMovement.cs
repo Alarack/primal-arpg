@@ -43,8 +43,13 @@ public class NPCMovement : EntityMovement
     }
 
     public void MoveTowardTarget() {
-        if (currentTarget == null)
+        if (currentTarget == null) {
+            if (Owner.AnimHelper != null) {
+                Owner.AnimHelper.SetBool("Run", false);
+            }
             return;
+        }
+
 
         MoveTowardPoint(currentTarget.transform.position);
     }
@@ -73,8 +78,12 @@ public class NPCMovement : EntityMovement
     }
 
     public void MoveAwayFromTarget() {
-        if (currentTarget == null)
+        if (currentTarget == null) {
+            if (Owner.AnimHelper != null) {
+                Owner.AnimHelper.SetBool("Run", false);
+            }
             return;
+        }
 
         MoveAwayFromPoint(currentTarget.transform.position);
     }
@@ -103,7 +112,7 @@ public class NPCMovement : EntityMovement
         
         Vector2 moveForce = direction.normalized * baseSpeed * Time.fixedDeltaTime;
 
-        bool animMove = moveForce.magnitude > 0f;
+        bool animMove = moveForce.magnitude > 0.1f;
 
         if(Owner.AnimHelper != null) {
             Owner.AnimHelper.SetBool("Run", animMove);

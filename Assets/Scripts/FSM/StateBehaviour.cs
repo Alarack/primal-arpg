@@ -216,8 +216,11 @@ namespace LL.FSM {
             }
 
 
-            if (hasTarget == false)
+            if (hasTarget == false) {
+                brain.Owner.AnimHelper.SetBool("Run", false);
                 return;
+            }
+
 
             float distance = sensor.GetDistanceToTarget();
 
