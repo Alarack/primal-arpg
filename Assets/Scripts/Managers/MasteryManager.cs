@@ -32,6 +32,19 @@ public class MasteryManager : Singleton<MasteryManager>
                 EntityManager.ActivePlayer.AbilityManager.LearnAndEquipAbility(featureData.featureAbility.AbilityData, 1);
 
                 foreach (var pathAbilitData in masteryDistribution.abilityDistribution) {
+
+                    if(featureData == null) {
+                        Debug.Log("Feature data null");
+                        continue;
+                    }
+
+                    AbilityDefinition abilityDef = featureData.GetPathAbilityByName(pathAbilitData.Key);
+
+                    if (abilityDef == null) {
+                        Debug.Log("ability def null");
+                        continue;
+                    }
+
                     AbilityData targetAbilityData = featureData.GetPathAbilityByName(pathAbilitData.Key).AbilityData;
                     EntityManager.ActivePlayer.AbilityManager.LearnAndEquipAbility(targetAbilityData, pathAbilitData.Value);
                 }

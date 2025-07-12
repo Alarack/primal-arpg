@@ -27,8 +27,11 @@ MonoBehaviour:
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
+    showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
+    nonLethal: 0
+    essenceCostPercent: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -52,6 +55,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -73,6 +77,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -91,13 +96,17 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
       - focus: 5
         constraintData:
         - type: 4
@@ -118,6 +127,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -136,13 +146,17 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -158,6 +172,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -178,6 +193,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -192,4 +208,28 @@ MonoBehaviour:
     maxRanks: 1
     windupVFX: {fileID: 0}
     abilityStatData: []
-    recoveryData: []
+    recoveryData:
+    - type: 0
+      recoveryTriggers: []
+      counterData:
+        useCustomRefreshTrigger: 0
+        customRefreshTriggerData:
+          type: 0
+          overrideProcStat: 0
+          procChance: 1
+          triggerDelay: 0
+          riderAbilityName: 
+          riderEffectName: 
+          triggerTimerDuration: 0
+          chainTriggerDelay: 0.1
+          delay1Frame: 0
+          autoActivateTimer: 0
+          resetTimerOnParentAbilityEnd: 0
+          resourceOrbType: 0
+          allConstraints: []
+        limitedNumberOfTriggers: 0
+        maxTriggerCount: 0
+        requireMultipleTriggers: 0
+        reduceTriggerCountByAbilityLevel: 0
+        minTriggerCount: 0
+      cooldown: 0.75

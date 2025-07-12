@@ -272,8 +272,9 @@ public abstract class Effect {
             ReceiveStartActivationInstance(currentTriggerInstance);
         }
         else {
-            Debug.LogError("No current trigger instnace for: " + Data.effectName);
-            targeter.Apply();
+            Debug.LogWarning("No current trigger instnace for: " + Data.effectName + " when reapplying the effect. Parent Ability: " + ParentAbility.Data.abilityName);
+            return;
+            //targeter.Apply();
         }
     }
 
