@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Adjust Size and Shot Count
+  m_Name: E_Advance Cooldown
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Rip and Tear - Size and Shot Count
-    effectDescription: Increase Cooldown by {} Seconds
-    type: 1
+    effectName: World eater - Advance Cooldown
+    effectDescription: Your Critical Hits with Disintegrating Slash advance the Cooldown
+      of another random Void Skill on your Action Bar by {} Seconds.
+    type: 25
     targeting: 8
     subTarget: 4
-    maskTargeting: 0
+    maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
@@ -31,13 +32,109 @@ MonoBehaviour:
     showScalers: 0
     scaleDamageFromTriggeringAbility: 0
     inheritStatsFromParentAbility: 1
-    numberOfTargets: -1
+    numberOfTargets: 1
     chainTargetDelay: 0.1
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
     targetConstraints:
     - type: 18
+      inverse: 1
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      checkPercentOfMax: 0
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: Disintegrating Slash
+      targetEffectName: 
+      effectDesigantion: 0
+      targetAbilityCategory: 0
+      targetEffectType: 0
+      targetStatus: 0
+      hasDotStatus: 0
+      appliedStatusType: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+      abilitySlot: 0
+      projectileToCheck: {fileID: 0}
+      cheatDeathStatus: 0
+    - type: 17
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      checkPercentOfMax: 0
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 23
+      targetAbiltyName: 
+      targetEffectName: 
+      effectDesigantion: 0
+      targetAbilityCategory: 0
+      targetEffectType: 0
+      targetStatus: 0
+      hasDotStatus: 0
+      appliedStatusType: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+      abilitySlot: 0
+      projectileToCheck: {fileID: 0}
+      cheatDeathStatus: 0
+    - type: 29
       inverse: 0
       statChangeTarget: 0
       changeDirection: 0
@@ -71,7 +168,7 @@ MonoBehaviour:
       stateEntered: 
       stateExited: 
       targetAbilityTag: 0
-      targetAbiltyName: Null Implosion
+      targetAbiltyName: 
       targetEffectName: 
       effectDesigantion: 0
       targetAbilityCategory: 0
@@ -118,71 +215,7 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData:
-    - targetStat: 13
-      value: 2
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
-    - targetStat: 14
-      value: 3
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
-    - targetStat: 15
-      value: 0.2
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
-    - targetStat: 41
-      value: -0.5
-      modifierType: 2
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
+    modData: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -244,7 +277,7 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     effectDesignation: 0
-    addMissingStatIfNotPresent: 1
+    addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     scaleFromEssenceSpent: 0
     statusModifiers: []
@@ -297,7 +330,7 @@ MonoBehaviour:
     modifiedMovementBehavior: 0
     modifiedSeekDuration: -1
     modifiedDrunkInterval: 0.2
-    cooldownElapsedModifier: 0
+    cooldownElapsedModifier: 1
     statusScalingData: []
     scaleFromAbilityLevel: 0
     spawnedItemType: 0

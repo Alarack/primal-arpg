@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_M_P_Spaceripper
+  m_Name: A_R_Impending Doom
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 21300000, guid: f3f237de98d576645817efe1aa761401, type: 3}
-    abilityName: Spaceripper
-    abilityDescription: Whenever you deal damage with a Teleport Skill, generate
-      a charge of Spatial Energy. When you accumulate {TC} charges, you erupt, creating
-      a Spatial Tear.
+    category: 3
+    abilityIcon: {fileID: 0}
+    abilityName: Impending Doom
+    abilityDescription: Whenever Disintegrating Slash deals damage, increase its
+      Critical Hit Chance by 5%. This bonus resets when it scores a Critical Hit.
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     ignoreOtherCasting: 0
-    includeEffectsInTooltip: 1
+    includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
@@ -34,7 +33,7 @@ MonoBehaviour:
     scaleProcByLevel: 0
     nonLethal: 0
     essenceCostPercent: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Disintegrating Slash
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -43,7 +42,7 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 1a000000060000001c000000
+    tags: 
     resetEvents: 
     activationTriggerData:
     - type: 1
@@ -159,6 +158,54 @@ MonoBehaviour:
           cheatDeathStatus: 0
       - focus: 5
         constraintData:
+        - type: 18
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          checkPercentOfMax: 0
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: Disintegrating Slash
+          targetEffectName: 
+          effectDesigantion: 0
+          targetAbilityCategory: 0
+          targetEffectType: 0
+          targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
         - type: 4
           inverse: 0
           statChangeTarget: 0
@@ -207,7 +254,23 @@ MonoBehaviour:
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
           cheatDeathStatus: 0
-        - type: 17
+    endTriggerData:
+    - type: 28
+      overrideProcStat: 0
+      procChance: 1
+      triggerDelay: 0
+      riderAbilityName: 
+      riderEffectName: 
+      triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
+      delay1Frame: 0
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
+      allConstraints:
+      - focus: 4
+        constraintData:
+        - type: 18
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -240,8 +303,8 @@ MonoBehaviour:
           targetStateData: {fileID: 0}
           stateEntered: 
           stateExited: 
-          targetAbilityTag: 15
-          targetAbiltyName: 
+          targetAbilityTag: 0
+          targetAbiltyName: Disintegrating Slash
           targetEffectName: 
           effectDesigantion: 0
           targetAbilityCategory: 0
@@ -255,7 +318,6 @@ MonoBehaviour:
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
           cheatDeathStatus: 0
-    endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -274,9 +336,9 @@ MonoBehaviour:
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
-      requireMultipleTriggers: 1
-      reduceTriggerCountByAbilityLevel: 1
-      minTriggerCount: 5
+      requireMultipleTriggers: 0
+      reduceTriggerCountByAbilityLevel: 0
+      minTriggerCount: 0
     endCounterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -299,26 +361,11 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: a61238914b0fae34f9f5ef334ee74bdd, type: 2}
+    - {fileID: 11400000, guid: bb450620009f395459fda95b26b3022f, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
-    maxRanks: 3
+    maxRanks: -1
     windupVFX: {fileID: 0}
-    abilityStatData:
-    - variant: 0
-      statName: 11
-      value: 5
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 41
-      value: 7
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 19
-      value: 0.5
-      maxValue: 0
-      minValue: 0
+    abilityStatData: []
     recoveryData: []

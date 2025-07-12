@@ -35,6 +35,8 @@ public class Ability {
     public int RuneSlots { get { return Mathf.FloorToInt(Stats[StatName.AbilityRuneSlots]); } }
 
     public int AbilityLevel { get; protected set; } = 1;
+    public float ActiveChannelTime { get; protected set; }
+    public float LastChannelDuration { get; protected set; }
 
     public List<Item> equippedRunes = new List<Item>();
     public Dictionary<int, List<Item>> runeItemsByTier = new Dictionary<int, List<Item>>();
@@ -257,6 +259,7 @@ public class Ability {
         TearDown();
         IsEquipped = false;
         IsActive = false;
+        LastChannelDuration = 0f;
 
         for (int i = 0; i < ChildAbilities.Count; i++) {
             ChildAbilities[i].Uneqeuip();
@@ -1516,7 +1519,7 @@ public class Ability {
     protected void HandleChannelingCost() {
         if (IsActive == false || IsChanneled == false)
             return;
-
+        ActiveChannelTime += Time.deltaTime;
         channelingCostTimer.UpdateClock();
     }
 
@@ -1719,6 +1722,8 @@ public class Ability {
         //new Task(EndAllEffectsWithDelay(endInstance));
 
         if (IsChanneled == true) {
+            LastChannelDuration = ActiveChannelTime;
+            ActiveChannelTime = 0;
             channelingCostTimer.ResetTimer();
             Source.ActiveChannelingAbility = null;
         }
@@ -1730,7 +1735,8 @@ public class Ability {
     public void ForceEndChannelling () {
         if (IsChanneled == false)
             return;
-
+        LastChannelDuration = ActiveChannelTime;
+        ActiveChannelTime = 0;
         IsActive = false;
         channelingCostTimer.ResetTimer();
         Source.ActiveChannelingAbility = null;

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Adjust Size and Shot Count
+  m_Name: E_Buff Crit
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Rip and Tear - Size and Shot Count
-    effectDescription: Increase Cooldown by {} Seconds
+    effectName: 
+    effectDescription: 
     type: 1
     targeting: 8
     subTarget: 4
-    maskTargeting: 0
+    maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
       stateEntered: 
       stateExited: 
       targetAbilityTag: 0
-      targetAbiltyName: Null Implosion
+      targetAbiltyName: Disintegrating Slash
       targetEffectName: 
       effectDesigantion: 0
       targetAbilityCategory: 0
@@ -119,57 +119,9 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 13
-      value: 2
+    - targetStat: 25
+      value: 0.05
       modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
-    - targetStat: 14
-      value: 3
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
-    - targetStat: 15
-      value: 0.2
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
-    - targetStat: 41
-      value: -0.5
-      modifierType: 2
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 1
