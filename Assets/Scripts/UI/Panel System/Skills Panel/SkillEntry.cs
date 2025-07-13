@@ -366,9 +366,9 @@ public class SkillEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             if (Ability == null)
                 return;
 
-            EventData data = new EventData();
-            data.AddAbility("Ability", Ability);
-            EventManager.SendEvent(GameEvent.UserActivatedAbility, data);
+            //EventData data = new EventData();
+            //data.AddAbility("Ability", Ability);
+            //EventManager.SendEvent(GameEvent.UserActivatedAbility, data);
         }
 
         if (eventData.button == PointerEventData.InputButton.Left) {

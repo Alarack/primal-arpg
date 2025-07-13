@@ -22,6 +22,7 @@ MonoBehaviour:
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
+    hideOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
     untracked: 0
@@ -54,6 +55,7 @@ MonoBehaviour:
       leastStatTarget: 0
       leastStatEffectName: 
       leastStatAbilityName: 
+      checkPercentOfMax: 0
       minStatTarget: 0
       minStatValue: 0
       nonZero: 0
@@ -72,13 +74,17 @@ MonoBehaviour:
       targetAbiltyName: Fracture Reality
       targetEffectName: 
       effectDesigantion: 0
+      targetAbilityCategory: 0
       targetEffectType: 0
       targetStatus: 0
+      hasDotStatus: 0
+      appliedStatusType: 0
       statRatioTarget: 0
       targetRatio: 0
       movementMagnitudeLimit: 0.1
       abilitySlot: 0
       projectileToCheck: {fileID: 0}
+      cheatDeathStatus: 0
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadStatData: []
@@ -92,23 +98,29 @@ MonoBehaviour:
     offsetSpawnLocationMax: {x: 0, y: 0}
     rotatePayloadTowardMouse: 0
     effectZoneInfo:
+      parentToCarrier: 0
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
       parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 0
+      dontTickOnEnter: 0
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
+      intervalVFX: {fileID: 0}
+      screenShakeOnApply: 0
+      screenShakeAmount: 0
+      screenShakeTime: 0
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
     modData:
     - targetStat: 41
-      value: 5
+      value: 3
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -186,9 +198,12 @@ MonoBehaviour:
     effectDesignation: 0
     addMissingStatIfNotPresent: 1
     scaleFromStatus: 0
+    scaleFromEssenceSpent: 0
     statusModifiers: []
     statusToAdd: []
     statusToRemove: 
+    statusPurgeExceptions: 
+    removeAllDotStatus: 0
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
@@ -205,8 +220,10 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     abilitiesToAdd: []
+    abilitiesToRemove: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    forceReactiveParentAbility: 0
     ridersToAdd: []
     ridersToRemove: []
     effectsToRemove: []
@@ -220,7 +237,9 @@ MonoBehaviour:
     destroyPreviousSummonAtCap: 0
     inheritParentLayer: 1
     spawnType: 0
+    materialDesignation: 0
     nameOfAbilityToActivate: 
+    forceActivateRespectCooldown: 0
     targetStateName: 
     tagsToAdd: 
     tagsToRemove: 
@@ -237,3 +256,5 @@ MonoBehaviour:
     itemSpawnLocation: 0
     itemsToSpawn: []
     itemSpawnAmount: 0
+    cloneGatherAbilityName: 
+    cloneGatherEffectName: 

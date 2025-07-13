@@ -153,6 +153,14 @@ public class BasePanel : MonoBehaviour
             IsOpen = true;
 
             OnOpen();
+
+            if(PanelManager.IsPanelBlocking(this) == true) {
+                if(EntityManager.ActivePlayer != null) {
+                    if(EntityManager.ActivePlayer.ActiveChannelingAbility != null) {
+                        EntityManager.ActivePlayer.ActiveChannelingAbility.ForceEndChannelling();
+                    }
+                }
+            }
         }
     }
 

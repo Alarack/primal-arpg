@@ -98,6 +98,7 @@ MonoBehaviour:
     offsetSpawnLocationMax: {x: 0, y: 0}
     rotatePayloadTowardMouse: 0
     effectZoneInfo:
+      parentToCarrier: 0
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
       parentToTarget: 0
@@ -110,6 +111,9 @@ MonoBehaviour:
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
       intervalVFX: {fileID: 0}
+      screenShakeOnApply: 0
+      screenShakeAmount: 0
+      screenShakeTime: 0
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
@@ -132,22 +136,6 @@ MonoBehaviour:
       otherTagetEffect: 
       scalers: []
     - targetStat: 41
-      value: 3
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
-    - targetStat: 13
       value: 3
       modifierType: 0
       variantTarget: 0
@@ -226,6 +214,7 @@ MonoBehaviour:
     effectDesignation: 0
     addMissingStatIfNotPresent: 1
     scaleFromStatus: 0
+    scaleFromEssenceSpent: 0
     statusModifiers: []
     statusToAdd: []
     statusToRemove: 
@@ -283,3 +272,5 @@ MonoBehaviour:
     itemSpawnLocation: 0
     itemsToSpawn: []
     itemSpawnAmount: 0
+    cloneGatherAbilityName: 
+    cloneGatherEffectName: 

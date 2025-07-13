@@ -408,6 +408,7 @@ public class Projectile : Entity {
         //Debug.LogWarning("Creating effect zone: " + parentEffect.EffectZonePrefab.gameObject.name);
 
         EffectZone activeZone = Instantiate(ParentEffect.EffectZonePrefab, transform.position, Quaternion.identity);
+        activeZone.Stats.AddMissingStats(ParentEffect.ParentAbility.Stats);
         activeZone.Stats.AddMissingStats(ParentEffect.Stats);
         activeZone.Setup(ParentEffect, ParentEffect.ZoneInfo, null, this, parentLayer, ParentEffect.Data.maskTargeting);
         if (additionalEffects.Count > 0) {
@@ -491,7 +492,7 @@ public class Projectile : Entity {
 
         Vector2 velocity = Movement.MyBody.linearVelocity.normalized;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, velocity, 1f, reboundMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, velocity, projectileSize, reboundMask);
         if (hit.collider != null) {
             // Reflect the velocity based on the surface normal
             Vector2 reflectedVelocity = Vector2.Reflect(Movement.MyBody.linearVelocity, hit.normal);

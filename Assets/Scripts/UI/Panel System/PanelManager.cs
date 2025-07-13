@@ -245,6 +245,12 @@ public static class PanelManager
        
     }
 
+
+    public static bool IsPanelBlocking(BasePanel panel) {
+        return PanelDataManager.blockingPanels.Contains(panel.PanelID);
+    }
+
+
     public static bool IsBlockingPanelOpen() {
         List<string> blockingIds = PanelDataManager.blockingPanels;
 

@@ -18,8 +18,7 @@ MonoBehaviour:
     abilityName: Barrier of Infinite Distance
     abilityDescription: Instead of Teleporting, you surround yourself with a  {ES}
       meter region of folded space for {EL} Seconds. Enemies and ALL Projectiles
-      that enter the area are Teleported to the center of the Arena.  Increase the
-      Cooldown by 3 Seconds.
+      that enter the area are Teleported to the center of the Arena.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -34,6 +33,7 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
+    essenceCostPercent: 0
     runeAbilityTarget: Tactical Teleport
     animationString: 
     waitForAnimToResolve: 0
@@ -120,6 +120,7 @@ MonoBehaviour:
     effectDefinitions:
     - {fileID: 11400000, guid: 1e30f3ed9bc03c246872426a403c1a24, type: 2}
     - {fileID: 11400000, guid: 3c12aa06a9d18de4392f86ffa2e6b4f3, type: 2}
+    - {fileID: 11400000, guid: aa3c1c6bd3affbc47adf2799d5e87de7, type: 2}
     - {fileID: 11400000, guid: d7c82c9a70250ae41a24b8bba0c6a2de, type: 2}
     effectData: []
     startingRecoveryCharges: 1

@@ -4677,8 +4677,8 @@ public class StatAdjustmentEffect : Effect {
         if (Stats.Contains(StatName.EffectLifetime)) {
             string effectTime = TextHelper.ColorizeText(Stats[StatName.EffectLifetime].ToString(), Color.yellow);
 
-            string durationReplacement = replacement.Replace("{D}", effectTime);
-            builder.Append(durationReplacement);
+            replacement = replacement.Replace("{D}", effectTime);
+            //builder.Append(durationReplacement);
 
             //return builder.ToString();
         }

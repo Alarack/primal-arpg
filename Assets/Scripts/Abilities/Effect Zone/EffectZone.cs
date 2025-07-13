@@ -245,8 +245,8 @@ public class EffectZone : Entity {
     }
 
     private void SetSize() {
-        if (parentEffect.Stats.Contains(StatName.EffectSize)) {
-            effectSize = parentEffect.Stats[StatName.EffectSize];
+        if (Stats.Contains(StatName.EffectSize)) {
+            effectSize = Stats[StatName.EffectSize];
 
             if (effectSize <= 0) {
                 effectSize = 1f;

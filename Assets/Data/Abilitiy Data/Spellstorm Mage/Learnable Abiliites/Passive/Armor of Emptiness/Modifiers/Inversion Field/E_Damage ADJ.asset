@@ -50,6 +50,7 @@ MonoBehaviour:
     offsetSpawnLocationMax: {x: 0, y: 0}
     rotatePayloadTowardMouse: 0
     effectZoneInfo:
+      parentToCarrier: 0
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
       parentToTarget: 0
@@ -62,13 +63,16 @@ MonoBehaviour:
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
       intervalVFX: {fileID: 0}
+      screenShakeOnApply: 0
+      screenShakeAmount: 0
+      screenShakeTime: 0
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
     modData:
     - targetStat: 22
-      value: 0.2
+      value: 0.5
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -146,6 +150,7 @@ MonoBehaviour:
     effectDesignation: 0
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
+    scaleFromEssenceSpent: 0
     statusModifiers: []
     statusToAdd: []
     statusToRemove: 
@@ -170,6 +175,7 @@ MonoBehaviour:
     abilitiesToRemove: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    forceReactiveParentAbility: 0
     ridersToAdd: []
     ridersToRemove: []
     effectsToRemove: []
@@ -202,3 +208,5 @@ MonoBehaviour:
     itemSpawnLocation: 0
     itemsToSpawn: []
     itemSpawnAmount: 0
+    cloneGatherAbilityName: 
+    cloneGatherEffectName: 
