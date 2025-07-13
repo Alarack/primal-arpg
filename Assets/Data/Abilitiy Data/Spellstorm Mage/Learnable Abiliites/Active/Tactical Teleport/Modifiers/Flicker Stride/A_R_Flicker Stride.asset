@@ -18,13 +18,13 @@ MonoBehaviour:
     abilityName: Flicker Stride
     abilityDescription: Your Tactical Teleport Skill no longer teleports to your
       Mouse Pointer. Instead, you rapidly teleport to up to 3 nearby targets, causing
-      damage to each target. Increase the Essence Cost of Tactical Teleport by 2.
+      damage to each target.
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     ignoreOtherCasting: 0
-    includeEffectsInTooltip: 1
+    includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
@@ -116,10 +116,10 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
+    - {fileID: 11400000, guid: d1991f70b181edb48b98c27f102da851, type: 2}
     - {fileID: 11400000, guid: c0922feead4a56d4ea6eaf493a1273a5, type: 2}
     - {fileID: 11400000, guid: e6825db77f62c8446bf646b85fcefaa8, type: 2}
     - {fileID: 11400000, guid: ecd8c5f2c098c7d4ba226b8eab017004, type: 2}
-    - {fileID: 11400000, guid: d1991f70b181edb48b98c27f102da851, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

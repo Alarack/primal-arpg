@@ -2367,7 +2367,9 @@ public class AddEffectEffect : Effect {
             if (string.IsNullOrEmpty(effectTooltip) == false)
                 builder.Append(effectTooltip);
 
-            if (i != activeDisplayEffects.Count - 1)
+            string progress = builder.ToString();
+
+            if (i != activeDisplayEffects.Count - 1 && string.IsNullOrEmpty(progress) == false)
                 builder.AppendLine();
         }
 
@@ -2617,6 +2619,41 @@ public class AddAbilityEffect : Effect {
     }
 }
 
+public class CloneAbilityToEntityEffect : Effect {
+    public override EffectType Type => EffectType.CloneAbilityToEntity;
+
+
+    public CloneAbilityToEntityEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+
+    }
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        var abilityAndEffect = AbilityUtilities.GetAbilityAndEffectByName(Data.cloneGatherAbilityName, Data.cloneGatherEffectName, Source, AbilityCategory.Any);
+
+        Ability cloneTarget = abilityAndEffect.Item2.AbilityTargets.LastOrDefault();
+
+        if(cloneTarget == null) {
+            Debug.LogError("Can't find any abilities targeted by: " + Data.cloneGatherAbilityName);
+            return false;
+        }
+
+        if(target is NPC) {
+            NPC npc = (NPC)target;
+            npc.Brain.AddAbility(cloneTarget.Data);
+        }
+
+
+        return true;
+    }
+
+}
+
+
+
 public class AddChildAbilityEffect : Effect {
 
     public override EffectType Type => EffectType.AddChildAbility;
@@ -2700,9 +2737,9 @@ public class AddChildAbilityEffect : Effect {
         for (int i = 0; i < activeAbilities.Count; i++) {
             builder.Append(activeAbilities[i].GetTooltip(false));
 
+            string progress = builder.ToString();
 
-
-            if (i != activeAbilities.Count - 1)
+            if (i != activeAbilities.Count - 1 && string.IsNullOrEmpty(progress) == false)
                 builder.AppendLine();
         }
 
@@ -3067,7 +3104,7 @@ public class AddStatusEffect : Effect {
                     if (Data.showScalers == true) {
                         string scalarTooltip = activeStatusEffects[i].ScalarTooltip();
                         builder.AppendLine("Scales From: ");
-                        builder.Append(scalarTooltip).AppendLine();
+                        builder.Append(scalarTooltip)/*.AppendLine()*/;
                     }
 
                     float damageRatio = activeStatusEffects[i].GetWeaponScaler();
@@ -4658,7 +4695,7 @@ public class StatAdjustmentEffect : Effect {
             builder.AppendLine();
             builder.AppendLine("Scales From: ");
 
-            builder.Append(ScalarTooltip()).AppendLine();
+            builder.Append(ScalarTooltip())/*.AppendLine()*/;
         }
 
 

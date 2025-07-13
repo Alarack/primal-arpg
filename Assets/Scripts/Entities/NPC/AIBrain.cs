@@ -94,11 +94,16 @@ public class AIBrain : MonoBehaviour {
     }
 
     public void AddAbility(AbilityDefinition abilityDef) {
-        Ability ability = AbilityFactory.CreateAbility(abilityDef.AbilityData, Owner);
+        AddAbility(abilityDef.AbilityData);
+        //Debug.Log("Adding : " + ability.Data.abilityName);
+    }
+
+    public void AddAbility(AbilityData data) {
+        Ability ability = AbilityFactory.CreateAbility(data, Owner);
         ability.Equip();
         abilities.Add(ability);
 
-        //Debug.Log("Adding : " + ability.Data.abilityName);
+        Debug.Log("Adding : " + ability.Data.abilityName + " to " + Owner.EntityName);
     }
 
     public void AddAbility(Ability ability) {

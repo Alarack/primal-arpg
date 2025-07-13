@@ -17,7 +17,8 @@ MonoBehaviour:
     abilityIcon: {fileID: 21300000, guid: a28c2d8950067bd40aed525b49c5d923, type: 3}
     abilityName: Misdirection
     abilityDescription: Instead of Teleporting to your Mouse Cursor, you project
-      a Spatial Copy of yourself at that location.
+      a Spatial Copy of yourself at that location. The Clone will cast a basic copy
+      of the Skill in your Secondary Skill Slot as often as possible.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -115,7 +116,9 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
+    - {fileID: 11400000, guid: ebb3b113db5ea734c8eb70895aafd01d, type: 2}
     - {fileID: 11400000, guid: 35537514ab5c1884b97bbe153bf1ede6, type: 2}
+    - {fileID: 11400000, guid: 50281f40d6f54f54d9848268624d4934, type: 2}
     - {fileID: 11400000, guid: eba25d59c1b2d8a4b865f199a2cbdb7f, type: 2}
     effectData: []
     startingRecoveryCharges: 1

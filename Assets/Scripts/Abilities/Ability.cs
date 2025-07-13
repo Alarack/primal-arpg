@@ -314,6 +314,18 @@ public class Ability {
         }
     }
 
+
+    public void AddNewTrigger(TriggerData data) {
+        AbilityTrigger trigger = AbilityFactory.CreateAbilityTrigger(data, Source, this);
+        trigger.ActivationCallback = ReceiveStartActivationInstance;
+        activationTriggers.Add(trigger);
+    }
+
+    public void AddNewTrigger(AbilityTrigger trigger) {
+        trigger.ActivationCallback = ReceiveStartActivationInstance;
+        activationTriggers.Add(trigger);
+    }
+
     protected void SetupActivationTriggers() {
         foreach (TriggerData triggerData in Data.activationTriggerData) {
 
@@ -1122,6 +1134,9 @@ public class Ability {
             }
 
         }
+        else {
+            builder.AppendLine();
+        }
 
         float cooldown = GetCooldown();
 
@@ -1167,6 +1182,7 @@ public class Ability {
 
 
         if (cooldown > 0.01f) {
+            
             builder.Append("Cooldown: " + TextHelper.ColorizeText(TextHelper.RoundTimeToPlaces(cooldown, 2), Color.yellow)).Append(" Seconds").AppendLine();
         }
 
@@ -1240,6 +1256,8 @@ public class Ability {
         for (int i = 0; i < runes.Count; i++) {
             //Debug.Log("Found a Rune: " + runes[i].Data.abilityName + " on " + Data.abilityName);
             if (string.IsNullOrEmpty(runes[i].Data.abilityDescription) == false) {
+                
+                
                 builder.AppendLine().AppendLine();
             }
 
@@ -1254,8 +1272,12 @@ public class Ability {
                 //Debug.Log("Getting tooltip for the effect: " + runes[i].effects[j].Data.effectName);
                 string effectTooltip = runes[i].effects[j].GetTooltip();
 
-                if (string.IsNullOrEmpty(effectTooltip) == false)
+                if (string.IsNullOrEmpty(effectTooltip) == false) {
+
                     builder.Append(effectTooltip).AppendLine();
+                    Debug.LogWarning("Adding one line after: " + runes[i].effects[j].Data.effectName);
+                }
+                    
             }
         }
 
@@ -1566,6 +1588,10 @@ public class Ability {
     }
 
     private bool CheckCost() {
+        if (Source is EntityPlayer == false)
+            return true;
+        
+        
         if (Stats.Contains(StatName.EssenceCost) && Stats[StatName.EssenceCost] != 0f) {
             //Debug.Log("Cost: " + Stats[StatName.EssenceCost]);
 

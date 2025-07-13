@@ -35,7 +35,8 @@ public enum EffectType {
     SpawnItem,
     RemoveChildAbility,
     ToggleEssenceAsPercent,
-    DestroyEntity
+    DestroyEntity,
+    CloneAbilityToEntity
 }
 
 public enum EffectTarget {
@@ -281,6 +282,10 @@ public class EffectData
 
     public List<ItemDefinition> itemsToSpawn = new List<ItemDefinition>();
     public int itemSpawnAmount;
+
+    //Clone Ability To Entity
+    public string cloneGatherAbilityName;
+    public string cloneGatherEffectName;
 
 
     public EffectData() {

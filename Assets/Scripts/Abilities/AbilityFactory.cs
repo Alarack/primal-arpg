@@ -162,6 +162,7 @@ public static class AbilityFactory {
             EffectType.RemoveChildAbility => new RemoveChildAbilityEffect(data, source, parentAbility),
             EffectType.ToggleEssenceAsPercent => new ToggleEssenceAsPercentEffect(data, source, parentAbility),
             EffectType.DestroyEntity => new DestroyEntityEffect(data, source, parentAbility),
+            EffectType.CloneAbilityToEntity => new CloneAbilityToEntityEffect(data, source, parentAbility),
             _ => null,
         };
 

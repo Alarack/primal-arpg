@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Adjust Cost
+  m_Name: E_Gather Secondary Skill
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Flicker Sride cost ADJ
-    effectDescription: Increase Essence Cost by {}
-    type: 1
+    effectName: Misdirection - Gather Secondary Skill
+    effectDescription: 
+    type: 0
     targeting: 8
     subTarget: 4
-    maskTargeting: 0
+    maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     otherEffectName: 
     targetAbilityForLastPayload: 
     targetConstraints:
-    - type: 18
+    - type: 33
       inverse: 0
       statChangeTarget: 0
       changeDirection: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
       stateEntered: 
       stateExited: 
       targetAbilityTag: 0
-      targetAbiltyName: Tactical Teleport
+      targetAbiltyName: 
       targetEffectName: 
       effectDesigantion: 0
       targetAbilityCategory: 0
@@ -82,7 +82,7 @@ MonoBehaviour:
       statRatioTarget: 0
       targetRatio: 0
       movementMagnitudeLimit: 0.1
-      abilitySlot: 0
+      abilitySlot: 5
       projectileToCheck: {fileID: 0}
       cheatDeathStatus: 0
     riderEffects: []
@@ -118,23 +118,7 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData:
-    - targetStat: 46
-      value: 2
-      modifierType: 0
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
+    modData: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -219,8 +203,7 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
-    abilitiesToAdd:
-    - {fileID: 11400000, guid: 655501ff749af5246ad9c9357ff407bc, type: 2}
+    abilitiesToAdd: []
     abilitiesToRemove: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 

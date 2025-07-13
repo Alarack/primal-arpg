@@ -460,7 +460,15 @@ public class UserActivatedTrigger : AbilityTrigger {
     public override Action<EventData> EventReceiver => OnUserActivation;
 
     public UserActivatedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+        if(SourceEntity is NPC) {
+            TriggerData timedTriggerData = new TriggerData();
+            timedTriggerData.type = TriggerType.Timed;
+            timedTriggerData.autoActivateTimer = true;
+            timedTriggerData.triggerTimerDuration = 0.1f;
 
+            TimedTrigger timedTrigger = new TimedTrigger(timedTriggerData, source, parentAbility);
+            parentAbility.AddNewTrigger(timedTrigger);
+        }
     }
 
     public void OnUserActivation(EventData data) {
@@ -1632,6 +1640,7 @@ public class EntitySpawnedTrigger : AbilityTrigger {
             CauseOfTrigger = SourceEntity;
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.CausingAbility = CauseOfAbilityTrigger;
         TryActivateTrigger(triggerInstance);
     }
 }

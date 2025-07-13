@@ -859,6 +859,11 @@ public static class AbilityEditorHelper {
                 
                 break;
 
+            case EffectType.CloneAbilityToEntity:
+                entry.cloneGatherAbilityName = EditorGUILayout.TextField("Gather Ability", entry.cloneGatherAbilityName);
+                entry.cloneGatherEffectName = EditorGUILayout.TextField("Gather Effect", entry.cloneGatherEffectName);
+                break;
+
             default:
                 break;
         }

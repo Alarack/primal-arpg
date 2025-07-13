@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Adjust Cost
+  m_Name: E_Adj Cooldown
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Flicker Sride cost ADJ
-    effectDescription: Increase Essence Cost by {}
+    effectName: Misdireciton - Adjust Cooldown
+    effectDescription: Increase Cooldown by {} Seconds.
     type: 1
     targeting: 8
     subTarget: 4
-    maskTargeting: 0
+    maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
@@ -119,8 +119,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 46
-      value: 2
+    - targetStat: 13
+      value: 4
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -219,8 +219,7 @@ MonoBehaviour:
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 0
-    abilitiesToAdd:
-    - {fileID: 11400000, guid: 655501ff749af5246ad9c9357ff407bc, type: 2}
+    abilitiesToAdd: []
     abilitiesToRemove: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 

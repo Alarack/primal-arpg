@@ -180,6 +180,9 @@ public static class AbilityUtilities {
     public static Tuple<Ability, Effect> GetAbilityAndEffectByName(string abilityName, string effectName, Entity source, AbilityCategory category) {
         Ability targetAbility = GetAbilityByName(abilityName, source);//GetAbilityByName(abilityName, source, category);
 
+        if(targetAbility == null) {
+            Debug.LogError("Can't find: " + abilityName + " on " + source.EntityName);
+        }
 
         Effect targetEffect = GetEffectByName(effectName, targetAbility);
 
