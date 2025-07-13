@@ -1394,7 +1394,7 @@ public class Ability {
             //Debug.Log(Source.EntityName + " cannot use: " + Data.abilityName + " because they're stunned");
             return;
         }
-
+        
         if (IsChanneled == true && IsActive == true) {
             return;
         }

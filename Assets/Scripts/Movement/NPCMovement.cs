@@ -103,14 +103,32 @@ public class NPCMovement : EntityMovement
     private Vector2 BasicMovement(Vector2 location) {
         Vector2 direction = location - (Vector2)transform.position;
 
-        float castingModifier = 1 + Owner.Stats[StatName.CastingMoveSpeedModifier];
-        float baseSpeed = Owner.Stats[StatName.MoveSpeed] * (1 + Owner.Stats[StatName.GlobalMoveSpeedModifier]);
 
-        if(Owner.IsCasting() == true) {
-            baseSpeed *= castingModifier;
+        float baseSpeed = Owner.Stats[StatName.MoveSpeed];
+
+        float modifiedSpeed = baseSpeed * (1 + Owner.Stats[StatName.GlobalMoveSpeedModifier]);
+
+
+        float castingModifier = 1 + Owner.Stats[StatName.CastingMoveSpeedModifier];
+        //float baseSpeed = Owner.Stats[StatName.MoveSpeed] * (1 + Owner.Stats[StatName.GlobalMoveSpeedModifier]);
+
+        //float modifiedSpeed = baseSpeed * (1 + Owner.Stats[StatName.GlobalMoveSpeedModifier]);
+
+        if (Owner.IsCasting() == true) {
+            modifiedSpeed *= castingModifier;
         }
-        
-        Vector2 moveForce = direction.normalized * baseSpeed * Time.fixedDeltaTime;
+
+
+        if (Owner.IsChanneling() == true) {
+            float channelSpeed = Owner.Stats[StatName.ChannelingMoveSpeedModifier];
+            float abilitySpeed = Owner.ActiveChannelingAbility.Stats[StatName.ChannelingMoveSpeedModifier];
+            float sum = channelSpeed + abilitySpeed;
+
+            modifiedSpeed *= (1 + sum);
+        }
+
+
+        Vector2 moveForce = direction.normalized * modifiedSpeed * Time.fixedDeltaTime;
 
         bool animMove = moveForce.magnitude > 0.1f;
 

@@ -466,6 +466,10 @@ public class UserActivatedTrigger : AbilityTrigger {
             timedTriggerData.autoActivateTimer = true;
             timedTriggerData.triggerTimerDuration = 0.1f;
 
+            if (parentAbility.Tags.Contains(AbilityTag.Channeled)) {
+                source.ActiveChannelingAbility = parentAbility;
+            }
+
             TimedTrigger timedTrigger = new TimedTrigger(timedTriggerData, source, parentAbility);
             parentAbility.AddNewTrigger(timedTrigger);
         }
