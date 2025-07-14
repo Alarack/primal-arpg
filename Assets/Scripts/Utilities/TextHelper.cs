@@ -289,7 +289,7 @@ public static class TextHelper
             StatName.MaxMinionCount => "Max Minions",
             StatName.CastSpeedModifier => "Cast Speed",
             StatName.Essence => stat.ToString(),
-            StatName.GlobalMoveSpeedModifier => "Move Speed",
+            StatName.GlobalMoveSpeedModifier => "Move Speed Modifier",
             StatName.GlobalProjectileLifetimeModifier => "Projectile Life Modifier",
             StatName.GlobalProjectileSpeedModifier => "Projectile Speed",
             StatName.GlobalEssenceCostModifier => "Essence Cost Modifier",

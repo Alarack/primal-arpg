@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Armor of Emptiness
+  m_Name: A_R_No Time To Waste
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 6
-    abilityIcon: {fileID: 6271010929343209222, guid: 4e866bae930617d4b800dbfd6ed3c392, type: 3}
-    abilityName: Armor of Emptiness
-    abilityDescription: Your body is partially unreal, making you harder to damage.
+    category: 3
+    abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
+    abilityName: No Time To Waste
+    abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
     scaleProcByLevel: 0
     nonLethal: 0
     essenceCostPercent: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Steal Time
     animationString: 
     waitForAnimToResolve: 0
     initSFXVolume: 1
@@ -40,17 +40,8 @@ MonoBehaviour:
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: a70f7a866f0ba5649a4ac16bfdd18b05, type: 2}
-      - {fileID: 11400000, guid: e7f38ecaa124cf449bb1311fbf2c5899, type: 2}
-      - {fileID: 11400000, guid: 6b41a5fa29d00794fba89f9073020567, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: 23eb79c85c0cfce48ac72b335d368f4f, type: 2}
-      - {fileID: 11400000, guid: 98224efebaa691e4cafca89475a47bd1, type: 2}
-      tier: 2
-    tags: 1900000017000000
+    runeGroupData: []
+    tags: 
     resetEvents: 
     activationTriggerData:
     - type: 17
@@ -65,7 +56,9 @@ MonoBehaviour:
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 0
+        constraintData: []
     endTriggerData:
     - type: 18
       overrideProcStat: 0
@@ -79,7 +72,9 @@ MonoBehaviour:
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
-      allConstraints: []
+      allConstraints:
+      - focus: 0
+        constraintData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
@@ -123,7 +118,7 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: bdae6d5bcd900b843a8862141081ec39, type: 2}
+    - {fileID: 11400000, guid: a90e86ceec924a3498965411da0493e4, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

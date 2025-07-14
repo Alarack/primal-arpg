@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Chronal Transfer - Haste Stats ADJ
-    effectDescription: 'Haste: {}'
+    effectDescription: 'Move Speed Bonus: {}'
     type: 1
     targeting: 0
     subTarget: 0
@@ -50,25 +50,30 @@ MonoBehaviour:
     offsetSpawnLocationMax: {x: 0, y: 0}
     rotatePayloadTowardMouse: 0
     effectZoneInfo:
+      parentToCarrier: 0
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
       parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 0
+      dontTickOnEnter: 0
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
       intervalVFX: {fileID: 0}
+      screenShakeOnApply: 0
+      screenShakeAmount: 0
+      screenShakeTime: 0
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 2
+    - targetStat: 61
       value: 0.2
-      modifierType: 2
+      modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 1
@@ -145,6 +150,7 @@ MonoBehaviour:
     effectDesignation: 0
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
+    scaleFromEssenceSpent: 0
     statusModifiers: []
     statusToAdd: []
     statusToRemove: 
@@ -169,6 +175,7 @@ MonoBehaviour:
     abilitiesToRemove: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    forceReactiveParentAbility: 0
     ridersToAdd: []
     ridersToRemove: []
     effectsToRemove: []
@@ -182,6 +189,7 @@ MonoBehaviour:
     destroyPreviousSummonAtCap: 0
     inheritParentLayer: 1
     spawnType: 0
+    materialDesignation: 0
     nameOfAbilityToActivate: 
     forceActivateRespectCooldown: 0
     targetStateName: 
@@ -200,3 +208,5 @@ MonoBehaviour:
     itemSpawnLocation: 0
     itemsToSpawn: []
     itemSpawnAmount: 0
+    cloneGatherAbilityName: 
+    cloneGatherEffectName: 

@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 using static AbilityTrigger;
 using static Status;
@@ -1833,34 +1834,80 @@ public class AddStatScalerEffect : Effect {
         if (base.ApplyToEffect(target) == false)
             return false;
 
-        StatAdjustmentEffect adj = target as StatAdjustmentEffect;
+        
 
-        if (adj == null) {
-            Debug.LogError("Target: " + target.Type + " cannot accept stat scalers. Make sure you're targeting a Stat Adjustment Effect");
-            return false;
+        //if (adj == null) {
+        //    Debug.LogError("Target: " + target.Type + " cannot accept stat scalers. Make sure you're targeting a Stat Adjustment Effect");
+        //    return false;
+        //}
+
+        if(target is StatAdjustmentEffect) {
+
+            StatAdjustmentEffect adj = target as StatAdjustmentEffect;
+
+            for (int i = 0; i < Data.statScalersToAdd.Count; i++) {
+                adj.AddScaler(Data.statScalersToAdd[i]);
+
+                TrackScaler(target, Data.statScalersToAdd[i]);
+            }
+
+            return true;
         }
 
-        for (int i = 0; i < Data.statScalersToAdd.Count; i++) {
-            adj.AddScaler(Data.statScalersToAdd[i]);
+        if(target is AddStatusEffect) {
+            AddStatusEffect statusEffect = target as AddStatusEffect;
 
-            TrackScaler(target, Data.statScalersToAdd[i]);
+            for (int i = 0; i < Data.statScalersToAdd.Count; i++) {
+                for (int j = 0; j < statusEffect.activeStatusEffects.Count; j++) {
+                    statusEffect.activeStatusEffects[j].AddScaler(Data.statScalersToAdd[i]);
+                    TrackScaler(statusEffect.activeStatusEffects[j], Data.statScalersToAdd[i]);
+                }
+            }
+
+            return true;
         }
 
-        return true;
+        Debug.LogError("Target: " + target.Type + " cannot accept stat scalers. Make sure you're targeting a Stat Adjustment Effect or a Status Effect");
+
+        return false;
     }
 
     public override void RemoveFromEffect(Effect target) {
         base.RemoveFromEffect(target);
 
-        StatAdjustmentEffect adj = target as StatAdjustmentEffect;
 
-        if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
-            for (int i = 0; i < list.Count; i++) {
-                adj.RemoveScaler(list[i]);
+        if (target is StatAdjustmentEffect) {
+            StatAdjustmentEffect adj = target as StatAdjustmentEffect;
+
+            if (trackedScalers.TryGetValue(target, out List<StatScaler> list) == true) {
+                for (int i = 0; i < list.Count; i++) {
+                    adj.RemoveScaler(list[i]);
+                }
+
+                trackedScalers.Remove(target);
             }
 
-            trackedScalers.Remove(target);
         }
+
+
+        if(target is AddStatusEffect) {
+            AddStatusEffect statusEffect = target as AddStatusEffect;
+
+            foreach (StatAdjustmentEffect adjustmentEffect in statusEffect.activeStatusEffects) {
+                if(trackedScalers.TryGetValue(adjustmentEffect, out List<StatScaler> list) == true) {
+                    for (int i = 0; i < list.Count; i++) {
+                        adjustmentEffect.RemoveScaler(list[i]);
+                    }
+
+                    trackedScalers.Remove(adjustmentEffect);
+                }
+            }
+
+        }
+        
+        //else {
+        //    Debug.LogError("Trying to remove a scaler from a non stat adjustment effect: " + target.Type.ToString());
+        //}
 
     }
 
@@ -1878,7 +1925,7 @@ public class AddStatScalerEffect : Effect {
 
         StringBuilder builder = new StringBuilder();
 
-        builder.AppendLine("The Base Skill now Scales from: ");
+        builder.AppendLine("The Base Skill now additionally Scales from: ");
 
         for (int i = 0; i < Data.statScalersToAdd.Count; i++) {
 
@@ -2954,6 +3001,19 @@ public class AddStatusEffect : Effect {
 
         return result;
     }
+
+    public void AddScaler(StatScaler scaler) {
+        for (int i = 0; i < activeStatusEffects.Count; i++) {
+            activeStatusEffects[i].AddScaler(scaler);
+        }
+    }
+
+    public void RemoveScaler(StatScaler scaler) {
+        for (int i = 0; i < activeStatusEffects.Count; i++) {
+            activeStatusEffects[i].RemoveScaler(scaler);
+        }
+    }
+
 
     public void ForceTickOnTarget(Entity target) {
         if (activeStatusDict.TryGetValue(target, out List<Status> activeStatuses) == true) {
@@ -4457,7 +4517,7 @@ public class StatAdjustmentEffect : Effect {
         }
         else {
 #if UNITY_EDITOR
-            Debug.LogError("[Stat Adjustment EFFECT] An effect: " + target.Data.effectName + " on the ability " + target.ParentAbility.Data.abilityName + " is not tracked.");
+            //Debug.LogWarning("[Stat Adjustment EFFECT] An effect: " + target.Data.effectName + " on the ability " + target.ParentAbility.Data.abilityName + " is not tracked. Ignore this warning if removeing from a status");
 #endif
         }
     }

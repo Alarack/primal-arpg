@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Slow Status ADJ
+  m_Name: E_Add Move Scaler
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Chronal Transfer - Slow Stats ADJ
-    effectDescription: 'Move Speed Penalty: {}'
-    type: 1
-    targeting: 0
-    subTarget: 0
+    effectName: No Time To Waste - Add Move Scaler
+    effectDescription: 
+    type: 8
+    targeting: 9
+    subTarget: 2
     maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -36,7 +36,55 @@ MonoBehaviour:
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
-    targetConstraints: []
+    targetConstraints:
+    - type: 19
+      inverse: 0
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      checkPercentOfMax: 0
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: 
+      targetEffectName: Steal Time Add Status
+      effectDesigantion: 0
+      targetAbilityCategory: 0
+      targetEffectType: 0
+      targetStatus: 0
+      hasDotStatus: 0
+      appliedStatusType: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+      abilitySlot: 0
+      projectileToCheck: {fileID: 0}
+      cheatDeathStatus: 0
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadStatData: []
@@ -70,23 +118,7 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData:
-    - targetStat: 2
-      value: -0.2
-      modifierType: 2
-      variantTarget: 0
-      modValueSetMethod: 0
-      weaponDamagePercent: 1
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 0
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 1
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers: []
+    modData: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -183,7 +215,10 @@ MonoBehaviour:
     targetOtherEffectParentAbilityName: 
     targetOtherEffectName: 
     applyTriggeringEffect: 0
-    statScalersToAdd: []
+    statScalersToAdd:
+    - targetStat: 61
+      deriveTarget: 0
+      statScaleBaseValue: 5
     entityPrefab: {fileID: 0}
     percentOfPlayerDamage: 1
     destroyPreviousSummonAtCap: 0
