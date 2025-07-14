@@ -51,17 +51,22 @@ MonoBehaviour:
     offsetSpawnLocationMax: {x: 0, y: 0}
     rotatePayloadTowardMouse: 0
     effectZoneInfo:
+      parentToCarrier: 0
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
       parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 0
+      dontTickOnEnter: 0
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
       intervalVFX: {fileID: 0}
+      screenShakeOnApply: 0
+      screenShakeAmount: 0
+      screenShakeTime: 0
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
@@ -130,6 +135,7 @@ MonoBehaviour:
     effectDesignation: 0
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
+    scaleFromEssenceSpent: 0
     statusModifiers: []
     statusToAdd: []
     statusToRemove: 
@@ -154,6 +160,7 @@ MonoBehaviour:
     abilitiesToRemove: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    forceReactiveParentAbility: 0
     ridersToAdd: []
     ridersToRemove: []
     effectsToRemove: []
@@ -164,7 +171,7 @@ MonoBehaviour:
     statScalersToAdd: []
     entityPrefab: {fileID: 0}
     percentOfPlayerDamage: 0.75
-    destroyPreviousSummonAtCap: 1
+    destroyPreviousSummonAtCap: 0
     inheritParentLayer: 1
     spawnType: 1
     materialDesignation: 1
@@ -186,3 +193,5 @@ MonoBehaviour:
     itemSpawnLocation: 0
     itemsToSpawn: []
     itemSpawnAmount: 0
+    cloneGatherAbilityName: 
+    cloneGatherEffectName: 

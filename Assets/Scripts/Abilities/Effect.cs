@@ -4070,14 +4070,17 @@ public class StatAdjustmentEffect : Effect {
             result *= entry.Value.scalerStat.ModifiedValue;
 
             //if (Source is EntityPlayer) {
-            //    Debug.Log(entry.Value.scalerStat.ModifiedValue + " is the scaler for: " + entry.Key + " Effect: " + Data.effectName);
+                //Debug.Log(entry.Value.scalerStat.ModifiedValue + " is the scaler for: " + entry.Key + " Effect: " + Data.effectName);
 
             //    //Debug.Log("Mods on scaler found: " + entry.Value.scalerStat.ModCount);
 
-            //    Debug.Log(result + " is the after scaler value for: " + entry.Value.targetStat);
+                //Debug.Log(result + " is the after scaler value for: " + entry.Value.targetStat);
             //}
 
             totalDerivedValue += result;
+
+            //Debug.Log(totalDerivedValue + " is the total derived value for: " + entry.Value.targetStat);
+
 
             //projectileStatContrabution += GetProjectileStatContrabution(entry.Value.targetStat, entry.Value.scalerStat.ModifiedValue);
 
@@ -4130,6 +4133,15 @@ public class StatAdjustmentEffect : Effect {
         float globalDamageMultiplier = GetDamageModifier(activeMod, target);
 
         bool maxHealthAdj = activeMod.TargetStat == StatName.Health && activeMod.VariantTarget == StatModifierData.StatVariantTarget.RangeMax;
+
+
+        if(activeMod.TargetStat == StatName.Essence && activeMod.Value < 0f) {
+            float essenceCostModifier =  1f + target.Stats[StatName.GlobalEssenceCostModifier];
+            float adjustedEssenceCost = activeMod.Value * essenceCostModifier;
+            activeMod.UpdateModValue(adjustedEssenceCost);
+            StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier, Data.addMissingStatIfNotPresent, activeDelivery);
+            return;
+        }
 
         if (activeMod.TargetStat != StatName.Health || maxHealthAdj) {
             StatAdjustmentManager.ApplyStatAdjustment(target, activeMod, activeMod.TargetStat, activeMod.VariantTarget, ParentAbility, globalDamageMultiplier, Data.addMissingStatIfNotPresent, activeDelivery);
@@ -4445,7 +4457,7 @@ public class StatAdjustmentEffect : Effect {
         }
         else {
 #if UNITY_EDITOR
-            Debug.LogError("[Stat Adjustment EFFECT] An effect: " + target.Data.effectName + " is not tracked.");
+            Debug.LogError("[Stat Adjustment EFFECT] An effect: " + target.Data.effectName + " on the ability " + target.ParentAbility.Data.abilityName + " is not tracked.");
 #endif
         }
     }

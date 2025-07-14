@@ -16,8 +16,8 @@ MonoBehaviour:
     category: 3
     abilityIcon: {fileID: 21300000, guid: 5fbc9d4aaef71274cbbe2029a05bba0c, type: 3}
     abilityName: Chronal Transfer
-    abilityDescription: Steal Time has a longer interval between ticks, but Slows
-      enemy Move Speed while boosting your own.
+    abilityDescription: Steal Time caused less damage, but Slows enemy Move Speed
+      while boosting your own.
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -32,6 +32,7 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
+    essenceCostPercent: 0
     runeAbilityTarget: Steal Time
     animationString: 
     waitForAnimToResolve: 0
@@ -119,7 +120,7 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 4c22282bcdaa552449feea8d29c07336, type: 2}
+    - {fileID: 11400000, guid: ecfba52ae4a2ba040a8fdc5be8cc510d, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2

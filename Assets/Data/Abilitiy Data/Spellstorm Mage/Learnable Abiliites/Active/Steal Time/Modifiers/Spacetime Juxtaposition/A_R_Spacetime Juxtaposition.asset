@@ -18,14 +18,14 @@ MonoBehaviour:
     abilityName: Spacetime Juxtaposition
     abilityDescription: "Dealing Spatial damage to a non-boss enemy affected by Steal
       Time\u2019s Damage over Time effect summons a warped copy of that enemy under
-      your control.  Summoning an extra clone replaces your existing clone."
+      your control. "
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
-    showChildAbilitiesInTooltip: 1
+    showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
@@ -33,6 +33,7 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
+    essenceCostPercent: 0
     runeAbilityTarget: Steal Time
     animationString: 
     waitForAnimToResolve: 0
@@ -107,6 +108,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
         - type: 4
           inverse: 0
           statChangeTarget: 0
@@ -154,6 +156,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
         - type: 8
           inverse: 1
           statChangeTarget: 0
@@ -201,6 +204,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
         - type: 11
           inverse: 0
           statChangeTarget: 0
@@ -248,6 +252,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
       - focus: 5
         constraintData:
         - type: 17
@@ -297,6 +302,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
         - type: 4
           inverse: 0
           statChangeTarget: 0
@@ -344,6 +350,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0

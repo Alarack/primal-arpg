@@ -272,18 +272,18 @@ public static class StatAdjustmentManager {
         //    }
         //}
 
-        if (targetStat == StatName.Health) {
-            if(sourceAbility != null && sourceAbility.Tags.Contains(AbilityTag.Teleportation)) {
-                //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
+        //if (targetStat == StatName.Health) {
+        //    if(sourceAbility != null && sourceAbility.Data.abilityName == "Steal Time") {
+        //        Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
 
-                if (sourceAbility != null) {
-                    Debug.Log(" Healt Changed on "+ target.EntityName + " from From: " + sourceAbility.Data.abilityName);
-                }
-                //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
-            }
+        //        //if (sourceAbility != null) {
+        //        //    Debug.Log(" Healt Changed on "+ target.EntityName + " from From: " + sourceAbility.Data.abilityName);
+        //        //}
+        //        //Debug.Log("Resulting Value for : " + targetStat + " : " + target.Stats[targetStat]);
+        //    }
             
 
-        }
+        //}
 
         //Debug.Log(targetStat + " " + mod.ModType + " With a value of: " + mod.Value + " applied to: " + target.EntityName);
 

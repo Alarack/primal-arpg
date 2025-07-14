@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Adj Cooldown
+  m_Name: E_Modify Damage
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Misdireciton - Adjust Cooldown
-    effectDescription: Increase Cooldown by {}
+    effectName: Chronal Transfer -  Modifiy Damage
+    effectDescription: Reduce Damage by {}
     type: 1
-    targeting: 8
-    subTarget: 4
+    targeting: 9
+    subTarget: 5
     maskTargeting: 1
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     otherEffectName: 
     targetAbilityForLastPayload: 
     targetConstraints:
-    - type: 18
+    - type: 19
       inverse: 0
       statChangeTarget: 0
       changeDirection: 0
@@ -71,8 +71,8 @@ MonoBehaviour:
       stateEntered: 
       stateExited: 
       targetAbilityTag: 0
-      targetAbiltyName: Tactical Teleport
-      targetEffectName: 
+      targetAbiltyName: 
+      targetEffectName: Steal Time Add Status
       effectDesigantion: 0
       targetAbilityCategory: 0
       targetEffectType: 0
@@ -119,9 +119,9 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 13
-      value: 2
-      modifierType: 2
+    - targetStat: 28
+      value: -0.1
+      modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
       weaponDamagePercent: 1
