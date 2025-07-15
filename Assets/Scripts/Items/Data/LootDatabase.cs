@@ -467,6 +467,16 @@ public class LootDatabase : ScriptableObject {
         return results;
     }
 
+    public List<ItemSlot> GetValidSlotsForStat(StatName stat) {
+        List<ItemSlot> results = new List<ItemSlot>();
+
+        if (itemAffixes.TryGetValue(stat, out ItemStatAffixData affixData)) {
+            results.AddRange(affixData.validSlots);
+        }
+
+        return results;
+    }
+
     public List<ItemStatAffixData> GetAffixesBySlot(ItemSlot slot) {
         List < ItemStatAffixData> results = new List<ItemStatAffixData >();
         foreach (var item in itemAffixes) {

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using static UnityEngine.EventSystems.EventTrigger;
+using System.Text;
 
 public class StatDisplayEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -26,7 +27,23 @@ public class StatDisplayEntry : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void OnPointerEnter(PointerEventData eventData) {
         //string statName = TextHelper.PretifyStatName(stat);
-        TooltipManager.Show(GameManager.Instance.tooltipData.GetStatTooltip(stat), statName, -170f);
+
+        List<ItemSlot> validSlots = ItemSpawner.Instance.lootDatabase.GetValidSlotsForStat(stat);
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.Append(GameManager.Instance.tooltipData.GetStatTooltip(stat));
+
+        if(validSlots.Count > 0) {
+            builder.AppendLine().AppendLine();
+            builder.AppendLine("Found On:");
+            for (int i = 0; i < validSlots.Count; i++) {
+                builder.AppendLine(validSlots[i].ToString());
+            }
+        }
+
+
+        TooltipManager.Show(builder.ToString(), statName, -170f);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
