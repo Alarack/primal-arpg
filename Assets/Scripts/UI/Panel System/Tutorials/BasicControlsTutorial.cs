@@ -19,4 +19,17 @@ public class BasicControlsTutorial : BasePanel
         Close();
     }
 
+    public override void Close() {
+        base.Close();
+        HideInfo();
+    }
+
+    public void ShowInfo() {
+        TooltipManager.Show("When you see this icon, hover over it for more info the about curren panel. It's usually in the top left corner.", "Info Box");
+    }
+
+    public void HideInfo() {
+        TooltipManager.Hide();
+    }
+
 }
