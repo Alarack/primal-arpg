@@ -1551,24 +1551,50 @@ public class TeleportEffect : Effect {
     }
 
     private void TeleportToMousePointer(Entity target) {
+        
+        
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 targetPos = mousePos;
 
         Vector2 viewportCheck = Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
         //Debug.Log(viewportCheck + " is the viewport checker");
 
-        if (viewportCheck.x < 0.05f || viewportCheck.x > 0.95f) {
-            ParentAbility.RecoveryCharge(1);
-            return;
+        float validViewportX = Camera.main.WorldToViewportPoint(mousePos).x;
+        float validViewportY = Camera.main.WorldToViewportPoint(mousePos).y;
 
+        if(viewportCheck.x < 0.1f) {
+            validViewportX = 0.1f;
         }
 
-        if (viewportCheck.y < 0.22f || viewportCheck.y > 0.95f) {
-            ParentAbility.RecoveryCharge(1);
-            return;
+        if(viewportCheck.x > 0.9f) {
+            validViewportX = 0.9f;
         }
 
-        ExecuteTeleport(target, mousePos);
+        if(viewportCheck.y < 0.3f) {
+            validViewportY = 0.3f;
+        }
+
+        if(viewportCheck.y > 0.9f) {
+            validViewportY = 0.9f;
+        }
+
+        targetPos = Camera.main.ViewportToWorldPoint(new Vector2(validViewportX, validViewportY));
+
+
+        //if (viewportCheck.x < 0.05f || viewportCheck.x > 0.95f) {
+        //    ParentAbility.RecoveryCharge(1);
+        //    return;
+
+        //}
+
+        //if (viewportCheck.y < 0.22f || viewportCheck.y > 0.95f) {
+        //    ParentAbility.RecoveryCharge(1);
+        //    return;
+        //}
+
+        ExecuteTeleport(target, targetPos);
     }
 
 

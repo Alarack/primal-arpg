@@ -920,6 +920,28 @@ public class AbilityNameConstraint : AbilityConstraint {
 
 }
 
+public class AbilityReadyConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.AbilityReady;
+
+    public AbilityReadyConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+        Debug.LogError("A constraint of type: " + Type + " is trying to target an entity. This is not supported. Ability Name: " + parentAbility.Data.abilityName);
+
+
+        return false;
+    }
+
+    public override bool Evaluate(Ability ability, TriggerInstance triggerInstance) {
+        bool result = ability.IsReady;
+        return inverse == false ? result : !result;
+    }
+
+}
+
 public class AbilityCategoryConstraint : AbilityConstraint {
 
     public override ConstraintType Type => ConstraintType.AbilityCategory;

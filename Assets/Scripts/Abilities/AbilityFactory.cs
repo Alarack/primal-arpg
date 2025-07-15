@@ -106,6 +106,7 @@ public static class AbilityFactory {
             ConstraintType.HasProjectile => new HasProjectileConstraint(data, source, parentAbility),
             ConstraintType.StatusApplied => new StatusAppliedConstraint(data, source, parentAbility),
             ConstraintType.AbilityCategory => new AbilityCategoryConstraint(data, source, parentAbility),
+            ConstraintType.AbilityReady => new AbilityReadyConstraint(data, source, parentAbility),
             _ => null,
         };
 

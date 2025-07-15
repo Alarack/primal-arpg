@@ -182,6 +182,54 @@ MonoBehaviour:
       abilitySlot: 0
       projectileToCheck: {fileID: 0}
       cheatDeathStatus: 0
+    - type: 39
+      inverse: 1
+      statChangeTarget: 0
+      changeDirection: 0
+      minStatChangeRequired: 0
+      statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
+      minRange: 0
+      maxRange: 0
+      rangeToWhat: 0
+      ownerTarget: 0
+      mostStatTarget: 0
+      mostStatEffectName: 
+      mostStatAbilityName: 
+      leastStatTarget: 0
+      leastStatEffectName: 
+      leastStatAbilityName: 
+      checkPercentOfMax: 0
+      minStatTarget: 0
+      minStatValue: 0
+      nonZero: 0
+      maxStatTarget: 0
+      maxStatValue: 0
+      targetEntityName: 
+      targetSubtype: 0
+      targetPrimaryType: 0
+      targetActiveAbilityName: 
+      appliedEffectType: 0
+      appliedEffectName: 0
+      targetStateData: {fileID: 0}
+      stateEntered: 
+      stateExited: 
+      targetAbilityTag: 0
+      targetAbiltyName: 
+      targetEffectName: 
+      effectDesigantion: 0
+      targetAbilityCategory: 0
+      targetEffectType: 0
+      targetStatus: 0
+      hasDotStatus: 0
+      appliedStatusType: 0
+      statRatioTarget: 0
+      targetRatio: 0
+      movementMagnitudeLimit: 0.1
+      abilitySlot: 0
+      projectileToCheck: {fileID: 0}
+      cheatDeathStatus: 0
     riderEffects: []
     payloadPrefab: {fileID: 0}
     payloadStatData: []
@@ -191,6 +239,8 @@ MonoBehaviour:
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
     offsetSpawnLocation: 0
+    uniformOffset: 0
+    uniformOffsetRadius: 0
     offsetSpawnLocationMin: {x: 0, y: 0}
     offsetSpawnLocationMax: {x: 0, y: 0}
     rotatePayloadTowardMouse: 0
@@ -337,3 +387,5 @@ MonoBehaviour:
     itemSpawnLocation: 0
     itemsToSpawn: []
     itemSpawnAmount: 0
+    cloneGatherAbilityName: 
+    cloneGatherEffectName: 

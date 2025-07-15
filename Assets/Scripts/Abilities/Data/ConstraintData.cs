@@ -46,7 +46,8 @@ public enum ConstraintType {
     HasProjectile,
     StatusApplied,
     AbilityCategory,
-    DeathCheated
+    DeathCheated,
+    AbilityReady
 }
 
 public enum GainedOrLost {

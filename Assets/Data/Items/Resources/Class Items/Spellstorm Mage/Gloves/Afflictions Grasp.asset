@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Afflictions Grasp
   m_EditorClassIdentifier: 
   devItem: 0
+  startingItem: 0
   itemData:
     Type: 1
     affixStatTarget: 1
@@ -26,14 +27,32 @@ MonoBehaviour:
     runeAbilityTarget: 
     validSlots: 03000000
     abilityTags: 
+    targetedAbilityName: 
     itemIcon: {fileID: 21300000, guid: db789f61bdc0f6742bf612b2b450bb08, type: 3}
+    invertIcon: 0
     pickupIcon: {fileID: 21300000, guid: db789f61bdc0f6742bf612b2b450bb08, type: 3}
     pickupOnCollision: 1
     tier: 0
     baseAffixSlots: 2
     minDamage: 0
     maxDamage: 0
-    statModifierData: []
+    statModifierData:
+    - targetStat: 92
+      value: 0.2
+      modifierType: 0
+      variantTarget: 0
+      modValueSetMethod: 0
+      weaponDamagePercent: 0
+      deriveStatMultiplier: 0
+      deriveTarget: 0
+      derivedTargetStat: 0
+      invertDerivedValue: 0
+      scaleFromAbilityLevel: 0
+      displayAsPercent: 0
+      abilityLevelCoefficient: 0
+      otherTargetAbility: 
+      otherTagetEffect: 
+      scalers: []
     abilityDefinitions:
     - {fileID: 11400000, guid: 2c5284bc2c68b17429c3725744dd8490, type: 2}
     learnableAbilities: []
