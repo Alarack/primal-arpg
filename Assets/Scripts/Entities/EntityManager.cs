@@ -201,6 +201,10 @@ public class EntityManager : Singleton<EntityManager> {
         PanelManager.GetPanel<InventoryPanel>().ResetForge();
         PanelManager.GetPanel<HUDPanel>().ClearStatusUI();
         PanelManager.ClosePanel<LevelUpPanel>();
+        PanelManager.ClosePanel<InventoryPanel>();
+        PanelManager.ClosePanel<SkillsPanel>();
+        PanelManager.ClosePanel<RunesPanel>();
+        PanelManager.ClosePanel<MasteryPanel>();
         RoomManager.Instance.CleanUpRewardPedestals();
         RoomManager.InCombat = false;
 

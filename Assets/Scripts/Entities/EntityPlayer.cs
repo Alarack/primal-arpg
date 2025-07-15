@@ -121,7 +121,7 @@ public class EntityPlayer : Entity {
             iFrameTask = new Task(OnDamageInvincible());
         }
 
-        if (source != null && source != this) {
+        if (source != null && source != this && IsDead == false) {
 
             AllIn1Shaker.i.DoCameraShake(0.05f);
             HitStopManager.Stop();
@@ -132,13 +132,16 @@ public class EntityPlayer : Entity {
 
 
     protected override void Die(Entity source, Ability sourceAbility = null) {
-
         if (debugGodMode == true) {
             return;
         }
 
-
         base.Die(source, sourceAbility);
+
+        if(iFrameTask != null)
+            iFrameTask.Stop();
+
+        HitStopManager.AbortStop();
 
         Invincible = false;
         iFrameTask = null;
@@ -149,10 +152,11 @@ public class EntityPlayer : Entity {
         //GameOverPanel panel = FindObjectOfType<GameOverPanel>();
         //panel.Open();
         Movement.ForceDashEnd();
-        gameObject.SetActive(false);
+        
         EntityManager.GameOver();
         PanelManager.OpenPanel<GameOverPanel>();
 
+        gameObject.SetActive(false);
         //Destroy(gameObject);
     }
 

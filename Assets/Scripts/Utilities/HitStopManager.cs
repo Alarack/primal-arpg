@@ -18,6 +18,15 @@ public class HitStopManager : Singleton<HitStopManager>
         new Task(Wait(duration));
     }
 
+    public static void AbortStop() {
+
+        if (waiting == false)
+            return;
+        
+        waiting = false;
+        Time.timeScale = 1f;
+    }
+
     private static IEnumerator Wait(float duration) {
         waiting = true;
         yield return new WaitForSecondsRealtime(duration);
