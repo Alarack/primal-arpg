@@ -361,4 +361,8 @@ public class Status {
         return ParentEffect.ParentAbility.Tags.Contains(AbilityTag.DamageOverTime);
     }
 
+    public string GetTooltip() {
+        return "";
+    }
+
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: E_Grant Hack History
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Grand Hack History
+    effectName: Grant Hack History
     effectDescription: 
     type: 6
     targeting: 8
@@ -22,13 +22,17 @@ MonoBehaviour:
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
+    hideOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
+    untracked: 0
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
     showScalers: 0
+    scaleDamageFromTriggeringAbility: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
+    chainTargetDelay: 0.1
     otherAbilityName: 
     otherEffectName: 
     targetAbilityForLastPayload: 
@@ -39,6 +43,8 @@ MonoBehaviour:
       changeDirection: 0
       minStatChangeRequired: 0
       statChangeDelta: 0
+      constrainByDelivery: 0
+      deliveryConstraint: {fileID: 0}
       minRange: 0
       maxRange: 0
       rangeToWhat: 0
@@ -49,6 +55,7 @@ MonoBehaviour:
       leastStatTarget: 0
       leastStatEffectName: 
       leastStatAbilityName: 
+      checkPercentOfMax: 0
       minStatTarget: 0
       minStatValue: 0
       nonZero: 0
@@ -67,32 +74,48 @@ MonoBehaviour:
       targetAbiltyName: Steal Time
       targetEffectName: 
       effectDesigantion: 0
+      targetAbilityCategory: 0
       targetEffectType: 0
       targetStatus: 0
+      hasDotStatus: 0
+      appliedStatusType: 0
       statRatioTarget: 0
       targetRatio: 0
       movementMagnitudeLimit: 0.1
+      abilitySlot: 0
+      projectileToCheck: {fileID: 0}
+      cheatDeathStatus: 0
     riderEffects: []
     payloadPrefab: {fileID: 0}
-    payloadCount: 1
-    shotDelay: 0.2
     payloadStatData: []
     spawnLocation: 0
     spawnLocationStart: 0
     spawnLocationEnd: 0
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
+    offsetSpawnLocation: 0
+    uniformOffset: 0
+    uniformOffsetRadius: 0
+    offsetSpawnLocationMin: {x: 0, y: 0}
+    offsetSpawnLocationMax: {x: 0, y: 0}
+    rotatePayloadTowardMouse: 0
     effectZoneInfo:
+      parentToCarrier: 0
       removeEffectOnExit: 0
       parentEffectToOrigin: 0
       parentToTarget: 0
       applyOncePerTarget: 0
       applyOnInterval: 0
+      dontTickOnEnter: 0
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
       applyVFX: {fileID: 0}
       deathVFX: {fileID: 0}
+      intervalVFX: {fileID: 0}
+      screenShakeOnApply: 0
+      screenShakeAmount: 0
+      screenShakeTime: 0
       effectZonePrefab: {fileID: 0}
     projectileHitMask:
       serializedVersion: 2
@@ -160,15 +183,22 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     effectDesignation: 0
     addMissingStatIfNotPresent: 0
+    scaleFromStatus: 0
+    scaleFromEssenceSpent: 0
+    statusModifiers: []
     statusToAdd: []
     statusToRemove: 
+    statusPurgeExceptions: 
+    removeAllDotStatus: 0
     isTeleport: 0
     invertDestination: 0
     resetMovement: 0
+    showTrail: 0
     targetDestination: 0
     teleportDestination: 0
     teleportVFX: {fileID: 0}
     forwardDistance: 0
+    teleportSequenceDelay: 0.2
     tokenPrefabs: []
     tokenSpawnLocation: 0
     overlapCircleRadius: 0
@@ -177,8 +207,10 @@ MonoBehaviour:
       m_Bits: 0
     abilitiesToAdd:
     - {fileID: 11400000, guid: d39abfa2d31033d4eaa3fc750d73224b, type: 2}
+    abilitiesToRemove: []
     effectsToAdd: []
     targetAbilityToAddEffectsTo: 
+    forceReactiveParentAbility: 0
     ridersToAdd: []
     ridersToRemove: []
     effectsToRemove: []
@@ -192,9 +224,24 @@ MonoBehaviour:
     destroyPreviousSummonAtCap: 0
     inheritParentLayer: 1
     spawnType: 0
+    materialDesignation: 0
     nameOfAbilityToActivate: 
+    forceActivateRespectCooldown: 0
     targetStateName: 
     tagsToAdd: 
     tagsToRemove: 
     newPayloadPrefab: {fileID: 0}
-    newEffectZonePrefab: {fileID: 0}
+    changeEffectZoneByProjectileName: 
+    changeEffectZoneByEffectName: 
+    modifiedMovementBehavior: 0
+    modifiedSeekDuration: -1
+    modifiedDrunkInterval: 0.2
+    cooldownElapsedModifier: 0
+    statusScalingData: []
+    scaleFromAbilityLevel: 0
+    spawnedItemType: 0
+    itemSpawnLocation: 0
+    itemsToSpawn: []
+    itemSpawnAmount: 0
+    cloneGatherAbilityName: 
+    cloneGatherEffectName: 

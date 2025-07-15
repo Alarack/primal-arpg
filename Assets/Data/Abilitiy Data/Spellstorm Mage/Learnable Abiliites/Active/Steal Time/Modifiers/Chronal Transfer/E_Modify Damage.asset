@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Chronal Transfer -  Modifiy Damage
-    effectDescription: Reduce Damage by {}
+    effectDescription: Reduce Steal Time's Damage by {}
     type: 1
     targeting: 9
     subTarget: 5
@@ -94,6 +94,8 @@ MonoBehaviour:
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
     offsetSpawnLocation: 0
+    uniformOffset: 0
+    uniformOffsetRadius: 0
     offsetSpawnLocationMin: {x: 0, y: 0}
     offsetSpawnLocationMax: {x: 0, y: 0}
     rotatePayloadTowardMouse: 0

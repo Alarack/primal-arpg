@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectData:
     effectName: Chronal Transfer - Slow Stats ADJ
-    effectDescription: 'Move Speed Penalty: {}'
+    effectDescription: 'Enemy Move Speed Penalty: {}'
     type: 1
     targeting: 0
     subTarget: 0
@@ -46,6 +46,8 @@ MonoBehaviour:
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
     offsetSpawnLocation: 0
+    uniformOffset: 0
+    uniformOffsetRadius: 0
     offsetSpawnLocationMin: {x: 0, y: 0}
     offsetSpawnLocationMax: {x: 0, y: 0}
     rotatePayloadTowardMouse: 0

@@ -3151,7 +3151,7 @@ public class AddStatusEffect : Effect {
         if (maxStacks < float.MaxValue &&
             Data.statusToAdd[0].stackMethod != StackMethod.None &&
             Data.statusToAdd[0].stackMethod != StackMethod.Infinite) {
-            builder.Append("Stacks up to " + Stats.GetStatRangeMaxValue(StatName.StackCount) + " times").AppendLine();
+            builder.Append("Stacks up to " + TextHelper.ColorizeText(Stats.GetStatRangeMaxValue(StatName.StackCount).ToString(), "Stat Bonus Color") + " times");
         }
         if (Data.statusToAdd[0].stackMethod == StackMethod.Infinite) {
             builder.Append("Stacks Infinitely");
@@ -3173,7 +3173,7 @@ public class AddStatusEffect : Effect {
             switch (activeStatusEffects[i].Data.effectDesignation) {
                 case StatModifierData.StatModDesignation.None:
 
-                    builder.AppendLine(activeStatusEffects[i].GetTooltip());
+                    builder.Append(activeStatusEffects[i].GetTooltip());
 
                     float duration = GetModifiedStatusDuration();
 
@@ -3183,6 +3183,12 @@ public class AddStatusEffect : Effect {
                     }
 
                     builder.Append(GetStatusStackingTooltip());
+
+                    if(i != activeStatusEffects.Count -1)
+                        builder.AppendLine().AppendLine();
+                    else {
+                        builder.AppendLine();
+                    }
 
                     break;
                 case StatModifierData.StatModDesignation.PrimaryDamage:

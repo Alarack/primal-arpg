@@ -16,7 +16,7 @@ MonoBehaviour:
     category: 6
     abilityIcon: {fileID: 21300000, guid: b969970b5b5008347ae6c96280a1a12c, type: 3}
     abilityName: Essence Field
-    abilityDescription: 
+    abilityDescription: 'You project a field of raw Essence around yourself. '
     resourceCost: 35
     toBestow: 0
     suspend: 0
@@ -31,6 +31,7 @@ MonoBehaviour:
     startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
+    essenceCostPercent: 0
     runeAbilityTarget: 
     animationString: 
     waitForAnimToResolve: 0
@@ -118,6 +119,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
     endTriggerData:
     - type: 18
       overrideProcStat: 0
@@ -181,6 +183,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:

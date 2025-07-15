@@ -28,7 +28,7 @@ MonoBehaviour:
     untracked: 0
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
-    showScalers: 1
+    showScalers: 0
     scaleDamageFromTriggeringAbility: 0
     inheritStatsFromParentAbility: 1
     numberOfTargets: -1
@@ -46,6 +46,8 @@ MonoBehaviour:
     minViewportValues: {x: 0, y: 0}
     maxViewportValues: {x: 0, y: 0}
     offsetSpawnLocation: 0
+    uniformOffset: 0
+    uniformOffsetRadius: 0
     offsetSpawnLocationMin: {x: 0, y: 0}
     offsetSpawnLocationMax: {x: 0, y: 0}
     rotatePayloadTowardMouse: 0

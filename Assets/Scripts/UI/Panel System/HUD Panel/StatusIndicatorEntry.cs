@@ -56,7 +56,7 @@ public class StatusIndicatorEntry : MonoBehaviour, IPointerEnterHandler, IPointe
     
     
     public void OnPointerEnter(PointerEventData eventData) {
-        TooltipManager.Show(activeStatus.ParentEffect.GetTooltip());
+        TooltipManager.Show(activeStatus.ParentEffect.GetTooltip(), activeStatus.ParentEffect.ParentAbility.Data.abilityName);
     }
 
     public void OnPointerExit(PointerEventData eventData) {

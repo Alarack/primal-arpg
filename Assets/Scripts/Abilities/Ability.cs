@@ -1043,9 +1043,9 @@ public class Ability {
 
             builder.Append(effectDurationReplacement);
 
-            if (Data.showChildAbilitiesInTooltip == true) {
-                builder.AppendLine();
-            }
+            //if (Data.showChildAbilitiesInTooltip == true) {
+            //    builder.AppendLine();
+            //}
         }
 
         if (Data.showChildAbilitiesInTooltip == true) {
@@ -1143,17 +1143,31 @@ public class Ability {
         if (Data.includeEffectsInTooltip == true) {
             builder.AppendLine();
 
-            foreach (Effect effect in effects) {
-
-                if (effect.Data.onlyShowTooltipInRune == true) {
+            for (int i = 0; i < effects.Count; i++) {
+                if (effects[i].Data.onlyShowTooltipInRune == true) {
                     continue;
                 }
 
-                string effectTooltip = effect.GetTooltip();
-                if (string.IsNullOrEmpty(effectTooltip) == false) {
-                    builder.Append(effectTooltip).AppendLine();
+                string effectTooltip = effects[i].GetTooltip();
+                builder.Append(effectTooltip);
+                if (i != effects.Count - 1 && string.IsNullOrEmpty(effectTooltip) == false) {
+                    builder.AppendLine();
                 }
+
             }
+
+
+            //foreach (Effect effect in effects) {
+
+            //    if (effect.Data.onlyShowTooltipInRune == true) {
+            //        continue;
+            //    }
+
+            //    string effectTooltip = effect.GetTooltip();
+            //    if (string.IsNullOrEmpty(effectTooltip) == false) {
+            //        builder.Append(effectTooltip).AppendLine();
+            //    }
+            //}
         }
 
         if (Stats.Contains(StatName.EssenceCost)) {
@@ -1258,7 +1272,7 @@ public class Ability {
             if (string.IsNullOrEmpty(runes[i].Data.abilityDescription) == false) {
                 
                 
-                builder.AppendLine().AppendLine();
+                builder.AppendLine();
             }
 
             //builder.Append(TextHelper.ColorizeText("Rune: ", Color.cyan)).Append(runes[i].Data.abilityName).AppendLine();
