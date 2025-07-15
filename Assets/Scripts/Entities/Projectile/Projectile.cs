@@ -82,6 +82,9 @@ public class Projectile : Entity {
         Stats.AddStatListener(StatName.ProjectileSize, OnSizeChanged);
         if (Stats.Contains(StatName.ProjectileSplitCount) == true)
             Stats.AddStatListener(StatName.ProjectileSplitCount, OnSplitChanged);
+
+        if (Stats.Contains(StatName.ProjectileSplitQuantity) == true)
+            Stats.AddStatListener(StatName.ProjectileSplitQuantity, OnSplitQuantityChanged);
     }
 
     protected override void OnDisable() {
@@ -91,6 +94,10 @@ public class Projectile : Entity {
 
         if (Stats.Contains(StatName.ProjectileSplitCount) == true)
             Stats.RemoveStatListener(StatName.ProjectileSplitCount, OnSplitChanged);
+
+        if(Stats.Contains(StatName.ProjectileSplitQuantity) == true) 
+            Stats.RemoveStatListener(StatName.ProjectileSplitQuantity, OnSplitQuantityChanged);
+        
     }
 
     private void OnSizeChanged(BaseStat stat, object source, float value) {
@@ -104,6 +111,15 @@ public class Projectile : Entity {
         if (Stats[StatName.ProjectileSplitQuantity] <= 0f) {
             float splitQuantity = Source.Stats[StatName.ProjectileSplitQuantity];
             Stats.AddModifier(StatName.ProjectileSplitQuantity, 2 + splitQuantity, StatModType.Flat, Source);
+        }
+    }
+
+    private void OnSplitQuantityChanged(BaseStat stat, object source, float value) {
+        if (value < 0f)
+            return;
+
+        if (Stats[StatName.ProjectileSplitCount] < 1) {
+            Stats.AddModifier(StatName.ProjectileSplitCount, 1, StatModType.Flat, Source);
         }
     }
 
@@ -203,6 +219,10 @@ public class Projectile : Entity {
         float splitQuantity = Source.Stats[StatName.ProjectileSplitQuantity];
         if (Stats[StatName.ProjectileSplitCount] > 0 && Stats[StatName.ProjectileSplitQuantity] <= 0)
             Stats.AddModifier(StatName.ProjectileSplitQuantity, 2 + splitQuantity, StatModType.Flat, Source);
+
+        if(splitQuantity > 0 && Stats[StatName.ProjectileSplitCount] < 1) {
+            Stats.AddModifier(StatName.ProjectileSplitCount, 1, StatModType.Flat, Source);
+        }
 
 
         float parentRotationSpeed = ParentEffect.ParentAbility.Stats[StatName.RotationSpeed];
@@ -370,7 +390,7 @@ public class Projectile : Entity {
                 return;
             }
 
-            if (Stats[StatName.ProjectileChainCount] >= 1) {
+            if (Stats[StatName.ProjectileChainCount] >= 1 || successfulChain == true) {
                 return;
             }
         }
@@ -517,12 +537,27 @@ public class Projectile : Entity {
         if (subtypes.Contains(EntitySubtype.ChildProjectile) == true)
             return false;
 
-        Stats.AddModifier(StatName.ProjectileSplitCount, -1, StatModType.Flat, this);
+        Stats.AddModifier(StatName.ProjectileSplitCount, -Stats[StatName.ProjectileSplitCount], StatModType.Flat, this);
 
         Vector2 parentVelocity = Movement.MyBody.linearVelocity;
         Vector2 perpendicular = Vector2.Perpendicular(parentVelocity);
 
-        for (int i = 0; i < Stats[StatName.ProjectileSplitQuantity]; i++) {
+
+        float splitQuantity = Stats[StatName.ProjectileSplitQuantity];
+        float remainder = splitQuantity % 1;
+
+        if(remainder > 0) {
+            Debug.Log("leftover quantity: " + remainder);
+            float roll = UnityEngine.Random.Range(0f, 1f);
+            if (roll < remainder) {
+                float difference = 1 - remainder;
+                splitQuantity += difference;
+                Debug.Log("Roll Successful: adding " + difference);
+            }
+        }
+
+
+        for (int i = 0; i < splitQuantity; i++) {
 
             if (i.IsOdd() == true) {
                 perpendicular = -perpendicular;
@@ -568,7 +603,22 @@ public class Projectile : Entity {
 
 
     private bool HandleProjectileChain(Collider2D recentHit) {
-        if (Stats[StatName.ProjectileChainCount] < 1f) {
+
+        float chainCount = Stats[StatName.ProjectileChainCount];
+        if(chainCount < 1) {
+            float remainder = chainCount % 1;
+            if (remainder > 0) {
+                Debug.Log("leftover quantity: " + remainder);
+                float roll = UnityEngine.Random.Range(0f, 1f);
+                if (roll < remainder) {
+                    float difference = 1 - remainder;
+                    chainCount += difference;
+                    Debug.Log("Roll Successful: adding " + difference);
+                }
+            }
+        }
+
+        if (chainCount < 1f) {
             return false;
         }
 
@@ -582,6 +632,7 @@ public class Projectile : Entity {
 
         Entity otherEntity = recentHit.GetComponent<Entity>();
         new Task(SendChainEvent(otherEntity));
+        new Task(SendPierceEvent(otherEntity));
 
         if (killTimer != null && killTimer.Running == true) {
             killTimer.Stop();

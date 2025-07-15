@@ -159,6 +159,8 @@ public class EffectData
     public Vector2 minViewportValues;
     public Vector2 maxViewportValues;
     public bool offsetSpawnLocation;
+    public bool uniformOffset;
+    public float uniformOffsetRadius;
     public Vector2 offsetSpawnLocationMin;
     public Vector2 offsetSpawnLocationMax;
     public bool rotatePayloadTowardMouse;

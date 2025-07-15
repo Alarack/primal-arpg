@@ -1933,7 +1933,7 @@ public class AddStatScalerEffect : Effect {
 
             string formatted = TextHelper.FormatStat(scaler.targetStat, scaler.statScaleBaseValue);
 
-            builder.Append(formatted + "of " + TextHelper.PretifyStatName(scaler.targetStat));
+            builder.Append(formatted + "of your " + TextHelper.PretifyStatName(scaler.targetStat));
 
             if (i != Data.statScalersToAdd.Count - 1)
                 builder.AppendLine();

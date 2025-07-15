@@ -421,8 +421,8 @@ MonoBehaviour:
       classPreviewAbilities: []
       startingItemOptions: []
   - stat: 29
-    baseValue: 0.5
-    tierIncrament: 0.5
+    baseValue: 1
+    tierIncrament: 1
     validSlots: 010000000300000004000000050000000c000000
     baseAffixItem:
       Type: 6
@@ -600,15 +600,15 @@ MonoBehaviour:
       learnableAbilities: []
       classPreviewAbilities: []
       startingItemOptions: []
-  - stat: 35
+  - stat: 36
     baseValue: 0.2
     tierIncrament: 0.2
     validSlots: 01000000030000000c000000
     baseAffixItem:
       Type: 6
-      affixStatTarget: 35
+      affixStatTarget: 36
       entityClass: 0
-      itemName: ProjectileSplitCount Booster
+      itemName: ProjectileSplitQuantity Booster
       itemDescription: 
       secondaryDescription: 
       itemValue: 0
@@ -625,8 +625,8 @@ MonoBehaviour:
       minDamage: 0
       maxDamage: 0
       statModifierData:
-      - targetStat: 35
-        value: 0.2
+      - targetStat: 36
+        value: 0.5
         modifierType: 0
         variantTarget: 0
         modValueSetMethod: 0

@@ -591,7 +591,7 @@ public class EffectTargeter {
             //Debug.Log("Creating a world position sequence for: " + parentEffect.Data.effectName + ". " + totalShots + " shots");
 
             for (int i = 0; i < deliveryPoints.Count; i++) {
-                CreateDeliveryPayload(target, deliveryPoints[i]);
+                CreateDeliveryPayload(target, deliveryPoints[i], i, deliveryPoints.Count);
                 yield return waiter;
             }
 
@@ -604,8 +604,8 @@ public class EffectTargeter {
         for (int i = 0; i < trunkatedShots; i++) {
 
             Vector2 payloadLocation = GetPayloadSpawnLocation(parentEffect.Data.spawnLocation);
-
-            CreateDeliveryPayload(target, payloadLocation);
+            //Debug.Log("Location: " + payloadLocation);
+            CreateDeliveryPayload(target, payloadLocation, i, trunkatedShots);
 
             yield return waiter;
         }
@@ -619,20 +619,50 @@ public class EffectTargeter {
 
     }
 
-    private void CreateDeliveryPayload(Entity target, Vector2 payloadLocation) {
+
+    private Vector2 GetBasicOffset() {
+        float offsetX = Random.Range(parentEffect.Data.offsetSpawnLocationMin.x, parentEffect.Data.offsetSpawnLocationMax.x);
+        float offsetY = Random.Range(parentEffect.Data.offsetSpawnLocationMin.y, parentEffect.Data.offsetSpawnLocationMax.y);
+        Vector2 offset = new Vector2(offsetX, offsetY);
+
+        return offset;
+    }
+
+    private void CreateDeliveryPayload(Entity target, Vector2 payloadLocation, int curreentshot, int totalShots) {
         if(parentEffect.Source == null) {
             Debug.LogWarning("null source for: " + parentEffect.Data.effectName + " when creating delivery payload");
             return;
         }
+        Vector2 resultingLocation = payloadLocation;
         Vector2 offset = Vector2.zero;
+        Vector2 basicOffset = GetBasicOffset();
         if(parentEffect.Data.offsetSpawnLocation == true) {
-            float offsetX = Random.Range(parentEffect.Data.offsetSpawnLocationMin.x, parentEffect.Data.offsetSpawnLocationMax.x);
-            float offsetY = Random.Range(parentEffect.Data.offsetSpawnLocationMin.y, parentEffect.Data.offsetSpawnLocationMax.y);
-            offset = new Vector2(offsetX, offsetY);
+            
+            if(parentEffect.Data.uniformOffset == true) {
+                float angleStep = 360f / totalShots;
+                float angleDegrees = curreentshot * angleStep + 90f;
+                float angleRadians = angleDegrees * Mathf.Deg2Rad;
+
+                float x = payloadLocation.x + Mathf.Cos(angleRadians) * parentEffect.Data.uniformOffsetRadius;
+                float y = payloadLocation.y + Mathf.Sin(angleRadians) * parentEffect.Data.uniformOffsetRadius;
+
+                //Vector2 origonalPoint = new Vector2(x, y);
+                //Vector2 adjustment = origonalPoint - payloadLocation;
+                //Vector2 rotatedOffset = new Vector2(-adjustment.y, adjustment.x);
+                //offset = payloadLocation + rotatedOffset;
+                //resultingLocation = offset;
+                resultingLocation = new Vector2(x, y);
+                resultingLocation += basicOffset;
+                //offset = new Vector2(x, y);
+            }
+            else {
+                resultingLocation += basicOffset;
+            }
+
         }
 
 
-        Entity delivery = GameObject.Instantiate(parentEffect.PayloadPrefab, payloadLocation + offset, parentEffect.Source.FacingRotation);
+        Entity delivery = GameObject.Instantiate(parentEffect.PayloadPrefab, resultingLocation, parentEffect.Source.FacingRotation);
 
 
 

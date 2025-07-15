@@ -182,6 +182,7 @@ public class InventoryPanel : BasePanel {
             StatName.EssenceOrbValue,
             StatName.HealthOrbValue,
             StatName.CheatDeath,
+            StatName.ProjectileSplitCount,
         };
 
         if(exceptions.Contains(stat)) {

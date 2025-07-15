@@ -599,6 +599,12 @@ public static class AbilityEditorHelper {
         entry.offsetSpawnLocation = EditorGUILayout.Toggle("Offset", entry.offsetSpawnLocation);
 
         if(entry.offsetSpawnLocation == true) {
+            entry.uniformOffset= EditorGUILayout.Toggle("Uniform", entry.uniformOffset);
+
+            if(entry.uniformOffset == true) {
+                entry.uniformOffsetRadius = EditorGUILayout.FloatField("Radius", entry.uniformOffsetRadius);
+            }
+
             entry.offsetSpawnLocationMin = EditorGUILayout.Vector2Field("Min Values", entry.offsetSpawnLocationMin);
             entry.offsetSpawnLocationMax = EditorGUILayout.Vector2Field("Max Values", entry.offsetSpawnLocationMax);
         }
