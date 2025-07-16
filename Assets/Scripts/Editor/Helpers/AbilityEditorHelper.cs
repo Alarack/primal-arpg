@@ -549,6 +549,13 @@ public static class AbilityEditorHelper {
         if (entry.targeting != EffectTarget.LogicSelected)
             entry.maskTargeting = EditorHelper.EnumPopup("Mask Targeting", entry.maskTargeting);
 
+
+        if(entry.targeting == EffectTarget.OtherEffectTargets) {
+            entry.otherAbilityName = EditorGUILayout.TextField("Other Ability Name", entry.otherAbilityName);
+            entry.otherEffectName = EditorGUILayout.TextField("Other Effect Name", entry.otherEffectName);
+        }
+    
+
         EditorGUILayout.Separator();
         EditorGUILayout.LabelField("Rider Effects", EditorHelper2.LoadStyle(effectHeader));
         entry.riderEffects = EditorHelper.DrawList("Riders", entry.riderEffects, null, DrawEffectDefinitionList);

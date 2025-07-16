@@ -51,7 +51,9 @@ public enum TriggerType {
     CombatStarted,
     CombatFinished,
     ResourceOrbCollected,
-    CheatDeath
+    CheatDeath,
+    EffectZoneEntered,
+    EffectZoneExited
 }
 
 

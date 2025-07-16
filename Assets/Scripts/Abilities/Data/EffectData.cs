@@ -46,7 +46,7 @@ public enum EffectTarget {
     Cause,
     LogicSelected,
     PayloadDelivered,
-    OtherEffectTarget,
+    OtherEffectTargets,
     OtherMostRecentTarget,
     LogicSelectedAbility,
     LogicSelectedEffect,

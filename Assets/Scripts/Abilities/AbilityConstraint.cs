@@ -574,7 +574,7 @@ public class RangeConstraint : AbilityConstraint {
             case EffectTarget.Cause:
                 range = Vector2.Distance(target.transform.position, triggerInstance.CauseOfTrigger.transform.position);
                 break;
-            case EffectTarget.OtherEffectTarget:
+            case EffectTarget.OtherEffectTargets:
                 Debug.LogWarning("Range Constraint: Other Effect target is not yet setup");
                 break;
             case EffectTarget.CurrentAIBrainTarget:

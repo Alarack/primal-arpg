@@ -392,6 +392,8 @@ public class EffectZone : Entity {
     private void ApplyEffect(Entity target, Effect effect, bool ignoreFirstHit = false) {
         targets.AddUnique(target);
 
+        SendEnteredEffectZoneEvent(target, effect);
+
         if (ignoreFirstHit == true)
             return;
 
@@ -411,6 +413,8 @@ public class EffectZone : Entity {
     private void RemoveEffect(Entity target, Effect effect) {
         targets.RemoveIfContains(target);
 
+        SendExitedEffectZoneEvent(target, effect);
+
         if (zoneInfo.removeEffectOnExit == true) {
 
             if (CheckNonStacking(target) == true)
@@ -418,6 +422,28 @@ public class EffectZone : Entity {
 
             effect.Remove(target);
         }
+    }
+
+    private void SendExitedEffectZoneEvent(Entity target, Effect effect) {
+        EventData data = new EventData();
+        data.AddEntity("Entity", target);
+        data.AddEntity("Zone", this);
+        data.AddEffect("Effect", effect);
+        data.AddAbility("Parent Ability", parentEffect.ParentAbility);
+        data.AddVector3("Position", transform.position);
+
+        EventManager.SendEvent(GameEvent.ExitedEffectZone, data);
+    }
+
+    private void SendEnteredEffectZoneEvent(Entity target, Effect effect) {
+        EventData data = new EventData();
+        data.AddEntity("Entity", target);
+        data.AddEntity("Zone", this);
+        data.AddEffect("Effect", effect);
+        data.AddAbility("Parent Ability", parentEffect.ParentAbility);
+        data.AddVector3("Position", transform.position);
+
+        EventManager.SendEvent(GameEvent.EnteredEffectZone, data);
     }
 
     protected virtual void Remove(Entity target) {
@@ -519,6 +545,13 @@ public class EffectZone : Entity {
         }
 
         SpawnDeathVFX(effectSize);
+
+
+        //Not sure if I need this yet. need to test
+        //if(zoneInfo.removeEffectOnExit == true) {
+        //    RemoveAllTargets();
+        //}
+
         parentEffect.ParentAbility.SendAbilityEndedEvent(this);
         //Debug.LogWarning("Cleaning Up: " + EntityName);
         Destroy(gameObject);

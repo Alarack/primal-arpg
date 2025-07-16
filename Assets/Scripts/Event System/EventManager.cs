@@ -176,7 +176,9 @@ namespace LL.Events {
         CombatStarted,
         CombatFinished,
         ResourceOrbCollected,
-        CheatDeath
+        CheatDeath,
+        ExitedEffectZone,
+        EnteredEffectZone
     }
 
 

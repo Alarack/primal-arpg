@@ -4591,6 +4591,7 @@ public class StatAdjustmentEffect : Effect {
             return 1f;
 
         float globalDamageMultiplier = 1 + Source.Stats[StatName.GlobalDamageModifier];
+        globalDamageMultiplier += Stats[StatName.GlobalDamageModifier];
 
         if (Data.scaleDamageFromTriggeringAbility == true) {
             Ability triggeringAbility = targeter.ActivationInstance.TriggeringAbility;

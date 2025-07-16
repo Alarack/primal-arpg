@@ -722,6 +722,69 @@ public class AbilityInitiatedTrigger : AbilityTrigger {
     }
 }
 
+public class EffectZoneEnteredTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.EffectZoneEntered;
+    public override GameEvent TargetEvent => GameEvent.EnteredEffectZone;
+    public override Action<EventData> EventReceiver => OnEffectZoneEntered;
+
+    public EffectZoneEnteredTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnEffectZoneEntered(EventData data) {
+        Entity trigger = data.GetEntity("Entity");
+        Entity zone = data.GetEntity("Zone");
+        Ability triggeringAbility = data.GetAbility("Parent Ability");
+        Effect triggeringEffect = data.GetEffect("Effect");
+        Vector3 position = data.GetVector3("Position");
+
+        TriggeringEntity = trigger;
+        CauseOfTrigger = zone;
+        TriggeringAbility = triggeringAbility;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.SourceAbility = ParentAbility;
+        triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.TriggeringEffect = triggeringEffect;
+        triggerInstance.SavedLocation = position;
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
+public class EffectZoneExitedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.EffectZoneExited;
+    public override GameEvent TargetEvent => GameEvent.ExitedEffectZone;
+    public override Action<EventData> EventReceiver => OnEffectZoneExited;
+
+    public EffectZoneExitedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnEffectZoneExited(EventData data) {
+        Entity trigger = data.GetEntity("Entity");
+        Entity zone = data.GetEntity("Zone");
+        Ability triggeringAbility = data.GetAbility("Parent Ability");
+        Effect triggeringEffect = data.GetEffect("Effect");
+        Vector3 position = data.GetVector3("Position");
+
+        TriggeringEntity = trigger;
+        CauseOfTrigger = zone;
+        TriggeringAbility = triggeringAbility;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.SourceAbility = ParentAbility;
+        triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.TriggeringEffect = triggeringEffect;
+        triggerInstance.SavedLocation = position;
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
+
 public class TeleportInitiatedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.TeleportInitiated;

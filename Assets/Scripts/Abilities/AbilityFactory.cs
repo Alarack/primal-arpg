@@ -58,6 +58,8 @@ public static class AbilityFactory {
             TriggerType.CombatFinished => new CombatFinishedTrigger(data, source, parentAbility),
             TriggerType.ResourceOrbCollected => new ResourceOrbCollectedTrigger(data, source, parentAbility),
             TriggerType.CheatDeath => new CheatDeathTrigger(data, source, parentAbility),
+            TriggerType.EffectZoneEntered => new EffectZoneEnteredTrigger(data, source, parentAbility),
+            TriggerType.EffectZoneExited => new EffectZoneExitedTrigger(data, source, parentAbility),
             _ => null,
         };
 

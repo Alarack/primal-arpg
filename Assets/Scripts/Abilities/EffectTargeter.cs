@@ -66,6 +66,44 @@ public class EffectTargeter {
         return results;
     }
 
+    public List<Entity>TrunkateListOfEntities(List<Entity> entities) {
+
+        int targetsRequsted = numberOfTargets;
+        if (numberOfTargets > entities.Count)
+            targetsRequsted = entities.Count;
+
+        if (numberOfTargets > 0 && entities.Count > 0) {
+            entities.Shuffle();
+
+            List<Entity> trunkatedResults = new List<Entity>();
+            for (int i = 0; i < targetsRequsted; i++) {
+                trunkatedResults.Add(entities[i]);
+            }
+
+            return trunkatedResults;
+        }
+
+        return entities;
+
+    }
+
+    public List<Entity> FilterTargets(List<Entity> targets) {
+        List<Entity> results = new List<Entity> ();
+
+        if (targets == null)
+            return results;
+
+        for (int i = 0; i < targets.Count; i++) {
+            if (parentEffect.EvaluateTargetConstraints(targets[i]) == true) {
+                results.Add(targets[i]);
+            }
+        }
+
+        results = TrunkateListOfEntities(results);
+
+        return results;
+    }
+
     public List<Ability> GatherValidAbilities() {
         List<Ability> results = new List<Ability>();
         List<Ability> allSourceAbilities = parentEffect.Source.AbilityManager.GetAllAbilities();
@@ -111,7 +149,7 @@ public class EffectTargeter {
             }
 
             if (parentEffect.EvaluateEffectTargetConstraints(effect) == true) {
-               // Debug.Log("Approved: " + effect.Data.effectName + ". parent: " + effect.ParentAbility.Data.abilityName);
+                // Debug.Log("Approved: " + effect.Data.effectName + ". parent: " + effect.ParentAbility.Data.abilityName);
                 results.Add(effect);
             }
         }
@@ -161,8 +199,8 @@ public class EffectTargeter {
     public List<Entity> GetOtherEffectEntityTargets(string abilityName, string effectName, AbilityCategory category) {
         Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, parentEffect.Source, category);
 
-        
-        if(target.Item2.EntityTargets.Count > 0) {
+
+        if (target.Item2.EntityTargets.Count > 0) {
             return target.Item2.EntityTargets;
         }
 
@@ -172,7 +210,7 @@ public class EffectTargeter {
     public void ClearOtherEffectTargets(string abilityName, string effectName, AbilityCategory category) {
         Tuple<Ability, Effect> target = AbilityUtilities.GetAbilityAndEffectByName(abilityName, effectName, parentEffect.Source, category);
 
-        if(target.Item2 != null) {
+        if (target.Item2 != null) {
             target.Item2.EntityTargets.Clear();
         }
     }
@@ -181,12 +219,12 @@ public class EffectTargeter {
         Entity sourceEntity = parentEffect.Source;
 
         if (parentEffect.EvaluateTargetConstraints(sourceEntity) == false) {
-            if(parentEffect.Source != null)
+            if (parentEffect.Source != null)
                 Debug.LogWarning(parentEffect.Source.EntityName + " is an invalid target for " + parentEffect.ParentAbility.Data.abilityName);
             else {
                 Debug.LogWarning("The source of: " + parentEffect.Data.effectName + " is null, and failed a constraint because it didn't exist");
             }
-            
+
             return null;
         }
 
@@ -257,7 +295,7 @@ public class EffectTargeter {
 
         if (validEffectTargets.Count == 0) {
             Debug.LogWarning(
-                "An Effect: " 
+                "An Effect: "
                 + parentEffect.Data.effectName
                 + " on the Ability: "
                 + parentEffect.ParentAbility.Data.abilityName
@@ -283,7 +321,7 @@ public class EffectTargeter {
                 + parentEffect.ParentAbility.Data.abilityName
                 + ":: on the entity: "
                 + parentEffect.Source.EntityName
-                + " triggered an effect: " 
+                + " triggered an effect: "
                 + parentEffect.Data.effectName
                 + " that had 0 valid targets");
         }
@@ -331,7 +369,7 @@ public class EffectTargeter {
 
     private void ApplyToTrigger() {
 
-        if(parentEffect.Data.subTarget == EffectSubTarget.Ability) {
+        if (parentEffect.Data.subTarget == EffectSubTarget.Ability) {
             ApplyToTriggerAbility();
             return;
         }
@@ -341,7 +379,7 @@ public class EffectTargeter {
 
         bool applied = parentEffect.Apply(triggeringEntity);
 
-        if(applied == true)
+        if (applied == true)
             parentEffect.SendEffectAppliedEvent();
     }
 
@@ -376,7 +414,7 @@ public class EffectTargeter {
         entityTargets = GetLogicTargets();
 
 
-        if(parentEffect.Data.deliveryPayloadToTarget == false) {
+        if (parentEffect.Data.deliveryPayloadToTarget == false) {
             for (int i = 0; i < entityTargets.Count; i++) {
                 parentEffect.Apply(entityTargets[i]);
             }
@@ -387,7 +425,7 @@ public class EffectTargeter {
             }
         }
 
-       
+
 
         if (entityTargets.Count > 0)
             parentEffect.SendEffectAppliedEvent();
@@ -423,6 +461,25 @@ public class EffectTargeter {
             parentEffect.Apply(target);
             parentEffect.SendEffectAppliedEvent();
         }
+    }
+
+    private void ApplyToOtherEffectTargets() {
+        List<Entity> potentialTargets = GetOtherEffectEntityTargets(parentEffect.Data.otherAbilityName, parentEffect.Data.otherEffectName, AbilityCategory.Any);
+        
+        List<Entity> validTargets = FilterTargets(potentialTargets);
+        
+        if (validTargets.Count == 0) {
+            Debug.LogWarning("An ability: "
+                + parentEffect.ParentAbility.Data.abilityName
+                + ":: on the entity: "
+                + parentEffect.Source.EntityName
+                + " triggered an effect: "
+                + parentEffect.Data.effectName
+                + " that had 0 valid targets");
+        }
+
+        ApplyToOtherEntityTargets(validTargets);
+
     }
 
     public void ApplyToOtherEntityTargets(List<Entity> targets) {
@@ -763,7 +820,7 @@ public class EffectTargeter {
             //EffectTarget.UserSelected when parentEffect.Source.Owner == EntityData.Owner.Friendly => ActivateUserTargeting,
             //EffectTarget.UserSelected when parentEffect.Source.Owner == EntityData.Owner.Enemy => ApplyLogicTargeting,
             EffectTarget.LogicSelected => ApplyLogicTargeting,
-            EffectTarget.OtherEffectTarget => throw new NotImplementedException(),
+            EffectTarget.OtherEffectTargets => ApplyToOtherEffectTargets,
             EffectTarget.OtherMostRecentTarget => ApplyToRecentTarget,
             EffectTarget.PayloadDelivered => ApplyPayloadDelivery,
             EffectTarget.LogicSelectedEffect => ApplyToLogicTargetedEffects,
