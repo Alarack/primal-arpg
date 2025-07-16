@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Modify Damage
+  m_Name: E_Speed Channeling
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Chronal Transfer -  Modifiy Damage
-    effectDescription: Reduce Steal Time's Damage by {}
+    effectName: Cosmic Billiards - Speed Channel
+    effectDescription: 
     type: 1
-    targeting: 9
-    subTarget: 5
-    maskTargeting: 1
+    targeting: 8
+    subTarget: 4
+    maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
     canOverload: 0
     hideOverload: 0
     canAffectDeadTargets: 0
-    nonStacking: 0
+    nonStacking: 1
     untracked: 0
     onlyShowTooltipInRune: 0
     showRiderTooltip: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     otherEffectName: 
     targetAbilityForLastPayload: 
     targetConstraints:
-    - type: 19
+    - type: 18
       inverse: 0
       statChangeTarget: 0
       changeDirection: 0
@@ -71,8 +71,8 @@ MonoBehaviour:
       stateEntered: 
       stateExited: 
       targetAbilityTag: 0
-      targetAbiltyName: 
-      targetEffectName: Steal Time Add Status
+      targetAbiltyName: Stream of Stars
+      targetEffectName: 
       effectDesigantion: 0
       targetAbilityCategory: 0
       targetEffectType: 0
@@ -121,8 +121,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     modData:
-    - targetStat: 28
-      value: -0.4
+    - targetStat: 68
+      value: -0.5
       modifierType: 2
       variantTarget: 0
       modValueSetMethod: 0

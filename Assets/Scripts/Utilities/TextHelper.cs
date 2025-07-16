@@ -216,6 +216,9 @@ public static class TextHelper
 
             StatName.EssenceScalingMultiplier => bonusFormat,
 
+            StatName.ChannelInterval when value <= 0 => bonusFormat,
+            StatName.ChannelInterval when value > 0 => penaltyFormat,
+
             _ => "No Entry For: " + stat,
         };
 

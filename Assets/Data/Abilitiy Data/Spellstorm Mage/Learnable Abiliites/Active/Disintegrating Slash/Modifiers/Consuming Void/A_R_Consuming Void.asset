@@ -17,7 +17,7 @@ MonoBehaviour:
     abilityIcon: {fileID: 0}
     abilityName: Consuming Void
     abilityDescription: 'When Disintegrating Slash hits a target with a Damage over
-      Time effect other then Unraveling, consume it, violently. '
+      Time effect other than Unraveling, consume it, violently. '
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -31,6 +31,8 @@ MonoBehaviour:
     showProcChanceOnOtherSkills: 0
     startingAbility: 0
     scaleProcByLevel: 0
+    nonLethal: 0
+    essenceCostPercent: 0
     runeAbilityTarget: Disintegrating Slash
     animationString: 
     waitForAnimToResolve: 0
@@ -55,6 +57,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -76,6 +79,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -94,6 +98,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
           hasDotStatus: 0
@@ -103,6 +108,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
         - type: 4
           inverse: 0
           statChangeTarget: 0
@@ -121,6 +127,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -139,6 +146,7 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
           hasDotStatus: 0
@@ -148,6 +156,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
       - focus: 5
         constraintData:
         - type: 18
@@ -168,6 +177,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -186,6 +196,7 @@ MonoBehaviour:
           targetAbiltyName: Disintegrating Slash
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
           hasDotStatus: 0
@@ -195,6 +206,7 @@ MonoBehaviour:
           movementMagnitudeLimit: 0.1
           abilitySlot: 0
           projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
     endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
@@ -210,6 +222,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
@@ -230,6 +243,7 @@ MonoBehaviour:
         delay1Frame: 0
         autoActivateTimer: 0
         resetTimerOnParentAbilityEnd: 0
+        resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
       maxTriggerCount: 0
