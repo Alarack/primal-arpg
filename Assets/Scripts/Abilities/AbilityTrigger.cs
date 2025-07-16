@@ -657,7 +657,7 @@ public class AbilityEndedTrigger : AbilityTrigger {
 
         Ability triggeringAbility = data.GetAbility("Ability");
         Entity effectZone = data.GetEntity("EffectZone");
-
+        Entity triggeringEntity = data.GetEntity("Source");
         //if(triggeringAbility != ParentAbility) {
         //    return;
         //}
@@ -669,8 +669,8 @@ public class AbilityEndedTrigger : AbilityTrigger {
         //Debug.Log("Recieveing an ability resolve trigger: " + triggeringAbility.Data.abilityName);
 
 
-        TriggeringEntity = SourceEntity;
-        CauseOfTrigger = SourceEntity;
+        TriggeringEntity = triggeringEntity;
+        CauseOfTrigger = triggeringEntity;
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
         triggerInstance.TriggeringAbility = triggeringAbility;
@@ -699,7 +699,7 @@ public class AbilityInitiatedTrigger : AbilityTrigger {
         }
 
         Ability triggeringAbility = data.GetAbility("Ability");
-
+        Entity triggeringEntity = data.GetEntity("Source");
         //if(triggeringAbility != ParentAbility) {
         //    return;
         //}
@@ -711,8 +711,8 @@ public class AbilityInitiatedTrigger : AbilityTrigger {
         //Debug.Log("Recieveing an ability init trigger: " + triggeringAbility.Data.abilityName);
 
 
-        TriggeringEntity = SourceEntity;
-        CauseOfTrigger = SourceEntity;
+        TriggeringEntity = triggeringEntity;
+        CauseOfTrigger = triggeringEntity;
 
         TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
         triggerInstance.TriggeringAbility = triggeringAbility;
