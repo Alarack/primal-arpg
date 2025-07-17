@@ -2919,7 +2919,6 @@ public class ForceStatusTickEffect : Effect {
         if (base.Apply(target) == false)
             return false;
 
-        //Debug.Log("Force Ticking Status on: " + target.EntityName);
         for (int i = 0; i < target.ActiveStatuses.Count; i++) {
             if (target.ActiveStatuses[i].ParentEffect.Data.effectDesignation == StatModifierData.StatModDesignation.PrimaryDamage) {
                 target.ActiveStatuses[i].ForceTick();

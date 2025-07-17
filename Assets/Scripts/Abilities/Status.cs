@@ -155,6 +155,9 @@ public class Status {
     }
 
     public void ForceTick() {
+
+        Debug.Log(statusName + " is being forced to tick");
+        
         Tick(null);
     }
 

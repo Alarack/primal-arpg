@@ -138,7 +138,9 @@ public abstract class AbilityTrigger {
                 case ConstraintFocus.AbiityCause:
 
                     if (foci.Item2 == null) {
+#if UNITY_EDITOR
                         Debug.LogWarning("An ability focus on a " + GetType() + " trigger for: " + ParentAbility.Data.abilityName + " was null when targeting " + entry.Key);
+#endif
                         return false;
                     }
 
@@ -1592,10 +1594,18 @@ public class StatChangedTrigger : AbilityTrigger {
                 CauseOfAbilityTrigger = ability;
             }
         }
+        else {
+            CauseOfAbilityTrigger = null;
+        }
 
         TriggeringEntity = affectedTarget;
         CauseOfTrigger = causeOfChange;
         //CauseOfAbilityTrigger = ability;
+
+        //if(ability != null && targetStat == StatName.Health && changeValue < 0f) {
+        //    Debug.Log(ability.Data.abilityName + " changed health on " + affectedTarget.EntityName);
+        //    Debug.Log(ParentAbility.Data.abilityName);
+        //}
 
 
         //if (ParentAbility != null && ParentAbility.Source.ownerType == OwnerConstraintType.Friendly) {

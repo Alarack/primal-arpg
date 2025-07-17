@@ -182,7 +182,7 @@ public class StatChangedConstraint : AbilityConstraint {
             result = false;
 
 
-        //if (parentAbility != null)
+        //if (parentAbility != null && parentAbility.Data.abilityName == "Knocked Into Next Week")
         //    Debug.LogWarning("Result for Unit Stat Changed on: " + parentAbility.Data.abilityName + " " + result);
         //else
         //    Debug.LogWarning("Result for Unit Stat Changed againt: " + target.EntityName + " " + result);
