@@ -10,52 +10,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Basic Dash
+  m_Name: A_R_After Shocks
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 1
-    abilityIcon: {fileID: 6201607243973417181, guid: 1a6cfb474ec44bd4cb7ec8ca1ba6c589, type: 3}
-    abilityName: Dash
-    abilityDescription: Dash forward in the direction you're moving. You are invincible
-      while dashing.
+    category: 3
+    abilityIcon: {fileID: 0}
+    abilityName: After Shocks
+    abilityDescription: When Banishment's Stun Status is removed, or elapses, affected
+      targets become Slowed for {SL} seconds.
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 0
-    ignoreOtherCasting: 1
+    ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
     recastOnChannelCost: 0
     normalizedProcRate: 0
     showProcChanceOnOtherSkills: 0
-    startingAbility: 1
+    startingAbility: 0
     scaleProcByLevel: 0
     nonLethal: 0
     essenceCostPercent: 0
-    runeAbilityTarget: 
+    runeAbilityTarget: Banishment
     animationString: 
     waitForAnimToResolve: 0
-    initSFXVolume: 0.5
+    initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
-    runeGroupData:
-    - runes:
-      - {fileID: 11400000, guid: 11639b5f72f9cbd4e919a1eceaa73eb2, type: 2}
-      - {fileID: 11400000, guid: 59a65f56b276d844dab8259c4392cb3b, type: 2}
-      tier: 1
-    - runes:
-      - {fileID: 11400000, guid: dcff50317bf2c0846bc5e06442de7320, type: 2}
-      tier: 2
-    - runes:
-      - {fileID: 11400000, guid: 43cf3d685d3a0af46ab9ff4f56048911, type: 2}
-      tier: 3
-    tags: 1e0000001d0000001f000000
+    runeGroupData: []
+    tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 6
+    - type: 4
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -68,9 +58,59 @@ MonoBehaviour:
       resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
       allConstraints:
-      - focus: 4
+      - focus: 5
         constraintData:
-        - type: 7
+        - type: 18
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          checkPercentOfMax: 0
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: Banishment
+          targetEffectName: 
+          effectDesigantion: 0
+          targetAbilityCategory: 0
+          targetEffectType: 0
+          targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
+      - focus: 1
+        constraintData:
+        - type: 11
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -109,7 +149,7 @@ MonoBehaviour:
           effectDesigantion: 0
           targetAbilityCategory: 0
           targetEffectType: 0
-          targetStatus: 0
+          targetStatus: 22
           hasDotStatus: 0
           appliedStatusType: 0
           statRatioTarget: 0
@@ -162,7 +202,7 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 50b0d0832f8fc1b41865d7cec3a2c752, type: 2}
+    - {fileID: 11400000, guid: 53baa3f508f6d0c4cab9a054fde88c84, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
@@ -170,32 +210,8 @@ MonoBehaviour:
     windupVFX: {fileID: 0}
     abilityStatData:
     - variant: 0
-      statName: 46
-      value: 0
+      statName: 70
+      value: 3
       maxValue: 0
       minValue: 0
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          overrideProcStat: 0
-          procChance: 1
-          triggerDelay: 0
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          chainTriggerDelay: 0.1
-          delay1Frame: 0
-          autoActivateTimer: 0
-          resetTimerOnParentAbilityEnd: 0
-          resourceOrbType: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        reduceTriggerCountByAbilityLevel: 0
-        minTriggerCount: 0
-      cooldown: 1.25
+    recoveryData: []

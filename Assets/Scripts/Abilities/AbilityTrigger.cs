@@ -887,6 +887,47 @@ public class StatusAppliedTrigger : AbilityTrigger {
     }
 }
 
+public class StatusRemovedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.StatusRemoved;
+    public override GameEvent TargetEvent => GameEvent.StatusRemoved;
+    public override Action<EventData> EventReceiver => OnStatusApplied;
+
+    public StatusRemovedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnStatusApplied(EventData data) {
+
+        Entity target = data.GetEntity("Target");
+        Entity cause = data.GetEntity("Cause");
+        Ability causingAbility = data.GetAbility("Causing Ability");
+        Effect causingEffect = data.GetEffect("Causing Effect");
+        Status status = data.GetStatus("Status");
+
+        TriggeringEntity = target;
+        CauseOfTrigger = cause;
+
+
+        //Debug.Log("Status Trigger: " + status.Data.statusName + " applied to: " + target.EntityName + " from " + cause.EntityName);
+
+        StatusRemovedTriggerInstance triggerInstance = new StatusRemovedTriggerInstance(TriggeringEntity, CauseOfTrigger, Type, status);
+        triggerInstance.CausingAbility = causingAbility;
+        triggerInstance.CausingEffect = causingEffect;
+        triggerInstance.SourceAbility = ParentAbility;
+        TryActivateTrigger(triggerInstance);
+    }
+
+
+    public class StatusRemovedTriggerInstance : TriggerInstance {
+        public Status statusApplied;
+
+        public StatusRemovedTriggerInstance(Entity trigger, Entity cause, TriggerType type, Status statusApplied) : base(trigger, cause, type) {
+            this.statusApplied = statusApplied;
+        }
+    }
+}
+
 public class StatusPurgedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.StatusPurged;

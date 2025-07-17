@@ -411,7 +411,7 @@ public abstract class Entity : MonoBehaviour {
 
         Status stun = GetStatus(Status.StatusName.Stunned);
         if (stun != null && value < 0f) {
-            stun.Remove();
+            stun.Remove(true);
         }
 
 

@@ -625,6 +625,7 @@ public abstract class Effect {
             DeliverySpawnLocation.WorldPositionSequence => throw new NotImplementedException(),
             DeliverySpawnLocation.AbilityLastPayloadLocation => targeter.GetLastAbilityPayloadLocation(),
             DeliverySpawnLocation.LastEffectZoneLocation => targeter.ActivationInstance.SavedLocation,
+            DeliverySpawnLocation.LastEffectTarget => LastTarget != null ? LastTarget.transform.position : Source.transform.position,
             _ => Vector2.zero
         };
 

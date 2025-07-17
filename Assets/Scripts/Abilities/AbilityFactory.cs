@@ -60,6 +60,7 @@ public static class AbilityFactory {
             TriggerType.CheatDeath => new CheatDeathTrigger(data, source, parentAbility),
             TriggerType.EffectZoneEntered => new EffectZoneEnteredTrigger(data, source, parentAbility),
             TriggerType.EffectZoneExited => new EffectZoneExitedTrigger(data, source, parentAbility),
+            TriggerType.StatusRemoved => new StatusRemovedTrigger(data, source, parentAbility),
             _ => null,
         };
 
