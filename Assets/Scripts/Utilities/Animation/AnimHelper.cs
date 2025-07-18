@@ -64,7 +64,8 @@ public class AnimHelper : MonoBehaviour {
 
         EventManager.SendEvent(GameEvent.AbilityAnimReceived, data);
 
-        //Debug.Log("Recieveing event for: " + nextInstance.ability.Data.abilityName);
+        if(owner is NPC)
+            Debug.Log("Recieveing event for: " + nextInstance.ability.Data.abilityName);
 
         animator.SetFloat("AnimSpeed", 1f);
     }
@@ -93,14 +94,18 @@ public class AnimHelper : MonoBehaviour {
     //}
 
     private void OnAbilityInitiated(EventData data) {
+        
 
-        //Debug.Log("Ability Initiated: " + data.GetAbility("Ability").Data.abilityName);
 
         Entity entity = data.GetEntity("Source");
 
         if (entity == null || owner != entity) {
             return;
         }
+
+        if (owner is NPC)
+            Debug.Log("Ability Initiated: " + data.GetAbility("Ability").Data.abilityName);
+
 
         Ability ability = data.GetAbility("Ability");
 

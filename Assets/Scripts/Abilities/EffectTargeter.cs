@@ -765,6 +765,7 @@ public class EffectTargeter {
 
         EffectZone effectZone = delivery as EffectZone;
         if (effectZone != null) {
+            effectZone.transform.rotation = Quaternion.identity;
             effectZone.Stats.AddMissingStats(parentEffect.Stats, null, parentEffect.Data.effectName, effectZone.EntityName);
             effectZone.Stats.AddMissingStats(parentEffect.ParentAbility.Stats);
 

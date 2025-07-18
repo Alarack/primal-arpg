@@ -694,8 +694,8 @@ public abstract class Entity : MonoBehaviour {
             desiredScale = scale;
         }
 
-        if (spawnEffectPrefab != null)
-            Debug.LogWarning("Spawing Entrance Effect for: " + EntityName + " : " + spawnEffectPrefab.name);
+        //if (spawnEffectPrefab != null)
+        //    Debug.LogWarning("Spawing Entrance Effect for: " + EntityName + " : " + spawnEffectPrefab.name);
 
         AudioManager.PlayRandomClip(spawnSFX, transform.position, spawnSFXVolume);
 

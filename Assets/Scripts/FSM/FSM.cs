@@ -53,6 +53,11 @@ namespace LL.FSM {
                 return;
             }
 
+            if(Owner.ActivelyCastingAbility != null) {
+                Owner.ActivelyCastingAbility.ForceEndTrigger(null);
+                Owner.ActivelyCastingAbility = null;
+            }
+
             ChangeState(targetState);
         }
 

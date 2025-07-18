@@ -55,7 +55,7 @@ public class EffectZone : Entity {
         this.carrier = carrier;
         this.ownerType = parentEffect.Source.ownerType;
 
-        Debug.Log("An effect zone: " + EntityName + " is being creating with the parent effect: " + parentEffect.Data.effectName + " on the ability: " + parentEffect.ParentAbility.Data.abilityName);
+        //Debug.Log("An effect zone: " + EntityName + " is being creating with the parent effect: " + parentEffect.Data.effectName + " on the ability: " + parentEffect.ParentAbility.Data.abilityName);
 
 
         if (parentLayer != -1)
@@ -320,7 +320,7 @@ public class EffectZone : Entity {
             AllIn1Shaker.i.DoCameraShake(parentEffect.ZoneInfo.screenShakeAmount);
         }
 
-        Debug.LogWarning("Windup Finished: " + gameObject.name);
+        //Debug.LogWarning("Windup Finished: " + gameObject.name);
 
         CleanUpGrowTweens();
 
