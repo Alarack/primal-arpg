@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Electro Teleport
+  m_Name: A_Electro Ranged Blast
   m_EditorClassIdentifier: 
   AbilityData:
     category: 1
-    abilityIcon: {fileID: 21300000, guid: 30a055dcfd74c764ebb87cb9029fc952, type: 3}
-    abilityName: Electro Teleport
-    abilityDescription: Electrocutioner Vanishes and appears elsewhere
+    abilityIcon: {fileID: 0}
+    abilityName: Electro Ranged Blast
+    abilityDescription: Blast with lighting from the sky
     resourceCost: 0
     toBestow: 0
     suspend: 0
-    autoFire: 1
+    autoFire: 0
     ignoreOtherCasting: 0
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
     nonLethal: 0
     essenceCostPercent: 0
     runeAbilityTarget: 
-    animationString: Teleport
+    animationString: Ranged Attack
     waitForAnimToResolve: 1
     initSFXVolume: 1
     initiationSounds: []
@@ -41,20 +41,20 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 0e0000000f000000
+    tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 7
+    - type: 31
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
       riderAbilityName: 
       riderEffectName: 
-      triggerTimerDuration: 0.5
+      triggerTimerDuration: 0
       chainTriggerDelay: 0.1
       delay1Frame: 0
-      autoActivateTimer: 1
-      resetTimerOnParentAbilityEnd: 1
+      autoActivateTimer: 0
+      resetTimerOnParentAbilityEnd: 0
       resourceOrbType: 0
       allConstraints:
       - focus: 0
@@ -67,8 +67,8 @@ MonoBehaviour:
           statChangeDelta: 0
           constrainByDelivery: 0
           deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 6
+          minRange: 6
+          maxRange: 999
           rangeToWhat: 11
           ownerTarget: 0
           mostStatTarget: 0
@@ -151,13 +151,18 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 9bdf0a2c222b24d408574405eefdbdd6, type: 2}
+    - {fileID: 11400000, guid: d0216bad3a9b93840b5d1d44fce20f1e, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
     windupVFX: {fileID: 2850867436185079738, guid: 3d083b7a5bb635a439cf31a0cf85784f, type: 3}
     abilityStatData:
+    - variant: 0
+      statName: 41
+      value: 3
+      maxValue: 0
+      minValue: 0
     - variant: 0
       statName: 50
       value: 0.1
@@ -187,4 +192,4 @@ MonoBehaviour:
         requireMultipleTriggers: 0
         reduceTriggerCountByAbilityLevel: 0
         minTriggerCount: 0
-      cooldown: 1.5
+      cooldown: 3

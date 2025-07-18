@@ -54,7 +54,7 @@ public class VFXUtility : Singleton<VFXUtility>
     }
 
     public static GameObject SpawnVFX(GameObject prefab, Transform location, Transform parent, float destroyTiemr = 0f, float scaleModifer = 1f) {
-        return SpawnVFX(prefab, location.position, location.rotation, parent, destroyTiemr, scaleModifer);
+        return SpawnVFX(prefab, location.position, Quaternion.identity, parent, destroyTiemr, scaleModifer);
     }
 
     public static GameObject SpawnVFX(GameObject prefab, Transform parent, float destroyTiemr = 0f, float scaleModifier = 1f) {

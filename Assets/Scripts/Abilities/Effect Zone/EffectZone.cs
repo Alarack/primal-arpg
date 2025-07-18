@@ -55,7 +55,7 @@ public class EffectZone : Entity {
         this.carrier = carrier;
         this.ownerType = parentEffect.Source.ownerType;
 
-        //Debug.Log("An effect zone: " + EntityName + " is being creating with the parent effect: " + parentEffect.Data.effectName + " on the ability: " + parentEffect.ParentAbility.Data.abilityName);
+        Debug.Log("An effect zone: " + EntityName + " is being creating with the parent effect: " + parentEffect.Data.effectName + " on the ability: " + parentEffect.ParentAbility.Data.abilityName);
 
 
         if (parentLayer != -1)
@@ -146,6 +146,10 @@ public class EffectZone : Entity {
 
         if (cleanTask != null && cleanTask.Running == true)
             cleanTask.Stop();
+
+        if (activeEffectTelegraph != null) {
+            Destroy(activeEffectTelegraph.gameObject);
+        }
     }
 
     protected override void RegisterStatListeners() {
@@ -235,7 +239,7 @@ public class EffectZone : Entity {
 
             windupTimer = new Timer(Stats[StatName.EffectZoneWindupTime], OnWindupFinished, false);
 
-            if (activeEffectTelegraph != null) {
+            if (effectTelegraph != null) {
                 activeEffectTelegraph = Instantiate(effectTelegraph, transform.position, transform.rotation);
                 activeEffectTelegraph.transform.SetParent(transform.parent, true);
                 activeEffectTelegraph.transform.localScale = new Vector3(effectSize, effectSize, effectSize);
@@ -300,8 +304,8 @@ public class EffectZone : Entity {
 
         Destroy(activeGrowVFX);
 
-        if (activeEffectTelegraph != null)
-            Destroy(activeEffectTelegraph.gameObject);
+        //if (activeEffectTelegraph != null)
+        //    Destroy(activeEffectTelegraph.gameObject);
     }
 
     private void OnWindupFinished(EventData data) {
@@ -316,11 +320,12 @@ public class EffectZone : Entity {
             AllIn1Shaker.i.DoCameraShake(parentEffect.ZoneInfo.screenShakeAmount);
         }
 
-        //Debug.LogWarning("Windup Finished: " + gameObject.name);
+        Debug.LogWarning("Windup Finished: " + gameObject.name);
 
         CleanUpGrowTweens();
 
-
+        if (activeEffectTelegraph != null)
+            Destroy(activeEffectTelegraph.gameObject);
 
         //Destroy(activeGrowVFX);
         //Destroy(activeEffectTelegraph.gameObject);
