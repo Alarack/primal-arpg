@@ -79,6 +79,10 @@ public abstract class Entity : MonoBehaviour {
     [Header("Health Bar")]
     public Slider healthBar;
 
+
+    [Header("Debug Tools")]
+    public bool dontDespawnOnNewGame;
+
     public EntityMovement Movement { get; private set; }
     public float IsMoving { get { return Movement.IsMoving(); } }
     public Quaternion FacingRotation { get { return GetFacingRotation(); } }
@@ -596,6 +600,9 @@ public abstract class Entity : MonoBehaviour {
         //Stats.GetStat<StatRange>(StatName.Experience).RemoveAllMaxModifiersFromSource(this);
         //Stats.EmptyStatRange(StatName.Experience, this);
         //Stats.RemoveAllModifiersFromSource(StatName.SkillPoint, this);
+
+        if(dontDespawnOnNewGame) 
+            return;
 
         SpawnDeathVFX();
         Destroy(gameObject);
