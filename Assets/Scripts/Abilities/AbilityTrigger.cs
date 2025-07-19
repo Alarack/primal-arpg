@@ -324,6 +324,10 @@ public abstract class AbilityTrigger {
         }
 
         ActivationCallback?.Invoke(activationInstance);
+
+        if(string.IsNullOrEmpty(Data.customAnim) == false) {
+            ParentAbility.Source.AnimHelper.SetTrigger(Data.customAnim);
+        }
     }
 
     protected bool RollProc(TriggerInstance activationInstance) {

@@ -65,6 +65,7 @@ public class TriggerData
     public bool overrideProcStat;
     public float procChance = 1f;
     public float triggerDelay;
+    public string customAnim;
 
     public string riderAbilityName;
     public string riderEffectName;

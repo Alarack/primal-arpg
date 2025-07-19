@@ -155,7 +155,7 @@ MonoBehaviour:
   spriteProgression:
     _serializedList: []
   healthBar: {fileID: 4330315030377438637}
-  dontDespawnOnNewGame: 1
+  dontDespawnOnNewGame: 0
   spawnDelayTime: 0.4
   currentEliteAffixes: []
   active: 0
@@ -193,6 +193,7 @@ MonoBehaviour:
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
+      customAnim: 
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
