@@ -123,6 +123,38 @@ public class HasTargetConstraint : AbilityConstraint {
 
 }
 
+public class HasMinionConstraint : AbilityConstraint {
+
+    public override ConstraintType Type => ConstraintType.HasMinions;
+
+    public HasMinionConstraint(ConstraintData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public override bool Evaluate(Entity target, TriggerInstance triggerInstance) {
+
+
+        int count = 0;
+        if (string.IsNullOrEmpty(data.hasMinionName) == false) {
+            for (int i = 0; i < parentAbility.Source.minions.Count; i++) {
+                if (parentAbility.Source.minions[i].EntityName == data.hasMinionName)
+                    count++;
+            }
+        }
+        else {
+            count = parentAbility.Source.minions.Count;
+        }
+
+        bool result = count < data.hasMinionCount;
+
+
+
+        return inverse == false ? result : !result;
+    }
+
+}
+
+
 public class StatChangedConstraint : AbilityConstraint {
 
     public override ConstraintType Type => ConstraintType.StatChanged;

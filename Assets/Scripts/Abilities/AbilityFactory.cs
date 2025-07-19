@@ -111,6 +111,7 @@ public static class AbilityFactory {
             ConstraintType.StatusApplied => new StatusAppliedConstraint(data, source, parentAbility),
             ConstraintType.AbilityCategory => new AbilityCategoryConstraint(data, source, parentAbility),
             ConstraintType.AbilityReady => new AbilityReadyConstraint(data, source, parentAbility),
+            ConstraintType.HasMinions => new HasMinionConstraint(data, source, parentAbility),
             _ => null,
         };
 

@@ -526,6 +526,7 @@ public class EffectTargeter {
             DeliverySpawnLocation.RandomViewportPosition => GetRandomViewportPosition(),
             DeliverySpawnLocation.AbilityLastPayloadLocation => GetLastAbilityPayloadLocation(),
             DeliverySpawnLocation.LastEffectZoneLocation => ActivationInstance.SavedLocation,
+            DeliverySpawnLocation.SourceCastingVFXPos => parentEffect.Source.castingVFXPosition.position,
             _ => throw new NotImplementedException(),
         };
 
@@ -765,7 +766,7 @@ public class EffectTargeter {
 
         EffectZone effectZone = delivery as EffectZone;
         if (effectZone != null) {
-            effectZone.transform.rotation = Quaternion.identity;
+            effectZone.transform.rotation = parentEffect.ZoneInfo.applyVFXIdentiyRotation == true ? Quaternion.identity : parentEffect.Source.FacingRotation;
             effectZone.Stats.AddMissingStats(parentEffect.Stats, null, parentEffect.Data.effectName, effectZone.EntityName);
             effectZone.Stats.AddMissingStats(parentEffect.ParentAbility.Stats);
 

@@ -130,7 +130,7 @@ public class NPCMovement : EntityMovement
 
         Vector2 moveForce = direction.normalized * modifiedSpeed * Time.fixedDeltaTime;
 
-        bool animMove = moveForce.magnitude > 0.1f;
+        bool animMove = moveForce.magnitude > 0.02f;
 
         if(Owner.AnimHelper != null) {
             Owner.AnimHelper.SetBool("Run", animMove);

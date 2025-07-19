@@ -102,6 +102,9 @@ public abstract class Entity : MonoBehaviour {
 
     public AnimHelper AnimHelper { get; protected set; }
 
+
+    public List<NPC> minions = new List<NPC>();
+
     protected Timer essenceRegenTimer;
     protected Timer healthRegenTimer;
 

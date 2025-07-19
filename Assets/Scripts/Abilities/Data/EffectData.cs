@@ -78,7 +78,8 @@ public enum DeliverySpawnLocation {
     WorldPositionSequence,
     AbilityLastPayloadLocation,
     LastEffectZoneLocation,
-    LastEffectTarget
+    LastEffectTarget,
+    SourceCastingVFXPos
 }
 
 public enum DeliverySpawnLocationHardPoint {
@@ -245,6 +246,8 @@ public class EffectData
     public bool inheritParentLayer = true;
     public EntitySpawnType spawnType;
     public MaterialDatabase.MaterialDesignation materialDesignation;
+    public GameObject spawnEntityVFX;
+    public float spawnEntityVFXScale = 1f;
 
     //Activate Other Ability
     public string nameOfAbilityToActivate;

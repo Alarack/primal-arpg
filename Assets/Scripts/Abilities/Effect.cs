@@ -626,12 +626,16 @@ public abstract class Effect {
             DeliverySpawnLocation.AbilityLastPayloadLocation => targeter.GetLastAbilityPayloadLocation(),
             DeliverySpawnLocation.LastEffectZoneLocation => targeter.ActivationInstance.SavedLocation,
             DeliverySpawnLocation.LastEffectTarget => LastTarget != null ? LastTarget.transform.position : Source.transform.position,
+            DeliverySpawnLocation.SourceCastingVFXPos => Source.castingVFXPosition.position,
             _ => Vector2.zero
         };
 
 
 
-        GameObject activeVFX = VFXUtility.SpawnVFX(ZoneInfo.applyVFX, spawnLocation, TargetUtilities.GetRotationTowardTarget(currentTarget.transform.position, spawnLocation), null, 1f);
+        Quaternion rotation = ZoneInfo.applyVFXIdentiyRotation == true ? Quaternion.identity : TargetUtilities.GetRotationTowardTarget(currentTarget.transform.position, spawnLocation);
+
+        float scale = ZoneInfo.vfxScaleModifer != 0f ? ZoneInfo.vfxScaleModifer : 1f;
+        GameObject activeVFX = VFXUtility.SpawnVFX(ZoneInfo.applyVFX, spawnLocation, rotation, null, 1f, scale);
 
 
         ElectricArcEffect arc = activeVFX.GetComponent<ElectricArcEffect>();
@@ -3642,6 +3646,10 @@ public class SpawnEntityEffect : Effect {
 
         activeSpawns.RemoveIfContains(victim);
 
+        if(victim is NPC) {
+            Source.minions.RemoveIfContains((NPC)victim);
+        }
+
         if(activeSpawns.Count == 0) {
             ParentAbility.SendAbilityEndedEvent();
         }
@@ -3675,6 +3683,9 @@ public class SpawnEntityEffect : Effect {
             }
             else {
                 activeSpawns.Remove(oldest);
+                if(oldest is NPC) {
+                    Source.minions.Remove((NPC)oldest);
+                }
                 oldest.ForceDie(Source, ParentAbility);
             }
         }
@@ -3702,7 +3713,9 @@ public class SpawnEntityEffect : Effect {
             spawn.ownerType = Source.ownerType;
             spawn.entityType = Source.entityType;
             if (spawn is NPC) {
-                ((NPC)spawn).MinionMaster = Source;
+                NPC npcSpawn = spawn as NPC;
+                npcSpawn.MinionMaster = Source;
+                Source.minions.Add(npcSpawn);
             }
 
             if (Data.inheritParentLayer == true)
@@ -3789,6 +3802,12 @@ public class SpawnEntityEffect : Effect {
         if (result != null) {
             ImbueSpawnWithStats(result);
         }
+
+        if(Data.spawnEntityVFX != null) {
+            //Quaternion rotation = ZoneInfo.applyVFXIdentiyRotation == true ? Quaternion.identity : result.transform.rotation;
+            GameObject activeVFX = VFXUtility.SpawnVFX(Data.spawnEntityVFX, result.transform.position, Quaternion.identity, null, 1f, Data.spawnEntityVFXScale);
+        }
+
 
         result.SpawningAbility = ParentAbility;
 

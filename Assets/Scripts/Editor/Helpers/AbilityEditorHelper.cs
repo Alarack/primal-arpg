@@ -479,6 +479,12 @@ public static class AbilityEditorHelper {
             case ConstraintType.DeathCheated:
                 entry.cheatDeathStatus = EditorHelper.EnumPopup("Status", entry.cheatDeathStatus);
                 break;
+
+            case ConstraintType.HasMinions:
+                entry.hasMinionCount = EditorGUILayout.IntField("Max Minions", entry.hasMinionCount);
+                entry.hasMinionName = EditorGUILayout.TextField("Name Constraint", entry.hasMinionName);
+
+                break;
             default:
                 break;
         }
@@ -772,6 +778,10 @@ public static class AbilityEditorHelper {
                 if (entry.spawnType == EntitySpawnType.Manual) {
                     entry.entityPrefab = EditorHelper.ObjectField("Prefab", entry.entityPrefab);
                 }
+                entry.spawnEntityVFX = EditorHelper.ObjectField("Spawn VFX", entry.spawnEntityVFX);
+                if(entry.spawnEntityVFX != null) {
+                    entry.spawnEntityVFXScale = EditorGUILayout.FloatField("VFX Scale", entry.spawnEntityVFXScale);
+                }
                 entry.percentOfPlayerDamage = EditorGUILayout.FloatField("Percent of Player Damage", entry.percentOfPlayerDamage);
                 entry.destroyPreviousSummonAtCap = EditorGUILayout.Toggle("Overwrite Previous?", entry.destroyPreviousSummonAtCap);
                 entry.inheritParentLayer = EditorGUILayout.Toggle("Inherit Parent Layer?", entry.inheritParentLayer);
@@ -1017,12 +1027,14 @@ public static class AbilityEditorHelper {
 
         entry.spawnVFX = EditorHelper.ObjectField("Spawn VFX", entry.spawnVFX);
         entry.applyVFX = EditorHelper.ObjectField("Apply VFX", entry.applyVFX);
+        entry.applyVFXIdentiyRotation = EditorGUILayout.Toggle("No Roation", entry.applyVFXIdentiyRotation);
+
         entry.deathVFX = EditorHelper.ObjectField("Death VFX", entry.deathVFX);
 
         if(entry.applyOnInterval == true) {
             entry.intervalVFX = EditorHelper.ObjectField("Interval VFX", entry.intervalVFX);
         }
-
+        entry.vfxScaleModifer = EditorGUILayout.FloatField("VFX Scale", entry.vfxScaleModifer);
 
         entry.screenShakeOnApply = EditorGUILayout.Toggle("Screm Shake", entry.screenShakeOnApply);
         if (entry.screenShakeOnApply == true) {

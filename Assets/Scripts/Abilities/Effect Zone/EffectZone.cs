@@ -675,8 +675,10 @@ public struct EffectZoneInfo {
     [Header("VFX")]
     public GameObject spawnVFX;
     public GameObject applyVFX;
+    public bool applyVFXIdentiyRotation;
     public GameObject deathVFX;
     public GameObject intervalVFX;
+    public float vfxScaleModifer;
 
     public bool screenShakeOnApply;
     public float screenShakeAmount;

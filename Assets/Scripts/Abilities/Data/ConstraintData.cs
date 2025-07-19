@@ -47,7 +47,8 @@ public enum ConstraintType {
     StatusApplied,
     AbilityCategory,
     DeathCheated,
-    AbilityReady
+    AbilityReady,
+    HasMinions
 }
 
 public enum GainedOrLost {
@@ -182,6 +183,10 @@ public class ConstraintData
 
     //Death Cheated
     public Status.StatusName cheatDeathStatus;
+
+    //Has Minions
+    public int hasMinionCount;
+    public string hasMinionName;
 
     public ConstraintData() {
 
