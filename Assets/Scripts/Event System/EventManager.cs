@@ -178,7 +178,8 @@ namespace LL.Events {
         ResourceOrbCollected,
         CheatDeath,
         ExitedEffectZone,
-        EnteredEffectZone
+        EnteredEffectZone,
+        AnimationEnded
     }
 
 

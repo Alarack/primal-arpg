@@ -1403,7 +1403,10 @@ public class Ability {
 
     public void ReceiveStartActivationInstance(TriggerInstance activationInstance) {
 
-        //Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is trying to start. Source: " + Source.EntityName, Color.green));
+        //if(Data.abilityName == "Crawler Bark" && IsReady == true && IsEquipped == true)
+        //    Debug.Log(TextHelper.ColorizeText("An ability: " + Data.abilityName + " is trying to start. Source: " + Source.EntityName, Color.green));
+        
+        
         if (Source.HasStatus(Status.StatusName.Stunned) == true && Data.HasManualActivation() == true) {
             //Debug.Log(Source.EntityName + " cannot use: " + Data.abilityName + " because they're stunned");
             return;
@@ -1419,7 +1422,6 @@ public class Ability {
         if(Source.ActiveChannelingAbility != null && IgnoreOtherCasting == true && Data.category == AbilityCategory.KnownSkill) {
             Source.ActiveChannelingAbility.ForceEndChannelling();
         }
-            
 
         if (IsReady == false) {
             //Debug.Log("An ability: " + Data.abilityName + " tried to trigger, but is not ready.");
@@ -1432,6 +1434,7 @@ public class Ability {
             return;
         }
 
+
         if (IgnoreOtherCasting == false) {
             Ability castingAbility = Source.ActivelyCastingAbility;
 
@@ -1443,15 +1446,12 @@ public class Ability {
         if (CheckCostWithoutSpending() == false)
             return;
 
-
-
         if (HasWindup() == true) {
 
             if (CheckForWindup(activationInstance) == true) {
                 return;
             }
         }
-
 
         if (CheckCost() == false)
             return;
@@ -1475,6 +1475,7 @@ public class Ability {
         SendAbilityInitiatedEvent(activationInstance);
 
         TriggerAllEffectsInstantly(activationInstance);
+
     }
 
     protected bool HasWindup() {
@@ -1588,9 +1589,6 @@ public class Ability {
         //else {
         //    Debug.LogWarning(Data.abilityName + " has no sounds");
         //}
-
-        
-
 
         EventData data = new EventData();
         data.AddAbility("Ability", this);

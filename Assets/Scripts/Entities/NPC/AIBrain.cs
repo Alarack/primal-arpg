@@ -35,6 +35,9 @@ public class AIBrain : MonoBehaviour {
 
     private Dictionary<StateBehaviour, List<Ability>> stateBehaviorAbilities = new Dictionary<StateBehaviour, List<Ability>>();
 
+    private Dictionary<string, Ability> allAbilitiesByName = new Dictionary<string, Ability>();
+
+
     private void Awake() {
         Owner = GetComponent<NPC>();
         Movement = GetComponent<NPCMovement>();
@@ -85,35 +88,48 @@ public class AIBrain : MonoBehaviour {
 
     private void CreateAbilities() {
         for (int i = 0; i < abilityDefinitions.Count; i++) {
-            AddAbility(abilityDefinitions[i]);
-
-            //Ability ability = AbilityFactory.CreateAbility(abilityDefinitions[i].AbilityData, Owner);
-            //ability.Equip();
-            //abilities.Add(ability);
+            AddAbility(abilityDefinitions[i].AbilityData);
         }
     }
 
-    public void AddAbility(AbilityDefinition abilityDef) {
-        AddAbility(abilityDef.AbilityData);
-        //Debug.Log("Adding : " + ability.Data.abilityName);
-    }
+    //public void AddAbility(AbilityDefinition abilityDef) {
+    //    AddAbility(abilityDef.AbilityData);
+    //    //Debug.Log("Adding : " + ability.Data.abilityName);
+    //}
 
     public void AddAbility(AbilityData data) {
         Ability ability = AbilityFactory.CreateAbility(data, Owner);
-        ability.Equip();
-        abilities.Add(ability);
+        //ability.Equip();
+        //abilities.Add(ability);
+        AddAbility(ability);
 
-        Debug.Log("Adding : " + ability.Data.abilityName + " to " + Owner.EntityName);
     }
 
     public void AddAbility(Ability ability) {
         abilities.Add(ability);
         ability.Equip();
+
+        TrackAbility(ability);
+
+        Debug.Log("Adding : " + ability.Data.abilityName + " to " + Owner.EntityName);
+    }
+
+    private void TrackAbility(Ability ability) {
+        if (allAbilitiesByName.ContainsKey(ability.Data.abilityName) == false)
+            allAbilitiesByName.Add(ability.Data.abilityName, ability);
+    }
+
+    private void UntrackAbility(Ability ability) {
+        if (allAbilitiesByName.ContainsKey(ability.Data.abilityName) == true)
+            allAbilitiesByName.Remove(ability.Data.abilityName);
     }
 
     public void RemoveAbility(Ability ability) {
         ability.Uneqeuip();
         abilities.Remove(ability);
+
+        UntrackAbility(ability);
+        
     }
 
     public void AddAbilitiesFromBehavior(List<AbilityDefinition> newAbilities, StateBehaviour behavior) {
@@ -123,6 +139,7 @@ public class AIBrain : MonoBehaviour {
             Ability ability = AbilityFactory.CreateAbility(newAbilities[i].AbilityData, Owner);
             //this.abilities.Add(ability);
             abiliitesToAdd.Add(ability);
+            TrackAbility(ability);
         }
 
         UpdateBehaviorAbilityDictioanry(abiliitesToAdd, behavior);
@@ -239,6 +256,33 @@ public class AIBrain : MonoBehaviour {
     }
 
 
+    public Ability GetAbilityByName(string abilityName) {
+        if (allAbilitiesByName.TryGetValue(abilityName, out Ability result))
+            return result;
+
+        return null;
+    }
+
+
+    //public Ability GetAbilityByName(string abilityName) {
+    //    for (int i = 0; i < abilities.Count; i++) {
+    //        if (abilities[i].Data.abilityName == abilityName)
+    //            return abilities[i];
+    //    }
+
+
+    //    foreach (var entry in stateBehaviorAbilities) {
+    //        for (int i = 0; i < entry.Value.Count; i++) {
+    //            if (entry.Value[i].Data.abilityName == abilityName)
+    //                return entry.Value[i];
+    //        }
+    //    }
+
+
+    //    return null;
+    //}
+
+
     #region AI TRIGGER BUSINESS
 
     public void ReceiveStateChange(string stateName, TriggerInstance triggerInstance) {
@@ -246,10 +290,14 @@ public class AIBrain : MonoBehaviour {
 
         //Debug.LogWarning("Brain is recieveing a state change Trigger: " + triggerInstance.Type);
 
+        
+
         fsm.ChangeState(stateName);
 
         debugCurrentState = fsm.CurrentState != null ? fsm.CurrentState.stateName : "No Current State";
         debugPreviousState = fsm.PreviousState != null ? fsm.PreviousState.stateName : "No Previous State";
+
+        //Debug.LogWarning("Changed State to: " + debugCurrentState + " from " + debugPreviousState);
     }
 
     public string ForceStateChange(string stateName) {
@@ -258,7 +306,11 @@ public class AIBrain : MonoBehaviour {
         fsm.ChangeState(stateName);
 
         string previousState = fsm.PreviousState != null ? fsm.PreviousState.stateName : "";
-        //Debug.Log("Forcing state to: " + stateName);
+        Debug.Log("Forcing state to: " + stateName);
+
+
+        debugCurrentState = fsm.CurrentState != null ? fsm.CurrentState.stateName : "No Current State";
+        debugPreviousState = fsm.PreviousState != null ? fsm.PreviousState.stateName : "No Previous State";
 
         return previousState;
     }

@@ -61,6 +61,7 @@ public static class AbilityFactory {
             TriggerType.EffectZoneEntered => new EffectZoneEnteredTrigger(data, source, parentAbility),
             TriggerType.EffectZoneExited => new EffectZoneExitedTrigger(data, source, parentAbility),
             TriggerType.StatusRemoved => new StatusRemovedTrigger(data, source, parentAbility),
+            TriggerType.AnimationEnded => new AnimationEndedTrigger(data, source, parentAbility),
             _ => null,
         };
 

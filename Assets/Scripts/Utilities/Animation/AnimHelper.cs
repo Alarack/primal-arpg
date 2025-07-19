@@ -53,6 +53,19 @@ public class AnimHelper : MonoBehaviour {
         animator.SetTrigger(name);
     }
 
+    public void OnAnimEnded(string abilityAndAnimationName) {
+        EventData data = new EventData();
+
+        string[] names = abilityAndAnimationName.Split(',');
+
+        data.AddString("AnimationName", names[0]);
+        data.AddString("AbilityName", names[1]);
+        data.AddEntity("Owner", owner);
+
+        EventManager.SendEvent(GameEvent.AnimationEnded, data);
+
+    }
+
     public void ReceiveAnimEvent(string name) {
         EventData data = new EventData();
         
@@ -64,8 +77,8 @@ public class AnimHelper : MonoBehaviour {
 
         EventManager.SendEvent(GameEvent.AbilityAnimReceived, data);
 
-        if(owner is NPC)
-            Debug.Log("Recieveing event for: " + nextInstance.ability.Data.abilityName);
+        //if (owner is NPC)
+        //    Debug.Log("Recieveing event for: " + nextInstance.ability.Data.abilityName);
 
         animator.SetFloat("AnimSpeed", 1f);
     }
@@ -103,8 +116,8 @@ public class AnimHelper : MonoBehaviour {
             return;
         }
 
-        if (owner is NPC)
-            Debug.Log("Ability Initiated: " + data.GetAbility("Ability").Data.abilityName);
+        //if (owner is NPC)
+        //    Debug.Log("Ability Initiated: " + data.GetAbility("Ability").Data.abilityName);
 
 
         Ability ability = data.GetAbility("Ability");
@@ -125,8 +138,8 @@ public class AnimHelper : MonoBehaviour {
 
         //currentAbility = ability;
         //currentTriggerInstance = triggerInstance;
-
-        abilityQueue.Enqueue(new AbilityActivationInstance(ability, triggerInstance));
+        if(ability.Data.waitForAnimToResolve == true)
+            abilityQueue.Enqueue(new AbilityActivationInstance(ability, triggerInstance));
 
 
         bool readyCheck = entity is EntityPlayer;
@@ -190,10 +203,10 @@ public class AnimHelper : MonoBehaviour {
             return;
 
         //Debug.Log("Recieving activation for: " + ability.Data.abilityName + ". Setting speed to: " + speed);
-        animator.SetFloat("AnimSpeed", speed);
+        //animator.SetFloat("AnimSpeed", speed);
 
         SetTrigger(ability.Data.animationString);
-
+        SetBool("Run", false);
         //float castTime = ability.Stats[StatName.AbilityWindupTime];
 
         //AnimatorClipInfo clipInfo = animator.GetCurrentAnimatorClipInfo(0)[0];

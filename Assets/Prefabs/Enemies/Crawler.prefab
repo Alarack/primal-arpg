@@ -21143,12 +21143,13 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resetTimerOnParentAbilityStart: 0
       resourceOrbType: 0
       allConstraints: []
   - fromStateData: {fileID: 11400000, guid: 018b156b11eb0e649b0074c377f83893, type: 2}
     toStateData: {fileID: 11400000, guid: d69b811d39a76aa44a20e89f068fbc1f, type: 2}
     triggerData:
-    - type: 34
+    - type: 49
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -21160,6 +21161,7 @@ MonoBehaviour:
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resetTimerOnParentAbilityStart: 0
       resourceOrbType: 0
       allConstraints:
       - focus: 4
@@ -21198,7 +21200,57 @@ MonoBehaviour:
           stateEntered: 
           stateExited: 
           targetAbilityTag: 0
-          targetAbiltyName: Go Roll
+          targetAbiltyName: Crawler Roll
+          targetEffectName: 
+          effectDesigantion: 0
+          targetAbilityCategory: 0
+          targetEffectType: 0
+          targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
+      - focus: 1
+        constraintData:
+        - type: 7
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          checkPercentOfMax: 0
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
           targetAbilityCategory: 0

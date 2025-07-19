@@ -177,7 +177,7 @@ public class NPC : Entity
         subtypes.Add(EntitySubtype.Elite);
 
         for (int i = 0; i < eliteData.abilities.Count; i++) {
-            Brain.AddAbility(eliteData.abilities[i]);
+            Brain.AddAbility(eliteData.abilities[i].AbilityData);
         }
         StatModifier mod = new StatModifier(2f, StatModType.PercentMult, StatName.Health, this, StatModifierData.StatVariantTarget.RangeMax);
         StatAdjustmentManager.ApplyStatAdjustment(this, mod, mod.VariantTarget, this, null);
@@ -217,6 +217,8 @@ public class NPC : Entity
 
 
 
-
+    public override Ability GetAbilityByName(string name) {
+        return Brain.GetAbilityByName(name);
+    }
 
 }

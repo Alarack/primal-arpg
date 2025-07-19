@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Crawler Roll
+  m_Name: A_Return To Main
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 1
+    category: 6
     abilityIcon: {fileID: 0}
-    abilityName: Crawler Roll
-    abilityDescription: Go roller!
+    abilityName: Return to Crawler main State
+    abilityDescription: 
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -33,8 +33,8 @@ MonoBehaviour:
     nonLethal: 0
     essenceCostPercent: 0
     runeAbilityTarget: 
-    animationString: Start Roll
-    waitForAnimToResolve: 1
+    animationString: 
+    waitForAnimToResolve: 0
     initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
@@ -43,42 +43,12 @@ MonoBehaviour:
     runeGroupData: []
     tags: 
     resetEvents: 
-    activationTriggerData:
-    - type: 31
-      overrideProcStat: 0
-      procChance: 1
-      triggerDelay: 0
-      customAnim: 
-      riderAbilityName: 
-      riderEffectName: 
-      triggerTimerDuration: 0
-      chainTriggerDelay: 0.1
-      delay1Frame: 0
-      autoActivateTimer: 0
-      resetTimerOnParentAbilityEnd: 0
-      resetTimerOnParentAbilityStart: 0
-      resourceOrbType: 0
-      allConstraints: []
-    endTriggerData:
-    - type: 7
-      overrideProcStat: 0
-      procChance: 1
-      triggerDelay: 0
-      customAnim: End Roll
-      riderAbilityName: 
-      riderEffectName: 
-      triggerTimerDuration: 3
-      chainTriggerDelay: 0.1
-      delay1Frame: 0
-      autoActivateTimer: 0
-      resetTimerOnParentAbilityEnd: 0
-      resetTimerOnParentAbilityStart: 1
-      resourceOrbType: 0
-      allConstraints: []
+    activationTriggerData: []
+    endTriggerData: []
     counterData:
       useCustomRefreshTrigger: 0
       customRefreshTriggerData:
-        type: 0
+        type: 15
         overrideProcStat: 0
         procChance: 1
         triggerDelay: 0
@@ -94,7 +64,7 @@ MonoBehaviour:
         resourceOrbType: 0
         allConstraints: []
       limitedNumberOfTriggers: 0
-      maxTriggerCount: 0
+      maxTriggerCount: 1
       requireMultipleTriggers: 0
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
@@ -122,43 +92,11 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: c34e741889d5dac499fea087ae0e6dec, type: 2}
-    - {fileID: 11400000, guid: 117f5869aca391b49b8d38188fe12739, type: 2}
+    - {fileID: 11400000, guid: cdaf4a8bede3f35439deaf6481a0d7c0, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
     windupVFX: {fileID: 0}
-    abilityStatData:
-    - variant: 0
-      statName: 41
-      value: 1.5
-      maxValue: 0
-      minValue: 0
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          overrideProcStat: 0
-          procChance: 1
-          triggerDelay: 0
-          customAnim: 
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          chainTriggerDelay: 0.1
-          delay1Frame: 0
-          autoActivateTimer: 0
-          resetTimerOnParentAbilityEnd: 0
-          resetTimerOnParentAbilityStart: 0
-          resourceOrbType: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        reduceTriggerCountByAbilityLevel: 0
-        minTriggerCount: 0
-      cooldown: 3.5
+    abilityStatData: []
+    recoveryData: []

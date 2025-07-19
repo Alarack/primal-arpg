@@ -318,14 +318,15 @@ public abstract class AbilityTrigger {
         }
 
         if (Data.triggerDelay > 0f) {
-            Debug.Log("Delaying trigger for: " + ParentAbility.Data.abilityName);
+            //if(ParentAbility != null) 
+            //    Debug.Log("Delaying trigger for: " + ParentAbility.Data.abilityName);
             DelayTriggerTask = new Task(CustomDelay(activationInstance));
             return;
         }
 
         ActivationCallback?.Invoke(activationInstance);
 
-        if(string.IsNullOrEmpty(Data.customAnim) == false) {
+        if(ParentAbility != null && string.IsNullOrEmpty(Data.customAnim) == false) {
             ParentAbility.Source.AnimHelper.SetTrigger(Data.customAnim);
         }
     }
@@ -398,7 +399,8 @@ public abstract class AbilityTrigger {
         WaitForSeconds waiter = new WaitForSeconds(Data.triggerDelay);
         yield return waiter;
 
-        Debug.Log("Resolving delayed trigger for: " + ParentAbility.Data.abilityName);
+        //if(ParentAbility  != null) 
+        //    Debug.Log("Resolving delayed trigger for: " + ParentAbility.Data.abilityName);
 
         ActivationCallback?.Invoke(activationInstance);
 
@@ -603,6 +605,35 @@ public class AIActivatedTrigger : AbilityTrigger {
     }
 }
 
+public class AnimationEndedTrigger : AbilityTrigger {
+
+    public override TriggerType Type => TriggerType.AnimationEnded;
+    public override GameEvent TargetEvent => GameEvent.AnimationEnded;
+    public override Action<EventData> EventReceiver => OnAnimationEnded;
+
+    public AnimationEndedTrigger(TriggerData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+    public void OnAnimationEnded(EventData data) {
+
+        Entity owner = data.GetEntity("Owner");
+        //string animation = data.GetString("AnimationName");
+        string abilityName = data.GetString("AbilityName");
+
+        Ability triggeringAbility = AbilityUtilities.GetAbilityByName(abilityName, owner);
+
+        TriggeringEntity = owner;
+        CauseOfTrigger = owner;
+
+        TriggerInstance triggerInstance = new TriggerInstance(TriggeringEntity, CauseOfTrigger, Type);
+        triggerInstance.TriggeringAbility = triggeringAbility;
+        triggerInstance.SourceAbility = ParentAbility;
+        TryActivateTrigger(triggerInstance);
+
+    }
+}
+
 public class AbilityResolvedTrigger : AbilityTrigger {
 
     public override TriggerType Type => TriggerType.AbilityResolved;
@@ -668,9 +699,9 @@ public class AbilityEndedTrigger : AbilityTrigger {
         //    return;
         //}
 
-        //if(triggeringAbility.Data.abilityName == "Test Sword Swipe") {
-        //    Debug.Log("Swipe activation recieved");
-        //}
+        if (triggeringAbility.Data.abilityName == "Crawler Roll") {
+            Debug.Log("Crawler Roll Ended seen by: " + ParentAbility.Data.abilityName);
+        }
 
         //Debug.Log("Recieveing an ability resolve trigger: " + triggeringAbility.Data.abilityName);
 

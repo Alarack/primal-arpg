@@ -53,7 +53,8 @@ public enum TriggerType {
     ResourceOrbCollected,
     CheatDeath,
     EffectZoneEntered,
-    EffectZoneExited
+    EffectZoneExited,
+    AnimationEnded
 }
 
 

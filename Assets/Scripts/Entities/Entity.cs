@@ -302,7 +302,7 @@ public abstract class Entity : MonoBehaviour {
 
     #region ABILIITES
 
-    public Ability GetAbilityByName(string name) {
+    public virtual Ability GetAbilityByName(string name) {
         return AbilityManager.GetAbilityByName(name);
     }
 
