@@ -657,8 +657,8 @@ public class AbilityEndedTrigger : AbilityTrigger {
     public void OnAbilityEnded(EventData data) {
 
         if (ParentAbility == null) {
-            Debug.LogError("An ability resolved trigger cannot resolve because it has no parent ability. Source: " + SourceEntity.EntityName);
-            return;
+            Debug.LogWarning("An ability Ended trigger has no parent ability. Source: " + SourceEntity.EntityName);
+            //return;
         }
 
         Ability triggeringAbility = data.GetAbility("Ability");
@@ -1983,6 +1983,10 @@ public class TimedTrigger : AbilityTrigger {
         if(Data.resetTimerOnParentAbilityEnd == true) {
             EventManager.RegisterListener(GameEvent.AbilityEnded, OnParentAbilityEnded);
         }
+
+        if (Data.resetTimerOnParentAbilityStart == true) {
+            EventManager.RegisterListener(GameEvent.AbilityInitiated, OnParentAbilityInitiated);
+        }
     }
 
     public void ResetClock() {
@@ -1992,7 +1996,19 @@ public class TimedTrigger : AbilityTrigger {
         myTimer.ResetTimer();
     }
 
+
+
     private void OnParentAbilityEnded(EventData data) {
+        Ability parent = data.GetAbility("Ability");
+
+        if (parent != ParentAbility)
+            return;
+
+        ResetClock();
+        ParentAbility.SetActive(true);
+    }
+
+    private void OnParentAbilityInitiated(EventData data) {
         Ability parent = data.GetAbility("Ability");
 
         if (parent != ParentAbility)

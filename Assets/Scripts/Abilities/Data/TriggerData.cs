@@ -75,6 +75,7 @@ public class TriggerData
     public bool delay1Frame;
     public bool autoActivateTimer;
     public bool resetTimerOnParentAbilityEnd;
+    public bool resetTimerOnParentAbilityStart;
 
     public ItemType resourceOrbType;
 

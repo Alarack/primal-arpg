@@ -74,7 +74,7 @@ MonoBehaviour:
       m_Bits: 0
     modData:
     - targetStat: 61
-      value: 1
+      value: 0.75
       modifierType: 0
       variantTarget: 0
       modValueSetMethod: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
       m_NumColorKeys: 4
       m_NumAlphaKeys: 3
     effectDesignation: 0
-    addMissingStatIfNotPresent: 0
+    addMissingStatIfNotPresent: 1
     scaleFromStatus: 0
     scaleFromEssenceSpent: 0
     statusModifiers: []

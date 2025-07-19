@@ -213,7 +213,8 @@ public static class AbilityEditorHelper {
         if (entry.type == TriggerType.Timed) {
             entry.triggerTimerDuration = EditorGUILayout.FloatField("Duration", entry.triggerTimerDuration);
             entry.autoActivateTimer = EditorGUILayout.Toggle("Auto Start", entry.autoActivateTimer);
-            entry.resetTimerOnParentAbilityEnd = EditorGUILayout.Toggle("Auto Reset", entry.resetTimerOnParentAbilityEnd);
+            entry.resetTimerOnParentAbilityEnd = EditorGUILayout.Toggle("Reset On End", entry.resetTimerOnParentAbilityEnd); 
+            entry.resetTimerOnParentAbilityStart = EditorGUILayout.Toggle("Reset On Start", entry.resetTimerOnParentAbilityStart);
         }
 
         if(entry.type == TriggerType.ResourceOrbCollected) {
