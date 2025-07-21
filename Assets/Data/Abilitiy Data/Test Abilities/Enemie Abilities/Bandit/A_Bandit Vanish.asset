@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Bandit Swipe
+  m_Name: A_Bandit Vanish
   m_EditorClassIdentifier: 
   AbilityData:
     category: 1
     abilityIcon: {fileID: 21300000, guid: 30a055dcfd74c764ebb87cb9029fc952, type: 3}
-    abilityName: Bandit Swipe
+    abilityName: Bandit Vanish
     abilityDescription: Fast bandit slices
     resourceCost: 0
     toBestow: 0
@@ -33,13 +33,14 @@ MonoBehaviour:
     nonLethal: 0
     essenceCostPercent: 0
     runeAbilityTarget: 
-    animationString: Attack
+    animationString: Teleport
     waitForAnimToResolve: 1
     initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
-    childAbilities: []
+    childAbilities:
+    - {fileID: 11400000, guid: 8c9807d4c8fd02844ac348098864ca84, type: 2}
     runeGroupData: []
     tags: 040000000600000009000000
     resetEvents: 
@@ -69,8 +70,8 @@ MonoBehaviour:
           statChangeDelta: 0
           constrainByDelivery: 0
           deliveryConstraint: {fileID: 0}
-          minRange: 0
-          maxRange: 3
+          minRange: 5
+          maxRange: 999
           rangeToWhat: 11
           ownerTarget: 0
           mostStatTarget: 0
@@ -159,18 +160,13 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 49286f3f637461b45abd477b2943bd44, type: 2}
+    - {fileID: 11400000, guid: e19c1e3ef99f141449612e247aca6a34, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
     windupVFX: {fileID: 1027116103833860, guid: 6fb67c529e0173c47857b2a860bde40c, type: 3}
     abilityStatData:
-    - variant: 0
-      statName: 42
-      value: 3
-      maxValue: 0
-      minValue: 0
     - variant: 0
       statName: 50
       value: 0.25
@@ -183,7 +179,7 @@ MonoBehaviour:
       minValue: 0
     - variant: 0
       statName: 41
-      value: 0.75
+      value: 1.5
       maxValue: 0
       minValue: 0
     recoveryData:
@@ -212,4 +208,4 @@ MonoBehaviour:
         requireMultipleTriggers: 0
         reduceTriggerCountByAbilityLevel: 0
         minTriggerCount: 0
-      cooldown: 0.5
+      cooldown: 3

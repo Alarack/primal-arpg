@@ -1512,7 +1512,7 @@ public class Ability {
             if (Source == null)
                 return true;
 
-            if (Data.windupVFX != null) {
+            if (Data.windupVFX != null && currentWindup == null) {
                 currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.GetCastingVFXPosition());
                 currentWindupVFX.transform.localPosition = Vector3.zero;
                 GameObject.Destroy(currentWindupVFX, 3f);

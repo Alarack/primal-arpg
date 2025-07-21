@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b439235f93c5444cba829f7beed6435, type: 3}
-  m_Name: E_Bandit Swipe Damage
+  m_Name: E_Lunge Movement
   m_EditorClassIdentifier: 
   effectData:
-    effectName: Bandit Swipe Damage
+    effectName: Bandit - Leap Lunge movement
     effectDescription: 
-    type: 1
-    targeting: 5
+    type: 5
+    targeting: 1
     subTarget: 0
     maskTargeting: 0
     hideFloatingText: 0
     deliveryPayloadToTarget: 0
-    canOverload: 1
+    canOverload: 0
     hideOverload: 0
     canAffectDeadTargets: 0
     nonStacking: 0
@@ -38,8 +38,13 @@ MonoBehaviour:
     targetAbilityForLastPayload: 
     targetConstraints: []
     riderEffects: []
-    payloadPrefab: {fileID: 5357787465864582416, guid: 28a977b1833efca4faee8bfc52f5ca04, type: 3}
-    payloadStatData: []
+    payloadPrefab: {fileID: 0}
+    payloadStatData:
+    - variant: 0
+      statName: 9
+      value: 120
+      maxValue: 0
+      minValue: 0
     spawnLocation: 0
     spawnLocationStart: 0
     spawnLocationEnd: 0
@@ -54,15 +59,15 @@ MonoBehaviour:
     effectZoneInfo:
       parentToCarrier: 0
       removeEffectOnExit: 0
-      parentEffectToOrigin: 1
+      parentEffectToOrigin: 0
       parentToTarget: 0
-      applyOncePerTarget: 1
+      applyOncePerTarget: 0
       applyOnInterval: 0
       dontTickOnEnter: 0
       affectProjectiles: 0
       affectSource: 0
       spawnVFX: {fileID: 0}
-      applyVFX: {fileID: 5591243758346380215, guid: ca9c94ff75e9802488778534d6dabe07, type: 3}
+      applyVFX: {fileID: 0}
       applyVFXIdentiyRotation: 0
       deathVFX: {fileID: 0}
       intervalVFX: {fileID: 0}
@@ -74,47 +79,28 @@ MonoBehaviour:
     projectileHitMask:
       serializedVersion: 2
       m_Bits: 0
-    modData:
-    - targetStat: 0
-      value: -10
-      modifierType: 0
-      variantTarget: 1
-      modValueSetMethod: 6
-      weaponDamagePercent: 0.75
-      deriveStatMultiplier: 1
-      deriveTarget: 0
-      derivedTargetStat: 0
-      invertDerivedValue: 1
-      scaleFromAbilityLevel: 0
-      displayAsPercent: 0
-      abilityLevelCoefficient: 1
-      otherTargetAbility: 
-      otherTagetEffect: 
-      scalers:
-      - targetStat: 28
-        deriveTarget: 15
-        statScaleBaseValue: 1
+    modData: []
     floatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 0.43139905, g: 0.5403858, b: 0.6886792, a: 1}
-      key2: {r: 0.68330365, g: 0.71513885, b: 0.7924528, a: 0}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 21588
-      ctime2: 65535
+      ctime1: 65535
+      ctime2: 0
       ctime3: 0
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 48573
-      atime2: 65535
+      atime1: 65535
+      atime2: 0
       atime3: 0
       atime4: 0
       atime5: 0
@@ -122,39 +108,39 @@ MonoBehaviour:
       atime7: 0
       m_Mode: 0
       m_ColorSpace: -1
-      m_NumColorKeys: 3
-      m_NumAlphaKeys: 3
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
     overloadFloatingTextColor:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0.4431373, g: 0.54901963, b: 0.69411767, a: 0}
-      key3: {r: 0.3647059, g: 0.454902, b: 0.64705884, a: 0}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 15420
-      ctime2: 34117
-      ctime3: 65535
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 50693
-      atime2: 65342
+      atime1: 65535
+      atime2: 0
       atime3: 0
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: 0
-      m_NumColorKeys: 4
-      m_NumAlphaKeys: 3
-    effectDesignation: 1
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    effectDesignation: 0
     addMissingStatIfNotPresent: 0
     scaleFromStatus: 0
     scaleFromEssenceSpent: 0

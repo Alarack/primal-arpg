@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Bandit Swipe
+  m_Name: A_Bandit Leap Movement
   m_EditorClassIdentifier: 
   AbilityData:
-    category: 1
+    category: 5
     abilityIcon: {fileID: 21300000, guid: 30a055dcfd74c764ebb87cb9029fc952, type: 3}
-    abilityName: Bandit Swipe
-    abilityDescription: Fast bandit slices
+    abilityName: 'Bandit Leap '
+    abilityDescription: Forced movement leap
     resourceCost: 0
     toBestow: 0
     suspend: 0
     autoFire: 1
-    ignoreOtherCasting: 0
+    ignoreOtherCasting: 1
     includeEffectsInTooltip: 0
     showChildAbilitiesInTooltip: 0
     ignoreTooltip: 0
@@ -33,21 +33,21 @@ MonoBehaviour:
     nonLethal: 0
     essenceCostPercent: 0
     runeAbilityTarget: 
-    animationString: Attack
-    waitForAnimToResolve: 1
+    animationString: 
+    waitForAnimToResolve: 0
     initSFXVolume: 1
     initiationSounds: []
     channelSFXVolume: 1
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 040000000600000009000000
+    tags: 
     resetEvents: 
     activationTriggerData:
-    - type: 31
+    - type: 30
       overrideProcStat: 0
       procChance: 1
-      triggerDelay: 0
+      triggerDelay: 0.8
       customAnim: 
       riderAbilityName: 
       riderEffectName: 
@@ -60,8 +60,10 @@ MonoBehaviour:
       resourceOrbType: 0
       allConstraints:
       - focus: 0
+        constraintData: []
+      - focus: 4
         constraintData:
-        - type: 3
+        - type: 18
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -70,8 +72,60 @@ MonoBehaviour:
           constrainByDelivery: 0
           deliveryConstraint: {fileID: 0}
           minRange: 0
-          maxRange: 3
-          rangeToWhat: 11
+          maxRange: 0
+          rangeToWhat: 0
+          ownerTarget: 0
+          mostStatTarget: 0
+          mostStatEffectName: 
+          mostStatAbilityName: 
+          leastStatTarget: 0
+          leastStatEffectName: 
+          leastStatAbilityName: 
+          checkPercentOfMax: 0
+          minStatTarget: 0
+          minStatValue: 0
+          nonZero: 0
+          maxStatTarget: 0
+          maxStatValue: 0
+          targetEntityName: 
+          targetSubtype: 0
+          targetPrimaryType: 0
+          targetActiveAbilityName: 
+          appliedEffectType: 0
+          appliedEffectName: 0
+          targetStateData: {fileID: 0}
+          stateEntered: 
+          stateExited: 
+          targetAbilityTag: 0
+          targetAbiltyName: Bandit Vanish
+          targetEffectName: 
+          effectDesigantion: 0
+          targetAbilityCategory: 0
+          targetEffectType: 0
+          targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
+          statRatioTarget: 0
+          targetRatio: 0
+          movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
+          hasMinionCount: 0
+          hasMinionName: 
+      - focus: 1
+        constraintData:
+        - type: 7
+          inverse: 0
+          statChangeTarget: 0
+          changeDirection: 0
+          minStatChangeRequired: 0
+          statChangeDelta: 0
+          constrainByDelivery: 0
+          deliveryConstraint: {fileID: 0}
+          minRange: 0
+          maxRange: 0
+          rangeToWhat: 0
           ownerTarget: 0
           mostStatTarget: 0
           mostStatEffectName: 
@@ -159,7 +213,7 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: 49286f3f637461b45abd477b2943bd44, type: 2}
+    - {fileID: 11400000, guid: 7a4a7d779ba73f74ba2b4c4e550b897e, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
@@ -168,48 +222,7 @@ MonoBehaviour:
     abilityStatData:
     - variant: 0
       statName: 42
-      value: 3
+      value: 5
       maxValue: 0
       minValue: 0
-    - variant: 0
-      statName: 50
-      value: 0.25
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 11
-      value: 0.2
-      maxValue: 0
-      minValue: 0
-    - variant: 0
-      statName: 41
-      value: 0.75
-      maxValue: 0
-      minValue: 0
-    recoveryData:
-    - type: 0
-      recoveryTriggers: []
-      counterData:
-        useCustomRefreshTrigger: 0
-        customRefreshTriggerData:
-          type: 0
-          overrideProcStat: 0
-          procChance: 1
-          triggerDelay: 0
-          customAnim: 
-          riderAbilityName: 
-          riderEffectName: 
-          triggerTimerDuration: 0
-          chainTriggerDelay: 0.1
-          delay1Frame: 0
-          autoActivateTimer: 0
-          resetTimerOnParentAbilityEnd: 0
-          resetTimerOnParentAbilityStart: 0
-          resourceOrbType: 0
-          allConstraints: []
-        limitedNumberOfTriggers: 0
-        maxTriggerCount: 0
-        requireMultipleTriggers: 0
-        reduceTriggerCountByAbilityLevel: 0
-        minTriggerCount: 0
-      cooldown: 0.5
+    recoveryData: []
