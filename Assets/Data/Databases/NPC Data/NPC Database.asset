@@ -16,20 +16,42 @@ MonoBehaviour:
   - biomeName: Grasslands
     npcData:
     - npcPrefab: {fileID: 8896096715327712761, guid: 66c2c6a69638adc4e8dff9d573b5d9f6, type: 3}
-      threatValue: 1
+      threatValue: 2
+      roomCountThreshold: -1
       subTypes: 
     - npcPrefab: {fileID: 4289164631287538691, guid: ffca342351792e24388aee833f50fbea, type: 3}
-      threatValue: 5
+      threatValue: 3
+      roomCountThreshold: -1
       subTypes: 
     - npcPrefab: {fileID: 7556920150909804691, guid: 97e21ac254f5b764c9e2456aae9ae37a, type: 3}
-      threatValue: 5
+      threatValue: 7
+      roomCountThreshold: 5
       subTypes: 
     - npcPrefab: {fileID: 7683031533755252813, guid: 253183a1dd1c7b841a4db247c64ec1c0, type: 3}
-      threatValue: 6
+      threatValue: 5
+      roomCountThreshold: 7
       subTypes: 09000000
     - npcPrefab: {fileID: 331457601735946104, guid: b9788f68000536e49b9a5bfdea1eaa6f, type: 3}
-      threatValue: 10
+      threatValue: 15
+      roomCountThreshold: -1
       subTypes: 05000000
     - npcPrefab: {fileID: 2837865420132635316, guid: 3fc882a79c2bb3d44ab740820631da93, type: 3}
+      threatValue: 5
+      roomCountThreshold: 3
+      subTypes: 
+    - npcPrefab: {fileID: 8012602106460877268, guid: ae9e16c5908ae56479b84b5f0ac09a86, type: 3}
+      threatValue: 6
+      roomCountThreshold: 6
+      subTypes: 
+    - npcPrefab: {fileID: 7809853213934779988, guid: 3ecc4cdd44ba33e45a94171c9cd11d51, type: 3}
+      threatValue: 3
+      roomCountThreshold: 2
+      subTypes: 
+    - npcPrefab: {fileID: 4981404083057928778, guid: c1cddb579c5083f4d84729f72d498bb9, type: 3}
+      threatValue: 4
+      roomCountThreshold: 4
+      subTypes: 
+    - npcPrefab: {fileID: 5066122602977517984, guid: b835a5219483eaf4c8fc1d2feaed14b1, type: 3}
       threatValue: 7
+      roomCountThreshold: 8
       subTypes: 

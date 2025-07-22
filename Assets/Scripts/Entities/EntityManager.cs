@@ -148,9 +148,12 @@ public class EntityManager : Singleton<EntityManager> {
         if (ActiveEntities.ContainsKey(Entity.EntityType.Enemy) == false)
             return;
 
-        for (int i = 0; i < ActiveEntities[Entity.EntityType.Enemy].Count; i++) {
-            ActiveEntities[Entity.EntityType.Enemy][i].ForceDie(ActivePlayer);
+        List<Entity> enemies = ActiveEntities[Entity.EntityType.Enemy];
+
+        for (int i = enemies.Count -1; i >= 0; i--) {
+            enemies[i].ForceDie(ActivePlayer);
         }
+
     }
 
     public static void SpawnGeneratedWave() {
@@ -179,14 +182,10 @@ public class EntityManager : Singleton<EntityManager> {
 
         //StatAdjustmentManager.ResetStat(ActivePlayer, StatName.Health);
         //StatAdjustmentManager.ResetStat(ActivePlayer, StatName.Essence);
-
-
         //ActivePlayer.Stats.Refresh(StatName.Health);
         //ActivePlayer.Stats.Refresh(StatName.Essence);
         ActivePlayer.Stats.RemoveAllMaxValueModifiersFromSource(StatName.Health, ActivePlayer);
         ActivePlayer.Stats.RemoveAllMaxValueModifiersFromSource(StatName.Essence, ActivePlayer);
-
-
         ActivePlayer.Stats.Refresh(StatName.Experience);
         ActivePlayer.Stats.SetStatValue(StatName.StatReroll, 3f, ActivePlayer);
         ActivePlayer.Stats.HardResetStatRange(StatName.HeathPotions, ActivePlayer, 1f);
@@ -207,7 +206,6 @@ public class EntityManager : Singleton<EntityManager> {
         PanelManager.ClosePanel<MasteryPanel>();
         RoomManager.Instance.CleanUpRewardPedestals();
         RoomManager.InCombat = false;
-
 
         ClearRemainingEnemies();
         ClearRemainingProjectiles();
@@ -306,9 +304,9 @@ public class EntityManager : Singleton<EntityManager> {
 
         for (int i = 0; i < waveCount; i++) {
 
-            float waveIncrement = 1 + (i / 2f);
+            //float waveIncrement = 1 + (i / 2f);
 
-            List<NPC> waveMobs = NPCDataManager.GetSpawnList(biome, totalThreat * waveIncrement, minSingleThreat, maxSingleThreat);
+            List<NPC> waveMobs = NPCDataManager.GetSpawnList(biome, totalThreat, minSingleThreat, maxSingleThreat);
 
             if(waveMobs.Count == 0) {
                 Debug.LogError("No enemies found when forming a wave. Check difficulty");

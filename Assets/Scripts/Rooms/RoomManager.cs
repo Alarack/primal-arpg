@@ -20,7 +20,7 @@ public class RoomManager : Singleton<RoomManager> {
 
     public static bool InCombat { get; set; }
 
-    private int currentRoomIndex;
+    public int CurrentRoomIndex { get; private set; }
     //private List<Room> roomList = new List<Room>();
 
     public static bool MultiReward { get; private set; }
@@ -35,7 +35,7 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     public static void EnterRoom(Room room) {
-        Instance.currentRoomIndex++;
+        Instance.CurrentRoomIndex++;
         Debug.Log("Starting a room: " + room.Type.ToString());
         room.StartRoom();
 
@@ -114,7 +114,7 @@ public class RoomManager : Singleton<RoomManager> {
     public static void ClearRooms() {
         Instance.CleanUpRoomPortals();
         Instance.CleanUpRewardPedestals();
-        Instance.currentRoomIndex = 0;
+        Instance.CurrentRoomIndex = 0;
     }
 
     public static void SpawnRoomPortals(int portalCount = 2, List<Vector2> portalLocations = null) {
@@ -199,10 +199,10 @@ public class RoomManager : Singleton<RoomManager> {
     }
 
     private Room.RoomType GetRoomType() {
-        if (Instance.currentRoomIndex % 10 == 0 && Instance.currentRoomIndex != 0)
+        if (Instance.CurrentRoomIndex % 10 == 0 && Instance.CurrentRoomIndex != 0)
             return Room.RoomType.BossRoom;
 
-        if (Instance.currentRoomIndex % 5 == 0 && Instance.currentRoomIndex != 0)
+        if (Instance.CurrentRoomIndex % 5 == 0 && Instance.CurrentRoomIndex != 0)
             return Room.RoomType.ItemShop;
 
         return Room.RoomType.EliminationCombat;

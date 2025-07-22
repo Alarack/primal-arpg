@@ -13,6 +13,7 @@ public class NPCDatabase : ScriptableObject
     public void Init(NPCDataManager manager) {
         for(int i = 0; i < biomeEntries.Count; i++) {
             biomeEntries[i].SetupThreatDict();
+            biomeEntries[i].SetupDataDict();
             manager.npcBiomeDict.Add(biomeEntries[i].biomeName, biomeEntries[i]);
 
             for(int j = 0; j < biomeEntries[i].npcData.Count; j++) {
@@ -36,6 +37,8 @@ public class NPCDatabase : ScriptableObject
 
         public Dictionary<float, List<NPC>> npcsByThreat = new Dictionary<float, List<NPC>>();
 
+        public Dictionary<NPC, NPCDataEntry> dataDictionary = new Dictionary<NPC, NPCDataEntry>();
+
         public NPCBiomeEntry() { 
         
         }
@@ -52,6 +55,24 @@ public class NPCDatabase : ScriptableObject
             int randomIndex = Random.Range(0, bosses.Count);
             return bosses[randomIndex];
 
+        }
+
+
+        public NPCDataEntry GetEntryFromNPC(NPC npc) {
+            for (int i = 0; i < npcData.Count; i++) {
+                if (npcData[i].npcPrefab.EntityName == npc.EntityName)
+                    return npcData[i];
+            }
+
+            return null;
+        }
+
+        public bool CheckMinRoomIndexThreshold(NPC npc) {
+            if(dataDictionary.TryGetValue(npc, out NPCDataEntry entry) == true) {
+                return entry.CheckMinRoomThreshold();
+            }
+
+            return false;
         }
 
         public List<NPC> FillThreatList(float totalThreatLevel, float minIndividualThreat, float maxIndividualThreat, bool includeBosses = false) {
@@ -72,13 +93,18 @@ public class NPCDatabase : ScriptableObject
 
                     if(entry.Key < maxIndividualThreat) {
                         float reducedChance = 0.66f;
-
                         float roll = Random.Range(0f, 1f);
 
                         if(roll < reducedChance) {
-                            filledValue += entry.Key;
+
                             int randomIndex = Random.Range(0, entry.Value.Count);
-                            results.Add(entry.Value[randomIndex]);
+                            NPC target = entry.Value[randomIndex];
+
+                            if (CheckMinRoomIndexThreshold(target) == true)
+                                continue;
+
+                            filledValue += entry.Key;
+                            results.Add(target);
 
                         }
                     }
@@ -86,7 +112,10 @@ public class NPCDatabase : ScriptableObject
                         int randomIndex = Random.Range(0, entry.Value.Count);
                         NPC target = entry.Value[randomIndex];
 
-                        if(includeBosses == false && target.subtypes.Contains(Entity.EntitySubtype.Boss)) {
+                        if (CheckMinRoomIndexThreshold(target) == true)
+                            continue;
+
+                        if (includeBosses == false && target.subtypes.Contains(Entity.EntitySubtype.Boss)) {
                             continue;
                         }
                         
@@ -158,15 +187,32 @@ public class NPCDatabase : ScriptableObject
             }
         }
 
+        public void SetupDataDict() {
+            dataDictionary.Clear();
+            for (int i = 0; i < npcData.Count; i++) {
+                dataDictionary.Add(npcData[i].npcPrefab, npcData[i]);
+            }
+        }
+
     }
 
     [System.Serializable]
     public class NPCDataEntry {
         public NPC npcPrefab;
         public float threatValue;
+        public int roomCountThreshold = -1;
         public List<Entity.EntitySubtype> subTypes = new List<Entity.EntitySubtype>();
         //public string biome;
 
+
+
+        public bool CheckMinRoomThreshold() {
+            if (roomCountThreshold < 0)
+                return false;
+
+
+            return RoomManager.Instance.CurrentRoomIndex +1 < roomCountThreshold;
+        }
 
         public bool ContainsSubtype(Entity.EntitySubtype[] subtypes) {
             for (int i = 0; i < subTypes.Count; i++) {
