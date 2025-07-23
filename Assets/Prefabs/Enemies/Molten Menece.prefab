@@ -24,6 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457109453898834006}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: 0.9238796, w: -0.38268325}
   m_LocalPosition: {x: 0.4, y: -0.4, z: 0}
   m_LocalScale: {x: 0.5, y: 0.911, z: 0.5}
@@ -31,7 +32,6 @@ Transform:
   m_Children:
   - {fileID: 4747244252120306069}
   m_Father: {fileID: 1764810486060022097}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 225}
 --- !u!212 &912193970010456259
 SpriteRenderer:
@@ -50,6 +50,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -109,13 +112,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2164645364878484698}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1764810486060022097}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2332299981543330901
 SpriteRenderer:
@@ -134,6 +137,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -193,13 +199,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2489897700475203345}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3047740975558320042}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!212 &4137142524186343411
 SpriteRenderer:
@@ -218,6 +224,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -278,13 +287,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2737753262906304306}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2718918855011547361}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6333373862946921127
 MonoBehaviour:
@@ -314,6 +323,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2737753262906304306}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -337,9 +347,9 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
   m_Radius: 5.14
 --- !u!1 &2933367442411578308
 GameObject:
@@ -365,13 +375,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2933367442411578308}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1.04, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9106080787547534256}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &1953370241730420300
 SpriteRenderer:
@@ -390,6 +400,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -449,6 +462,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3467739479158185128}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 20.098045}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -460,7 +474,6 @@ Transform:
   - {fileID: 2974572144999700756}
   - {fileID: 4142564883458744983}
   m_Father: {fileID: 2718918855011547361}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &239578992555396225
 SpriteRenderer:
@@ -479,6 +492,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -538,13 +554,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4223353782859093211}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2718918855011547361}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5027399334884522180
 MonoBehaviour:
@@ -558,14 +574,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
+  m_ComponentVersion: 2
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.5
   m_LightVolumeIntensity: 1
-  m_LightVolumeIntensityEnabled: 0
+  m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 21300000, guid: 0ca7172cb66034348a7e2629289a50c6, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
@@ -575,39 +591,12 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 0
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0
+  m_ShadowSoftnessFalloffIntensity: 0.5
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
-  m_Vertices:
-  - position: {x: 0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0.70710677, g: 0.70710677, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.9985302, y: 0.9985302, z: 0}
-    color: {r: -0.70710677, g: 0.70710677, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.99853003, y: -0.9985304, z: 0}
-    color: {r: -0.70710665, g: -0.7071069, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0.70710665, g: -0.7071069, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: 0, y: 0, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  m_Triangles: 030001000800020000000100030002000100050003000800040002000300050004000300070005000800060004000500070006000500010007000800000006000700010000000700
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
@@ -649,6 +638,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4376953965463617017}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 0.4, y: 0.4, z: 0}
   m_LocalScale: {x: 0.5, y: 0.911, z: 0.5}
@@ -656,7 +646,6 @@ Transform:
   m_Children:
   - {fileID: 3440123221519347210}
   m_Father: {fileID: 1764810486060022097}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!212 &2115855026584974747
 SpriteRenderer:
@@ -675,6 +664,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -734,13 +726,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5218786043557668529}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2718918855011547361}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9013526742048844271
 MonoBehaviour:
@@ -754,14 +746,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
+  m_ComponentVersion: 2
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.624
   m_Color: {r: 0.764151, g: 0, b: 0, a: 0.7176471}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
-  m_LightVolumeIntensityEnabled: 0
+  m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
@@ -771,39 +763,12 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 0
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0
+  m_ShadowSoftnessFalloffIntensity: 0.5
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
-  m_Vertices:
-  - position: {x: 0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0.70710677, g: 0.70710677, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.9985302, y: 0.9985302, z: 0}
-    color: {r: -0.70710677, g: 0.70710677, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.99853003, y: -0.9985304, z: 0}
-    color: {r: -0.70710665, g: -0.7071069, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0.70710665, g: -0.7071069, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: 0, y: 0, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  m_Triangles: 030001000800020000000100030002000100050003000800040002000300050004000300070005000800060004000500070006000500010007000800000006000700010000000700
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
@@ -844,6 +809,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5578334500716413914}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -851,7 +817,6 @@ Transform:
   m_Children:
   - {fileID: 6120258994219206869}
   m_Father: {fileID: 2718918855011547361}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6054216379721955940
 GameObject:
@@ -881,6 +846,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6054216379721955940}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.9580014, y: 1.6593661, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
@@ -893,11 +859,10 @@ Transform:
   - {fileID: 5317150985008861005}
   - {fileID: 4986597212801669368}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6906672834493051933
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -907,9 +872,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 15
-  m_AngularDrag: 0.05
+  m_Mass: 25
+  m_LinearDamping: 15
+  m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -930,6 +895,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6054216379721955940}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -953,7 +919,8 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -964,7 +931,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &331457601735946104
@@ -1004,6 +970,8 @@ MonoBehaviour:
   spriteProgression:
     _serializedList: []
   healthBar: {fileID: 0}
+  dontDespawnOnNewGame: 0
+  minions: []
   spawnDelayTime: 0.4
   currentEliteAffixes: []
   active: 0
@@ -1019,6 +987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7129bc7847031d94f93d3171f9d517f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashParticles: {fileID: 0}
   moveType: 0
 --- !u!114 &3442283054591421390
 MonoBehaviour:
@@ -1037,13 +1006,19 @@ MonoBehaviour:
     toStateData: {fileID: 11400000, guid: 75b2949bbe306d04eae2c9f2e6d9fe88, type: 2}
     triggerData:
     - type: 1
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
+      customAnim: 
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resetTimerOnParentAbilityStart: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -1065,6 +1040,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -1083,11 +1059,19 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
+          hasMinionCount: 0
+          hasMinionName: 
         - type: 27
           inverse: 0
           statChangeTarget: 0
@@ -1106,6 +1090,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -1124,11 +1109,19 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0.66
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
+          hasMinionCount: 0
+          hasMinionName: 
         - type: 7
           inverse: 0
           statChangeTarget: 0
@@ -1147,6 +1140,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -1165,46 +1159,72 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
+          hasMinionCount: 0
+          hasMinionName: 
   - fromStateData: {fileID: 11400000, guid: 75b2949bbe306d04eae2c9f2e6d9fe88, type: 2}
     toStateData: {fileID: 11400000, guid: 7650c3c1c8a573745a4a189b1b57efa6, type: 2}
     triggerData:
     - type: 7
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
+      customAnim: 
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 4
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resetTimerOnParentAbilityStart: 0
+      resourceOrbType: 0
       allConstraints: []
   - fromStateData: {fileID: 11400000, guid: 7650c3c1c8a573745a4a189b1b57efa6, type: 2}
     toStateData: {fileID: 11400000, guid: 75b2949bbe306d04eae2c9f2e6d9fe88, type: 2}
     triggerData:
     - type: 7
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
+      customAnim: 
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 4
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resetTimerOnParentAbilityStart: 0
+      resourceOrbType: 0
       allConstraints: []
   - fromStateData: {fileID: 0}
     toStateData: {fileID: 11400000, guid: b76a3a358b56edc4fb0f8276535796fa, type: 2}
     triggerData:
     - type: 1
+      overrideProcStat: 0
       procChance: 1
+      triggerDelay: 0
+      customAnim: 
       riderAbilityName: 
       riderEffectName: 
       triggerTimerDuration: 0
+      chainTriggerDelay: 0.1
       delay1Frame: 0
       autoActivateTimer: 0
       resetTimerOnParentAbilityEnd: 0
+      resetTimerOnParentAbilityStart: 0
+      resourceOrbType: 0
       allConstraints:
       - focus: 1
         constraintData:
@@ -1226,6 +1246,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -1244,11 +1265,19 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
+          hasMinionCount: 0
+          hasMinionName: 
         - type: 7
           inverse: 0
           statChangeTarget: 0
@@ -1267,6 +1296,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -1285,11 +1315,19 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
+          hasMinionCount: 0
+          hasMinionName: 
         - type: 27
           inverse: 0
           statChangeTarget: 0
@@ -1308,6 +1346,7 @@ MonoBehaviour:
           leastStatTarget: 0
           leastStatEffectName: 
           leastStatAbilityName: 
+          checkPercentOfMax: 0
           minStatTarget: 0
           minStatValue: 0
           nonZero: 0
@@ -1326,11 +1365,19 @@ MonoBehaviour:
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
+          targetAbilityCategory: 0
           targetEffectType: 0
           targetStatus: 0
+          hasDotStatus: 0
+          appliedStatusType: 0
           statRatioTarget: 0
           targetRatio: 0.33
           movementMagnitudeLimit: 0.1
+          abilitySlot: 0
+          projectileToCheck: {fileID: 0}
+          cheatDeathStatus: 0
+          hasMinionCount: 0
+          hasMinionName: 
   stateData:
   - {fileID: 11400000, guid: e359b19234327d840b89ce4fc89adad2, type: 2}
   - {fileID: 11400000, guid: 75b2949bbe306d04eae2c9f2e6d9fe88, type: 2}
@@ -1363,13 +1410,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7254337083858467220}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4142564883458744983}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!212 &1184088094927989236
 SpriteRenderer:
@@ -1388,6 +1435,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1447,6 +1497,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8131544395451052493}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
   m_LocalPosition: {x: -0.4, y: 0.4, z: 0}
   m_LocalScale: {x: 0.5, y: 0.911, z: 0.5}
@@ -1454,7 +1505,6 @@ Transform:
   m_Children:
   - {fileID: 5101719101617635175}
   m_Father: {fileID: 1764810486060022097}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!212 &4547723983191769849
 SpriteRenderer:
@@ -1473,6 +1523,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1532,6 +1585,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8174576099172316309}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: -0.9238796, w: -0.38268328}
   m_LocalPosition: {x: -0.4, y: -0.4, z: 0}
   m_LocalScale: {x: 0.5, y: 0.911, z: 0.5}
@@ -1539,7 +1593,6 @@ Transform:
   m_Children:
   - {fileID: 8215127910403159997}
   m_Father: {fileID: 1764810486060022097}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -225}
 --- !u!212 &280947144105666833
 SpriteRenderer:
@@ -1558,6 +1611,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1617,13 +1673,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9072321895622070088}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2974572144999700756}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!212 &4967179675772658704
 SpriteRenderer:
@@ -1642,6 +1698,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1701,13 +1760,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9117687851642762565}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7155591595599509327}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!212 &2234820866484560275
 SpriteRenderer:
@@ -1726,6 +1785,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
