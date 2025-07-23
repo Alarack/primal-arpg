@@ -38,6 +38,8 @@ namespace LL.FSM {
 
         //Strafe
         public float rotationSpeedModifier = 1f;
+        public float changeDirectionChance;
+        public float changeDirecitonFrequency;
 
         //Wander
         public float wanderIdleTime;

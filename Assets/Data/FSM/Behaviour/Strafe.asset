@@ -15,8 +15,13 @@ MonoBehaviour:
   mode: 3
   behavourType: 10
   chaseDistance: 0
+  chaseMouse: 0
+  accelerateViaDistance: 0
   fleeDistance: 0
+  fleeMouse: 0
   rotationSpeedModifier: 1
+  changeDirectionChance: 0.5
+  changeDirecitonFrequency: 1.5
   wanderIdleTime: 0
   wanderMaxDistance: 0
   leashToOrigin: 0
@@ -25,3 +30,5 @@ MonoBehaviour:
   spawnOffset: {x: 0, y: 0}
   minFlockDistance: 0
   abilities: []
+  newMaskTargeting: 0
+  reverseTargeting: 0

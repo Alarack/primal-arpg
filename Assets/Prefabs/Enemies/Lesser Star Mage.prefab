@@ -127,6 +127,7 @@ Transform:
   - {fileID: 8866735906251264753}
   - {fileID: 3652867900123962074}
   - {fileID: 5562882539133643380}
+  - {fileID: 2634986266161432226}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2699820486525943953
@@ -227,7 +228,7 @@ MonoBehaviour:
   deathEffectPrefab: {fileID: 150606, guid: 625165fb93553b14f8ed057807ed752a, type: 3}
   spawnEffectPrefab: {fileID: 7624612741357570336, guid: ef86985cce99ffa4dbdde299ff7b3bf7, type: 3}
   facingIndicator: {fileID: 5682568224194532727}
-  castingVFXPosition: {fileID: 0}
+  castingVFXPosition: {fileID: 2634986266161432226}
   statusVFXPosition: {fileID: 0}
   spawnSFXVolume: 1
   spawnSFX: []
@@ -238,6 +239,8 @@ MonoBehaviour:
   spriteProgression:
     _serializedList: []
   healthBar: {fileID: 3324606290837240622}
+  dontDespawnOnNewGame: 0
+  minions: []
   spawnDelayTime: 0.4
   currentEliteAffixes: []
   active: 0
@@ -463,6 +466,37 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 5.14
+--- !u!1 &5095294080749425371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2634986266161432226}
+  m_Layer: 8
+  m_Name: Casting VFX Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2634986266161432226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5095294080749425371}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4508094857686119200}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5333620078017432122
 GameObject:
   m_ObjectHideFlags: 0

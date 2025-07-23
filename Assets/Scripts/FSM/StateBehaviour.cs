@@ -107,14 +107,33 @@ namespace LL.FSM {
 
         private bool hasTarget;
 
-        public StrafeBehaviour(StateBehaviourData data, AIBrain brain, AISensor seonsor) : base(data, brain, seonsor) {
+        private Timer changeDirectionTimer;
+        private bool antiClockwise = false;
 
+        public StrafeBehaviour(StateBehaviourData data, AIBrain brain, AISensor seonsor) : base(data, brain, seonsor) {
+            if(data.changeDirectionChance > 0f && data.changeDirecitonFrequency > 0f) {
+                changeDirectionTimer = new Timer(data.changeDirecitonFrequency, OnChangeDirectionTime, true);
+            }
         }
 
         public override void ManagedUpdate() {
             base.ManagedUpdate();
 
             hasTarget = brain.GetLatestSensorTarget();
+
+            if (changeDirectionTimer != null)
+                changeDirectionTimer.UpdateClock();
+        }
+
+        private void OnChangeDirectionTime(EventData data) {
+            float roll = Random.Range(0f, 1f);
+
+            if(roll <= Data.changeDirectionChance) {
+                antiClockwise = true;
+            }
+            else {
+                antiClockwise = false;
+            }
         }
 
         public override void Execute() {
@@ -127,7 +146,11 @@ namespace LL.FSM {
                 return;
 
 
-            brain.Movement.StrafeTarget(Data.rotationSpeedModifier);
+            if(antiClockwise == false)
+                brain.Movement.StrafeTarget(Data.rotationSpeedModifier);
+            else
+                brain.Movement.StrafeTargetAntiClockwise(Data.rotationSpeedModifier);
+
         }
     }
 

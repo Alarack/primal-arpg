@@ -63,6 +63,8 @@ public class StateBehaviourDataEditor : Editor
 
             case StateBehaviourType.Strafe:
                 behaviourData.rotationSpeedModifier = EditorGUILayout.FloatField("Rotate Mod", behaviourData.rotationSpeedModifier);
+                behaviourData.changeDirectionChance = EditorGUILayout.FloatField("Change Dir Chance", behaviourData.changeDirectionChance);
+                behaviourData.changeDirecitonFrequency = EditorGUILayout.FloatField("Change Dir Frequency", behaviourData.changeDirecitonFrequency);
 
                 break;
 

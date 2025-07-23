@@ -77,6 +77,13 @@ public class NPCMovement : EntityMovement
         MovePerpendicularToPointClockwise(currentTarget.transform.position, modifier);
     }
 
+    public void StrafeTargetAntiClockwise(float modifier = 1f) {
+        if (currentTarget == null)
+            return;
+
+        MovePerpendicularToPointAntiClockwise(currentTarget.transform.position, modifier);
+    }
+
     public void MoveAwayFromTarget() {
         if (currentTarget == null) {
             if (Owner.AnimHelper != null) {

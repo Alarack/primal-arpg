@@ -1512,7 +1512,7 @@ public class Ability {
             if (Source == null)
                 return true;
 
-            if (Data.windupVFX != null && currentWindup == null) {
+            if (Data.windupVFX != null && currentWindupVFX == null) {
                 currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.GetCastingVFXPosition());
                 currentWindupVFX.transform.localPosition = Vector3.zero;
                 GameObject.Destroy(currentWindupVFX, 3f);
@@ -1708,6 +1708,14 @@ public class Ability {
     public IEnumerator StartAbilityWindup(TriggerInstance activationInstance) {
 
         SendAbilityInitiatedEvent(activationInstance);
+
+
+        if (Data.windupVFX != null && currentWindupVFX == null) {
+            currentWindupVFX = GameObject.Instantiate(Data.windupVFX, Source.GetCastingVFXPosition());
+            currentWindupVFX.transform.localPosition = Vector3.zero;
+            GameObject.Destroy(currentWindupVFX, 3f);
+        }
+
 
 
         //float windupTime = Stats[StatName.AbilityWindupTime];

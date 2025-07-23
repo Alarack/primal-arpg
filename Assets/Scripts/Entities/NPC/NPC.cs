@@ -160,13 +160,13 @@ public class NPC : Entity
         float eliteRoll = Random.Range(0f, 1f);
 
         if(subtypes.Contains(EntitySubtype.Minion) == true) {
-            if(eliteRoll <= 0.02f)
+            if(eliteRoll <= 0.01f)
                 BecomeElite(EliteAffixType.Overcharged);
 
             return;
         }
 
-        if(eliteRoll <= 0.1f) {
+        if(eliteRoll <= 0.05f) {
             BecomeElite(EliteAffixType.Overcharged);
         }
     }

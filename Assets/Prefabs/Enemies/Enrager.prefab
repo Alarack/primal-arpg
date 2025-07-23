@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 232477472576636669}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1321737123, guid: 7f8241ee38c5dfb4f8ae31529d2de9e6, type: 3}
+  m_Sprite: {fileID: -4018820794021572984, guid: b29ba147078ea0243802fc4777b03644, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 294744749742732679}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: fd084adcd5b65034991c14a6e4d6d1e5, type: 2}
+  m_Controller: {fileID: 22100000, guid: 580f50caa1f4d0648a125ea2bfd891a3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -533,7 +533,7 @@ Transform:
   m_GameObject: {fileID: 3345246372218683553}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.68, z: 0}
+  m_LocalPosition: {x: 0, y: -0.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -742,7 +742,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.42, y: 1}
+  m_Size: {x: 1.63, y: 2.22}
   m_EdgeRadius: 0
 --- !u!114 &7683031533755252813
 MonoBehaviour:
@@ -780,6 +780,8 @@ MonoBehaviour:
   spriteProgression:
     _serializedList: []
   healthBar: {fileID: 0}
+  dontDespawnOnNewGame: 0
+  minions: []
   spawnDelayTime: 0.4
   currentEliteAffixes: []
   active: 0
@@ -1217,8 +1219,8 @@ Transform:
   m_GameObject: {fileID: 6948266892157721151}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40673664, y: 0, z: 0, w: 0.9135455}
-  m_LocalPosition: {x: 0, y: -0.306, z: 0}
-  m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
+  m_LocalPosition: {x: 0, y: -1.79, z: -1.66}
+  m_LocalScale: {x: 4.66, y: 4.66, z: 4.66}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1194471391519632440}
@@ -1632,7 +1634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7414955680461045177, guid: b1e06a924e0199640be1bea331d70381, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.848
+      value: -1.74
       objectReference: {fileID: 0}
     - target: {fileID: 7414955680461045177, guid: b1e06a924e0199640be1bea331d70381, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
