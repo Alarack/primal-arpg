@@ -12,9 +12,13 @@ public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     [Header("Portals")]
     public GameObject defaultPortal;
+    public GameObject unstablePortal;
     public SerializableDictionary<Room.RoomType, GameObject> portals = new SerializableDictionary<Room.RoomType, GameObject>();
 
     public Image roomRewardIcon;
+
+    [Header("VFX")]
+    public ParticleSystem unstableVFX;
 
     private Room room;
 
@@ -32,6 +36,17 @@ public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
             }
         }
 
+
+        if(room.Unstable == true) {
+            defaultPortal.SetActive(false);
+            unstablePortal.SetActive(true);
+            unstableVFX.Play();
+            return;
+        }
+        else {
+            unstablePortal.SetActive(false);
+            unstableVFX.Stop();
+        }
 
 
         if(portals.ContainsKey(room.Type) == false) {
@@ -59,6 +74,12 @@ public class RoomPortalDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
         builder.AppendLine();
 
         builder.AppendLine(room.DisplayReward.rewardDescription/*items[0].itemData.GetItemInfo()*/);
+
+        if(room.Unstable == true) {
+            builder.AppendLine();
+            builder.AppendLine(TextHelper.ColorizeText("Unstable", ColorDataManager.GetColorByName("Unstable")));
+        }
+
 
         TooltipManager.Show(builder.ToString());
 

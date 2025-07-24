@@ -80,14 +80,28 @@ public class RoomManager : Singleton<RoomManager> {
         if(room.Type == Room.RoomType.EliminationCombat || 
             room.Type == Room.RoomType.BossRoom ||
             room.Type == Room.RoomType.SurvivalCombat) {
-            
-            AdjustDifficulty(1f);
+
+            float difficultyModifier = 0f;
+            if(room.Unstable == true) {
+                difficultyModifier += 1f;
+            }
+
+            AdjustDifficulty(1f + difficultyModifier);
             InCombat = false;
 
             EventData eventData = new EventData();
             eventData.AddInt("RoomType", (int)room.Type);
             EventManager.SendEvent(GameEvent.CombatFinished, eventData);
         }
+
+    }
+
+    public static float CheckInstability() {
+        EntityPlayer player = EntityManager.ActivePlayer;
+        if(player == null) 
+            return 0;
+
+        return player.Stats[StatName.Instability];
 
     }
 
@@ -177,10 +191,19 @@ public class RoomManager : Singleton<RoomManager> {
         }
 
         List<Room> choices = new List<Room>();
-        foreach (ItemType type in chosenTypes) {
-            Room room = CreateRoom(Instance.GetRoomType(), type);
+        foreach (ItemType rewardType in chosenTypes) {
+            Room room = CreateRoom(Instance.GetRoomType(), rewardType);
             //Debug.Log("Creating a room.Reward: " + room.rewards[0].rewardDescription);
             choices.Add(room);
+        }
+
+
+        float instability = CheckInstability();
+        if (instability > 0f) {
+            float roll = Random.Range(0f, 1f);
+            if (roll <= instability + 0.05f) {
+                choices[Random.Range(0, choices.Count)].Unstable = true;
+            }
         }
 
 

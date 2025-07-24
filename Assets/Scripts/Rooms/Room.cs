@@ -22,6 +22,8 @@ public abstract class Room {
 
     public RoomData Data { get; protected set; }
 
+    public bool Unstable { get; set; }
+
     public string roomBiome;
 
     public List<RoomReward> rewards = new List<RoomReward>();
@@ -42,6 +44,10 @@ public abstract class Room {
     public virtual void StartRoom() {
         if(rewardinfo != null) {
             GenerateRewards(rewardinfo.Item1, rewardinfo.Item2, rewardinfo.Item3, rewardinfo.Item4);
+        }
+
+        if(Unstable == true) {
+            
         }
     }
 

@@ -107,7 +107,8 @@ public enum StatName
     EssenceOrbChance,
     CheatDeath,
     ProjectileReboundCount,
-    EssenceScalingMultiplier
+    EssenceScalingMultiplier,
+    Instability,
 
 
 }

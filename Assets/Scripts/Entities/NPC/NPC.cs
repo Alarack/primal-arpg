@@ -106,6 +106,7 @@ public class NPC : Entity
     private void OnSpawnInComplete(EventData data) {
         CheckHandicap();
         CheckElite();
+        CheckUnstable();
         active = true;
         if(myCollider != null) 
             myCollider.enabled = true;
@@ -158,17 +159,68 @@ public class NPC : Entity
             return;
         
         float eliteRoll = Random.Range(0f, 1f);
+        float unstableBonus = 0f;
+
+        if(RoomManager.CurrentRoom != null && RoomManager.CurrentRoom.Unstable == true) {
+            unstableBonus -= 0.2f;
+        }
 
         if(subtypes.Contains(EntitySubtype.Minion) == true) {
-            if(eliteRoll <= 0.01f)
+            if(eliteRoll + (unstableBonus /5f) <= 0.01f)
                 BecomeElite(EliteAffixType.Overcharged);
 
             return;
         }
 
-        if(eliteRoll <= 0.05f) {
+        if(eliteRoll + unstableBonus <= 0.05f) {
             BecomeElite(EliteAffixType.Overcharged);
         }
+    }
+
+    private void CheckUnstable() {
+        if (Brain == null)
+            return;
+
+        if (entityType != EntityType.Enemy)
+            return;
+
+        float instability = RoomManager.CheckInstability();
+        float unstableRoll = Random.Range(0f, 1f);
+
+        if(unstableRoll <= instability) {
+            BecomeUnstable();
+        }
+
+        if (instability <= 1f)
+            return;
+
+        CheckOverloadedUnstable(ref instability);
+
+    }
+
+    private void CheckOverloadedUnstable(ref float instability) {
+        instability -= 1f;
+
+        if (instability <= 0f)
+            return;
+
+
+        float unstableRoll = Random.Range(0f, 1f);
+
+        if (unstableRoll <= instability) {
+            OverloadUnstable();
+        }
+
+        CheckOverloadedUnstable(ref instability);
+
+    }
+
+    public void BecomeUnstable() {
+        Debug.LogWarning(EntityName + " has become Unstable");
+    }
+
+    public void OverloadUnstable() {
+        Debug.LogWarning(EntityName + " has become Overloaded Unstable");
     }
 
     public void BecomeElite(EliteAffixType type) {
