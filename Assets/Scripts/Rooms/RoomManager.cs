@@ -451,6 +451,14 @@ public class RoomManager : Singleton<RoomManager> {
             yield return waiter;
         }
 
+        if (CurrentRoom != null) {
+            if(CurrentRoom.Unstable == true) {
+                int randomIndex = Random.Range(0, Instance.currentRewards.Count);
+                Instance.currentRewards[randomIndex].SetUnstable(true);
+            }
+
+        }
+
 
         rewardSpawnTask = null;
     }

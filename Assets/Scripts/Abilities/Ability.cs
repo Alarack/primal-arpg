@@ -943,10 +943,13 @@ public class Ability {
 
         if (Tags.Count > 0 && showTags == true) {
 
+
             builder.Append(TextHelper.ColorizeText("[", Color.gray, 20f));
 
             for (int i = 0; i < Tags.Count; i++) {
-                builder.Append(TextHelper.ColorizeText(TextHelper.SplitCamelCase(Tags[i].ToString()), Color.gray, 20f));
+                Color tagColor = Tags[i] == AbilityTag.Unstable ? ColorDataManager.GetColorByName("Unstable") : Color.gray;
+                
+                builder.Append(TextHelper.ColorizeText(TextHelper.SplitCamelCase(Tags[i].ToString()), tagColor, 20f));
 
                 if (i != Tags.Count - 1) {
                     builder.Append(", ");

@@ -126,13 +126,13 @@ public class ItemSpawner : Singleton<ItemSpawner> {
         SpawnItem(item.itemData, location, autoPickup);
     }
 
-    public static void SpawnItem(ItemData item, Vector2 location, bool autoPickup = false) {
+    public static void SpawnItem(ItemData item, Vector2 location, bool autoPickup = false, bool unstable = false) {
         if (autoPickup == false) {
             ItemPickup testPickup = Instantiate(Instance.pickupPrefab, location, Quaternion.identity);
             testPickup.Setup(item);
         }
         else {
-            EntityManager.ActivePlayer.Inventory.Add(ItemFactory.CreateItem(item, EntityManager.ActivePlayer));
+            EntityManager.ActivePlayer.Inventory.Add(ItemFactory.CreateItem(item, EntityManager.ActivePlayer, unstable));
         }
     }
 

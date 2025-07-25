@@ -81,6 +81,7 @@ public class ItemData {
     public List<StatModifierData> statModifierData = new List<StatModifierData>();
     public List<AbilityDefinition> abilityDefinitions = new List<AbilityDefinition>();
     public List<AbilityDefinition> learnableAbilities = new List<AbilityDefinition>();
+    public List<AbilityDefinition> unstableAbilityDefiniitons = new List<AbilityDefinition>();
     public List<AbilityDefinition> classPreviewAbilities = new List<AbilityDefinition>();
     public List<ItemDefinition> startingItemOptions = new List<ItemDefinition>();
     //public List<AbilityData> abilityData = new List<AbilityData>();

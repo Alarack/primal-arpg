@@ -6,14 +6,14 @@ public static class ItemFactory
 {
 
 
-    public static Item CreateItem(ItemData itemData, Entity owner) {
+    public static Item CreateItem(ItemData itemData, Entity owner, bool unstable = false) {
 
         Item result;
         if (itemData.validSlots.Contains(ItemSlot.Weapon)) {
-            result = new ItemWeapon(itemData, owner, true);
+            result = new ItemWeapon(itemData, owner, true, unstable);
         }
         else {
-            result = new Item(itemData, owner, true);
+            result = new Item(itemData, owner, true, unstable);
 
         }
 

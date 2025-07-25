@@ -20,16 +20,23 @@ public class RewardPedestal : MonoBehaviour
     public AudioClip skillPointAudio;
     public GameObject collectionVFX;
 
+    public ParticleSystem unstableVFX;
+
     public bool enforceCost;
+
+    private bool unstable;
 
     public void Setup(ItemData rewardItem, bool enforceCost = false) {
         this.rewardItem = rewardItem;
         this.enforceCost = enforceCost;
+
         display.Setup(this);
 
         blueAura.gameObject.SetActive(enforceCost == false);
         shopAura.gameObject.SetActive(enforceCost == true);
         passiveMask.enabled = false;
+
+
         
         if(rewardItem.Type == ItemType.Skill) {
             if(rewardItem.learnableAbilities.Count > 0) {
@@ -53,6 +60,20 @@ public class RewardPedestal : MonoBehaviour
 
     }
 
+    public void SetUnstable(bool unstable) {
+        this.unstable = unstable;
+        ShowUnstableVFX();
+    }
+
+    private void ShowUnstableVFX() {
+        if (unstable == true) {
+            unstableVFX.Play();
+        }
+        else {
+            unstableVFX.Stop();
+        }
+    }
+
     public void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag != "Player")
             return;
@@ -67,7 +88,11 @@ public class RewardPedestal : MonoBehaviour
                 break;
          
             case ItemType.Currency:
-                ItemSpawner.SpawnCoins((int)(RoomManager.CurrentDifficulty * 15f), transform.position, 1f, 1f);
+                int amount = (int)(RoomManager.CurrentDifficulty * 15f);
+                if (unstable == true) 
+                    amount *= 2;
+                
+                ItemSpawner.SpawnCoins(amount, transform.position, 1f, 1f);
                 break;
             case ItemType.SkillPoint:
                 StatAdjustmentManager.AdjustSkillPoints(EntityManager.ActivePlayer, 1f);
@@ -80,7 +105,7 @@ public class RewardPedestal : MonoBehaviour
                 StatAdjustmentManager.AdjustHealthPotions(EntityManager.ActivePlayer, 1f);
                 break;
             default:
-                ItemSpawner.SpawnItem(rewardItem, transform.position, true);
+                ItemSpawner.SpawnItem(rewardItem, transform.position, true, unstable);
                 VFXUtility.SpawnVFX(collectionVFX, transform.position, Quaternion.identity, null, 2f);
                 break;
         }

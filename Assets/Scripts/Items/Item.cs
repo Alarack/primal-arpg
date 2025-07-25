@@ -14,9 +14,12 @@ public class Item
     public bool Equipped { get; protected set; }
     public Entity Owner { get; set; }
 
+    public bool Unstable { get; protected set; }
+
     public int AffixSlots { get; set; }
 
     public List<Ability> Abilities { get; protected set;} = new List<Ability>();
+    public List<Ability> UnstableAbilities { get; protected set; } = new List<Ability>();
     protected List<StatModifier> activeMods = new List<StatModifier>();
     protected List<StatModifierData> modData = new List<StatModifierData>();
 
@@ -25,9 +28,10 @@ public class Item
 
     public Dictionary<ItemData, List<StatModifier>> Affixes { get; protected set; } = new Dictionary<ItemData, List<StatModifier>>();
 
-    public Item(ItemData data, Entity owner, bool display = false) {
+    public Item(ItemData data, Entity owner, bool display = false, bool unstable = false) {
         this.Data = data;
         this.Owner = owner;
+        this.Unstable = unstable;
         AffixSlots = data.baseAffixSlots;
 
         modData = new List<StatModifierData>(data.statModifierData);
@@ -83,16 +87,6 @@ public class Item
                 AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0], this)[0]);
             }
         }
-
-
-
-        //if (affixRoll < 0.5f && affixRoll > 0.25f) {
-        //    AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0], this)[0]);
-        //}
-        //else if (affixRoll < 0.25f) {
-        //    AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0], this)[0]);
-        //    AddAffix(ItemSpawner.CreateItemAffixSet(1, Data.validSlots[0], this)[0]);
-        //}
     }
 
     private void OnItemDropped(EventData data) {
@@ -107,6 +101,7 @@ public class Item
     protected void SetupAbilities(bool autoEquip = false, bool registerWithPlayer = false) {
         Abilities.Clear();
         AbilityUtilities.SetupAbilities(Data.abilityDefinitions, Abilities, Owner, autoEquip, registerWithPlayer);
+        AbilityUtilities.SetupAbilities(Data.unstableAbilityDefiniitons, Abilities, Owner, autoEquip, registerWithPlayer);
         //Debug.Log("Setting up abilities for: " + Data.itemName);
     }
 
@@ -116,6 +111,10 @@ public class Item
         for (int i = 0; i < modData.Count; i++) {
             StatModifier mod = new StatModifier(modData[i].value, modData[i].modifierType, modData[i].targetStat, this, modData[i].variantTarget);
             activeMods.Add(mod);
+        }
+
+        if(Unstable == true) {
+            Debug.LogWarning("Add instability affix to: " + Data.itemName);
         }
     }
 
@@ -197,7 +196,8 @@ public class Item
         SetupAbilities(false, true);
 
         for (int i = 0;i < Abilities.Count;i++) {
-            Abilities[i].Equip();
+            EquipAbilitiy(Abilities[i]);
+            //Abilities[i].Equip();
         }
 
         for (int i = 0; i < activeMods.Count; i++) {
@@ -209,6 +209,13 @@ public class Item
         EventData data = new EventData();
         data.AddItem("Item", this);
         EventManager.SendEvent(GameEvent.ItemEquipped, data);
+    }
+
+    protected void EquipAbilitiy(Ability ability) {
+        if (Unstable == false && ability.Tags.Contains(AbilityTag.Unstable))
+            return;
+
+        ability.Equip();
     }
 
     public void DeactivateEquippedRunes() {
@@ -291,6 +298,9 @@ public class Item
        
 
         for (int i = 0; i < Abilities.Count; i++) {
+
+            if (Unstable == false && Abilities[i].Tags.Contains(AbilityTag.Unstable) == true)
+                continue;
 
             string abilityTooltip = Abilities[i].GetTooltip();
             if(string.IsNullOrEmpty(abilityTooltip) == false) {
