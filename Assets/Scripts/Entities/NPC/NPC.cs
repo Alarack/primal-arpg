@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using LL.Events;
 using static AffixDatabase;
+using System;
+using System.Linq;
 //using System;
 
 
@@ -158,7 +160,7 @@ public class NPC : Entity
         if(entityType != EntityType.Enemy) 
             return;
         
-        float eliteRoll = Random.Range(0f, 1f);
+        float eliteRoll = UnityEngine.Random.Range(0f, 1f);
         float unstableBonus = 0f;
 
         if(RoomManager.CurrentRoom != null && RoomManager.CurrentRoom.Unstable == true) {
@@ -185,7 +187,7 @@ public class NPC : Entity
             return;
 
         float instability = RoomManager.CheckInstability();
-        float unstableRoll = Random.Range(0f, 1f);
+        float unstableRoll = UnityEngine.Random.Range(0f, 1f);
 
         if(unstableRoll <= instability) {
             BecomeUnstable();
@@ -205,7 +207,7 @@ public class NPC : Entity
             return;
 
 
-        float unstableRoll = Random.Range(0f, 1f);
+        float unstableRoll = UnityEngine.Random.Range(0f, 1f);
 
         if (unstableRoll <= instability) {
             OverloadUnstable();
@@ -222,6 +224,18 @@ public class NPC : Entity
     public void OverloadUnstable() {
         Debug.LogWarning(EntityName + " has become Overloaded Unstable");
     }
+
+
+    public void BecomeElite() {
+        List<EliteAffixType> types = Enum.GetValues(typeof(EliteAffixType)).Cast<EliteAffixType>().ToList();
+
+        types.Remove(EliteAffixType.None);
+
+        EliteAffixType randomType = types[UnityEngine.Random.Range(0, types.Count)];
+
+        BecomeElite(randomType);
+    }
+
 
     public void BecomeElite(EliteAffixType type) {
         NPCEliteAffixData eliteData = AffixDataManager.GetEliteAffixDataByType(type);

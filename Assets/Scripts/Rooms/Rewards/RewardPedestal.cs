@@ -24,7 +24,7 @@ public class RewardPedestal : MonoBehaviour
 
     public bool enforceCost;
 
-    private bool unstable;
+    public bool Unstable { get; private set; }
 
     public void Setup(ItemData rewardItem, bool enforceCost = false) {
         this.rewardItem = rewardItem;
@@ -61,12 +61,12 @@ public class RewardPedestal : MonoBehaviour
     }
 
     public void SetUnstable(bool unstable) {
-        this.unstable = unstable;
+        this.Unstable = unstable;
         ShowUnstableVFX();
     }
 
     private void ShowUnstableVFX() {
-        if (unstable == true) {
+        if (Unstable == true) {
             unstableVFX.Play();
         }
         else {
@@ -89,7 +89,7 @@ public class RewardPedestal : MonoBehaviour
          
             case ItemType.Currency:
                 int amount = (int)(RoomManager.CurrentDifficulty * 15f);
-                if (unstable == true) 
+                if (Unstable == true) 
                     amount *= 2;
                 
                 ItemSpawner.SpawnCoins(amount, transform.position, 1f, 1f);
@@ -105,7 +105,7 @@ public class RewardPedestal : MonoBehaviour
                 StatAdjustmentManager.AdjustHealthPotions(EntityManager.ActivePlayer, 1f);
                 break;
             default:
-                ItemSpawner.SpawnItem(rewardItem, transform.position, true, unstable);
+                ItemSpawner.SpawnItem(rewardItem, transform.position, true, Unstable);
                 VFXUtility.SpawnVFX(collectionVFX, transform.position, Quaternion.identity, null, 2f);
                 break;
         }

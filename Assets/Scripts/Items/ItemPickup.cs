@@ -53,9 +53,9 @@ public class ItemPickup : MonoBehaviour
             tooltip.Setup(this);
     }
 
-    public virtual void Setup(ItemData itemData) {
+    public virtual void Setup(ItemData itemData, bool unstable = false) {
 
-        Item = ItemFactory.CreateItem(itemData, null);
+        Item = ItemFactory.CreateItem(itemData, null, unstable);
 
 
         //if (itemData.validSlots.Contains(ItemSlot.Weapon)) {

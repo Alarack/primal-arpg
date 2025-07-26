@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e82c1097aefbbf42bee346368e47824, type: 3}
-  m_Name: A_Chronal Amplifier
+  m_Name: A_Unstable Cracked Lens Boon
   m_EditorClassIdentifier: 
   AbilityData:
     category: 2
     abilityIcon: {fileID: 0}
-    abilityName: Chronal Amplifier
-    abilityDescription: Your Critical Hits with Time Skills, advance your Active
-      Skill Cooldowns by 1 Second.
+    abilityName: Unstable Cracked Lens Boon
+    abilityDescription: Friendly Vestiges have {PR} chance to spawn as Elite
     resourceCost: 0
     toBestow: 0
     suspend: 0
@@ -42,10 +41,10 @@ MonoBehaviour:
     channeledSounds: []
     childAbilities: []
     runeGroupData: []
-    tags: 
+    tags: 20000000
     resetEvents: 
     activationTriggerData:
-    - type: 28
+    - type: 33
       overrideProcStat: 0
       procChance: 1
       triggerDelay: 0
@@ -60,9 +59,9 @@ MonoBehaviour:
       resetTimerOnParentAbilityStart: 0
       resourceOrbType: 0
       allConstraints:
-      - focus: 4
+      - focus: 1
         constraintData:
-        - type: 17
+        - type: 4
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -95,7 +94,7 @@ MonoBehaviour:
           targetStateData: {fileID: 0}
           stateEntered: 
           stateExited: 
-          targetAbilityTag: 24
+          targetAbilityTag: 0
           targetAbiltyName: 
           targetEffectName: 
           effectDesigantion: 0
@@ -112,7 +111,7 @@ MonoBehaviour:
           cheatDeathStatus: 0
           hasMinionCount: 0
           hasMinionName: 
-        - type: 29
+        - type: 8
           inverse: 0
           statChangeTarget: 0
           changeDirection: 0
@@ -137,7 +136,7 @@ MonoBehaviour:
           maxStatTarget: 0
           maxStatValue: 0
           targetEntityName: 
-          targetSubtype: 0
+          targetSubtype: 10
           targetPrimaryType: 0
           targetActiveAbilityName: 
           appliedEffectType: 0
@@ -210,11 +209,16 @@ MonoBehaviour:
       reduceTriggerCountByAbilityLevel: 0
       minTriggerCount: 0
     effectDefinitions:
-    - {fileID: 11400000, guid: c2f99a07acaf4554cb6a218b8514401a, type: 2}
+    - {fileID: 11400000, guid: 6bc41af881e4d7f43811f7203d893bf6, type: 2}
     effectData: []
     startingRecoveryCharges: 1
     baseRuneSlots: 2
     maxRanks: -1
     windupVFX: {fileID: 0}
-    abilityStatData: []
+    abilityStatData:
+    - variant: 0
+      statName: 65
+      value: 0.25
+      maxValue: 0
+      minValue: 0
     recoveryData: []

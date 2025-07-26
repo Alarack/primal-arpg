@@ -21477,7 +21477,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8629ddd18a937e14baa161b583ac5c6b, type: 2}
   - {fileID: 11400000, guid: 887f025240c0f0c4085260a445586676, type: 2}
   - {fileID: 11400000, guid: 46324e51e9dcc1245bc2cbfd8b59bf8d, type: 2}
-  testItems: []
+  unstableTestItems: 1
+  testItems:
+  - {fileID: 11400000, guid: 32a9008a51b7d6c419093460b81a4236, type: 2}
   pickupPrefab: {fileID: 777966188710461411, guid: 8809ef3536d1e574e9eccf68d35e5f08, type: 3}
   coinPickupPrefab: {fileID: 4481293274202257508, guid: 4886ae56ae035f949839f56ebc45901d, type: 3}
   unstableAetheriumPickup: {fileID: 1535313911965173295, guid: ea4b80dd7a24e25458f867dafc592d97, type: 3}

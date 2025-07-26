@@ -299,8 +299,12 @@ public class Item
 
         for (int i = 0; i < Abilities.Count; i++) {
 
-            if (Unstable == false && Abilities[i].Tags.Contains(AbilityTag.Unstable) == true)
+            if (Unstable == false && Abilities[i].Tags.Contains(AbilityTag.Unstable) == true) {
                 continue;
+            }
+            //else if(Unstable == true && Abilities[i].Tags.Contains(AbilityTag.Unstable) == true) {
+            //    builder.AppendLine(TextHelper.ColorizeText("Unstable Ability: ", ColorDataManager.GetColorByName("Unstable")));
+            //}
 
             string abilityTooltip = Abilities[i].GetTooltip();
             if(string.IsNullOrEmpty(abilityTooltip) == false) {

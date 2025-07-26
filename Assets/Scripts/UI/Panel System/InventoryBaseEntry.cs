@@ -136,7 +136,12 @@ public class InventoryBaseEntry : MonoBehaviour, IPointerEnterHandler, IPointerE
     public virtual void OnPointerEnter(PointerEventData eventData) {
 
         if (MyItem != null) {
-            TooltipManager.Show(MyItem.GetTooltip(), TextHelper.ColorizeText( MyItem.Data.itemName, ColorDataManager.Instance["Item Header"]));
+
+            string itemName = MyItem.Unstable == false
+                   ? TextHelper.ColorizeText(MyItem.Data.itemName, ColorDataManager.Instance["Item Header"])
+                   : TextHelper.ColorizeText("Unstable " + MyItem.Data.itemName, ColorDataManager.Instance["Unstable"]);
+
+            TooltipManager.Show(MyItem.GetTooltip(), itemName);
 
         }
 

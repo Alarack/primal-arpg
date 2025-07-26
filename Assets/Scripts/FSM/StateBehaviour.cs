@@ -240,7 +240,10 @@ namespace LL.FSM {
 
 
             if (hasTarget == false) {
-                brain.Owner.AnimHelper.SetBool("Run", false);
+                if(brain.Owner.AnimHelper != null) {
+                    brain.Owner.AnimHelper.SetBool("Run", false);
+                }
+
                 return;
             }
 

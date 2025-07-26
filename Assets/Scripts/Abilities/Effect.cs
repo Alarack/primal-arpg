@@ -1073,7 +1073,6 @@ public class EffectChangeEffectZpme : Effect {
 
     }
 
-
     private bool TrackChangedEffectZone(Effect target) {
         if (trackedEffectZones.TryGetValue(target, out EffectZoneInfo trackedEffectZone) == true) {
             if (trackedEffectZone.effectZonePrefab == Data.effectZoneInfo.effectZonePrefab) {
@@ -1090,6 +1089,39 @@ public class EffectChangeEffectZpme : Effect {
 
         return true;
     }
+}
+
+public class BecomeEliteEffect : Effect {
+    public override EffectType Type => EffectType.BecomeElite;
+
+
+    public BecomeEliteEffect(EffectData data, Entity source, Ability parentAbility = null) : base(data, source, parentAbility) {
+
+    }
+
+
+    public override bool Apply(Entity target) {
+        if (base.Apply(target) == false)
+            return false;
+
+        NPC targetNPC = target as NPC;
+
+        if(targetNPC == null) {
+            Debug.LogError(target.EntityName + " is not an NPC and cannot become Elite");
+            return false;
+        }
+
+        if(Data.targetEliteType == AffixDatabase.EliteAffixType.None) {
+            targetNPC.BecomeElite();
+        }
+        else {
+            targetNPC.BecomeElite(Data.targetEliteType);
+        }
+
+
+        return true;
+    }
+
 }
 
 public class NPCStateChangeEffect : Effect {
@@ -3774,6 +3806,10 @@ public class SpawnEntityEffect : Effect {
     }
 
     public override void Remove(Entity target) {
+        if (Data.persistAfterEffectEnds == true) {
+            return;
+        }
+
         base.Remove(target);
 
         for (int i = 0; i < activeSpawns.Count; i++) {

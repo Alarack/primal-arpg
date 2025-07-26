@@ -169,6 +169,7 @@ public static class AbilityFactory {
             EffectType.ToggleEssenceAsPercent => new ToggleEssenceAsPercentEffect(data, source, parentAbility),
             EffectType.DestroyEntity => new DestroyEntityEffect(data, source, parentAbility),
             EffectType.CloneAbilityToEntity => new CloneAbilityToEntityEffect(data, source, parentAbility),
+            EffectType.BecomeElite => new BecomeEliteEffect(data, source, parentAbility),
             _ => null,
         };
 

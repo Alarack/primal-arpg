@@ -785,6 +785,7 @@ public static class AbilityEditorHelper {
                 entry.percentOfPlayerDamage = EditorGUILayout.FloatField("Percent of Player Damage", entry.percentOfPlayerDamage);
                 entry.destroyPreviousSummonAtCap = EditorGUILayout.Toggle("Overwrite Previous?", entry.destroyPreviousSummonAtCap);
                 entry.inheritParentLayer = EditorGUILayout.Toggle("Inherit Parent Layer?", entry.inheritParentLayer);
+                entry.persistAfterEffectEnds = EditorGUILayout.Toggle("Persist after Effect ends?", entry.persistAfterEffectEnds);
                 break;
 
             case EffectType.Teleport:
@@ -887,6 +888,10 @@ public static class AbilityEditorHelper {
             case EffectType.CloneAbilityToEntity:
                 entry.cloneGatherAbilityName = EditorGUILayout.TextField("Gather Ability", entry.cloneGatherAbilityName);
                 entry.cloneGatherEffectName = EditorGUILayout.TextField("Gather Effect", entry.cloneGatherEffectName);
+                break;
+
+            case EffectType.BecomeElite:
+                entry.targetEliteType = EditorHelper.EnumPopup("Elite Type (None for Random)", entry.targetEliteType);
                 break;
 
             default:

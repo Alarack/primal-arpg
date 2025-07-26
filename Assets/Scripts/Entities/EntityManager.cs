@@ -259,9 +259,13 @@ public class EntityManager : Singleton<EntityManager> {
     }
 
     private static void ClearRemainingPickups() {
+        if (GameManager.Instance.debugMode == true)
+            return;
+        
+        
         ItemPickup[] allPickups = FindObjectsByType<ItemPickup>(FindObjectsSortMode.None);
         for(int i = 0;i < allPickups.Length; i++) {
-            Destroy(allPickups[i]);
+            Destroy(allPickups[i].gameObject);
         }
     }
 

@@ -9,6 +9,7 @@ public class ItemSpawner : Singleton<ItemSpawner> {
 
     public List<ItemDefinition> classSelectionItems = new List<ItemDefinition>();
 
+    public bool unstableTestItems;
     public List<ItemDefinition> testItems = new List<ItemDefinition>();
 
     public ItemPickup pickupPrefab;
@@ -33,7 +34,7 @@ public class ItemSpawner : Singleton<ItemSpawner> {
 
         for (int i = 0; i < Instance.testItems.Count; i++) {
             ItemPickup testPickup = Instantiate(pickupPrefab, Vector2.zero, Quaternion.identity);
-            testPickup.Setup(Instance.testItems[i].itemData);
+            testPickup.Setup(Instance.testItems[i].itemData, unstableTestItems);
         }
 
 

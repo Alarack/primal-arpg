@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cracked Lens
   m_EditorClassIdentifier: 
   devItem: 0
+  startingItem: 0
   itemData:
     Type: 1
     affixStatTarget: 1
@@ -27,6 +28,7 @@ MonoBehaviour:
     abilityTags: 17000000
     targetedAbilityName: Fracture Reality
     itemIcon: {fileID: 21300000, guid: acdbe357e260f244f899d5668a40fa78, type: 3}
+    invertIcon: 0
     pickupIcon: {fileID: 21300000, guid: acdbe357e260f244f899d5668a40fa78, type: 3}
     pickupOnCollision: 1
     tier: 0
@@ -37,5 +39,8 @@ MonoBehaviour:
     abilityDefinitions:
     - {fileID: 11400000, guid: 24c709c924044ae4ebae631245b96bd0, type: 2}
     learnableAbilities: []
+    unstableAbilityDefiniitons:
+    - {fileID: 11400000, guid: 0fb8d858cd5c0fe44a253b062b1d3d52, type: 2}
+    - {fileID: 11400000, guid: 0b0dc6f59de5ea940974603f97f487dd, type: 2}
     classPreviewAbilities: []
     startingItemOptions: []

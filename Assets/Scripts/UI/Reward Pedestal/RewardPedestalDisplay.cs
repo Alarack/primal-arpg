@@ -74,7 +74,13 @@ public class RewardPedestalDisplay : MonoBehaviour, IPointerEnterHandler, IPoint
             case ItemType.None:
                 break;
             case ItemType.Equipment:
-                TooltipManager.Show(displayItem.GetTooltip(), TextHelper.ColorizeText(displayItem.Data.itemName, ColorDataManager.Instance["Item Header"]));
+
+                string itemName = pedestal.Unstable == false
+                    ? TextHelper.ColorizeText(displayItem.Data.itemName, ColorDataManager.Instance["Item Header"])
+                    : TextHelper.ColorizeText("Unstable " + displayItem.Data.itemName, ColorDataManager.Instance["Unstable"]);
+
+
+                TooltipManager.Show(displayItem.GetTooltip(), itemName);
                 break;
             case ItemType.Rune:
                 TooltipManager.Show(displayItem.GetTooltip(), TextHelper.ColorizeText(displayItem.Data.itemName, Color.cyan));

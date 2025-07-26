@@ -36,7 +36,8 @@ public enum EffectType {
     RemoveChildAbility,
     ToggleEssenceAsPercent,
     DestroyEntity,
-    CloneAbilityToEntity
+    CloneAbilityToEntity,
+    BecomeElite
 }
 
 public enum EffectTarget {
@@ -244,6 +245,7 @@ public class EffectData
     public float percentOfPlayerDamage = 1f;
     public bool destroyPreviousSummonAtCap;
     public bool inheritParentLayer = true;
+    public bool persistAfterEffectEnds;
     public EntitySpawnType spawnType;
     public MaterialDatabase.MaterialDesignation materialDesignation;
     public GameObject spawnEntityVFX;
@@ -292,6 +294,9 @@ public class EffectData
     //Clone Ability To Entity
     public string cloneGatherAbilityName;
     public string cloneGatherEffectName;
+
+    //Become Elite
+    public AffixDatabase.EliteAffixType targetEliteType;
 
 
     public EffectData() {
